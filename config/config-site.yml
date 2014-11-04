@@ -5,15 +5,15 @@ site:
 
   default_account: main
 
-  sublimevideo_site_id: m8pv3oft
+  sublimevideo_site_id: abc81for
 
   code_editor_style: tomorrow
   syntax_highlighter_style: colorful
   markdown_summary_delimiter: "~------\r?\n"
 
   analytics:
-    tracking_id: 'UA-40741052-1'
-    domain: 'duroosi.com'
+    tracking_id: 'UA-11122233-3'
+    domain: 'example.com'
 
   auto_generated_pages:
     about: About

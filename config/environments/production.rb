@@ -88,7 +88,7 @@ Rails.application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 
-  config.time_zone = 'Central Time (US & Canada)'
+  config.time_zone = 'Mountain Time (US & Canada)'
   
   # Duroosi's Production Setup
   # Active Mailer
