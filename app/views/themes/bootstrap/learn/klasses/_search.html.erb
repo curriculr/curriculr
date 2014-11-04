@@ -1,0 +1,34 @@
+<% content_for :klasses_sidebar do %>
+  <%= form_tag(learn_klass_search_path, method: "get", :id => :search_klasses_form, :remote => true) do %>
+    <%= hidden_field_tag :s, params[:s] %>
+    
+    <% filter_count = $site['filter_classes_by'].count %>
+    <% $site['filter_classes_by'].keys.each_with_index do |filter, i| %>
+      <% if $site['filter_classes_by'][filter] %>
+        <% if filter == 'language' %>
+          <h5><small><%= t('config.filter.language') %></small></h5>
+          <% $site['supported_locales'].each do |k, v| %>
+            <div class="checkbox">
+              <%= label_tag "locale[#{k}]" do %>
+                <%= check_box_tag "locale[#{k}]", v %>
+                <%= v %>
+              <% end %>
+            </div>
+          <% end %>
+        <% else %>
+          <h5><small><%= t("config.filter.#{filter}") %></small></h5>
+          <% $site["#{filter}s"].each do |m| %>
+            <div class="checkbox">
+              <%= label_tag "#{filter}[#{m}]" do %>
+                <%= check_box_tag "#{filter}[#{m}]", m %>
+                <%= t("config.#{filter}.#{m}") %>
+              <% end %>
+            </div>
+          <% end %>
+        <% end %>
+
+        <%= tag :hr if i < filter_count - 1 %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

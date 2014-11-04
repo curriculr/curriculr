@@ -1,0 +1,49 @@
+course:
+  grading:
+    distribution:
+      assessments:
+        course:
+           mid-term: 15.0
+           final: 20.0
+        unit:
+          quiz: 10.0
+          problem: 15.0
+        lecture:
+          quiz: 15.0
+      attendance: 10.0
+      participation: 15.0
+    letters:
+      A: 90
+      B: 80
+      C: 75
+      D: 60
+      F: 0
+    passing_grade: 75
+
+  discussion:
+    forums:  
+      - general
+      - study_groups
+      - assessments
+    
+    post_deletion_by:
+      admin: true
+      faculty: true
+      author: false
+
+  staff:
+    - technician
+    - assistant
+    - instructor
+  
+  question_banks:
+    - main
+    - survey
+    
+  allow_user_student_dependents: false
+  allow_access_to:
+    syllabus: true
+    lectures: true
+    forums: true
+    assessments: true
+    reports: true

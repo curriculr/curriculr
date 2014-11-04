@@ -1,0 +1,12 @@
+<%
+ html = render(partial: 'teach/lectures/lecture', locals: { unit: @unit, lecture: @lecture, i: params[:i] })
+%>
+
+$("#lectures-details-<%= @unit.id %>").append("<%= j html %>");
+
+$("#lecture_<%= @lecture.id %>").tab('show');
+
+$('#sortable-lectures-<%= @unit.id %> .lecture').removeClass("active");
+$("#lecture_<%= @lecture.id %>").addClass("active");
+
+ui_rebind_application_events(jQuery);

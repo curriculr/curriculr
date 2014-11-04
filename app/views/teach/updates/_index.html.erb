@@ -1,0 +1,53 @@
+<table class="<%= css_table %>">
+	<tbody>
+    <% if klass.updates.any? %>
+  		<% klass.updates.each_with_index do |update, ndx| %>
+  		<tr>
+  			<td>
+          <% 
+            links = []
+            links << link(:update, :edit, edit_teach_course_klass_update_path(@course, klass, update))
+            links << nil
+            links << link(:update, :destroy, teach_course_klass_update_path(@course, klass, update), method: :delete, confirm: true)
+          %>
+          <%= ui_button_dropdown ui_options_button_text, links, class: css_button(:default), align: :right %>
+
+          <h4>
+            <%= update.subject %></strong> &nbsp;
+            <%= content_tag :span do %>
+              <%= content_tag :i, '', :class => 'fa fa-globe', :title => t("config.notification.kind.www") %>
+            <% end if update.www %> 
+            &nbsp;
+            <%= content_tag :span do %>
+              <%= content_tag :i, '', :class => 'fa fa-envelope', :title => t("config.notification.kind.email") %>
+            <% end if update.email %> 
+            &nbsp;
+            <%= content_tag :span do %>
+              <%= content_tag :i, '', :class => 'fa fa-comment', :title => t("config.notification.kind.sms") %>
+            <% end if update.sms %> 
+            <br>
+            <small>
+            <%= t('page.text.to') %> <%= t('config.notification.to.' + update.to) %>
+            <%= "#{I18n.t('page.text.on')} #{I18n.l(update.created_at.to_date)})" %>
+            </small>
+  				</h4>
+
+          <% unless update.made || update.cancelled %>
+            <div class="<%= css_alert(:warning) %>">
+              <%= t('page.text.unpublished_update_html', link: link(:update, :send, make_teach_course_klass_update_path(@course, klass, update), method: :put)) %>
+            </div>
+          <% end %>
+  				<%= markdown update.body, :class => 'shortenable-text' %>
+  			</td>
+        <!--td>
+          <strong><%# t('page.text.to') %></strong>: 
+          <%# t('config.notification.to.' + update.to) %>
+        </td-->
+  		</tr>
+		  <% end %>
+    <% else %>
+		  <tr><td><%= t('page.text.no_record_found') %></td></tr>
+    <% end %>
+	</tbody>
+</table>
+

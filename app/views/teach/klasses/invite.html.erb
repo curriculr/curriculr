@@ -1,0 +1,10 @@
+<%= form_header %>
+
+<%= themed_form_for @invitation, :url => invite_teach_course_klass_path(@course, @klass), :method => :post do |f| %>
+  <%= form_static f, :course, value: @course.name %>
+  <%= form_static f, :klass, value: @klass.name %>
+  <%= form_email f, :invitee %>
+
+  <%= form_submit f, home_path %>
+<% end %>
+

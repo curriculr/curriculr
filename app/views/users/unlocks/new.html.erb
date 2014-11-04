@@ -1,0 +1,15 @@
+<%= form_header %>
+
+<div class="row" do %>
+  <div class="<%= css_columns(6) %>">
+    <%= themed_form_for(resource, :as => resource_name, :url => unlock_path(resource_name), :html => { :method => :post }) do |f| %>
+      <%= devise_error_messages! %>
+
+      <%= form_email f, :email %>
+
+      <%= form_submit f %>
+    <% end %>
+
+    <%= render "users/shared/links" %>
+  </div>
+</div>

@@ -1,0 +1,41 @@
+<table class="<%= css_table %>">
+	<thead>
+		<tr>
+			<th>#</th>
+			<th><%= Forum.model_name.human %></th>
+			<th><%= Forum.human_attribute_name(:active) %></th>
+      <th><%= Forum.human_attribute_name(:graded) %></th>
+			<th><%= Topic.model_name.human(count: 3) %></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% klass.forums.each_with_index do |forum, ndx| %>
+		<tr>
+			<td><%= ndx + 1 %></td>
+			<td>
+				<h4><%= forum.name %></h4>
+				<%= markdown(forum.about) %>
+			</td>
+			<td><%if forum.active %> <i class="fa fa-check"></i><% end %></td>
+      <td><%if forum.graded %> <i class="fa fa-check"></i><% end %></td>
+			<td><%= forum.topics_count %></td>
+			<td>
+				<%= ui_button_dropdown(ui_options_button_text, [
+					    link(:forum, :edit, edit_teach_course_klass_forum_path(@course, klass, forum)),
+					    nil,
+					    link(:forum, :destroy, teach_course_klass_forum_path(@course, klass, forum), 
+						    method: :delete, confirm: true)
+				    ], class: css_button(:default), align: :right) %>         
+			</td>
+		</tr>
+    <% end %>
+    
+    <% if klass.forums.empty? %>
+	    <tr>
+	      <td colspan="6"><%= t('page.text.no_record_found') %></td>
+	    </tr>
+		<% end %>
+	</tbody>
+</table>
+

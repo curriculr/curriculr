@@ -1,0 +1,37 @@
+<%
+  links = []
+
+  @course.config["grading"]["distribution"]["assessments"]["lecture"].keys.each do |k|
+    links << link_to(k, new_teach_course_unit_lecture_assessment_path(@course, unit, lecture, :t => k))
+  end
+%>
+<%= ui_button_dropdown(t('activerecord.actions.new', name: Assessment.model_name.human), links, 
+      class: css_button(:success), align: :right) %>
+<br><br>
+<%= ui_panel(nil, nil, nil, 
+      capture do %>
+        <table class="<%= css_table %>">
+        	<tbody>
+              <% data.each do |a| %>
+                <tr>
+                  <td>
+                    <h5>
+                      <%= link(:assessment, :edit, 
+                          edit_teach_course_unit_lecture_assessment_path(@course, unit, lecture, a), 
+                          :class => css(button: [:success, :xs], align: :right)) %>
+                      <%= link_to(a.name, teach_course_unit_lecture_assessment_path(@course, unit, lecture, a)) %> 
+                      <small><%= a.kind %></small>
+                      <%= content_tag(:span, t('page.text.unready'), :class => css_label(:warning)) unless a.ready %>
+                    </h5>
+                    
+                    <%# markdown a.about %>
+                  </td>
+                </tr>
+              <% end %>
+              
+              <% if data.blank? %>
+                <tr><td><%= t('page.text.no_record_found') %></td></tr>
+              <% end %>
+          </tbody>
+        </table>
+<% end ) %>

@@ -1,0 +1,77 @@
+<footer>
+ <div class="footer">
+   <div class="<%= css_container %> footer-links">
+     <div class="row">
+       <div class="<%= css_columns(6) %>">
+         <% mission = Page.localized(:mission) %> 
+         <%= markdown mission.about, :html => mission.html if mission %>
+         
+         <% if mission && current_user && current_user.has_role?(:admin) %>
+          <%= link(:page, :edit, main_app.edit_page_path(mission), :class => css(button: [:success, :xs])) %>
+         <% end %>
+       </div>
+       <div class="<%= css_columns(2) %> col-sm-4 col-xs-4">
+         <ul>
+           <li><h4><span><%= title %></span></h4></li>
+           <li><%= link 'miscellaneous', :about, main_app.localized_page_path(:about) %></li>
+           <li><%= link :page, :services, main_app.localized_page_path(:services) %></li>
+           <li><%= link 'miscellaneous', :contactus, main_app.contactus_path %></li>
+         </ul>
+       </div>
+       <div class="<%= css_columns(2) %> col-sm-4 col-xs-4">
+         <ul>
+           <li><h4><span><%= t('page.titles.more_info_html') %></span></h4></li>
+           <li><%= link(:klass, :index, main_app.learn_klasses_path) %></li>
+           <li><%= link(:page, :blogs, main_app.blogs_path) %></li>
+           <li></li>
+           
+         </ul>
+       </div>
+       <div class="<%= css_columns(2) %> col-sm-4 col-xs-4">
+         <ul>
+           <li><h4><span><%= t('page.titles.follow_us_html') %></span></h4></li>
+           <li>
+             <%= link_to current_account.config['social']['facebook']['page'], 
+                   :title => t('activerecord.actions.like_us') do %>
+               <i class="fa fa-facebook fa-lg"></i> 
+               <%= t('page.text.facebook') %>
+             <% end %>
+           </li>
+           <li class="divider-vertical"></li>
+           <li>
+             <%= link_to current_account.config['social']['twitter']['page'], 
+                   :title => t('activerecord.actions.follow_us') do %>
+               <i class="fa fa-twitter fa-lg"></i> 
+               <%= t('page.text.twitter') %>
+             <% end %>
+           </li>
+           <li class="divider-vertical"></li>
+           <li>
+             <%= link_to current_account.config['social']['google-plus']['page'], 
+                   :title => t('activerecord.actions.hangout_with_us') do %>
+               <i class="fa fa-google-plus fa-lg"></i> 
+               <%= t('page.text.google-plus') %>
+             <% end %>
+           </li>
+         </ul>
+       </div>
+     </div>
+   </div>
+ </div>
+ <div class="footer-bottom">
+   <div class="<%= css_container %>">
+     <div class="row">
+       <div class="<%= css_columns(8) %>">
+         <span>
+           © <%= t('page.text.copyrights', :year => Time.zone.now.year) %> 
+           &nbsp;&nbsp;|&nbsp;&nbsp; 
+           <%= link :page, :terms, main_app.localized_page_path(:terms) %> 
+           &nbsp;&nbsp;|&nbsp;&nbsp; 
+           <%= link :page, :privacy, main_app.localized_page_path(:privacy) %>
+         </span>
+       </div>
+       <div class="<%= css_columns(4) %>"></div>
+     </div>
+   </div>
+ </div>
+</footer>

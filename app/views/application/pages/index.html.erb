@@ -1,0 +1,43 @@
+<% action = link(:page, :new, new_page_path, class: css(button: :success, align: :right)) %>
+<%
+  title = current_user && current_user.has_role?(:admin) ? t('activerecord.actions.static_pages_or_blogs') : t('activerecord.actions.blog_posts')
+%>
+<%= ui_header title, style: :h2 %>
+
+<div class="row">
+  <div class="<%= css_columns(8) %>">
+    <div id="paginator" class="<%= css_align(:left) %>">
+      <%= paginate @pages, :param_name => 'p', :remote => true %>
+    </div>
+  </div>
+  <div class="<%= css_columns(4) %>">
+    <%= search_form_for @q, class: "search-form form-inline #{css_align(:right)}", :remote => true do |f| %>
+      <%# content_tag :strong, t('page.titles.search') %>
+      <%= form_search f, :slug_or_name_or_about_cont, hint: false, label: false, placeholder: true %>
+      <%# form_submit f %>
+    <% end %>
+  </div>
+</div>
+
+<table class="<%= css_table %>">
+	<thead>
+		<tr>
+      <th>#</th>
+			<th><%= Page.human_attribute_name(:name) %></th>
+			<th><%= Page.human_attribute_name(:slug) %></th>
+			<th><%= Page.human_attribute_name(:published) %></th>
+			<th><%= Page.human_attribute_name(:public) %></th>
+      <th><%= Page.human_attribute_name(:blog) %></th>
+      <th><%= link(:page, :new, new_page_path, :class => css(button: :success, align: :right)) %></th>
+		</tr>
+	</thead>
+	<tbody id="user-pages">
+    <%= render :partial => 'application/pages/page', :collection => @pages %>
+    
+    <% if @pages.empty? %>
+    <tr>
+      <td colspan="6"><%= t('page.text.no_record_found') %></td>
+    </tr>
+    <% end %>
+	</tbody>
+</table>

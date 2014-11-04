@@ -1,0 +1,18 @@
+<%= form_header :wrapper => false %>
+
+<%= themed_form_for [:learn, @klass, @forum, @topic] do |f| %>
+	<%= form_text f, :name %>
+  <%= form_markdown f, @topic, :about %>
+  <%= content_tag :div, :class => "row" do %>
+    <div class="<%= css_columns(6) %>">
+      <%= form_number f, :points_per_post %>
+    </div>
+    <div class="<%= css_columns(6) %>">
+      <%= form_number f, :points_per_reply %>
+    </div>
+  <% end if @forum.graded %>
+  
+  <%= form_checkbox f, :anonymous %>
+  
+  <%= form_submit f, learn_klass_forum_path(@klass, @forum) %>
+<% end %>

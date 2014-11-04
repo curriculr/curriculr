@@ -1,0 +1,64 @@
+<div class="panel-group" id="accordion">
+<% units = Unit.open(@klass, current_student).order('units.order').to_a %>
+<% units.each_with_index do |unit, i| %>
+    <% lectures = Lecture.open_4_students(@klass, unit, current_student).to_a %>
+    <% expanded = lectures.empty? || !(lectures.select do |lecture| lecture.has_been_attended.blank? end).empty? %>
+  <div class="panel panel-inverse klass-lecture">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#unit-<%= unit.id %>">
+          <%= unit.name %>
+        </a>
+        <% unless expanded%><i class="fa fa-check <%= css_align(:right) %>"></i><% end %>
+        <% ui_klass_enrollment_action(@klass, true) unless (@klass.enrolled?(current_student) || staff?(current_user, @klass.course)) %>
+      </h4>
+    </div>
+    
+    <div id="unit-<%= unit.id %>" class="panel-collapse collapse <%= 'in' if expanded %>">
+      <div class="panel-body">
+        <div class="row">
+          <% if (@klass.enrolled?(current_student) || KlassEnrollment.staff?(current_user, @klass)) %>
+            <%
+            materials = unit.materials.to_a
+            pages = unit.pages.where(:published => true).to_a
+            
+            total = materials.count + pages.count
+            %>
+            <div class="<%= css_columns(total > 0 ? 9 : 12) %> shortenable-text">
+              <%= unit.about %>
+            </div>
+            <% if total > 0 %>
+                <div class="<%= css_columns(3) %>">
+                  <%= link_to(t('page.titles.attachments'), learn_klass_unit_materials_path(@klass, unit),
+                        class: css_button(:primary, :block), align: :right) if check_access?("materials") && materials.count > 0 %>
+                        
+                  <%= link(:page, :index, learn_klass_unit_pages_path(@klass, unit),
+                        class: css_button(:primary, :block)) if check_access?("pages") && pages.count > 0 %>
+                </div>
+            <% end %>
+          <% end %>
+        </div>
+        
+        <% unless lectures.to_a.empty? %>
+          <table class="table table-condensed">
+            <tbody>
+              <% lectures.each_with_index do |lecture, j| %>
+                <tr>
+                  <td>
+                    &nbsp;&nbsp;
+                    <%= j + 1 %>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <%= link_to lecture.name, learn_klass_lecture_path(@klass, lecture) %>
+  
+                    <% if lecture.has_been_attended %><i class="fa fa-check <%= css_align(:right) %>"></i><% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <% end %>
+      </div>
+    </div>
+  </div>    
+<% end %>
+</div>
+

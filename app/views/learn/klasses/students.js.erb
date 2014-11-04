@@ -1,0 +1,4 @@
+$('#klass-enrollments').html('<%= j render :partial => 'learn/klasses/student', :collection => @enrollments, :as => :enrollment %>');
+$('#paginator').html('<%= j paginate @enrollments, :remote => true %>');
+
+ui_rebind_application_events(jQuery);

@@ -1,0 +1,439 @@
+# Support modal confirmation of actions
+ui_modal_confirmation = (kind, hdr, body, link, close) ->
+  html = """
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h4 class="modal-title" id="page-model-label">#{hdr}</h4>
+    </div>
+    <div class="modal-body">
+      <p>#{body}</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">#{close}</button>
+      #{link}
+    </div>
+  """
+  $("##{kind}-modal .modal-dialog .modal-content").html(html)
+  $("##{kind}-modal").modal()
+  
+window.ui_modal_confirmation = ui_modal_confirmation
+
+window.ui_rebind_application_events  = ($) ->
+  $(window).scroll ->
+    if $(".navbar").offset().top > 25
+      $(".navbar-fixed-top").addClass("top-nav-collapse")
+    else
+      $(".navbar-fixed-top").removeClass("top-nav-collapse")
+      
+  # mediaelementjs
+  $('video.mediaelementjs, audio.mediaelementjs').mediaelementplayer()
+
+  # ace-editor
+  $('.ace-editor').each (index, element) ->
+    editor = ace.edit(element)
+    editor.setTheme("ace/theme/#{$(element).data('theme')}")
+    editor.getSession().setMode("ace/mode/#{$(element).data('mode')}")
+    editor.getSession().setTabSize(2)
+    editor.getSession().setUseSoftTabs(true)
+    readonly = $(element).data('readonly')
+    editor.setReadOnly(readonly)
+    unless readonly
+      $(element).closest('form').submit ->
+        $(this).find("##{$(element).data('input')}").val(editor.getSession().getValue())
+
+  $('.hidden-til-processed').show()
+
+  $('.chosen-select').chosen
+    allow_single_deselect: true
+    # no_results_text: 'No results matched'
+    # width: '100%'
+
+  $('.video-open-link').unbind().on 'click', (e) ->
+    vid = "sv_m_#{$(this).data('id')}"
+    length = $("##{vid}").length
+    if length > 0
+      vid = "#{vid}_#{length}"
+      
+    if $(this).data('youtube') == true
+      video = """
+        <video class="sublime" data-uid="#{vid}" 
+               data-youtube-id="#{$(this).data('url')}" id="#{vid}" 
+               preload="none" title="#{$(this).data('title')}" width="568" 
+               height="320">
+        </video>
+      """
+    else
+      video = """
+        <video class="sublime" data-uid="#{vid}" 
+               id="#{vid}" 
+               preload="none" title="#{$(this).data('title')}" width="568" 
+               height="320">
+          <source src="#{$(this).data('url')}"></source>  
+        </video>
+      """
+    html = """
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="page-model-label">#{$(this).data('title')}</h4>
+      </div>
+      <div class="modal-body">
+        #{video}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    """
+
+    $('#page-modal .modal-dialog .modal-content').html(html)
+    $("#page-modal").modal()
+    sublime.load()
+    sublime.prepare(vid)
+
+    $('#page-modal').on 'hide.bs.modal', (e) ->
+      $('#page-modal .modal-dialog .modal-content').html('')
+
+    e.preventDefault()
+
+  # Settings
+  $('.btn-add-setting, .btn-edit-setting, .btn-delete-setting').unbind().on 'click', ->
+    html = $(this).data('form')
+    $('#page-modal .modal-dialog .modal-content').html(html)
+    $("#page-modal").modal()
+
+    $('#page-modal').on 'hide.bs.modal', (e) ->
+      $('#page-modal .modal-dialog .modal-content').html('')
+
+    e.preventDefault()
+
+  # Klasses
+  show_hide_klass_settings = (ch) ->
+    if $(ch).is(':checked')
+      $("#klass_previewed").prop( "checked", false);
+      $('#klass_previewed').closest('.form-group').hide()
+      $("#klass_allow_enrollment").prop( "checked", true);
+      $('#klass_allow_enrollment').closest('.form-group').hide()
+      $("#klass_lectures_on_closed").prop( "checked", false);
+      $('#klass_lectures_on_closed').closest('.form-group').hide()
+    else
+      $('#klass_previewed').closest('.form-group').show()
+      $('#klass_allow_enrollment').closest('.form-group').show()
+      $('#klass_lectures_on_closed').closest('.form-group').show()
+
+  show_hide_klass_settings($('#klass_private'))
+
+  $('#klass_private').unbind().on 'click',  ->
+    show_hide_klass_settings($(this))
+
+  $('#search_klasses_form').find(":checkbox").unbind().on 'click', ->
+    $(this).closest('form').submit()
+    $(this).closest('form').find('input:checkbox').prop('disabled', true)
+
+  # Media
+  $('.show-medium-link').unbind().on 'click', ->
+    youtube = ''
+    if $(this).data('kind') == 'youtube'
+      youtube = '<i class="fa fa-youtube"></i>: '
+
+    html = """
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="page-model-label">#{$(this).data('title')}</h4>
+      </div>
+      <div class="modal-body">
+        #{youtube}<small>#{$(this).data('url')}</small>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    """
+
+    $('#page-modal .modal-dialog .modal-content').html(html)
+    $("#page-modal").modal()
+
+    $('#page-modal').on 'hide.bs.modal', (e) ->
+      $('#page-modal .modal-dialog .modal-content').html('')
+
+    e.preventDefault()
+
+  show_hide_path_or_url = (ch) ->
+    if $(ch).is(':checked')
+      $('#medium_path').val('')
+      $('#medium_copyrights').val('')
+      $('#medium_path').closest('.form-group').hide()
+      $('#medium_url').closest('.form-group').show()
+      $('#medium_source').closest('.form-group').show()
+      $('#medium_copyrights').closest('.form-group').hide()
+    else
+      $('#medium_url').val('')
+      $('#medium_url').closest('.form-group').hide()
+      $('#medium_source').closest('.form-group').hide()
+      $('#medium_path').closest('.form-group').show()
+      $('#medium_copyrights').closest('.form-group').show()
+
+  show_hide_path_or_url($('#medium_is_a_link'))
+
+  $('#medium_is_a_link').unbind().on 'click', ->
+    show_hide_path_or_url($(this))
+  
+  show_hide_notification_base_type = (ch) ->
+    if ch == 'Assessment'
+      $('#notification_base_type').closest('.form-group').show()
+    else
+      $('#notification_base_type').val('')
+      $('#notification_base_type').closest('.form-group').hide()
+
+  show_hide_notification_base_type($('#notification_base').val())
+
+  # Assessments
+  $('#assessment_penalty').closest('.form-group').hide() unless $('#assessment_after_deadline').is(':checked')
+
+  $('#assessment_after_deadline').unbind().on 'click', ->
+    if $(this).is(':checked')
+      $('#assessment_penalty').closest('.form-group').show()
+    else
+      $('#assessment_penalty').val(0.0)
+      $('#assessment_penalty').closest('.form-group').hide()
+  
+  ###    
+  $('#assessment_multiattempt_grading').unbind().on 'change', -> 
+    if $("#assessment_multiattempt_grading :selected").val() == 'average'
+      $('#assessment_droppable_attempts').closest('.form-group').show()
+    else
+      $('#assessment_droppable_attempts').closest('.form-group').hide()
+
+  if $("#assessment_multiattempt_grading :selected").val() != 'average'
+    $('#assessment_droppable_attempts').closest('.form-group').hide()
+  ###
+
+  show_hide_answer_fields =  (val)->
+    if val != null and val.indexOf("survey") != -1 and $("#question_kind").val() != "match"
+      $(".answer-field").hide()
+    else
+      $(".answer-field").show()
+      
+  $('#question_bank_list').unbind().on 'change', ->
+    show_hide_answer_fields($(this).val())
+    
+  if $('#question_bank_list').length > 0
+    show_hide_answer_fields $('#question_bank_list').val()
+    
+  # Making units and lectures dynamic    
+  all_lectures = $('#assessment_lecture_id').html()
+  $('[id ^=assessment_q_selectors_attributes][id $=lecture_id]').each ->
+    if $(this).find('option').length <= 1
+      $(this).parent().hide()
+    else
+      $(this).parent().show()
+  
+  $('[id ^=assessment_q_selectors_attributes][id $=unit_id]').unbind().on 'change', -> 
+    uid = $(this).attr('id')
+    lid = $(this).closest('.removable').find('[id ^=assessment_q_selectors_attributes][id $=lecture_id]').attr('id')
+    unit = $("##{uid} :selected").text()
+    options = $($('#assessment_lecture_id').html()).filter("optgroup[label='#{unit}']").html()
+    if options
+      $("##{lid}").html('<option value=""></option>' + options)
+      $("##{lid}").parent().show()
+    else
+      $("##{lid}").empty()
+      $("##{lid}").parent().hide()
+      
+  make_fields_removable = (event) ->
+    $(this).prev('input[type=hidden]').val('1')
+    $(this).closest('.removable').hide()
+    event.preventDefault()
+    
+  $('.remove_fields').unbind().on 'click', make_fields_removable
+
+  $('.add_fields').unbind().on 'click', (event) ->
+    time = new Date().getTime()
+    regexp = new RegExp($(this).data('id'), 'g')
+    #$(this).before($(this).data('fields').replace(regexp, time))
+    $('.field-container').append($(this).data('fields').replace(regexp, time))
+    $('.remove_fields').unbind().on 'click', make_fields_removable
+    $('.field-container .removable .order-field').each (index) ->
+      @value = index + 1
+    
+    $('[id ^=assessment_q_selectors_attributes][id $=lecture_id]').each ->
+      if $(this).find('option').length <= 1
+        $(this).parent().hide()
+      else
+        $(this).parent().show()
+    
+    $('[id ^=assessment_q_selectors_attributes][id $=unit_id]').unbind().on 'change', -> 
+      uid = $(this).attr('id')
+      lid = $(this).closest('.removable').find('[id ^=assessment_q_selectors_attributes][id $=lecture_id]').attr('id')
+      unit = $("##{uid} :selected").text()
+      options = $($('#assessment_lecture_id').html()).filter("optgroup[label='#{unit}']").html()
+      if options
+        $("##{lid}").html('<option value=""></option>' + options)
+        $("##{lid}").parent().show()
+      else
+        $("##{lid}").empty()
+        $("##{lid}").parent().hide()
+    
+    if $('#question_bank_list').length > 0
+      show_hide_answer_fields $('#question_bank_list').val()
+    
+    event.preventDefault()
+
+  # Questions
+  # 2: Making units and lectures dynamic    
+  all_lectures = $('#question_unit_lectures').html()
+  
+  $('#question_unit_id').unbind().on 'change', -> 
+    uid = $(this).attr('id')
+    lid = "question_lecture_id"
+    unit = $("##{uid} :selected").text()
+    options = $(all_lectures).filter("optgroup[label='#{unit}']").html()
+    if options
+      $("##{lid}").html('<option value=""></option>' + options)
+    else
+      $("##{lid}").html('<option value=""></option>')
+
+  $('.include-in-assessment').unbind().on 'click', (e) ->
+    $(this).closest('form').submit()
+
+  # Updates 
+  show_hide_update_fields_by_kind = (www, email, sms) ->  
+    if $(www).is(':checked') or $(email).is(':checked')
+      $('#update_subject').closest('.form-group').show()
+    else
+      $('#update_subject').val(null)
+      $('#update_subject').closest('.form-group').hide()
+
+  #show_hide_update_fields_by_kind($(this).find('option:selected').val())
+  show_hide_update_fields_by_kind($('#update_www'), $('#update_email'), $('#update_sms'))
+  $('#update_www, #update_email, #update_sms').unbind().on 'change', ->
+    show_hide_update_fields_by_kind($('#update_www'), $('#update_email'), $('#update_sms'))
+
+  # Use modal do get value of a field
+  $('.ui-modal-field').unbind().on 'click', ->
+    id = $(this).data 'field'
+    body= $(this).data 'body'
+    body = body.replace(new RegExp(id, 'g'), "#{id}-#{id}")
+    #body = body.replace(/\\\"/g, "\"").replace(/\\\//g, "/")
+    header = $(this).data 'header'
+    btn = $(this).data 'btn'
+    close = $(this).data 'close'
+    value = $("##{id}").val()
+    html = """
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="page-model-label">#{header}</h4>
+      </div>
+      <div class="modal-body">
+        #{body}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">#{close}</button>
+        <a href="#" class="btn btn-primary" data-dismiss="modal" onclick="$('##{id}').val($('##{id}-#{id}').val());">#{btn}</a>
+      </div>
+    """
+    $('#page-modal .modal-dialog .modal-content').html(html)
+    $("##{id}-#{id}").val(value)
+
+    $("#page-modal").modal()
+
+    return false
+
+  # loading and sorting units and lectures {
+  $('.panel-collapse.unit').unbind('show.bs.collapse').on 'show.bs.collapse', ->
+    if $(this).data('active') == 0
+      $.get($(this).data('update-url'))
+      $(this).data('active', '1')
+    
+  # Sortables
+  $('#sortable-units-accordion').sortable(
+    axis: 'y' 
+    handle: '.sort-handle'
+    update: ->
+      $.post($(this).data('update-url'), $(this).sortable('serialize'))
+  )
+  
+  $('.sortable').sortable(
+    axis: 'y' 
+    update: ->
+      $.post($(this).data('update-url'), $(this).sortable('serialize'))
+  )
+  
+  $('.sortable .lecture').unbind().on 'click', ->
+    if $("#lecture-#{$(this).data('lecture')}").length == 0
+      $.get($(this).data('update-url'))
+    else
+      $("#sortable-lectures-#{$(this).data('unit')} .lecture").removeClass("active")
+      $(this).addClass("active")
+      
+  $('.unit .nav-tabs a[data-toggle="tab"]').unbind('shown.bs.tab').on 'shown.bs.tab', (e) ->
+    unit = $(this).data('unit')
+    $(".unit-#{unit}-new-link").hide()
+    $($(this).attr('href') + '-new').show()
+    
+  $('.klass a[data-toggle="tab"]').unbind('shown.bs.tab').on 'shown.bs.tab', (e) ->
+    klass = $(this).data('klass')
+    $(".klass-#{klass}-new-link").hide()
+    $($(this).attr('href') + '-new').show()
+  # } loading and sorting units and lectures
+
+  $(".timepicker").timepicker({timeFormat: "HH:mm", timezoneList: [{ value: 180, label: 'Mecca'}]})
+  $(".datepicker").datepicker({dateFormat: "yy-mm-dd"})
+  $(".datetimepicker").datetimepicker({dateFormat: "yy-mm-dd", timeFormat: "HH:mm", timezoneList: [{ value: 180, label: 'Mecca'}]})
+
+  # Questions hints and explanations
+  # $('.question-hint-link, .question-explanation-link').unbind().on 'click', (e) ->
+  #   if $($(this).attr('href')).hasClass("hidden")
+  #     $($(this).attr('href')).addClass("show")
+  #   else
+  #     $($(this).attr('href')).addClass("hidden")
+
+  #   e.preventDefault()
+
+  # Reply to posts
+  $('.reply-to-post').unbind().on 'click', (event) ->
+    post_id = $(this).data('post-id')
+    if $("#reply-to-post-#{post_id}").hasClass("hidden")
+      $("#reply-to-post-#{post_id}").removeClass("hidden").addClass("show")
+      $(this).text($(this).data('cancel-btn'))
+    else
+      $("#reply-to-post-#{post_id}").removeClass("show").addClass("hidden")
+      $(this).text($(this).data('reply-btn'))
+
+  $(".timepicker").timepicker({timeFormat: "HH:mm", timezoneList: [{ value: 180, label: 'Mecca'}]})
+  $(".datepicker").datepicker({dateFormat: "yy-mm-dd"})
+  $(".datetimepicker").datetimepicker({dateFormat: "yy-mm-dd", timeFormat: "HH:mm", timezoneList: [{ value: 180, label: 'Mecca'}]})
+
+  # Questions hints and explanations
+  $('.question-hint-link, .question-explanation-link').unbind().on 'click', (e) ->
+    if $($(this).attr('href')).hasClass("hidden")
+      $($(this).attr('href')).removeClass("hidden").addClass("show")
+    else
+      $($(this).attr('href')).removeClass("show").addClass("hidden")
+
+    e.preventDefault()
+
+  $('.sortable-question-sort').sortable(
+    axis: 'y' 
+    update: ->
+      alert($(this).sortable('serialize'))
+  )
+
+  $('.btn-popover').popover()
+
+jQuery ->
+  ui_rebind_application_events jQuery
+  
+#jQuery ->
+#  $('#course-main-content-container a:not([data-toggle="collapse"])').on 'click', (e) -> 
+#    e.preventDefault()
+#      
+#    $.get @href, (data) ->
+#      $('#course-main-content').html(data)
+#      eb = new EventBinder
+#      eb.bind jQuery
+#      
+#    history.pushState(null, document.title, @href)
+#    
+#  $(window).bind "popstate", ->
+#    $.get location.href, (data) ->
+#      $('#course-main-content').html(data)
+#      eb = new EventBinder
+#      eb.bind jQuery

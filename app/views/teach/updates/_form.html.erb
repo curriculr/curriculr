@@ -1,0 +1,24 @@
+<%= form_header %>
+
+<%= themed_form_for [:teach, @course, @unit, @lecture, @klass, @update] do |f| %>
+  <%= form_hidden f, :course_id %>
+  <%= form_hidden f, :unit_id %>
+  <%= form_hidden f, :lecture_id %>
+  <%= form_hidden f, :klass_id %>
+  <div class="row">
+    <div class="<%= css_columns(4) %>">
+      <%= form_select f, :to, t('config.notification.to').invert %>
+    </div>
+    <div class="<%= css_columns(2) %>">
+      <br/><%= form_checkbox f, :www %>
+    </div>
+    <div class="<%= css_columns(3) %>">
+      <br/><%= form_checkbox f, :email %>
+    </div>
+  </div>
+  
+  <%= form_text f, :subject %>
+  <%= form_markdown f, @update, :body, :size => '60x5' %>
+  
+  <%= form_submit f, teach_course_klass_path(@course, @klass, :show => 'updates') %>
+<% end %>

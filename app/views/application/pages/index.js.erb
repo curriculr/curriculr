@@ -1,0 +1,3 @@
+$('#user-pages').html('<%= j render partial: 'application/pages/page', collection: @pages %>');
+$('#paginator').html('<%= j paginate @pages, :param_name => 'p', :remote => true %>');
+//ui_rebind_application_events(jQuery);

@@ -1,0 +1,8 @@
+<%= ui_header @assessment.name, :subtext => @assessment.kind,
+      :action => link_to(t('activerecord.actions.back_to_assessment', :name => @assessment.kind == 'survey' ? t('activerecord.models.survey.one') : Assessment.model_name.human), @req_objects, :class => css(button: :default, align: :right)) %>
+
+<br>
+
+<%= render partial: "teach/questions/question", collection: @questions, locals: { show_answer: false } %>
+
+

@@ -1,0 +1,40 @@
+<%= link(:klass, :new, new_teach_course_klass_path(@course), 
+      :class => css(button: :success, align: :right)) %>
+<br>
+<br>
+
+<% active_klass_id = @klass ? @klass.id : nil %>
+
+<div class="panel-group" id="accordion">
+  <% @course.klasses.order('begins_on desc').each_with_index do |klass, i|  %>
+    <%= content_tag_for :div, klass, :class => "panel panel-inverse" do %>
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse-<%= klass.id %>">
+              <%= klass.name %>
+              <%= content_tag(:span, Klass.human_attribute_name(:private), :class => css_label(:danger)) if klass.private %>
+        </a>
+          
+          <%= ui_button_dropdown(ui_options_button_text, ui_course_klass_links(klass), 
+                class: css_button(:xs, :default), align: :right) %>
+        </h4>
+      </div>
+      
+      <% active = (active_klass_id.present? && klass.id == active_klass_id) || (active_klass_id.blank? && i == 0) %>
+      <div id="collapse-<%= klass.id %>" class="panel-collapse klass collapse <%= 'in' if active %>">
+        <div class="panel-body">
+          <div id="klass-approve-indicator" class="<%= css_alert(:warning) %> <%= 'hidden' if klass.approved %>">
+            <% if !current_account.config['require_admin_approval_of_classes'] || current_user.has_role?(:admin) %>
+              <%= t('page.text.approved_klass_html', 
+                    link: link(:klass, klass.approved ? :disapprove : :approve, approve_teach_course_klass_path(@course, klass), :method => :put)) %>
+            <% else %>
+              <%= t('page.text.by_admin_approved_klass_html') %>
+            <% end %>
+            
+          </div>
+          <%= render partial: 'teach/klasses/show', locals: { klass: klass } %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

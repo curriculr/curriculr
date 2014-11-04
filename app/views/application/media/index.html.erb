@@ -1,0 +1,57 @@
+<% unless @course %>
+  <%= ui_header Medium.model_name.human(count: 3), style: :h2 %>
+<% end %>
+
+<%
+  links = []
+  t('config.medium.kind').each do |k,v|
+    if @course.present?
+      links << link(:medium, k, new_teach_course_medium_path(@course, s: k))
+    else
+      links << link(:medium, k, new_medium_path(s: k))
+    end
+  end
+%>
+
+<% unless @material %>
+  <%= ui_button_dropdown(t('activerecord.actions.new', name: Medium.model_name.human), links, 
+        class: css_button(:success), align: :right) %> 
+<% else %>
+  <% url = [:new, @req_objects[0..(@req_objects.count-2)], :material, s: params[:s], t: params[:t], m: true].flatten %>
+  <%= link :medium, :"add_#{params[:s]}", url, 
+        class: css(button: :success, align: :right) %>
+<% end %>
+ 
+<ul class="<%= css_nav(:tabs) %>">
+  <% t('config.medium.kind').map do |k, v| %>
+    <% cls = k.to_sym == to_medium_kind(params[:s]) ? 'active' : (@material ? 'disabled' : '')%>
+    <li class="<%= cls %>">
+      <%= link_to t("page.titles.#{k.to_s.pluralize(2)}"), @course ? teach_course_media_path(@course, :s => k) : media_path(:s => k) %>
+    </li>
+  <% end %>
+</ul>
+<br>
+<div class="row">
+  <div class="<%= css_columns(8) %>">
+    <div id="paginator" class="<%= css_align(:left) %>"><%= paginate @media, :remote => true %></div>
+  </div>
+  <div class="<%= css_columns(4) %>">
+    <% options = {} %>
+    <% options = { :m => true, :s => params[:s], :t => params[:t] } if @material %>
+    <% url = @course ? teach_course_media_path(@course, options) : media_path %>
+    <%= search_form_for @q, :url => url, class: "search-form form-inline #{css_align(:right)}", :remote => true do |f| %>
+      <%# content_tag :strong, t('page.titles.search') %> 
+      <%= hidden_field_tag(:unit_id, @unit.id) if @unit %>
+      <%= hidden_field_tag(:lecture_id, @lecture.id) if @lecture %>
+      <%= form_hidden f, :kind_start, :value => params[:s] %>
+      <%= form_search f, :slug_or_name_cont, hint: false, label: false, placeholder: true %>
+      <%# form_submit f %>
+    <% end %>
+  </div>
+</div>
+<br>
+<table class="<%= css_table %>">
+	<tbody id="all-media">
+    <%= render :partial => "application/media/medium", :collection => @media, :as => :medium %>
+	</tbody>
+</table>

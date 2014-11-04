@@ -1,0 +1,81 @@
+<%= link(:update, :new, {action: :new, controller: 'updates', 
+      course_id: @course.id, unit_id: (@unit ? @unit.id : nil),
+      lecture_id: (@lecture ? @lecture.id : nil)}, :class => css_button(success)) %>
+
+<% if @lecture %>
+
+<% elsif @unit %>
+  <% 
+  links = []
+  @unit.lectures.each do |lecture|
+    links << link_to(lecture.name, course_unit_lecture_updates_path(@course, @unit, lecture))
+  end
+  %>
+  <%= ui_button_dropdown Lecture.model_name.human(count: 3), links, class: css_button(:default), align: :right if links.length > 1 %>
+<% else %>
+  <% 
+    links = []
+    @course.units.each do |unit|
+      links << link_to(unit.name, course_unit_updates_path(@course, unit))
+    end
+  %>
+  <%= ui_button_dropdown Unit.model_name.human(count: 3), links, class: css_button(:default), align: :right if links.length > 1  %>
+<% end %>
+
+<h3><a id='<%= "sec_updates" %>'></a><%= Update.model_name.human(count: 3) %></h3>
+<table class="<%= css_table %>">
+	<thead>
+		<tr>
+			<th>#</th>
+			<th><%= Update.human_attribute_name(:body) %></th>
+			<th><%= Update.human_attribute_name(:status) %></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+    <% if @updates.any? %>
+  		<% @updates.each_with_index do |update, ndx| %>
+  		<tr>
+  			<td><%= ndx + 1 %></td>
+  			<td>
+          <% if update.email or update.www %>
+            <strong><%= update.subject %></strong><br>
+  				<% end %>
+  				<%= markdown(update.body) %>
+  			</td>
+  			<td>
+          <%= content_tag :i, '', :class => 'fa fa-hand-up', :title => t("config.notification.kind.www") if update.www %>
+          <%= content_tag :i, '', :class => 'fa fa-envelope', :title => t("config.notification.kind.email") if update.email %>
+          <%= content_tag :i, '', :class => 'fa fa-comment-alt', :title => t("config.notification.kind.sms") if update.sms %>
+        </td>
+        <td>
+          <strong><%= Update.human_attribute_name(:to) %>:</strong>
+          <%= t('config.notification.to.' + update.to) %>
+          
+          <% if @lecture
+              paths = [
+                edit_course_unit_lecture_update_path(@course, @unit, @lecture, update),       
+                course_unit_lecture_update_path(@course, @unit, @lecture, update)
+              ]
+            elsif @unit
+              paths = [
+                edit_course_unit_update_path(@course, @unit, update),       
+                course_unit_update_path(@course, @unit, update)
+              ]
+            else
+              paths = [edit_course_update_path(@course, update), course_update_path(@course, update)]
+            end
+          %>
+  				<%= ui_button_dropdown(ui_options_button_text, [ 
+  							link(:update, :edit, paths[0]),
+  							nil,
+  							link(:update, :destroy, paths[1], method: :delete, confirm: true)
+  				], class: css_button(:default), align: :right) %>
+  			</td>
+  		</tr>
+		  <% end %>
+    <% else %>
+		  <tr><td colspan="4"><%= t('page.text.no_record_found') %></td></tr>
+    <% end %>
+	</tbody>
+</table>

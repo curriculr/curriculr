@@ -1,0 +1,82 @@
+<%= form_header %>
+
+<%= themed_form_for [:teach, @course, @unit, @lecture, @question] do |f| %>
+  <%= form_hidden f, :course_id %>
+  <%= form_hidden f, :kind %>
+  
+  <% if @question.new_record? %>
+    <%= form_hidden f, :unit_id %>
+    <%= form_hidden f, :lecture_id %>
+  <% else %>
+    <div style="display: none;">
+      <%= f.grouped_collection_select :unit_lectures, @course.units, :lectures, :name, :id, :name, include_blank: true %>
+    </div>
+    <div class="row">
+      <div class="<%= css_columns(6) %>">
+        <%= form_select f, :unit_id, @course.units %>
+      </div>
+      <div class="<%= css_columns(6) %>">
+        <%= form_select f, :lecture_id, @unit ? @unit.lectures : [] %>
+      </div>
+    </div>
+  <% end %>
+  
+  <% if @question.new_record? && @question.question.blank? && !@question.kind.in?(['simple', 'sort']) %>
+    <%= form_markdown f, @question, :question, :size => '60x5', :value => t("page.text.#{@question.kind}_question") %>
+  <% else %>
+    <%= form_markdown f, @question, :question, :size => '60x5' %>
+  <% end %>
+  
+	<%= form_hidden f, :hint %>
+	<%= form_hidden f, :explanation %>
+  
+  <%= form_select f, :bank_list, question_banks.invert, 
+        {:value => @question.bank_list}, {:multiple => true, :class => "chosen-select #{rtl? ? 'chosen-rtl' : ''}", 
+          :'data-placeholder'=> t('activerecord.placeholders.bank_list')} %>
+  
+  <%= content_tag :span, Question.human_attribute_name(:hint), 
+        :class => "ui-modal-field #{css_button(:default)}", 
+        :data => {
+          :field => 'question_hint', 
+          :header => Question.human_attribute_name(:hint), 
+          :body => form_text_area(f, :hint, :label => false).gsub(/\r?\n/, ""), 
+          :btn => t('activerecord.actions.save'),
+          :close => t('activerecord.actions.close')
+        } %>
+  
+  <%= content_tag :span, Question.human_attribute_name(:explanation), 
+        :class => "ui-modal-field #{css_button(:default)}", 
+        :data => {
+          :field => 'question_explanation', 
+          :header => Question.human_attribute_name(:explanation), 
+          :body => form_text_area(f, :explanation, :label => false).gsub(/\r?\n/, ""), 
+          :btn => t('activerecord.actions.save'),
+          :close => t('activerecord.actions.close')
+        } %>
+  
+  <br/><br/>
+  <% unless @question.kind == 'simple' %>
+    <%
+    name = ['pick_one', 'pick_many'].include?(@question.kind) ? Option.model_name.human : t('page.titles.part')
+    %>
+    <%= link_to_add_options(t('activerecord.actions.new', :name => name).html_safe, f, :options) %>
+    <%= content_tag :h4, ['pick_one', 'pick_many'].include?(@question.kind) ? t('activerecord.attributes.question.options') : t('activerecord.attributes.question.parts') %>
+  <% end %>
+  
+  <div class="field-container">
+    <%= f.fields_for :options do |o| %>
+      <div class='removable <%= 'has-error'  unless @question.errors[:options].empty? %>'>
+        <%= tag :hr unless Option.render_options[@question.kind.to_sym][:count] == 1 %>
+        <%= render "fields_4_question", :f => o %>
+      </div>
+    <% end %>
+  </div>
+  
+  <div class="has-error">
+  	<% @question.errors[:options].each do |msg| %>
+  		<span class='error help-block'><%= msg %></span>
+  	<% end %>
+  </div>
+  
+  <%= form_submit f, question_bank_path(:index, @question.kind.split('_').first) %>
+<% end %>

@@ -1,0 +1,24 @@
+<div class="panel-body">
+  <%= render 'teach/questions/preamble', :q => q, :show_answer => show_answer %>
+</div>
+
+<table class="<%= css_table %>">
+  <% 
+  is_sortable = (controller_name == 'questions' && action_name == 'index' && staff?(current_user, @course))
+  %>
+  <tbody class="<%= 'sortable' if is_sortable  %>" data-update-url="<%= url_for([:sort_option, :teach, @course, @unit, @lecture, q]) if is_sortable %>">
+    <% q.options.each_with_index do |o, i| %>
+      <tr class="row" id="option_<%= o.id %>">
+        <td class="<%= css_columns(11) %>">
+          <%= label_tag "attempt[#{q.id}]_#{o.option}", class: "radio" do %>
+            <%= i + 1%>. <%= processed_text(o.option) %>
+          <% end %>
+        </td>
+        <td class="<%= css_columns(1) %>">
+          <%= radio_button_tag "attempt[#{q.id}]", o.option, (a and a[o.id] == '1'), :disabled => read_only %>
+          <div id="<%= "answer_#{q.id}_#{o.id}"%>" style="display: inline;"></div>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

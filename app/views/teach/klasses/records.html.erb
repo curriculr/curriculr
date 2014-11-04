@@ -1,0 +1,7 @@
+<% student = Student.find(params[:student_id]) %>
+<ul class="breadcrumb">
+  <li><%= link_to(t('page.titles.students'), students_learn_klass_path(@klass)) %></li>
+  <li class="active"><%= student.name %></li>
+</ul>
+
+<%= render :partial => 'statistics/report', :locals => { klass: @klass, student: student } %>

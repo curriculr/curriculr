@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>" dir="<%= rtl? ? 'rtl' : 'ltr' %>">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">  
+  <title>
+    <%= @page_header ? "#{title}: #{@page_header}" : $site['title'] %>
+  </title>
+  <% flavor = current_account.config['theme']['flavor'] || $site['theme']['flavor'] %>
+  <%= stylesheet_link_tag "bootstrap/#{flavor}#{rtl? ? '_rtl' : ''}", :media => "all" %>
+	<%= stylesheet_link_tag "application", :media => "all" %>
+  <%= favicon_link_tag '/images/favicon.png' %>
+	<%= csrf_meta_tags %>
+  
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+  
+  <% if $site['sublimevideo_site_id'].present? %>
+    <%= javascript_include_tag "//cdn.sublimevideo.net/js/#{$site['sublimevideo_site_id']}.js" %>
+  <% end %>
+</head>
+<body<%= " style='padding-top: 0px;'".html_safe if !current_user && action_name == 'front' %>>
+  <% Announcement.current(cookies.signed[:hidden_announcement_ids]).each do |announcement| %>
+    <%= div_for announcement do %>
+      <%= announcement.message %>
+      <%= link :announcement, :hide, hide_admin_announcement_path(announcement), remote: true %>
+    <% end %>
+  <% end %>
+  
+  <% if content_for? :site_728x90_center_top_banner %>
+    <div class="container">
+      <%= yield :site_728x90_center_top_banner %>
+    </div>
+  <% end %>
+  
+  <%= render "/navbar" %>
+  
+  <% if action_name == 'front' %>
+    <%= render :template => "layouts/front" %>
+  <% elsif @course and !@course.new_record? %>
+    <%= render :template => "layouts/teach" %>
+  <% elsif @klass #and (@klass.enrolled?(current_student) or  staff?(current_user, @klass.course)) %>
+    <%= render :template => "layouts/learn" %>
+  <% else %>
+    <%= render :template => "layouts/default" %>
+  <% end %>
+  
+  <div id="page-modal" class="modal fade" role="dialog" aria-labelledby="page-modal-label" aria-hidden="true">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content"></div>
+    </div>
+  </div>
+
+  <% if content_for? :site_728x90_center_bottom_banner %>
+    <div class="container">
+      <%= yield :site_728x90_center_bottom_banner %>
+    </div>
+  <% end %>
+  
+  <%= render "/footer" %>
+  
+  <%= yield :site_160x600_left_top_banner %>
+  <%= yield :site_160x600_right_top_banner %>
+  
+  <% if @req_attributes[:math?] %>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        extensions: ["tex2jax.js"],
+        jax: ["input/TeX", "output/SVG"],
+        tex2jax: {
+          inlineMath: [ ['$','$'] ],
+          displayMath: [ ['$$','$$'] ],
+          processEscapes: true
+        },
+        "SVG": { 
+          //availableFonts: ["STIX"],
+          //webFont: "STIX-Web",
+          imageFont: null,
+          scale: 100,
+          minScaleAdjust: 100
+        },
+        MathMenu: {
+          //helpURL: "http://www.mathjax.org/help/user/",
+          showRenderer: false,
+          showLocale: false
+        }
+      });
+    </script>
+  <% end %>
+
+  <%= javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/ace.js" if @req_attributes[:code?] %>
+  <%= mountable_fragments :pre_app_javascript %>
+	<%= javascript_include_tag "application" %>
+	<%= javascript_include_tag "bootstrap/overrides" %> 
+  <%= javascript_include_tag "https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js" if @req_attributes[:math?] %>
+  <%= mountable_fragments :post_app_javascript %>
+  <%= timeago_script_tag %>
+  <%= pnotify_script_tag %>
+  
+  <%= render :partial => 'layouts/analytics' if Rails.env == 'production' %>
+</body>
+</html>

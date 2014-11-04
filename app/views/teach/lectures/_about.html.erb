@@ -1,0 +1,5 @@
+<% if lecture.poster %>
+  <%= image_tag lecture.poster.at_url(:sm), class: css_align(:left) %>
+<% end %>
+
+<%= markdown(lecture.about) %>

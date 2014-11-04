@@ -1,0 +1,3 @@
+$('#all-accounts').html('<%= j render :partial => 'admin/accounts/account', :collection => @accounts %>');
+$('#paginator').html('<%= j paginate @accounts, :remote => true %>');
+ui_rebind_application_events(jQuery);

@@ -1,0 +1,35 @@
+$('#assessment-attempt').html('<%= j render 'invideo' %>');
+$('#assessment-attempt').css({
+  position: "absolute",
+  top: $("#" + playerId).position().top + "px",
+  left: $("#" + playerId).position().left + "px",
+  width: $("#" + playerId).width(),
+  height: $("#" + playerId).height(),
+  "z-index": 100
+}).show();
+
+$('.attempt-next-question-btn').on("click", function() {
+  $(this).closest('.attempt-question').hide();
+  $('#' + $(this).attr('data')).show();
+});
+
+$('.attempt-prev-question-btn').on("click", function() {
+  $(this).closest('.attempt-question').hide();
+  $('#' + $(this).attr('data')).show();
+});
+
+$('.attempt-close-btn').on("click", function() {
+  $('#assessment-attempt').html('');
+  $('#assessment-attempt').hide();
+  
+  player.play();
+});
+
+$('.question-hint-link, .question-explanation-link').on('click', function(e) {
+  if ($($(this).attr('href')).hasClass("hidden")) {
+    $($(this).attr('href')).removeClass("hidden").addClass("show");
+  } else {
+    $($(this).attr('href')).removeClass("show").addClass("hidden");
+  }
+  return e.preventDefault();
+});

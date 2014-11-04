@@ -1,0 +1,47 @@
+<% 
+  pills = []
+  pills << [ link(:klass, :available_klasses, main_app.learn_klasses_path),
+    (@courses.nil? and (params[:s].nil? or params[:s] == 'available'))]
+  pills << [ link(:klass, :popular_klasses, main_app.learn_klasses_path(:s => :popular)),
+    (params[:s] == 'popular')]
+  pills << [ link(:klass, :coming_klasses, main_app.learn_klasses_path(:s => :coming)),
+    (params[:s] == 'coming')]
+  if current_user
+    pills << [ link(:klass, :enrolled_klasses, main_app.learn_klasses_path(:s => :enrolled)),
+      (params[:s] == 'enrolled')]
+    pills << [ link(:klass, :taken_klasses, main_app.learn_klasses_path(:s => :taken)),
+      (params[:s] == 'taken')]
+  end
+%>
+<%= ui_header Klass.model_name.human(count: 3), style: :h2, :action => ui_nav_pills(pills, :class => css_align(:right)) %>
+
+<div class="row">
+  <div class="<%= css_columns(9) %>">
+    <div class="row">
+      <div class="<%= css_columns(12) %>">
+        <div id="paginator" class="<%= css_align(:left) %>"><%= paginate @klasses, :remote => true %></div>
+      </div>
+    </div>
+    <div id='klass-list' class="klass-list klass-media-object">
+      <%= render :partial => 'learn/klasses/klass', :collection => @klasses %>
+      <% if @klasses.empty? %>
+        <%= t('page.text.no_record_found') %>
+      <% end %>
+    </div>
+  </div>
+  <div class="<%= css_columns(3) %>">
+    <% unless controller_name == 'payments' %>
+      <%= mountable_fragments :klass_index %>
+      
+      <%= search_form_for [:learn, @q], class: "search-form form-inline", :remote => true do |f| %>
+        <%# content_tag :strong, t('page.titles.search') %> 
+        <%= form_search f, :course_slug_or_course_name_or_course_about_cont, 
+              hint: false, label: false, placeholder: true %>
+        <%# form_submit f %>
+      <% end %>
+      <%= render 'learn/klasses/search' %>
+    <% end %>  
+    
+    <%= yield :klasses_sidebar %>
+  </div>
+</div>

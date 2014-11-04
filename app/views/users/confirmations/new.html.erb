@@ -1,0 +1,13 @@
+<%= form_header %>
+
+<div class="row">
+  <div class="<%= css_columns(6) %>">
+    <%= form_for(resource, :as => resource_name, :url => confirmation_path(resource_name), :html => { :method => :post }) do |f| %>
+      <%= form_email f, :email %>
+
+      <%= form_submit f, root_path %>
+    <% end %>
+
+    <%= render "users/shared/links" %>
+  </div>
+</div>

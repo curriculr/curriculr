@@ -1,0 +1,34 @@
+<%= ui_header "#{@account.slug}: #{@account.name}" %>
+
+<div class="row">
+  <div class="<%= css_columns(5) %>">
+    <h4><%= t('page.titles.basic_info') %></h4>
+    <span class="<%= css_text(:muted) %>">
+    <%= markdown(@account.about) %>
+    </span>
+
+    <%= themed_form_for [:admin, @account] do |f| %>
+      <%= form_checkbox f, :active, :disabled => true %>
+      <%= form_checkbox f, :live,  :disabled => true  %>
+    <% end %>
+
+    <h4><%= t('page.titles.administrator') %></h4>
+    <strong><%= User.human_attribute_name(:name) %></strong><br>
+    <span class="<%= css_text(:muted) %>">
+      <%=  @account.admin.name %>
+    </span><br>
+
+    <strong><%= User.human_attribute_name(:email) %></strong><br>
+    <span class="<%= css_text(:muted) %>">
+      <%=  @account.admin.email %>
+    </span>
+    <br><br>
+    <%= link :account, :edit, edit_admin_account_path(@account), :class => css_button(:primary) %>
+    <%= link :account, :cancel, admin_accounts_path, :class => css_button(:default) %>
+  </div>
+  <div class="<%= css_columns(7) %>">
+    <h4><%= t('page.titles.settings') %></h4>
+    <%= highlighted_code @account.settings, 'json' %>
+  </div>
+</div>
+

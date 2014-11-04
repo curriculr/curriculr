@@ -1,0 +1,21 @@
+<% if @material %>
+  function disable_link(event) {
+    event.preventDefault();
+    return false;
+  }
+<% end %>
+
+<% if @update_class %>     
+  <% checkmark = '<i class="fa fa-checkk"></i>'.html_safe %>
+  <% if params[:opr] == 'activate' %>
+    $('#<%= @update_class %>').attr('href', '<%= teach_course_path(@course, :opr => :activate, :'course[active]' => !@course.active) %>');
+    $('#<%= @update_class %>').html('<%= @course.active ?  t('activerecord.actions.inactivate') : t('activerecord.actions.activate') %>');
+    <% if @course.active %>
+    $('#crs-active-indicator').hide();
+    <% else %>
+    $('#crs-active-indicator').show();
+    <% end %>
+  <% end %>
+<% end%>
+
+ui_rebind_application_events(jQuery);

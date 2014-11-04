@@ -1,0 +1,96 @@
+<table class="<%= css_table %>">
+	<thead>
+		<tr>
+			<th><%= Forum.model_name.human %></th>
+			<th><%= Topic.model_name.human(count: 3) %></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @klass.forums.each do |forum| %>
+		<tr>
+			<td>
+				<h4><%= link_to forum.name, learn_klass_forum_path(@klass, forum) %></h4>
+				<%= markdown forum.about %>
+			</td>
+			<td><%= forum.topics_count %></td>
+		</tr>
+		<% end %>
+    <% if @klass.forums.empty? %>
+    <tr>
+      <td colspan="2"><%= t('page.text.no_record_found') %></td>
+    </tr>
+    <% end %>
+	</tbody>
+</table>
+
+<table class="<%= css_table %>">
+	<thead>
+		<tr>
+			<th><%= t('page.titles.latest_topics') %></th>
+			<th><%= Post.model_name.human(count: 3) %></th>
+			<th><%= t('page.titles.hits') %></th>
+      <th><i class="fa fa-thumbs-up"></i></th>
+      <th><i class="fa fa-thumbs-down"></i></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% topics = Topic.unscoped.joins(:forum).where('forums.klass_id = ?', @klass.id).order('created_at desc').limit(10) %>
+    <% topics.each do |topic| %>
+		<tr>
+			<td>
+				<h4>
+          <%= link_to topic.name, learn_klass_forum_topic_path(@klass, topic.forum, topic) %>
+          <br>
+          <small>
+            <%= timeago_tag topic.created_at, :nojs => true, :limit => 10.days.ago %>
+          </small>
+        </h4>
+			</td>
+			<td><%= topic.posts_count %></td>
+			<td><%= topic.hits %></td>
+      <td><%= topic.ups %></td>
+      <td><%= topic.downs %></td>
+		</tr>
+		<% end %>
+    <% if topics.empty? %>
+    <tr>
+      <td colspan="3"><%= t('page.text.no_record_found') %></td>
+    </tr>
+    <% end %>
+	</tbody>
+</table>
+
+<table class="<%= css_table %>">
+	<thead>
+		<tr>
+			<th><%= t('page.titles.latest_activities') %></th>
+			<th><%= Post.model_name.human(count: 3) %></th>
+      <th><i class="fa fa-thumbs-up"></i></th>
+      <th><i class="fa fa-thumbs-down"></i></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% posts = Post.unscoped.joins(:forum).where('forums.klass_id = ?', @klass.id).order('created_at desc').limit(10) %>
+    <% posts.each do |post| %>
+		<tr>
+			<td>
+				
+          <%= link_to summary(post.about, 40), learn_klass_forum_topic_path(@klass, post.forum, post.topic) %>
+          <br>
+          <small>
+            <%= timeago_tag post.created_at, :nojs => true, :limit => 10.days.ago %>
+          </small>
+        
+			</td>
+			<td><%= post.posts_count %></td>
+      <td><%= post.ups %></td>
+      <td><%= post.downs %></td>
+		</tr>
+		<% end %>
+    <% if posts.empty? %>
+    <tr>
+      <td colspan="3"><%= t('page.text.no_record_found') %></td>
+    </tr>
+    <% end %>
+	</tbody>
+</table>

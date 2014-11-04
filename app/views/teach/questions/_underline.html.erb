@@ -1,0 +1,26 @@
+<%= markdown(q.question) %>
+
+<ul>
+  <% q.options.each do |o| %>
+    <li>
+      <%= hidden_field_tag "attempt[#{q.id}][#{o.id}]", '' %>
+      <% 
+        s = o.option; 
+        o.answer.split(',').each do |a| 
+          s = s.gsub(/#{a.strip}/, 
+            "<span class='label label-warning'>#{a.strip}</span>").html_safe
+        end 
+      %>
+      <%= s %>
+      <div id="<%= "answer_#{q.id}_#{o.id}"%>" class="question-answer"></div>
+    </li>
+  <% end %>
+</ul>
+
+<% if show_answer %>
+  <%= link :question, :show_answer, 
+        learn_klass_assessment_show_answer_path(@klass, @assessment, q), 
+        :id => "show_answer_link_#{q.id}",
+        :class => 'btn btn-info',
+        :method => :post, :remote => true%>
+<% end %>

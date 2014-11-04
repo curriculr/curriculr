@@ -1,0 +1,92 @@
+<% subtext = @assessment && @assessment.kind == 'survey' ? nil : capture do %>
+  <% 
+  banks = [ link_to(t("activerecord.actions.all"), teach_course_questions_path(@course, :a => (@assessment ? @assessment.id : nil))) ] 
+  question_banks.each do |k, v|
+    banks << link_to(v, teach_course_questions_path(@course, :a => (@assessment ? @assessment.id : nil), :b => k))
+  end
+  %>
+
+  <%= ui_dropdown t('page.text.question_bank', 
+        :bank => @bank ? t("config.question.bank.#{@bank}", :default => @bank) :  t("activerecord.actions.all")), 
+        banks, :wrapper => :div %>
+<% end %>
+  
+<% if @q_selector %>
+  <% 
+    the_path_out = if  @assessment.lecture 
+        teach_course_unit_lecture_assessment_path(@course, @assessment.unit, @assessment.lecture, @assessment)
+      elsif  @assessment.unit
+        teach_course_unit_assessment_path(@course, @assessment.unit, @assessment)
+      else
+        teach_course_assessment_path(@course, @assessment)
+      end
+    
+    action = link_to t("activerecord.actions.back_to_assessment", 
+      :name => @assessment.kind == 'survey' ? t('activerecord.models.survey.one') : Assessment.model_name.human), the_path_out, 
+      :class => css(button: :default, align: :right) 
+  %>
+  
+  <%= ui_header t('page.titles.question_banks'), style: :h3, action: action, subtext: subtext %>
+<% else %>
+  <%
+    links = []
+    t('config.question.kind').each do |k,v|
+      links << link_to(v, {action: :new, controller: 'questions', 
+          course_id: @course.id, unit_id: (@unit ? @unit.id : nil),
+          lecture_id: (@lecture ? @lecture.id : nil), :s => k, :b => @bank})
+    end
+  %>
+  <%= ui_header(t('page.titles.question_banks'), subtext: subtext,
+      action: ui_button_dropdown(t('activerecord.actions.new', name: Question.model_name.human), links, class: css_button(:success), align: :right),
+      style: :h3) %>
+
+<% end %>
+
+<% if @lecture %>
+<% elsif @unit %>
+  <% 
+  links = []
+  @unit.lectures.each do |lecture|
+    links << link_to(lecture.name, teach_course_unit_lecture_questions_path(@course, @unit, lecture, :a => (@assessment ? @assessment.id : nil), :b => @bank))
+  end
+  %>
+  <%= ui_button_dropdown Lecture.model_name.human(count: 3), links, class: css_button(:default), align: :right if links.length > 0 %>
+<% else %>
+  <% 
+    links = []
+    @course.units.each do |unit|
+      links << link_to(unit.name, teach_course_unit_questions_path(@course, unit, :a => (@assessment ? @assessment.id : nil), :b => @bank))
+    end
+  %>
+  <%= ui_button_dropdown Unit.model_name.human(count: 3), links, class: css_button(:default), align: :right if links.length > 0  %>
+<% end %>
+
+<ul class="<%= css_nav(:tabs) %>">
+  <% t('config.question.group').each do |k,v| %>
+  <li class="<%= 'active' if k.to_s == params[:s] or (!params[:s] and k == :simple) %>">
+    <%= link_to v, question_bank_path(:index, k, @assessment, @bank) %>
+  </li>
+  <% end %>
+</ul>
+<br>
+<div class="row">
+  <div class="<%= css_columns(8) %>">
+    <div id="paginator" class="<%= css_align(:left) %>"><%= paginate @questions, :remote => true %></div>
+  </div>
+  <div class="<%= css_columns(4) %>">
+    <% url = question_bank_path(:index, params[:s], @assessment, @bank) %>
+    <%= search_form_for @q, :url => url, class: "search-form form-inline #{css_align(:right)}", :remote => true do |f| %>
+      <%# content_tag :strong, t('page.titles.search') %> 
+      <%= form_hidden f, :kind_cont, :value => params[:s] %>
+      <%= form_search f, :question_cont, hint: false, label: false, placeholder: true %>
+      <%# form_submit f %>
+    <% end %>
+  </div>
+</div>
+<br>
+<div id="all-questions">
+  <%= render partial: "teach/questions/question", collection: @questions, locals: { show_answer: false } %>
+</div>
+
+<div id="paginator-bottom" class="<%= css_align(:left) %>"><%= paginate @questions, :remote => true %></div>
+

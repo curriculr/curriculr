@@ -1,0 +1,9 @@
+<%= link_to omniauth_authorize_path(resource_name, :facebook), :class => css_button(:facebook) do %>
+  <i class="fa fa-facebook fa-lg"></i> 
+  <%= t('activerecord.actions.sign_in_using', provider: t('activerecord.actions.facebook')) %>
+<% end %> 
+
+<%= link_to omniauth_authorize_path(resource_name, :google_oauth2), :class => css_button(:'google-plus') do %>
+  <i class="fa fa-google-plus fa-lg"></i> 
+  <%= t('activerecord.actions.sign_in_using', provider: t('activerecord.actions.google')) %>
+<% end %>

@@ -1,0 +1,38 @@
+<%= ui_header Account.model_name.human(count: 3), style: :h2 %>
+
+<div class="row">
+  <div class="<%= css_columns(8) %>">
+    <div id="paginator" class="<%= css_align(:left) %>"><%= paginate @accounts, :remote => true %></div>
+  </div>
+  <div class="<%= css_columns(4) %>">
+    <%= search_form_for [:admin, @q], class: "search-form form-inline #{css_align(:right)}", :remote => true do |f| %>
+      <%# content_tag :strong, t('page.titles.search') %> 
+      <%= form_search f, :slug_or_name_cont, hint: false, label: false, placeholder: true %>
+      <%# form_submit f %>
+    <% end %>
+  </div>
+</div>
+
+<table class="<%= css_table %>">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th><%= Account.human_attribute_name(:slug) %></th>
+      <th><%= Account.human_attribute_name(:name) %></th>
+      <th><%= Account.human_attribute_name(:active) %></th>
+      <th><%= Account.human_attribute_name(:live) %></th>
+      <th><%= Account.human_attribute_name(:live_since) %></th>
+      <th><%= link(:account, :new, new_admin_account_path, :class => css(button: :success, align: :right)) %></th>
+    </tr>
+  </thead>
+  <tbody id="all-accounts">
+    <%= render @accounts %>
+    
+    <% if @accounts.empty? %>
+    <tr>
+      <td colspan="7"><%= t('page.text.no_record_found') %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+

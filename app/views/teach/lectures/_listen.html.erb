@@ -1,0 +1,20 @@
+<%= link(:material, :new_audio,
+        new_teach_course_unit_lecture_material_path(@course, unit, lecture, 
+        :s => :audio), :class => css(button: :success, align: :right)) %>
+<br><br>
+<%= ui_panel(nil, nil, nil,
+      capture do %>
+        <table class="<%= css_table %>">
+        	<tbody>
+            <% data.each_with_index do |audio, i| %>
+              <%= render partial: "application/media/medium", 
+                    locals: {medium: audio.medium, medium_counter: false, 
+                      action: link(:material, :destroy, 
+                        teach_course_unit_lecture_material_path(@course, unit, lecture, audio), 
+                        :method => :delete, :class => css_button(:danger, :xs), 
+                        confirm: true) 
+                    } %>
+            <% end %>   
+          </tbody>
+        </table>   
+<% end ) unless data.blank? %>

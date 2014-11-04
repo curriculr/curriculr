@@ -1,0 +1,14 @@
+<%
+  html = render(:partial => 'learn/topics/topic')
+  count = t('page.text.comments_count', :count => @topic.posts_count)
+%>
+<% if @lecture %>
+  $('#comments .topics').html('<%= j html %>');
+  $('#comments-count').text('<%= count %>');
+<% else %>
+  $('#topic-posts').html('<%= j html %>');
+<% end %>
+
+$('.wmd-input').each(ui_markdown_control);
+
+ui_rebind_application_events(jQuery);

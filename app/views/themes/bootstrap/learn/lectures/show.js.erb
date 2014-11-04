@@ -1,0 +1,32 @@
+<% 
+  html = ''
+  pane = ''
+  if @material.present?
+    case @material.medium.kind.to_sym
+    when :video
+      html << ui_video(@material)
+      pane = 'media-pane'
+    when :audio
+      html << ui_audio(@material)
+      pane = 'media-pane'
+    else
+      html << ui_document_viewer(@material.at_url)
+      pane = 'document-pane'
+    end 
+  elsif @page.present?
+    html << ui_header(@page.name, style: :h4)
+    html << markdown(@page.about, :html => @page.html)
+    pane = 'document-pane'
+  end
+%>
+
+$("#<%= pane %>").html('<%= j html.html_safe %>');
+$("#<%= pane %> audio.mediaelementjs").mediaelementplayer();
+
+$("#<%= pane %> video").each(function(){
+  sublime.prepare($(this).attr('id'), function(player) {
+  // player is now ready.
+  });
+});
+
+ui_rebind_application_events(jQuery);

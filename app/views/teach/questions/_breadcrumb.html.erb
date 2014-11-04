@@ -1,0 +1,15 @@
+<%
+  names = [@course.slug]
+  links = []
+  if @unit.present?
+    names << @unit.name
+    links << { name: @course.slug, href: teach_course_questions_path(@course) }
+  end 
+  
+  if @lecture.present?
+    names << @lecture.name
+    links << { name: @unit.name, href: teach_course_unit_questions_path(@course, @unit) } 
+  end
+%>
+
+<%= ui_breadcrumbs(links, names[links.size]) %>

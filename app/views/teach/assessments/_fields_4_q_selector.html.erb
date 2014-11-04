@@ -1,0 +1,57 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <%= %(#{t('page.titles.selected_questions')} #{(f.index + 1) unless f.object.new_record?}) %>
+    <%= form_hidden f, :_destroy %>
+    <%= link f.object.question.present? ? :question : :q_selector, :destroy, '#', class: "remove_fields #{css(button: [:danger, :xs], align: :right)}" %>
+  </div>
+  <div class="panel-body">
+    <div class="<%= css_columns(9) %>"> 
+      <% if f.object.question %>
+        <%= render partial: "teach/questions/question", locals: {question: f.object.question, show_answer: false } %>
+      <% else %>
+        <div class="row">
+          <div class="<%= css_columns(3) %>">
+            <%= form_checkbox_collection f, :tags, question_banks.stringify_keys, 
+                  :first, :second, {:label => t('page.titles.question_banks')}, :class => 'checkbox' %>
+          </div>
+          <div class="<%= css_columns(9) %>">
+            <div class="row">
+              <div class="<%= css_columns(6) %>"> 
+                <%= form_select f, :kind, t('config.question.kind').invert, :value => params[:s] %>
+              </div>
+              <div class="<%= css_columns(6) %>">
+                <%= form_number f, :questions_count %>
+              </div>
+            </div>
+        
+            <div class="row">
+              <div class="<%= css_columns(6) %>">
+                <% if @unit %>
+                  <%= form_hidden f, :unit_id, value: @unit.id %>
+                <% else %>
+                  <%= form_select f, :unit_id, @course.units %>
+                <% end %>
+              </div>
+              <div class="<%= css_columns(6) %>">
+                <% if @lecture %>
+                  <%= form_hidden f, :lecture_id, value: @lecture.id %>
+                <% else %>
+                  <% if @unit %>
+                    <%= form_select f, :lecture_id, @unit.lectures %>
+                  <% else %>
+                    <%= form_select f, :lecture_id, (f.object.unit ? f.object.unit.lectures : []) %>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>  
+      <% end %>  
+    </div>
+    <div class="<%= css_columns(3) %>">
+      <%= @assessment.kind != 'survey' ? form_number(f, :points) : form_static(f, :points)  %>
+      
+      <%= form_hidden f, :order, class: "order-field" %>
+    </div>
+  </div>
+</div>

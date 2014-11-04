@@ -1,0 +1,24 @@
+<%= form_header %>
+
+<%= themed_form_for [:teach, @course, @unit] do |f| %>
+  <%= form_hidden f, :course_id %>
+	<%= form_text f,  :name %>
+  <%= form_markdown f, @unit, :about, :size => '60x5' %>
+  
+  <div class="row">
+    <div class="<%= css_columns(4) %>">
+      <%= form_static f, :based_on %>
+      <%= form_hidden f, :based_on %>
+    </div>
+    <div class="<%= css_columns(4) %>">
+      <%= form_text f, :on_date, class: 'datepicker' %>
+    </div>
+    <div class="<%= css_columns(4) %>">
+      <%= form_number f, :for_days %>
+    </div>
+  </div>
+  
+  <%= form_checkbox f, :previewed %>
+  
+  <%= form_submit f, (@unit.new_record? ? teach_course_path(@course) : teach_course_units_path(@course)) %>
+<% end %>

@@ -1,0 +1,126 @@
+<div id="main-container" class="<%= css_container %>">
+  <div class="row course-header">
+    <div class="<%= css_columns(2) %>">
+      <%= image_tag ui_image_src(@course.poster ? @course.poster.at_url(:md) : nil, '/images/holder-md.png'), 
+            class: "hidden-xs hidden-sm #{css_image(:responsive)}" %>
+      <div class="hidden-xs hidden-sm text-center">
+        <%= 
+        if @course.video
+          link_to teach_course_material_path(@course, @course.video), :method => :delete, :confirm => true,
+          class: css_button(:xs, :danger), :title => t('activerecord.actions.remove_promo_video') do
+            content_tag(:i, '', class: 'fa fa-minus') + space_tag(3) + content_tag(:i, '', class: 'fa fa-video-camera')
+          end
+        else
+          link_to new_teach_course_material_path(@course, :s => :video, :t => :promo),
+          class: css_button(:xs, :success), :title => t('activerecord.actions.add_promo_video') do
+            content_tag(:i, '', class: 'fa fa-plus') + space_tag(3) + content_tag(:i, '', class: 'fa fa-video-camera')
+          end
+        end
+        %>
+        <%= 
+        if @course.poster
+          link_to teach_course_material_path(@course, @course.poster), :method => :delete, :confirm => true,
+          class: css_button(:xs, :danger), :title => t('activerecord.actions.remove_poster_image') do
+            content_tag(:i, '', class: 'fa fa-minus') + space_tag(3) + content_tag(:i, '', class: 'fa fa-image')
+          end
+        else
+          link_to new_teach_course_material_path(@course, :s => :image, :t => :poster),
+          class: css_button(:xs, :success), :title => t('activerecord.actions.add_poster_image') do
+            content_tag(:i, '', class: 'fa fa-plus') + space_tag(3) + content_tag(:i, '', class: 'fa fa-image')
+          end
+        end  
+        %>   
+      </div> 
+    </div>
+    <div class="<%= css_columns(10) %>"> 
+      <% 
+      action = ''
+      action << staff_or_student_view if staff_or_student_view
+      unless controller_name == 'courses' and action_name.in?(['edit', 'update'])
+        action << space_tag(2, :class => css_align(:right))
+        action << link(:course, :edit, edit_teach_course_path(@course), 
+          :class => css(button: :primary, align: :right))
+      end
+      %>     
+      <%= ui_header(@page_header, :style => :h2, :action => action) %>
+      <div class="row">
+        <div class="<%= css_columns(7) %>">
+          <%= markdown(@course.about, :class => 'shortenable-text', :hidden_til_processed => true) %>
+          
+          <br>
+          <strong>
+            <%= t("page.text.weeks", count: @course.weeks) %>
+            &nbsp;&nbsp;|&nbsp;&nbsp;  
+            <%= t("page.text.workload", count: @course.workload) %>
+          </strong>
+        </div>
+        <div class="<%= css_columns(5) %>">
+          <%= content_tag :div do %>
+            <%= ui_video(@course.video, @course.poster) %>
+          <% end if @course.video %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  <hr>
+<div id="course-main-content-container" class="<%= css_container %>">
+  <div class="row extra-padded">
+	  <div class="<%= css_columns(2) %> side-navabar">
+      <%= render "teach/courses/ui_main_side" %> 
+      <%= yield :teach_250x300_left_bottom_banner %>
+    </div>
+    <div id="course-main-content" class="<%= css_columns(10) %>">
+      <% 
+        show = nil 
+        show_map = {}
+        if controller_name == 'pages'
+          show_map = { lecture: 'read', unit: 'pages', course: @page && @course.syllabus.id == @page.id ? 'syllabus' : 'pages' }
+        elsif controller_name == 'assessments'
+          show_map = { lecture: 'assess', unit: 'assessments', course: @assessment && @assessment.kind == 'survey' ? 'surveys' : 'assessments' }
+        end
+
+        if @lecture
+          show = show_map[:lecture]
+        elsif @unit
+          show = show_map[:unit]
+        else
+          show = show_map[:course]
+        end
+
+        names = [@course.slug]
+        links = []
+        if @unit.present? and !@unit.new_record?
+          names << @unit.name
+          if controller_name == 'questions'
+            links << { name: @course.slug, href: teach_course_questions_path(@course, :a => params[:a], :b => @bank) }
+          else
+            links << { name: @course.name, href: teach_course_units_path(@course, :show => show) }
+            links << { name: @unit.name, href: teach_course_unit_path(@course, @unit, :show => show) }
+          end
+        end 
+
+        if @lecture.present? and !@lecture.new_record?
+          names << @lecture.name
+          if controller_name == 'questions'
+            links << { name: @unit.name, href: teach_course_unit_questions_path(@course, @unit, :a => params[:a], :b => @bank) } 
+          else
+            links << { name: @lecture.name, href: teach_course_unit_lecture_path(@course, @unit, @lecture, :show => show) } 
+          end
+        end
+      %>
+      <%
+        showed = false
+        if @unit
+          showed ||= !controller_name.in?(['units', 'lectures'])
+          showed ||= (controller_name == 'lectures' && !action_name.in?(['index', 'show']))
+          #showed ||= (controller_name.in?(['pages', 'assessments']) && !action_name.in?(['show']))
+        end
+      %>
+      <% if showed %>
+        <%= ui_breadcrumbs(links, names[links.size]) %>
+      <% end %>
+			<%= yield %>
+    </div>
+  </div>
+</div>

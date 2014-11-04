@@ -1,0 +1,56 @@
+<div class="nav-and-social-container">
+  <ul>
+    <li>
+      <%
+      any_active = (
+        controller_name == 'units' ||
+        controller_name == 'media' ||
+        controller_name.in?([ 'klasses', 'forums', 'updates' ]) ||
+        controller_name == 'questions' ||
+        action_name == 'settings'
+      )
+      %>
+      <%= link_to t("activerecord.actions.home"), teach_course_path(@course),
+            :class => any_active ? nil : 'active' %>
+    </li>
+    <li>
+      <%= link_to teach_course_units_path(@course), :class => controller_name == 'units' ? 'active' : nil  do %>
+        <%= Unit.model_name.human(count: 3) %>
+        <%= content_tag :span, @course.units_count, :class => css_badge %>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to teach_course_media_path(@course), :class => controller_name == 'media' ? 'active' : nil  do %>
+        <%= Medium.model_name.human(count: 3) %>
+        <%= content_tag :span, @course.media_count, :class => css_badge %>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to teach_course_klasses_path(@course), :class => controller_name.in?([ 'klasses', 'forums', 'updates' ]) ? 'active' : nil  do %>
+        <%= Klass.model_name.human(count: 3) %>
+        <%= content_tag :span, @course.klasses_count, :class => css_badge %>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to t('page.titles.question_banks'),  teach_course_questions_path(@course),
+            :class => controller_name == 'questions' ? 'active' : nil %>
+    </li>
+
+    <li>
+      <%= link(:setting, :index, settings_teach_course_path(@course),
+           :class => action_name == 'settings' ? 'active' : nil) %>
+    </li>
+    <li><hr></li>
+    <li>
+      <%# link(:course, @course.active ? :inactivate : :activate, teach_course_path(@course, 
+               :opr => :activate, :'course[active]' => !@course.active),
+               :method => :put, :remote => false, :id => "crs_activate_#{@course.id}_link") %>
+    </li>
+    <li>
+      <%= link(:course, :destroy, teach_course_path(@course), 
+               :method => :delete, :confirm => true)  %>
+   </li>
+   
+   <%= mountable_fragments :course_side_menu %>
+  </ul>
+</div>

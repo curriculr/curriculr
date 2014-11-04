@@ -1,0 +1,17 @@
+<%= ui_header(t('page.titles.translations') , :style => :h3, :action => capture do %>
+  <ul class="<%= css_nav(:pills) %> <%= css_align(:right) %>">
+    <% $site['supported_locales'].keys.each do |locale| %>
+      <%= content_tag :li, link_to(locale, edit_admin_translation_path(locale)), 
+            :class => @locale == locale ? 'active' : nil %>
+    <% end %>
+  </ul>
+<% end ) %>
+
+<% 
+  html = ''
+  json_settings_tree(admin_translation_path(@locale, setting: '_key_'), nil, @translations, html, [], 1, [1,2,3,4,5,6,7])
+%>
+
+<%= html.html_safe %>
+
+<%= link(:transation, :cancel, home_path, class: css_button(:default)) %>

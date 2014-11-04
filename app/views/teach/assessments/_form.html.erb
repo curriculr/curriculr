@@ -1,0 +1,84 @@
+<%= form_header :name => @assessment.kind %>
+
+<% kinds = @course.config["grading"]["distribution"]["assessments"][@lecture ? "lecture" : (@unit ? "unit" : "course")].keys %>
+
+<%= themed_form_for [:teach,@course, @unit, @lecture, @assessment] do |f| %>
+  <%= form_hidden f, :course_id %>
+  <%= form_hidden f, :unit_id %>
+  <%= form_hidden f, :lecture_id %>
+  <%= form_hidden f, :kind, :value => :survey if @assessment.kind == 'survey' %>
+  
+  <% if @assessment.kind != 'survey' %>
+    <div class="row">
+      <div class="<%= css_columns(4) %>">
+        <%= form_select f, :kind, kinds, 
+              :value => params[:s], :include_blank => true %>
+      </div>
+      <div class="<%= css_columns(4) %>">
+        <br/>
+        <%= form_checkbox f, :after_deadline %>
+      </div>
+      <div class="<%= css_columns(4) %>">
+        <%= form_number f, :penalty %> 
+      </div>
+    </div>
+  <% end %>
+  
+  <%= form_text f, :name %>      
+  <%# form_markdown f, @assessment, :about, :size => '60x5' %>
+  
+  <div class="row">
+    <div class="<%= css_columns(4) %>">
+      <%= form_static f, :based_on %>
+      <%= form_hidden f, :based_on %>
+    </div>
+    <div class="<%= css_columns(4) %>">
+      <% if @assessment.from_datetime.kind_of?(Time) %>
+        <%= form_text f, :from_datetime, class: 'datetimepicker', value: @assessment.from_datetime.strftime("%Y-%m-%d %H:%M") %>
+      <% else %>
+        <%= form_text f, :from_datetime, class: 'datetimepicker' %>
+      <% end %>
+    </div>
+    <div class="<%= css_columns(4) %>">
+      <% if @assessment.to_datetime.kind_of?(Time) %>
+        <%= form_text f, :to_datetime, class: 'datetimepicker', value: @assessment.to_datetime.strftime("%Y-%m-%d %H:%M") %>
+      <% else %>
+        <%= form_text f, :to_datetime, class: 'datetimepicker' %>
+      <% end %>
+    </div>
+  </div>
+  
+  <% if @assessment.kind != 'survey' %>
+    <div class="row">
+      <div class="<%= css_columns(4) %>">
+        <%= form_number f, :allowed_attempts %>
+      </div>
+      <div class="<%= css_columns(4) %>">
+        <%= form_select f, :multiattempt_grading, t('config.assessment.multiattempt_grading').invert, :include_blank => false %>
+      </div>
+      <div class="<%= css_columns(4) %>">
+        <%# form_number f, :droppable_attempts %>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="<%= css_columns(4) %>">
+        <%= form_select f, :show_answer, t('config.assessment.show_answer').invert, :include_blank => false %>
+      </div>
+      <% if @lecture  and (videos = Hash[@lecture.materials_of_kind(:video).to_a.map {|v| [ v.medium.name, v.id ]}]).present? %>
+        <div class="<%= css_columns(4) %>">
+          <%= form_select f, :invideo_id, videos %>
+        </div>
+        <div class="<%= css_columns(4) %>">
+          <%= form_number f, :invideo_at %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+  
+  <% if @assessment.kind == 'survey' %>
+    <%= form_select f, :event_list, t('config.assessment.survey_events').invert, :value => @assessment.event_list, :include_blank => true %>
+  <% end %>
+          
+  <%= form_submit f, the_path_out, [], :name => @assessment.kind %>
+<% end %>

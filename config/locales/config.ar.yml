@@ -1,0 +1,200 @@
+ar:
+  config:
+    flash:
+      success: تهنئة
+      info: تنويه
+      notice: تنبيه
+      error: خطأ
+      
+    role:
+      admin: مدير للموقع
+      faculty: من هيئة التدريس
+      team: من فريق العمل
+      console: مزود خدمة
+      partner: شريك
+    
+    relationship:
+      parent: والد/والدة
+      child: ابن/ابنة
+      spouse: زوج/زوجة
+      relative: قريب/قريبة
+      friend: صديق/صديقة
+      
+    staff:
+      technician: فني
+      assistant: مساعد
+      instructor: مدرس
+      
+    report:
+      student:
+        since: طالب في الفصل منذ
+        user_since: مستخدم في الموقع منذ
+        klass_begins: بداية الفصل
+        klass_ends: نهاية الفصل
+
+      section:
+        toc: المحتويات
+        summary: ملخصات
+        standing: الأداء مقارنة بالطلاب الآخرين في الفصل
+        attendance: تقرير حضور المحاضرات
+        assessment: تقرير محاولة الواجبات و الامتحانات
+          
+      assessment:
+        lecture: تمارين و واجبات المحاضرات
+        unit: امتحانات الوحدات
+        course: امتحانات الفصل النصفية و النهائية
+      you: أنت
+      minimum: الأدني  
+      average: المتوسط
+      maximum: الأعلى
+      
+    activity:
+      attempted: محاولة امتحان
+      attended: حضور محاضرة
+      dropped: انسحاب من الفصل
+      enrolled: تسجيل
+      finished: انهاء امتحان
+      posted: مشاركة في منتدى
+      re-enrolled: إعادة تسجيل
+      started: بدء امتحان
+      started_discussion: بدء مناقشة
+      visited: زيارة
+      participation: مشاركة في نقاش
+      
+    assessment:
+      show_answer:
+        always: دائما
+        never: و لا مرة
+        after_deadline: بعد انتهاء موعد التسليم
+        after_attempt: بعد المحاولة
+        during_attempt: أثناء المحاولة
+          
+      kind:
+        quiz: تدريب
+        homework: واجب
+        mid-term: امتحان نصفي
+        final: امتحان نهائي
+        invideo: للمحاضرة
+        exercise: تمرين
+        problem: مسألة
+        exam: امتحان
+        survey: استطلاع
+            
+      multiattempt_grading:
+        highest: القيمة الأعلى
+        average: القيمة المتوسطة
+      
+      survey_events:
+        on_enroll: عند التسجيل في الفصل
+        #on_drop: عند الإنسحاب من الفصل
+        
+    notification:
+      kind:
+        sms: رسائل قصيرة
+        email: بريد إلكتروني
+        www: في الموقع
+        twitter: في تويتر
+        facebook: في الفيسبوك
+        
+      to:
+        students: الطلاب
+
+      event:
+        unit: 
+          label: الوحدة
+          opens: فتح
+          closes: إغلاق
+        lecture: 
+          label: المحاضرة
+          opens: فتح
+          closes: إغلاق
+        assessment: 
+          label: الاختبار
+          opens: فتح
+          closes: إغلاق
+          attempted: محاولة
+          
+      status:
+        posted: أعلنت
+        cancelled: ألغيت
+        sent: أرسل
+        
+      base:
+        Klass: فصل دراسي
+        Unit: وحدة
+        Lecture: محاضرة
+        Assessment: اختبار
+        
+    question:
+      kind:
+        simple: بسيط
+        fill: إملأ الفراغات
+        pick_2_fill: املأ الفراغات من القائمة
+        pick_one: اختر إجابة
+        pick_many: اختر إجابات
+        match: اربط
+        #underline: ضع خطا على
+        sort: رتب
+    
+      group:
+        simple: بسيطة
+        fill: فراغات
+        pick: اختيار
+        match: ربط الخيارات
+        #underline: خط تحت الإجابة
+        sort: ترتيب
+        
+      bank:
+        main: الرئيسي
+        survey: استبيان
+    
+    medium:
+      kind:
+        video: فيديو
+        image: صورة
+        audio: سمعي
+        document: صفحة أو وثيقة
+        other: أخرى
+        
+      video:
+        source:
+          - youtube
+          - www
+      image:
+        source:
+          - www
+      audio:
+        source:
+          - www
+      document:
+        source:
+          - www  
+      other:
+        source:
+          - www 
+    filter:
+      language: حسب اللغة
+      country: حسب البلد
+      major: حسب التخصص
+      level: حسب المستوي
+      subject: حسب الموضوع
+      
+    major:
+      arts: أدبي
+      sciences: علمي
+      
+    level:
+      primary: أساسي
+      secondary: ثانوي
+      higher: جامعي/عالي
+        
+    subject:
+      arabic: لغة عربية
+      english: English
+      math: رياضيات
+      humanities: إنسانيات
+      physics: فيزياء
+      biology: أحياء
+      chemistry: كيمياء
+      computer: كمبيوتر
+      statistics: إحصاء

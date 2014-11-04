@@ -1,0 +1,33 @@
+<% count = instructors.count %>
+<%= content_tag :div, :class => "sortable", 
+      :"data-update-url" => "#{sort_teach_course_instructors_path(@course)}" do %>
+  <% instructors.each do |instructor| %>
+    <%= ui_media(instructor.avatar_url(current_account, :th) || '/images/nobody-th.png', 
+         capture do %>
+           <%= instructor.name %> 
+           <small>
+             <%= t("config.staff.#{instructor.role}") %>
+             <%= "/#{instructor.title}" unless instructor.title.blank? %>
+           </small>
+           <%= link(:instructor, :edit, edit_teach_course_instructor_path(@course, instructor), 
+                   :class => css_button(:primary, :xs)) %>
+            <%= link(:instructor, :destroy, teach_course_instructor_path(@course, instructor), 
+                   :class => css_button(:danger, :xs), method: :delete, confirm: true )
+             %>
+         <% end, capture do %>
+           <%= markdown(instructor.about) unless !instructor || instructor.about.blank? %>
+    <% end, :id => "instructor_#{instructor.id}") %>
+  <% end %>
+<% end %>
+
+<% if count < 1 %>
+  <%= t('page.text.no_instructor_but_originator_html', :originator => @course.originator.name) %>
+<% end %>
+
+<% if count > 1 %>
+  <%= content_tag :small do %>
+    <br/><hr/>
+    <%= t('page.text.drag_items_to_reorder_html') %>
+  <% end %>
+<% end %>
+

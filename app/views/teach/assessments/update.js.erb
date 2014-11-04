@@ -1,0 +1,12 @@
+<% if @update_class %>     
+  <% if params[:opr] == 'ready' %>
+    $('#<%= @update_class %>').html('<%= @assessment.ready ? t('activerecord.actions.unready') : t('activerecord.actions.ready') %>');
+    <% if @assessment.ready %>
+      $('#assessment-ready-indicator').hide();
+    <% else %>
+      $('#assessment-ready-indicator').show();
+    <% end %>
+  <% end %>
+<% end%>
+
+ui_rebind_application_events(jQuery);

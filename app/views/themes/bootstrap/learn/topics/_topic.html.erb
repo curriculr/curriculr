@@ -1,0 +1,57 @@
+<% if (@klass.open? and @klass.enrolled?(current_student)) || staff?(current_user, @klass.course) %>
+  <% @depth = 0 %>
+
+  <div class="media">
+    <div class="media-body">
+      <% unless @lecture %>
+        <%= image_tag(@topic.author_avatar(current_account, :tny, "/images/nobody-th.png"), :class => "media-object pull-left") %>
+        <h3 class="media-heading">
+          <%= content_tag_for :div, @topic, class: "thumbs-up-and-down pull-right" do %>
+            <%= link_to_if @klass.open?, %(#{@topic.ups} #{content_tag :i, '', class: 'fa fa-thumbs-up text-success'}).html_safe,
+                  up_learn_klass_forum_topic_path(@klass, @forum, @topic), 
+                  class: "thumbs-up", method: :put, remote: true do %>
+              <%= @topic.ups %> <i class="fa fa-thumbs-up text-success"></i>
+            <% end %>
+          
+            <%= link_to_if @klass.open?, %(#{@topic.downs} #{content_tag :i, '', class: 'fa fa-thumbs-down text-danger'}).html_safe,
+                  down_learn_klass_forum_topic_path(@klass, @forum, @topic), 
+                  class: "thumbs-down", method: :put, remote: true do %>
+              <%= @topic.downs %> <i class="fa fa-thumbs-down text-danger"></i>
+            <% end %>
+          <% end %>
+          
+          <%= @topic.name %><br>
+          <small>
+            <%# image_tag(@topic.author_avatar(current_account, :tny, "/images/nobody-th.png"), :class => "media-object pull-left") %>
+            
+            <%= timeago_tag @topic.created_at, :nojs => true, :limit => 10.days.ago %>
+          </small>
+        </h3>
+
+        <div>
+          <%= markdown(@topic.about) %> 
+        </div>
+        <hr>
+      <% end %>  
+      
+      <%= render :partial => 'learn/topics/post', :collection => @topic.posts.where(:parent_id => nil),
+            :locals => { tab: defined?(tab)? tab : 0 } %>
+    </div>
+  </div>
+
+  <h4><%= t('page.titles.reply_to_topic') %></h4>
+  <%= themed_form_for [:learn, @klass, @forum, @topic, @post], remote: @lecture.present?  do |f| %>
+    <%= hidden_field_tag(:tab, tab) if defined? tab %>
+    <%= hidden_field_tag(:lecture_id, @lecture.id) if @lecture %>
+  	<%= form_markdown f, @post, :about, :label => false %>
+  	<%= form_checkbox f, :anonymous %> 
+
+    <%= form_submit f %>
+  <% end %>
+<% else %>
+  <% if @klass.past? %>
+    <%= t('page.text.closed_klass_html') %>
+  <% else %>
+    <%= t('page.text.enroll_to_comment_html', :action => ui_klass_enrollment_action(@klass, true)) %>
+  <% end %>
+<% end %>

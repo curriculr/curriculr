@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="<%= css_columns(8) %>">
+    <div id="paginator" class="<%= css_align(:left) %>">
+      <%= paginate @enrollments, :remote => true %>
+    </div>
+  </div>
+  <div class="<%= css_columns(4) %>">
+    <%= search_form_for @q, url: students_learn_klass_path(@klass), class: "search-form form-inline #{css_align(:right)}", :remote => true do |f| %>
+      <%# content_tag :strong, t('page.titles.search') %> 
+      <%= form_search f, :student_name_or_student_user_name_or_student_user_email_cont, 
+            hint: false, label: false, placeholder: true %>
+      <%# form_submit f %>
+    <% end %>
+    <br>
+    <br>
+  </div>
+</div>
+
+<table class="<%= css_table %>">
+	<thead>
+		<tr>
+			<th>#</th>
+			<th colspan="2"><%= User.human_attribute_name(:name) %></th>
+			<th><%= Enrollment.human_attribute_name(:since) %></th>
+			<th><%= Enrollment.human_attribute_name(:score) %></th>
+      <th>
+        <% if @klass.private %>
+          <%= link_to(t('activerecord.actions.invite').html_safe, invite_teach_course_klass_path(@klass.course, @klass), 
+                :class => css(button: :success, align: :right)) %>
+        <% end %>
+      </th>
+		</tr>
+	</thead>
+	<tbody id="klass-enrollments">
+    <%= render :partial => 'student', :collection => @enrollments, as: :enrollment %>
+    <% if @enrollments.empty? %>
+		  <tr><td colspan="5"><%= t('page.text.no_record_found') %></td></tr>
+    <% end %>
+	</tbody>
+</table>

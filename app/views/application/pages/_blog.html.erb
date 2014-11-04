@@ -1,0 +1,8 @@
+<div>
+	<%= ui_header(blog.name, subtext: blog.by_author, style: :h3 )%>
+	
+  <div>
+    <%= markdown(blog.about, :html => blog.html) %>
+    <%= ui_facebook_link(blog) %>
+  </div>
+</div>

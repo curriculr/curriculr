@@ -1,0 +1,4 @@
+$('#all-courses').html('<%= j render :partial => 'teach/courses/course', :collection => @courses %>');
+$('#paginator').html('<%= j paginate @courses, :remote => true %>');
+
+ui_rebind_application_events(jQuery);

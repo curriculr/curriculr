@@ -1,0 +1,66 @@
+<% if lecture %>
+  <% lecture_tabs = %w(about watch listen read assess) %>
+  <% 
+    data = { 
+      "watch" => lecture.materials_of_kind(:video).to_a,
+      "listen" => lecture.materials_of_kind(:audio).to_a,
+      "read" => { 
+        "documents" => lecture.materials_of_kind([:document, :other]).to_a,
+        "pages" => lecture.pages.to_a
+      },
+      "assess" => lecture.assessments.to_a
+    } 
+    
+    counts = { 
+      "watch" => data["watch"].count,
+      "listen" => data["listen"].count,
+      "read" => data["read"]["documents"].count + data["read"]["pages"].count,
+      "assess" => data["assess"].count
+    }
+  %>
+
+  <%= content_tag :div, :id => "lecture-#{lecture.id}", :class => "tab-pane active" do %>
+    <ul class="nav nav-tabs tabs-default">
+      <% lecture_tabs.each_with_index do |action, j| %>
+        <%= content_tag :li, :class => active_lecture_section(action) do %>
+          <%= content_tag :a, :href => "#lecture-#{lecture.id}-#{j}", :'data-toggle' => "tab" do %>
+            <%= t("activerecord.actions.#{action}") %>
+            <%= content_tag :span, counts[action], :class => css_badge if data[action] %>
+          <% end %>
+        <% end %>
+      <% end %>
+      <li>
+        <%
+          if lecture.poster 
+            poster_link = link(:material, :remove_poster_image, 
+                teach_course_unit_lecture_material_path(@course, unit, lecture, lecture.poster), 
+                :method => :delete, confirm: true)
+          else
+            poster_link = link :material, :add_poster_image, 
+                new_teach_course_unit_lecture_material_path(@course, unit, lecture, :s => :image, :t => :poster)
+          end 
+        %>
+        
+        <%= ui_dropdown ui_options_button_text, [
+              link(:lecture, :edit, edit_teach_course_unit_lecture_path(@course, unit, lecture)),
+              poster_link,
+              nil,
+              link(:lecture, (lecture.allow_discussion ? :disallow_discussion : :allow_discussion),  
+                discuss_teach_course_unit_lecture_path(@course, unit, lecture), :method => :put),
+              nil,
+              link(:lecture, :destroy, teach_course_unit_lecture_path(@course, unit, lecture), 
+                :method => :delete, confirm: true)
+            ], :class => css( align: :right) %>
+      </li>
+    </ul>
+    <br>
+    <div class="tab-content">
+      <% lecture_tabs.each_with_index do |action, j| %>
+        <%= content_tag :div, :id => "lecture-#{lecture.id}-#{j}", 
+              :class => "tab-pane  #{active_lecture_section(action)}" do %>
+          <%= render partial: "teach/lectures/#{action}", locals: { unit: unit, lecture: lecture, data: data[action] } %>
+        <% end %>  
+      <% end %>
+    </div>
+  <% end %>
+<% end %>

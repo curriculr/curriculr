@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="<%= css_columns(12) %>">
+    <% if @klasses %>
+      <div class="klass-list klass-media-object">
+        <%= render :partial => 'learn/klasses/klass', :collection => @klasses, locals: { actions: false } %>
+      </div>
+    <% end %>
+    
+    <br/><br/>
+    <strong><%= t('page.text.klass_enroll_html') %></strong>
+
+    <h3><%= t('page.titles.honor_system') %></h3>
+    <p><%= t('page.text.honor_system') %></p>
+
+    <%= form_for 'enroll', :url => @url, :method => :post do |f| %>
+      <%= hidden_field_tag :klasses, (@klasses.map {|k| k.id.to_s}).join(',') %>
+      <%= label_tag :agreed do %>
+        <%= check_box_tag :agreed %>
+        <%= t('page.text.klass_agreement') %>
+      <% end %>
+  
+      <%= form_submit f, _back_url %>
+    <% end %>
+  </div>
+</div>

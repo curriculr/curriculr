@@ -1,0 +1,6 @@
+<% 
+	html = ''
+	json_settings_tree(configure_teach_course_path(@course, setting: '_key_'), nil, @course.config, html, [], 1, [4])
+%>
+
+<%= html.html_safe %>

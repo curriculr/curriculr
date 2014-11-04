@@ -1,0 +1,54 @@
+<ul class="breadcrumb">
+  <li><%= link(:forum, :index, learn_klass_forums_path(@klass)) %></li>
+  <li class="active"><%= @forum.name %></li>
+</ul>
+
+<%= content_tag :h3, @forum.name %>
+
+<%= markdown @forum.about %>
+
+<% if @klass.open? and (!@forum.graded or staff?(current_user, @klass.course)) %>
+  <%= link(:topic, :new, new_learn_klass_forum_topic_path(@klass, @forum), 
+        :class => css(button: :success, align: :right)) %>
+<% end %>
+
+<% topics = @forum.topics.page(params[:page]).per(10) %>
+<div id="paginator"><%= paginate topics %></div>
+<table class="<%= css_table %>">
+	<thead>
+		<tr>
+			<th><%= Topic.model_name.human(count: 3) %></th>
+			<th><%= Post.model_name.human(count: 3) %></th>
+      <th><i class="fa fa-thumbs-up"></i></th>
+      <th><i class="fa fa-thumbs-down"></i></th>
+      <th><%= t('page.titles.hits') %></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% topics.each do |topic| %>
+		<tr>
+			<td>
+				<h4>
+          <%= link_to topic.name, learn_klass_forum_topic_path(@klass, @forum, topic) %>
+          <br>
+          <small>
+            <%= timeago_tag topic.created_at, :nojs => true, :limit => 10.days.ago %>
+          </small>
+        </h4>
+			</td>
+			<td><%= topic.posts_count %></td>
+      <td><%= topic.ups %></td>
+      <td><%= topic.downs %></td>
+      <td><%= topic.hits %></td>
+		</tr>
+		<% end %>
+    
+    <% if topics.empty? %>
+    <tr>
+      <td colspan="3"><%= t('page.text.no_record_found') %></td>
+    </tr>
+    <% end %>
+	</tbody>
+</table>
+
+

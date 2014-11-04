@@ -1,0 +1,34 @@
+<% if form.present? %>
+  <%= form %>
+<% elsif action.present? %>
+  <%= action %>
+<% else %>
+  <% if @course.present? %>
+    <%= link :medium, :edit, edit_teach_course_medium_path(@course, medium, s: params[:s]), class: css_button(:primary, :xs) %>
+  <% else %>
+    <%= link :medium, :edit, edit_medium_path(medium, s: params[:s]), class: css_button(:primary, :xs) %>
+  <% end %>
+
+  <% if @course.present? %>
+    <%= link(:medium, :destroy, teach_course_medium_path(@course, medium, s: params[:s]), 
+          method: :delete, confirm: true, class: css_button(:danger, :xs)) %>
+  <% else %>
+    <%= link(:medium, :destroy, medium_path(medium, s: params[:s]), method: :delete, confirm: true, class: css_button(:danger, :xs)) %>
+  <% end %>
+
+  <% 
+    if medium.kind == 'video' and (medium.content_type =~ /link\/youtube/).present? 
+      kind = 'youtube'
+      url = "https//youtu.be/#{medium.at_url}"
+    else
+      kind = 'www'
+      url = medium.at_url
+    end 
+
+    title = medium.name
+  %>
+
+  <button class="<%= css(button: [:default, :xs]) %> show-medium-link" data-kind="<%= kind %>" data-title="<%= title %>" data-url="<%= url %>">
+    <%= t('activerecord.actions.show') %> <i class="fa fa-link"></i>
+  </button>
+<% end %>

@@ -1,0 +1,36 @@
+<%= ui_header Announcement.model_name.human(count: 3), style: :h2,
+    action: link(:announcement, :new, new_admin_announcement_path, 
+    :class => css(button: :success, align: :right)) %>
+
+<table class="<%= css_table %>">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th><%= Announcement.human_attribute_name(:message) %></th>
+      <th><%= Announcement.human_attribute_name(:starts_at) %></th>
+      <th><%= Announcement.human_attribute_name(:ends_at) %></th>
+      <th><%= Announcement.human_attribute_name(:suspended) %></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @announcements.each_with_index do |announcement, i| %>
+      <tr>
+        <td><%= i + 1 %></td>
+        <td><%= markdown announcement.message %></td>
+        <td><%= l(announcement.starts_at) %></td>
+        <td><%= l(announcement.ends_at) %></td>
+        <td><% if announcement.suspended %><i class="fa fa-check"></i><% end %></td>
+        <td>
+  				<%= ui_button_dropdown(ui_options_button_text, [
+  					    link(:announcement, :edit, edit_admin_announcement_path(announcement)),
+  					    nil,
+  					    link(:announcement, :destroy, admin_announcement_path(announcement), 
+  						    method: :delete, confirm: true)
+  				    ], class: css_button(:default), align: :right) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

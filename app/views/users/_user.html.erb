@@ -1,0 +1,36 @@
+<tr>
+	<td><%= link_to("#{user.profile.prefix} #{user.name}" , user) %></td>
+	<td><%= user.email %></td>
+	<td id="<%= "usr_#{user.id}_roles" %>"><%= user.roles.map(&:name).join(",") %></td>
+	<td><% if user.confirmed? %><i class="fa fa-check"></i><% end %></td>
+  <td>
+    <small>
+      <%= timeago_tag user.created_at, :nojs => true, :limit => 10.days.ago %>
+    </small>
+  </td>
+	<td>
+		<%
+      roles_all = $site['role'].uniq.sort
+      roles_cur = user.roles.map {|r| r.name }.uniq.sort
+			links = []
+			links << link(:profile, :edit, edit_user_path(user))
+			unless user == current_account.admin 
+        (roles_all - roles_cur).each do |r|
+  				links << link_to(t('activerecord.actions.add_role', role: t("config.role.#{r}")),
+  					user_path(user.id, :opr => r), :method => :put, 
+  					:remote => true, :id => "usr_#{r}_#{user.id}_link")
+        end
+        
+        roles_cur.each do |r|
+  				links << link_to(t('activerecord.actions.remove_role', role: t("config.role.#{r}")),
+  					user_path(user.id, :opr => r), :method => :put, 
+  					:remote => true, :id => "usr_#{r}_#{user.id}_link") if roles_all.include?(r)
+        end
+        
+        links << nil  
+				links << link(:user, :destroy, user, :method => :delete, confirm: true, :id => "usr_delete_#{user.id}_link")
+			end
+		%>
+		<%= ui_button_dropdown ui_options_button_text, links, class: css_button(:default), align: :right %>      
+	</td>
+</tr>

@@ -1,0 +1,33 @@
+<% if @assessment.show_answer?(@klass)%>
+  <h3><%= @assessment.name %></h3>
+  
+  <%# markdown(@assessment.about) %>
+
+  <%= form_tag learn_klass_assessment_attempts_path(@klass, @assessment), 
+      :method => :post,  :id => 'assessment-attempt-form' do %>
+    <%= hidden_field_tag :attempt_id, @attempt.id %>
+  
+    <% @attempt.questions.each_with_index do |q, ndx| %>
+      <% r = @attempt.result(q,ndx) %>
+
+
+      <%= render "teach/questions/question", :question => q, 
+            :question_counter => ndx,
+            :answer => @attempt.test[ndx][:t], 
+            :show_answer => true,
+            :read_only => true,
+            :result => @attempt.state == 2 ? r : nil %>
+    <% end %>
+
+    <% 
+      if @assessment.lecture
+        url = learn_klass_lecture_path(@klass, @assessment.lecture, :show_assessments => true)
+      elsif @assessment.unit
+        url = learn_klass_assessments_path(@klass, :s => @assessment.kind)
+      else
+        url = learn_klass_assessment_path(@klass, @assessment)
+      end
+    %>
+    <%= link_to(t('activerecord.actions.close'), url, class: css_button(:default)) %>
+  <% end %>
+<% end %>

@@ -1,0 +1,53 @@
+<% if @attempt.state == 1 and !@assessment.after_deadline?(@klass) and @assessment.to_datetime.present? and @assessment.hours_to_close(@klass) <= 2 %>
+  <div id="assessment-countdown" class="<%= css_columns(3) %> <%= css_align(:right) %>" 
+       data-time="<%= @assessment.closes_at_datetime(@klass).to_i * 1000 %>"></div>
+<% end %>
+
+<h3><%= @assessment.name %></h3>
+
+<%# markdown(@assessment.about) %>
+
+<%= form_tag learn_klass_assessment_attempts_path(@klass, @assessment), 
+      :method => :post,  :id => 'assessment-attempt-form' do %>
+  <%= hidden_field_tag :attempt_id, @attempt.id %>
+  
+  <% @attempt.questions.each_with_index do |q, ndx| %>
+    <%  r = @attempt.result(q,ndx) %>
+
+    <%= render "teach/questions/question", :question => q, 
+          :question_counter => ndx,
+          :answer => @attempt.test[ndx][:t], 
+          :show_answer => @attempt.show_answer?,
+          :read_only => @attempt.state == 2 ? true : false,
+          :result => @attempt.state == 2 ? r : nil %>
+  <% end %>
+
+  <% if !@attempt.new_record? and @attempt.state == 1 %>
+    <% 
+    data = @assessment.kind == 'survey' ? nil : {
+			:'confirm-title' => t('page.titles.hold_on'), 
+			:confirm => t('page.text.grading_msg', :name => @assessment.name) 
+    }
+    %>
+    <% save_link = if @assessment.kind != 'survey'
+         [{ :text => submit_tag(t('activerecord.actions.save'), :class => css_button(:default), :value => t('activerecord.actions.save')) }] 
+       else
+         []
+       end
+    %>
+    <%= form_submit(nil, nil, save_link, :class => css_button(:primary), 
+          :value => t('activerecord.actions.submit'), :data => data, :name => t('activerecord.actions.submit')) %>
+  <% else %>
+    <% 
+      if @assessment.lecture
+        url = learn_klass_lecture_path(@klass, @assessment.lecture, :show_assessments => true)
+      elsif @assessment.unit
+        url = learn_klass_assessments_path(@klass, :s => @assessment.kind)
+      else
+        url = learn_klass_assessment_path(@klass, @assessment)
+      end
+    %>
+    <%= link_to(t('activerecord.actions.close'), url, class: css_button(:default)) %>
+  <% end %>
+<% end %>
+

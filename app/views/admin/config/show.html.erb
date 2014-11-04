@@ -1,0 +1,15 @@
+<%= ui_header t('page.titles.configurations'), :style => :h3 %>
+
+<% themed_form_for 'site', :url => admin_config_path, :method => :put, :show_help => true do |f| %>
+  <%= form_hidden f, :settings, :value => @settings %>
+  <%= form_code f, :settings, :value => @settings, :lang => 'json', :field => 'site_settings', :label => false %>
+  
+  <%= form_submit f, home_path %>
+<% end %>
+
+<% 
+  html = ''
+  json_settings_tree(admin_config_path(setting: '_key_'), nil, $site, html, [], 1, [])
+%>
+
+<%= html.html_safe %>

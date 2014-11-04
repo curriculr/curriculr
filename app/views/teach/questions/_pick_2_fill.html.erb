@@ -1,0 +1,27 @@
+<div class="panel-body">
+  <%= render 'teach/questions/preamble', :q => q, :show_answer => show_answer %>
+</div>
+
+<table class="<%= css_table %>">
+  <% 
+  is_sortable = (controller_name == 'questions' && action_name == 'index' && staff?(current_user, @course))
+  %>
+  <tbody class="<%= 'sortable' if is_sortable  %>" data-update-url="<%= url_for([:sort_option, :teach, @course, @unit, @lecture, q]) if is_sortable %>">
+    <% q.options.each_with_index do |o, i| %>
+      <% options = o.answer_options.split(/\n\r?/).map {|a| [a.strip, a.strip]} %>
+      <% qo = o.option.include?('...') ? o.option : "#{o.option} ..." %>
+      <% html = select_tag("attempt[#{q.id}][#{o.id}]", options_for_select(options, a ? a[o.id] : nil), 
+                  :disabled => read_only,
+                  :include_blank => true, :class => css_form_control) %>
+      <tr class="row" id="option_<%= o.id %>">
+        <td class="<%= css_columns(7) %>">
+          <%= i + 1%>. <%= (processed_text(qo).sub('...', '_______')).html_safe %>
+        </td>
+        <td class="<%= css_columns(5) %>">
+          <%= html %>
+          <div id="<%= "answer_#{q.id}_#{o.id}"%>" class="question-answer"></div>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

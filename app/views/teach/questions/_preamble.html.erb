@@ -1,0 +1,32 @@
+<div class="<%= css_align(:right) %>">  
+  <% if show_answer %>
+    <%= link :question, :show_answer,
+          learn_klass_assessment_show_answer_path(@klass, @assessment, q), 
+          :id => "show_answer_link_#{q.id}", :method => :post, :remote => true %>
+  <% end %>
+  
+  <% if q.hint.present? %>
+    <%= "|" if show_answer %>
+    <%= link_to Question.human_attribute_name(:hint), "##{q.id}-hint", class: "question-hint-link" %>
+  <% end %>
+  
+  <% if (@attempt.blank? or @attempt.state == 2) and q.explanation.present? %>
+    <%= "|" if q.hint.present? || show_answer %>
+    <%= link_to Question.human_attribute_name(:explanation), "##{q.id}-explanation", class: "question-explanation-link" %>
+  <% end %>
+</div>
+
+<strong><%= markdown(q.question) %></strong>
+
+<% unless q.hint.blank? %>
+  <%= content_tag :div, id: "#{q.id}-hint", class: "question-hint hidden" do %>
+    <%= markdown("**#{Question.human_attribute_name(:hint)}**! #{q.hint}") %>
+  <% end %>
+<% end %>
+
+<% if (@attempt.blank? or @attempt.state == 2) and q.explanation.present? %>
+  <%= content_tag :div, id: "#{q.id}-explanation", class: "question-explanation hidden" do %>
+    <%= markdown("**#{Question.human_attribute_name(:explanation)}**! #{q.explanation}") %>
+  <% end %>
+<% end %>
+

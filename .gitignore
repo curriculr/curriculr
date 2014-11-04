@@ -1,3 +1,22 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# Ignore bundler config
+/.bundle
+
+# Ignore the default SQLite database.
+/db/*.sqlite3
+/db/schema.rb
+
+# Ignore all logfiles and tempfiles.
+/log/*.log
+/tmp
+.DS_Store
+*~
+
+*.acts_as_taggable_on_engine*
+/config/secrets.yml
+/db/backup_*
+
 *.rbc
 capybara-*.html
 .rspec

@@ -1,0 +1,25 @@
+<%= form_header %>
+
+<%= themed_form_for [:teach, @course, @klass], :show_help => true do |f| %>
+  <%= form_text f, :slug, placeholder: true %>
+
+  <div class="row">
+    <div class="<%= css_columns(6) %>">
+      <%= form_date f, :begins_on, :class => 'datepicker' %>
+    </div>
+    <div class="<%= css_columns(6) %>">
+      <%= form_date f, :ends_on, :class => 'datepicker' %>
+    </div>
+  </div>
+  
+  <%= form_checkbox f, :private %>
+  <%= form_checkbox f, :previewed %>
+  <%# form_checkbox f, :allow_enrollment # Not supported yet %>
+  <%= form_checkbox f, :lectures_on_closed %>
+  
+  <%= form_checkbox f, :free %>
+  
+  <%= mountable_fragments :klass_form, f: f, klass: @klass %>
+
+  <%= form_submit f, teach_course_klasses_path(@course) %>
+<% end %>

@@ -1,0 +1,19 @@
+<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+  <%= devise_error_messages! %>
+
+  <%= form_email f, :email %>
+  <%= form_password f, :password%>
+
+  <% if false && devise_mapping.rememberable? %>
+    <%= form_checkbox f, :remember_me %>
+  <% end %>
+
+  <% if devise_mapping.recoverable? && controller_name != 'passwords' %>
+    <% links = [{text: t('activerecord.actions.new_password'), path: new_password_path(resource_name)}] %>
+  <% end %>
+  <%= form_submit f, false, links %>
+<% end %>
+
+<%= render "users/shared/links" %>
+
+ 

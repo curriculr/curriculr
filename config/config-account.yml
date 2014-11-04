@@ -1,0 +1,30 @@
+account:
+  title: Duroosi
+  locale: en
+  time_zone: Riyadh
+  theme: 
+    name: bootstrap
+    fluid: false
+    flavor: vanilla
+  
+  logo: "/images/logo/%{dark_or_light}-%{flavor}.%{locale}.png"
+    
+  allow_file_upload: true
+  allow_user_student_dependents: false
+  use_gravatar: true
+  require_admin_approval_of_classes: true
+  require_admin_approval_of_blogs: true
+
+  mailer:
+    from: support@duroosi.com
+    to: support@duroosi.com
+    noreply: noreply@duroosi.com
+
+  social: 
+    facebook:
+      app_id: "503971273021130"
+      page: https://www.facebook.com/duroosi
+    twitter:
+      page: https://twitter.com/duroosi
+    google-plus:
+      page: https://plus.google.com/101434561769243560321

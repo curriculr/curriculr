@@ -1,0 +1,40 @@
+<%= link(:unit, :new, new_teach_course_unit_path(@course), 
+      :class => css(button: :success, align: :right)) %>
+<br>
+<br>
+
+<% 
+  units = @course.units.order('units.order').to_a 
+
+  active_unit_id = @unit ? @unit.id : nil
+%>
+<div class="panel-group" id="sortable-units-accordion" data-update-url="<%= sort_teach_course_units_path(@course) %>">
+  <% units.each_with_index do |unit, i| %>
+    <%= content_tag_for :div, unit, :class => "panel panel-inverse" do %>
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" class="sort-handle" data-parent="#sortable-units-accordion" href="#collapse-<%= unit.id %>">
+            <%= unit.name %>
+          </a>
+          
+          <%= ui_button_dropdown(ui_options_button_text, [
+                link(:unit, :edit, edit_teach_course_unit_path(@course, unit)),
+                nil,
+                link(:unit, :destroy, teach_course_unit_path(@course, unit), :method => :delete, confirm: true)
+              ], class: css_button(:xs, :default), align: :right) %>
+        </h4>
+      </div>
+      <% active = (active_unit_id.present? && unit.id == active_unit_id) || (active_unit_id.blank? && i == 0) %>
+      <%= content_tag :div, :id => "collapse-#{unit.id}", :class => "panel-collapse unit collapse #{'in' if active}",
+            :'data-active' => active ? 1 : 0,
+            :'data-update-url' => teach_course_unit_path(@course, unit, :format => :js) do %>
+        <div class="panel-body">
+          <% if active %>
+            <%= render :partial => 'teach/units/show', :locals => { unit: unit} %>  
+          <% end %> 
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
+<%= content_tag :small, t('page.text.drag_items_to_reorder_html') if units.present? and units.count > 1 %>

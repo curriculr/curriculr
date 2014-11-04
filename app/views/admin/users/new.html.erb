@@ -1,0 +1,18 @@
+<%= form_header %>
+
+<div class="row">
+  <div class="<%= css_columns(6) %>">
+    <%= form_for(@user, :url => admin_users_path, :method => :post) do |f| %>
+
+      <%= form_text f, :name%>
+      <%= form_email f, :email %>
+      <%= form_password f, :password %>
+      <%= form_password f, :password_confirmation %>
+      
+      <%= form_submit f, users_path  %>
+    <% end %>
+  </div>
+</div>
+
+
+

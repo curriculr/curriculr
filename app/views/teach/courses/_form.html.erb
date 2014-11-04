@@ -1,0 +1,51 @@
+<%= form_header %>
+
+<%= themed_form_for [:teach, @course] do |f| %>
+  <div class="row">
+    <div class="<%= css_columns(5) %>">
+	    <%= form_text f, :slug, placeholder: true %>
+    </div>
+    <div class="<%= css_columns(7) %>">
+	    <%= form_text f, :name %>
+    </div>
+  </div>
+  
+	<%= form_markdown f, @course, :about, :size => '60x5' %>
+  
+  <div class="row">
+    <div class="<%= css_columns(6) %>">
+	    <%= form_number f, :weeks %>
+    </div>
+    <div class="<%= css_columns(6) %>">
+	    <%= form_number f, :workload %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="<%= css_columns(6) %>">
+      <%= form_select f, :locale, $site['supported_locales'].invert %>
+    </div>
+    <div class="<%= css_columns(6) %>">
+      <%= form_country_select f, :country, {:include_blank => true}, :class => "chosen-select #{rtl? ? 'chosen-rtl' : ''}" ,
+            :'data-placeholder'=> t('activerecord.placeholders.country') %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="<%= css_columns(6) %>">
+      <%= form_select f, :level_list, Hash[$site['levels'].map{|l| [t("config.level.#{l}"), l]}], 
+            {:value => @course.level_list}, {:multiple => true, :class => "chosen-select #{rtl? ? 'chosen-rtl' : ''}",
+             :'data-placeholder'=> t('activerecord.placeholders.level_list')} %>
+    </div>
+    <div class="<%= css_columns(6) %>">
+      <%= form_select f, :major_list, Hash[$site['majors'].map{|m| [t("config.major.#{m}"), m]}], 
+            {:value => @course.major_list}, {:multiple => true, :class => "chosen-select #{rtl? ? 'chosen-rtl' : ''}",
+             :'data-placeholder'=> t('activerecord.placeholders.major_list')} %>
+    </div>
+  </div>
+
+  <%= form_select f, :subject_list, Hash[$site['subjects'].map{|s| [t("config.subject.#{s}"), s]}], 
+        {:value => @course.subject_list}, {:multiple => true, :class => "chosen-select #{rtl? ? 'chosen-rtl' : ''}",
+         :'data-placeholder'=> t('activerecord.placeholders.subject_list')} %>
+
+  <%= form_submit f, (@course && !@course.new_record? ? teach_course_path(@course) : teach_courses_path) %>
+<% end %>

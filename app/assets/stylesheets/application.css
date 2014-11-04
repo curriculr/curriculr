@@ -1,0 +1,44 @@
+/*
+ *= require pagedown
+ *= require yamm
+ *= require jquery.timepicker.css
+ *= require mediaelement_rails
+ *= require jquery-ui/datepicker
+ *= require jquery-ui/slider
+ *= require chosen
+ *= require jquery-ui-timepicker-addon.min
+ *= require jquery.countdown
+ *= require pnotify
+ *= require pygments
+ *= require flags
+ *
+ * require_tree .
+*/
+
+.video-container-yt {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px; height: 0; overflow: hidden;
+}
+ 
+.video-container-yt iframe,
+.video-container-yt object,
+.video-container-yt embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.ace_editor { 
+  margin: 10px 0; 
+}
+
+.hidden-til-processed { 
+  display: none;
+}
+
+.highlight {
+  direction: ltr;
+}

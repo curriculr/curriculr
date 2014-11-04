@@ -1,0 +1,203 @@
+en:
+  config:
+    flash:
+      success: Success notice
+      info: Informational notice
+      notice: Notice
+      error: Error notice
+
+    role:
+      admin: Site Administrator
+      faculty: Faculty
+      team: Team Member
+      console: Service Provider
+      partner: Partner
+    
+    relationship:
+      parent: Parent
+      child: Child
+      spouse: Spouse
+      relative: Relative
+      friend: Friend
+        
+    staff:
+      technician: Technician
+      assistant: Assistant
+      instructor: Instructor
+      
+    report:
+      student:
+        since: Class student since
+        user_since: Site user since
+        klass_begins: Class begins
+        klass_ends: Class ends
+        
+      section:
+        toc: Table of contents
+        summary: Summary
+        standing: Compared to Other Students
+        attendance: Attendance
+        assessment: Assessment Attempts
+          
+      assessment:
+        lecture: Lecture Assessments
+        unit: Unit Assessments
+        course: Class Assessments
+        
+      you: You
+      minimum: Minimum
+      average: Average
+      maximum: Maximum
+      
+    activity:
+      attempted: Assessment Attempts
+      attended: Lectures Attended
+      dropped: Classes dropped
+      enrolled: Classes enrolled
+      finished: Assessments finished
+      posted: Posts
+      re-enrolled: Classes re-enrolled
+      started: Assessments started
+      started_discussion: Discussion started
+      visited: Visits
+      participation: Participations
+        
+    assessment:
+      show_answer:
+        always: Always
+        never: Never
+        after_deadline: After deadline
+        after_attempt: After attempt
+        during_attempt: During attempt
+      
+      kind:
+        invideo: Invideo
+        quiz: Quiz
+        homework: Homework
+        mid-term: Mid-term
+        final: Final
+        exercise: Excercise
+        problem: Problem
+        exam: Exam
+        survey: Survey
+            
+      multiattempt_grading:
+        highest: Highest
+        average: Average
+        
+      survey_events:
+        on_enroll: On class enrollment
+        #on_drop: On dropping class
+        
+    notification:
+      kind:
+        sms: SMS
+        email: Email
+        www: WWW
+        twitter: Twitter
+        Facebook: Facebook
+        
+      to:
+        students: Students
+        
+      status:
+        posted: Posted
+        cancelled: Cancelled
+        sent: Send
+        
+      event:
+        unit:
+          label: Unit
+          opens: Opens
+          closes: Closes
+        lecture: 
+          label: Lecture
+          opens: Opens
+          closes: Closes
+        assessment: 
+          label: Assessment
+          opens: Opens
+          closes: Closes
+          attempted: Attempted
+          
+      base:
+        Klass: Class
+        Unit: Unit
+        Lecture: Lecture
+        Assessment: Assessment
+        
+    question:
+      kind:
+        simple: Simple
+        fill: Fill the blanks
+        pick_2_fill: Choose from list to fill blank
+        pick_one: Choose one
+        pick_many: Choose all that apply
+        match: Match
+        #underline: Underline
+        sort: Sort
+    
+      group:
+        simple: Simple
+        fill: Blanks
+        pick: Choice
+        match: Match choices
+        #underline: Underline
+        sort: Sort
+        
+      bank:
+        main: Main
+        survey: Survey
+    
+    medium:
+      kind:
+        video: Video
+        image: Image
+        audio: Audio
+        document: Document
+        other: Other
+        
+      video:
+        source:
+          - youtube
+          - www
+      image:
+        source:
+          - www
+      audio:
+        source:
+          - www
+      document:
+        source:
+          - www  
+      other:
+        source:
+          - www 
+
+    filter:
+      language: By Language
+      country: By Country
+      major: By Major
+      level: By Level
+      subject: By Subject
+
+    major:
+      arts: Arts and Humanities
+      sciences: Science and Technology
+      
+    level:
+      primary: Primary
+      secondary: Secondary
+      higher: Higher Education
+      
+    subject:
+      arabic: Arabic
+      english: English
+      math: Mathematics
+      humanities: Humanities
+      physics: Physics
+      biology: Biology
+      chemistry: Chemistry
+      computer: Computer
+      statistics: Statistics
+    

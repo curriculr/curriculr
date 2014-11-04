@@ -1,0 +1,72 @@
+class PreApplicationController < ActionController::Base  
+  include ScopedByAccount
+  include WithMountableEngines
+  
+  before_action :set_timezone
+  before_action :load_request_data
+  before_action :set_page_header
+  
+  #after_action :store_location
+  
+  layout :set_layout
+  
+  private
+  
+  def set_layout
+    request.xhr? ? false : 'application'
+  end
+  
+  def store_location
+    if (request.fullpath != "/users/sign_in" &&
+        request.fullpath != "/users/sign_up" &&
+        request.fullpath != "/users/password" &&
+        request.fullpath != "/users/sign_out" &&
+        !request.xhr?) # don't store ajax calls
+      session[:previous_url] = request.fullpath 
+    end
+  end
+
+  def after_sign_in_path_for(resource)
+    session[:previous_url] || root_path
+  end  
+
+  def set_timezone
+    Time.zone = current_user.time_zone if current_user
+  end
+
+  def set_page_header
+    if @course
+      @page_header = @course.name
+    elsif @klass
+      @page_header = @klass.course.name
+    end
+  end
+  
+  def load_req_object(model, controller, named_id)
+    if params[named_id]
+      data = model.find(params[named_id]) if params[named_id].present?
+    elsif params[:id] and params[:controller] == controller
+      data = model.find(params[:id]) 
+    end
+    
+    @req_objects << data if @req_objects and data
+    data
+  end
+  
+  def load_request_data
+    if self.class.name.starts_with?('Learn::')
+      @req_objects = [:learn]
+    elsif self.class.name.starts_with?('Teach::')
+      @req_objects = [:teach]
+    elsif self.class.name.starts_with?('Admin::')
+      @req_objects = [:admin]
+    else
+      @req_objects = []
+    end
+    
+    @req_attributes = {}
+    
+    I18n.locale = (current_account.config['locale'] || I18n.default_locale)    
+  end
+
+end

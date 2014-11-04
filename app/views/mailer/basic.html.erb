@@ -1,0 +1,17 @@
+<%= @body.html_safe %>
+
+<% if @klasses.present? %>
+  <table class="twelve columns">
+    <% @klasses .each do |klass| %>
+      <tr>
+        <td class="four sub-columns">
+          <%= image_tag image_url(klass.course.poster ? klass.course.poster.at_url(:sm) : '/images/holder-sm.png') %>
+        </td>
+        <td class="eight sub-columns">
+          <h5><%= klass.course.name %></h5>
+          <p><%= excerpt(klass.course.about, klass.course.about[1..50],  radius: 160) %></p>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>

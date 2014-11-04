@@ -1,0 +1,3 @@
+$('#all-questions').html('<%= j render partial: "teach/questions/question", collection: @questions, locals: { show_answer: false }%>');
+$('#paginator, #paginator-bottom').html('<%= j paginate @questions, :remote => true %>');
+ui_rebind_application_events(jQuery);

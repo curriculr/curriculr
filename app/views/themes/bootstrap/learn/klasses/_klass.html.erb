@@ -1,0 +1,28 @@
+<% 
+  allow_actions = defined?(actions).blank? || actions == true
+  allow_description = defined?(description).blank? || description == true
+  img_size = defined?(image_size).blank? ? 240 : image_size
+  hdr = allow_actions ? link_to(klass.course.name, [main_app, :learn, klass]) : klass.course.name
+  hdr << content_tag(:span, Klass.human_attribute_name(:private), :class => css_label(:danger)) if klass.private
+  subhdr = l(klass.begins_on)
+  subhdr << %( - #{l(klass.ends_on)}) if klass.ends_on
+  th = ui_image_src(klass.course.poster ? klass.course.poster.at_url(:sm) : nil, '/images/holder-sm.png')
+  labels = ui_klass_labels(klass)
+%>
+
+<div class="media">
+  <a class="pull-left" href="#">
+    <img alt="" class="media-object" src="<%= th %>" style="max-width: <%= img_size %>px;">
+  </a>
+  <div class="media-body">
+    <h4 class="media-heading">
+      <%= hdr.html_safe %>
+      <small><%= subhdr %></small>
+    </h4>
+    <small><div class="klass-labels">
+      <%= labels %>
+    </div></small>
+    <%= markdown(summary(klass.course.about)) if allow_description %>
+    <%= ui_klass_enrollment_action(klass) if allow_actions %>
+  </div>
+</div>

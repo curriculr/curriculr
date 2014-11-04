@@ -1,0 +1,36 @@
+<%= ui_header Student.model_name.human(count: 3), style: :h2, action: link(:student, :new, new_learn_student_path, 
+    :class => css(button: :success, align: :right)) %>
+
+<table class="<%= css_table %>">
+	<thead>
+		<tr>
+			<th><%= Student.human_attribute_name(:avatar) %></th>
+			<th><%= Student.human_attribute_name(:name) %></th>
+			<th><%= Student.human_attribute_name(:relationship) %></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody id="all-users">
+    <% @students.each do |student| %>
+    <tr>
+      <td><%= image_tag student.avatar_url(current_account, :tny)  %></td>
+      <td><%= student.name %></td>
+      <td><%= t("config.relationship.#{student.relationship}") %></td>
+      <td>
+    		<%
+    			links = []
+    			links << link(:student, :edit, edit_learn_student_path(student))
+          links << nil  
+    			links << link(:student, :destroy, [:learn, student], :method => :delete, confirm: true)
+    		%>
+    		<%= ui_button_dropdown ui_options_button_text, links, class: css_button(:default), align: :right %>
+      </td>
+    </tr>
+    <% end %>
+    <% if @students.empty? %>
+    <tr>
+      <td colspan="4"><%= t('page.text.no_record_found') %></td>
+    </tr>
+    <% end %>
+	</tbody>
+</table>

@@ -1,0 +1,29 @@
+<tr>
+	<td><%= enrollment_counter + 1 %></td>
+	<td>
+    <% if enrollment.student.relationship == 'self' %>
+      <%= image_tag enrollment.student.user.profile.avatar_url(current_account, :tny) || '/images/nobody-tny.png' %>
+	    <%= enrollment.student.user.name %>
+    <% else %>
+      <%= image_tag enrollment.student.avatar_url(current_account, :tny) || '/images/nobody-tny.png' %>
+      <%= enrollment.student.name %>
+    <% end %>
+  </td>
+  <td>
+    <% if @klass.private and !enrollment.active %>
+      <% if enrollment.accepted_or_declined_at.blank? %>
+        <%= content_tag(:span, t('page.text.invited'), :class => css_label(:warning)) %>
+      <% else %>
+        <%= content_tag(:span, t('page.text.declined_invitation'), :class => css_label(:warning)) %>
+      <% end %>
+    <% end %>
+    <%= content_tag(:span, t('page.text.dropped'), :class => css_label(:danger)) if !enrollment.active && enrollment.dropped_at.present? %>
+  </td>
+	<td><%= l(enrollment.created_at.to_date) %></td>
+  <td><%= @klass.final_score(enrollment.student.id)[:score] %></td>
+  <td>
+    <%= link(:course, :records, 
+          teach_course_klass_student_records_path(enrollment.klass.course, enrollment.klass, enrollment.student), 
+          :class => css(button: :default, align: :right)) %>
+  </td>
+</tr>

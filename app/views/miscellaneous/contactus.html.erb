@@ -1,0 +1,21 @@
+<% cache do %>
+  <div class="row">
+    <div class="<%= css_columns(6) %>">
+      <%= form_header :style => :h2 %>
+      <%= form_for @message, :url => miscellaneous_contactus_path, :method => :post do |f| %>
+      
+        <%= form_text f, :name %>
+        <%= form_email f, :email %>
+        <%= form_text f, :subject %>
+        <%= form_text_area f, :content, :size => '60x8' %>
+
+        <%= form_submit f, root_path %>
+      <% end %>
+    </div>    
+    <div class="<%= css_columns(6) %>">
+      <% help = Page.localized(:help) %>
+      <%= ui_header help.name, :style => :h2 %>
+      <%= markdown(help.about) %>
+    </div>
+  </div>
+<% end %>

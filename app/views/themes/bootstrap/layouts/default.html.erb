@@ -1,0 +1,29 @@
+<div id="main-container" class="<%= css_container %>">
+  <% if request.path.ends_with?('sign_in') or request.path.ends_with?('sign_up') %>
+	  <div class="row">
+			<div class="<%= css_columns(12) %>">
+        <%= yield %>
+      </div>
+    </div>
+  <% else %>
+    <div class="row">
+			<div class="<%= css_columns(12) %>">
+        <% if @page_header %>
+          <% 
+          action = nil
+          subtext = nil
+          if !current_user and @klass and @klass.previewed 
+            action = ui_klass_enrollment_action(@klass, true, true)
+          end
+          
+          subtext = klass_from_and_to_dates(@klass) if @klass
+          %>
+          <%= ui_header @page_header, action: action, style: :h2, subtext: subtext %>
+        <% end %>
+
+				<%= yield %>
+			</div>
+    </div>
+  <% end %>
+</div>
+

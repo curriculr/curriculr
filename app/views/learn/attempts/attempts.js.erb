@@ -1,0 +1,18 @@
+<% @answer.each do |id, a| %>
+  <%
+  html = ''
+  if  %w(pick_one pick_many).include?(@question.kind)
+    html = %(
+      <i class="fa fa-check"></i>
+    ) if a == '1'
+  else
+    html = %(
+      <strong>#{Question.human_attribute_name(:answer)}</strong>: <span>#{a}</span>
+    )
+  end
+  %>
+  $('#<%= id %>').html('<%= j html.html_safe %>');
+<% end %>
+$('#show_answer_link_<%= @question.id %>').addClass('disabled');
+
+ui_rebind_application_events(jQuery);

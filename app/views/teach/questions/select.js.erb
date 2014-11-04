@@ -1,0 +1,9 @@
+<% html = render partial: "teach/questions/q_selector_form", locals: { 
+		q_selector: @q_selector,
+		question: @q_selector.question 
+	} 
+%>
+
+$('#<%= "q-#{@q_selector.question.id}-selector-form" %>').replaceWith('<%= j html %>');
+
+ui_rebind_application_events(jQuery);

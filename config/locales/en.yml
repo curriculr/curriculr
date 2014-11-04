@@ -1,0 +1,108 @@
+en:
+  time:
+    formats:
+      default: "%B %d, %Y %H:%M"
+      
+  date:
+    formats:
+      default: "%B %d, %Y"
+
+  errors: &errors
+    format: ! '%{attribute} %{message}'
+    messages:
+      accepted: You must accept.
+      blank: Blank; must be filled.
+      confirmation: Not the same.
+      empty: Blank; must be filled.
+      equal_to: Must be equal to %{count}.
+      even: Must be even number.
+      exclusion: Reserved.
+      greater_than: Must be greater than %{count}.
+      greater_than_or_equal_to: Must be greater than or equal to %{count}.
+      inclusion: Not acceptable.
+      invalid: Invalid.
+      invalid_email: Invalid email.
+      invalid_slug: Only alphanumeric, -  and ـ charactors are allowed.
+      less_than: Must be less than %{count}.
+      less_than_or_equal_to: Must be less than or equal to %{count}.
+      not_a_number: Not a number.
+      not_an_integer: Not an integer number.
+      odd: Must be an odd number.
+      record_invalid: ! '%{errors}: unable to verify'
+      taken: Already used
+      too_long: Longer than required. Maximum allowed value is %{count}.
+      too_short:  Shorted than required. Minimum allowed value is %{count}.
+      wrong_length: Wrong length; must be %{count}.
+      not_enough_questions: Not enough questions for this.
+  
+    models:
+      question:
+        options:
+          not_allowed: Multiple options/parts not allowed.
+          less_than_two: Must have at least two options/parts.
+          more_than_two: Must not have more than two options/parts.
+          blank: Must fill all blanks.
+          blank_option: Must fill the missing option/part.
+          blank_answer_options: Must provide the answer options of this part.
+        answers:
+          blank: You must answer this question.
+          not_one: This question requires only one answer.
+          less_than_two: This question must have at least two multiple choice answers.
+      assessment:
+        attributes:
+          from_datetime:
+            must_be_after_date: Cannot start before %{date}.
+          to_datetime:
+            must_be_after_start_date: Assessment cannot end before it starts.
+      unit:
+        attributes:
+          on_date:
+            must_be_after_date: Cannot start before %{date}.
+      lecture:
+        attributes:
+          on_date:
+            must_be_after_date: Cannot start before %{date}.
+      klass:
+        attributes:
+          begins_on:
+            before_today: The begining date cannot be before today's' date.
+          ends_on:
+            before_begin_date: The ending date can not be before the begining date.
+      update:
+        attributes:
+          kind:
+            no_kind: An update must have a type.
+          begins_at:
+            before_klass_begin_date: The begining day cannot be before the day the class begins %{date}.
+          ends_at:
+            before_begin_date: The ending date cannot be before the begining date.
+            after_end_date: The ending date cannot be after the last day for the class %{date}.
+      instructor:
+        attributes:
+          email:
+            not_found: No user exists with the email address you entered.
+            invalid: Invalid. Make sure this is not the same email as the instructor's'.
+            already: The instructor with entered email is already added.
+      payments/verifier:
+        attributes:
+          receipt:
+            required_email_or_phone_plus_receipt: Receipt number is required with a phone number or email address.
+          code:
+            required_valid_code: A valid code is required. 
+    template:
+      body: ! 'Please verify the correctness of the following fields:'
+      header:
+        zero: ! 'Not able to save %{model}: %{count} errors found.'
+        one: ! 'Not able to save %{model}: %{count} error found.'
+        two: ! 'Not able to save %{model}: %{count} errors found.'
+        few: ! 'Not able to save %{model}: %{count} errors found.'
+        many: ! 'Not able to save %{model}: %{count} errors found.'
+        other: ! 'Not able to save %{model}: %{count} errors found.'
+        
+  activemodel:
+    errors:
+      <<: *errors
+  activerecord:
+    errors:
+      <<: *errors
+  

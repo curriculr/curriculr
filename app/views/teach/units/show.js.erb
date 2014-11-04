@@ -1,0 +1,2 @@
+$('#collapse-<%= @unit.id %> .panel-body').html('<%= j render :partial => 'teach/units/show', :locals => { unit: @unit } %>');
+ui_rebind_application_events(jQuery);

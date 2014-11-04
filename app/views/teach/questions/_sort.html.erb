@@ -1,0 +1,20 @@
+<div class="panel-body">
+  <%= render 'teach/questions/preamble', :q => q, :show_answer => show_answer %>
+</div>
+
+<table class="<%= css_table %>">
+  <tbody>
+    <% q.options.sample(q.options.length).each_with_index do |o, i| %>
+      <tr class="row">
+        <td class="<%= css_columns(10) %>">
+          <%= i + 1%>. <%= processed_text(o.option) %>
+        </td>
+        <td class="<%= css_columns(2) %>">
+          <%= select_tag("attempt[#{q.id}][#{o.id}]", options_for_select(1..q.options.length, a ? a[o.id] : nil), 
+                :disabled => read_only, :include_blank => true, :class => css_form_control) %>
+          <div id="<%= "answer_#{q.id}_#{o.id}"%>" class="question-answer"></div>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

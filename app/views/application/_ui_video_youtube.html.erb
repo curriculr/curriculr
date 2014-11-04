@@ -1,0 +1,55 @@
+<%
+assessments = []
+if @klass and @lecture and video.kind_of?(Material)
+  assessments = @lecture.assessments.open(@klass).where('ready = TRUE and invideo_id = :vid', :vid => video.id).to_a
+end
+%>
+<div class="video-container<%= "-yt" if responsive %> <%= style_class %>">  
+  <iframe id='yt-player-<%= video.id %>' type="text/html" width="<%= width %>" height="<%= height %>" 
+    src="https://www.youtube.com/embed/<%= video.is_a?(Material) ? video.medium.url : video.url %>?controls=1&wmode=transparent&rel=0&showinfo=0&enablejsapi=1&modestbranding=1&html5=1&origin=<%# root_url %>" 
+    frameborder="0"></iframe>
+  <% unless assessments.blank? %>
+    <div id="assessment-attempt" style="display: none; background: #fff;"></div>
+    <script>
+      // Loads the IFrame Player API code asynchronously.
+      var tag = document.createElement('script');
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+      // Obtains player object.
+      var playerId = 'yt-player-<%= video.id %>';
+      var player;
+      var youtube = true;
+      var interval;
+      function onYouTubeIframeAPIReady() {
+        player = new YT.Player(playerId);
+        
+        interval = setInterval(launchAssessments, 2000)
+      }
+      
+      var assessments = <%= (assessments.map do |a|
+          {:id => a.id, :at => a.invideo_at, :taken => false, :path => new_learn_klass_assessment_attempt_path(@klass, a, :format => :js)}
+        end).to_json.html_safe %>;
+      
+      function launchAssessments() {
+        for (var i in assessments) {
+          position = player.getCurrentTime();
+          if (!assessments[i].taken && assessments[i].at <= position){
+            //clearInterval(interval);
+            player.stopVideo();
+            $.ajax({
+              type: "GET",
+              url: assessments[i].path,
+              success: function(data){
+              },
+              error: function(error){
+              }
+            });
+            assessments[i].taken = true;
+          }
+        }
+      }
+    </script>
+  <% end %>
+</div>

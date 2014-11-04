@@ -1,0 +1,24 @@
+<tr>
+  <td>
+    <%= image_tag image.at_url, style: "width: 80px; height: 45px;" %>
+  </td>
+  <td>
+    <strong><%= image.name %></strong>
+    <% if image.path.present? and !image.copyrights.blank? %>  
+      <p>
+        <small>
+          <strong><%=Medium.human_attribute_name(:source) %>:</strong> 
+          <%= image.copyrights %>
+        </small>
+      </p>
+    <% end %>
+  </td>
+  <td>
+    <small><%= timeago_tag(image.created_at, :nojs => true, :limit => 10.days.ago) %></small>
+  </td>
+  <td>
+    <%= content_tag :div, class: css(button: :group, align: :right) do %>
+      <%= render partial: 'application/media/links', locals: { medium: image, form: form, action: action } %>
+    <% end %>
+  </td>
+</tr>

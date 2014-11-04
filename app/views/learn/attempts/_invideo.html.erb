@@ -1,0 +1,62 @@
+<% options = { :method => :post,  :id => 'assessment-attempt-form', :remote => true }%>
+<%= form_tag learn_klass_assessment_attempts_path(@klass, @assessment), options do %>
+  <%= hidden_field_tag :attempt_id, @attempt.id %>
+  
+  <% questions =  @attempt.questions %>
+  <% qcount = questions.count %>
+  <% questions.each_with_index do |q, ndx| %>
+    <% result = @attempt.state == 2 ? @attempt.result(q,ndx) : nil  %>
+    <% 
+      if defined?(result) && result.present?  
+        css_bg = case result
+        when :correct
+          'panel-success'
+        when :partially_correct
+          'panel-warning'
+        when :incorrect
+          'panel-danger'
+        else
+          ''
+        end
+      end
+    %>
+    <div id="attempt-question-<%= ndx %>" 
+         class ="attempt-question panel panel-default <%= css_bg %>" 
+         style="padding: 5px;<%= ' display: none;' if ndx > 0 %>">
+         
+      <%= render "teach/questions/#{q.kind}", :q => q, 
+            :a => @attempt.test[ndx][:t], 
+            :show_answer => @attempt.show_answer?,
+            :read_only => @attempt.state == 2 ? true : false %>
+            
+      <%# unless q.hint.blank? %>
+        <%# ui_alert nil, markdown("**#{Question.human_attribute_name(:hint)}**! #{q.hint}"), :success %>
+      <%# end %>
+      
+      <%#unless @attempt.state != 2 or q.explanation.blank? %>
+        <%# ui_alert nil, markdown("**#{Question.human_attribute_name(:explanation)}**! #{q.explanation}"), :info %>
+      <%# end %>
+    
+      <div class="panel-footer">
+        <% if qcount > 1 %>
+          <% if ndx > 0 %>
+            <%= link_to t('activerecord.actions.prev_html'), "#", :data => "attempt-question-#{ndx - 1}", 
+                  :class => "#{css_button(:default)} attempt-prev-question-btn" %>
+          <% end %>
+          <% if ndx < qcount - 1 %>
+            <%= link_to t('activerecord.actions.next_html'), "#", :data => "attempt-question-#{ndx + 1}",
+                  :class => "#{css_button(:default)} attempt-next-question-btn" %>
+          <% end %>
+        <% end %>
+        
+        <% if !@attempt.new_record? and @attempt.state == 1%>
+          <%= submit_tag t('activerecord.actions.submit'), :class => css_button(:primary), 
+                :value => t('activerecord.actions.submit') if ndx == qcount - 1 %>
+        <% else %>
+          <%= link_to(t('activerecord.actions.resume_lecture'), "#", 
+                :class => "#{css_button(:default)} attempt-close-btn") %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+<% end %>

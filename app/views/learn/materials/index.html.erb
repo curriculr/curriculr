@@ -1,0 +1,25 @@
+<%
+  @unit = Unit.find(params[:unit_id]) if params[:unit_id]
+%>
+<% if @unit.present? %>
+  <ul class="breadcrumb">
+    <li><%= link(:lecture, :index, learn_klass_lectures_path(@klass)) %></li>
+    <li><%= link_to @unit.name, learn_klass_lectures_path(@klass) %></li>
+    <li class="active"><%= t('page.titles.attachments') %></li>
+  </ul>
+<% end %>
+
+<% 
+  enrolled = (@klass.enrolled?(current_student) or staff?(current_user, @klass.course))
+  if @unit.present?
+    attachments = @unit.materials
+  else
+    attachments = enrolled ? @klass.course.books : []
+  end
+%>
+
+<% attachments.each_with_index do |attachment, i| %>
+  <h4><%= link_to attachment.medium.name, attachment.at_url, :target => '_new'  %>
+    <small><%= timeago_tag(attachment.created_at, :nojs => true, :limit => 10.days.ago) %></small>
+  </h4>
+<% end %>   

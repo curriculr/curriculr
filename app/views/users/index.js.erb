@@ -1,0 +1,3 @@
+$('#all-users').html('<%= j render @users %>');
+$('#paginator').html('<%= j paginate @users, :remote => true %>');
+ui_rebind_application_events(jQuery);

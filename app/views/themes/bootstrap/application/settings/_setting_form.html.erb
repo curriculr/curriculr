@@ -1,0 +1,42 @@
+<%= form_tag(url, method: :post, html: {dir: :ltr}) do %>
+	<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h4 class="modal-title" id="page-model-label"><%= title %></h4>
+  </div>
+  <div class="modal-body">
+  	<%= hidden_field_tag(:op, op) %>
+		<div class="<%= css_alert(:warning) %>">
+		  <%= t('page.text.settings_change_warning_html') %>
+		</div>
+
+    <div class="form-group">
+	    <%= label_tag(:key, "Name") %>
+	    <% if key.blank? %>
+	    	<div class="form-inline">
+	    		<%= path %>/<%= text_field_tag(:key, key, class: 'form-control') %>
+	    	</div>
+	    <% else %>
+	    	<%= hidden_field_tag(:key, key) %>
+	    	<p class="form-control-static"><%= path %></p>
+	    <% end %>
+	  </div>
+	  <%= 
+	  if key.blank?
+	  	case type
+	  	when TrueClass, FalseClass
+				json_settings_form_value(true)
+	 		when Numeric
+	 			json_settings_form_value(0.0)
+	  	else 
+	  		json_settings_form_value('')
+	  	end
+	  else
+	  	json_settings_form_value(value) 
+	  end
+	  %>
+  </div>
+  <div class="modal-footer">
+  	<%= submit_tag "Submit", class: "btn btn-primary"%>
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+  </div>
+<% end %>

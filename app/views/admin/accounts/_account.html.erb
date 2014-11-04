@@ -1,0 +1,33 @@
+<tr>
+  <td><%= account_counter + 1 %></td>
+  <td><%= link_to account.slug, admin_account_path(account) %></td>
+  <td>
+    <strong><%= account.name %></strong>
+    <%= markdown account.about %>
+  </td>
+  <td><% if account.active %><i class="fa fa-check"></i><% end %></td>
+  <td><% if account.live %><i class="fa fa-check"></i><% end %></td>
+  <td>
+    <small>
+      <%= timeago_tag account.live_since, :nojs => true, :limit => 10.days.ago %>
+    </small>
+  </td>
+  <td>
+    <% if account.slug == $site['default_account'] %>
+      <%= link(:account, :edit, edit_admin_account_path(account), 
+            :class => css(button: :default, align: :right)) %>
+    <% else %>
+      <%= ui_button_dropdown ui_options_button_text, [
+            link(:account, :edit, edit_admin_account_path(account)),
+            link(:account, account.active ? :inactivate : :activate, 
+              admin_account_path(account, :'account[active]' => !account.active), 
+              :method => :put),
+            link(:account, account.live ? :offline : :online, 
+              admin_account_path(account, :'account[live]' => !account.live), 
+              :method => :put),
+            nil,
+            link(:account, :destroy, [:admin, account], :method => :delete, confirm: true)
+          ], class: css_button(:default), align: :right %> 
+    <% end %>
+  </td>
+</tr>

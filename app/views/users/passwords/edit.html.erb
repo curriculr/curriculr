@@ -1,0 +1,14 @@
+<%= form_header %>
+
+<div class="row">
+  <div class="<%= css_columns(6) %>">
+    <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
+      <%= form_hidden f, :reset_password_token %>
+      <%= form_password f, :password %>
+      <%= form_password f, :password_confirmation %>
+
+      <%= form_submit f, root_path %>
+    <% end %>
+  </div>
+</div>
+

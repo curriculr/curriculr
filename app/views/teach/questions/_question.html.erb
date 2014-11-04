@@ -1,0 +1,68 @@
+<% 
+  r = nil
+  if defined?(result) && result.present?
+    r = t("page.text.#{result}")
+  
+    css_bg = case result
+    when :correct
+      'panel-success'
+    when :partially_correct
+      'panel-warning'
+    when :incorrect
+      'panel-danger'
+    else
+      ''
+    end
+  end
+%>
+<div class="panel panel-default question question-<%= question.kind %> <%= css_bg %>">
+  <% 
+  has_header = if @assessment
+    defined?(question_counter).present? and (@assessment.kind != 'survey' || @assessment.questions_count > 1)
+  else
+    defined?(question_counter).present?
+  end
+  %>
+  <% if has_header %>
+    <%= content_tag :div, class: "panel-heading" do %>
+      <%= %(#{Question.model_name.human} #{question_counter + 1}) %>
+      <%= "(#{r})" if r.present? %>
+      
+      <% if question.points.present? and question.points > 0 %>
+        <%= content_tag :span, t('page.text.points', :count => question.points), :class => css_align(:right) %>
+      <% end %>
+    
+      <% unless @q_selector || @assessment %>
+        <%= ui_button_dropdown(ui_options_button_text, [
+              link(:question, :edit, [:edit, :teach, @course, @unit, @lecture, question]),
+              nil,
+              link(:question, :destroy, [:teach, @course, @unit, @lecture, question], 
+                method: :delete, confirm: true)
+            ], class: css_button(:xs, :default), :align => :right) %>
+      <% end %>
+    <% end %>
+  <% end %>
+  <%= div_for question do %>
+    <%= render "teach/questions/#{question.kind}", :q => question, 
+      :a => ((defined?(answer)).present? ? answer : question.answer), 
+      :read_only => ((defined?(read_only)).present?? read_only : !@assessment.blank?), 
+      :show_answer => show_answer %>
+  <% end %>
+  
+  <% if defined? question_counter and (@q_selector or question.unit.present?) %>
+    <div class="panel-footer">
+      <% if @q_selector # During selecting questions to add to assessment %>
+        <%= render partial: 'q_selector_form', locals: { 
+              q_selector: @assessment.q_selectors.where(question_id: question.id).first || QSelector.new, 
+              question: question 
+            } %>
+      <% end %>
+
+      <% if question.unit.present? %>
+        <%# %(#{Course.model_name.human}/#{question.unit.name}) %>
+        <%# %(/#{question.lecture.name}) if question.lecture.present? %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+

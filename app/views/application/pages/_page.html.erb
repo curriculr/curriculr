@@ -1,0 +1,12 @@
+<tr>
+  <td><%= page_counter + 1 %></td>
+	<td>
+    <%= link_to(page.name , page) %>
+    <%= content_tag(:span, 'HTML', :class => css_label(:info)) if page.html %>
+  </td>
+	<td><%= page.slug %></td>
+	<td><% if page.published %><i class="fa fa-check"></i><% end %></td>
+	<td><% if page.public %><i class="fa fa-check"></i><% end %></td>
+  <td><% if page.blog %><i class="fa fa-check"></i><% end %></td>
+  <td><%= link(:page, :edit, edit_page_path(page), :class => css(button: :default, align: :right)) %></td>
+</tr>

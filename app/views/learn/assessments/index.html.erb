@@ -1,0 +1,11 @@
+<% 
+  assessments = @klass.course.assessments.where("unit_id is not null and lecture_id is null and ready = TRUE and kind = :kind", 
+    :kind => params[:s]).distinct.order('course_id, unit_id, lecture_id').to_a
+%>
+<% if assessments.present? %>
+  <%= render partial: 'assessment', collection: assessments %>
+<% else %>
+  <%= t('page.text.no_record_found') %>
+<% end %>
+
+

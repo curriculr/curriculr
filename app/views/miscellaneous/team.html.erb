@@ -1,0 +1,30 @@
+<% cache do %>
+  <div class="row">
+    <div class="<%= css_columns(12) %>">
+      <% about = Page.localized(:about) %>
+       
+      <%= ui_header about.name, :style => :h2 %>
+      <%# ui_video('/videos/promo-01.mp4', nil, :class => "#{css_columns(5)} #{css_align(:right)}") %>  
+      <%= markdown(about.about) %>
+    </div>
+  </div>
+  <!--
+  <div class="row">
+    <div class="<%= css_columns(7) %>">
+      <%# mission = Page.localized(:mission) %>   
+      <%#= ui_header mission.name %>
+      <%#= markdown(mission.about) %>
+    </div>
+    
+    <div class="<%= css_columns(5) %>">
+      <%#= ui_header t('page.titles.team') %>
+      <%# @members.each_with_index do |u,ndx| %>
+        <%#= ui_media(u.profile.avatar_url(current_account, :th) || '/images/nobody-th.png', 
+             u.name.split(' ').first, u.profile.about ) %>
+      <%# end %>
+      
+      <%#= t('page.text.no_record_found') if @members.blank? %>
+    </div>
+  </div>
+-->
+<% end %>

@@ -1,0 +1,28 @@
+
+<% if @update_class %>     
+  <% checkmark = '<i class="fa fa-check"></i>'.html_safe %>
+  <% if params[:opr] == 'public' %>
+	$('#<%= @update_class %>').html('<%= @page.public ?  t('activerecord.actions.privatize') : t('activerecord.actions.publicize') %>');
+    <% if @page.public %>
+    $('#page-public-indicator').hide();
+    <% else %>
+    $('#page-public-indicator').show();
+    <% end %>
+	<% elsif params[:opr] == 'publish' %>
+    $('#<%= @update_class %>').html('<%= @page.published ?  t('activerecord.actions.unpublish') : t('activerecord.actions.publish') %>');
+    <% if @page.published %>
+    $('#page-publish-indicator').hide();
+    <% else %>
+    $('#page-publish-indicator').show();
+    <% end %>
+	<% elsif params[:opr] == 'blog' %>
+	  $('#<%= @update_class %>').html('<%= @page.blog ?  t('page.actions.undo_blog') : t('page.actions.do_blog') %>');
+    <% if @page.blog %>
+    $('#page-blog-indicator').hide();
+    <% else %>
+    $('#page-blog-indicator').show();
+    <% end %>
+  <% end %>
+  
+  ui_rebind_application_events(jQuery);
+<% end%>

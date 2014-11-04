@@ -1,0 +1,131 @@
+<% enrolled =  (@klass.enrolled?(current_student) or staff?(current_user, @klass.course)) %>
+
+<% if enrolled %>
+  <% if @klass.open? and @klass.allow_enrollment %>
+    <% deadlines = @klass.upcoming_deadlines %>
+    <% unless deadlines.to_a.empty? %>
+      <% content_for :additional_nav do %>
+        <%= ui_panel(capture do %>
+          <i class="fa fa-calendar"></i>&nbsp;&nbsp;
+          <%= t('page.titles.upcoming_deadlines') %>
+        <% end, nil, capture do %>
+          <ul>
+            <% deadlines.each do |deadline| %>
+              <li>
+                <%= t("page.text.upcoming_deadlines", :name => deadline.name, 
+                      :count => (deadline.closes_at.to_date - Time.zone.today).to_i) 
+                %>
+              </li>
+          	<% end %>
+          </ul>
+          <% end, nil, :primary) %>
+      <% end %>
+    <% end %>
+  <% end %>
+  
+  <%= yield :additional_nav %>
+
+  <!-- Klass Updates -->
+  <% updates = Update.active(@klass, :www => true) %>
+  <% unless updates.empty? %>
+    <% updates.each_with_index do |update,ndx| %>
+    <h4><%= update.subject %></h4>
+    <h4><small><%= "#{l(update.updated_at)}" %></small></h4>
+    <%= markdown(update.body) %>
+    <hr>
+    <% end %>
+    
+    <h4><%= t('page.titles.about_class') %></h4>
+  <% end %>
+
+  <div class="row">
+    <div class="<%= css_columns(7) %>">
+      <%= markdown(@klass.course.about, :class => 'shortenable-text', :hidden_til_processed => true) %>
+      
+      <br>
+      <strong><%= t("page.text.weeks", count: @klass.course.weeks) %></strong> 
+      &nbsp;&nbsp;|&nbsp;&nbsp;
+      <strong><%= t("page.text.workload", count: @klass.course.workload) %></strong>
+    </div>
+    <div class="<%= css_columns(5) %>">
+      <%= content_tag :div do %>
+        <%= ui_video(@klass.course.video, @klass.course.poster) %>
+      <% end if @klass.course.video %>
+    </div>
+  </div>
+<% else %>
+  <div class="row">
+    <div class="<%= css_columns(7) %>">
+      <%= markdown(@klass.course.about) %>
+      
+      <%= themed_form_for [ :teach, @klass.course ] do |f| %>
+        <div class="row">
+          <div class="<%= css_columns(6) %>">
+            <%= form_static f, :weeks %>
+          </div>
+          <div class="<%= css_columns(6) %>">
+            <%= form_static f, :workload %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="<%= css_columns(6) %>">
+            <%
+            days = (Date.current - @klass.begins_on).to_i
+            starts_in = if days == 0
+              t('page.text.today')
+            elsif days < 0
+              t('page.text.in_days', :count =>  -1 * days)
+            elsif days > 0
+              past = @klass.ends_on ? (Date.current - @klass.ends_on) : nil
+              if past == nil or past <= 0
+                t('page.text.open_for_enrollment')
+              else
+                t('page.text.closed')
+              end
+            end
+            %>
+            <%= form_static f, :availability, :value => starts_in, :label => Klass.human_attribute_name(:availability) %>
+          </div>
+
+          <%= content_tag :div, :class => css_columns(6) do %>
+            <%= form_static f, :locale, :value => $site['supported_locales'][@klass.course.locale] %>
+          <% end if @klass.course.locale %>
+          <%= content_tag :div, :class => css_columns(6) do %>
+            <%= form_static f, :country, :value => flag_tag(@klass.course.country) %>
+          <% end if @klass.course.country.present? %>
+          
+          <%= mountable_fragments :klass_attributes, :f => f %>
+        </div>
+      <% end %>
+      
+      
+    </div>
+    <div class="<%= css_columns(5) %>">
+      <%= content_tag :div do %>
+        <%= ui_video(@klass.course.video, @klass.course.poster) %>
+      <% end if @klass.course.video %>
+      <br/>
+      <%= ui_klass_enrollment_action @klass %>
+    </div>
+  </div>
+  <hr/>
+  <div class="row">
+    <div class="<%= css_columns(8) %>">
+      <%= content_tag :h3, t("page.titles.about_class") %>
+      <%= markdown @klass.course.syllabus.about %>
+    </div>
+    <div class="<%= css_columns(4) %>">
+      <%= render 'learn/instructors/index' %>
+      
+      <hr>
+      <h4><%= t('page.titles.honor_system') %></h4>
+      <small>
+        <blockquote>
+          <p><%= t('page.text.honor_system') %></p>
+          <footer><%= t('page.titles.team') %></footer>
+        </blockquote>
+      </small>
+    </div>
+  </div>
+   
+<% end %>

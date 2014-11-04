@@ -1,0 +1,57 @@
+site:
+  supported_locales:
+    ar: العربية
+    en: English
+
+  default_account: main
+
+  sublimevideo_site_id: m8pv3oft
+
+  code_editor_style: tomorrow
+  syntax_highlighter_style: colorful
+  markdown_summary_delimiter: "~------\r?\n"
+
+  analytics:
+    tracking_id: 'UA-40741052-1'
+    domain: 'duroosi.com'
+
+  auto_generated_pages:
+    about: About
+    help: Help
+    privacy: Privacy
+    services: Services
+    terms: Terms of service
+    front: Front mattter
+
+  role:
+    - admin
+    - faculty
+    - team
+    - console
+    - partner
+
+  majors:
+    - arts
+    - sciences
+
+  levels:
+    - primary
+    - secondary
+    - higher
+
+  subjects:
+    - arabic
+    - english
+    - math
+    - humanities
+    - physics
+    - biology
+    - chemistry
+    - computer
+    - statistics
+
+  filter_classes_by:
+    language: true
+    major: true
+    level: true
+    subject: true
