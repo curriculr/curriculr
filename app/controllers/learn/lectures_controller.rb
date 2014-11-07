@@ -24,8 +24,9 @@ module Learn
     
     def show_material
       @material = Material.find(params[:material_id])
-
+      @video = @material if @material.kind == 'video'
       respond_to do |format|
+        format.html{ render 'show' }
         format.js{ render 'show' }
       end
     end

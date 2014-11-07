@@ -188,10 +188,10 @@ ar:
       new_password: هل نسيت كلمة السر؟
       facebook: فيسبوك
       twitter: تويتر
-      google: جوجل بلس
-      sign_in_using: بإستخدام %{provider}
+      google: جوجل
       like_us: أعجب بنا
       follow_us: تابعنا على
+      visit_us_at: زورونا على صفحتنا في %{name}
       hangout_with_us: جالسنا
       disallow_discussion: لا تسمح
       allow_discussion: اسمح بالمناقشة
@@ -635,8 +635,8 @@ ar:
       grading_msg: تقديم هذا الطلب يعني موافقتك على قواعد نظام الأمانة العلمية المتبع في هذا الفصل، وأنك على استعداد لتقديم هذا الاختبار للتصحيح. 
       guardian_report_intro: هذا الصفحة تسمح لك بعرض تقارير جميع الطلاب التي أنت مسؤول عنهم قانونيا في جميع الفصول التي هم مسجلون فيها. للقيام بذلك، حدد الطالب المهتم به والفصل الدراسي الذي\التي يأخذه او قد اخذه.			
       here: هنا
-      if_no_user_account: إذا لم يكن لديك حساب
-      if_user_account: إذا كان لديك حساب 
+      if_no_user_account: إذا لم يكن لديك حساب معنا
+      if_user_account: إذا كان لديك حساب معنا
       inactive: غير مفعل
       no_instructor_but_originator_html: لم يتم إضافة اي مدرس لهذا المقرر. في هذه الحالة، سيتم سرد المنشئ %{originator}.
       no_record_found: لا شيئ للعرض
@@ -731,3 +731,5 @@ ar:
         أي تغيير في الاعدادات ينبغي أن يتم بحذر شديد لضمان أن تظل هذه الاعدادات صحيحة في شكلها و قيمها.
       include_in_assessment: أضف لـ '%{name}'
       closed_klass_html: هذا الفصل مغلق. لا يمكن أن تصل إلى التعليقات أو أن تحاول الاختبارات. 
+      sign_in_using: بإستخدام %{provider}
+      external_sign_in_using: يمكنك الدخول باستخدام أي من الحسابات التالية

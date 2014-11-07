@@ -186,10 +186,10 @@ en:
       new_password: Forgot your password?
       facebook: Facebook
       twitter: Twitter
-      google: Google Plus
-      sign_in_using: Using %{provider}
+      google: Google
       like_us: Like us
       follow_us: Follow us
+      visit_us_at: Visit us at %{name}
       hangout_with_us: Hangout with us
       disallow_discussion: Disallow discussion
       allow_discussion: Allow discussion
@@ -637,8 +637,8 @@ en:
         do so, select both the student you are interested in and the class 
         she/he is taking or has already taken.
       here: here
-      if_no_user_account: If you don't have an account yet
-      if_user_account: If you already have an account
+      if_no_user_account: If you don't have an account with us yet
+      if_user_account: If you already have an account with us
       inactive: Inactive
       no_instructor_but_originator_html: 
         No instructor has been added to this course. In this case, 
@@ -726,3 +726,5 @@ en:
         Any change to the settings below must be done very carefully.
       include_in_assessment: Add to '%{name}'
       closed_klass_html: This class is closed. Cannot see comments or attempt assessments
+      sign_in_using: Using %{provider}
+      external_sign_in_using: You can login using one the following accounts

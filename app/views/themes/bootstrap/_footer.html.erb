@@ -30,29 +30,19 @@
        <div class="<%= css_columns(2) %> col-sm-4 col-xs-4">
          <ul>
            <li><h4><span><%= t('page.titles.follow_us_html') %></span></h4></li>
-           <li>
-             <%= link_to current_account.config['social']['facebook']['page'], 
-                   :title => t('activerecord.actions.like_us') do %>
-               <i class="fa fa-facebook fa-lg"></i> 
-               <%= t('page.text.facebook') %>
+
+           <% current_account.config['social_pages'].each do |page, at| %>
+             <% if at && at.strip.present? %>
+               <li>
+                 <%= link_to at, 
+                       :title => t('activerecord.actions.visit_us_at', :name => page) do %>
+                   <i class="fa fa-<%= page %> fa-lg"></i> 
+                   <%= page.titleize %>
+                 <% end %>
+               </li>
+               <li class="divider-vertical"></li>
              <% end %>
-           </li>
-           <li class="divider-vertical"></li>
-           <li>
-             <%= link_to current_account.config['social']['twitter']['page'], 
-                   :title => t('activerecord.actions.follow_us') do %>
-               <i class="fa fa-twitter fa-lg"></i> 
-               <%= t('page.text.twitter') %>
-             <% end %>
-           </li>
-           <li class="divider-vertical"></li>
-           <li>
-             <%= link_to current_account.config['social']['google-plus']['page'], 
-                   :title => t('activerecord.actions.hangout_with_us') do %>
-               <i class="fa fa-google-plus fa-lg"></i> 
-               <%= t('page.text.google-plus') %>
-             <% end %>
-           </li>
+           <% end %>
          </ul>
        </div>
      </div>

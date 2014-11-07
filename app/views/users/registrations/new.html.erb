@@ -14,10 +14,12 @@
       <% end %>
       <%= form_submit f, false, links %>
     <% end %>
-    
-    <%= render "users/shared/links" %>
   </div> 
   <div class="<%= css_columns(6) %>">
+    <%= render "users/shared/links" %>
+    
+    <br/><br/>
+
     <% if controller_name != 'sessions' %>
       <p><%= t('page.text.if_user_account') %></p>
       <%= link :session, :sign_in, new_session_path(resource_name), :class => css_button(:success) %>

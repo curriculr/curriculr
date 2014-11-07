@@ -6,25 +6,23 @@ account:
     name: bootstrap
     fluid: false
     flavor: vanilla
-  
-  logo: "/images/logo/%{dark_or_light}-%{flavor}.%{locale}.png"
-    
+
   allow_file_upload: true
   allow_user_student_dependents: false
   use_gravatar: true
+
   require_admin_approval_of_classes: true
   require_admin_approval_of_blogs: true
 
   mailer:
-    from: admin@example.com
-    to: admin@example.com
+    send_from: admin@example.com
+    contact_us_at: admin@example.com
     noreply: noreply@example.com
 
-  social: 
-    facebook:
-      app_id: "111111111111111"
-      page: https://www.facebook.com/duroosi
-    twitter:
-      page: https://twitter.com/duroosi
-    google-plus:
-      page: https://plus.google.com/101434561769243560321
+  social_pages: 
+    facebook: https://www.facebook.com/duroosi
+    twitter: https://twitter.com/duroosi
+    google-plus: https://plus.google.com/101434561769243560321
+    youtube:
+    linkedin:
+    github:

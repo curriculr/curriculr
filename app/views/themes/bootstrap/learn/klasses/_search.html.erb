@@ -17,11 +17,11 @@
           <% end %>
         <% else %>
           <h5><small><%= t("config.filter.#{filter}") %></small></h5>
-          <% $site["#{filter}s"].each do |m| %>
+          <% t("config.#{filter}").each do |k, v| %>
             <div class="checkbox">
-              <%= label_tag "#{filter}[#{m}]" do %>
-                <%= check_box_tag "#{filter}[#{m}]", m %>
-                <%= t("config.#{filter}.#{m}") %>
+              <%= label_tag "#{filter}[#{k}]" do %>
+                <%= check_box_tag "#{filter}[#{k}]", k %>
+                <%= v %>
               <% end %>
             </div>
           <% end %>

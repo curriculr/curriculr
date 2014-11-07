@@ -1,14 +1,9 @@
 ar:
-  config:
-    flash:
-      success: تهنئة
-      info: تنويه
-      notice: تنبيه
-      error: خطأ
-      
+  config:      
     role:
       admin: مدير للموقع
       faculty: من هيئة التدريس
+      blogger: مدون
       team: من فريق العمل
       console: مزود خدمة
       partner: شريك
@@ -68,17 +63,6 @@ ar:
         after_deadline: بعد انتهاء موعد التسليم
         after_attempt: بعد المحاولة
         during_attempt: أثناء المحاولة
-          
-      kind:
-        quiz: تدريب
-        homework: واجب
-        mid-term: امتحان نصفي
-        final: امتحان نهائي
-        invideo: للمحاضرة
-        exercise: تمرين
-        problem: مسألة
-        exam: امتحان
-        survey: استطلاع
             
       multiattempt_grading:
         highest: القيمة الأعلى
@@ -98,32 +82,6 @@ ar:
         
       to:
         students: الطلاب
-
-      event:
-        unit: 
-          label: الوحدة
-          opens: فتح
-          closes: إغلاق
-        lecture: 
-          label: المحاضرة
-          opens: فتح
-          closes: إغلاق
-        assessment: 
-          label: الاختبار
-          opens: فتح
-          closes: إغلاق
-          attempted: محاولة
-          
-      status:
-        posted: أعلنت
-        cancelled: ألغيت
-        sent: أرسل
-        
-      base:
-        Klass: فصل دراسي
-        Unit: وحدة
-        Lecture: محاضرة
-        Assessment: اختبار
         
     question:
       kind:
@@ -172,6 +130,7 @@ ar:
       other:
         source:
           - www 
+  
     filter:
       language: حسب اللغة
       country: حسب البلد
@@ -198,3 +157,12 @@ ar:
       chemistry: كيمياء
       computer: كمبيوتر
       statistics: إحصاء
+
+    auto_generated_pages:
+      about: من نخن
+      help: للمساعدة
+      privacy: سرية البيانات
+      services: خدماتنا
+      terms: اتفاقية الاستخدام
+      front: المقدمة
+      mission: المهمة

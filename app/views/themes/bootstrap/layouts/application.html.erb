@@ -20,8 +20,8 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
   <![endif]-->
   
-  <% if $site['sublimevideo_site_id'].present? %>
-    <%= javascript_include_tag "//cdn.sublimevideo.net/js/#{$site['sublimevideo_site_id']}.js" %>
+  <% if $site['sublimevideo_site_token'].present? %>
+    <%= javascript_include_tag "//cdn.sublimevideo.net/js/#{$site['sublimevideo_site_token']}.js" %>
   <% end %>
 </head>
 <body<%= " style='padding-top: 0px;'".html_safe if !current_user && action_name == 'front' %>>

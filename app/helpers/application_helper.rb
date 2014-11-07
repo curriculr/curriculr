@@ -18,15 +18,6 @@ module ApplicationHelper
     locale == :ar
   end
   
-  def logo_path(path, dark_or_light)
-    flavor = current_account.config['theme']['flavor'] || $site['theme']['flavor']
-    path % {dark_or_light: dark_or_light, flavor: flavor , locale: locale}
-  end
-  
-  def logo_url(path)
-    image_url logo_path(path)
-  end
-  
   if false and Rails.env.development?
     def t(key, options = {})
       begin
@@ -159,11 +150,19 @@ module ApplicationHelper
   def ui_video(video, poster = nil, options={})
     @req_attributes[:video?] = true
     
-    render :partial => "ui_video", 
-      :locals => {
-        video: video, poster: poster, thumbnail: options[:thumbnail], style_class: options[:class],
-        title: '', width: options[:width], height: options[:height]
-      }
+    if $site['sublimevideo_site_token'].present?
+      render :partial => "ui_video_sublime", 
+        :locals => {
+          video: video, poster: poster, thumbnail: options[:thumbnail], style_class: options[:class],
+          title: '', width: options[:width], height: options[:height]
+        }
+    else
+      render :partial => "ui_video_mediaelement", 
+        :locals => {
+          video: video, poster: poster, thumbnail: options[:thumbnail], style_class: options[:class],
+          title: '', width: options[:width], height: options[:height]
+        }
+    end
   end
   
   def ui_document_viewer(url)

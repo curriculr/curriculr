@@ -29,10 +29,10 @@ class Account < ActiveRecord::Base
     account.admin.add_role :admin
 
     # Create about, mission, privacy, help and agreement pages
-    [:mission, $site['auto_generated_pages'].keys].flatten.each do |slug| 
+    I18n.t('config.auto_generated_pages').each do |slug, name| 
       $site['supported_locales'].keys.each do |locale|
         page = Page.create(
-          :name => I18n.t("page.titles.#{slug}", :default => $site['auto_generated_pages'][slug]), 
+          :name => name, 
           :about => I18n.t("page.text.under_construction"), 
           :public => true,
           :published => true,

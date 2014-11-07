@@ -103,7 +103,7 @@ module BootstrapHelper
     else 
       html = hidden_field_tag(:type, 'text')
       html << (content_tag :div, class: "form-group" do
-        if object.size > 60
+        if object && object.size > 60
           label_tag(:value, "Value") + text_area_tag(:value, object, class: 'form-control', rows: 8)
         else
           label_tag(:value, "Value") + text_field_tag(:value, object, class: 'form-control')
@@ -116,7 +116,7 @@ module BootstrapHelper
 
   def json_settings_tree(url, parent, object, s, path, depth, addable_to_levels = [])
     case object
-    when TrueClass, FalseClass, Numeric, Array, String
+    when TrueClass, FalseClass, Numeric, Array, String, NilClass
       s << "<code>#{object}</code>&nbsp;&nbsp;&nbsp;"
       s << link(:setting, :edit, '#', :class => 'btn btn-default btn-xs btn-edit-setting', :data => { 
         form: render(:partial => '/application/settings/setting_form', :locals => {
@@ -156,6 +156,13 @@ module BootstrapHelper
     end
   end
   
+  def logo_path
+    path = "/images/logo/%{dark_or_light}-%{flavor}.%{locale}.png"
+    dark_or_light = :light
+    flavor = current_account.config['theme']['flavor'] || $site['theme']['flavor']
+    path % {dark_or_light: dark_or_light, flavor: flavor , locale: locale}
+  end
+
   def ui_klass_labels(klass)
     labels = ''.html_safe #content_tag :span, klass.tuition.to_s, :class => "label label-klass"
     unless klass.course.country.blank? 

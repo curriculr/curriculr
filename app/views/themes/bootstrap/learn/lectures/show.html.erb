@@ -27,7 +27,7 @@
 
 <div id="media-pane">
   <% if videos.present? %>
-    <%= ui_video(videos.first) %>
+    <%= ui_video(@video || videos.first) %>
   <% elsif audios.present? %>
     <%= ui_audio(audios.first) %>
   <% elsif count == 1 and pages.present? %>
@@ -91,7 +91,7 @@
                       <li>
                         <%= link_to item.medium.name,
                               show_material_of_learn_klass_lecture_path(@klass, @lecture, item), 
-                              remote: true %>
+                              remote: false %>
                       </li>
                     <% end %>
                   </ul>

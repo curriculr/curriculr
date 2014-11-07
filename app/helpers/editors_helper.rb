@@ -1,4 +1,6 @@
 module EditorsHelper
+  MARKDOWN_SUMMARY_DELIMITER = "~------\r?\n"
+
   class HTMLwithPygments < Redcarpet::Render::HTML
     def block_code(code, language)
       Pygments.highlight(code, lexer: language)
@@ -28,7 +30,7 @@ module EditorsHelper
       :footnotes => true
     )
     
-    text.sub!(/#{$site['markdown_summary_delimiter']}/i, "\n") if text.present?
+    text.sub!(/#{MARKDOWN_SUMMARY_DELIMITER}/i, "\n") if text.present?
 
     text = markdown.render(text || '')
     text.gsub! /\[([^\[\]]*)\]/ do |m|
@@ -131,7 +133,7 @@ module EditorsHelper
 
   def summary(text, length = 200)
     if text
-      delimiter = $site['markdown_summary_delimiter']
+      delimiter = MARKDOWN_SUMMARY_DELIMITER
       if text =~ /#{delimiter}/i
         text = text.split(/#{delimiter}/i).first.strip
       end
@@ -150,7 +152,7 @@ module EditorsHelper
       :style => "height: #{lines_count * 16}px;",
       :data => {
         :mode => lang,
-        :theme => ($site['code_editor_style'] || 'twilight'),
+        :theme => ($site['ace_code_editor_style'] || 'twilight'),
         :readonly => input.blank?,
         :input => (input || '')
       }

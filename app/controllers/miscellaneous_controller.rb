@@ -9,7 +9,7 @@ class MiscellaneousController < ApplicationController
   def contactus
 		if params[:message]
 			@message = Message.new(params[:message])
-      @message.to = current_account.config['mailer']['to']
+      @message.to = current_account.config['mailer']['contact_us_at']
       respond_with @message do |format|
     		if @message.valid?
       		Mailer.contactus_email(current_account, @message).deliver

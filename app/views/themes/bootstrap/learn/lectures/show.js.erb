@@ -21,12 +21,13 @@
 %>
 
 $("#<%= pane %>").html('<%= j html.html_safe %>');
+
 $("#<%= pane %> audio.mediaelementjs").mediaelementplayer();
 
-$("#<%= pane %> video").each(function(){
-  sublime.prepare($(this).attr('id'), function(player) {
-  // player is now ready.
-  });
-});
+// $("#<%= pane %> video.sublime").each(function(){
+//   sublime.prepare($(this).attr('id'), function(player) {
+//   // player is now ready.
+//   });
+// });
 
 ui_rebind_application_events(jQuery);

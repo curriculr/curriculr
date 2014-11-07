@@ -58,7 +58,7 @@ class Mailer < Devise::Mailer
   # Contact us emails
   def contactus_email(current_account, message)
     @account = current_account
-    @from = current_account.config['mailer']['from']
+    @from = current_account.config['mailer']['send_from']
     @to = message.to
     @name = message.name
     @subject = message.subject
@@ -74,7 +74,7 @@ class Mailer < Devise::Mailer
   # Klass invitation emails
   def klass_invitation(current_account, name, klass, email, url)
     @account = current_account
-    @from = current_account.config['mailer']['from']
+    @from = current_account.config['mailer']['send_from']
     @to = email
     @name = name
     @url = view_context.link_to(url) do
@@ -91,7 +91,7 @@ class Mailer < Devise::Mailer
   # Klass enrollment emails
   def klass_enrollment(current_account, email, klasses, url, payment = nil)
     @account = current_account
-    @from = current_account.config['mailer']['from']
+    @from = current_account.config['mailer']['send_from']
     @to = email
     @url = view_context.link_to(url) do
       view_context.content_tag :span, t("#{@account.slug}.site.mailer.links.sign_in")

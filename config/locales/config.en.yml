@@ -1,16 +1,11 @@
 en:
   config:
-    flash:
-      success: Success notice
-      info: Informational notice
-      notice: Notice
-      error: Error notice
-
     role:
-      admin: Site Administrator
+      admin: Site administrator
       faculty: Faculty
-      team: Team Member
-      console: Service Provider
+      blogger: Blogger
+      team: Team member
+      console: Service provider
       partner: Partner
     
     relationship:
@@ -35,14 +30,14 @@ en:
       section:
         toc: Table of contents
         summary: Summary
-        standing: Compared to Other Students
+        standing: Compared to other students
         attendance: Attendance
-        assessment: Assessment Attempts
+        assessment: Assessment attempts
           
       assessment:
-        lecture: Lecture Assessments
-        unit: Unit Assessments
-        course: Class Assessments
+        lecture: Lecture assessments
+        unit: Unit assessments
+        course: Class assessments
         
       you: You
       minimum: Minimum
@@ -56,7 +51,6 @@ en:
       enrolled: Classes enrolled
       finished: Assessments finished
       posted: Posts
-      re-enrolled: Classes re-enrolled
       started: Assessments started
       started_discussion: Discussion started
       visited: Visits
@@ -69,17 +63,6 @@ en:
         after_deadline: After deadline
         after_attempt: After attempt
         during_attempt: During attempt
-      
-      kind:
-        invideo: Invideo
-        quiz: Quiz
-        homework: Homework
-        mid-term: Mid-term
-        final: Final
-        exercise: Excercise
-        problem: Problem
-        exam: Exam
-        survey: Survey
             
       multiattempt_grading:
         highest: Highest
@@ -99,32 +82,6 @@ en:
         
       to:
         students: Students
-        
-      status:
-        posted: Posted
-        cancelled: Cancelled
-        sent: Send
-        
-      event:
-        unit:
-          label: Unit
-          opens: Opens
-          closes: Closes
-        lecture: 
-          label: Lecture
-          opens: Opens
-          closes: Closes
-        assessment: 
-          label: Assessment
-          opens: Opens
-          closes: Closes
-          attempted: Attempted
-          
-      base:
-        Klass: Class
-        Unit: Unit
-        Lecture: Lecture
-        Assessment: Assessment
         
     question:
       kind:
@@ -200,4 +157,13 @@ en:
       chemistry: Chemistry
       computer: Computer
       statistics: Statistics
+
+    auto_generated_pages:
+      about: About
+      help: Help
+      privacy: Privacy
+      services: Services
+      terms: Terms of service
+      front: Front mattter
+      mission: Our mission
     

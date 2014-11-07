@@ -32,18 +32,18 @@
 
   <div class="row">
     <div class="<%= css_columns(6) %>">
-      <%= form_select f, :level_list, Hash[$site['levels'].map{|l| [t("config.level.#{l}"), l]}], 
+      <%= form_select f, :level_list, t('config.level').invert, 
             {:value => @course.level_list}, {:multiple => true, :class => "chosen-select #{rtl? ? 'chosen-rtl' : ''}",
              :'data-placeholder'=> t('activerecord.placeholders.level_list')} %>
     </div>
     <div class="<%= css_columns(6) %>">
-      <%= form_select f, :major_list, Hash[$site['majors'].map{|m| [t("config.major.#{m}"), m]}], 
+      <%= form_select f, :major_list, t('config.major').invert, 
             {:value => @course.major_list}, {:multiple => true, :class => "chosen-select #{rtl? ? 'chosen-rtl' : ''}",
              :'data-placeholder'=> t('activerecord.placeholders.major_list')} %>
     </div>
   </div>
 
-  <%= form_select f, :subject_list, Hash[$site['subjects'].map{|s| [t("config.subject.#{s}"), s]}], 
+  <%= form_select f, :subject_list, t('config.subject').invert, 
         {:value => @course.subject_list}, {:multiple => true, :class => "chosen-select #{rtl? ? 'chosen-rtl' : ''}",
          :'data-placeholder'=> t('activerecord.placeholders.subject_list')} %>
 

@@ -5,6 +5,10 @@
     <%= render partial: 'users/sessions/new' %>
   </div>
   <div class="<%= css_columns(6) %>">
+    <%= render "users/shared/links" %>
+
+    <br/><br/>
+    
     <% if devise_mapping.registerable? && controller_name != 'registrations' %>
       <p><%= t('page.text.if_no_user_account') %></p>
       <%= link :registration, :sign_up, new_registration_path(resource_name), :class => css_button(:success) %>

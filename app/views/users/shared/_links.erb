@@ -1,9 +1,18 @@
-<%= link_to omniauth_authorize_path(resource_name, :facebook), :class => css_button(:facebook) do %>
-  <i class="fa fa-facebook fa-lg"></i> 
-  <%= t('activerecord.actions.sign_in_using', provider: t('activerecord.actions.facebook')) %>
-<% end %> 
 
-<%= link_to omniauth_authorize_path(resource_name, :google_oauth2), :class => css_button(:'google-plus') do %>
-  <i class="fa fa-google-plus fa-lg"></i> 
-  <%= t('activerecord.actions.sign_in_using', provider: t('activerecord.actions.google')) %>
+<% external_links = capture do %>
+<% [:facebook, :google_oauth2, :twitter, :linkedin, :github].each do |app| %>
+	<% if Rails.application.secrets.auth[app.to_s]['id'].present? && Rails.application.secrets.auth[app.to_s]['secret'].present? %>
+		<% app_name = app == :google_oauth2 ? :google : app %>
+		<%= link_to omniauth_authorize_path(resource_name, app), :class => css_button(app_name, :lg) do %>
+  		<i class="fa fa-<%= app_name %> fa-lg"></i> 
+  		<%= t("activerecord.actions.#{app_name}") %>
+		<% end %>
+	<% end %>
+<% end %>
+<% end %>
+
+<% if external_links.strip.present? %>
+	<%= t('page.text.external_sign_in_using') %>
+	<br/><br/>
+	<%= external_links %>
 <% end %>

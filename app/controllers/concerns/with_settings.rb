@@ -5,7 +5,7 @@ module WithSettings
   end
 
   def get_setting_value(value, type)
-  	return nil if value.blank?
+  	return nil if value.nil?
   	case type
   	when 'boolean'
   		value.to_bool

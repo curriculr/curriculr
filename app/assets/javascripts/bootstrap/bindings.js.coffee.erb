@@ -28,6 +28,27 @@ window.ui_rebind_application_events  = ($) ->
   # mediaelementjs
   $('video.mediaelementjs, audio.mediaelementjs').mediaelementplayer()
 
+  player = null
+  $('video.mediaelementjs_with_invideo_quiz').mediaelementplayer(
+    success: (element, node) ->
+      window.player = element
+
+      launchAssessments = ->
+        for assessment in assessments
+          position = window.player.currentTime
+          if !assessment.taken && assessment.at <= position
+            window.player.pause()
+            $.ajax(
+              type: "GET",
+              url: assessment.path,
+              sucess: (data) ->,
+              error: (data)->
+            )
+            assessment.taken = true
+
+      interval = setInterval(launchAssessments, 2000)
+  )
+
   # ace-editor
   $('.ace-editor').each (index, element) ->
     editor = ace.edit(element)
@@ -53,24 +74,41 @@ window.ui_rebind_application_events  = ($) ->
     length = $("##{vid}").length
     if length > 0
       vid = "#{vid}_#{length}"
-      
-    if $(this).data('youtube') == true
-      video = """
-        <video class="sublime" data-uid="#{vid}" 
-               data-youtube-id="#{$(this).data('url')}" id="#{vid}" 
-               preload="none" title="#{$(this).data('title')}" width="568" 
-               height="320">
-        </video>
-      """
+    
+    if $(this).data('sublime')
+      if $(this).data('youtube')
+        video = """
+          <video class="sublime" data-uid="#{vid}" 
+                 data-youtube-id="#{$(this).data('url')}" id="#{vid}" 
+                 preload="none" title="#{$(this).data('title')}" width="568" 
+                 height="320">
+          </video>
+        """
+      else
+        video = """
+          <video class="sublime" data-uid="#{vid}" 
+                 id="#{vid}" 
+                 preload="none" title="#{$(this).data('title')}" width="568" 
+                 height="320">
+            <source src="#{$(this).data('url')}"></source>  
+          </video>
+        """
     else
-      video = """
-        <video class="sublime" data-uid="#{vid}" 
-               id="#{vid}" 
-               preload="none" title="#{$(this).data('title')}" width="568" 
-               height="320">
-          <source src="#{$(this).data('url')}"></source>  
-        </video>
-      """
+      if $(this).data('youtube')
+        video = """
+          <video class="mediaelementjs" id="#{vid}" 
+                 preload="none" title="#{$(this).data('title')}" width="568" 
+                 height="320">
+            <source type="video/youtube" src="https://youtu.be/#{$(this).data('url')}"></source> 
+          </video>
+        """
+      else
+        video = """
+          <video class="mediaelementjs" id="#{vid}" src="#{$(this).data('url')}"
+                 preload="none" title="#{$(this).data('title')}" width="568" 
+                 height="320">
+          </video>
+        """
     html = """
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -86,8 +124,12 @@ window.ui_rebind_application_events  = ($) ->
 
     $('#page-modal .modal-dialog .modal-content').html(html)
     $("#page-modal").modal()
-    sublime.load()
-    sublime.prepare(vid)
+
+    if $(this).data('sublime')
+      sublime.load()
+      sublime.prepare(vid)
+    else
+      player = new MediaElementPlayer "##{vid}", success: (mediaelement, node) ->
 
     $('#page-modal').on 'hide.bs.modal', (e) ->
       $('#page-modal .modal-dialog .modal-content').html('')
@@ -413,7 +455,6 @@ window.ui_rebind_application_events  = ($) ->
   $('.sortable-question-sort').sortable(
     axis: 'y' 
     update: ->
-      alert($(this).sortable('serialize'))
   )
 
   $('.btn-popover').popover()

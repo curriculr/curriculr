@@ -10,7 +10,7 @@
   </td>
 	<td>
 		<%
-      roles_all = $site['role'].uniq.sort
+      roles_all = t('config.role').keys.sort
       roles_cur = user.roles.map {|r| r.name }.uniq.sort
 			links = []
 			links << link(:profile, :edit, edit_user_path(user))

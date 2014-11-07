@@ -899,7 +899,7 @@ $btn-facebook-color: #3b5998;
 }
 
 $btn-google-plus-color:#dd4b39;
-.btn-google-plus {
+.btn-google {
   @include button-variant(white, $btn-google-plus-color, rgba(0, 0, 0, 0.2));
 }
 
