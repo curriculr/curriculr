@@ -20,25 +20,11 @@ Devise.setup do |config|
   # ==> OmniAuth
   #require "omniauth-facebook"
   OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE if Rails.env.development? 
-  config.omniauth :facebook, 
-    Rails.application.secrets.auth['facebook']['id'], 
-    Rails.application.secrets.auth['facebook']['secret']
-  
-  #require "omniauth-google-oauth2"
-  config.omniauth :google_oauth2, 
-    Rails.application.secrets.auth['google_oauth2']['id'], 
-    Rails.application.secrets.auth['google_oauth2']['secret']
-
-  config.omniauth :twitter, 
-    Rails.application.secrets.auth['twitter']['id'], 
-    Rails.application.secrets.auth['twitter']['secret']
-
-
-  config.omniauth :linkedin, 
-    Rails.application.secrets.auth['linkedin']['id'], 
-    Rails.application.secrets.auth['linkedin']['secret']
-
-  config.omniauth :github, 
-    Rails.application.secrets.auth['github']['id'], 
-    Rails.application.secrets.auth['github']['secret']
+  %w(facebook google_oauth2 twitter linkedin github).each do |app|
+    if Rails.application.secrets.auth[app]
+      config.omniauth app, 
+        Rails.application.secrets.auth[app]['id'], 
+        Rails.application.secrets.auth[app]['secret']
+    end
+  end
 end

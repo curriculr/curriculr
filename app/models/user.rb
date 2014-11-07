@@ -1,12 +1,13 @@
 class User < ActiveRecord::Base  
   include Scopeable
+  include Omniauthable
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :omniauth_providers => [
-            :facebook, :google_oauth2, :twitter
+            :facebook, :google_oauth2
          ]
          
   rolify       
@@ -27,60 +28,6 @@ class User < ActiveRecord::Base
   validates :email, uniqueness: { :scope => :account_id }
   def email_changed?
     false # To prevent devise from checking email uniqueness which we'll do ourselves.
-  end
-
-  def self.find_for_facebook_oauth(auth, signed_in_resource=nil)
-    user = User.where('(provider = :provider and uid = :uid) or email = :email',
-    :provider => auth.provider, :uid => auth.uid, :email => auth.info.email).first
-    unless user
-      user = User.create(name: auth.extra.raw_info.name,
-        provider: auth.provider,
-        uid: auth.uid,
-        email: auth.info.email,
-        account_id: Account.current_id,
-        password: Devise.friendly_token[0,20],
-        avatar: auth.info.image
-      )
-
-      user.skip_confirmation! 
-      user.save!
-    else
-      if auth.info.image.present? and (user.provider != auth.provider or user.uid.blank?)
-        user.update(
-          provider: auth.provider,
-          uid: auth.uid,
-          avatar: auth.info.image
-        )
-      end
-    end
-    user
-  end
-  
-  def self.find_for_google_oauth2(access_token, signed_in_resource=nil)
-    puts access_token
-    data = access_token.info
-    user = User.where(:email => data["email"]).first
-
-    unless user
-      user = User.new(name: data["name"],
-        provider: access_token.provider,
-        email: data["email"],
-        uid: access_token.uid,
-        password: Devise.friendly_token[0,20],
-        avatar: data["image"]
-      )
-      user.skip_confirmation! 
-      user.save!
-    else
-      if data["image"].present? and (user.provider != access_token.provider or user.uid.blank?) 
-        user.update(
-          provider: access_token.provider,
-          uid: access_token.uid,
-          avatar: data["image"]
-        ) 
-      end
-    end
-    user
   end
   
   def self.new_with_session(params, session)

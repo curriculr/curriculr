@@ -1,7 +1,8 @@
 
 <% external_links = capture do %>
-<% [:facebook, :google_oauth2, :twitter, :linkedin, :github].each do |app| %>
-	<% if Rails.application.secrets.auth[app.to_s]['id'].present? && Rails.application.secrets.auth[app.to_s]['secret'].present? %>
+<% [:facebook, :google_oauth2].each do |app| %>
+	<% app_secrets = Rails.application.secrets.auth[app.to_s] %>
+	<% if app_secrets && app_secrets['id'].present? && app_secrets['secret'].present? %>
 		<% app_name = app == :google_oauth2 ? :google : app %>
 		<%= link_to omniauth_authorize_path(resource_name, app), :class => css_button(app_name, :lg) do %>
   		<i class="fa fa-<%= app_name %> fa-lg"></i> 
