@@ -16,7 +16,6 @@
       class:"#{'active' if @page && @page == @klass.course.syllabus}")
   end
 
-
   if @klass.course.config['allow_access_to']['lectures']
     if (@klass.open? and ((@klass.allow_enrollment and enrolled) or @klass.previewed)) or (@klass.past? and @klass.lectures_on_closed)
       links << link(:lecture, :index, learn_klass_lectures_path(@klass), 
@@ -35,46 +34,86 @@
 
   if @klass.course.config['allow_access_to']['assessments']
     if @klass.allow_enrollment and @klass.open? and enrolled
+      assessment_links = []
+
       course_assessments = @klass.course.assessments.where('unit_id is null and ready = TRUE and kind in (:kinds)',      
         :kinds => @klass.course.config["grading"]["distribution"]["assessments"]["course"].keys)
       course_assessments.each do |a|
-       links << link_to(a.name, learn_klass_assessment_path(@klass, a), 
+       assessment_links << link_to(a.name, learn_klass_assessment_path(@klass, a), 
           class:"#{'active' if %w(assessments attempts).include?(controller_name) && @assessment && @assessment.id == a.id}")
       end if course_assessments.any?
     
       @klass.course.config["grading"]["distribution"]["assessments"]["unit"].keys.each do |k| 
-        links << link(:assessment, k, learn_klass_assessments_path(@klass, :s => k), 
+        assessment_links << link(:assessment, k, learn_klass_assessments_path(@klass, :s => k), 
           class:"#{'active' if %w(assessments attempts).include?(controller_name) && params[:s] && params[:s] == k.to_s}")
       end 
+
+      if assessment_links.present?
+        links << content_tag(:div , Assessment.model_name.human(count: 3), :class => 'subtitle')
+        links += assessment_links
+      end
     end
   end
   
+  if @klass.allow_enrollment and @klass.open? and enrolled
+    survey_links = []
+    surveys = @klass.course.assessments.
+      where("unit_id is null and ready = TRUE and kind = 'survey'").
+      tagged_with(:on_enroll, :exclude => true)
+
+    surveys.each do |survey|
+      if survey.can_be_taken?(@klass, current_student)
+        survey_links << link_to(survey.name, new_learn_klass_assessment_attempt_path(@klass, survey))
+      end
+    end
+
+
+    if survey_links.present?
+      links << content_tag(:div , t('page.titles.surveys'), :class => 'subtitle')
+      links += survey_links
+    end
+  end
+
+
+  pages_links = []
   pages = enrolled ? @klass.course.non_syllabus_pages(true).to_a : @klass.course.non_syllabus_pages(true, true).to_a  
   if pages.present?
-    links << link_to(Page.model_name.human(count: 3), learn_klass_pages_path(@klass), 
+    pages_links << link_to(Page.model_name.human(count: 3), learn_klass_pages_path(@klass), 
       class:"#{'active' if controller_name == 'pages' && (@page.nil? || @page != @klass.course.syllabus) }")
   end
     
   books = enrolled ? @klass.course.books : []
   if books.present?
-    links << link_to(t('page.titles.attachments'), learn_klass_materials_path(@klass), 
+    pages_links << link_to(t('page.titles.attachments'), learn_klass_materials_path(@klass), 
       class:"#{'active' if controller_name == 'materials' }")
   end
-      
+     
+  if pages_links.present?
+    links << content_tag(:div , t('page.titles.readings'), :class => 'subtitle')
+    links += pages_links
+  end
+
   if @klass.allow_enrollment and enrolled 
+    records_links = []
     if @klass.course.config['allow_access_to']['reports']
       if @klass.open? or @klass.past? 
-        links << link(:record, :index, report_learn_klass_path(@klass), 
+        records_links << link(:record, :index, report_learn_klass_path(@klass), 
           class:"#{'active' if controller_name == 'records'}")
       end 
     end
     
     if !staff?(current_user, @klass.course) and (@klass.open? or @klass.future?) and enrolled
-      links << link(:klass, :drop, drop_learn_klass_path(@klass), method: :put, confirm: true)
+      records_links << link(:klass, :drop, drop_learn_klass_path(@klass), method: :put, confirm: true)
     end
+
+    if records_links.present?
+      links << content_tag(:div, t('page.titles.progress'), :class => 'subtitle')
+      links += records_links
+    end    
   end 
   
   if @klass and staff?(current_user, @klass.course)
+    links << content_tag(:div, t('page.titles.for_instructors'), :class => 'subtitle')
     links << link_to(t('page.titles.students'), students_learn_klass_path(@klass))
   end
   %>

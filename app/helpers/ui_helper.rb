@@ -77,7 +77,7 @@ module UiHelper
       :url => URI.join(root_url, learn_klass_path(klass))
     }
 
-    link_to "https://plus.google.com/share?#{options.to_query}", class: css_button(:'google-plus') do
+    link_to "https://plus.google.com/share?#{options.to_query}", class: css_button(:google) do
       %(#{content_tag(:i, "", :class => "fa fa-google-plus fa-lg")} 
       ).html_safe
     end

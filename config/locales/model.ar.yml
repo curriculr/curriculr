@@ -535,6 +535,9 @@ ar:
               
   page:
     titles:
+      readings: مقروءات
+      progress: أداء
+      for_instructors: للمدرسين فقط
       about: من نخن
       help: للمساعدة
       privacy: سرية البيانات

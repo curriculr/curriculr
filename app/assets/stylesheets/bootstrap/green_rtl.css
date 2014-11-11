@@ -64,7 +64,7 @@ section p {
   border-bottom: none;
 }
 
-/* line 130, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 129, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 #klass_search {
   border: 1px solid #dfe2e6;
@@ -73,7 +73,7 @@ section p {
   border-top-left-radius: 5px;
 }
 
-/* line 138, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 137, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .hero-unit {
   background: url("/images/jumbotron-bg.jpg") no-repeat;
@@ -82,26 +82,26 @@ section p {
   padding: 100px 0;
 }
 
-/* line 146, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 142, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .hero-unit .pattern {
   background: url("../images/pattern.png") repeat;
 }
 
-/* line 153, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 149, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .services h3 {
   margin-top: 0;
 }
 
-/* line 156, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 152, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .services .service {
   float: right;
   padding: 0 0 0 10px;
 }
 
-/* line 176, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 160, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .pricing .plan {
   text-align: center;
@@ -112,13 +112,13 @@ section p {
   border-radius: 5px;
 }
 
-/* line 183, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 166, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .pricing .plan button {
   margin: 10px 0 20px 0;
 }
 
-/* line 188, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 171, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .pricing .plan-head {
   background: #333c45;
@@ -128,14 +128,14 @@ section p {
   border-bottom: 2px solid #0eabb0;
 }
 
-/* line 195, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 178, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .pricing .plan-head h4 {
   color: #ffffff;
   font-weight: 400;
 }
 
-/* line 200, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 183, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .pricing .plan-head .price {
   font-size: 48px;
@@ -143,20 +143,20 @@ section p {
   margin: 0;
 }
 
-/* line 206, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 189, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .pricing .plan-head .description {
   color: #dfe2e6;
   font-weight: 300;
 }
 
-/* line 212, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 195, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .pricing .plan-features {
   padding: 20px 20px 0 20px;
 }
 
-/* line 215, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 198, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .pricing .plan-features li {
   list-style: none;
@@ -164,67 +164,67 @@ section p {
   padding: 10px;
 }
 
-/* line 223, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 205, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .pricing .recomended {
   background: #f7f8fa;
 }
 
-/* line 226, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 208, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .pricing .recomended .plan-head {
   background: #2c343c;
 }
 
 @media (max-width: 767px) {
-  /* line 233, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+  /* line 215, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
   .plan {
     margin: 0 20px 50px;
   }
 }
 
-/* line 238, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 220, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .extra-padded {
   padding-top: 20px;
 }
 
-/* line 240, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 222, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .extra-padded .page-header,
 .extra-padded h3 {
   margin-top: 0;
 }
 
-/* line 247, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 229, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .page-header h2 small {
   color: #0eabb0;
   font-size: 45%;
 }
 
-/* line 255, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 237, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .page-header h3 small .dropdown {
   font-size: 85%;
   padding-top: 10px;
 }
 
-/* line 263, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 245, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .course-header {
   margin-bottom: 20px;
 }
 
-/* line 265, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 247, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .course-header img {
   margin: 40px 0 10px;
   border-bottom: 2px solid #0eabb0;
 }
 
-/* line 273, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 255, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .side-navabar img {
   margin-top: 40px;
@@ -232,7 +232,7 @@ section p {
   border-top-left-radius: 5px;
 }
 
-/* line 278, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 260, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .side-navabar .nav-and-social-container {
   border: 1px solid #dfe2e6;
@@ -241,7 +241,7 @@ section p {
   border-bottom-left-radius: 5px;
 }
 
-/* line 284, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 266, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .side-navabar .nav-and-social-container ul {
   display: block;
@@ -249,27 +249,27 @@ section p {
   margin-bottom: 0px;
 }
 
-/* line 289, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 271, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .side-navabar .nav-and-social-container ul li {
   list-style-type: none;
 }
 
-/* line 292, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 274, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .side-navabar .nav-and-social-container ul li a {
   display: block;
-  padding: 7px 10px;
+  padding: 4px 10px;
   color: #4d4d4d;
 }
 
-/* line 296, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 278, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .side-navabar .nav-and-social-container ul li a:hover {
   color: #0eabb0;
 }
 
-/* line 299, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 281, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .side-navabar .nav-and-social-container ul li a::after {
   content: "\f104";
@@ -277,26 +277,34 @@ section p {
   float: left;
 }
 
-/* line 305, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 288, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+
+.side-navabar .nav-and-social-container ul li .subtitle {
+  padding: 12px 10px 4px 10px;
+  font-size: 90%;
+  color: #dfe2e6;
+}
+
+/* line 294, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .side-navabar .nav-and-social-container ul li .active {
   color: #0eabb0;
 }
 
-/* line 310, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 299, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .side-navabar .nav-and-social-container .social-buttons {
   padding: 25px;
   border-top: 1px dashed #dfe2e6;
 }
 
-/* line 314, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 303, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .side-navabar .nav-and-social-container .social-buttons .btn {
   border: 0px;
 }
 
-/* line 321, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 310, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .announcement {
   width: 100%;
@@ -306,7 +314,7 @@ section p {
   text-align: center;
 }
 
-/* line 327, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 316, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .announcement a {
   font-size: 12px;
@@ -314,7 +322,7 @@ section p {
   color: #6E5910;
 }
 
-/* line 335, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 324, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 #assessment-countdown.hasCountdown {
   border: 1px solid #dfe2e6;
@@ -322,39 +330,39 @@ section p {
   background: none;
 }
 
-/* line 343, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 332, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .question-pick_many label,
 .question-pick_one label {
   font-weight: 400;
 }
 
-/* line 346, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 335, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .question-pick_many .fa-check::before,
 .question-pick_one .fa-check::before {
   color: #2fbfa7;
 }
 
-/* line 351, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 340, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .question-hint {
   color: #61bfdf;
 }
 
-/* line 355, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 344, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .question-explanation {
   color: #ed5770;
 }
 
-/* line 359, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 348, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .question-answer {
   color: #2fbfa7;
 }
 
-/* line 364, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 353, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .question-fill .form-control {
   width: auto;
@@ -362,7 +370,7 @@ section p {
   margin-right: 20px;
 }
 
-/* line 372, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 361, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .question .form-control {
   border: 1px solid #b4bbc4;
@@ -370,27 +378,27 @@ section p {
   box-shadow: none;
 }
 
-/* line 376, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 365, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .question .form-control:focus {
   -webkit-box-shadow: none;
   box-shadow: none;
 }
 
-/* line 385, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 373, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 ul.report-lists {
   padding-right: 0;
   padding-bottom: 15px;
 }
 
-/* line 389, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 377, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 ul.report-lists li {
   list-style-type: none;
 }
 
-/* line 391, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 379, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 ul.report-lists li:before {
   font-family: 'FontAwesome';
@@ -399,7 +407,7 @@ ul.report-lists li:before {
   padding-left: 5px;
 }
 
-/* line 398, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 386, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 ul.report-lists li.attended:before {
   font-family: 'FontAwesome';
@@ -408,14 +416,14 @@ ul.report-lists li.attended:before {
   padding-left: 5px;
 }
 
-/* line 413, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 400, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 #topic-posts .media .media-body img,
 .topics .media .media-body img {
   border-radius: 50%;
 }
 
-/* line 416, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 403, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 #topic-posts .media .media-body a.thumbs-down,
 #topic-posts .media .media-body a.thumbs-up,
@@ -425,7 +433,7 @@ ul.report-lists li.attended:before {
   color: #c2c8d0;
 }
 
-/* line 420, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 407, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 #topic-posts .media .media-body a.thumbs-down .text-danger,
 #topic-posts .media .media-body a.thumbs-up .text-danger,
@@ -434,7 +442,7 @@ ul.report-lists li.attended:before {
   color: #c2c8d0;
 }
 
-/* line 422, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 409, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 #topic-posts .media .media-body a.thumbs-down .text-danger:hover,
 #topic-posts .media .media-body a.thumbs-up .text-danger:hover,
@@ -443,7 +451,7 @@ ul.report-lists li.attended:before {
   color: #ed5770;
 }
 
-/* line 426, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 413, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 #topic-posts .media .media-body a.thumbs-down .text-success,
 #topic-posts .media .media-body a.thumbs-up .text-success,
@@ -453,7 +461,7 @@ ul.report-lists li.attended:before {
   color: #c2c8d0;
 }
 
-/* line 429, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 416, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 #topic-posts .media .media-body a.thumbs-down .text-success:hover,
 #topic-posts .media .media-body a.thumbs-up .text-success:hover,
@@ -462,7 +470,7 @@ ul.report-lists li.attended:before {
   color: #2fbfa7;
 }
 
-/* line 434, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 421, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 #topic-posts .media .media-body .reply-to-post,
 .topics .media .media-body .reply-to-post {
@@ -471,14 +479,14 @@ ul.report-lists li.attended:before {
   padding-right: 15px;
 }
 
-/* line 438, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 425, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 #topic-posts .media .media-body .reply-to-post:hover,
 .topics .media .media-body .reply-to-post:hover {
   color: #0eabb0;
 }
 
-/* line 442, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 429, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 #topic-posts .media .media-body .delete-post,
 .topics .media .media-body .delete-post {
@@ -487,27 +495,27 @@ ul.report-lists li.attended:before {
   padding-right: 15px;
 }
 
-/* line 446, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 433, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 #topic-posts .media .media-body .delete-post:hover,
 .topics .media .media-body .delete-post:hover {
   color: #ed5770;
 }
 
-/* line 451, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 437, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 #topic-posts .media .media-body hr,
 .topics .media .media-body hr {
   border-style: dashed;
 }
 
-/* line 459, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 445, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .panel {
   margin-bottom: 10px;
 }
 
-/* line 461, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 447, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .panel.panel-default {
   -webkit-box-shadow: none;
@@ -515,14 +523,14 @@ ul.report-lists li.attended:before {
   box-shadow: none;
 }
 
-/* line 466, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 452, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .panel .table-hover {
   margin-bottom: 0;
   vertical-align: middle;
 }
 
-/* line 470, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 456, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .panel .table-hover td {
   vertical-align: middle;
@@ -530,51 +538,51 @@ ul.report-lists li.attended:before {
   padding-left: 20px;
 }
 
-/* line 474, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 460, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .panel .table-hover td .radio,
 .panel .table-hover td .checkbox {
   margin: 5px 0;
 }
 
-/* line 479, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 465, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .panel .table-condensed {
   margin-bottom: 0;
 }
 
-/* line 482, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 468, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .panel .table-condensed tr:first-child {
   border-top: 1px solid #dfe2e6;
 }
 
-/* line 486, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 472, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .panel .table-condensed tr:nth-of-type(odd) {
   background-color: #f7f8fa;
 }
 
-/* line 491, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 477, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .panel .table-condensed td {
   border-color: #dfe2e6;
   border-top: 1px dotted #dfe2e6;
 }
 
-/* line 494, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 480, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .panel .table-condensed td a {
   color: #4d4d4d;
 }
 
-/* line 496, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 482, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .panel .table-condensed td a:hover {
   color: #0eabb0;
 }
 
-/* line 504, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 490, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .panel.panel-inverse {
   -webkit-box-shadow: 0 0 0 1px #dfe2e6 inset;
@@ -582,7 +590,7 @@ ul.report-lists li.attended:before {
   box-shadow: 0 0 0 1px #dfe2e6 inset;
 }
 
-/* line 507, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 493, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .panel.panel-inverse .table-hover,
 .panel.panel-inverse .table-condensed {
@@ -591,44 +599,44 @@ ul.report-lists li.attended:before {
   width: calc(100% - 2px);
 }
 
-/* line 514, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 500, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .panel.panel-inverse.klass-lecture .col-md-9 {
   padding: 20px 35px 20px 15px;
 }
 
-/* line 518, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 504, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .panel.panel-inverse.klass-lecture .col-md-3 {
   padding: 20px 15px 20px 35px;
 }
 
-/* line 522, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 508, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .panel.panel-inverse.klass-lecture .col-sm-9 {
   padding: 20px 35px 20px 15px;
 }
 
-/* line 526, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 512, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .panel.panel-inverse.klass-lecture .col-sm-3 {
   padding: 20px 15px 20px 35px;
 }
 
-/* line 530, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 516, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .panel.panel-inverse .panel-heading {
   border-bottom: none !important;
 }
 
-/* line 533, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 519, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .panel.panel-inverse .panel-heading .pager {
   margin: 0px;
   padding: 3px;
 }
 
-/* line 536, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 522, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .panel.panel-inverse .panel-heading .pager a {
   padding: 0px;
@@ -637,33 +645,33 @@ ul.report-lists li.attended:before {
   border: none;
 }
 
-/* line 541, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 527, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .panel.panel-inverse .panel-heading .pager a:hover {
   color: #0eabb0;
 }
 
-/* line 547, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 533, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .panel.panel-inverse .panel-heading .panel-title {
   padding: 5px 0;
   font-weight: 300;
 }
 
-/* line 552, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 538, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .panel.panel-inverse .panel-heading .panel-title a:not(.btn, .dropdown-menu):hover {
   color: #0eabb0;
   text-decoration: none;
 }
 
-/* line 557, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 543, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .panel.panel-inverse .panel-heading .panel-title .btn {
   border: none;
 }
 
-/* line 560, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 546, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .panel.panel-inverse .panel-heading .panel-title .badge {
   background: white;
@@ -671,38 +679,38 @@ ul.report-lists li.attended:before {
   margin-right: 5px;
 }
 
-/* line 567, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 553, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .panel.panel-inverse .panel-body {
   padding: 0;
   border-top: 2px solid #0eabb0 !important;
 }
 
-/* line 571, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 557, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .panel.panel-inverse .panel-body .col-md-12 {
   padding: 20px 35px;
 }
 
-/* line 575, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 561, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .panel.panel-inverse .panel-body .btn-primary {
   border: 0;
 }
 
-/* line 577, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 563, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .panel.panel-inverse .panel-body .btn-primary:hover {
   background: #333c45;
 }
 
-/* line 583, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 568, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .panel.panel-inverse .panel-body hr {
   margin: 0px;
 }
 
-/* line 587, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 572, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .panel.panel-inverse .panel-body .nav-tabs {
   margin-right: 1px;
@@ -710,56 +718,56 @@ ul.report-lists li.attended:before {
   background: #f7f8fa;
 }
 
-/* line 591, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 576, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .panel.panel-inverse .panel-body .nav-tabs.tabs-default {
   background: none;
 }
 
-/* line 596, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 581, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .panel.panel-inverse .panel-body .page-header h4 {
   margin-top: 0;
 }
 
-/* line 601, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 586, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .panel.panel-inverse .panel-body #home ul {
   padding-right: 15px;
 }
 
-/* line 605, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 590, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .panel.panel-inverse .panel-body #home ul li a {
   color: #4d4d4d;
 }
 
-/* line 607, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 592, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .panel.panel-inverse .panel-body #home ul li a:hover {
   color: #0eabb0;
 }
 
-/* line 619, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 603, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 #klass-approve-indicator {
   margin-bottom: 0;
   border-radius: 0;
 }
 
-/* line 625, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 609, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 #media-pane {
   margin-bottom: 15px;
 }
 
-/* line 629, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 613, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 ul.pagination {
   padding-top: 10px;
 }
 
-/* line 632, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 616, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 ul.pagination li a {
   margin-left: 5px;
@@ -769,14 +777,14 @@ ul.pagination li a {
   border: 0;
 }
 
-/* line 642, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 626, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 ul.breadcrumb {
   padding: 0;
   background: none;
 }
 
-/* line 646, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 630, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 ul.breadcrumb li + li::before {
   content: '\f104';
@@ -784,7 +792,7 @@ ul.breadcrumb li + li::before {
   padding: 0 8px;
 }
 
-/* line 656, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 639, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .footer {
   background: #272e35;
@@ -794,26 +802,26 @@ ul.breadcrumb li + li::before {
   margin-top: 100px;
 }
 
-/* line 664, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 647, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .footer .footer-links ul {
   padding: 0px;
 }
 
-/* line 667, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 650, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .footer .footer-links .markdown-output {
   padding-top: 8px;
 }
 
-/* line 670, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 653, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .footer .footer-links li {
   list-style-type: none;
   padding-bottom: 5px;
 }
 
-/* line 674, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 657, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .footer .footer-links li h1,
 .footer .footer-links li h2,
@@ -824,32 +832,32 @@ ul.breadcrumb li + li::before {
   color: #ffffff;
 }
 
-/* line 677, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 660, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .footer .footer-links li ul {
   padding-right: 0;
 }
 
-/* line 680, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 663, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .footer .footer-links li a {
   color: #c2c8d0;
 }
 
-/* line 683, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 666, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .footer .footer-links li a:hover {
   text-decoration: none;
   color: #0eabb0;
 }
 
-/* line 688, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 671, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .footer .footer-links li span {
   color: #0eabb0;
 }
 
-/* line 695, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 678, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .footer-bottom {
   background: #1c2126;
@@ -858,20 +866,20 @@ ul.breadcrumb li + li::before {
   font-weight: 300;
 }
 
-/* line 701, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 684, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .footer-bottom a {
   color: #0eabb0;
 }
 
-/* line 703, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 686, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .footer-bottom a:hover {
   text-decoration: none;
   color: #0a7d81;
 }
 
-/* line 711, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 694, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .table td {
   vertical-align: middle !important;
@@ -14218,97 +14226,97 @@ button.close {
   content: "\f20c";
 }
 
-/* line 722, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 702, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .page-header {
   border-color: #dfe2e6;
 }
 
-/* line 726, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 706, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .btn:focus {
   outline: none !important;
 }
 
-/* line 733, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 713, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .nav-tabs li a {
   color: #4d4d4d;
   border: 0;
 }
 
-/* line 736, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 716, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .nav-tabs li a:hover {
   background: none;
   color: #0eabb0;
 }
 
-/* line 741, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 721, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .nav-tabs li.active {
   border-bottom: 2px solid #0eabb0;
 }
 
-/* line 743, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 723, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .nav-tabs li.active a {
   color: #0eabb0;
 }
 
-/* line 745, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 725, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .nav-tabs li.active a:hover {
   color: #0eabb0;
 }
 
-/* line 756, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 736, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .navbar .navbar-header .navbar-brand {
   padding: 10px 15px;
 }
 
-/* line 761, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 741, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .navbar .navbar-nav li {
   font-weight: 200;
   border-right: 1px solid #272e35;
 }
 
-/* line 764, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 744, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .navbar .navbar-nav li.active {
   border-bottom: 2px solid #0eabb0;
 }
 
-/* line 766, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 746, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .navbar .navbar-nav li.active a {
   background-color: transparent;
   color: #0eabb0;
 }
 
-/* line 769, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 749, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .navbar .navbar-nav li.active a:hover {
   background-color: transparent;
   color: #0eabb0;
 }
 
-/* line 777, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 758, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .navbar ul.dropdown-menu {
   border: 1px solid #dfe2e6;
   width: 100%;
 }
 
-/* line 780, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 761, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .navbar ul.dropdown-menu li {
   border-right: none;
 }
 
-/* line 785, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 767, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .navbar .dropdown-toggle img {
   border-radius: 50%;
@@ -14316,33 +14324,33 @@ button.close {
   margin-top: -3px;
 }
 
-/* line 793, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 775, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .navbar-custom {
   background-color: #1c2126;
   height: auto;
 }
 
-/* line 797, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 779, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .navbar-custom .navbar-nav li {
   border-right: none;
 }
 
-/* line 799, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 781, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .navbar-custom .navbar-nav li a {
   color: white;
   font-weight: 300;
 }
 
-/* line 802, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 784, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .navbar-custom .navbar-nav li a:hover {
   color: white;
 }
 
-/* line 812, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 794, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .navbar-custom .nav li a:hover,
 .navbar-custom .nav li a:focus,
@@ -14351,13 +14359,13 @@ button.close {
   background-color: #0eabb0;
 }
 
-/* line 818, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 800, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .navbar-custom .navbar-toggle .icon-bar {
   background: #0eabb0;
 }
 
-/* line 823, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 805, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .navbar-custom .navbar-toggle:focus,
 .navbar-custom .navbar-toggle:active {
@@ -14365,13 +14373,13 @@ button.close {
 }
 
 @media (min-width: 767px) {
-  /* line 830, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+  /* line 812, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
   .navbar {
     height: 50px;
   }
 
-  /* line 833, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+  /* line 815, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
   .navbar-custom {
     padding: 50px 0;
@@ -14383,7 +14391,7 @@ button.close {
     transition: background .6s ease-in-out, padding .6s ease-in-out;
   }
 
-  /* line 842, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+  /* line 824, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
   .top-nav-collapse {
     padding: 0;
@@ -14392,14 +14400,14 @@ button.close {
 }
 
 @media (max-width: 767px) {
-  /* line 851, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+  /* line 833, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
   .navbar .navbar-nav li.active {
     border-bottom: none;
   }
 }
 
-/* line 859, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 841, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .panel-inverse {
   border-color: none;
@@ -14425,7 +14433,7 @@ button.close {
   border-bottom-color: none;
 }
 
-/* line 864, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 846, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 #featured-klass-list .media,
 .klass-list .media,
@@ -14434,7 +14442,7 @@ button.close {
   border-bottom: 1px dashed #dfe2e6;
 }
 
-/* line 867, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 849, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 #featured-klass-list .media:last-child,
 .klass-list .media:last-child,
@@ -14443,7 +14451,7 @@ button.close {
   padding-bottom: 0;
 }
 
-/* line 873, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 854, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 #featured-klass-list .media a img,
 .klass-list .media a img,
@@ -14451,7 +14459,7 @@ button.close {
   border-left: 2px solid #0eabb0;
 }
 
-/* line 878, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 858, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 #featured-klass-list .media .media-body,
 .klass-list .media .media-body,
@@ -14459,7 +14467,7 @@ button.close {
   padding-right: 15px;
 }
 
-/* line 881, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 861, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 #featured-klass-list .media .media-body .klass-labels,
 .klass-list .media .media-body .klass-labels,
@@ -14467,7 +14475,7 @@ button.close {
   margin: 5px 0;
 }
 
-/* line 883, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 863, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 #featured-klass-list .media .media-body .klass-labels .text-muted,
 .klass-list .media .media-body .klass-labels .text-muted,
@@ -14478,7 +14486,7 @@ button.close {
   padding: 0 5px;
 }
 
-/* line 888, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 868, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 #featured-klass-list .media .media-body .klass-labels .text-muted:first-child,
 .klass-list .media .media-body .klass-labels .text-muted:first-child,
@@ -14486,7 +14494,7 @@ button.close {
   padding: 0 0 0 7px;
 }
 
-/* line 891, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 871, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 #featured-klass-list .media .media-body .klass-labels .text-muted:last-child,
 .klass-list .media .media-body .klass-labels .text-muted:last-child,
@@ -14494,19 +14502,19 @@ button.close {
   border-left: none;
 }
 
-/* line 901, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 881, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 body {
   padding-top: 50px;
 }
 
-/* line 903, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 883, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 body a:hover {
   text-decoration: none;
 }
 
-/* line 906, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 886, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 body .announcement {
   background-color: #fcf8e3;
@@ -14514,19 +14522,19 @@ body .announcement {
   color: #8a6d3b;
 }
 
-/* line 910, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 890, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 body .announcement a {
   color: #0eabb0;
 }
 
-/* line 912, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 892, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 body .announcement a:hover {
   color: #086669;
 }
 
-/* line 924, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 904, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .btn-facebook {
   color: white;
@@ -14582,9 +14590,9 @@ fieldset[disabled] .btn-facebook.active {
   background-color: white;
 }
 
-/* line 929, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 909, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
-.btn-google-plus {
+.btn-google {
   color: white;
   background-color: #dd4b39;
   border-color: rgba(0, 0, 0, 0.2);
@@ -14592,11 +14600,11 @@ fieldset[disabled] .btn-facebook.active {
 
 /* line 15, /Users/aalgahmi/.rvm/gems/ruby-2.0.0-p247/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/mixins/_buttons.scss */
 
-.btn-google-plus:hover,
-.btn-google-plus:focus,
-.btn-google-plus:active,
-.btn-google-plus.active,
-.open > .btn-google-plus.dropdown-toggle {
+.btn-google:hover,
+.btn-google:focus,
+.btn-google:active,
+.btn-google.active,
+.open > .btn-google.dropdown-toggle {
   color: white;
   background-color: #c23321;
   border-color: rgba(0, 0, 0, 0.2);
@@ -14604,41 +14612,41 @@ fieldset[disabled] .btn-facebook.active {
 
 /* line 22, /Users/aalgahmi/.rvm/gems/ruby-2.0.0-p247/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/mixins/_buttons.scss */
 
-.btn-google-plus:active,
-.btn-google-plus.active,
-.open > .btn-google-plus.dropdown-toggle {
+.btn-google:active,
+.btn-google.active,
+.open > .btn-google.dropdown-toggle {
   background-image: none;
 }
 
 /* line 32, /Users/aalgahmi/.rvm/gems/ruby-2.0.0-p247/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/mixins/_buttons.scss */
 
-.btn-google-plus.disabled,
-.btn-google-plus.disabled:hover,
-.btn-google-plus.disabled:focus,
-.btn-google-plus.disabled:active,
-.btn-google-plus.disabled.active,
-.btn-google-plus[disabled],
-.btn-google-plus[disabled]:hover,
-.btn-google-plus[disabled]:focus,
-.btn-google-plus[disabled]:active,
-.btn-google-plus[disabled].active,
-fieldset[disabled] .btn-google-plus,
-fieldset[disabled] .btn-google-plus:hover,
-fieldset[disabled] .btn-google-plus:focus,
-fieldset[disabled] .btn-google-plus:active,
-fieldset[disabled] .btn-google-plus.active {
+.btn-google.disabled,
+.btn-google.disabled:hover,
+.btn-google.disabled:focus,
+.btn-google.disabled:active,
+.btn-google.disabled.active,
+.btn-google[disabled],
+.btn-google[disabled]:hover,
+.btn-google[disabled]:focus,
+.btn-google[disabled]:active,
+.btn-google[disabled].active,
+fieldset[disabled] .btn-google,
+fieldset[disabled] .btn-google:hover,
+fieldset[disabled] .btn-google:focus,
+fieldset[disabled] .btn-google:active,
+fieldset[disabled] .btn-google.active {
   background-color: #dd4b39;
   border-color: rgba(0, 0, 0, 0.2);
 }
 
 /* line 38, /Users/aalgahmi/.rvm/gems/ruby-2.0.0-p247/gems/bootstrap-sass-3.1.1.1/vendor/assets/stylesheets/bootstrap/mixins/_buttons.scss */
 
-.btn-google-plus .badge {
+.btn-google .badge {
   color: #dd4b39;
   background-color: white;
 }
 
-/* line 934, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 914, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .btn-twitter {
   color: white;
@@ -14694,20 +14702,20 @@ fieldset[disabled] .btn-twitter.active {
   background-color: white;
 }
 
-/* line 938, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 918, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 #paginator .pagination {
   margin: 0 0 20px auto;
 }
 
-/* line 943, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 923, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .checkbox-collection label::after {
   content: '\A';
   white-space: pre;
 }
 
-/* line 950, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 930, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 select.form-control + .chosen-container.chosen-container-single .chosen-single {
   display: block;
@@ -14728,14 +14736,14 @@ select.form-control + .chosen-container.chosen-container-single .chosen-single {
   background-image: none;
 }
 
-/* line 969, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 949, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 select.form-control + .chosen-container.chosen-container-single .chosen-single div {
   top: 4px;
   color: #000;
 }
 
-/* line 974, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 954, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 select.form-control + .chosen-container .chosen-drop {
   background-color: #FFF;
@@ -14748,7 +14756,7 @@ select.form-control + .chosen-container .chosen-drop {
   margin: 2px 0 0;
 }
 
-/* line 986, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 966, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 select.form-control + .chosen-container .chosen-search input[type=text] {
   display: block;
@@ -14769,7 +14777,7 @@ select.form-control + .chosen-container .chosen-search input[type=text] {
   background-image: none;
 }
 
-/* line 1005, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 985, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 select.form-control + .chosen-container .chosen-results {
   margin: 2px 0 0;
@@ -14780,7 +14788,7 @@ select.form-control + .chosen-container .chosen-results {
   margin-bottom: 5px;
 }
 
-/* line 1015, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 995, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 select.form-control + .chosen-container .chosen-results li,
 select.form-control + .chosen-container .chosen-results li.active-result {
@@ -14794,7 +14802,7 @@ select.form-control + .chosen-container .chosen-results li.active-result {
   background-image: none;
 }
 
-/* line 1028, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 1008, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 select.form-control + .chosen-container .chosen-results li:hover,
 select.form-control + .chosen-container .chosen-results li.active-result:hover,
@@ -14805,7 +14813,7 @@ select.form-control + .chosen-container .chosen-results li.highlighted {
   background-image: none;
 }
 
-/* line 1035, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 1015, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 select.form-control + .chosen-container-multi .chosen-choices {
   display: block;
@@ -14826,14 +14834,14 @@ select.form-control + .chosen-container-multi .chosen-choices {
   background-image: none;
 }
 
-/* line 1054, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 1034, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 select.form-control + .chosen-container-multi .chosen-choices li.search-field input[type="text"] {
   height: auto;
   padding: 5px 0;
 }
 
-/* line 1059, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 1039, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 select.form-control + .chosen-container-multi .chosen-choices li.search-choice {
   background-image: none;
@@ -14853,14 +14861,14 @@ select.form-control + .chosen-container-multi .chosen-choices li.search-choice {
   border-color: #CCC;
 }
 
-/* line 1078, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 1057, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 select.form-control + .chosen-container-multi .chosen-choices li.search-choice .search-choice-close {
   top: 8px;
   left: 6px;
 }
 
-/* line 1085, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 1064, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 select.form-control + .chosen-container-multi.chosen-container-active .chosen-choices,
 select.form-control + .chosen-container.chosen-container-single.chosen-container-active .chosen-single,
@@ -14871,7 +14879,7 @@ select.form-control + .chosen-container .chosen-search input[type=text]:focus {
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
 }
 
-/* line 1092, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 1071, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 select.form-control + .chosen-container-multi .chosen-results li.result-selected {
   display: list-item;
@@ -14880,7 +14888,7 @@ select.form-control + .chosen-container-multi .chosen-results li.result-selected
   background-color: white;
 }
 
-/* line 1099, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 1078, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .announcement {
   width: 100%;
@@ -14890,7 +14898,7 @@ select.form-control + .chosen-container-multi .chosen-results li.result-selected
   text-align: center;
 }
 
-/* line 1105, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 1084, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .announcement a {
   font-size: 12px;
@@ -14898,27 +14906,27 @@ select.form-control + .chosen-container-multi .chosen-results li.result-selected
   color: #6E5910;
 }
 
-/* line 1112, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 1091, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .search-form {
   padding: 10px;
 }
 
-/* line 1114, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 1093, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .search-form .form-group {
   display: block;
   width: 100%;
 }
 
-/* line 1119, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 1098, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .search-form .form-control,
 .search-form form- {
   width: 100%;
 }
 
-/* line 1124, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 1103, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 #search_klasses_form {
   border: 1px solid #dfe2e6;
@@ -14927,32 +14935,32 @@ select.form-control + .chosen-container-multi .chosen-results li.result-selected
   border-bottom-left-radius: 5px;
 }
 
-/* line 1130, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 1109, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 #search_klasses_form .checkbox {
   height: 20px;
   padding: 0 20px;
 }
 
-/* line 1135, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 1114, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 #search_klasses_form hr {
   border-style: dashed;
 }
 
-/* line 1139, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 1118, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 #search_klasses_form h5 {
   padding: 0 20px;
 }
 
-/* line 1144, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 1123, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 form.search-form {
   position: relative;
 }
 
-/* line 1146, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 1125, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 form.search-form::before {
   display: block;
@@ -14968,13 +14976,13 @@ form.search-form::before {
   z-index: 1000;
 }
 
-/* line 1159, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 1138, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 form.search-form input[type="search"] {
   padding-right: 26px;
 }
 
-/* line 1164, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 1143, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .video-container-yt {
   position: relative;
@@ -14984,7 +14992,7 @@ form.search-form input[type="search"] {
   overflow: hidden;
 }
 
-/* line 1172, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 1151, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .video-container-yt iframe,
 .video-container-yt object,
@@ -14996,19 +15004,19 @@ form.search-form input[type="search"] {
   height: 100%;
 }
 
-/* line 1180, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 1159, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .ace_editor {
   margin: 10px 0;
 }
 
-/* line 1184, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 1163, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 .hidden-til-processed {
   display: none;
 }
 
-/* line 1189, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
+/* line 1168, /Users/aalgahmi/Workspace/duroosi/lms/app/assets/stylesheets/bootstrap/overrides.scss */
 
 label.required:after {
   content: '*';

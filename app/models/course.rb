@@ -81,7 +81,7 @@ class Course < ActiveRecord::Base
   end
   
   def books
-    self.materials.where(:kind => :books)
+    self.materials_tagged(:books, :document)
   end
   
   def revision

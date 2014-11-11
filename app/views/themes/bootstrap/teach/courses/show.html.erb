@@ -89,7 +89,7 @@
         </div>
       </div>
       
-      <% books = @course.materials_tagged(:books, :document).to_a %>
+      <% books = @course.books.to_a %>
       <div class="panel panel-inverse">
         <div class="panel-heading">
           <h4 class="panel-title">

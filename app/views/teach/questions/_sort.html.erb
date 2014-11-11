@@ -3,15 +3,19 @@
 </div>
 
 <table class="<%= css_table %>">
-  <tbody>
-    <% q.options.sample(q.options.length).each_with_index do |o, i| %>
-      <tr class="row">
-        <td class="<%= css_columns(10) %>">
-          <%= i + 1%>. <%= processed_text(o.option) %>
-        </td>
-        <td class="<%= css_columns(2) %>">
-          <%= select_tag("attempt[#{q.id}][#{o.id}]", options_for_select(1..q.options.length, a ? a[o.id] : nil), 
-                :disabled => read_only, :include_blank => true, :class => css_form_control) %>
+  <tbody class="sortable-question-sort">
+    <% 
+      options = if a.present?
+        q.options.sort { |x,y| a[x.id] <=> a[y.id] }
+      else
+        q.options.sample(q.options.length)
+      end
+    %>
+    <% options.each_with_index do |o, i| %>
+      <tr class="row" id="question<%= q.id %>_<%= i + 1 %>">
+        <td class="<%= css_columns(12) %>">
+          <i class="fa fa-arrows"></i>&nbsp;<%= processed_text(o.option) %>
+          <%= hidden_field_tag("attempt[#{q.id}][#{o.id}]", a && a[o.id] ? a[o.id] : i + 1) %>
           <div id="<%= "answer_#{q.id}_#{o.id}"%>" class="question-answer"></div>
         </td>
       </tr>

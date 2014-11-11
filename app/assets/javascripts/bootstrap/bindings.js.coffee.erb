@@ -235,17 +235,6 @@ window.ui_rebind_application_events  = ($) ->
     else
       $('#assessment_penalty').val(0.0)
       $('#assessment_penalty').closest('.form-group').hide()
-  
-  ###    
-  $('#assessment_multiattempt_grading').unbind().on 'change', -> 
-    if $("#assessment_multiattempt_grading :selected").val() == 'average'
-      $('#assessment_droppable_attempts').closest('.form-group').show()
-    else
-      $('#assessment_droppable_attempts').closest('.form-group').hide()
-
-  if $("#assessment_multiattempt_grading :selected").val() != 'average'
-    $('#assessment_droppable_attempts').closest('.form-group').hide()
-  ###
 
   show_hide_answer_fields =  (val)->
     if val != null and val.indexOf("survey") != -1 and $("#question_kind").val() != "match"
@@ -420,15 +409,6 @@ window.ui_rebind_application_events  = ($) ->
   $(".datepicker").datepicker({dateFormat: "yy-mm-dd"})
   $(".datetimepicker").datetimepicker({dateFormat: "yy-mm-dd", timeFormat: "HH:mm", timezoneList: [{ value: 180, label: 'Mecca'}]})
 
-  # Questions hints and explanations
-  # $('.question-hint-link, .question-explanation-link').unbind().on 'click', (e) ->
-  #   if $($(this).attr('href')).hasClass("hidden")
-  #     $($(this).attr('href')).addClass("show")
-  #   else
-  #     $($(this).attr('href')).addClass("hidden")
-
-  #   e.preventDefault()
-
   # Reply to posts
   $('.reply-to-post').unbind().on 'click', (event) ->
     post_id = $(this).data('post-id')
@@ -455,6 +435,8 @@ window.ui_rebind_application_events  = ($) ->
   $('.sortable-question-sort').sortable(
     axis: 'y' 
     update: ->
+      $(this).find('input[type=hidden]').each (index, element) ->
+        $(element).val("#{index + 1}")
   )
 
   $('.btn-popover').popover()
