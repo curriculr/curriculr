@@ -216,15 +216,6 @@ window.ui_rebind_application_events  = ($) ->
 
   $('#medium_is_a_link').unbind().on 'click', ->
     show_hide_path_or_url($(this))
-  
-  show_hide_notification_base_type = (ch) ->
-    if ch == 'Assessment'
-      $('#notification_base_type').closest('.form-group').show()
-    else
-      $('#notification_base_type').val('')
-      $('#notification_base_type').closest('.form-group').hide()
-
-  show_hide_notification_base_type($('#notification_base').val())
 
   # Assessments
   $('#assessment_penalty').closest('.form-group').hide() unless $('#assessment_after_deadline').is(':checked')

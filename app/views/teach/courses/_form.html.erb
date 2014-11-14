@@ -37,15 +37,11 @@
              :'data-placeholder'=> t('activerecord.placeholders.level_list')} %>
     </div>
     <div class="<%= css_columns(6) %>">
-      <%= form_select f, :major_list, t('config.major').invert, 
-            {:value => @course.major_list}, {:multiple => true, :class => "chosen-select #{rtl? ? 'chosen-rtl' : ''}",
-             :'data-placeholder'=> t('activerecord.placeholders.major_list')} %>
+      <%= form_select f, :category_list, t('config.category').invert, 
+            {:value => @course.category_list}, {:multiple => true, :class => "chosen-select #{rtl? ? 'chosen-rtl' : ''}",
+             :'data-placeholder'=> t('activerecord.placeholders.category_list')} %>
     </div>
   </div>
-
-  <%= form_select f, :subject_list, t('config.subject').invert, 
-        {:value => @course.subject_list}, {:multiple => true, :class => "chosen-select #{rtl? ? 'chosen-rtl' : ''}",
-         :'data-placeholder'=> t('activerecord.placeholders.subject_list')} %>
 
   <%= form_submit f, (@course && !@course.new_record? ? teach_course_path(@course) : teach_courses_path) %>
 <% end %>

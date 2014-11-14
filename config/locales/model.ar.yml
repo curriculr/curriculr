@@ -298,8 +298,7 @@ ar:
       bank_list: اختر بنك الأسئلة الذي تريد اضافة هذا السؤال اليه ‫...‬
       country: اختر دولة ‫...‬
       level_list: اختر المستويات المنطبقة ‫...‬
-      major_list: اختر المجالات المنطبقة ‫...‬
-      subject_list: اختر المواضيع المنطبقة ‫...‬
+      category_list: اختر التصنيفات المنطبقة ‫...‬
       question_cont: للبحث ...
       name_or_email_cont: للبحث ...
       slug_or_name_cont: للبحث ...

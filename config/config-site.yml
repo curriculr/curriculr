@@ -15,6 +15,5 @@ site:
 
   filter_classes_by:
     language: true
-    major: true
     level: true
-    subject: true
+    category: true

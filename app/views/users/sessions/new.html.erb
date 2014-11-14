@@ -11,7 +11,7 @@
     
     <% if devise_mapping.registerable? && controller_name != 'registrations' %>
       <p><%= t('page.text.if_no_user_account') %></p>
-      <%= link :registration, :sign_up, new_registration_path(resource_name), :class => css_button(:success) %>
+      <%= link :registration, :sign_up, new_registration_path(resource_name), :class => css_button(:success, :lg) %>
     <% end %>
   </div>
 </div>

@@ -91,14 +91,9 @@ module Learn
         joins("left outer join tags lt on l.tag_id = lt.id").where("lt.name in (:levels)", levels: params[:level].keys)
       end
       
-      if params[:major]
-        @klasses = @klasses.joins("left outer join taggings m on courses.id = m.taggable_id and m.taggable_type = 'Course' and m.context = 'majors'").
-        joins("left outer join tags mt on m.tag_id = mt.id").where("mt.name in (:majors)", majors: params[:major].keys)
-      end
-      
-      if params[:subject]
-        @klasses = @klasses.joins("left outer join taggings s on courses.id = s.taggable_id and s.taggable_type = 'Course' and s.context = 'subjects'").
-        joins("left outer join tags st on s.tag_id = st.id").where("st.name in (:subjects)", subjects: params[:subject].keys)
+      if params[:category]
+        @klasses = @klasses.joins("left outer join taggings s on courses.id = s.taggable_id and s.taggable_type = 'Course' and s.context = 'categories'").
+        joins("left outer join tags st on s.tag_id = st.id").where("st.name in (:categories)", categories: params[:category].keys)
       end
       
       @klasses

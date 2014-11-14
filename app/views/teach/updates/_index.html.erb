@@ -15,19 +15,19 @@
           <h4>
             <%= update.subject %></strong> &nbsp;
             <%= content_tag :span do %>
-              <%= content_tag :i, '', :class => 'fa fa-globe', :title => t("config.notification.kind.www") %>
+              <%= content_tag :i, '', :class => 'fa fa-globe', :title => t("config.update.kind.www") %>
             <% end if update.www %> 
             &nbsp;
             <%= content_tag :span do %>
-              <%= content_tag :i, '', :class => 'fa fa-envelope', :title => t("config.notification.kind.email") %>
+              <%= content_tag :i, '', :class => 'fa fa-envelope', :title => t("config.update.kind.email") %>
             <% end if update.email %> 
             &nbsp;
             <%= content_tag :span do %>
-              <%= content_tag :i, '', :class => 'fa fa-comment', :title => t("config.notification.kind.sms") %>
+              <%= content_tag :i, '', :class => 'fa fa-comment', :title => t("config.update.kind.sms") %>
             <% end if update.sms %> 
             <br>
             <small>
-            <%= t('page.text.to') %> <%= t('config.notification.to.' + update.to) %>
+            <%= t('page.text.to') %> <%= t('config.update.to.' + update.to) %>
             <%= "#{I18n.t('page.text.on')} #{I18n.l(update.created_at.to_date)})" %>
             </small>
   				</h4>
@@ -39,10 +39,6 @@
           <% end %>
   				<%= markdown update.body, :class => 'shortenable-text' %>
   			</td>
-        <!--td>
-          <strong><%# t('page.text.to') %></strong>: 
-          <%# t('config.notification.to.' + update.to) %>
-        </td-->
   		</tr>
 		  <% end %>
     <% else %>

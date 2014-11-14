@@ -72,7 +72,7 @@ ar:
         on_enroll: عند التسجيل في الفصل
         #on_drop: عند الإنسحاب من الفصل
         
-    notification:
+    update:
       kind:
         sms: رسائل قصيرة
         email: بريد إلكتروني
@@ -134,20 +134,17 @@ ar:
     filter:
       language: حسب اللغة
       country: حسب البلد
-      major: حسب التخصص
       level: حسب المستوي
-      subject: حسب الموضوع
+      category: حسب التصنيف
       
-    major:
-      arts: أدبي
-      sciences: علمي
       
     level:
-      primary: أساسي
-      secondary: ثانوي
-      higher: جامعي/عالي
+      beginner: مبتدئ
+      intermediate: متوسط
+      advanced: متقدم
+      expert: خبير
         
-    subject:
+    category:
       arabic: لغة عربية
       english: English
       math: رياضيات

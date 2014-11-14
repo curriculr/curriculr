@@ -170,10 +170,10 @@ module BootstrapHelper
       labels << content_tag(:span, flag, :class => "text-muted") 
       labels << "&nbsp;".html_safe
     end
-    
-    $site['levels'].each do |k,v|
+
+    t('config.level').each do |k,v|
       if Course.tagged_with(k.to_s, :on => :levels).to_a.include? klass.course
-        labels << content_tag(:span, t("config.level.#{k}"), :class => "text-muted") 
+        labels << content_tag(:span, v, :class => "text-muted") 
         labels << ("&nbsp;".html_safe)
       end
     end

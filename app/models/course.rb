@@ -5,7 +5,7 @@ class Course < ActiveRecord::Base
   
   friendly_id :name, use: [ :slugged, :finders ]
   
-  acts_as_taggable_on :tags, :levels, :majors, :subjects, :schools
+  acts_as_taggable_on :tags, :levels, :categories, :schools
   
   resourcify
   

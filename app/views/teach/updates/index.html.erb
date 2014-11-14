@@ -44,13 +44,13 @@
   				<%= markdown(update.body) %>
   			</td>
   			<td>
-          <%= content_tag :i, '', :class => 'fa fa-hand-up', :title => t("config.notification.kind.www") if update.www %>
-          <%= content_tag :i, '', :class => 'fa fa-envelope', :title => t("config.notification.kind.email") if update.email %>
-          <%= content_tag :i, '', :class => 'fa fa-comment-alt', :title => t("config.notification.kind.sms") if update.sms %>
+          <%= content_tag :i, '', :class => 'fa fa-hand-up', :title => t("config.update.kind.www") if update.www %>
+          <%= content_tag :i, '', :class => 'fa fa-envelope', :title => t("config.update.kind.email") if update.email %>
+          <%= content_tag :i, '', :class => 'fa fa-comment-alt', :title => t("config.update.kind.sms") if update.sms %>
         </td>
         <td>
           <strong><%= Update.human_attribute_name(:to) %>:</strong>
-          <%= t('config.notification.to.' + update.to) %>
+          <%= t('config.update.to.' + update.to) %>
           
           <% if @lecture
               paths = [

@@ -72,7 +72,7 @@ en:
         on_enroll: On class enrollment
         #on_drop: On dropping class
         
-    notification:
+    update:
       kind:
         sms: SMS
         email: Email
@@ -113,7 +113,7 @@ en:
         audio: Audio
         document: Document
         other: Other
-        
+    
       video:
         source:
           - youtube
@@ -132,22 +132,18 @@ en:
           - www 
 
     filter:
-      language: By Language
-      country: By Country
-      major: By Major
-      level: By Level
-      subject: By Subject
-
-    major:
-      arts: Arts and Humanities
-      sciences: Science and Technology
-      
+      language: By language
+      country: By country
+      level: By level
+      category: By category
+    
     level:
-      primary: Primary
-      secondary: Secondary
-      higher: Higher Education
-      
-    subject:
+      beginner: Beginner
+      intermediate: Intermediate
+      advanced: Advanced
+      expert: Expert
+    
+    category:
       arabic: Arabic
       english: English
       math: Mathematics
