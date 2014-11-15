@@ -10,6 +10,9 @@ namespace :duroosi do
     task :reset => :environment do   
       Rake::Task["duroosi:redis:clear"].invoke 
 
+      config = YAML.load_file("#{Rails.root}/config/config-site.yml")
+      $redis.set 'config.site', config['site'].to_json
+
       config = YAML.load_file("#{Rails.root}/config/config-account.yml")
       accounts = Account.all
       accounts.each do |a|
