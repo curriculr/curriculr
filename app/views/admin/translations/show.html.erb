@@ -4,6 +4,7 @@
       <%= content_tag :li, link_to(locale, edit_admin_translation_path(locale)), 
             :class => @locale == locale ? 'active' : nil %>
     <% end %>
+    <li><%= link_to 'new', '#', class: css_button(:default) %></li>
   </ul>
 <% end ) %>
 

@@ -171,9 +171,11 @@ module BootstrapHelper
       labels << "&nbsp;".html_safe
     end
 
-    t('config.level').each do |k,v|
-      if Course.tagged_with(k.to_s, :on => :levels).to_a.include? klass.course
-        labels << content_tag(:span, v, :class => "text-muted") 
+    t('config.level').each_with_index do |l, i|
+      if Course.tagged_with(l.first, :on => :levels).to_a.include? klass.course
+        (0..i).each { labels << content_tag(:i, '', class: 'fa fa-circle') }
+        ((i+1)..3).each { labels << content_tag(:i, '', class: 'fa fa-circle-o') }
+        labels << content_tag(:span, l.second, :class => "text-muted") 
         labels << ("&nbsp;".html_safe)
       end
     end

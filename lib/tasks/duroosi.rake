@@ -93,14 +93,16 @@ namespace :duroosi do
       end
     
       [:en, :ar].each do |locale|
-        puts "loading #{Rails.root}/config/config-account.#{locale}.yml ..."
-        yml_t = YAML.load_file("#{Rails.root}/config/config-account.#{locale}.yml")
+        ['', 'config.', 'account.', 'model.'].each do |file|
+          puts "loading #{Rails.root}/config/locales/#{file}#{locale}.yml ..."
+          yml_t = YAML.load_file("#{Rails.root}/config/locales/#{file}#{locale}.yml")
 
-        out_t = {}
-        Translator.from_yaml(locale, out_t, yml_t, '')
-      
-        translations = Hash[out_t.map { |k, v| [k.sub('account.site.', 'main.site.'), v] }]
-        I18n.backend.store_translations( locale, translations, :escape => false )
+          out_t = {}
+          Translator.from_yaml(locale, out_t, yml_t, '')
+        
+          translations = Hash[out_t.map { |k, v| [k.sub('account.site.', 'main.site.'), v] }]
+          I18n.backend.store_translations( locale, translations, :escape => false )
+        end
       end
     
       puts 'Redis reset successfully.'
