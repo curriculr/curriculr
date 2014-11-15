@@ -18,7 +18,7 @@ module Duroosi
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
-    # config.i18n.default_locale = :de
+    config.i18n.default_locale = :en
     
     # Configuring generators to use rspec and factory-girl
     config.generators do |g| 
@@ -34,13 +34,13 @@ module Duroosi
     end
     
     # Initialize redis and load application configuration
-    config_databases = {
-      "development" => 10, 
-      "test" => 11, 
-      "production" => 12
+    config.redis_databases = {
+      "development" => 0, 
+      "test" => 1, 
+      "production" => 2
     }
 
-    $redis = Redis.new(db: config_databases[Rails.env.to_s])
+    $redis = Redis.new(db: config.redis_databases[Rails.env.to_s])
     if $redis.exists('config.site')
       config.site = JSON.parse($redis.get('config.site'))
     else

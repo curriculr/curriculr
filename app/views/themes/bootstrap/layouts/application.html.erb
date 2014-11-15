@@ -97,7 +97,7 @@
   <%= mountable_fragments :pre_app_javascript %>
 	<%= javascript_include_tag "application" %>
 	<%= javascript_include_tag "bootstrap/overrides" %> 
-  <%= javascript_include_tag "https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js" if @req_attributes[:math?] %>
+  <%= javascript_include_tag "//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML" if @req_attributes[:math?] %>
   <%= mountable_fragments :post_app_javascript %>
   <%= timeago_script_tag %>
   <%= pnotify_script_tag %>

@@ -1,5 +1,6 @@
 ar:
   time:
+    am: صباحا
     formats:
       default: "%B %d, %Y %H:%M"
       
@@ -99,77 +100,7 @@ ar:
         few: ! 'ليس بالامكان حفظ %{model}: %{count} أخطاء.'
         many: ! 'ليس بالامكان حفظ %{model}: %{count} أخطاء.'
         other: ! 'ليس بالامكان حفظ %{model}: %{count} أخطاء.'
-  helpers:
-    select:
-      prompt: الرجاء اختيار
-    submit:
-      create: ! 'أنشئ'
-      submit: ! 'قدم'
-      update: ! 'عدل'
-  number:
-    currency:
-      format:
-        delimiter: ! ','
-        format: ! '%u%n'
-        precision: 2
-        separator: .
-        significant: false
-        strip_insignificant_zeros: false
-        unit: $
-    format:
-      delimiter: ! ','
-      precision: 3
-      separator: .
-      significant: false
-      strip_insignificant_zeros: false
-    human:
-      decimal_units:
-        format: ! '%n %u'
-        units:
-          billion: مليار
-          million: مليون
-          quadrillion: الكدريليون رقم
-          thousand: ألف
-          trillion: تريليون
-          unit: ''
-      format:
-        delimiter: ''
-        precision: 3
-        significant: true
-        strip_insignificant_zeros: true
-      storage_units:
-        format: ! '%n %u'
-        units:
-          byte:
-            zero: Bytes
-            one: Byte
-            two: Bytes
-            few: Bytes
-            many: Bytes
-            other: Bytes
-          gb: GB
-          kb: KB
-          mb: MB
-          tb: TB
-    percentage:
-      format:
-        delimiter: ''
-    precision:
-      format:
-        delimiter: ''
-  support:
-    array:
-      last_word_connector: ! ', و '
-      two_words_connector: ! ' و '
-      words_connector: ! ', '
-  time:
-    am: صباحا
-    formats:
-      default: ! '%d %B %Y %H:%M'
-      long: ! '%B %d, %Y %H:%M'
-      short: ! '%d %b %H:%M'
-    pm: مساءا
-  # remove these aliases after 'activemodel' and 'activerecord' namespaces are removed from Rails repository
+        
   activemodel:
     errors:
       <<: *errors

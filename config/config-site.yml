@@ -3,6 +3,11 @@ site:
     ar: العربية
     en: English
 
+  available_themes:
+    bootstrap:
+      parent:
+      about: The default theme; based on Bootstrap 3.
+
   default_account: main
 
   sublimevideo_site_token: 

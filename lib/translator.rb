@@ -1,12 +1,6 @@
-module Translator 
-  DATABASES = {
-    "development" => 0, 
-    "test" => 1, 
-    "production" => 2
-  }
-  
+module Translator   
   def self.store
-    @store ||= Redis.new(db: DATABASES[Rails.env.to_s])
+    @store ||= Redis.new(db: Rails.application.config.redis_databases[Rails.env.to_s])
   end
   
   class Backend < I18n::Backend::KeyValue

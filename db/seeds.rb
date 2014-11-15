@@ -25,16 +25,4 @@ if Account.where(:slug => $site['default_account']).to_a.empty?
   )
 
   su.update(account_id: account.id)
-  
-  config = YAML.load_file("#{Rails.root}/config/config-account.yml")
-
-  $redis.set "config.account.main", config['account'].to_json
-  
-  yml_t = YAML.load_file("#{Rails.root}/config/config-account.en.yml")
-  out_t = {}
-  locale = :en
-  Translator.from_yaml(locale, out_t, yml_t, '')
-  
-  translations = Hash[out_t.map { |k, v| [k.sub('account.site.', 'main.site.'), v] }]
-  I18n.backend.store_translations( locale, translations, :escape => false )
 end
