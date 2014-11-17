@@ -51,7 +51,7 @@ class UsersController < AuthorizedController
 		@user.active = !@user.active if params[:opr] == 'activate'
     
     @to_update_role = false
-    if t('config.role').keys.include?(params[:opr])
+    if params[:opr] && t('config.role').keys.include?(params[:opr].to_sym)
       if @user.has_role? params[:opr]
         @user.remove_role params[:opr]
         AccessToken.where(:user => @user).update_all(:revoked_at => Time.zone.now) if params[:opr] == 'console'
