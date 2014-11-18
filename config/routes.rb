@@ -55,6 +55,7 @@ Rails.application.routes.draw do
   	  resources :units, concerns: [:sortable, :with_materials, :assessable, :with_pages] do
   	    resources :lectures, :except => :index, concerns: [:sortable, :with_materials, :assessable, :with_pages] do
           put :discuss, :on => :member
+          post :content_sort, :on => :member
         end
       end
     

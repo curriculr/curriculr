@@ -43,11 +43,11 @@
     
 		<% if @klass and (@klass.enrolled?(current_student) or staff?(current_user, @klass.course)) %>
       <div class="row">
-				<div class="<%= css_columns(3) %> side-navabar">
+				<div class="<%= css_columns(2) %> side-navabar">
 			    <%= render "learn/klasses/ui_main_side" %> 
           <%= yield :student_250x300_left_bottom_banner %>
 				</div>
-				<div class="<%= css_columns(9) %>">
+				<div class="<%= css_columns(10) %>">
           <% if @page_header %>
             <% hdr = @page_header %>
             <% 

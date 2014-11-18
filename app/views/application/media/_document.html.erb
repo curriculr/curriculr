@@ -1,24 +1,25 @@
-<tr>
+<tr id="content_<%= document.id %>.medium">
   <td>
-    <%= document.name %>
-  </td>
-  <td>
-    <small><%= timeago_tag(document.created_at, :nojs => true, :limit => 10.days.ago) %></small>
-  </td>
-  <td>  
-    <%= content_tag :div, class: css(button: :group, align: :right) do %>
-      <%= link :medium, :open, document.at_url, :class => css_button(:default, :xs), :target => '_new' unless @material %>
-    
-      <%= render partial: 'application/media/links', locals: { medium: document, form: form, action: action } %>
-    <% end %>
+    <div class="row">
+      <div class="<%= css_columns(8) %>">
+        <i class="fa fa-file-pdf-o"></i>&nbsp; <%= document.name %> 
+        (<small><%= timeago_tag(document.created_at, :nojs => true, :limit => 10.days.ago) %></small>)
+      </div>
+      <div class="<%= css_columns(4) %>">
+        <%= content_tag :div, class: css(button: :group, align: :right) do %>
+          <%= link :medium, :open, document.at_url, :class => css_button(:default, :xs), :target => '_new' unless @material %>
+        
+          <%= render partial: 'application/media/links', locals: { medium: document, form: form, action: action } %>
+        <% end %>
 
-    <% if document.path.present? and !document.copyrights.blank? %> 
-      <p>
-        <small>
-          <strong><%=Medium.human_attribute_name(:source) %>:</strong> 
-          <%= document.copyrights %>
-        </small>
-      </p>
-    <% end %>
+        <% if document.path.present? and !document.copyrights.blank? %> 
+          <p>
+            <small>
+              <strong><%=Medium.human_attribute_name(:source) %>:</strong> 
+              <%= document.copyrights %>
+            </small>
+          </p>
+        <% end %>
+      </div>
   </td>
 </tr>

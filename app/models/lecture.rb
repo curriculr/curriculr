@@ -35,6 +35,22 @@ class Lecture < ActiveRecord::Base
       forum_id: forum.id, lecture_id: self.id).first_or_initialize  
   end
   
+  def contents(for_student = false)
+    data = []
+    data += self.materials_of_kind([:video, :audio, :document, :other]).to_a
+    if for_student
+      data += self.pages.where(:published => true).to_a
+      data += self.assessments.where(:ready => true).where("invideo_id is null").to_a
+    else
+      data += self.pages.to_a
+      data += self.assessments.to_a
+    end
+
+    data.sort! { |x,y| x.order <=> y.order}
+    
+    data
+  end
+
   def pagers(klass, student)
     if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
       date_clause = "(DATE :begins_on + (lectures.on_date - lectures.based_on) + lectures.for_days)"

@@ -145,6 +145,7 @@ ar:
       sign_out: اخرج
       send: ارسل
       reply: أجب
+      start: ابدأ
       invite: <i class="fa fa-envelope-o"></i> أُدع إلى هذا الفصل
       hide: أخف
       save: احفظ
@@ -152,7 +153,7 @@ ar:
       enroll: سجل في هذا الفصل
       enroll_again: سجل في هذا الفصل مجددا
       enroll_4_free: سجل في هذه الفصل - إنه مجاني
-      drop: انسحب من الفصل
+      drop: <i class="fa fa-sign-out"></i> اترك الفصل
       goto: اذهب الى الفصل
       preview: استعرض
       activate: فعّل
@@ -178,9 +179,9 @@ ar:
       recent_klasses: أخذت مؤخرا
       add_promo_video: اضف فيديو المقدمة
       remove_promo_video: احذف فيديو المقدمة
-      add_poster_image: أضف ملصق الفصل
-      remove_poster_image: احذف ملصق الفصل
-      syllabus: المنهج
+      add_poster_image: أضف ملصقا
+      remove_poster_image: احذف الملصق
+      syllabus: <i class="fa fa-road"></i> المنهج
       add_role: اضف دور %{role}
       remove_role: احذف دور %{role}
       stats: احصائيات
@@ -224,7 +225,6 @@ ar:
       video: فيديو
       all: الكل
       list: للاستعراض
-      home: الرئيسية
       manage: للإشراف
       back_to_assessment: عد إلى ال%{name}
       back_to_list: عد إلى القائمة
@@ -534,6 +534,13 @@ ar:
               
   page:
     titles:
+      discussion: المناقشة
+      outline: <i class="fa fa-list"></i> المحاضرات
+      forums: <i class="fa fa-comments-o"></i> المنتديات
+      pages: <i class="fa fa-globe"></i> الصفحات
+      attachments: <i class="fa fa-paperclip"></i> المرفقات
+      students: <i class="fa fa-users"></i> الطلاب
+      contents: المحتوى
       readings: مقروءات
       progress: أداء
       for_instructors: للمدرسين فقط
@@ -558,7 +565,7 @@ ar:
       translations: ترجمة
       klass_agreement: اتفاقية الفصل
       actions: خيارات
-      syllabus: منهج الفصل
+      syllabus: المنهج
       search: ابحث
       settings: اعدادات
       blogs: المقالات
@@ -573,16 +580,14 @@ ar:
       upcoming_deadlines: مواعيد مقبلة
       audios: مقاطع صوتية
       documents: ملفات
-      attachments: المرفقات
       videos: فيديوهات 
       people: أشخاص
       books: كتب
       document: ملف
-      home: الرئيسية
+      home: <i class="fa fa-home"></i> الرئيسية
       images: صور
       others: أخرى
       vidoes: فيديوهات
-      students: الطلاب
       requests: طلبات
       guardians: أولياء الأمور
       basic_info: معلومات أساسية

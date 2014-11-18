@@ -8,7 +8,7 @@
   <% 
   links = []
   
-  links << link_to(t("activerecord.actions.home"), learn_klass_path(@klass), 
+  links << link_to(t("page.titles.home").html_safe, learn_klass_path(@klass), 
     class:"#{'active' if controller_name == 'klasses'}")
       
   if @klass.course.config['allow_access_to']['syllabus']
@@ -18,7 +18,7 @@
 
   if @klass.course.config['allow_access_to']['lectures']
     if (@klass.open? and ((@klass.allow_enrollment and enrolled) or @klass.previewed)) or (@klass.past? and @klass.lectures_on_closed)
-      links << link(:lecture, :index, learn_klass_lectures_path(@klass), 
+      links << link_to(t("page.titles.outline").html_safe, learn_klass_lectures_path(@klass), 
         class:"#{'active' if controller_name == 'lectures'}")
     end
   end
@@ -26,7 +26,7 @@
   if @klass.course.config['allow_access_to']['forums']
     if @klass.allow_enrollment and enrolled 
       if @klass.open? or @klass.past? 
-        links << link(:forum, :index, learn_klass_forums_path(@klass), 
+        links << link_to(t("page.titles.forums").html_safe, learn_klass_forums_path(@klass), 
           class:"#{'active' if %w(forums topics).include?(controller_name)}")
       end 
     end 
@@ -78,13 +78,13 @@
   pages_links = []
   pages = enrolled ? @klass.course.non_syllabus_pages(true).to_a : @klass.course.non_syllabus_pages(true, true).to_a  
   if pages.present?
-    pages_links << link_to(Page.model_name.human(count: 3), learn_klass_pages_path(@klass), 
+    pages_links << link_to(t("page.titles.pages").html_safe, learn_klass_pages_path(@klass), 
       class:"#{'active' if controller_name == 'pages' && (@page.nil? || @page != @klass.course.syllabus) }")
   end
     
   books = enrolled ? @klass.course.books : []
   if books.present?
-    pages_links << link_to(t('page.titles.attachments'), learn_klass_materials_path(@klass), 
+    pages_links << link_to(t('page.titles.attachments').html_safe, learn_klass_materials_path(@klass), 
       class:"#{'active' if controller_name == 'materials' }")
   end
      
@@ -97,7 +97,7 @@
     records_links = []
     if @klass.course.config['allow_access_to']['reports']
       if @klass.open? or @klass.past? 
-        records_links << link(:record, :index, report_learn_klass_path(@klass), 
+        records_links << link_to(t('activerecord.actions.records').html_safe, report_learn_klass_path(@klass), 
           class:"#{'active' if controller_name == 'records'}")
       end 
     end
@@ -114,7 +114,7 @@
   
   if @klass and staff?(current_user, @klass.course)
     links << content_tag(:div, t('page.titles.for_instructors'), :class => 'subtitle')
-    links << link_to(t('page.titles.students'), students_learn_klass_path(@klass))
+    links << link_to(t('page.titles.students').html_safe, students_learn_klass_path(@klass))
   end
   %>
   

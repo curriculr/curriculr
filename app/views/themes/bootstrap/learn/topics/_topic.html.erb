@@ -33,13 +33,14 @@
         </div>
         <hr>
       <% end %>  
-      
-      <%= render :partial => 'learn/topics/post', :collection => @topic.posts.where(:parent_id => nil),
+      <% posts = @topic.posts.where(:parent_id => nil).to_a %>
+      <%= render :partial => 'learn/topics/post', :collection => posts,
             :locals => { tab: defined?(tab)? tab : 0 } %>
     </div>
   </div>
 
-  <h4><%= t('page.titles.reply_to_topic') %></h4>
+  <%= tag :br if posts.present? %>
+  <%= content_tag :h4, t('page.titles.reply_to_topic') unless @lecture  %>
   <%= themed_form_for [:learn, @klass, @forum, @topic, @post], remote: @lecture.present?  do |f| %>
     <%= hidden_field_tag(:tab, tab) if defined? tab %>
     <%= hidden_field_tag(:lecture_id, @lecture.id) if @lecture %>

@@ -22,6 +22,7 @@ class CreateAssessments < ActiveRecord::Migration
       t.belongs_to :invideo
       t.integer :invideo_at
       t.boolean :ready, :default => false
+      t.integer :order, :default => 0
       
       t.timestamps
     end

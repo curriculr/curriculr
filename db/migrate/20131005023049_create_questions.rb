@@ -9,7 +9,9 @@ class CreateQuestions < ActiveRecord::Migration
       t.text :hint
       t.text :explanation
       t.integer :options_count, :default => 0
-
+      t.integer :order, :default => 0
+      t.boolean :show_in_lecture, :default => false
+      
       t.timestamps
     end
   end

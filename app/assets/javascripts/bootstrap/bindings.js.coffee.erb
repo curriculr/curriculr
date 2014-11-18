@@ -430,7 +430,12 @@ window.ui_rebind_application_events  = ($) ->
         $(element).val("#{index + 1}")
   )
 
-  $('.btn-popover').popover()
+  $('.btn-popover').hover(
+    (e) -> 
+      $(this).popover('show')
+    (e) -> 
+      $(this).popover('hide')
+  )
 
 jQuery ->
   ui_rebind_application_events jQuery

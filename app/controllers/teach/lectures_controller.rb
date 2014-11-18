@@ -77,6 +77,22 @@ module Teach
       
       render nothing: true
     end
+
+    def content_sort
+      params[:content].each_with_index do |c, i|
+        id = c.split('.')
+        case id.second
+        when 'medium'
+          Material.where(:owner_type => 'Lecture', :owner_id => @lecture.id, :medium_id => id.first).update_all(order: i + 1)
+        when 'page'
+          Page.where(:id => id.first).update_all(order: i + 1)
+        when 'assessment'
+          Assessment.where(:id => id.first).update_all(order: i + 1)
+        end
+      end
+      
+      render nothing: true
+    end
   
     private    
       def lecture_params

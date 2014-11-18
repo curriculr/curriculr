@@ -11,6 +11,7 @@ class CreatePages< ActiveRecord::Migration
       t.boolean :html, :default => false
       t.boolean :public, :default => false
       t.boolean :published, :default => false
+      t.integer :order, :default => 0
       
       t.timestamps
     end

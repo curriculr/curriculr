@@ -1,26 +1,19 @@
-<tr>
+<tr id="content_<%= video.id %>.medium">
   <td>
-    <%= video.name %>
-    <% if video.path.present? and !video.copyrights.blank? %>  
-      <p>
-        <small>
-          <strong><%=Medium.human_attribute_name(:source) %>:</strong> 
-          <%= video.copyrights %>
-        </small>
-      </p>
-    <% end %>
-  </td>
-  <td>
-    <small><%= timeago_tag(video.created_at, :nojs => true, :limit => 10.days.ago) %></small>
-  </td>
-  <td>
-    <%= content_tag :div, class: css(button: :group, align: :right) do %>
-      <% youtube = (video.content_type =~ /link\/youtube/).present? %>
-      <% sublime = $site['sublimevideo_site_token'].present? %>
-      <%= link_to(t('activerecord.actions.open'), '#', 
-            :class => "#{css_button(:default, :xs)} video-open-link", 
-            data: {id: video.id, url: video.at_url, title: video.name, youtube: youtube, sublime: sublime}) unless @material %>
-      <%= render partial: 'application/media/links', locals: { medium: video, form: form, action: action } %>
-    <% end %>
+    <div class="row">
+      <div class="<%= css_columns(8) %>">
+        <i class="fa fa-file-video-o"></i>&nbsp; <%= video.name %> 
+        (<small><%= timeago_tag(video.created_at, :nojs => true, :limit => 10.days.ago) %></small>)
+      </div>
+      <div class="<%= css_columns(4) %>">
+        <%= content_tag :div, class: css(button: :group, align: :right) do %>
+          <% youtube = (video.content_type =~ /link\/youtube/).present? %>
+          <% sublime = $site['sublimevideo_site_token'].present? %>
+          <%= link_to(t('activerecord.actions.open'), '#', 
+                :class => "#{css_button(:default, :xs)} video-open-link", 
+                data: {id: video.id, url: video.at_url, title: video.name, youtube: youtube, sublime: sublime}) unless @material %>
+          <%= render partial: 'application/media/links', locals: { medium: video, form: form, action: action } %>
+        <% end %>
+      </div>
   </td>
 </tr>

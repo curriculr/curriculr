@@ -2,7 +2,7 @@
  html = render(partial: 'teach/lectures/lecture', locals: { unit: @unit, lecture: @lecture, i: params[:i] })
 %>
 
-$("#lectures-details-<%= @unit.id %>").append("<%= j html %>");
+$("#lectures-details-<%= @unit.id %>").html("<%= j html %>");
 
 $("#lecture_<%= @lecture.id %>").tab('show');
 

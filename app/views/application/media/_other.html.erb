@@ -1,24 +1,25 @@
-<tr>
+<tr id="content_<%= other.id %>.medium">
   <td>
-    <%= other.name %>
-  </td>
-  <td>
-    <small><%= timeago_tag(other.created_at, :nojs => true, :limit => 10.days.ago) %></small>
-  </td>
-  <td>
-    <%= content_tag :div, class: css(button: :group, align: :right) do %>
-      <%= link :medium, :open, other.at_url, :class => css_button(:default, :xs), :target => '_new' unless @material %>
-      
-      <%= render partial: 'application/media/links', locals: { medium: other, form: form, action: action } %>
-      
-      <% if other.path.present? and !other.copyrights.blank? %>
-       <p>
-         <small>
-           <strong><%=Medium.human_attribute_name(:source) %>:</strong> 
-           <%= other.copyrights %>
-         </small>
-       </p>
-      <% end %>
-    <% end %>
+    <div class="row">
+      <div class="<%= css_columns(8) %>">
+       <i class="fa fa-file-code-o"></i>&nbsp; <%= other.name %> 
+        (<small><%= timeago_tag(other.created_at, :nojs => true, :limit => 10.days.ago) %></small>)
+      </div>
+      <div class="<%= css_columns(4) %>">
+        <%= content_tag :div, class: css(button: :group, align: :right) do %>
+          <%= link :medium, :open, other.at_url, :class => css_button(:default, :xs), :target => '_new' unless @material %>
+          
+          <%= render partial: 'application/media/links', locals: { medium: other, form: form, action: action } %>
+          
+          <% if other.path.present? and !other.copyrights.blank? %>
+           <p>
+             <small>
+               <strong><%=Medium.human_attribute_name(:source) %>:</strong> 
+               <%= other.copyrights %>
+             </small>
+           </p>
+          <% end %>
+        <% end %>
+      </div>
   </td>
 </tr>

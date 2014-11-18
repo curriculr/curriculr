@@ -143,6 +143,7 @@ en:
       sign_out: Sign out
       send: Send
       reply: Reply
+      start: Start
       invite: <i class="fa fa-envelope-o"></i> Invite
       hide: Hide
       save: Save
@@ -150,7 +151,7 @@ en:
       enroll: Enroll
       enroll_again: Enroll in this class again
       enroll_4_free: Enroll in this class - It's free
-      drop: Drop
+      drop: <i class="fa fa-sign-out"></i> Drop
       goto: Go to class
       preview: Preview
       activate: Activate
@@ -176,9 +177,9 @@ en:
       recent_klasses: Recent Classes
       add_promo_video: Add promo video
       remove_promo_video: Remove promo video
-      add_poster_image: Add poster image
-      remove_poster_image: Remove poster image
-      syllabus: Syllabus
+      add_poster_image: Add poster
+      remove_poster_image: Remove poster
+      syllabus: <i class="fa fa-road"></i> Syllabus
       add_role: Add role %{role}
       remove_role: Remove role %{role}
       stats: Statistics
@@ -223,7 +224,6 @@ en:
       video: Video
       all: All
       list: List
-      home: Home
       manage: Manage
       back_to_assessment: Back to %{name}
       back_to_list: Back to list
@@ -534,8 +534,15 @@ en:
       
   page:
     titles:
+      discussion: Discussion
+      outline: <i class="fa fa-list"></i> Lectures
+      forums: <i class="fa fa-comments-o"></i> Forums
+      pages: <i class="fa fa-globe"></i> Pages
+      attachments: <i class="fa fa-paperclip"></i> Attachments
+      students: <i class="fa fa-users"></i> Students
+      contents: Contents
       readings: Readings
-      progress: Progress and action
+      progress: Status
       for_instructors: For instructors
       about: About
       help: Help
@@ -572,16 +579,14 @@ en:
       upcoming_deadlines: Upcoming Deadlines
       audios: Audios
       documents: Documents
-      attachments: Attachments
       videos: Videos 
       people: People
       books: Books
       document: Document
-      home: Home
+      home: <i class="fa fa-home"></i> Home
       images: Images
       others: Other
       vidoes: Vidoes
-      students: Students
       requests: Requests
       guardians: Guardians
       basic_info: Basic Information
