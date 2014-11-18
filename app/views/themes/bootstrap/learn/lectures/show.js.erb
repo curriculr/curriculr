@@ -1,22 +1,32 @@
 <% 
   html = ''
-  pane = ''
+  pane = 'media-pane'
   if @material.present?
     case @material.medium.kind.to_sym
     when :video
       html << ui_video(@material)
-      pane = 'media-pane'
     when :audio
       html << ui_audio(@material)
-      pane = 'media-pane'
     else
       html << ui_document_viewer(@material.at_url)
-      pane = 'document-pane'
     end 
-  elsif @page.present?
-    html << ui_header(@page.name, style: :h4)
-    html << markdown(@page.about, :html => @page.html)
-    pane = 'document-pane'
+  else
+    subhtml = ''
+    if @page
+      subhtml << ui_header(@page.name, style: :h4)
+      subhtml << markdown(@page.about, :html => @page.html)
+    elsif @question && @question.lecture
+        subhtml << render(partial: "teach/questions/question", locals: { question: @question, show_answer: false })
+    elsif @assessment && @assessment.lecture
+      subhtml << render(partial: "learn/assessments/assessment", locals: { assessment: @assessment })
+    end
+
+    html << %(
+      <div class="row">
+        <div class="#{css_columns(12)}">
+          #{subhtml}
+        </div>
+      </div>) if subhtml.present?
   end
 %>
 

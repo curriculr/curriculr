@@ -315,6 +315,9 @@ window.ui_rebind_application_events  = ($) ->
   $('.include-in-assessment').unbind().on 'click', (e) ->
     $(this).closest('form').submit()
 
+  $('.include-in-lecture').unbind().on 'click', (e) ->
+    $(this).closest('form').submit()
+
   # Updates 
   show_hide_update_fields_by_kind = (www, email, sms) ->  
     if $(www).is(':checked') or $(email).is(':checked')

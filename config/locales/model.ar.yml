@@ -404,6 +404,7 @@ ar:
         options: خيارات السؤال
         parts: أجزاء السؤال
         bank_list: بنك الأسئلة
+        include_in_lecture: ضمن محتوى المحاضرة
       option:
         answer: الإجابة
         option: الخيار

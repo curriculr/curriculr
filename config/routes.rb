@@ -25,7 +25,9 @@ Rails.application.routes.draw do
   concern :assessable do
     resources :questions, :except => :show do
       post :sort_option, :on => :member
+      post :include_in_lecture, :on => :member
     end
+    
     resources :assessments, :except => :index do
       resources :q_selectors, :except => [:show, :index]
       get :preview, :on => :member
@@ -92,8 +94,10 @@ Rails.application.routes.draw do
         member do
           get :assessments, :as => :show_assessments_of, :to => 'lectures#show_assessments'
           get :comments, :as => :show_comments_of, :to => 'lectures#show_comments'
-          get 'pages/:page_id', :as => :show_page_of, :to => 'lectures#show_page'
           get 'materials/:material_id', :as => :show_material_of, :to => 'lectures#show_material'
+          get 'pages/:page_id', :as => :show_page_of, :to => 'lectures#show_page'
+          get 'questions/:question_id', :as => :show_question_of, :to => 'lectures#show_question'
+          get 'assessments/:assessment_id', :as => :show_assessment_of, :to => 'lectures#show_assessment'
         end
       end
       

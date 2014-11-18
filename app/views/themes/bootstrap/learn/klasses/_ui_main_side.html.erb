@@ -39,14 +39,16 @@
       course_assessments = @klass.course.assessments.where('unit_id is null and ready = TRUE and kind in (:kinds)',      
         :kinds => @klass.course.config["grading"]["distribution"]["assessments"]["course"].keys)
       course_assessments.each do |a|
-       assessment_links << link_to(a.name, learn_klass_assessment_path(@klass, a), 
-          class:"#{'active' if %w(assessments attempts).include?(controller_name) && @assessment && @assessment.id == a.id}")
+       assessment_links << ( link_to learn_klass_assessment_path(@klass, a), 
+          class:"#{'active' if %w(assessments attempts).include?(controller_name) && @assessment && @assessment.id == a.id}" do
+          "#{content_tag(:i, '', class: 'fa fa-flask')} #{a.name}".html_safe
+        end )
       end if course_assessments.any?
     
-      @klass.course.config["grading"]["distribution"]["assessments"]["unit"].keys.each do |k| 
-        assessment_links << link(:assessment, k, learn_klass_assessments_path(@klass, :s => k), 
-          class:"#{'active' if %w(assessments attempts).include?(controller_name) && params[:s] && params[:s] == k.to_s}")
-      end 
+      # @klass.course.config["grading"]["distribution"]["assessments"]["unit"].keys.each do |k| 
+      #   assessment_links << link(:assessment, k, learn_klass_assessments_path(@klass, :s => k), 
+      #     class:"#{'active' if %w(assessments attempts).include?(controller_name) && params[:s] && params[:s] == k.to_s}")
+      # end 
 
       if assessment_links.present?
         links << content_tag(:div , Assessment.model_name.human(count: 3), :class => 'subtitle')

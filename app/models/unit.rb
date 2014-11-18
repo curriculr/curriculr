@@ -19,6 +19,21 @@ class Unit < ActiveRecord::Base
     end 
   end
   
+  def contents(for_student = false)
+    data = []
+    data += self.materials_of_kind([:document, :other]).to_a
+
+    if for_student
+      data += self.pages.where(:published => true).to_a
+      data += self.assessments.where(:lecture_id => nil, :ready => true).to_a
+    else
+      data += self.pages.to_a
+      data += self.assessments.to_a
+    end
+    
+    data
+  end
+
   default_scope -> { 
     order 'units.order'
   }

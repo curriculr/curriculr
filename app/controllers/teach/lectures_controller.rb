@@ -84,6 +84,8 @@ module Teach
         case id.second
         when 'medium'
           Material.where(:owner_type => 'Lecture', :owner_id => @lecture.id, :medium_id => id.first).update_all(order: i + 1)
+        when 'question'
+          Question.where(:id => id.first).update_all(order: i + 1)
         when 'page'
           Page.where(:id => id.first).update_all(order: i + 1)
         when 'assessment'

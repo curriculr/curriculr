@@ -1,0 +1,10 @@
+<%= themed_form_for [:teach, question.course, question.unit, question.lecture, question],  
+      url: include_in_lecture_teach_course_unit_lecture_question_path(question.course, question.unit, question.lecture, question),
+      method: :post, remote: true do |f| %>
+  <%= label_tag "include_#{question.id}_in_lecture"  do %>
+    <%= check_box_tag "include_#{question.id}_in_lecture", '1', question.include_in_lecture,
+          :class => "include-in-lecture",
+          :name => "question[include_in_lecture]" %>
+    <%= Question.human_attribute_name(:include_in_lecture) %>
+  <% end %>
+<% end %>

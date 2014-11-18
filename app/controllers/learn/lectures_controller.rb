@@ -22,6 +22,20 @@ module Learn
       end
     end
     
+    def show_question
+      @question = Question.find(params[:question_id])
+      respond_to do |format|
+        format.js{ render 'show' }
+      end
+    end
+
+    def show_assessment
+      @assessment = Assessment.find(params[:assessment_id])
+      respond_to do |format|
+        format.js{ render 'show' }
+      end
+    end
+
     def show_material
       @material = Material.find(params[:material_id])
       @video = @material if @material.kind == 'video'

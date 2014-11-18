@@ -404,6 +404,7 @@ en:
         kind: Kind
         options: Options
         parts: Parts
+        include_in_lecture: Include in lecture
       option:
         answer: Answer
         option: Option/Part

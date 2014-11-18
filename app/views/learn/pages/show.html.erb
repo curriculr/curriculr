@@ -1,3 +1,10 @@
+<% if @page.owner && @page.owner.kind_of?(Unit) %>
+  <ul class="breadcrumb">
+    <li><%= link(:lecture, :index, learn_klass_lectures_path(@klass)) %></li>
+    <li><%= link_to @page.owner.name, learn_klass_lectures_path(@klass) %></li>
+  </ul>
+<% end %>
+
 <h3><%= @page.name %></h3>
 
 <%= markdown(@page.about, :html => @page.html) %>

@@ -16,27 +16,41 @@
     
     <div id="unit-<%= unit.id %>" class="panel-collapse collapse <%= 'in' if expanded %>">
       <div class="panel-body">
-        <div class="row">
-          <% if (@klass.enrolled?(current_student) || KlassEnrollment.staff?(current_user, @klass)) %>
-            <%
-            materials = unit.materials.to_a
-            pages = unit.pages.where(:published => true).to_a
-            
-            total = materials.count + pages.count
-            %>
-            <div class="<%= css_columns(total > 0 ? 9 : 12) %> shortenable-text">
-              <%= unit.about %>
-            </div>
-            <% if total > 0 %>
-                <div class="<%= css_columns(3) %>">
-                  <%= link_to(t('page.titles.attachments'), learn_klass_unit_materials_path(@klass, unit),
-                        class: css_button(:primary, :block), align: :right) if check_access?("materials") && materials.count > 0 %>
-                        
-                  <%= link(:page, :index, learn_klass_unit_pages_path(@klass, unit),
-                        class: css_button(:primary, :block)) if check_access?("pages") && pages.count > 0 %>
-                </div>
-            <% end %>
+        <% if (@klass.enrolled?(current_student) || KlassEnrollment.staff?(current_user, @klass)) %>
+          <% data = unit.contents(true) %> 
+          <% if data.present? %>
+            <ul class="nav nav-tabs">
+              <% data.each do |item| %>
+                <%
+                  title = item.kind_of?(Material) ? item.medium.name : item.name
+                  popover_attr = {toggle: "popover",  placement: "bottom", content: title }
+                  title = title.size > 10 ? title[0..7] + '...' : title
+                %>
+                <li>
+                <% case item %>
+                <% when Material %>
+                  <%= link_to item.at_url, class: "btn-popover", data: popover_attr, :target => '_new' do %>
+                    <i class="fa fa-paperclip"></i> <%= title %>
+                  <% end %>
+                <% when Page %>
+                  <%= link_to learn_klass_page_path(@klass, item), class: "btn-popover", data: popover_attr do %>
+                    <i class="fa fa-globe"></i> <%= title %>
+                  <% end %>
+                <% when Assessment %>
+                  <%= link_to learn_klass_assessment_path(@klass, item), class: "btn-popover", data: popover_attr do %>
+                    <i class="fa fa-flask"></i> <%= title %>
+                  <% end %>
+                <% end %>
+                </li>
+              <% end %>
+            </ul>
           <% end %>
+        <% end %>
+
+        <div class="row">
+          <div class="<%= css_columns(12) %> shortenable-text">
+            <%= unit.about %>
+          </div>
         </div>
         
         <% unless lectures.to_a.empty? %>

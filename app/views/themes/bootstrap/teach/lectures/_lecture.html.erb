@@ -13,7 +13,8 @@
   end
 
   links << nil
-  links << link(:page, :new_page, new_teach_course_unit_lecture_page_path(@course, unit, lecture))
+  links << link_to(Page.model_name.human, new_teach_course_unit_lecture_page_path(@course, unit, lecture))
+  links << link_to(Question.model_name.human, teach_course_unit_lecture_questions_path(@course, unit, lecture))
   links << nil
 
   @course.config["grading"]["distribution"]["assessments"]["lecture"].keys.each do |k|
@@ -70,6 +71,19 @@
                     :method => :delete, :class => css_button(:danger, :xs), 
                     confirm: true) 
                 } %>
+        <% when Question %>
+          <tr id="content_<%= item.id %>.question">
+            <td>
+              <h5>
+                <%= link(:question, :edit, 
+                    edit_teach_course_unit_lecture_question_path(@course, unit, lecture, item), 
+                    :class => css(button: [:success, :xs], align: :right)) %>
+                <i class="fa fa-question"></i>&nbsp;
+                <br/><br/>
+                <%= render partial: "teach/questions/question", locals: { question: item, show_answer: false } %>
+              </h5>
+            </td>
+          </tr>
         <% when Page %>
           <tr id="content_<%= item.id %>.page">
             <td>
@@ -91,7 +105,7 @@
                 <%= link(:assessment, :edit, 
                     edit_teach_course_unit_lecture_assessment_path(@course, unit, lecture, item), 
                     :class => css(button: [:success, :xs], align: :right)) %>
-                <i class="fa fa-question"></i>&nbsp;
+                <i class="fa fa-flask"></i>&nbsp;
                 <%= link_to(item.name, teach_course_unit_lecture_assessment_path(@course, unit, lecture, item)) %> 
                 <small><%= item.kind %></small>
                 <%= content_tag(:span, t('page.text.unready'), :class => css_label(:warning)) unless item.ready %>

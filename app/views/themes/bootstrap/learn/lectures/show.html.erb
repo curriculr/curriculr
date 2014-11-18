@@ -1,46 +1,36 @@
 <% 
-  videos = @lecture.materials_of_kind(:video).to_a
-  audios = @lecture.materials_of_kind(:audio).to_a
-  attachments = @lecture.materials_of_kind([:document, :other]).to_a 
-  pages = @lecture.pages.where(:published => true).to_a
-  
-  assessments = @lecture.assessments.where(:ready => true).where("invideo_id is null").to_a
-  has_ivq = @lecture.assessments.where(:ready => true).where("invideo_id is not null").exists?
-  
-  content_counts = []
-  content_counts << videos.count if videos.any? 
-  content_counts << audios.count if audios.any? 
-  content_counts << attachments.count if attachments.any? 
-  content_counts << pages.count if pages.any? 
-  
-  count = (content_counts.reduce(:+) || 0)
-
+  data = @lecture.contents(true)
   pagers = @lecture.pagers(@klass, current_student)
+
+  # videos = @lecture.materials_of_kind(:video).to_a
+  # audios = @lecture.materials_of_kind(:audio).to_a
+  # attachments = @lecture.materials_of_kind([:document, :other]).to_a 
+  # pages = @lecture.pages.where(:published => true).to_a
   
-  active_tab = { home: '', assessments: '', comments: '' }
-  active_tab[:assessments] = 'active' if params[:show_assessments]
-  active_tab[:comments] = 'active' if params[:show_comments]
-  active_tab[:home] = 'active' if count > 1 && (!params[:show_assessments] && !params[:show_comments])
+  # assessments = @lecture.assessments.where(:ready => true).where("invideo_id is null").to_a
+  # has_ivq = @lecture.assessments.where(:ready => true).where("invideo_id is not null").exists?
+  
+  # content_counts = []
+  # content_counts << videos.count if videos.any? 
+  # content_counts << audios.count if audios.any? 
+  # content_counts << attachments.count if attachments.any? 
+  # content_counts << pages.count if pages.any? 
+  
+  # count = (content_counts.reduce(:+) || 0)
+
+  # active_tab = { home: '', assessments: '', comments: '' }
+  # active_tab[:assessments] = 'active' if params[:show_assessments]
+  # active_tab[:comments] = 'active' if params[:show_comments]
+  # active_tab[:home] = 'active' if count > 1 && (!params[:show_assessments] && !params[:show_comments])
   
   #Lecture.generate_discussion_topics(Klass.unscoped.open.to_a)
 %>
-
-<div id="media-pane">
-  <% if videos.present? %>
-    <%= ui_video(@video || videos.first) %>
-  <% elsif audios.present? %>
-    <%= ui_audio(audios.first) %>
-  <% elsif count == 1 and pages.present? %>
-    <%= content_tag :h3, pages.first.name %>
-    <%= markdown(pages.first.about) %>
-  <% end %>
-</div>
 
 <div class="panel panel-inverse">
   <div class="panel-heading">
     <div class="row">
       <div class="<%= css_columns(9) %>">
-        <h4 class="panel-title"><%= @lecture.name %><%= ' *' if has_ivq %></h4>
+        <h4 class="panel-title"><%= @lecture.name %>
       </div>
       <div class="<%= css_columns(3) %>">
         <ul class="pager">
@@ -60,88 +50,97 @@
   </div>
   <div class="panel-body">
     <ul class="nav nav-tabs">
-      <%= content_tag :li, class: active_tab[:home] do %>
-        <a href="#home" data-toggle="tab">
-          <%= t('page.titles.home') %>
-        </a>
-      <% end if count > 1 %>
-      <%= content_tag :li, class: active_tab[:assessments] do %>
-        <a href="#assessments" data-toggle="tab">
-          <%= t('page.text.assessments_count', :count => assessments.count) %>
-        </a>
-      <% end if assessments.any? %>
-      <%= content_tag :li, class: active_tab[:comments] do %>
-        <a href="#comments" id="comments-count" data-toggle="tab">
-          <%= t('page.text.comments_count', :count => @topic.posts_count) %>
-        </a>
-      <% end if @lecture.allow_discussion && @topic %>
-
+      <% data.each do |item| %>
+        <%
+          link_attr = { class: "btn-popover", remote: true, data: {
+              toggle: "popover",  placement: "bottom", 
+              content: item.kind_of?(Material) ? item.medium.name : (
+                item.kind_of?(Question) ? Question.model_name.human  : item.name
+              )
+            }
+          }
+        %>
+        <li class="<%= "active" if false %>">
+          <% if item.kind_of?(Material) && item.kind == 'video' %>
+            <%= link_to show_material_of_learn_klass_lecture_path(@klass, @lecture, item), link_attr do %>
+              <i class="fa fa-file-video-o"></i>
+            <% end %>
+          <% elsif item.kind_of?(Material) && item.kind == 'audio' %>
+            <%= link_to show_material_of_learn_klass_lecture_path(@klass, @lecture, item), link_attr  do %>
+              <i class="fa fa-file-audio-o"></i>
+            <% end %>
+          <% elsif item.kind_of?(Material) && item.kind =='document' %>
+            <%= link_to show_material_of_learn_klass_lecture_path(@klass, @lecture, item), link_attr  do %>
+              <i class="fa fa-file-pdf-o"></i>
+            <% end %>
+          <% elsif item.kind_of?(Material) && item.kind == 'other' %>
+            <%= link_to show_material_of_learn_klass_lecture_path(@klass, @lecture, item), link_attr  do %>
+              <i class="fa fa-file-code-o"></i>
+            <% end %>
+          <% elsif item.kind_of?(Page) %>
+            <%= link_to show_page_of_learn_klass_lecture_path(@klass, @lecture, item), link_attr do %>
+              <i class="fa fa-globe"></i>
+            <% end %>
+          <% elsif item.kind_of?(Question) %>
+            <%= link_to show_question_of_learn_klass_lecture_path(@klass, @lecture, item), link_attr do %>
+              <i class="fa fa-question"></i>
+            <% end %>
+          <% elsif item.kind_of?(Assessment) %>
+            <%= link_to show_assessment_of_learn_klass_lecture_path(@klass, @lecture, item), link_attr do %>
+              <i class="fa fa-flask"></i>
+            <% end %>
+          <% end %>
+        </li>
+      <% end %>
     </ul>
-    <!-- Tab panes -->
-    <div class="tab-content">
-      <%= content_tag :div, class: "tab-pane #{active_tab[:home]}", id: "home" do %>
-        <div class="row">
-          <div class="<%= css_columns(12) %>">
-            <div class="row">
-              <% { vidoes: videos, audios: audios, attachments: attachments }.each do |key, content| %>
-                <%= content_tag :div, class: css_columns(12 / content_counts.size) do %>
-                  <strong><%= t("page.titles.#{key}") %></strong>
-                  <ul>
-                    <% content.each_with_index do |item, i| %>
-                      <li>
-                        <%= link_to item.medium.name,
-                              show_material_of_learn_klass_lecture_path(@klass, @lecture, item), 
-                              remote: false %>
-                      </li>
-                    <% end %>
-                  </ul>
-                <% end if content.present? %>
-              <% end %>
-      
-              <%= content_tag :div, class: css_columns(3) do %>
-                <strong><%= Page.model_name.human(count: 3) %></strong>
-                <ul>
-                  <% pages.each_with_index do |page, i| %>
-                    <li>
-                      <%= link_to page.name, 
-                            show_page_of_learn_klass_lecture_path(@klass, @lecture, page), 
-                            remote: true  %>
-                    </li>
-                  <% end %>
-                </ul>
-              <% end if pages.present? %>
+    <div id="media-pane">
+      <% item = data.first %>
+      <% if item %>
+        <% if item.kind_of?(Material) && item.kind == 'video' %>
+          <%= ui_video item %>
+        <% elsif item.kind_of?(Material) && item.kind == 'audio' %>
+          <%= ui_audio item %>
+        <% elsif item.kind_of?(Material) && item.kind =='document' %>
+          <%= ui_document_viewer item.at_url %>
+        <% elsif item.kind_of?(Material) && item.kind == 'other' %>
+          <%= ui_document_viewer item.at_url %>
+        <% elsif item.kind_of?(Page) %>
+          <div class="row">
+            <div class="<%= css_columns(12) %>">
+              <%= ui_header(item.name, style: :h4) %>
+              <%= markdown(item.about, :html => item.html) %>
             </div>
-          <div id="document-pane"></div>
-        </div>
-      </div>
-      <% end if count > 1 %>
-          
-      <%= content_tag :div, class: "tab-pane #{active_tab[:assessments]}", id: "assessments" do %>
+          </div>
+        <% elsif item.kind_of?(Question) %>
+          <div class="row">
+            <div class="<%= css_columns(12) %>">
+              <%= render "teach/questions/question", locals: {question: item, show_answer: false} %>
+            </div>
+          </div>
+        <% elsif item.kind_of?(Assessment) %>
+          <div class="row">
+            <div class="<%= css_columns(12) %>">
+              <%= render partial: "learn/assessments/assessment", locals: { assessment: item } %>      
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+    <% if @lecture.allow_discussion && @topic %>
       <div class="row">
         <div class="<%= css_columns(12) %>">
-          <% if assessments.count == 0 %>
-            <%= t('page.text.no_record_found') %>
-          <% else %>
-            <%= render partial: 'learn/assessments/assessment', collection: assessments %>
+          <%= ui_header t('page.titles.discussion'), style: :h4 %>
+          <%= content_tag :div, id: "comments" do %>  
+            <div class="row">
+              <div class="<%= css_columns(12) %> topics" >
+                <%= render 'learn/topics/topic' %>
+              </div>
+            </div>
           <% end %>
         </div>
       </div>
-      <% end if assessments.any? %>
-      
-      <%= content_tag :div, class: "tab-pane #{active_tab[:comments]}", id: "comments" do %>  
-        <div class="row">
-          <div class="<%= css_columns(12) %> topics" >
-            <%= render 'learn/topics/topic' %>
-          </div>
-        </div>
-      <% end if @lecture.allow_discussion && @topic %>
-    </div>
+    <% end %>
   </div>
 </div>
-<%= content_tag :small do %>
-  * <%= t('page.text.has_invideo_quiz') %>
-<% end if has_ivq %>
-
-
 
 

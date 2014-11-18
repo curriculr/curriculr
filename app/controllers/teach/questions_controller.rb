@@ -84,6 +84,15 @@ module Teach
       end
     end
 
+    def include_in_lecture
+      if @question && @question.lecture
+        @question.include_in_lecture = !@question.include_in_lecture
+        @question.save!(validate: false)
+      end
+
+      render nothing: true
+    end
+
     def sort_option
       params[:option].each_with_index do |id, i|
         @question.options.where(:id => id).update_all(order: i + 1)
@@ -101,8 +110,8 @@ module Teach
 
     private  
       def question_params
-        params.require(:question).permit(:course_id, :unit_id, :lecture_id, :kind,  
-          :question, :hint, :explanation, :tag_list => [], :bank_list => [],
+        params.require(:question).permit(:course_id, :unit_id, :lecture_id, :kind, :question, 
+          :hint, :explanation, :include_in_lecture, :tag_list => [], :bank_list => [],
           :options_attributes => [
             :id, :option, :answer, :answer_options, :_destroy
         ])

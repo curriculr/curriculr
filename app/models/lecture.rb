@@ -4,6 +4,7 @@ class Lecture < ActiveRecord::Base
   
   belongs_to :unit, :counter_cache => true
 	has_many :assessments, :dependent => :destroy
+  has_many :questions, :dependent => :destroy
   has_many :pages, :dependent => :destroy, :as => :owner
   
 	# Validation Rules
@@ -38,6 +39,8 @@ class Lecture < ActiveRecord::Base
   def contents(for_student = false)
     data = []
     data += self.materials_of_kind([:video, :audio, :document, :other]).to_a
+    data += self.questions.where(:include_in_lecture => true).to_a
+
     if for_student
       data += self.pages.where(:published => true).to_a
       data += self.assessments.where(:ready => true).where("invideo_id is null").to_a

@@ -30,10 +30,17 @@
 	<%= form_hidden f, :hint %>
 	<%= form_hidden f, :explanation %>
   
-  <%= form_select f, :bank_list, question_banks.invert, 
+  <div class="row">
+    <div class="<%= css_columns(8) %>">
+      <%= form_select f, :bank_list, question_banks.invert, 
         {:value => @question.bank_list}, {:multiple => true, :class => "chosen-select #{rtl? ? 'chosen-rtl' : ''}", 
           :'data-placeholder'=> t('activerecord.placeholders.bank_list')} %>
-  
+    </div>
+    <div class="<%= css_columns(4) %>"><br/>
+      <%= form_checkbox f, :include_in_lecture if @lecture %>
+    </div>
+  </div>
+
   <%= content_tag :span, Question.human_attribute_name(:hint), 
         :class => "ui-modal-field #{css_button(:default)}", 
         :data => {

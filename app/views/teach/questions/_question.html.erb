@@ -56,11 +56,10 @@
               q_selector: @assessment.q_selectors.where(question_id: question.id).first || QSelector.new, 
               question: question 
             } %>
-      <% end %>
-
-      <% if question.unit.present? %>
-        <%# %(#{Course.model_name.human}/#{question.unit.name}) %>
-        <%# %(/#{question.lecture.name}) if question.lecture.present? %>
+      <% else %>
+        <% if @course && question.lecture.present? && staff?(current_user, @course) %>
+          <%= render partial: 'teach/questions/include_in_lecture_form', locals: { question: question } %>
+        <% end %>
       <% end %>
     </div>
   <% end %>
