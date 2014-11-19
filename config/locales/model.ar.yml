@@ -115,6 +115,7 @@ ar:
         one: كلمة سر
     
     actions:
+
       account_settings: إعدادت الحساب
       site_settings: إعدادات الموقع
       new_attempt: <i class="fa fa-plus"></i> إبدأ محاولة جديدة
@@ -150,6 +151,7 @@ ar:
       hide: أخف
       save: احفظ
       submit: قدم
+      submit_answer: قدم الإجابة
       enroll: سجل في هذا الفصل
       enroll_again: سجل في هذا الفصل مجددا
       enroll_4_free: سجل في هذه الفصل - إنه مجاني

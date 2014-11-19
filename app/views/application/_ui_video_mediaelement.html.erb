@@ -1,7 +1,7 @@
 <% if video.kind_of?(Material) or video.kind_of?(Medium) %>
   <%
   assessments = []
-  if !request.xhr? and @klass and @lecture and video.kind_of?(Material)
+  if @klass and @lecture and video.kind_of?(Material) # do we need to add !request.xhr?
     assessments = @lecture.assessments.open(@klass).where('ready = TRUE and invideo_id = :vid', :vid => video.id).to_a
   end
   %>

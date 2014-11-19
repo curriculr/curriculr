@@ -10,6 +10,14 @@ module Learn
       @topic = @discussion.topic
       @post = Post.new
       @topic.hit! if @topic && @klass.open?
+
+      item = @lecture.contents(true).first
+      case item
+      when Material
+        item.log_activity('opened', @klass, current_student, @lecture.name)
+      when Page
+        item.log_activity('visited', @klass, current_student, @lecture.name)
+      end
     end
 
     def index
@@ -18,6 +26,7 @@ module Learn
     def show_page
       @page = Page.find(params[:page_id])
       @page.log_activity('visited', @klass, current_student, @lecture.name)
+      @mark_as_taken = true
       respond_to do |format|
         format.js{ render 'show' }
       end
@@ -30,6 +39,7 @@ module Learn
         @question.log_activity('attempted', @klass, current_student, @lecture.name, 0, false, @answer)
         #params[:attempt][@question.id.to_s]
         @correct_answer = Hash[@question.options.map{|o| ["answer_#{@question.id}_#{o.id}", o.answer]}]
+        @mark_as_taken = true
       else
         activity = @question.activity('attempted', @klass, current_student)
         @answer = activity ? activity.data : nil
@@ -50,6 +60,7 @@ module Learn
     def show_material
       @material = Material.find(params[:material_id])
       @material.log_activity('opened', @klass, current_student, @lecture.name)
+      @mark_as_taken = true
       @video = @material if @material.kind == 'video'
       respond_to do |format|
         format.html{ render 'show' }

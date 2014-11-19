@@ -60,5 +60,6 @@ $("#<%= pane %> audio.mediaelementjs").mediaelementplayer();
 //   // player is now ready.
 //   });
 // });
-
+mark_as_taken = <%= @mark_as_taken.present? %>;
+lecture_pager_position = <%= params[:position] ? params[:position] : 1 %>
 ui_rebind_application_events(jQuery);

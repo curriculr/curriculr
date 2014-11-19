@@ -13,12 +13,8 @@
             :read_only => false %>
     
       <div class="panel-footer">        
-        <% if true %>
-          <%= submit_tag t('activerecord.actions.submit'), :class => css_button(:primary), 
-                :value => t('activerecord.actions.submit') %>
-        <% else %>
-          <%= link_to(t('activerecord.actions.resume_lecture'), "#", 
-                :class => "#{css_button(:default)} attempt-close-btn") %>
+        <% unless params[:attempt] %>
+          <%= submit_tag t('activerecord.actions.submit_answer'), :class => css_button(:primary) %>
         <% end %>
       </div>
     </div>

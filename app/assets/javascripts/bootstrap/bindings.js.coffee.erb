@@ -433,6 +433,22 @@ window.ui_rebind_application_events  = ($) ->
         $(element).val("#{index + 1}")
   )
 
+  set_lecture_pager_position = (pos) ->
+    $(".lecture-pager .lecture-pager-link").hide()
+    $(".lecture-pager .lecture-pager-link-pos-#{pos - 1} a").html($('.lecture-pager').data('prev'))
+    $(".lecture-pager .lecture-pager-link-pos-#{pos - 1}").removeClass("next")
+    $(".lecture-pager .lecture-pager-link-pos-#{pos - 1}").addClass("previous")
+    $(".lecture-pager .lecture-pager-link-pos-#{pos - 1}").show()
+    $(".lecture-pager .lecture-pager-link-pos-#{pos + 1} a").html($('.lecture-pager').data('next'))
+    $(".lecture-pager .lecture-pager-link-pos-#{pos + 1}").removeClass("previous")
+    $(".lecture-pager .lecture-pager-link-pos-#{pos + 1}").addClass("next")
+    $(".lecture-pager .lecture-pager-link-pos-#{pos + 1}").show()
+    $(".lecture-contents li").removeClass("current")
+    $(".lecture-contents .lecture-content-link-pos-#{pos}").addClass("current")
+    if mark_as_taken
+      $(".lecture-contents .lecture-content-link-pos-#{pos}").addClass("active")
+
+
   $('.btn-popover').hover(
     (e) -> 
       $(this).popover('show')
@@ -440,8 +456,7 @@ window.ui_rebind_application_events  = ($) ->
       $(this).popover('hide')
   )
 
-  $("#lecture-pager a").on 'click', ->
-    #alert(position)
+  set_lecture_pager_position(lecture_pager_position)
 
 jQuery ->
   ui_rebind_application_events jQuery

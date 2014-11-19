@@ -489,6 +489,10 @@ ul.report-lists {
       }
     }
   }
+
+  .page-header {
+    margin: 0px;
+  }
 }
   
 .panel.panel-inverse{
@@ -603,6 +607,15 @@ ul.report-lists {
           }
         }
       }
+    }
+  }
+
+  .bottom-lecture-pager .pager {
+    .previous a {
+      float: none;
+    }
+    .next a {
+      float: none;
     }
   }
 }
@@ -740,6 +753,9 @@ ul.breadcrumb {
           color: $brand-primary;
         }
       }
+    }
+    &.current {
+      background: $light-gray;
     }
   }
 }

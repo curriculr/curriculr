@@ -7,74 +7,66 @@
     remote: false
   }
   
-  pager_links += data.map do |item|
-    {
-      url: send("show_#{item.class.name.downcase}_of_learn_klass_lecture_path", @klass, @lecture, item),
+  position = 0
+  data.each_with_index do |item, i|
+    pager_links << {
+      url: send("show_#{item.class.name.downcase}_of_learn_klass_lecture_path", @klass, @lecture, item, position: i + 1),
       remote: true
     }
+
+    if params[:show_assessment] && item.kind_of?(Assessment) && item.id.to_s == params[:show_assessment]
+      position = i
+    end
   end
 
   pager_links << {
     url: (pagers.second ? learn_klass_lecture_path(@klass, pagers.second[:lecture]) : nil),
     remote: false
   }
-
-  # videos = @lecture.materials_of_kind(:video).to_a
-  # audios = @lecture.materials_of_kind(:audio).to_a
-  # attachments = @lecture.materials_of_kind([:document, :other]).to_a 
-  # pages = @lecture.pages.where(:published => true).to_a
-  
-  # assessments = @lecture.assessments.where(:ready => true).where("invideo_id is null").to_a
-  # has_ivq = @lecture.assessments.where(:ready => true).where("invideo_id is not null").exists?
-  
-  # content_counts = []
-  # content_counts << videos.count if videos.any? 
-  # content_counts << audios.count if audios.any? 
-  # content_counts << attachments.count if attachments.any? 
-  # content_counts << pages.count if pages.any? 
-  
-  # count = (content_counts.reduce(:+) || 0)
-
-  # active_tab = { home: '', assessments: '', comments: '' }
-  # active_tab[:assessments] = 'active' if params[:show_assessments]
-  # active_tab[:comments] = 'active' if params[:show_comments]
-  # active_tab[:home] = 'active' if count > 1 && (!params[:show_assessments] && !params[:show_comments])
-  
-  #Lecture.generate_discussion_topics(Klass.unscoped.open.to_a)
 %>
 
 <%= javascript_tag  do %>
-  var position = 0;
-  var pager_links = <%= pager_links.to_json.html_safe %>;
+  var lecture_pager_position = <%= position + 1 %>;
+  var mark_as_taken = false;
 <% end %>
 
 <div class="panel panel-inverse">
   <div class="panel-heading">
     <div class="row">
       <div class="<%= css_columns(9) %>">
-        <h4 class="panel-title"><%= @lecture.name %>
+        <h4 class="panel-title">
+          <%= ui_button_dropdown content_tag(:i, '', class: "fa fa-list"), (@lecture.unit.lectures.map do |lecture|
+              name = %(#{lecture.name} #{content_tag(:i, '', class: "fa fa-check") if @lecture == lecture})
+              link_to(name.html_safe, learn_klass_lecture_path(@klass, lecture))
+            end) , class: css_button(:default, :xs) %>&nbsp;
+          <%= @lecture.name %>
+        </h4>
       </div>
       <div class="<%= css_columns(3) %>">
-        <ul id="lecture-pager" class="pager">
-          <li class="previous">
-            <%= link_to t('activerecord.actions.prev_html').html_safe, 
-              learn_klass_lecture_path(@klass, pagers.first[:lecture]), 
-              class: css_button(:default) if pagers.first.present? %>
-          </li>
-          <li class="next">
-            <%= link_to t('activerecord.actions.next_html').html_safe, 
-                  learn_klass_lecture_path(@klass, pagers.second[:lecture]), 
-                  class: css_button(:default) if pagers.second.present?  %>
-          </li>
-        </ul>
+        <%= pager_html = capture do %>
+          <ul class="pager lecture-pager" 
+              data-prev="<%= t('activerecord.actions.prev_html').html_safe %>" 
+              data-next="<%= t('activerecord.actions.next_html').html_safe %>">
+            <% pager_links.each_with_index do |link, i| %>
+              <%
+                link_class = (i == 0 ? 'previous' : 'next')
+                link_style = (i > 1 ? 'display: none;' : '')
+                link_name = (i == 0 ? t('activerecord.actions.prev_html').html_safe : (i == 1 ? t('activerecord.actions.next_html').html_safe : ''))
+              %>
+              <li class="lecture-pager-link-pos-<%= i %> lecture-pager-link <%= link_class %>" style="<=% link_style %>">
+                <%= link_to link_name, link[:url], remote: link[:remote], class: css_button(:default) if link[:url] %>
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
       </div>
     </div>
   </div>
   <div class="panel-body">
-    <ul class="nav nav-tabs">
-      <% data.each do |item| %>
+    <ul class="nav nav-tabs lecture-contents">
+      <% data.each_with_index do |item, i| %>
         <%
-          link_attr = { class: "btn-popover", remote: true, data: {
+          link_attr = { class: "btn-popover lecture-content-link", remote: true, data: {
               toggle: "popover",  placement: "bottom", 
               content: item.kind_of?(Material) ? item.medium.name : (
                 item.kind_of?(Question) ? Question.model_name.human  : item.name
@@ -83,38 +75,38 @@
           }
 
           active = if item.kind_of?(Assessment) 
-            item.can_be_taken() 
+            Attempt.for(@klass, current_student, item).exists?
           else 
             item.has?(['visited', 'attempted', 'opened'], @klass, current_student)
           end
         %>
-        <li class="<%= "active" if active %>">
+        <li class="lecture-content-link-pos-<%= i + 1 %> <%= "active" if active %>">
           <% if item.kind_of?(Material) && item.kind == 'video' %>
-            <%= link_to show_material_of_learn_klass_lecture_path(@klass, @lecture, item), link_attr do %>
+            <%= link_to show_material_of_learn_klass_lecture_path(@klass, @lecture, item, position: i + 1), link_attr do %>
               <i class="fa fa-file-video-o"></i>
             <% end %>
           <% elsif item.kind_of?(Material) && item.kind == 'audio' %>
-            <%= link_to show_material_of_learn_klass_lecture_path(@klass, @lecture, item), link_attr  do %>
+            <%= link_to show_material_of_learn_klass_lecture_path(@klass, @lecture, item, position: i + 1), link_attr  do %>
               <i class="fa fa-file-audio-o"></i>
             <% end %>
           <% elsif item.kind_of?(Material) && item.kind =='document' %>
-            <%= link_to show_material_of_learn_klass_lecture_path(@klass, @lecture, item), link_attr  do %>
+            <%= link_to show_material_of_learn_klass_lecture_path(@klass, @lecture, item, position: i + 1), link_attr  do %>
               <i class="fa fa-file-pdf-o"></i>
             <% end %>
           <% elsif item.kind_of?(Material) && item.kind == 'other' %>
-            <%= link_to show_material_of_learn_klass_lecture_path(@klass, @lecture, item), link_attr  do %>
+            <%= link_to show_material_of_learn_klass_lecture_path(@klass, @lecture, item, position: i + 1), link_attr  do %>
               <i class="fa fa-file-code-o"></i>
             <% end %>
           <% elsif item.kind_of?(Page) %>
-            <%= link_to show_page_of_learn_klass_lecture_path(@klass, @lecture, item), link_attr do %>
+            <%= link_to show_page_of_learn_klass_lecture_path(@klass, @lecture, item, position: i + 1), link_attr do %>
               <i class="fa fa-globe"></i>
             <% end %>
           <% elsif item.kind_of?(Question) %>
-            <%= link_to show_question_of_learn_klass_lecture_path(@klass, @lecture, item), link_attr do %>
+            <%= link_to show_question_of_learn_klass_lecture_path(@klass, @lecture, item, position: i + 1), link_attr do %>
               <i class="fa fa-question"></i>
             <% end %>
           <% elsif item.kind_of?(Assessment) %>
-            <%= link_to show_assessment_of_learn_klass_lecture_path(@klass, @lecture, item), link_attr do %>
+            <%= link_to show_assessment_of_learn_klass_lecture_path(@klass, @lecture, item, position: i + 1), link_attr do %>
               <i class="fa fa-flask"></i>
             <% end %>
           <% end %>
@@ -122,7 +114,7 @@
       <% end %>
     </ul>
     <div id="media-pane">
-      <% item = data.first %>
+      <% item = data[position] %>
       <% if item %>
         <% if item.kind_of?(Material) && item.kind == 'video' %>
           <%= ui_video item %>
@@ -159,6 +151,15 @@
         <% end %>
       <% end %>
     </div>
+
+    <div class="row">
+      <div class="<%= css_columns(9) %>">
+      </div>
+      <div class="<%= css_columns(3) %>">
+        <div class="bottom-lecture-pager"><%= pager_html %></div>
+      </div>
+    </div>
+
     <% if @lecture.allow_discussion && @topic %>
       <div class="row">
         <div class="<%= css_columns(12) %>">
