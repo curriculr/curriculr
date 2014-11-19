@@ -60,7 +60,6 @@ module Learn
                 end
               }]
             end
-            puts attempt_params
           end
         
           util = AssessmentAttempt.new(@klass, current_student, @assessment, @attempt, attempt_params)

@@ -16,7 +16,11 @@
       subhtml << ui_header(@page.name, style: :h4)
       subhtml << markdown(@page.about, :html => @page.html)
     elsif @question && @question.lecture
-        subhtml << render(partial: "teach/questions/question", locals: { question: @question, show_answer: false })
+      subhtml << ( render partial: "learn/questions/show", locals: { 
+          question: @question,
+          answer: @answer
+        } 
+      )
     elsif @assessment && @assessment.lecture
       subhtml << render(partial: "learn/assessments/assessment", locals: { assessment: @assessment })
     end
@@ -31,8 +35,25 @@
 %>
 
 $("#<%= pane %>").html('<%= j html.html_safe %>');
-
 $("#<%= pane %> audio.mediaelementjs").mediaelementplayer();
+<% if @correct_answer %>
+  <% @correct_answer.each do |id, a| %>
+    <%
+    html = ''
+    if  %w(pick_one pick_many).include?(@question.kind)
+      html = %(
+        <i class="fa fa-check"></i>
+      ) if a == '1'
+    else
+      html = %(
+        <strong>#{Question.human_attribute_name(:answer)}</strong>: <span>#{a}</span>
+      )
+    end
+    %>
+    $('#<%= id %>').html('<%= j html.html_safe %>');
+  <% end %>
+<% end %>
+
 
 // $("#<%= pane %> video.sublime").each(function(){
 //   sublime.prepare($(this).attr('id'), function(player) {

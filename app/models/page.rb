@@ -1,5 +1,6 @@
 class Page < ActiveRecord::Base
   include Scopeable
+  include Actionable
   extend FriendlyId
   
   friendly_id :name, use: [ :slugged, :finders ]

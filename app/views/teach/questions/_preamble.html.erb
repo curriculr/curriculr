@@ -1,5 +1,5 @@
 <div class="<%= css_align(:right) %>">  
-  <% if show_answer %>
+  <% if @assessment && show_answer %>
     <%= link :question, :show_answer,
           learn_klass_assessment_show_answer_path(@klass, @assessment, q), 
           :id => "show_answer_link_#{q.id}", :method => :post, :remote => true %>

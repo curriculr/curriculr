@@ -62,7 +62,7 @@ class Lecture < ActiveRecord::Base
     end
 
     lectures = Course.joins(:klasses).joins(:units => :lectures).order('units.order, lectures.order').
-      select('courses.id as course, units.id as unit, lectures.id as lecture').
+      select('courses.id as course, units.id as unit, lectures.id as lecture, units.order, lectures.order').
       where("courses.id = :course_id and klasses.id = :klass_id and
              (lectures.on_date - lectures.based_on) <= (DATE(:today) - DATE(:begins_on)) and 
              (lectures.for_days is null or #{date_clause} > :today)", 

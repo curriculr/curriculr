@@ -3,6 +3,8 @@ class Activity < ActiveRecord::Base
   belongs_to :klass
   belongs_to :actionable, :polymorphic => true
   
+  serialize :data 
+  
   scope :aggregated_for_all, ->(action, klass_id){
     action_clause = case action
     when Array

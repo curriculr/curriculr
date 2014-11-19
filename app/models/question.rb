@@ -1,4 +1,5 @@
 class Question < ActiveRecord::Base
+  include Actionable
   acts_as_taggable_on :tags, :banks 
   
   belongs_to :course

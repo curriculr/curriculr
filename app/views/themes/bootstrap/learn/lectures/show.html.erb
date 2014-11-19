@@ -1,6 +1,23 @@
 <% 
   data = @lecture.contents(true)
   pagers = @lecture.pagers(@klass, current_student)
+  pager_links = []
+  pager_links << {
+    url: (pagers.first ? learn_klass_lecture_path(@klass, pagers.first[:lecture]) : nil),
+    remote: false
+  }
+  
+  pager_links += data.map do |item|
+    {
+      url: send("show_#{item.class.name.downcase}_of_learn_klass_lecture_path", @klass, @lecture, item),
+      remote: true
+    }
+  end
+
+  pager_links << {
+    url: (pagers.second ? learn_klass_lecture_path(@klass, pagers.second[:lecture]) : nil),
+    remote: false
+  }
 
   # videos = @lecture.materials_of_kind(:video).to_a
   # audios = @lecture.materials_of_kind(:audio).to_a
@@ -26,6 +43,11 @@
   #Lecture.generate_discussion_topics(Klass.unscoped.open.to_a)
 %>
 
+<%= javascript_tag  do %>
+  var position = 0;
+  var pager_links = <%= pager_links.to_json.html_safe %>;
+<% end %>
+
 <div class="panel panel-inverse">
   <div class="panel-heading">
     <div class="row">
@@ -33,7 +55,7 @@
         <h4 class="panel-title"><%= @lecture.name %>
       </div>
       <div class="<%= css_columns(3) %>">
-        <ul class="pager">
+        <ul id="lecture-pager" class="pager">
           <li class="previous">
             <%= link_to t('activerecord.actions.prev_html').html_safe, 
               learn_klass_lecture_path(@klass, pagers.first[:lecture]), 
@@ -59,8 +81,14 @@
               )
             }
           }
+
+          active = if item.kind_of?(Assessment) 
+            item.can_be_taken() 
+          else 
+            item.has?(['visited', 'attempted', 'opened'], @klass, current_student)
+          end
         %>
-        <li class="<%= "active" if false %>">
+        <li class="<%= "active" if active %>">
           <% if item.kind_of?(Material) && item.kind == 'video' %>
             <%= link_to show_material_of_learn_klass_lecture_path(@klass, @lecture, item), link_attr do %>
               <i class="fa fa-file-video-o"></i>
@@ -114,7 +142,12 @@
         <% elsif item.kind_of?(Question) %>
           <div class="row">
             <div class="<%= css_columns(12) %>">
-              <%= render "teach/questions/question", locals: {question: item, show_answer: false} %>
+              <% 
+                activity = item.activity('attempted', @klass, current_student) 
+                answer = activity ? activity.data : nil
+              %>
+              
+              <%= render partial: "learn/questions/show", locals: { question: item, answer: answer } %>
             </div>
           </div>
         <% elsif item.kind_of?(Assessment) %>

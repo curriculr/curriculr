@@ -97,6 +97,7 @@ Rails.application.routes.draw do
           get 'materials/:material_id', :as => :show_material_of, :to => 'lectures#show_material'
           get 'pages/:page_id', :as => :show_page_of, :to => 'lectures#show_page'
           get 'questions/:question_id', :as => :show_question_of, :to => 'lectures#show_question'
+          post 'questions/:question_id', :as => :attempt_question_of, :to => 'lectures#show_question'
           get 'assessments/:assessment_id', :as => :show_assessment_of, :to => 'lectures#show_assessment'
         end
       end

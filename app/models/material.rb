@@ -1,4 +1,5 @@
 class Material < ActiveRecord::Base
+  include Actionable
   acts_as_taggable_on :tags
   
   belongs_to :owner, :polymorphic => true#, :counter_cache => true  

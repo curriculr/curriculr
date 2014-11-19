@@ -440,6 +440,9 @@ window.ui_rebind_application_events  = ($) ->
       $(this).popover('hide')
   )
 
+  $("#lecture-pager a").on 'click', ->
+    #alert(position)
+
 jQuery ->
   ui_rebind_application_events jQuery
   

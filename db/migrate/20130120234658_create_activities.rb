@@ -7,6 +7,7 @@ class CreateActivities < ActiveRecord::Migration
       t.string :action
       t.integer :times, :default => 0
       t.integer :points, :default => 0
+      t.text :data
     end
   end
 end
