@@ -17,8 +17,8 @@ class ApplicationController < PreApplicationController
   before_action :set_theme
   before_action :configure_devise_params, if: :devise_controller?
   
-	#rescue_from CanCan::AccessDenied, :with => :render_401
-  #rescue_from ActionController::RoutingError, :with => :render_404
+	rescue_from CanCan::AccessDenied, :with => :render_401
+  rescue_from ActionController::RoutingError, :with => :render_404
   rescue_from KlassAccessDeniedError do |e|
     flash[:part] = e.message
     redirect_to access_learn_klass_path(@klass)

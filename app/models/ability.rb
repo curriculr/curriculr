@@ -28,7 +28,7 @@ class Ability
         can :decline, Klass if klass.invited_and_not_yet_accepted?(user)
         if klass.enrolled?(student)
           can :drop, Klass 
-          can [ :index, :show, :show_page, :show_material ], Lecture
+          can [ :index, :show, :show_page, :show_material, :show_question, :show_assessment ], Lecture
           can [ :index, :show ], [ Forum, Topic ]
           can [ :new, :create, :edit, :update, :up, :down, :destroy ], [ Topic, Post ] if klass.open?
           can [ :show, :localized, :index ], Page, :published => true
