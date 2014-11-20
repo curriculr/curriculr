@@ -456,7 +456,7 @@ window.ui_rebind_application_events  = ($) ->
       $(this).popover('hide')
   )
 
-  set_lecture_pager_position(lecture_pager_position)
+  set_lecture_pager_position(lecture_pager_position) if lecture_pager_position?
 
 jQuery ->
   ui_rebind_application_events jQuery

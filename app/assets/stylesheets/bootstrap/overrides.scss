@@ -562,7 +562,7 @@ ul.report-lists {
     padding: 0;
 
     border-top: $border-style !important;
-    
+
     .col-md-12 {
       padding: 20px 35px;
     }
@@ -590,7 +590,7 @@ ul.report-lists {
       }
     }
     
-    .page-header h4{
+    .page-header h4 {
       margin-top: 0;
     }
     
@@ -608,6 +608,14 @@ ul.report-lists {
         }
       }
     }
+
+    .attempt-question {
+      border: none;
+      
+      .panel-body {
+        border-top: none !important;
+      }
+    }
   }
 
   .bottom-lecture-pager .pager {
@@ -618,6 +626,10 @@ ul.report-lists {
       float: none;
     }
   }
+}
+
+.attempt-question .panel-body {
+  border: none !important;
 }
 
 // approve messages
