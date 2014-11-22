@@ -40,7 +40,13 @@ module Duroosi
       "production" => 2
     }
 
-    $redis = Redis.new(db: config.redis_databases[Rails.env.to_s])
+    if Rails.application.secrets.redis_enabled
+      $redis = Redis.new(db: config.redis_databases[Rails.env.to_s])
+    else
+      require "redis_decoy"
+      $redis = RedisDecoy.new(db: config.redis_databases[Rails.env.to_s])
+    end
+    
     if $redis.exists('config.site')
       config.site = JSON.parse($redis.get('config.site'))
     else

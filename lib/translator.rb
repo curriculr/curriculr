@@ -1,6 +1,10 @@
 module Translator   
   def self.store
-    @store ||= Redis.new(db: Rails.application.config.redis_databases[Rails.env.to_s])
+    if Rails.application.secrets.redis_enabled
+      @store ||= Redis.new(db: Rails.application.config.redis_databases[Rails.env.to_s])
+    else
+      @store ||= {}
+    end
   end
   
   class Backend < I18n::Backend::KeyValue

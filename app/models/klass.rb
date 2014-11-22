@@ -239,33 +239,44 @@ class Klass < ActiveRecord::Base
   
   def final_score(student_id, method= :average)
     report = GradeDistribution.final_score_report(self, student_id).to_a
-    score = 0.0
+    total_score = 0.0
+    exams_score = 0.0
     detail = {}
     report.each do |item|
+      score = 0.0
       key = "#{item.level}_#{item.kind}"
       if item.scored > 0
         case method
         when :average
-          detail[key] = [ item.scored / item.avg_points, 1.0 ].min * 1.0 * item.grade
+          score = [ item.scored / item.avg_points, 1.0 ].min * 1.0 * item.grade
         else 
-          detail[key] = [ item.scored / item.max_points, 1.0 ].min * 1.0 * item.grade
+          score = [ item.scored / item.max_points, 1.0 ].min * 1.0 * item.grade
         end
-        score += detail[key]
+
+        total_score += score
       else
-        detail[key] = 0
+        score = 0
+      end
+
+      unless %w(attendance participation).include? item.kind
+        exams_score += score
+      else
+        detail[key] = score
       end
     end
     
-    score = score.round(2)
+    detail["course_exams"] = exams_score
+
+    total_score = total_score.round(2)
     
     letter = nil
     course.config["grading"]["letters"].each do |k, v|
-      if score >= v
+      if total_score >= v
         letter = k
         break
       end
     end
-    { score: score, letter: letter, detail: detail }
+    finn = { score: total_score, letter: letter, detail: detail }
   end
   
   before_validation do |klass|

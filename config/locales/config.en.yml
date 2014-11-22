@@ -28,9 +28,6 @@ en:
         klass_ends: Class ends
         
       section:
-        toc: Table of contents
-        summary: Summary
-        standing: Compared to other students
         attendance: Attendance
         assessment: Assessment attempts
           

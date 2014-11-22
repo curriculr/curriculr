@@ -117,9 +117,9 @@
       <% item = data[position] %>
       <% if item %>
         <% if item.kind_of?(Material) && item.kind == 'video' %>
-          <%= ui_video item %>
+          <%= ui_video item, nil, :autoplay => true %>
         <% elsif item.kind_of?(Material) && item.kind == 'audio' %>
-          <%= ui_audio item %>
+          <%= ui_audio item, :autoplay => true %>
         <% elsif item.kind_of?(Material) && item.kind =='document' %>
           <%= ui_document_viewer item.at_url %>
         <% elsif item.kind_of?(Material) && item.kind == 'other' %>

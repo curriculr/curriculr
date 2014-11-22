@@ -28,11 +28,8 @@ ar:
         klass_ends: نهاية الفصل
 
       section:
-        toc: المحتويات
-        summary: ملخصات
-        standing: الأداء مقارنة بالطلاب الآخرين في الفصل
-        attendance: تقرير حضور المحاضرات
-        assessment: تقرير محاولة الواجبات و الامتحانات
+        attendance: حضور المحاضرات
+        assessment: محاولات الامتحانات
           
       assessment:
         lecture: تمارين و واجبات المحاضرات

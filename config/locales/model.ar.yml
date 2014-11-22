@@ -115,7 +115,6 @@ ar:
         one: كلمة سر
     
     actions:
-
       account_settings: إعدادت الحساب
       site_settings: إعدادات الموقع
       new_attempt: <i class="fa fa-plus"></i> إبدأ محاولة جديدة
@@ -133,7 +132,7 @@ ar:
       destroy: <i class="fa fa-remove"></i> احذف
       cancel: ألغ
       settings: اعدادات
-      records: <i class="fa fa-newspaper-o"></i> تقرير الأداء
+      reports: <i class="fa fa-newspaper-o"></i>&nbsp; تقرير الأداء
       show_answer: أظهر الجواب
       about: من نحن
       contactus: تواصل معنا
@@ -183,7 +182,7 @@ ar:
       remove_promo_video: احذف فيديو المقدمة
       add_poster_image: أضف ملصقا
       remove_poster_image: احذف الملصق
-      syllabus: <i class="fa fa-road"></i> المنهج
+      syllabus: <i class="fa fa-road"></i>&nbsp; المنهج
       add_role: اضف دور %{role}
       remove_role: احذف دور %{role}
       stats: احصائيات
@@ -538,11 +537,11 @@ ar:
   page:
     titles:
       discussion: المناقشة
-      outline: <i class="fa fa-list"></i> المحاضرات
-      forums: <i class="fa fa-comments-o"></i> المنتديات
-      pages: <i class="fa fa-globe"></i> الصفحات
-      attachments: <i class="fa fa-paperclip"></i> المرفقات
-      students: <i class="fa fa-users"></i> الطلاب
+      outline: <i class="fa fa-list"></i>&nbsp; المحاضرات
+      forums: <i class="fa fa-comments-o"></i>&nbsp; المنتديات
+      pages: <i class="fa fa-globe"></i>&nbsp; الصفحات
+      attachments: <i class="fa fa-paperclip"></i>&nbsp; المرفقات
+      students: <i class="fa fa-users"></i>&nbsp; الطلاب
       contents: المحتوى
       readings: مقروءات
       progress: أداء
@@ -587,7 +586,7 @@ ar:
       people: أشخاص
       books: كتب
       document: ملف
-      home: <i class="fa fa-home"></i> الرئيسية
+      home: <i class="fa fa-home"></i>&nbsp; الرئيسية
       images: صور
       others: أخرى
       vidoes: فيديوهات
@@ -700,10 +699,11 @@ ar:
         two: علامتان
         other: "%{count} علامات"
       correct: صحيح
-      course_attendance: الحضور
+      course_attendance: للحضور
+      course_exams: للاختبارات
       course_final: الاختبارات النهائية
       course_mid-term: اختبارات نصف الفصل
-      course_participation: المشاركة
+      course_participation: للمشاركة
       lecture_quiz: اختبارات المحاضرة
       partially_correct: صحيح جزئيا
       incorrect: غير صحيح

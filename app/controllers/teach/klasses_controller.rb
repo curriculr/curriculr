@@ -61,7 +61,7 @@ module Teach
       end
     end
 
-    def records
+    def reports
     end
     
     def invite

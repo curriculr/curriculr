@@ -22,8 +22,8 @@
 	<td><%= l(enrollment.created_at.to_date) %></td>
   <td><%= @klass.final_score(enrollment.student.id)[:score] %></td>
   <td>
-    <%= link(:course, :records, 
-          teach_course_klass_student_records_path(enrollment.klass.course, enrollment.klass, enrollment.student), 
+    <%= link(:course, :reports, 
+          teach_course_klass_student_reports_path(enrollment.klass.course, enrollment.klass, enrollment.student), 
           :class => css(button: :default, align: :right)) %>
   </td>
 </tr>

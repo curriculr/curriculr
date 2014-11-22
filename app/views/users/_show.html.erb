@@ -1,13 +1,16 @@
-<%= link(:profile, :edit, main_app.edit_user_path(user), class: css(button: :success, align: :right)) %>
 <%= content_tag :h4 do %>
-  <%= "#{user.profile.prefix} #{user.name}" %> 
-  <small><%= user.profile.nickname%></small>
+  <%= link(:profile, :edit, main_app.edit_user_path(user), 
+	class: css(button: [:success, :xs], align: :right)) %>
+	<%= "#{user.profile.prefix} #{user.name}" %> 
+  <small><%= user.profile.nickname %></small>
 <% end %>
+
 <hr/>
+
 <%= image_tag user.profile.avatar_url(current_account, :med).to_s, 
       :class => 'img-responsive' if user.profile.avatar_url(current_account, :med) %>
 
 <p><strong><%= user.email %></strong></p>
 
-<%= markdown(summary(user.profile.about)) %>
+<%= markdown(summary(user.profile.about, 100)) %>
 

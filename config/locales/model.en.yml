@@ -131,7 +131,7 @@ en:
       destroy: <i class="fa fa-remove"></i> Delete
       cancel: Cancel
       settings: Settings
-      records: <i class="fa fa-newspaper-o"></i> Records
+      reports: <i class="fa fa-newspaper-o"></i>&nbsp; Reports
       show_answer: Show answer
       about: About us
       contactus: Contact us
@@ -180,7 +180,7 @@ en:
       remove_promo_video: Remove promo video
       add_poster_image: Add poster
       remove_poster_image: Remove poster
-      syllabus: <i class="fa fa-road"></i> Syllabus
+      syllabus: <i class="fa fa-road"></i>&nbsp; Syllabus
       add_role: Add role %{role}
       remove_role: Remove role %{role}
       stats: Statistics
@@ -537,11 +537,11 @@ en:
   page:
     titles:
       discussion: Discussion
-      outline: <i class="fa fa-list"></i> Lectures
-      forums: <i class="fa fa-comments-o"></i> Forums
-      pages: <i class="fa fa-globe"></i> Pages
-      attachments: <i class="fa fa-paperclip"></i> Attachments
-      students: <i class="fa fa-users"></i> Students
+      outline: <i class="fa fa-list"></i>&nbsp; Lectures
+      forums: <i class="fa fa-comments-o"></i>&nbsp; Forums
+      pages: <i class="fa fa-globe"></i>&nbsp; Pages
+      attachments: <i class="fa fa-paperclip"></i>&nbsp; Attachments
+      students: <i class="fa fa-users"></i>&nbsp; Students
       contents: Contents
       readings: Readings
       progress: Status
@@ -585,7 +585,7 @@ en:
       people: People
       books: Books
       document: Document
-      home: <i class="fa fa-home"></i> Home
+      home: <i class="fa fa-home"></i>&nbsp; Home
       images: Images
       others: Other
       vidoes: Vidoes
@@ -699,6 +699,7 @@ en:
       course_final: Finals
       course_mid-term: Mid-terms
       course_participation: Participation
+      course_exams: Assessments
       lecture_quiz: Lecture quizzes
       partially_correct: Partially correct
       incorrect: Incorrect

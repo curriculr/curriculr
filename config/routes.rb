@@ -75,7 +75,7 @@ Rails.application.routes.draw do
         put :approve, :on => :member
         put :discuss, :on => :member
         
-        get 'students/:student_id/records', :to => 'klasses#records', :as => 'student_records'
+        get 'students/:student_id/reports', :to => 'klasses#reports', :as => 'student_reports'
       end
       
       get :settings, :on => :member
@@ -181,11 +181,6 @@ Rails.application.routes.draw do
   get 'contactus', :to => "miscellaneous#contactus", :as => 'contactus'
   get 'home', :to => 'users#home', :as => :home
   root :to => 'users#front', :via => :get  
-
-  # Statistics Paths
-  get 'statistics', :to => 'statistics#all', :as => :statistics
-  get 'statistics/courses', :to => 'statistics#course', :as => :course_statistics
-  get 'statistics/klasses/:klass_id', :to => 'statistics#klass', :as => :klass_statistics
   
 	# Temporary fix for catching routing errors
 	get '*path', :to => 'application#routing_error'

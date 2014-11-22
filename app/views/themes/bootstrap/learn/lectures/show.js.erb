@@ -4,9 +4,9 @@
   if @material.present?
     case @material.medium.kind.to_sym
     when :video
-      html << ui_video(@material)
+      html << ui_video(@material, nil, :autoplay => true)
     when :audio
-      html << ui_audio(@material)
+      html << ui_audio(@material, :autoplay => true)
     else
       html << ui_document_viewer(@material.at_url)
     end 

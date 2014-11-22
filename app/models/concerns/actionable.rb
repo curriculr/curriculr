@@ -17,6 +17,8 @@ module Actionable
 
     a.data = data if data.present?
     a.save!
+
+    a
   end
   
   def has?(action, klass, student) 

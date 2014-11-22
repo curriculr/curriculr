@@ -4,7 +4,7 @@
 	<% app_secrets = Rails.application.secrets.auth[app.to_s] %>
 	<% if app_secrets && app_secrets['id'].present? && app_secrets['secret'].present? %>
 		<% app_name = app == :google_oauth2 ? :google : app %>
-		<%= link_to omniauth_authorize_path(resource_name, app), :class => css_button(app_name, :lg) do %>
+		<%= link_to omniauth_authorize_path(resource_name, app), :class => css_button(app_name) do %>
   		<i class="fa fa-<%= app_name %> fa-lg"></i> 
   		<%= t("activerecord.actions.#{app_name}") %>
 		<% end %>

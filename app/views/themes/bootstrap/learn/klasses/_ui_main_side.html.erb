@@ -96,21 +96,21 @@
   end
 
   if @klass.allow_enrollment and enrolled 
-    records_links = []
+    reports_links = []
     if @klass.course.config['allow_access_to']['reports']
       if @klass.open? or @klass.past? 
-        records_links << link_to(t('activerecord.actions.records').html_safe, report_learn_klass_path(@klass), 
-          class:"#{'active' if controller_name == 'records'}")
+        reports_links << link_to(t('activerecord.actions.reports').html_safe, report_learn_klass_path(@klass), 
+          class:"#{'active' if controller_name == 'reports'}")
       end 
     end
     
     if !staff?(current_user, @klass.course) and (@klass.open? or @klass.future?) and enrolled
-      records_links << link(:klass, :drop, drop_learn_klass_path(@klass), method: :put, confirm: true)
+      reports_links << link(:klass, :drop, drop_learn_klass_path(@klass), method: :put, confirm: true)
     end
 
-    if records_links.present?
+    if reports_links.present?
       links << content_tag(:div, t('page.titles.progress'), :class => 'subtitle')
-      links += records_links
+      links += reports_links
     end    
   end 
   

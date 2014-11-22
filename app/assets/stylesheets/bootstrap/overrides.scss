@@ -130,12 +130,12 @@ section {
 }
 
 // class seatch
-#klass_search {
-  border: $primary-border-tyle;
-  border-bottom: 0;
-  border-top-left-radius: $border-radius-base;
-  border-top-right-radius: $border-radius-base;
-}
+// #klass_search {
+//   border: $primary-border-tyle;
+//   border-bottom: 0;
+//   border-top-left-radius: $border-radius-base;
+//   border-top-right-radius: $border-radius-base;
+// }
 
 //hero unit and jumbotron styling
 .hero-unit {
@@ -1131,7 +1131,7 @@ select.form-control + .chosen-container-multi .chosen-results li.result-selected
 }
 
 .search-form{  
-  padding: 10px;
+  padding: 10px 0px;
   .form-group {
     display: block;
     width: 100%;
@@ -1173,7 +1173,7 @@ form.search-form {
     background-position: -48px 0;
     position: absolute;
     top:18px;
-    left:18px;
+    left:8px;
     opacity: .5;
     z-index: 1000;
   }

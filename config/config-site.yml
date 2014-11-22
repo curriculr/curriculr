@@ -10,7 +10,6 @@ site:
 
   default_account: main
 
-  sublimevideo_site_token: 
   ace_code_editor_style: tomorrow
   syntax_highlighter_style: colorful
 

@@ -13,11 +13,23 @@ namespace :duroosi do
   end
 
   desc 'Creates a new database, runs migrations, loads seeds data, and reset redis.'
-  task :bootstrap => ['duroosi:db:migrate', 'db:seed', 'duroosi:redis:reset' ]
+  task :bootstrap => :environment do
+    Rake::Task['duroosi:db:migrate'].invoke
+    Rake::Task['db:seed'].invoke
+    Rake::Task['duroosi:redis:reset'].invoke if Rails.application.secrets.redis_enabled
+  end
 
   desc 'Saves the content of both redis and database into backup files.'
-  task :backup => ['duroosi:db:backup', 'duroosi:redis:backup']
+  task :backup => :environment do
+    Rake::Task['duroosi:db:backup'].invoke
+    Rake::Task['duroosi:redis:backup'].invoke if Rails.application.secrets.redis_enabled
+  end
 
   desc 'Restore the content of both redis and database from backup files.'
-  task :restore => ['duroosi:db:migrate', 'duroosi:redis:clear', 'duroosi:db:restore', 'duroosi:redis:restore']
+  task :restore => :environment do
+    Rake::Task['duroosi:db:migrate'].invoke
+    Rake::Task['duroosi:redis:clear'].invoke if Rails.application.secrets.redis_enabled
+    Rake::Task['duroosi:db:restore'].invoke
+    Rake::Task['duroosi:redis:restore'].invoke if Rails.application.secrets.redis_enabled
+  end
 end

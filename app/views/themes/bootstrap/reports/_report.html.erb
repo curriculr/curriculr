@@ -1,22 +1,10 @@
 <div class="row pricing">
   <div class="<%= css_columns(8) %>">
-    <%= content_tag :h3 do %>
+    <%= ui_header(capture do %>
       <%= image_tag ui_image_src(student.avatar_url(current_account, :th), '/images/nobody-th.png') %> 
       <%= student.name %>
-    <% end %>
+    <% end, style: :h3) %>
     
-    <br/>
-    <h4>
-      <%= t('config.report.section.toc') %>
-    </h4>
-    <ul>
-      <li><%= link_to t('config.report.section.summary'), "\#summary" %></li>
-      <li><%= link_to t('config.report.section.standing'), "\#standing" %></li>
-      <li><%= link_to t('config.report.section.assessment'), "\#assessment" %></li>
-      <li><%= link_to t('config.report.section.attendance'), "\#attendance" %></li>
-    </ul>
-    
-    <%= ui_header(content_tag(:a, '', id: :summary) + t('config.report.section.summary'), style: :h4) %>
     <ul>
       <li> 
         <strong><%= t('config.report.student.klass_begins') %></strong>: 
@@ -58,69 +46,8 @@
     </div>
   </div>
 </div> 
-    
-<div class="row">
-  <div class="<%= css_columns(4) %> <%= css_text(:center) %>">  
-    <% data = stats_student_activity(klass, student, 'attended', :count) %>
-    <%= ui_chart 'student_attendance', 
-          'PieChart', 
-          data,
-          {legend: {position: 'bottom'}, pieSliceText: 'percentage', tooltip: {text: 'percentage'}}, 200 %>
-    
-    <h2><%= data[2][1] %></h2>
-    <strong><%= t('config.activity.attended') %></strong>
-  </div>
-  
-  <div class="<%= css_columns(4) %> <%= css_text(:center) %>">  
-    <% data = stats_student_activity(klass, student, 'finished') %>
-    <%= ui_chart 'student_assessment', 
-         'PieChart', 
-         data,
-         {legend: {position: 'bottom'}, pieSliceText: 'percentage', tooltip: {text: 'percentage'}}, 200 %>
-    <h2><%= data[2][1] %></h2>
-    <strong><%= t('config.activity.attempted') %></strong>
-  </div>
-  
-  <div class="<%= css_columns(4) %> <%= css_text(:center) %>">
-    <% data = stats_student_activity(klass, student, ['posted', 'replied']) %>
-    <%= ui_chart 'student_participation', 
-         'PieChart', 
-         data,
-         {legend: {position: 'bottom'}, pieSliceText: 'percentage', tooltip: {text: 'percentage'}}, 200 %>
-    
-    <h2><%= data[2][1] %></h2>
-    <strong><%= t('config.activity.participation') %></strong>                 
-  </div>
-</div>
 
-<%= ui_header(content_tag(:a, '', id: :standing) + t('config.report.section.standing'), style: :h4) %>
-
-<div class="row">
-  <div class="<%= css_columns(4) %> <%= css_text(:center) %>"> 
-    <%= ui_chart 'student_lecture_assessments', 
-          'LineChart', 
-          stats_student_assessment(klass, student, 'lecture'),
-          {legend: {position: 'bottom'}}, 250 %>
-    <strong><%= t('config.report.assessment.lecture') %></strong>
-  </div>
-  <div class="<%= css_columns(4) %> <%= css_text(:center) %>">
-    <%= ui_chart 'student_unit_assessments', 
-          'LineChart', 
-          stats_student_assessment(klass, student, 'unit'),
-          {legend: {position: 'bottom'}}, 250 %>       
-    <strong><%= t('config.report.assessment.unit') %></strong>
-  </div>
-  <div class="<%= css_columns(4) %> <%= css_text(:center) %>"> 
-    <%= ui_chart 'student_course_assessments', 
-          'LineChart', 
-          stats_student_assessment(klass, student, 'course'),
-          {legend: {position: 'bottom'}}, 250 %>  
-    <strong><%= t('config.report.assessment.course') %></strong>
-  </div>
-</div>
-
-<br/>
-<%= content_tag(:h4, content_tag(:a, '', id: :assessment) + t('config.report.section.assessment')) %>
+<%= ui_header t('config.report.section.assessment'), style: :h4 %>
 
 <% assessments = Assessment.report(klass, student).all %>
 <% if assessments.present? %>
@@ -158,9 +85,7 @@
   <%= t('page.text.no_record_found') %>
 <% end %>
 
-
-<%= ui_header(content_tag(:a, '', id: :attendance) + t('config.report.section.attendance'), style: :h4) %>
-
+<%= ui_header t('config.report.section.attendance'), style: :h4 %>
 
 <% attendance = Lecture.attendance(klass, student).all %>
 <% unless attendance.blank? %>

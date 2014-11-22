@@ -154,13 +154,13 @@ module ApplicationHelper
       render :partial => "ui_video_sublime", 
         :locals => {
           video: video, poster: poster, thumbnail: options[:thumbnail], style_class: options[:class],
-          title: '', width: options[:width], height: options[:height]
+          title: '', width: options[:width], height: options[:height], autoplay: options[:autoplay]
         }
     else
       render :partial => "ui_video_mediaelement", 
         :locals => {
           video: video, poster: poster, thumbnail: options[:thumbnail], style_class: options[:class],
-          title: '', width: options[:width], height: options[:height]
+          title: '', width: options[:width], height: options[:height], autoplay: options[:autoplay]
         }
     end
   end
@@ -181,11 +181,6 @@ module ApplicationHelper
     html
   end
   
-  
-  def ui_chart(name, type, data, options, height = 500)
-    render :partial => "ui_chart", 
-           :locals => { :name => name, :type => type, :data => data, :options => options, :height => height }
-  end
 
   def to_medium_kind(kind)
     return :video unless kind
