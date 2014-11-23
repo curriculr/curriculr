@@ -1,4 +1,4 @@
-#!/bin/sh -v
+#!/bin/sh 
 # Usage:
 # 	./bin/cssflip.sh theme flavor flavor-english-full-path-file.css
 rm -f app/assets/stylesheets/$1/tmp.*

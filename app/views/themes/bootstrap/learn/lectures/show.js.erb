@@ -18,7 +18,8 @@
     elsif @question && @question.lecture
       subhtml << ( render partial: "learn/questions/show", locals: { 
           question: @question,
-          answer: @answer
+          answer: @answer,
+          result: @result
         } 
       )
     elsif @assessment && @assessment.lecture
@@ -39,15 +40,12 @@ $("#<%= pane %> audio.mediaelementjs").mediaelementplayer();
 <% if @correct_answer %>
   <% @correct_answer.each do |id, a| %>
     <%
-    html = ''
-    if  %w(pick_one pick_many).include?(@question.kind)
-      html = %(
-        <i class="fa fa-check"></i>
-      ) if a == '1'
-    else
-      html = %(
-        <strong>#{Question.human_attribute_name(:answer)}</strong>: <span>#{a}</span>
-      )
+    html = content_tag :div, :style => 'display: none;' do
+      if  %w(pick_one pick_many).include?(@question.kind)
+         a == '1' ? %(<i class="fa fa-check"></i>).html_safe : ''
+      else
+        %(<strong>#{Question.human_attribute_name(:answer)}</strong>: <span>#{a}</span>).html_safe 
+      end
     end
     %>
     $('#<%= id %>').html('<%= j html.html_safe %>');
@@ -61,5 +59,5 @@ $("#<%= pane %> audio.mediaelementjs").mediaelementplayer();
 //   });
 // });
 mark_as_taken = <%= @mark_as_taken.present? %>;
-lecture_pager_position = <%= params[:position] ? params[:position] : 1 %>
+lecture_pager_position = <%= params[:position] ? params[:position] : (@question ? @question.order : 1) %>
 ui_rebind_application_events(jQuery);

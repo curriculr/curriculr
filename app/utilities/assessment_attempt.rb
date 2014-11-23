@@ -130,7 +130,7 @@ class AssessmentAttempt
     if @attempt and @attempt.state == 1
       @attempt.questions = []
       points = grade(@attempt.test)
-      #score = @attempt.points > 0 ? ((points * 1.0) /@attempt.points) * 100 : 0.0
+
       score = @attempt.points > 0 ? points : 0
       if @assessment.after_deadline?(@klass)
         score = score * (1.0 - (@assessment.penalty / 100.00));
@@ -141,4 +141,24 @@ class AssessmentAttempt
     end
   end
   
+  def self.is_correct?(question, attempt)
+    correct = 0
+    incorrect = 0
+    question.answer.each do |o, a|
+      unless a == '*' && question.kind == 'simple'
+        t = attempt[o]
+        if t && a.strip.downcase == t.strip.downcase
+          correct += 1
+        else
+          incorrect += 1
+        end
+      end
+    end
+
+    if incorrect == 0
+      correct == 0 ? 'neutral' : 'correct'
+    else
+      correct == 0 ? 'incorrect' : 'partially_correct'
+    end
+  end
 end

@@ -1,5 +1,5 @@
 <% 
-  data = @lecture.contents(true)
+  data = @lecture_contents
   pagers = @lecture.pagers(@klass, current_student)
   pager_links = []
   pager_links << {
@@ -139,7 +139,7 @@
                 answer = activity ? activity.data : nil
               %>
               
-              <%= render partial: "learn/questions/show", locals: { question: item, answer: answer } %>
+              <%= render partial: "learn/questions/show", locals: { question: item, answer: answer, result: nil} %>
             </div>
           </div>
         <% elsif item.kind_of?(Assessment) %>
@@ -151,16 +151,12 @@
         <% end %>
       <% end %>
     </div>
+  </div>
 
-    <div class="row">
-      <div class="<%= css_columns(9) %>">
-      </div>
-      <div class="<%= css_columns(3) %>">
-        <div class="bottom-lecture-pager"><%= pager_html %></div>
-      </div>
-    </div>
+  <div class="panel-footer"><div class="bottom-lecture-pager"><%= pager_html %></div></div>
 
-    <% if @lecture.allow_discussion && @topic %>
+  <% if @lecture.allow_discussion && @topic %>
+    <div class="panel-body">
       <div class="row">
         <div class="<%= css_columns(12) %>">
           <%= ui_header t('page.titles.discussion'), style: :h4 %>
@@ -173,8 +169,9 @@
           <% end %>
         </div>
       </div>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
+  
 </div>
 
 

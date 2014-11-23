@@ -6,7 +6,7 @@ class CreateActivities < ActiveRecord::Migration
       t.references :actionable, :polymorphic => true
       t.string :action
       t.integer :times, :default => 0
-      t.integer :points, :default => 0
+      t.float :points, :default => 0.0
       t.text :data
     end
   end

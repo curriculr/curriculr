@@ -51,7 +51,7 @@
 
 <% assessments = Assessment.report(klass, student).all %>
 <% if assessments.present? %>
-  <table class="<%= css_table %>">
+  <table class="<%= css_table [:hover, :striped, :bordered] %>">
     <tbody>
       <thead>
         <tr>

@@ -54,6 +54,29 @@ class Lecture < ActiveRecord::Base
     data
   end
 
+  def log_attendance(klass, student, item, data = nil, count = 0.0)
+    activity = case item
+    when Material
+      item.log_activity('opened', klass, student, name)
+    when Page
+      item.log_activity('visited', klass, student, name)
+    when Question
+      data ? item.log_activity('attempted', klass, student, name, 0, false, data) : nil
+    else
+      nil
+    end
+    
+    if activity && activity.times == 1
+      a = self.activities.where(:action => 'attended', :klass => klass, :student => student).first_or_initialize
+
+      points = a.new_record? ? self.points : a.data[:points]
+      count = a.new_record? ? count : (count == 0.0 ? a.data[:count] : count)
+
+      self.log_activity('attended', klass, student, name, (points.to_f / count.to_f).round(2) , 
+        true, { points: points, count: count })
+    end
+  end
+
   def pagers(klass, student)
     if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
       date_clause = "(DATE :begins_on + (lectures.on_date - lectures.based_on) + lectures.for_days)"

@@ -49,7 +49,7 @@ module Teach
     def update
       @assessment.ready = !@assessment.ready if params[:opr] == 'ready'
       respond_with @assessment do |format|
-        if @assessment.update(assessment_params)
+        if @assessment.update!(assessment_params)
           format.html { redirect_to @req_objects }
           format.js   { 
             @update_class = "assessment_ready_#{@assessment.id}_link" if params[:opr] == 'ready'
@@ -90,7 +90,7 @@ module Teach
       def assessment_params
         params.require(:assessment).permit(:course_id, :unit_id, :lecture_id, :name, 
           :about, :kind, :allowed_attempts, :after_deadline, :droppable_attempts, 
-          :multiattempt_grading, :show_answer, :penalty, :invideo_id, 
+          :multiattempt_grading, :show_answer, :penalty, :invideo_id, :ready,
           :invideo_at, :based_on, :from_datetime, :to_datetime, :event_list, :tag_list => [], 
           :q_selectors_attributes => [
             :id, :set, :points, :order, :kind, :questions_count, :lecture_id, :unit_id, :_destroy, {:tags => []}

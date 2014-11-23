@@ -132,6 +132,7 @@ en:
       cancel: Cancel
       settings: Settings
       reports: <i class="fa fa-newspaper-o"></i>&nbsp; Reports
+      try_again: Try again
       show_answer: Show answer
       about: About us
       contactus: Contact us
@@ -694,15 +695,16 @@ en:
       points:
         one: "%{count} point"
         other: "%{count} points"
-      correct: Correct
       course_attendance: Attendance
       course_final: Finals
       course_mid-term: Mid-terms
       course_participation: Participation
       course_exams: Assessments
       lecture_quiz: Lecture quizzes
+      correct: Correct
       partially_correct: Partially correct
       incorrect: Incorrect
+      neutral: Thank you for your attempt.
       unit_problem: Unit problems
       unit_quiz: Unit quizzes
       honor_system: "We expect our students and parents to follow the honor system set forth by Duroosi. All class materials, questions, and exams are private to the class and should not be shared with anybody outside of it, as this will impact other students' ability to benefit from this class."

@@ -13,7 +13,11 @@
             :read_only => false %>
     
       <div class="panel-footer">        
-        <% unless params[:attempt] %>
+        <% if result %>
+          <strong><%= t("page.text.#{result}") %></strong>
+          <%= link_to t('activerecord.actions.try_again'), show_question_of_learn_klass_lecture_path(@klass, @lecture, question), remote: true, class:  css(button: :default) %>
+          <%= link_to t('activerecord.actions.show_answer'), '', class:  "#{css_button(:success)} show_lecture_question_answer" %>
+        <% else %>
           <%= submit_tag t('activerecord.actions.submit_answer'), :class => css_button(:primary) %>
         <% end %>
       </div>

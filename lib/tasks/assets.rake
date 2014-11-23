@@ -9,6 +9,9 @@ namespace :duroosi do
       # Generate en assets
       assets_path = "#{Rails.root}/public/assets"
       `rm -rf #{Rails.root}/public/assets/*`
+      %w(red blue green vanilla).each do |flavor|
+        `rm -f #{Rails.root}/app/assets/stylesheets/bootstrap/#{flavor}_rtl.css`
+      end
       Rake::Task["assets:precompile"].invoke
 
 
@@ -21,6 +24,7 @@ namespace :duroosi do
       # Css-flip the indentifed en assets
       Dir.chdir Rails.root
       assets.each do |asset|
+        puts "Runnig : ./bin/cssflip.sh bootstrap #{asset[0]} #{asset[1]}"
         `./bin/cssflip.sh bootstrap #{asset[0]} #{asset[1]}`
       end
 

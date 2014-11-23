@@ -448,7 +448,6 @@ window.ui_rebind_application_events  = ($) ->
     if mark_as_taken
       $(".lecture-contents .lecture-content-link-pos-#{pos}").addClass("active")
 
-
   $('.btn-popover').hover(
     (e) -> 
       $(this).popover('show')
@@ -456,6 +455,10 @@ window.ui_rebind_application_events  = ($) ->
       $(this).popover('hide')
   )
 
+  $('.show_lecture_question_answer').unbind().on 'click', (e) ->
+    $(this).closest('.attempt-question').find('.question-answer div').show()
+    e.preventDefault()
+    
   set_lecture_pager_position(lecture_pager_position) if lecture_pager_position?
 
 jQuery ->
