@@ -26,10 +26,6 @@ ar:
         user_since: مستخدم في الموقع منذ
         klass_begins: بداية الفصل
         klass_ends: نهاية الفصل
-
-      section:
-        attendance: حضور المحاضرات
-        assessment: محاولات الامتحانات
           
       assessment:
         lecture: تمارين و واجبات المحاضرات

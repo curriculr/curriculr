@@ -60,9 +60,6 @@ module Teach
         end
       end
     end
-
-    def reports
-    end
     
     def invite
       if request.get?

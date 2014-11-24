@@ -605,6 +605,8 @@ ar:
       follow_us_html: تابعنا على
       question_banks: بنك الأسئلة
       part: جزء
+      own_recent_topics: آخر مواضيعي
+      own_recent_posts: آخر مشاركاتي
       
     text:
       more: اكثر
@@ -700,7 +702,7 @@ ar:
         two: علامتان
         other: "%{count} علامات"
       course_attendance: للحضور
-      course_exams: للاختبارات
+      course_assessment: للاختبارات
       course_final: الاختبارات النهائية
       course_mid-term: اختبارات نصف الفصل
       course_participation: للمشاركة
@@ -745,3 +747,7 @@ ar:
       closed_klass_html: هذا الفصل مغلق. لا يمكن أن تصل إلى التعليقات أو أن تحاول الاختبارات. 
       sign_in_using: بإستخدام %{provider}
       external_sign_in_using: يمكنك الدخول باستخدام أي من الحسابات التالية
+      participation_forums_html: <h2>%{times}</h2><h3><small>منتديات</small></h3>
+      participation_topics_html: <h2>%{times}</h2><h3><small>مواضيع</small></h3>
+      participation_posts_html: <h2>%{times}</h2><h3><small>مشاركات</small></h3>
+      participation_replies_html: <h2>%{times}</h2><h3><small>ردود</small></h3>

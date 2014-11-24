@@ -47,76 +47,8 @@
   </div>
 </div> 
 
-<%= ui_header t('config.report.section.assessment'), style: :h4 %>
+<%= render :partial => 'reports/assessment', :locals => { klass: klass, student: student } %>
 
-<% assessments = Assessment.report(klass, student).all %>
-<% if assessments.present? %>
-  <table class="<%= css_table [:hover, :striped, :bordered] %>">
-    <tbody>
-      <thead>
-        <tr>
-          <th><%= Assessment.human_attribute_name(:name) %></th>
-          <th class="<%= css_columns(1) %>"><%= Assessment.human_attribute_name(:level) %></th>
-          <th class="<%= css_columns(1) %>"><%= Assessment.human_attribute_name(:kind) %></th>
-          <th class="<%= css_columns(1) %>"><%= t('config.report.minimum') %></th>
-          <th class="<%= css_columns(1) %>"><%= t('config.report.average') %></th>
-          <th class="<%= css_columns(1) %>"><%= t('config.report.maximum') %></th>
-        </tr>
-      </thead>
-      <% assessments.each_with_index do |a, i| %>
-        <% level = (a.lname.present? ? Lecture : (a.uname.present? ? Unit : Course)).model_name.human %>
-        <tr>
-          <td>
-            <h5><%= a.name %>
-              <%= content_tag :small, %(<br/><strong>#{Unit.model_name.human}:</strong> #{a.uname}).html_safe if a.uname.present? %>
-              <%= content_tag :small, %(<br/><strong>#{Lecture.model_name.human}:</strong> #{a.lname}).html_safe if a.lname.present? %>
-            </h5>
-          </td>
-          <td><%= level %></td>
-          <td><%= a.kind %></td>
-          <td><%= a.min ? a.min.round(2) : 0.0 %></td>
-          <td><%= a.avg ? a.avg.round(2) : 0.0  %></td>
-          <td><%= a.max ? a.max.round(2) : 0.0  %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% else %>
-  <%= t('page.text.no_record_found') %>
-<% end %>
+<%= render :partial => 'reports/participation', :locals => { klass: klass, student: student } %>
 
-<%= ui_header t('config.report.section.attendance'), style: :h4 %>
-
-<% attendance = Lecture.attendance(klass, student).all %>
-<% unless attendance.blank? %>
-  <% units = attendance.map{|a| a.u_name}.uniq %>
-  <% count = 0 %>
-  <% units.each_with_index do |u, i| %>
-    <% if i % 3 == 0 %>
-      <div class="row">
-    <% end %>
-    
-    <div class="<%= css_columns(4) %>">
-      <h4><%= u %></h4>
-      <ul class="report-lists">
-        <% lectures = attendance.select{|a| u == a.u_name}.map{|a| [a.name, a.attended]}.uniq %>
-        <% lectures.each_with_index do |l, j| %>
-          <li class="<%= 'attended' if l[1] > 0 %>">
-            <%= l[0] %>
-          </li>
-        <% end %>
-      </ul>
-    </div>
-    
-    <% if i % 3 == 2 %>
-      </div>
-    <% end %>
-    <% count = i %>
-  <% end %>
-  
-  <% if count % 3 != 2 %>
-    </div>
-  <% end %>
-<% else %>
-  <%= t('page.text.no_record_found') %>
-<% end %>
+<%= render :partial => 'reports/attendance', :locals => { klass: klass, student: student } %>

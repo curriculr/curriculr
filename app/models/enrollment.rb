@@ -5,6 +5,8 @@ class Enrollment < ActiveRecord::Base
   belongs_to :student
   belongs_to :paid_by, :polymorphic => true
 
+  serialize :data 
+  
   # Scopes
   scope :for, ->(course, user) {
     joins(:klass).joins(:student).where('klasses.course_id = :course_id and students.user_id = :user_id and enrollments.active = TRUE', 

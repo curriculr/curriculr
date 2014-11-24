@@ -265,7 +265,7 @@ class Klass < ActiveRecord::Base
       end
     end
     
-    detail["course_exams"] = exams_score
+    detail["course_assessment"] = exams_score
 
     total_score = total_score.round(2)
     

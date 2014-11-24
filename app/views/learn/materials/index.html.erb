@@ -18,8 +18,12 @@
   end
 %>
 
-<% attachments.each_with_index do |attachment, i| %>
-  <h4><%= link_to attachment.medium.name, attachment.at_url, :target => '_new'  %>
-    <small><%= timeago_tag(attachment.created_at, :nojs => true, :limit => 10.days.ago) %></small>
-  </h4>
-<% end %>   
+<ul class="list-unstyled">
+  <% attachments.each_with_index do |attachment, i| %>
+    <li>
+      <%= css_icon('file-pdf-o', 0) %>
+      <%= link_to attachment.medium.name, attachment.at_url, :target => '_new' %>
+      <small><%= timeago_tag(attachment.created_at, :nojs => true, :limit => 10.days.ago) %></small>
+    </li>
+  <% end %>   
+</ul>

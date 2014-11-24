@@ -604,6 +604,8 @@ en:
       follow_us_html: Follow us
       question_banks: Question banks
       part: Part
+      own_recent_topics: My recent topics
+      own_recent_posts: My recent posts
       
     text:
       more: More
@@ -699,7 +701,7 @@ en:
       course_final: Finals
       course_mid-term: Mid-terms
       course_participation: Participation
-      course_exams: Assessments
+      course_assessment: Assessment
       lecture_quiz: Lecture quizzes
       correct: Correct
       partially_correct: Partially correct
@@ -740,3 +742,7 @@ en:
       closed_klass_html: This class is closed. Cannot see comments or attempt assessments
       sign_in_using: Using %{provider}
       external_sign_in_using: You can login using one the following accounts
+      participation_forums_html: <h2>%{times}</h2><h3><small>Forums</small></h3>
+      participation_topics_html: <h2>%{times}</h2><h3><small>Topics</small></h3>
+      participation_posts_html: <h2>%{times}</h2><h3><small>Posts</small></h3>
+      participation_replies_html: <h2>%{times}</h2><h3><small>Replies</small></h3>

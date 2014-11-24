@@ -11,13 +11,9 @@ class CreateEnrollments < ActiveRecord::Migration
       t.datetime :invited_at
       t.datetime :accepted_or_declined_at
       t.datetime :last_attended_at
+      t.text :data
 
       t.timestamps
     end
   end
 end
-
-
-#update enrollments set last_attended_at = last_attendance_at;
-#update enrollments set active = FALSE, dropped_at = updated_at where dropped = TRUE;
-#update enrollments set active = TRUE  where dropped = FALSE;

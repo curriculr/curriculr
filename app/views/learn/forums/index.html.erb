@@ -1,27 +1,61 @@
-<table class="<%= css_table %>">
-	<thead>
-		<tr>
-			<th><%= Forum.model_name.human %></th>
-			<th><%= Topic.model_name.human(count: 3) %></th>
-		</tr>
-	</thead>
-	<tbody>
-		<% @klass.forums.each do |forum| %>
-		<tr>
-			<td>
-				<h4><%= link_to forum.name, learn_klass_forum_path(@klass, forum) %></h4>
-				<%= markdown forum.about %>
-			</td>
-			<td><%= forum.topics_count %></td>
-		</tr>
+<% 
+	own_topics = Topic.unscoped.joins(:forum).where("forums.klass_id = #{@klass.id} and forums.lecture_comments = FALSE").
+		where(author: current_student).order('created_at desc').limit(3).to_a
+	own_posts = Post.unscoped.joins(:topic => :forum).where("forums.klass_id = #{@klass.id} and forums.lecture_comments = FALSE").
+		where(author: current_student).order('created_at desc').limit(3).to_a
+
+%>
+<div class="row">
+	<div class="<%= css_columns((own_topics.present? || own_posts.present?) ? 7 : 12) %>">
+		<table class="<%= css_table %>">
+			<thead>
+				<tr>
+					<th><%= Forum.model_name.human %></th>
+					<th><%= Topic.model_name.human(count: 3) %></th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @klass.forums.each do |forum| %>
+				<tr>
+					<td>
+						<h4><%= link_to forum.name, learn_klass_forum_path(@klass, forum) %></h4>
+						<%= markdown forum.about %>
+					</td>
+					<td><%= forum.topics_count %></td>
+				</tr>
+				<% end %>
+		    <% if @klass.forums.empty? %>
+		    <tr>
+		      <td colspan="2"><%= t('page.text.no_record_found') %></td>
+		    </tr>
+		    <% end %>
+			</tbody>
+		</table>
+	</div>
+	<% if own_topics.present? || own_posts.present? %>
+		<div class="<%= css_columns(5) %>">
+			<div class="well">
+			<% if own_topics.present? %>
+				<h4><%= t('page.titles.own_recent_topics') %></h4>
+				<ul class="list-unstyled">
+					<% own_topics.each do |topic| %>
+						<li><%= css_icon('comments') %><%= link_to topic.name, learn_klass_forum_topic_path(@klass, topic.forum, topic) %></li>
+					<% end %>
+				</ul>
+			<% end %>
+
+			<% if own_posts.present? %>
+				<h4><%= t('page.titles.own_recent_posts') %></h4>
+				<ul class="list-unstyled">
+					<% own_posts.each do |post| %>
+						<li><%= css_icon('comment') %><%= link_to summary(post.about, 20), learn_klass_forum_topic_path(@klass, post.forum, post.topic) %></li>
+					<% end %>
+				</ul>
+			<% end %>
 		<% end %>
-    <% if @klass.forums.empty? %>
-    <tr>
-      <td colspan="2"><%= t('page.text.no_record_found') %></td>
-    </tr>
-    <% end %>
-	</tbody>
-</table>
+		</div>
+	</div>
+</div>
 
 <table class="<%= css_table %>">
 	<thead>
@@ -74,13 +108,11 @@
     <% posts.each do |post| %>
 		<tr>
 			<td>
-				
-          <%= link_to summary(post.about, 40), learn_klass_forum_topic_path(@klass, post.forum, post.topic) %>
-          <br>
-          <small>
-            <%= timeago_tag post.created_at, :nojs => true, :limit => 10.days.ago %>
-          </small>
-        
+        <%= link_to summary(post.about, 40), learn_klass_forum_topic_path(@klass, post.forum, post.topic) %>
+        <br>
+        <small>
+          <%= timeago_tag post.created_at, :nojs => true, :limit => 10.days.ago %>
+        </small>
 			</td>
 			<td><%= post.posts_count %></td>
       <td><%= post.ups %></td>

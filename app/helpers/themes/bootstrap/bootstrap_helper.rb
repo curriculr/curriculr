@@ -55,6 +55,10 @@ module Themes::Bootstrap::BootstrapHelper
   def css_image(*styles)
     "img #{styles.map {|s| "img-#{s}"}.join(' ')}"
   end
+
+  def css_icon(name, spaces = 2)
+    content_tag :i, ('&nbsp;' * spaces).html_safe, class: "fa fa-#{name}"
+  end
   
   def css(options = {})
     output = []

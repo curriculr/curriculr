@@ -35,10 +35,25 @@
     <div class="row">
       <div class="<%= css_columns(9) %>">
         <h4 class="panel-title">
-          <%= ui_button_dropdown content_tag(:i, '', class: "fa fa-list"), (@lecture.unit.lectures.map do |lecture|
-              name = %(#{lecture.name} #{content_tag(:i, '', class: "fa fa-check") if @lecture == lecture})
-              link_to(name.html_safe, learn_klass_lecture_path(@klass, lecture))
-            end) , class: css_button(:default, :xs) %>&nbsp;
+          <% 
+            nav_links = []
+            unit_pagers = @lecture.unit.pagers
+            if unit_pagers[0]
+              nav_links << link_to(unit_pagers[0].name, learn_klass_lectures_path(@klass, unit: unit_pagers[0].id))
+              nav_links << nil
+            end
+
+            @lecture.unit.lectures.each do |lecture|
+              name = %(#{lecture.name} #{css_icon("check") if @lecture == lecture})
+              nav_links << link_to(name.html_safe, learn_klass_lecture_path(@klass, lecture))
+            end
+            
+            if unit_pagers[1]
+              nav_links << nil
+              nav_links << link_to(unit_pagers[1].name, learn_klass_lectures_path(@klass, unit: unit_pagers[1].id))
+            end
+          %>
+          <%= ui_button_dropdown content_tag(:i, '', class: "fa fa-list"), nav_links , class: css_button(:default, :xs) %>&nbsp;
           <%= @lecture.name %>
         </h4>
       </div>
@@ -67,7 +82,7 @@
       <% data.each_with_index do |item, i| %>
         <%
           link_attr = { class: "btn-popover lecture-content-link", remote: true, data: {
-              toggle: "popover",  placement: "bottom", 
+              toggle: "popover",  placement: "bottom", container: 'body',
               content: item.kind_of?(Material) ? item.medium.name : (
                 item.kind_of?(Question) ? Question.model_name.human  : item.name
               )

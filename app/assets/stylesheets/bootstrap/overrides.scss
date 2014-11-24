@@ -164,7 +164,7 @@ section {
   .plan {
     text-align: center;
     @include box-shadow(0, 0, 0, 1px, $light-gray, inset);
-    margin-bottom: 50px;
+    margin-bottom: 0px;
     border-radius: $border-radius-base;
 
     button {
@@ -380,6 +380,7 @@ ul.report-lists {
   
   li {
     list-style-type: none;
+    padding-left: 10px;
     &:before {    
       font-family: 'FontAwesome';
       content: '\f00d';
@@ -567,9 +568,6 @@ ul.report-lists {
       padding: 20px 35px;
     }
     
-    .popover-content {
-      width: 250px;
-    }
     .btn-primary{
       border: 0;
       &:hover{

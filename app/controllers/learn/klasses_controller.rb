@@ -65,8 +65,13 @@ module Learn
     end
   
     def report
+      if params[:student_id] && staff?(current_user, @klass)
+        @student = Student.find(params[:student_id])
+      else
+        @student = current_student
+      end
     end
-    
+
     def decline
       if current_user && @klass.private && (@enrollment = @klass.enrollments.where(:student_id => @student.id).first)
         if !@enrollment.active && @enrollment.accepted_or_declined_at.blank?

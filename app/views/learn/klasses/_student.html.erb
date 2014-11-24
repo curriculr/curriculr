@@ -23,7 +23,7 @@
   <td><%= @klass.final_score(enrollment.student.id)[:score] %></td>
   <td>
     <%= link(:course, :reports, 
-          teach_course_klass_student_reports_path(enrollment.klass.course, enrollment.klass, enrollment.student), 
+          learn_klass_student_report_path(enrollment.klass, enrollment.student), 
           :class => css(button: :default, align: :right)) %>
   </td>
 </tr>

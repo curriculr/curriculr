@@ -74,8 +74,6 @@ Rails.application.routes.draw do
         post :invite, :on => :member
         put :approve, :on => :member
         put :discuss, :on => :member
-        
-        get 'students/:student_id/reports', :to => 'klasses#reports', :as => 'student_reports'
       end
       
       get :settings, :on => :member
@@ -145,6 +143,7 @@ Rails.application.routes.draw do
       post 'enroll', :to => 'klasses#enroll', :on => :member
       put 'students/:id/current', :to => 'students#current',
         :as => 'current_student'
+      get 'students/:student_id/report', :to => 'klasses#report', :as => 'student_report'
     end
     
     get 'search/klasses', :to => 'klasses#search', :as => 'klass_search'

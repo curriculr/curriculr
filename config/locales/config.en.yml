@@ -26,10 +26,6 @@ en:
         user_since: Site user since
         klass_begins: Class begins
         klass_ends: Class ends
-        
-      section:
-        attendance: Attendance
-        assessment: Assessment attempts
           
       assessment:
         lecture: Lecture assessments

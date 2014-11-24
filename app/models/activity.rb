@@ -26,8 +26,8 @@ class Activity < ActiveRecord::Base
   }
   
   scope :aggregated_for_one, ->(action, klass_id, student_id){
-    select('klass_id, student_id, count(action) as count, sum(times) as times').
-    group('klass_id, student_id').
-    where(:klass_id => klass_id, :student_id => student_id, :action => action)
+    select('activities.klass_id, student_id, action, count(action) as count, sum(times) as times').
+    group('activities.klass_id, student_id, action').
+    where('activities.klass_id = :klass_id', :klass_id => klass_id).where(:student_id => student_id, :action => action)
   }
 end

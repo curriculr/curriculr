@@ -1,1 +1,8 @@
-<%= render :partial => 'reports/report', :locals => { klass: @klass, student: current_student } %>
+<% if params[:student_id] %>
+	<ul class="breadcrumb">
+	  <li><%= link_to(t('page.titles.students').html_safe, students_learn_klass_path(@klass)) %></li>
+	  <li class="active"><%= @student.name %></li>
+	</ul>
+<% end %>
+
+<%= render :partial => 'reports/report', :locals => { klass: @klass, student: @student } %>

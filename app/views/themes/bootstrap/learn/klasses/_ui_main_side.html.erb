@@ -9,7 +9,7 @@
   links = []
   
   links << link_to(t("page.titles.home").html_safe, learn_klass_path(@klass), 
-    class:"#{'active' if controller_name == 'klasses'}")
+    class:"#{'active' if controller_name == 'klasses' && action_name == 'show'}")
       
   if @klass.course.config['allow_access_to']['syllabus']
     links << link(:page, :syllabus, learn_klass_page_path(@klass, @klass.course.syllabus), 
@@ -44,11 +44,6 @@
           "#{content_tag(:i, '', class: 'fa fa-flask')} #{a.name}".html_safe
         end )
       end if course_assessments.any?
-    
-      # @klass.course.config["grading"]["distribution"]["assessments"]["unit"].keys.each do |k| 
-      #   assessment_links << link(:assessment, k, learn_klass_assessments_path(@klass, :s => k), 
-      #     class:"#{'active' if %w(assessments attempts).include?(controller_name) && params[:s] && params[:s] == k.to_s}")
-      # end 
 
       if assessment_links.present?
         links << content_tag(:div , Assessment.model_name.human(count: 3), :class => 'subtitle')
@@ -100,7 +95,7 @@
     if @klass.course.config['allow_access_to']['reports']
       if @klass.open? or @klass.past? 
         reports_links << link_to(t('activerecord.actions.reports').html_safe, report_learn_klass_path(@klass), 
-          class:"#{'active' if controller_name == 'reports'}")
+          class:"#{'active' if controller_name == 'klasses' && action_name == 'report' && params[:student_id].blank?}")
       end 
     end
     
@@ -116,7 +111,8 @@
   
   if @klass and staff?(current_user, @klass.course)
     links << content_tag(:div, t('page.titles.for_instructors'), :class => 'subtitle')
-    links << link_to(t('page.titles.students').html_safe, students_learn_klass_path(@klass))
+    links << link_to(t('page.titles.students').html_safe, students_learn_klass_path(@klass), 
+              class: "#{'active' if controller_name == 'klasses' && action_name == 'report' && params[:student_id].present?}")
   end
   %>
   
