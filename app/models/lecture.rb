@@ -69,8 +69,8 @@ class Lecture < ActiveRecord::Base
     if activity && activity.times == 1
       a = self.activities.where(:action => 'attended', :klass => klass, :student => student).first_or_initialize
 
-      points = a.new_record? ? self.points : a.data[:points]
-      count = a.new_record? ? count : (count == 0.0 ? a.data[:count] : count)
+      points = a.new_record? ? self.points : (a.data ? a.data[:points] : 0.0)
+      count = a.new_record? ? count : (count == 0.0 ? (a.data ? a.data[:count] : 0.0) : count)
 
       self.log_activity('attended', klass, student, name, (points.to_f / count.to_f).round(2) , 
         true, { points: points, count: count })
