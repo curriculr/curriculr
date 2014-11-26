@@ -537,6 +537,7 @@ en:
       
   page:
     titles:
+      sign_in: Sign in
       discussion: Discussion
       outline: <i class="fa fa-list"></i>&nbsp; Lectures
       forums: <i class="fa fa-comments-o"></i>&nbsp; Forums
