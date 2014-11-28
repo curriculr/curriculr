@@ -1,5 +1,6 @@
 class Assessment < ActiveRecord::Base
-  #include WithMaterials
+  include Actionable
+
   acts_as_taggable_on :tags, :events 
    
   belongs_to :course, :counter_cache => true
@@ -56,6 +57,10 @@ class Assessment < ActiveRecord::Base
       errors.add :invideo_id, :blank
     end 
   end  
+  
+  def invideo?
+    self.lecture.present? && invideo_id.present?
+  end
   
 	# Scopes
   def opens_at_datetime(klass)

@@ -1,6 +1,7 @@
 class Activity < ActiveRecord::Base
   belongs_to :student
   belongs_to :klass
+  belongs_to :context, :polymorphic => true
   belongs_to :actionable, :polymorphic => true
   
   serialize :data 

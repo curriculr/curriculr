@@ -5,9 +5,13 @@ module Actionable
     has_many :activities, :as => :actionable, :dependent => :destroy
   end
 
-  def log_activity(action, klass, student, name, points = 0, accumulate_points = false, data = nil)
+  def log_activity(action, klass, student, context = nil, points = 0, accumulate_points = false, data = nil)
     a = self.activities.where(:action => action, :klass => klass, :student => student).first_or_initialize
     a.times = a.times + 1
+    if context
+      a.context_id = context.id
+      a.context_type = context.class.name
+    end
     
     if accumulate_points
       a.points += points

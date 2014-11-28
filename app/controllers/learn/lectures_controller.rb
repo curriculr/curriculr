@@ -6,7 +6,7 @@ module Learn
         points = 0.0
         count = 0.0
         item = @lecture_contents[0]
-        items = @lecture_contents.select { |item| !item.kind_of?(Assessment) }
+        items = @lecture_contents
 
         if items.present?
           count = items.size.to_f
@@ -31,7 +31,7 @@ module Learn
 
       @mark_as_taken = true
       respond_to do |format|
-        format.js{ render 'show' }
+        format.js { render 'show' }
       end
     end
     

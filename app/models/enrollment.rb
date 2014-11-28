@@ -22,9 +22,8 @@ class Enrollment < ActiveRecord::Base
       activity = 'enrolled'
     end
 
-    log_activity(activity, klass, student, klass.course.name)
+    log_activity(activity, klass, student)
   end
-
 
   after_update do |enrollment|
     unless self.changes[:last_attended_at].present?
@@ -59,7 +58,7 @@ class Enrollment < ActiveRecord::Base
       end
 
       if activity.present?
-        log_activity(activity, klass, student, klass.course.name)
+        log_activity(activity, klass, student)
       end
     end
   end

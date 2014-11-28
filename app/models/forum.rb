@@ -24,7 +24,7 @@ class Forum < ActiveRecord::Base
 
   # callbacks
   after_create do
-    log_activity('started', klass, Thread.current[:current_user], name) if Thread.current[:current_user]
+    log_activity('started', klass, Thread.current[:current_user]) if Thread.current[:current_user]
   end
   
   def course

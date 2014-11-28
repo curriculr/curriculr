@@ -1,4 +1,6 @@
-class Topic < ActiveRecord::Base  
+class Topic < ActiveRecord::Base
+  include Actionable
+  
   has_many :posts, :dependent => :destroy
   belongs_to :forum, :counter_cache => true
   belongs_to :author, :polymorphic => true
@@ -17,7 +19,7 @@ class Topic < ActiveRecord::Base
   
   # callbacks
   after_create do |topic|
-    forum.log_activity('started_discussion', forum.klass, author, forum.name)
+    topic.log_activity('started_discussion', forum.klass, author, forum)
   end
   
   # Methods

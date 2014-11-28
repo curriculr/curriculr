@@ -1,4 +1,6 @@
 class Post < ActiveRecord::Base
+  include Actionable
+
   belongs_to :forum, :counter_cache => true
   belongs_to :topic, :counter_cache => true, :touch => true 
   belongs_to :author, :polymorphic => true
@@ -59,12 +61,12 @@ class Post < ActiveRecord::Base
   after_create do |post|
     if forum.graded
       if post.parent.blank?
-        forum.log_activity('posted', forum.klass, author, forum.name, topic.points_per_post, true)
+        post.log_activity('posted', forum.klass, author, forum, topic.points_per_post, true)
       else
-        forum.log_activity('replied', forum.klass, author, forum.name, topic.points_per_reply, true)
+        post.log_activity('replied', forum.klass, author, forum, topic.points_per_reply, true)
       end
     else
-      forum.log_activity(post.parent.blank? ? 'posted' : 'replied', forum.klass, author, forum.name)
+      post.log_activity(post.parent.blank? ? 'posted' : 'replied', forum.klass, author)
     end
   end
   

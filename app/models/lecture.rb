@@ -57,11 +57,13 @@ class Lecture < ActiveRecord::Base
   def log_attendance(klass, student, item, data = nil, count = 0.0)
     activity = case item
     when Material
-      item.log_activity('opened', klass, student, name)
+      item.log_activity('opened', klass, student, self)
     when Page
-      item.log_activity('visited', klass, student, name)
+      item.log_activity('visited', klass, student, self)
     when Question
-      data ? item.log_activity('attempted', klass, student, name, 0, false, data) : nil
+      data ? item.log_activity('attempted', klass, student, self, 0, false, data) : nil
+    when Assessment
+      item.log_activity('attempted', klass, student, self)
     else
       nil
     end
@@ -72,7 +74,7 @@ class Lecture < ActiveRecord::Base
       points = a.new_record? ? self.points : (a.data ? a.data[:points] : 0.0)
       count = a.new_record? ? count : (count == 0.0 ? (a.data ? a.data[:count] : 0.0) : count)
 
-      self.log_activity('attended', klass, student, name, (points.to_f / count.to_f).round(2) , 
+      self.log_activity('attended', klass, student, nil, (points.to_f / count.to_f).round(2) , 
         true, { points: points, count: count })
     end
   end
@@ -84,7 +86,8 @@ class Lecture < ActiveRecord::Base
       date_clause = "adddate(DATE(:begins_on), (lectures.on_date - lectures.based_on) + lectures.for_days)"
     end
 
-    lectures = Course.joins(:klasses).joins(:units => :lectures).order('units.order, lectures.order').
+    lectures = Lecture.joins(:unit => {:course => :klasses}).with_content_4_students.
+      order('units.order, lectures.order').
       select('courses.id as course, units.id as unit, lectures.id as lecture, units.order, lectures.order').
       where("courses.id = :course_id and klasses.id = :klass_id and
              (lectures.on_date - lectures.based_on) <= (DATE(:today) - DATE(:begins_on)) and 
@@ -113,9 +116,9 @@ class Lecture < ActiveRecord::Base
     end
   end
 	  
-  default_scope -> { 
-    order 'lectures.order'
-  }
+  # default_scope -> { 
+  #   order 'lectures.order'
+  # }
   
 	scope :attendance, ->(klass, student) {
     if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
@@ -139,42 +142,45 @@ class Lecture < ActiveRecord::Base
     order('units.order, lectures.order')
   }
   
-  #MYSQL
+  #
+  scope :with_content_4_students, ->  {
+    where(%(
+      exists (
+        SELECT * FROM materials 
+        WHERE materials.owner_type = 'Lecture' AND materials.owner_id = lectures.id AND
+          materials.kind <> 'image'
+      ) OR exists (
+        SELECT pages.* FROM pages 
+        WHERE pages.owner_type = 'Lecture' AND pages.owner_id = lectures.id AND
+          pages.published = TRUE
+      ) OR exists (
+        SELECT questions.* FROM questions 
+        WHERE questions.lecture_id = lectures.id AND questions.include_in_lecture = TRUE
+      ) OR exists (
+        SELECT assessments.* FROM assessments 
+        WHERE assessments.lecture_id = lectures.id AND assessments.ready = TRUE
+      )
+    ))
+  }
+
   scope :open_4_students, ->(klass, unit, student) {
     q = joins(:unit => {:course => :klasses}).
     joins(%(left outer join (
-      SELECT materials.* FROM materials, taggings, tags WHERE 
-        taggings.taggable_id = materials.id AND taggings.taggable_type = 'Material' AND
-        tags.id = taggings.tag_id AND 
-        materials.owner_type = 'Lecture' AND 
-        tags.name = 'main' AND
-        materials.kind = 'video') video on lectures.id = video.owner_id)).
-    joins(%(left outer join (
-      SELECT materials.* FROM materials, taggings, tags WHERE 
-        taggings.taggable_id = materials.id AND taggings.taggable_type = 'Material' AND
-        tags.id = taggings.tag_id AND 
-        materials.owner_type = 'Lecture' AND 
-        tags.name = 'main' AND
-        materials.kind = 'audio') audio on lectures.id = audio.owner_id)).
-    joins(%(left outer join (
-      SELECT materials.* FROM materials, taggings, tags WHERE 
-        taggings.taggable_id = materials.id AND taggings.taggable_type = 'Material' AND
-        tags.id = taggings.tag_id AND 
-        materials.owner_type = 'Lecture' AND 
-        tags.name = 'main' AND
-        materials.kind = 'slides') slides on lectures.id = slides.owner_id)).
-    joins(%(left outer join (
-      SELECT pages.* FROM pages, taggings, tags WHERE 
-        taggings.taggable_id = pages.id AND taggings.taggable_type = 'Page' AND
-        tags.id = taggings.tag_id AND 
-        pages.owner_type = 'Lecture' AND 
-        tags.name = 'text') text on lectures.id = text.owner_id)).
-    joins(%(left outer join (
-      SELECT activities.* FROM activities WHERE 
+      SELECT activities.*
+      FROM activities WHERE 
         activities.actionable_type = 'Lecture' AND 
         activities.student_id = #{student && klass.enrolled?(student) ? student.id : -1} AND 
         activities.klass_id = #{klass.id} AND 
-        activities.action = 'attended') activity on lectures.id = activity.actionable_id))
+        activities.action = 'attended') activity on lectures.id = activity.actionable_id)).
+    # joins(%(left outer join (
+    #   SELECT activities.context_id, count(activities.id) as count
+    #   FROM activities WHERE 
+    #     activities.klass_id = #{klass.id} AND 
+    #     activities.student_id = #{student.id} AND 
+    #     activities.context_type = 'Lecture'
+    #   GROUP BY activities.context_id
+    #   ) attendance on lectures.id = attendance.context_id)).
+    with_content_4_students
 
     if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
       q = q.where("
@@ -183,10 +189,7 @@ class Lecture < ActiveRecord::Base
         (lectures.on_date - lectures.based_on) <= (DATE(:today) - klasses.begins_on) and 
         (lectures.for_days is null or 
           (klasses.begins_on + (lectures.on_date - lectures.based_on) + lectures.for_days) > :today))) and
-        courses.id = :course_id and units.id = :unit_id and klasses.id = :klass_id and (
-          exists (select * from pages where pages.owner_id = lectures.id and pages.owner_type = 'Lecture') or 
-          exists (select * from materials where materials.owner_id = lectures.id and materials.owner_type = 'Lecture')
-        )", 
+        courses.id = :course_id and units.id = :unit_id and klasses.id = :klass_id", 
         :course_id => klass.course.id, :unit_id => unit.id, :klass_id => klass.id, :today => Time.zone.now)
     else
       q = q.where("
@@ -195,10 +198,7 @@ class Lecture < ActiveRecord::Base
         (lectures.on_date - lectures.based_on) <= (DATE(:today) - klasses.begins_on) and 
         (lectures.for_days is null or 
           adddate(klasses.begins_on, (lectures.on_date - lectures.based_on) + lectures.for_days) > :today))) and
-        courses.id = :course_id and units.id = :unit_id and klasses.id = :klass_id and (
-          exists (select * from pages where pages.owner_id = lectures.id and pages.owner_type = 'Lecture') or 
-          exists (select * from materials where materials.owner_id = lectures.id and materials.owner_type = 'Lecture')
-        )", 
+        courses.id = :course_id and units.id = :unit_id and klasses.id = :klass_id", 
         :course_id => klass.course.id, :unit_id => unit.id, :klass_id => klass.id, :today => Time.zone.now)
     end
 
@@ -206,8 +206,11 @@ class Lecture < ActiveRecord::Base
       q = q.where('klasses.previewed = TRUE and units.previewed = TRUE and lectures.previewed = TRUE') 
     end
     
-    q.select("lectures.order, lectures.id, lectures.name, lectures.about, lectures.based_on, lectures.on_date, lectures.for_days, activity.id as has_been_attended").
-      order("lectures.order").distinct
+    q.select(%(
+      lectures.order, lectures.id, lectures.name, lectures.about, 
+      lectures.based_on, lectures.on_date, lectures.for_days, 
+      coalesce(activity.times, 0) as attended, activity.data as attendance_data
+    )).order("lectures.order").distinct
   }
 
   def open?(klass)

@@ -1,15 +1,34 @@
 <div class="panel-group" id="accordion">
-<% units = Unit.open(@klass, current_student).order('units.order').to_a %>
+<% units = Unit.open(@klass, current_student).to_a %>
 <% units.each_with_index do |unit, i| %>
-    <% lectures = Lecture.open_4_students(@klass, unit, current_student).to_a %>
-    <% expanded = params[:unit] == unit.id.to_s || lectures.empty? || !(lectures.select do |lecture| lecture.has_been_attended.blank? end).empty? %>
+  <% lectures = Lecture.open_4_students(@klass, unit, current_student).to_a %>
+  <% 
+  expanded = if params[:unit] == unit.id.to_s || lectures.empty? 
+    true
+  else
+    (
+      lectures.select do |lecture| 
+        total = if lecture.attendance_data
+          data = YAML.load(lecture.attendance_data)
+          data[:count] || 0
+        else
+          0
+        end
+
+        total == 0 || lecture.attended  != total 
+      end
+    ).present? 
+  end
+  %>
   <div class="panel panel-inverse klass-lecture">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#unit-<%= unit.id %>">
           <%= unit.name %>
         </a>
-        <% unless expanded %><i class="fa fa-check <%= css_align(:right) %>"></i><% end %>
+        <% unless expanded %>
+          <i class="fa fa-check <%= css_align(:right) %>"></i>
+        <% end %>
         <% ui_klass_enrollment_action(@klass, true) unless (@klass.enrolled?(current_student) || staff?(current_user, @klass.course)) %>
       </h4>
     </div>
@@ -24,21 +43,20 @@
                 <%
                   title = item.kind_of?(Material) ? item.medium.name : item.name
                   popover_attr = {toggle: "popover",  placement: "bottom", content: title, container: 'body' }
-                  title = title.size > 10 ? title[0..7] + '...' : title
                 %>
                 <li>
                 <% case item %>
                 <% when Material %>
                   <%= link_to item.at_url, class: "btn-popover", data: popover_attr, :target => '_new' do %>
-                    <i class="fa fa-paperclip"></i> <%= title %>
+                    <i class="fa fa-paperclip"></i>
                   <% end %>
                 <% when Page %>
                   <%= link_to learn_klass_page_path(@klass, item), class: "btn-popover", data: popover_attr do %>
-                    <i class="fa fa-globe"></i> <%= title %>
+                    <i class="fa fa-globe"></i>
                   <% end %>
                 <% when Assessment %>
                   <%= link_to learn_klass_assessment_path(@klass, item), class: "btn-popover", data: popover_attr do %>
-                    <i class="fa fa-flask"></i> <%= title %>
+                    <i class="fa fa-flask"></i>
                   <% end %>
                 <% end %>
                 </li>
@@ -62,8 +80,17 @@
                     &nbsp;&nbsp;
                     <%= j + 1 %>&nbsp;&nbsp;&nbsp;&nbsp;
                     <%= link_to lecture.name, learn_klass_lecture_path(@klass, lecture) %>
-  
-                    <% if lecture.has_been_attended %><i class="fa fa-check <%= css_align(:right) %>"></i><% end %>
+                    <%
+                    total = if lecture.attendance_data
+                      data = YAML.load(lecture.attendance_data)
+                      data[:count] || 0
+                    else
+                      0
+                    end
+                    %>
+                    <% if total != 0 && lecture.attended == total %>
+                      <i class="fa fa-check <%= css_align(:right) %>"></i>
+                    <% end %>
                   </td>
                 </tr>
               <% end %>

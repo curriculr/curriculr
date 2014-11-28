@@ -450,9 +450,9 @@ window.ui_rebind_application_events  = ($) ->
 
   $('.btn-popover').hover(
     (e) -> 
-      $(this).popover('show')
+      $(this).find('i.fa').html('&nbsp;&nbsp;' + $(this).data('content'))
     (e) -> 
-      $(this).popover('hide')
+      $(this).find('i.fa').html('')
   )
 
   $('.show_lecture_question_answer').unbind().on 'click', (e) ->

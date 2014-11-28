@@ -59,10 +59,14 @@ class Attempt < ActiveRecord::Base
   
   # callbacks
   after_create do
-    log_activity('started', klass, student, assessment.name)
+    log_activity('started', klass, student, assessment)
   end
   
   after_update do 
-    log_activity('finished', klass, student, assessment.name) if state == 2
+    log_activity('finished', klass, student, assessment) if state == 2
+
+    if assessment.lecture && !assessment.invideo?
+      assessment.lecture.log_attendance(klass, student, assessment)
+    end
   end
 end

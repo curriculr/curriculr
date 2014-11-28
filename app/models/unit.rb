@@ -34,9 +34,9 @@ class Unit < ActiveRecord::Base
     data
   end
 
-  default_scope -> { 
-    order 'units.order'
-  }
+  # default_scope -> { 
+  #   order 'units.order'
+  # }
   
 	scope :open, ->(klass, student) {
     if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
@@ -59,7 +59,7 @@ class Unit < ActiveRecord::Base
       q = q.where('klasses.previewed = TRUE and units.previewed = TRUE') 
     end
     
-    q
+    q.order('units.order')
   }
         
   def pagers
