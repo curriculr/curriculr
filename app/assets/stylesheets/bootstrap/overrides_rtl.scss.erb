@@ -1,0 +1,8 @@
+<% if ENV['RTL'].present? && ENV['RTL'] == 'ar' %>
+	@import url(//fonts.googleapis.com/earlyaccess/droidarabickufi.css);
+  $font-family-base: 'Droid Arabic Kufi', 'lucida grande', tahoma, verdana, arial, sans-serif;
+  $font-size-base: 14px;
+<% else %>
+	$font-family-base: 'lucida grande', tahoma, verdana, arial, sans-serif;
+	$font-size-base: 14px;
+<% end %>

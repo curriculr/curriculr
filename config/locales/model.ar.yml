@@ -155,7 +155,7 @@ ar:
       enroll: سجل في هذا الفصل
       enroll_again: سجل في هذا الفصل مجددا
       enroll_4_free: سجل في هذه الفصل - إنه مجاني
-      drop: <i class="fa fa-sign-out"></i> اترك الفصل
+      drop: <i class="fa fa-sign-out"></i>&nbsp; اترك الفصل
       goto: اذهب الى الفصل
       preview: استعرض
       activate: فعّل

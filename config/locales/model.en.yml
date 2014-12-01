@@ -153,7 +153,7 @@ en:
       enroll: Enroll
       enroll_again: Enroll in this class again
       enroll_4_free: Enroll in this class - It's free
-      drop: <i class="fa fa-sign-out"></i> Drop
+      drop: <i class="fa fa-sign-out"></i>&nbsp; Drop
       goto: Go to class
       preview: Preview
       activate: Activate
