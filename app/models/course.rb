@@ -36,8 +36,8 @@ class Course < ActiveRecord::Base
   }
   
   def config
-    if @config.blank?
-      @config = JSON.parse($redis.get("config.course.#{Account.find(Account.current_id).slug}_#{self.id}"))
+    unless @config
+      @config = JSON.parse($redis.get("config.course.a#{self.account_id}_c#{self.id}"))
     end
     
     @config
@@ -91,7 +91,7 @@ class Course < ActiveRecord::Base
   # Callbacks
   after_create do |course|
     self.config = YAML.load_file("#{Rails.root}/config/config-course.yml")['course']
-    $redis.set "config.course.#{Account.find(Account.current_id).slug}_#{course.id}", config.to_json
+    $redis.set "config.course.a#{course.account_id}_c#{course.id}", config.to_json
     GradeDistribution.redistribute(course, self.config)
     
     self.klasses.create(:slug => 'sec-01', :begins_on => Time.zone.today, :ends_on => (Time.zone.today + (course.weeks * 7)))

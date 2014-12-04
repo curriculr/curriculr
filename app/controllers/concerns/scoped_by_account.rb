@@ -18,8 +18,6 @@ module ScopedByAccount
       account = Account.find_by(slug: $site['default_account'], :active => true)
     end
     
-    account.config = JSON.parse($redis.get("config.account.#{account.slug}"))
-    
     #raise ActionController::RoutingError.new(:invalid_or_inactive_account) if account.blank?
     account
   end

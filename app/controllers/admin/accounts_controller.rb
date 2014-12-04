@@ -29,7 +29,7 @@ module Admin
       @account = Account.new(account_params)
       if @account.save
         config = YAML.load_file("#{Rails.root}/config/config-account.yml")
-        $redis.set "config.account.#{@account.slug}", config['account'].to_json
+        $redis.set "config.account.a#{@account.id}", config['account'].to_json
       end
       
       respond_with(:admin, @account)
@@ -49,13 +49,13 @@ module Admin
     end
 
     def configure
-      do_configure(@account.config, "config.account.#{@account.slug}",  edit_admin_account_path(@account))
+      do_configure(@account.config, "config.account.a#{@account.id}",  edit_admin_account_path(@account))
     end
 
     def destroy
       if @account.slug != $site['default_account']
         @account.destroy
-        $redis.del "config.account.#{@account.slug}"
+        $redis.del "config.account.a#{@account.id}"
       end
 
       respond_with(:admin, @account)
@@ -65,8 +65,8 @@ module Admin
       def set_account
         @account = Account.find(params[:id])
         @account.admin = User.unscoped.find(@account.admin_id)
-        puts $redis.get("config.account.#{@account.slug}").to_json
-        @account.config = JSON.parse($redis.get("config.account.#{@account.slug}"))
+        puts $redis.get("config.account.a#{@account.id}").to_json
+        @account.config = JSON.parse($redis.get("config.account.a#{@account.id}"))
         @account.settings = JSON.pretty_generate(@account.config)
       end
 

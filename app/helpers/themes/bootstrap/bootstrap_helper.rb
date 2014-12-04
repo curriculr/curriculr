@@ -639,8 +639,23 @@ module Themes::Bootstrap::BootstrapHelper
   
   def form_file(form, field, options = {}) 
     label, hint = cleaned_options!(options)
-    input = form.file_field(field,  augmented_options(form, field, options))
+    input = form.file_field(field, options)
     form_input_wrapper(form, field, input, label, hint) 
+  end
+
+  def form_files(form, field, options = {}) 
+    label, hint = cleaned_options!(options)
+    input = form.file_field(field, options.merge({:multiple => true}))
+    content_tag :div, class: "form-group drag-file-area" do
+      %(
+        <span class="btn btn-success btn-file">
+            #{css_icon(:plus)}
+            <span>#{label}</span>
+            #{input}
+        </span>
+        #{content_tag :span, hint if hint}
+      ).html_safe
+    end
   end
   
   def form_checkbox(form, field, options = {}, checked_value = "1", unchecked_value = "0")

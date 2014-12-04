@@ -16,7 +16,8 @@
 //= require jquery.countdown
 //= require jquery.shorten
 //= require pnotify
-// require typeahead
+//= require jquery-fileupload/basic
+//= require jquery-fileupload/vendor/tmpl
 //
 // Application's Own Scripts
 //= require app-text

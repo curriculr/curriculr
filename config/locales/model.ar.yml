@@ -115,6 +115,8 @@ ar:
         one: كلمة سر
     
     actions:
+      upload: <i class="fa fa-upload"></i> ارفع ملفات
+      new_link: <i class="fa fa-plus"></i> أضف وصلة خارجية
       account_settings: إعدادت الحساب
       site_settings: إعدادات الموقع
       new_attempt: <i class="fa fa-plus"></i> إبدأ محاولة جديدة
@@ -537,6 +539,7 @@ ar:
               
   page:
     titles:
+      select_files: اختيار الملفات للرفع
       sign_in: للدخول
       discussion: المناقشة
       outline: <i class="fa fa-list"></i>&nbsp; المحاضرات
@@ -752,3 +755,4 @@ ar:
       participation_topics_html: <h2>%{times}</h2><h3><small>مواضيع</small></h3>
       participation_posts_html: <h2>%{times}</h2><h3><small>مشاركات</small></h3>
       participation_replies_html: <h2>%{times}</h2><h3><small>ردود</small></h3>
+      select_files_or_drop: أو اسحبها إلى أي مكان في هذه الصفحة

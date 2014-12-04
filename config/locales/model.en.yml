@@ -114,6 +114,8 @@ en:
         one: Password
     
     actions:
+      upload: <i class="fa fa-upload"></i> Upload files
+      new_link: <i class="fa fa-plus"></i> External link
       account_settings: Account settings
       site_settings: Site settings
       new_attempt: <i class="fa fa-plus"></i> New attempt
@@ -537,6 +539,7 @@ en:
       
   page:
     titles:
+      select_files: Select files to upload
       sign_in: Sign in
       discussion: Discussion
       outline: <i class="fa fa-list"></i>&nbsp; Lectures
@@ -747,3 +750,4 @@ en:
       participation_topics_html: <h2>%{times}</h2><h3><small>Topics</small></h3>
       participation_posts_html: <h2>%{times}</h2><h3><small>Posts</small></h3>
       participation_replies_html: <h2>%{times}</h2><h3><small>Replies</small></h3>
+      select_files_or_drop: or drop them any where in this page

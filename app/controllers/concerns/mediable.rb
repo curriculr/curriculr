@@ -33,10 +33,19 @@ module Mediable
   end
 
   def new
-    @medium = Medium.new(:kind => params[:s], :m => params[:m])
-    @medium.is_a_link = !current_account.config['allow_file_upload']
+    attributes = { :kind => params[:s], :m => params[:m] }
+    @medium = @course ? @course.media.new(attributes) : Medium.new(attributes)
+    @medium.is_a_link = !@medium.file_upload_allowed? 
     respond_with @medium do |format|
       format.html {render 'application/media/new'}
+    end
+  end
+
+  def multi
+    @medium = @course ? @course.media.new : Medium.new
+    @medium.is_a_link = false
+    respond_with @medium do |format|
+      format.html {render 'application/media/multi'}
     end
   end
 
@@ -64,11 +73,7 @@ module Mediable
   end
 
   def create
-    if @course
-      @medium = @course.media.new(medium_params)
-    else
-      @medium = Medium.new(medium_params)
-    end
+    @medium = @course ? @course.media.new(medium_params) : Medium.new(medium_params)
   
     if @medium.is_a_link
       @medium.content_type = "link/#{medium_params[:source]}"
@@ -99,8 +104,11 @@ module Mediable
             redirect_to the_path_out(s: @medium.kind) 
           end
         }
+        format.js { render 'application/media/create' }
+        format.json { render nothing: true }
       else
         format.html { render 'application/media/new' }
+        format.json { render render nothing: true }
       end
     end
   end
@@ -134,6 +142,7 @@ module Mediable
   end
   
   def medium_params
-    params.require(:medium).permit(:kind, :url, :path, :name, :is_a_link, :source, :caption, :copyrights, :m, :tag_list => [])
+    params.require(:medium).permit(:account_id, :course_id, :kind, :url, :path, :name, :is_a_link, :source, 
+      :caption, :copyrights, :m, :multi, :tag_list => [])
   end
 end

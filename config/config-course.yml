@@ -47,3 +47,20 @@ course:
     forums: true
     assessments: true
     reports: true
+
+  allow_file_uploads: true
+  allowed_file_types:
+    image:
+      - png
+      - jpg
+      - jpeg
+    video:
+      - mp4
+    audio:
+      - mp3
+    document:
+      - pdf
+    other:
+      - txt
+      - csv
+      - dat

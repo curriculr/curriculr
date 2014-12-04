@@ -22,6 +22,14 @@ class Account < ActiveRecord::Base
     Thread.current[:account_id]
   end
 
+  def config
+    unless @config
+      @config = JSON.parse($redis.get("config.account.a#{self.id}"))
+    end
+
+    @config
+  end
+
   # Callback
   after_create do |account|
     account.admin.skip_confirmation!

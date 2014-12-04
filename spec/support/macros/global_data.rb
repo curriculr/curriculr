@@ -36,7 +36,7 @@ module GlobalData
 
       config = YAML.load_file("#{Rails.root}/config/config-account_main.yml")
 
-      $redis.set "config.account.main", config['account'].to_json
+      $redis.set "config.account.a#{$account.id}", config['account'].to_json
   
       yml_t = YAML.load_file("#{Rails.root}/config/config-account.en.yml")
       out_t = {}

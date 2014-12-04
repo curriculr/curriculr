@@ -49,7 +49,7 @@ module Teach
       if @course.settings.present?
         begin
           config = JSON.parse(@course.settings)
-          $redis.set "config.course.#{current_account.slug}_#{@course.id}", config.to_json
+          $redis.set "config.course.a#{@course.account_id}_c#{@course.id}", config.to_json
           
           GradeDistribution.redistribute(@course, config)
         rescue JSON::ParserError
@@ -69,7 +69,7 @@ module Teach
     end
 
     def configure
-      do_configure(@course.config, "config.course.#{current_account.slug}_#{@course.id}", settings_teach_course_path(@course))
+      do_configure(@course.config, "config.course.a#{@course.account_id}_c#{@course.id}", settings_teach_course_path(@course))
       GradeDistribution.redistribute(@course, @course.config)
     end
 

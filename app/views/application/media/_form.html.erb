@@ -7,8 +7,8 @@
   <%= form_static f, :kind, :value => t("config.medium.kind.#{@medium.kind}") %>
   <%= form_hidden f, :kind %>
   <%= form_text f, :name  %>
-  <%= form_checkbox f, :is_a_link, disabled: !@medium.new_record? || !current_account.config['allow_file_upload'] %>
-  <%= form_file f, :path if current_account.config['allow_file_upload'] && @medium.new_record? %>
+  <%= form_checkbox f, :is_a_link, disabled: !@medium.new_record? || !@medium.file_upload_allowed? %>
+  <%= form_file f, :path if @medium.file_upload_allowed? && @medium.new_record? %>
   <%= form_text f, :copyrights %>
   <%= form_select f, :source, t("config.medium.#{@medium.kind}.source"), 
         value: @medium.source, include_blank: true %>

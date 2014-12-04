@@ -18,20 +18,23 @@ class CourseMediumUploader < CarrierWave::Uploader::Base
 
   version :sm, :if => :image? do
     process :resize_to_fill => [240, 135]
-    #process :resize_to_fill => [200, 113]
   end
   
   def image?(new_file)
-    model.kind == 'image'
+    model.of_kind?('image')
   end
   
   # White list of extensions which are allowed to be uploaded.
   def extension_white_list
-    %w(jpg jpeg gif png pdf txt mp4 mp3 webm dat doc docx xls xlsx)
+    model.allowed_file_extensions
   end
   
   # Filename of the uploaded files:
   def filename
     "#{Digest::MD5.hexdigest(original_filename)}.#{file.extension}" if original_filename
+  end
+
+  def filename_original
+    original_filename
   end
 end

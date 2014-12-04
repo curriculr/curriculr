@@ -1,5 +1,7 @@
 module Teach 
   class MediaController < BaseController
+    respond_to :html, :js, :json
+    
     include Mediable
     
     private

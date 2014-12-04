@@ -50,6 +50,7 @@ gem 'acts-as-taggable-on'
 gem 'chosen-rails'
 gem 'friendly_id', '~> 5.0.0'
 gem 'roadie-rails'
+gem 'jquery-fileupload-rails'
 
 group :doc do
   gem 'sdoc', '~> 0.4.0'

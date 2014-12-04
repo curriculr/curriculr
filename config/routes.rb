@@ -10,8 +10,11 @@ Rails.application.routes.draw do
   end
   
   concern :with_media do
-    resources :media
+    resources :media do
+      get :multi, :on => :new, :as => :multi
+    end
   end
+
   concerns :with_media
   
   concern :with_materials do

@@ -6,9 +6,7 @@ account:
     name: bootstrap
     fluid: false
     flavor: vanilla
-
-  allow_file_upload: true
-  allow_user_student_dependents: false
+  
   use_gravatar: true
 
   require_admin_approval_of_classes: true
@@ -26,3 +24,21 @@ account:
     youtube:
     linkedin:
     github:
+
+  allow_user_student_dependents: false
+  allow_file_uploads: true
+  allowed_file_types:
+    image:
+      - png
+      - jpg
+      - jpeg
+    video:
+      - mp4
+    audio:
+      - mp3
+    document:
+      - pdf
+    other:
+      - txt
+      - csv
+      - dat

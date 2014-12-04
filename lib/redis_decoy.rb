@@ -11,13 +11,13 @@ class RedisDecoy
     config = YAML.load_file("#{Rails.root}/config/config-account.yml")
     accounts = Account.all
     accounts.each do |a|
-      @db["config.account.#{a.slug}"] = config['account'].to_json
+      @db["config.account.a#{a.id}"] = config['account'].to_json
     end
   
     config = YAML.load_file("#{Rails.root}/config/config-course.yml")
     courses = Course.unscoped.all
     courses.each do |c|
-      @db["config.course.#{c.account.slug}_#{c.id}"] = config['course'].to_json
+      @db["config.course.a#{c.account_id}_c#{c.id}"] = config['course'].to_json
     end
 
     @ready = true
