@@ -756,3 +756,5 @@ ar:
       participation_posts_html: <h2>%{times}</h2><h3><small>مشاركات</small></h3>
       participation_replies_html: <h2>%{times}</h2><h3><small>ردود</small></h3>
       select_files_or_drop: أو اسحبها إلى أي مكان في هذه الصفحة
+      file_or_external_link: ملف أو وصلة خارجية
+      external_link: وصلة خارجية

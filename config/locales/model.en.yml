@@ -751,3 +751,5 @@ en:
       participation_posts_html: <h2>%{times}</h2><h3><small>Posts</small></h3>
       participation_replies_html: <h2>%{times}</h2><h3><small>Replies</small></h3>
       select_files_or_drop: or drop them any where in this page
+      file_or_external_link: file or external link
+      external_link: external link

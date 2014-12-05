@@ -154,12 +154,9 @@ window.ui_rebind_application_events  = ($) ->
       $('#klass_previewed').closest('.form-group').hide()
       $("#klass_allow_enrollment").prop( "checked", true);
       $('#klass_allow_enrollment').closest('.form-group').hide()
-      $("#klass_lectures_on_closed").prop( "checked", false);
-      $('#klass_lectures_on_closed').closest('.form-group').hide()
     else
       $('#klass_previewed').closest('.form-group').show()
       $('#klass_allow_enrollment').closest('.form-group').show()
-      $('#klass_lectures_on_closed').closest('.form-group').show()
 
   show_hide_klass_settings($('#klass_private'))
 
@@ -199,22 +196,19 @@ window.ui_rebind_application_events  = ($) ->
 
   show_hide_path_or_url = (ch) ->
     if $(ch).is(':checked')
-      $('#medium_path').val('')
-      $('#medium_copyrights').val('')
-      $('#medium_path').closest('.form-group').hide()
-      $('#medium_url').closest('.form-group').show()
-      $('#medium_source').closest('.form-group').show()
-      $('#medium_copyrights').closest('.form-group').hide()
+      $('#new_medium #medium_path').val('')
+      $('#new_medium #medium_path').closest('.form-group').hide()
+      $('#new_medium #medium_url').closest('.form-group').show()
+      $('#new_medium #medium_source').closest('.form-group').show()
     else
-      $('#medium_url').val('')
-      $('#medium_url').closest('.form-group').hide()
-      $('#medium_source').closest('.form-group').hide()
-      $('#medium_path').closest('.form-group').show()
-      $('#medium_copyrights').closest('.form-group').show()
+      $('#new_medium #medium_url').val('')
+      $('#new_medium #medium_url').closest('.form-group').hide()
+      $('#new_medium #medium_source').closest('.form-group').hide()
+      $('#new_medium #medium_path').closest('.form-group').show()
 
-  show_hide_path_or_url($('#medium_is_a_link'))
+  show_hide_path_or_url($('#new_medium #medium_is_a_link'))
 
-  $('#medium_is_a_link').unbind().on 'click', ->
+  $('#new_medium #medium_is_a_link').unbind().on 'click', ->
     show_hide_path_or_url($(this))
 
   # Assessments
@@ -476,6 +470,13 @@ window.ui_rebind_application_events  = ($) ->
       if data.context
         progress = parseInt(data.loaded / data.total * 100, 10)
         data.context.find('.progress-bar').css('width', progress + '%')
+
+  $('tr.medium-content').hover(
+    (e) -> 
+      $(this).find('.medium-url').show()
+    (e) -> 
+      $(this).find('.medium-url').hide()
+  )
 
 jQuery ->
   ui_rebind_application_events jQuery

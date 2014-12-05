@@ -20,6 +20,14 @@ class Medium < ActiveRecord::Base
       url
     end
   end
+
+  def full_url
+    if self.kind == 'video' && (self.content_type =~ /link\/youtube/).present? 
+      "https//youtu.be/#{self.at_url}"
+    else
+      self.at_url
+    end
+  end
   
   def allowed_file_extensions
     config = course.present? ? course.config['allowed_file_types'] : account.config['allowed_file_types']

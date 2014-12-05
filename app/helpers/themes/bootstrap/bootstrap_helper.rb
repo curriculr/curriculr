@@ -786,10 +786,11 @@ module Themes::Bootstrap::BootstrapHelper
       
       html << " "
       if cancel.present?
+        remote = options[:remote] || false
         if cancel == true
-          html << link_to(t("activerecord.actions.cancel"), _back_url, class: "btn btn-default")
+          html << link_to(t("activerecord.actions.cancel"), _back_url, class: "btn btn-default", remote: remote)
         else
-          html << link_to(t("activerecord.actions.cancel"), cancel, class: "btn btn-default")
+          html << link_to(t("activerecord.actions.cancel"), cancel, class: "btn btn-default", remote: remote)
         end
       end
       

@@ -1,11 +1,11 @@
-<% if lecture.poster %>
+<% if lecture && lecture.poster %>
   <%= ui_media(lecture.poster.at_url(:sm), "", markdown(lecture.about),
       :img_options => { style: "max-width: 120px;" }) %>
 <% end %>
 
 <% 
   links = []
-  data = lecture.contents
+  data = lecture ? lecture.contents : []
   
   %w(video audio document other).each do |kind|
     links << link(:material, kind, 

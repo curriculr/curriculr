@@ -12,7 +12,7 @@ namespace :duroosi do
       %w(red blue green vanilla).each do |flavor|
         `rm -f #{Rails.root}/app/assets/stylesheets/bootstrap/#{flavor}_rtl.css`
       end
-      Rake::Task["assets:precompile"].invoke
+      Rake::Task["assets:precompile"].execute
 
 
       # Identify and locate the en assets that will be css-flipped
@@ -27,10 +27,6 @@ namespace :duroosi do
         puts "Runnig : ./bin/cssflip.sh bootstrap #{asset[0]} #{asset[1]}"
         `./bin/cssflip.sh bootstrap #{asset[0]} #{asset[1]}`
       end
-
-      # Compile the css-flipped assets.
-      Rake::Task["assets:precompile"].reenable
-      Rake::Task["assets:precompile"].invoke
 
       # Done
       puts "Assets compiled successfully."

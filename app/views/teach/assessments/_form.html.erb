@@ -65,7 +65,7 @@
       <div class="<%= css_columns(4) %>">
         <%= form_select f, :show_answer, t('config.assessment.show_answer').invert, :include_blank => false %>
       </div>
-      <% if @lecture  and (videos = Hash[@lecture.materials_of_kind(:video).to_a.map {|v| [ v.medium.name, v.id ]}]).present? %>
+      <% if @lecture && (videos = Hash[@lecture.materials_of_kind(:video).to_a.map {|v| [ v.medium.name, v.id ]}]) %>
         <div class="<%= css_columns(4) %>">
           <%= form_select f, :invideo_id, videos %>
         </div>

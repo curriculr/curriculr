@@ -1,9 +1,12 @@
-<tr id="content_<%= video.id %>.medium">
+<tr id="content_<%= video.id %>_medium" class="medium-content">
   <td>
     <div class="row">
       <div class="<%= css_columns(8) %>">
         <i class="fa fa-file-video-o"></i>&nbsp; <%= video.name %> 
         (<small><%= timeago_tag(video.created_at, :nojs => true, :limit => 10.days.ago) %></small>)
+        <div class="medium-url" style="display: none;">
+          <small><%= video.full_url %></small>
+        </div>
       </div>
       <div class="<%= css_columns(4) %>">
         <%= content_tag :div, class: css(button: :group, align: :right) do %>

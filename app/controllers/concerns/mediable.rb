@@ -29,13 +29,16 @@ module Mediable
   end
 
   def show
-    redirect_to @medium.at_url
+    respond_with @medium do |format|
+      format.html {redirect_to @medium.at_url}
+      format.js {render 'application/media/show'}
+    end
   end
 
   def new
     attributes = { :kind => params[:s], :m => params[:m] }
     @medium = @course ? @course.media.new(attributes) : Medium.new(attributes)
-    @medium.is_a_link = !@medium.file_upload_allowed? 
+    @medium.is_a_link = params[:m] ? false : true
     respond_with @medium do |format|
       format.html {render 'application/media/new'}
     end
@@ -53,7 +56,7 @@ module Mediable
     @medium.is_a_link = @medium.path.blank?
     
     respond_with @medium do |format|
-      format.html {render 'application/media/edit'}
+      format.js {render 'application/media/edit'}
     end
   end
 
@@ -65,9 +68,9 @@ module Mediable
     
     respond_with @medium do |format|
       if @medium.update(medium_params)
-        format.html { redirect_to the_path_out(s: @medium.kind) }
+        format.js { render 'application/media/show' }
       else
-        format.html { render 'application/media/edit' }
+        format.js { render 'application/media/edit' }
       end
     end
   end
@@ -95,8 +98,10 @@ module Mediable
               @material = @course.materials.create(material_params)
             end
             
-            if @lecture or @unit
-              redirect_to [:teach, @course, @unit]
+            if @lecture
+              redirect_to [:teach, @course, @unit, @lecture]
+            elsif @unit
+              redirect_to [:teach, @course, @unit, show: 'documents']
             else
               redirect_to [:teach, @course]
             end
@@ -116,7 +121,7 @@ module Mediable
   def destroy
     @medium.destroy
     respond_with @medium do |format|
-      format.html { redirect_to the_path_out(s: params[:s]) }
+      format.html { redirect_to the_path_out(s: @medium.kind) }
     end
   end
 

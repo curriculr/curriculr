@@ -60,7 +60,7 @@ namespace :duroosi do
 
         data = {:config => {}, :i18n => {}}
         $redis.keys("*").each do |k|
-          data[:config][k] = JSON.parse($redis.get(k))
+          data[:config][k] = JSON.parse([$redis.get(k)].to_json).first
         end
 
         $site['supported_locales'].each do |locale, v|
@@ -107,7 +107,8 @@ namespace :duroosi do
         
           config = data[:config]
           config.each do |k, v|
-            $redis.set(k, v.to_json)
+            #$redis.set(k, v.to_json)
+            $redis.set(k, JSON.parse([v].to_json).first)
           end
 
           translations = data[:i18n]

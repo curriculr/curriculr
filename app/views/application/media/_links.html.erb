@@ -4,9 +4,11 @@
   <%= action %>
 <% else %>
   <% if @course.present? %>
-    <%= link :medium, :edit, edit_teach_course_medium_path(@course, medium, s: params[:s]), class: css_button(:primary, :xs) %>
+    <%= link :medium, :edit, edit_teach_course_medium_path(@course, medium, s: params[:s]), 
+          class: css_button(:primary, :xs), remote: true %>
   <% else %>
-    <%= link :medium, :edit, edit_medium_path(medium, s: params[:s]), class: css_button(:primary, :xs) %>
+    <%= link :medium, :edit, edit_medium_path(medium, s: params[:s]), 
+          class: css_button(:primary, :xs), remote: true %>
   <% end %>
 
   <% if @course.present? %>

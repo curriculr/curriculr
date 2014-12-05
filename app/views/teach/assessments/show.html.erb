@@ -67,16 +67,16 @@
           <i class="fa fa-check"></i>
         <% end %>
       </span><br>
-      <% if @assessment.lecture and @assessment.invideo_id %>
+      <% if @assessment.lecture && @assessment.invideo_id && (invideo = Material.find_by(id: @assessment.invideo_id)) %>
         <strong><%= Assessment.human_attribute_name(:invideo_id) %></strong><br>
-        <span class="<%= css_text(:muted) %>"><%= Material.find(@assessment.invideo_id).medium.name %></span><br>
+        <span class="<%= css_text(:muted) %>"><%= invedio.medium.name %></span><br>
       <% end %>
     </div>
     <div class="<%= css_columns(4) %>">
       <strong><%= Assessment.human_attribute_name(:penalty) %></strong><br>
       <span class="<%= css_text(:muted) %>"><%= @assessment.penalty %></span><br>
       
-      <% if @assessment.lecture %>
+      <% if @assessment.lecture && invideo %>
         <strong><%= Assessment.human_attribute_name(:invideo_at) %></strong><br>
         <span class="<%= css_text(:muted) %>"><%= @assessment.invideo_at %></span><br>
       <% end %>
