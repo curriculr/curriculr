@@ -1,11 +1,13 @@
 <% if @medium.m.present? %>
-	<%= ui_header t('activerecord.actions.new', :name => t('page.text.file_or_external_link')), style: @course ? :h3 : :h2 %>
+	<%= ui_header t('activerecord.actions.new', :name => t('page.text.file_or_external_link')), 
+				subtext: t("activerecord.actions.#{@medium.kind}"), style: @course ? :h3 : :h2 %>
 <% else %>
-	<%= ui_header t('activerecord.actions.new', :name => t('page.text.external_link')), style: @course ? :h3 : :h2 %>
+	<%= ui_header t('activerecord.actions.new', :name => t('page.text.external_link')), 
+				subtext: t("activerecord.actions.#{@medium.kind}"), style: @course ? :h3 : :h2 %>
 <% end %>
 
 <%= themed_form_for the_form_path, :html => {:multipart => true} do |f| %>	
-	<%= form_static f, :kind, :value => t("config.medium.kind.#{@medium.kind}") %>
+	<%# form_static f, :kind, :value => t("config.medium.kind.#{@medium.kind}") %>
   <%= form_hidden f, :kind %>
   <%= form_text f, :name  %>
 	<% if @medium.m.present? %>
