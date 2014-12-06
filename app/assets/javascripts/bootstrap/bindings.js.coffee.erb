@@ -168,32 +168,6 @@ window.ui_rebind_application_events  = ($) ->
     $(this).closest('form').find('input:checkbox').prop('disabled', true)
 
   # Media
-  $('.show-medium-link').unbind().on 'click', ->
-    youtube = ''
-    if $(this).data('kind') == 'youtube'
-      youtube = '<i class="fa fa-youtube"></i>: '
-
-    html = """
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="page-model-label">#{$(this).data('title')}</h4>
-      </div>
-      <div class="modal-body">
-        #{youtube}<small>#{$(this).data('url')}</small>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    """
-
-    $('#page-modal .modal-dialog .modal-content').html(html)
-    $("#page-modal").modal()
-
-    $('#page-modal').on 'hide.bs.modal', (e) ->
-      $('#page-modal .modal-dialog .modal-content').html('')
-
-    e.preventDefault()
-
   show_hide_path_or_url = (ch) ->
     if $(ch).is(':checked')
       $('#new_medium #medium_path').val('')

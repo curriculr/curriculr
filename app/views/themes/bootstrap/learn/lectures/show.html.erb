@@ -44,7 +44,7 @@
             end
 
             @lecture.unit.lectures.with_content_4_students.order('lectures.order').each do |lecture|
-              name = %(#{lecture.name} #{css_icon("check") if @lecture == lecture})
+              name = %(#{lecture.name} #{css_icon("check", 2) if @lecture == lecture})
               nav_links << link_to(name.html_safe, learn_klass_lecture_path(@klass, lecture))
             end
             

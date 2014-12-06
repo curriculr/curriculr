@@ -17,20 +17,4 @@
   <% else %>
     <%= link(:medium, :destroy, medium_path(medium, s: params[:s]), method: :delete, confirm: true, class: css_button(:danger, :xs)) %>
   <% end %>
-
-  <% 
-    if medium.kind == 'video' and (medium.content_type =~ /link\/youtube/).present? 
-      kind = 'youtube'
-      url = "https//youtu.be/#{medium.at_url}"
-    else
-      kind = 'www'
-      url = medium.at_url
-    end 
-
-    title = medium.name
-  %>
-
-  <button class="<%= css(button: [:default, :xs]) %> show-medium-link" data-kind="<%= kind %>" data-title="<%= title %>" data-url="<%= url %>">
-    <%= t('activerecord.actions.show') %> <i class="fa fa-link"></i>
-  </button>
 <% end %>

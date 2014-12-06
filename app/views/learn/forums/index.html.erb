@@ -39,7 +39,7 @@
 				<h4><%= t('page.titles.own_recent_topics') %></h4>
 				<ul class="list-unstyled">
 					<% own_topics.each do |topic| %>
-						<li><%= css_icon('comments') %><%= link_to topic.name, learn_klass_forum_topic_path(@klass, topic.forum, topic) %></li>
+						<li><%= css_icon('comments', 2) %><%= link_to topic.name, learn_klass_forum_topic_path(@klass, topic.forum, topic) %></li>
 					<% end %>
 				</ul>
 			<% end %>
@@ -48,7 +48,7 @@
 				<h4><%= t('page.titles.own_recent_posts') %></h4>
 				<ul class="list-unstyled">
 					<% own_posts.each do |post| %>
-						<li><%= css_icon('comment') %><%= link_to summary(post.about, 20), learn_klass_forum_topic_path(@klass, post.forum, post.topic) %></li>
+						<li><%= css_icon('comment', 2) %><%= link_to summary(post.about, 20), learn_klass_forum_topic_path(@klass, post.forum, post.topic) %></li>
 					<% end %>
 				</ul>
 			<% end %>

@@ -56,7 +56,7 @@ module Themes::Bootstrap::BootstrapHelper
     "img #{styles.map {|s| "img-#{s}"}.join(' ')}"
   end
 
-  def css_icon(name, spaces = 2)
+  def css_icon(name, spaces = 0)
     content_tag :i, ('&nbsp;' * spaces).html_safe, class: "fa fa-#{name}"
   end
   
@@ -649,7 +649,7 @@ module Themes::Bootstrap::BootstrapHelper
     content_tag :div, class: "form-group drag-file-area" do
       %(
         <span class="btn btn-success btn-file">
-            #{css_icon(:plus)}
+            #{css_icon(:plus, 2)}
             <span>#{label}</span>
             #{input}
         </span>

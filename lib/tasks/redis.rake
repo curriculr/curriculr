@@ -107,7 +107,6 @@ namespace :duroosi do
         
           config = data[:config]
           config.each do |k, v|
-            #$redis.set(k, v.to_json)
             $redis.set(k, JSON.parse([v].to_json).first)
           end
 

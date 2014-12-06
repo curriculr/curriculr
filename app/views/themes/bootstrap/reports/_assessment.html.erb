@@ -1,4 +1,4 @@
-<%= ui_header css_icon('flask') + t('page.text.course_assessment'), style: :h4 %>
+<%= ui_header css_icon('flask', 2) + t('page.text.course_assessment'), style: :h4 %>
 
 <% assessments = Assessment.report(klass, student).all %>
 <% if assessments.present? %>

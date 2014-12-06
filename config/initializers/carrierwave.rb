@@ -1,3 +1,5 @@
+CarrierWave::SanitizedFile.sanitize_regexp = /[^[:word:]\.\-\+]/
+
 CarrierWave.configure do |config|
   case Rails.application.secrets.storage['type']
   when 'file'
