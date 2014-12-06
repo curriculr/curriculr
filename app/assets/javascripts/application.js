@@ -21,4 +21,3 @@
 //
 // Application's Own Scripts
 //= require app-text
-// require_tree .
