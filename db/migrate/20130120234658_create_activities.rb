@@ -9,6 +9,8 @@ class CreateActivities < ActiveRecord::Migration
       t.integer :times, :default => 0
       t.float :points, :default => 0.0
       t.text :data
+
+      t.timestamps
     end
   end
 end

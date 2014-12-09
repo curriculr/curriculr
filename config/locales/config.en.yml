@@ -44,6 +44,7 @@ en:
       enrolled: Classes enrolled
       finished: Assessments finished
       posted: Posts
+      replied: Replies
       started: Assessments started
       started_discussion: Discussion started
       visited: Visits
@@ -79,14 +80,14 @@ en:
         
     question:
       kind:
-        simple: Simple
-        fill: Fill the blanks
-        pick_2_fill: Choose from list to fill blank
-        pick_one: Choose one
-        pick_many: Choose all that apply
-        match: Match
+        simple: Simple answer
+        fill: Blanks
+        pick_2_fill: Blanks from lists
+        pick_one: Single choice
+        pick_many: Multiple choinces
+        match: Matching
         #underline: Underline
-        sort: Sort
+        sort: Sorting
     
       group:
         simple: Simple

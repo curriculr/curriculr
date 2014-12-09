@@ -540,6 +540,13 @@ en:
       
   page:
     titles:
+      assessment: Assessment
+      attendance: Attendance
+      participation: Participation
+      enrollment: Enrollment
+      withdrawal: withdrawal
+      daily_activities: Daily activities
+      activity_counts: Activity counts
       dashboard: Dashboard
       select_files: Select files to upload
       sign_in: Sign in

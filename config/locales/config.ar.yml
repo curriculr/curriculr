@@ -43,7 +43,7 @@ ar:
       enrolled: تسجيل
       finished: انهاء امتحان
       posted: مشاركة في منتدى
-      re-enrolled: إعادة تسجيل
+      replied: مشاركة بتعليق
       started: بدء امتحان
       started_discussion: بدء مناقشة
       visited: زيارة
@@ -79,14 +79,14 @@ ar:
         
     question:
       kind:
-        simple: بسيط
-        fill: إملأ الفراغات
-        pick_2_fill: املأ الفراغات من القائمة
-        pick_one: اختر إجابة
-        pick_many: اختر إجابات
-        match: اربط
+        simple: إجابة بسيطة
+        fill: فراغات
+        pick_2_fill: فراغات من قوائم
+        pick_one: خيار وحيد
+        pick_many: خيارات عديدة
+        match: ربط خيارات
         #underline: ضع خطا على
-        sort: رتب
+        sort: ترتيب
     
       group:
         simple: بسيطة

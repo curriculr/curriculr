@@ -4,6 +4,28 @@ module DashboardHelper
            :locals => { :name => name, :type => type, :data => data, :options => options, :height => height }
   end
 
+  # Course Dashboard
+  def dashboard_course_activity_counts(course)
+    counts = [
+      [ Unit.model_name.human(:count => 3), course.units.count ],
+      [ Lecture.model_name.human(:count => 3), Lecture.joins(:unit).where('units.course_id = :course_id', :course_id => course.id).count ],
+      [ Medium.model_name.human(:count => 3), course.media.count ],
+      [ Question.model_name.human(:count => 3), Question.where(course: course).count ],
+      [ Assessment.model_name.human(:count => 3), course.assessments.count ]
+    ]
+    data = [['Label', 'Value']]
+
+    max = 0
+    counts.each do |c|
+      data << [c[0], c[1]]
+      if c[1] > max 
+        max = c[1]
+      end
+    end
+
+    { counts: data, max: max }           
+  end
+
   def dashboard_course_medium_counts(course)
     counts = Medium.group('kind').where(course: course).count.to_a
 
@@ -33,6 +55,138 @@ module DashboardHelper
 
     { counts: data, max: max }           
   end
+
+  def dashboard_course_assessment_counts(course)
+    counts = Assessment.group('kind').where(course: course).count.to_a
+
+    data = [['Label', 'Value']]
+    max = 0
+    counts.each do |c|
+      data << [c[0], c[1]]
+      if c[1] > max 
+        max = c[1]
+      end
+    end
+
+    { counts: data, max: max }           
+  end
+
+  def dashboard_course_activities_by_day(since, course)
+    media_by_day = course.media.where(:updated_at => since.beginning_of_day..Time.zone.now.end_of_day).
+      group("date(updated_at)").select("date(updated_at) as day, '#' as url, 'none' as content_type, count(*) as count").to_a
+    
+    questions_by_day = Question.where(:course => course, :updated_at => since.beginning_of_day..Time.zone.now.end_of_day).
+      group("date(updated_at)").select("date(updated_at) as day, count(*) as count").to_a
+    
+    assessments_by_day = course.assessments.where(:updated_at => since.beginning_of_day..Time.zone.now.end_of_day).
+      group("date(updated_at)").select("date(updated_at) as day, '#' as url, 'none' as content_type, count(*) as count").to_a
+
+    names = ['medium', 'question', 'assessment']
+    activities = (since.to_date..Date.today).map do |date|
+      data = Hash[names.map do |n| [n, 0] end]
+      media = media_by_day.select { |m| m.day.to_date == date }
+      media.each {|m| data['medium'] = m.count}
+
+      questions = questions_by_day.select { |q| q.day.to_date == date }
+      questions.each {|q| data['question'] = q.count}
+
+      assessments = assessments_by_day.select { |a| a.day.to_date == date }
+      assessments.each {|a| data['assessment'] = a.count}
+      
+      data
+    end
+    
+    i = -1
+    data = (since.to_date..Date.today).map do |date|
+      i += 1
+      [date.strftime('%b %d'), activities[i].values].flatten
+    end
+    
+    data.insert(0, ['Day', names.map do |n| t("activerecord.models.#{n}", count: 3) end].flatten)
+    data
+  end
+
+  # Class Dashboard
+  def dashboard_klass_activity_counts(klass)
+    actions = %w(enrolled attended dropped finished started_discussion posted replied)
+    counts = Activity.group('action').where(:klass_id => klass).
+      where(action: actions).
+      select('action, sum(times) as count').to_a
+
+    activities = Hash[actions.map{|a| [a, 0]}]
+    counts.each do |c|
+      activities[c.action] = c.count
+    end
+
+    data = {
+      t('page.titles.enrollment') => activities['enrolled'],
+      t('page.titles.withdrawal') => activities['dropped'],
+      t('page.titles.attendance') => activities['attended'],
+      t('page.titles.assessment') => activities['finished'],
+      t('page.titles.participation') => activities['started_discussion'] + activities['posted'] + activities['replied']
+    }
+
+    { counts: data.to_a.insert(0, ['label', 'value']), max: data.values.max }  
+  end
+
+  def _classified_action(action)
+    case action
+    when 'started', 'finished'
+      'assessment'
+    when 'attended', 'visited', 'attempted', 'opened'
+      'attendance'
+    when 'started_discussion', 'posted', 'replied'
+      'participation'
+    when 'enrolled', 'dropped'
+      'enrollment'
+    else
+      action
+    end
+  end
+
+  def dashboard_klass_activities_by_day(since, klass)
+    activity_by_day = Activity.group('action,date(created_at)').where(:klass_id => klass).
+      where(:created_at => since.beginning_of_day..Time.zone.now.end_of_day).
+      select('action, sum(times) as count, date(created_at) as day').to_a
+
+    names = %w(assessment attendance participation enrollment)
+    activities = (since.to_date..Date.today).map do |date|
+      data = Hash[names.map do |n| [n, 0] end]
+      acts = activity_by_day.select { |a| a.day.to_date == date }
+      acts.each do |a| 
+        name = _classified_action(a.action)
+        data[name] += a.count
+      end
+      
+      data
+    end
+    
+    i = -1
+    data = (since.to_date..Date.today).map do |date|
+      i += 1
+      [date.strftime('%b %d'), activities[i].values].flatten
+    end
+    
+    data.insert(0, ['Day', names.map{|n| t("page.titles.#{n}")}].flatten)
+  end
+
+  def dashboard_klass_activities(klass)
+    actions =Activity.group('action').where(:klass => klass).order('action').count.keys
+    activities = Activity.group('klass_id, action').where(:klass => klass).
+      select('action, sum(times) as count').to_a
+    data = {'' => {}}
+    activities.each do |activity|
+      data[''][activity.action] = activity.count
+    end
+    
+    table = data.map do |klass, activities|
+      [klass, activities.values].flatten
+    end
+
+    table.insert(0, ['Klass', actions.map{|a| t("config.activity.#{a}")}].flatten)
+    table          
+  end
+
 
 	def stats_student_activity(klass, student, action, aggregate= :sum)  
     one = Activity.aggregated_for_one(action, klass.id, student.id).to_a.first || { count: 0, times: 0 }

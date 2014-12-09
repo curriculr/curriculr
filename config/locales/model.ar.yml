@@ -540,6 +540,13 @@ ar:
               
   page:
     titles:
+      assessment: اختبارات
+      attendance: حضور
+      participation: مشاركة
+      enrollment: تسجيل
+      withdrawal: انسحاب
+      daily_activities: الأنشطة اليومية
+      activity_counts: تكرارات الأنشطة
       dashboard: مؤشرات
       select_files: اختيار الملفات للرفع
       sign_in: للدخول
