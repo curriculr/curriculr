@@ -1,0 +1,24 @@
+<h3>Media Counts</h3>
+<% data = dashboard_course_medium_counts(@course) %>
+<%= ui_chart 'course_medium_counts', 
+			'Gauge', data[:counts], { height: 200, max: (data[:max] / 100.0).ceil * 100 }, 250 %>
+
+<h3>Question Counts</h3>
+<% data = dashboard_course_question_counts(@course) %>
+<%= ui_chart 'course_question_counts', 
+			'Gauge', data[:counts], { height: 250, max: (data[:max] / 100.0).ceil * 100 }, 250 %>
+
+<%= ui_chart 'media_daily_activities', 
+             'LineChart', 
+             stats_course_media_by_day(3.weeks.ago, Course.all),
+             {title: 'Media Daily Activities'}, 400 %>
+                                      
+<%= ui_chart 'course_questions', 
+             'ColumnChart', 
+             stats_course_questions(Course.all),
+             {title: 'Course Questions'} %>
+            
+<%= ui_chart 'question_daily_activities', 
+             'LineChart', 
+             stats_course_questions_by_day(3.weeks.ago, Course.all),
+             {title: 'Question Daily Activities'}, 400 %>

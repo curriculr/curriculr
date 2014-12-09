@@ -115,6 +115,7 @@ ar:
         one: كلمة سر
     
     actions:
+      dashboard: <i class="fa fa-tachometer"></i>&nbsp; مؤشرات
       upload: <i class="fa fa-upload"></i> ارفع ملفات
       new_link: <i class="fa fa-plus"></i> أضف وصلة خارجية
       account_settings: إعدادت الحساب
@@ -539,6 +540,7 @@ ar:
               
   page:
     titles:
+      dashboard: مؤشرات
       select_files: اختيار الملفات للرفع
       sign_in: للدخول
       discussion: المناقشة

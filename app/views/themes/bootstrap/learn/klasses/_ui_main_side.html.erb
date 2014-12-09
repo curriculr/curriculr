@@ -5,7 +5,7 @@
         
 <% enrolled = (@klass.enrolled?(current_student) or staff?(current_user, @klass.course)) %>
 
-  <% 
+<% 
   links = []
   
   links << link_to(t("page.titles.home").html_safe, learn_klass_path(@klass), 
@@ -111,10 +111,18 @@
   
   if @klass and staff?(current_user, @klass.course)
     links << content_tag(:div, t('page.titles.for_instructors'), :class => 'subtitle')
+    active = if controller_name == 'klasses' && (action_name == 'students' || (action_name == 'report' && params[:student_id]))
+      true
+    else
+      false
+    end
     links << link_to(t('page.titles.students').html_safe, students_learn_klass_path(@klass), 
-              class: "#{'active' if controller_name == 'klasses' && action_name == 'report' && params[:student_id].present?}")
+              class: "#{'active' if active}")
+
+    links << link_to(t('activerecord.actions.dashboard').html_safe, learn_klass_dashboard_path(@klass),
+      class: controller_name == 'dashboard' ? 'active' : nil)
   end
-  %>
+%>
   
 <div class="nav-and-social-container">
   <ul>

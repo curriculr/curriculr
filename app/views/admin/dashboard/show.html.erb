@@ -1,0 +1,49 @@
+<%= ui_header t('page.titles.statistics') %>
+<h3> Usage </h3>
+<%= ui_chart 'klass_activities', 
+             'ColumnChart', 
+             stats_klass_activities(Klass.open.active.public_only),
+             {title: 'Class Activities'} %>
+  
+<%= ui_chart 'user_activities', 
+            'LineChart', 
+            stats_user_activities(3.weeks.ago),
+            {title: 'User Activities'}, 400 %>
+
+<%= ui_chart 'enrollment_activities', 
+            'LineChart', 
+            stats_enrollment_activities(3.weeks.ago),
+            {title: 'Enrollment Activities', legend: 'none'}, 300 %>
+
+<%= ui_chart 'user_enrollment_scatter', 
+            'ScatterChart', 
+            stats_scatter_plot(3.weeks.ago, 'Confirmed Users', 'Class Enrollments'),{
+              title: 'Confirmed Users vs. Class Enrollments',
+              hAxis: {title: 'Confirmed Users', minValue: 0, maxValue: 15},
+              vAxis: {title: 'Class Enrollments', minValue: 0, maxValue: 15},
+              legend: 'none'
+            }, 400 %> 
+            
+<h3> Course </h3>
+
+<%= ui_chart 'course_media', 
+             'ColumnChart', 
+             stats_course_media(Course.all),
+             {title: 'Course Media'} %>
+
+<%= ui_chart 'media_daily_activities', 
+             'LineChart', 
+             stats_course_media_by_day(3.weeks.ago, Course.all),
+             {title: 'Media Daily Activities'}, 400 %>
+                                      
+<%= ui_chart 'course_questions', 
+             'ColumnChart', 
+             stats_course_questions(Course.all),
+             {title: 'Course Questions'} %>
+            
+<%= ui_chart 'question_daily_activities', 
+             'LineChart', 
+             stats_course_questions_by_day(3.weeks.ago, Course.all),
+             {title: 'Question Daily Activities'}, 400 %>
+
+<%= mountable_fragments :stats %>

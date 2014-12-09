@@ -8,6 +8,8 @@
 <li><%= link :medium, :index, main_app.media_path %></li>
 <li><%= link :announcement, :index,  main_app.admin_announcements_path %></li>
 
+<li><%= link_to t('page.titles.dashboard'), main_app.admin_dashboard_path %></li>
+
 <%= mountable_fragments :app_admin_menu %>
 
 <li><%= content_tag :h4, t('page.titles.settings') %></li> 

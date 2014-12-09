@@ -40,15 +40,13 @@
       <%= link(:setting, :index, settings_teach_course_path(@course),
            :class => action_name == 'settings' ? 'active' : nil) %>
     </li>
+    <li>
+      <%= link_to t('page.titles.dashboard'), teach_course_dashboard_path(@course),
+            :class => controller_name == 'dashboard' ? 'active' : nil  %>
+    </li>
     <li><hr></li>
     <li>
-      <%# link(:course, @course.active ? :inactivate : :activate, teach_course_path(@course, 
-               :opr => :activate, :'course[active]' => !@course.active),
-               :method => :put, :remote => false, :id => "crs_activate_#{@course.id}_link") %>
-    </li>
-    <li>
-      <%= link(:course, :destroy, teach_course_path(@course), 
-               :method => :delete, :confirm => true)  %>
+      <%= link(:course, :destroy, teach_course_path(@course), :method => :delete, :confirm => true)  %>
    </li>
    
    <%= mountable_fragments :course_side_menu %>

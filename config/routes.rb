@@ -82,6 +82,8 @@ Rails.application.routes.draw do
       get :settings, :on => :member
       post :configure, :on => :member
       delete :configure, :on => :member
+
+      get 'dashboard/courses/:course_id', :to => 'dashboard#show', :as => 'dashboard'
     end
   end
   
@@ -147,6 +149,8 @@ Rails.application.routes.draw do
       put 'students/:id/current', :to => 'students#current',
         :as => 'current_student'
       get 'students/:student_id/report', :to => 'klasses#report', :as => 'student_report'
+
+      get 'dashboard/klasses/:klass_id', :to => 'dashboard#show', :as => 'dashboard'
     end
     
     get 'search/klasses', :to => 'klasses#search', :as => 'klass_search'
@@ -167,6 +171,8 @@ Rails.application.routes.draw do
     end
     
     resources :users, :only => [:new, :create]
+
+    get 'dashboard', :to => 'dashboard#show', :as => 'dashboard'
   end
   
   get 'admin/config/edit', :to => 'admin/config#edit'

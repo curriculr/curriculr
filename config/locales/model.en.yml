@@ -114,6 +114,7 @@ en:
         one: Password
     
     actions:
+      dashboard: <i class="fa fa-tachometer"></i>&nbsp; Dashboard
       upload: <i class="fa fa-upload"></i> Upload files
       new_link: <i class="fa fa-plus"></i> External link
       account_settings: Account settings
@@ -539,6 +540,7 @@ en:
       
   page:
     titles:
+      dashboard: Dashboard
       select_files: Select files to upload
       sign_in: Sign in
       discussion: Discussion
