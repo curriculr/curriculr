@@ -32,6 +32,8 @@ class Page < ActiveRecord::Base
   def by_author
     if !blog || owner_type != 'User'
       %(#{I18n.t('page.text.on')} #{I18n.l(created_at.to_date)})
+    elsif owner.has_role?(:admin)
+      %(#{I18n.l(created_at.to_date)})
     else
       %(#{I18n.t('page.text.by')} #{owner.name} #{I18n.t('page.text.on')} #{I18n.l(created_at.to_date)})
     end

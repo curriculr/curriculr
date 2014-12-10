@@ -544,7 +544,13 @@ en:
       attendance: Attendance
       participation: Participation
       enrollment: Enrollment
-      withdrawal: withdrawal
+      withdrawal: Withdrawal
+      activity: Activity
+      signing_in: Signing in
+      registration: Registration
+      confirmation: Confirmation
+      user_activities: User activities
+      confirmation_vs_enrollments: Confirmation vs enrollments
       daily_activities: Daily activities
       activity_counts: Activity counts
       dashboard: Dashboard

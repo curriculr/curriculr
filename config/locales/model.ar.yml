@@ -543,8 +543,14 @@ ar:
       assessment: اختبارات
       attendance: حضور
       participation: مشاركة
-      enrollment: تسجيل
+      enrollment: تسجيل الفصول
       withdrawal: انسحاب
+      activity: نشاط
+      signing_in: دخول
+      registration: تسجيل الاستخدام
+      confirmation: تأكيد الاستخدام
+      user_activities: انشطة المستخدمين
+      confirmation_vs_enrollments: تأكيد الاستخدام مقابل تسجيل الفصول
       daily_activities: الأنشطة اليومية
       activity_counts: تكرارات الأنشطة
       dashboard: مؤشرات
