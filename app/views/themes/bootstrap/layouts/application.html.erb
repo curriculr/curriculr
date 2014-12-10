@@ -42,6 +42,8 @@
   
   <% if action_name == 'front' %>
     <%= render :template => "layouts/front" %>
+  <% elsif action_name == 'blogs' %>
+    <%= render :template => 'layouts/blog' %>
   <% elsif @course and !@course.new_record? %>
     <%= render :template => "layouts/teach" %>
   <% elsif @klass #and (@klass.enrolled?(current_student) or  staff?(current_user, @klass.course)) %>

@@ -121,7 +121,7 @@ en:
       site_settings: Site settings
       new_attempt: <i class="fa fa-plus"></i> New attempt
       copy: Copy
-      course_builder: Course Builder
+      course_builder: Builder
       help: Help
       learn_more: Learn more
       open: Open
@@ -131,7 +131,7 @@ en:
       create: Create
       edit: <i class="fa fa-edit"></i> Edit %{name}
       update: Update
-      destroy: <i class="fa fa-remove"></i> Delete
+      destroy: <i class="fa fa-remove"></i>&nbsp; Delete
       cancel: Cancel
       settings: Settings
       reports: <i class="fa fa-newspaper-o"></i>&nbsp; Reports
@@ -141,7 +141,7 @@ en:
       contactus: Contact us
       privacy: Privacy
       terms: Terms of service
-      blogs: Blogs
+      blogs: Blog
       sign_up: Create an account
       sign_in: Login
       sign_out: Sign out

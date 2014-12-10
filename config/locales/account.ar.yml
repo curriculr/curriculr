@@ -5,6 +5,9 @@ ar:
       slogan:
         line1: تعليم تفاعلي مفتوح
         line2: فصول دراسية عالية الجودة يمكن أخذها في أي وقت ومن أي مكان.
+      blog:
+        line1: المدونة الرئيسية
+        line2: أخبار و تطورات - نقاشات - و المزيد
       mailer:
         logo: https://www.duroosi.com/images/logo/dark-red.en.png
         links:

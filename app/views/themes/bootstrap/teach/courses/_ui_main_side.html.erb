@@ -7,12 +7,14 @@
         controller_name == 'media' ||
         controller_name.in?([ 'klasses', 'forums', 'updates' ]) ||
         controller_name == 'questions' ||
-        action_name == 'settings'
+        action_name == 'settings' ||
+        controller_name == 'dashboard'
       )
       %>
-      <%= link_to t("activerecord.actions.home"), teach_course_path(@course),
+      <%= link_to css_icon(:home, 2) + t("activerecord.actions.home"), teach_course_path(@course),
             :class => any_active ? nil : 'active' %>
     </li>
+    <li><hr></li>
     <li>
       <%= link_to teach_course_units_path(@course), :class => controller_name == 'units' ? 'active' : nil  do %>
         <%= Unit.model_name.human(count: 3) %>
@@ -35,13 +37,13 @@
       <%= link_to t('page.titles.question_banks'),  teach_course_questions_path(@course),
             :class => controller_name == 'questions' ? 'active' : nil %>
     </li>
-
+    <li><hr></li>
     <li>
-      <%= link(:setting, :index, settings_teach_course_path(@course),
+      <%= link_to(css_icon(:cogs, 2) + t('activerecord.models.setting', count: 3), settings_teach_course_path(@course),
            :class => action_name == 'settings' ? 'active' : nil) %>
     </li>
     <li>
-      <%= link_to t('page.titles.dashboard'), teach_course_dashboard_path(@course),
+      <%= link_to t('activerecord.actions.dashboard').html_safe, teach_course_dashboard_path(@course),
             :class => controller_name == 'dashboard' ? 'active' : nil  %>
     </li>
     <li><hr></li>

@@ -1,17 +1,7 @@
 <% if @blogs.present? %>
   <div class="row">
-    <% if @blogs.size > 1 %>
-      <div id="blog-toc" class="<%= css_columns(3) %>">
-        <%= ui_header t('page.titles.blogs') %>
-        <ul class="list-unstyled">
-          <% @blogs.each do |page| %>
-            <li><%= link_to page.name, page_path(page), remote: true %></li>
-          <% end %>
-        </ul>
-      </div>
-    <% end %>
-    <div id="blog-body" class="<%= css_columns(@blogs.size > 1 ? 9 : 12) %>">
-      <%= render :partial => 'application/pages/blog', :locals => {blog: @blogs.first} %>
+    <div id="blog-body" class="<%= css_columns(12) %>">
+      <%= render :partial => 'application/pages/blog', :collection => @blogs %>
     </div>
   </div>
 <% else %>

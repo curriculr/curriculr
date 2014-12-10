@@ -1,0 +1,37 @@
+<div class="hero-unit" style="padding: 0px;">
+  <div class="jumbotron pattern">
+    <div class="<%= css_container %> text-center">
+      <h1><i class="fa fa-newspaper-o fa-6"></i></h1>
+      <h2><%= t("#{current_account.slug}.site.blog.line1") %></h2>
+      <p><%= t("#{current_account.slug}.site.blog.line2") %></p>
+    </div>
+  </div>
+</div>
+
+<div id="main-container" class="<%= css_container %>">
+  <div class="row">
+    <div class="<%= css_columns(2) %> hidden-xs hidden-sm">
+      <%= yield :blog_160x600_left_top_banner %>
+    </div>
+		<div class="<%= css_columns(8) %>">
+      <% if @page_header %>
+        <% 
+        action = nil
+        subtext = nil
+        if !current_user and @klass and @klass.previewed 
+          action = ui_klass_enrollment_action(@klass, true, true)
+        end
+        
+        subtext = klass_from_and_to_dates(@klass) if @klass
+        %>
+        <%= ui_header @page_header, action: action, style: :h2, subtext: subtext %>
+      <% end %>
+
+			<%= yield %>
+		</div>
+    <div class="<%= css_columns(2) %> hidden-xs hidden-sm">
+      <%= yield :blog_160x600_right_top_banner %>
+    </div>
+  </div>
+</div>
+

@@ -5,6 +5,9 @@ en:
       slogan:
         line1: Open Interactive Education
         line2: High quality classes that can be taken anytime and from anywhere.
+      blog:
+        line1: Official Blog
+        line2: News, announcements, discussions, and more
       mailer:
         logo: https://www.duroosi.com/images/logo/dark-red.en.png
         links:

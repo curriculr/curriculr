@@ -1,7 +1,4 @@
-<ul class="nav navbar-nav">
-  <%= content_tag :li, link(:page, :blogs, main_app.blogs_path), 
-        :class =>  controller_name == 'pages' && action_name == 'blogs' ? 'active' : nil %>
-        
+<ul class="nav navbar-nav">        
   <%= content_tag :li, link(:klass, :index, main_app.learn_klasses_path), 
         :class =>  @course.blank? && (controller_name == 'klasses' || @klass.present?) ? 'active' : nil %>
         
@@ -9,6 +6,9 @@
     <%= content_tag :li, link(:course, :course_builder, main_app.teach_courses_path), 
           :class =>  controller_name == 'courses' || @course.present? ? 'active' : nil %>
   <% end %>
+
+  <%= content_tag :li, link(:page, :blogs, main_app.blogs_path), 
+      :class =>  controller_name == 'pages' && action_name == 'blogs' ? 'active' : nil %>
   
   <%= mountable_fragments :app_left_main_menu %>
 </ul>

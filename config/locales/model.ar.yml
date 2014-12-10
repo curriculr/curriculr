@@ -122,7 +122,7 @@ ar:
       site_settings: إعدادات الموقع
       new_attempt: <i class="fa fa-plus"></i> إبدأ محاولة جديدة
       copy: انسخ
-      course_builder: إنشاء المقررات
+      course_builder: للمدرسين
       help: للمساعدة
       learn_more: اعرف أكثر
       open: افتح
@@ -132,7 +132,7 @@ ar:
       create: إنشاء 
       edit: <i class="fa fa-edit"></i> عدل %{name}
       update: عدل
-      destroy: <i class="fa fa-remove"></i> احذف
+      destroy: <i class="fa fa-remove"></i>&nbsp; احذف
       cancel: ألغ
       settings: اعدادات
       reports: <i class="fa fa-newspaper-o"></i>&nbsp; تقرير الأداء
@@ -143,7 +143,7 @@ ar:
       privacy: سرية البيانات
       terms: اتفاقية الاستخدام
       services: خدماتنا
-      blogs: مقالات/مدونات
+      blogs: المدونة الرئيسية
       sign_up: إنشاء حساب
       sign_in: ادخل
       sign_out: اخرج

@@ -31,6 +31,8 @@
         end  
         %>   
       </div> 
+
+      <%= yield :teach_160x200_left_middle_banner %>
     </div>
     <div class="<%= css_columns(10) %>"> 
       <% 
@@ -68,7 +70,7 @@
   <div class="row extra-padded">
 	  <div class="<%= css_columns(2) %> side-navabar">
       <%= render "teach/courses/ui_main_side" %> 
-      <%= yield :teach_250x300_left_bottom_banner %>
+      <%= yield :teach_160x600_left_bottom_banner %>
     </div>
     <div id="course-main-content" class="<%= css_columns(10) %>">
       <% 
