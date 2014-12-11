@@ -97,11 +97,14 @@ describe Course do
     
     it "can have books" do
       course = create(:course)
-      course.materials << create(:material, :kind => 'books', :medium => create(:document_medium))
-      course.materials << create(:material, :kind => 'books', :medium => create(:document_medium))
-      course.materials << create(:material, :kind => 'books', :medium => create(:document_medium))
+      create(:material, :owner => course, :kind => 'document', :medium => create(:document_medium), tag_list: [:books])
+      create(:material, :owner => course, :kind => 'document', :medium => create(:document_medium), tag_list: [:books])
+      create(:material, :owner => course, :kind => 'document', :medium => create(:document_medium), tag_list: [:books])
       
       expect(course.books.count).to eq 3
     end
   end
 end
+
+
+

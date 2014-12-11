@@ -9,7 +9,7 @@ feature 'Guests' do
   scenario 'can visit blogs page' do
     visit blogs_path
     within 'h2' do
-        expect(page).to have_text("Blogs")
+        expect(page).to have_content("Official Blog")
     end
   end
 
@@ -26,7 +26,7 @@ feature 'Guests' do
   scenario 'can visit signin page' do
     visit new_user_session_path
     within 'h3' do
-        expect(page).to have_content("New Session")
+        expect(page).to have_content("Sign in")
     end
   end
 
@@ -39,7 +39,7 @@ feature 'Guests' do
 
   scenario 'can visit about page' do
     visit about_path
-    within 'h2' do expect(page).to have_content("about") end
+    within 'h2' do expect(page).to have_content("About") end
   end
 
   scenario 'can visit contactus page' do
@@ -49,12 +49,12 @@ feature 'Guests' do
 
   scenario 'can visit privacy page' do
     visit localized_page_path(:privacy)
-    within 'h2' do expect(page).to have_content("privacy") end
+    within 'h2' do expect(page).to have_content("Privacy") end
   end
 
   scenario 'can visit terms and conditions page' do
     visit localized_page_path(:terms)
-    within 'h2' do expect(page).to have_content("terms") end
+    within 'h2' do expect(page).to have_content("Terms of service") end
   end
 end
 

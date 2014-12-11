@@ -10,6 +10,7 @@ module GlobalData
 
       $su.save!
     end
+    
 =begin
     if ($admin = User.find_by(id: 2)).blank?
       $admin = User.new
@@ -22,6 +23,7 @@ module GlobalData
       $admin.save!
     end
 =end
+
     # Creating the site's main account
     if ($account = Account.where(:slug => $site['default_account']).first).blank?
       $account = Account.create(
@@ -34,11 +36,11 @@ module GlobalData
         :live_since => Time.zone.now
       )
 
-      config = YAML.load_file("#{Rails.root}/config/config-account_main.yml")
+      config = YAML.load_file("#{Rails.root}/config/config-account.yml")
 
       $redis.set "config.account.a#{$account.id}", config['account'].to_json
   
-      yml_t = YAML.load_file("#{Rails.root}/config/config-account.en.yml")
+      yml_t = YAML.load_file("#{Rails.root}/config/locales/account.en.yml")
       out_t = {}
       locale = :en
       Translator.from_yaml(locale, out_t, yml_t, '')
