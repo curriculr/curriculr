@@ -1,7 +1,7 @@
 class KlassAccessDeniedError < StandardError; end
 
 class ApplicationController < PreApplicationController
-  protect_from_forgery
+  protect_from_forgery with: :exception
   
   helper EditorsHelper, UiHelper, CoursesHelper, KlassesHelper, DashboardHelper
   
