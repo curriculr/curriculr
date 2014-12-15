@@ -53,7 +53,6 @@ class User < ActiveRecord::Base
   def anonymous?
     new_record?
   end
-
   
   def to_s
     name
@@ -85,4 +84,11 @@ class User < ActiveRecord::Base
      update_attributes(:active => true)
   end
 
+  # Devise
+  def send_devise_notification(notification, *args)
+    args[1][:from] = self.account.config['mailer']['send_from']
+    args[1][:to] = self.email
+
+    devise_mailer.send(notification, self.id, self.account.slug, *args).deliver_later
+  end
 end

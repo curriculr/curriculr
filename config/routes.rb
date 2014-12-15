@@ -1,6 +1,7 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   devise_for :users, :controllers => {
-    :registrations => "user/registrations" ,
     :omniauth_callbacks => "omniauth_callbacks" 
   }
   
@@ -184,6 +185,10 @@ Rails.application.routes.draw do
 
   post "miscellaneous/contactus"
     
+  authenticate :user, lambda {|u| u.has_role?(:admin)} do
+    mount Sidekiq::Web => '/sidekiq'
+  end
+  
   # Top-level pages
   get 'about', :to => "miscellaneous#team", :as => 'about'
   get 'contactus', :to => "miscellaneous#contactus", :as => 'contactus'

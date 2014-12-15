@@ -1,6 +1,13 @@
-<ul class="nav navbar-nav">        
-  <%= content_tag :li, link(:klass, :index, main_app.learn_klasses_path), 
-        :class =>  @course.blank? && (controller_name == 'klasses' || @klass.present?) ? 'active' : nil %>
+<ul class="nav navbar-nav">   
+  <% if current_user %>  
+    <li class="<%= 'active' if action_name =='home' && controller_name == 'users' %>">   
+      <%= link_to(css_icon(:home, 1) + t("activerecord.actions.home"), main_app.home_path) %>
+    </li>
+  <% end %>
+
+  <li class="<%= 'active' if @course.blank? && (controller_name == 'klasses' || @klass.present?) %>">   
+    <%= link_to(css_icon('th-list', 1) + Klass.model_name.human(count: 3) , main_app.learn_klasses_path) %>
+  </li>
         
   <% if current_user && (current_user.has_role?(:admin) || current_user.has_role?(:faculty)) %>
     <%= content_tag :li, link(:course, :course_builder, main_app.teach_courses_path), 
@@ -26,7 +33,7 @@
       <li><%= link :user, :sign_in, main_app.new_user_session_path %></li>
     <% end %>
   <% else %>
-    <li id="no-line" class="dropdown yamm-fw">
+    <li id="no-line" class="dropdown">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown">
         <b class="caret"></b> 
         <%= image_tag ui_image_src(current_user.profile.avatar_url(current_account, :tny), '/images/nobody-tny.png'), 
@@ -34,83 +41,10 @@
         <%= current_user.name %> 
       </a>
       <ul class="dropdown-menu">
-        <li>
-          <div class="yamm-content">
-            <div class="row">
-              <div class="<%= css_columns(7) %>">
-                <div class="row">
-                  <div class="<%= css_columns(current_user.has_role?(:admin) ? 6 : 12) %>">
-                    <ul class="list-unstyled"> 
-                      <li>
-                        <% if current_user.has_role?(:admin) || current_user.has_role?(:faculty) %>
-                          <%= link(:course, :new, main_app.new_teach_course_path, 
-                                :class => css(button: [:success, :xs], :align => :right)) %>
-                        <% end %>
-
-                        <%= content_tag :h4, Klass.model_name.human(count: 3) %>
-                      </li>
-
-                      <li class="divider"></li>
-
-                      <li><%= link(:klass, :taking_klasses, main_app.learn_klasses_path(:s => :taking)) %></li>
-                      <li><%= link(:klass, :enrolled_klasses, main_app.learn_klasses_path(:s => :enrolled)) %></li>
-                      <li><%= link(:klass, :taken_klasses, main_app.learn_klasses_path(:s => :taken)) %></li>
-
-                      <% if current_account.config['allow_user_student_dependents'] %>
-                        <li class="divider"></li>
-                        <li><%= content_tag :h4, Student.model_name.human(count: 3) %></li> 
-                        <li><%= link :student, :index,  main_app.learn_students_path %></li>
-                      <% end %>
-
-                      <% if current_user.has_any_role?(:admin) %>
-                        <li>
-                          <%= link(:page, :new, new_page_path, class: css(button: [:success, :xs], align: :right)) %>
-                          <%= content_tag :h4, Page.model_name.human(count: 3) %>
-                        </li>
-                        <li class="divider"></li>
-                        <li><%= link :page, :static_pages_or_blogs, main_app.pages_path %></li>
-                      <% elsif current_user.has_any_role?(:faculty) %>
-                        <li>
-                          <%= link(:page, :new, new_page_path, class: css(button: [:success, :xs], align: :right)) %>
-                          <%= content_tag :h4, Page.model_name.human(count: 3) %>
-                        </li>
-                        <li class="divider"></li>
-                        <li><%= link :page, :blog_posts, main_app.pages_path %></li>
-                      <% end %>
-                    </ul>
-                  </div>
-                  <% if current_user.has_role? :admin %>
-                    <div class="<%= css_columns(6) %>">
-                      <ul class="list-unstyled">
-                        <%= render "/ui_admin_menu" %>
-                      </ul>
-                    </div>
-                  <% end %>
-                </div>
-              </div>
-              <div class="<%= css_columns(5) %>">
-                <ul class="list-unstyled">
-                  <li>
-                    <%= content_tag :h4 do %>
-                      <%= link(:profile, :edit, main_app.edit_user_path(current_user), 
-                            class: css(button: [:success, :xs], align: :right)) %>
-                      <%= "#{current_user.profile.prefix} #{current_user.name}" %> 
-                      <small><%= current_user.profile.nickname %></small>
-                    <% end %>
-                  </li>
-                  <li class="divider"></li>
-                  <li>
-                    <%= ui_media current_user.profile.avatar_url(current_account, :med).to_s, current_user.email,
-                          markdown(summary(current_user.profile.about, 100)) %>
-                  </li>
-                  <li class="divider"></li>
-                  <li><%= link :user, :change_password, main_app.edit_user_registration_path %></li>
-                  <li><%= link :session, :sign_out, main_app.destroy_user_session_path, :method => :delete %></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </li>
+        <li><%= link_to(css_icon(:home, 1) + t("activerecord.actions.home"), main_app.home_path) %></li>
+        <li><%= link :user, :change_password, main_app.edit_user_registration_path %></li>
+        <li class="divider"></li>
+        <li><%= link :session, :sign_out, main_app.destroy_user_session_path, :method => :delete %></li>
       </ul>
     </li>
   <% end %>

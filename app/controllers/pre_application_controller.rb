@@ -43,6 +43,7 @@ class PreApplicationController < ActionController::Base
   end
   
   def load_req_object(model, controller, named_id)
+    model = model.respond_to?(:scopeable?) ? model.scoped : model
     if params[named_id]
       data = model.find(params[named_id]) if params[named_id].present?
     elsif params[:id] and params[:controller] == controller

@@ -9,7 +9,18 @@ module Teach
         @update.save!
 
         if @update.email
-          Notifier.make(current_account, @update)
+          body = view_context.markdown(@update.body) 
+          students = @update.klass.students.joins(:user).where('enrollments.active = TRUE').
+            select('users.name as user_name, users.email as user_email, students.name as student_name')
+          students.map do |s|
+            Mailer.klass_update(
+              current_account.slug, 
+              current_account.config['mailer']['noreply'], 
+              s.user_email, 
+              @update.subject, 
+              body, @update.klass.id
+            ).deliver_later
+          end
         end
       end
       

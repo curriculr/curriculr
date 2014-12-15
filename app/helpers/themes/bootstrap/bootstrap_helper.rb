@@ -1,7 +1,9 @@
 # Bootstrap implementation of theme related ui elements
 module Themes::Bootstrap::BootstrapHelper 
-  def css_container
-    if @current_theme and @current_theme['fluid']
+  def css_container(style = nil)
+    if style
+       "container-#{style}"
+    elsif @current_theme and @current_theme['fluid']
       "container-fluid"
     else
       "container"
@@ -162,7 +164,8 @@ module Themes::Bootstrap::BootstrapHelper
   
   def logo_path
     path = "/images/logo/%{dark_or_light}-%{flavor}.%{locale}.png"
-    dark_or_light = :light
+    #path = "/images/logo/%{dark_or_light}.png"
+    dark_or_light = :dark
     flavor = current_account.config['theme']['flavor'] || $site['theme']['flavor']
     path % {dark_or_light: dark_or_light, flavor: flavor , locale: locale}
   end
@@ -176,7 +179,7 @@ module Themes::Bootstrap::BootstrapHelper
     end
 
     t('config.level').each_with_index do |l, i|
-      if Course.tagged_with(l.first, :on => :levels).to_a.include? klass.course
+      if Course.scoped.tagged_with(l.first, :on => :levels).to_a.include? klass.course
         (0..i).each { labels << content_tag(:i, '', class: 'fa fa-circle') }
         ((i+1)..3).each { labels << content_tag(:i, '', class: 'fa fa-circle-o') }
         labels << content_tag(:span, l.second, :class => "text-muted") 

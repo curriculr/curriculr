@@ -20,8 +20,10 @@ gem 'capistrano-rails', group: :development
 
 group :development, :test do 
   gem 'rspec-rails'
-  gem 'byebug'
-  gem 'web-console', '~> 2.0'
+  #gem 'byebug'
+  #gem 'web-console', '~> 2.0'
+  gem 'better_errors'
+  gem 'binding_of_caller'
   gem 'spring'  
 end 
 
@@ -36,6 +38,9 @@ end
 
 # By Duroosi
 gem 'redis'
+gem 'sidekiq'
+gem 'sinatra', require: false
+gem 'slim'
 gem 'redis-namespace'
 gem 'nokogiri'
 gem 'omniauth'
@@ -59,7 +64,6 @@ gem 'country_select'
 gem 'jquery-ui-rails'
 gem 'redcarpet'
 gem 'pygments.rb'
-gem 'rufus-scheduler'
 gem 'kaminari'
 gem 'ransack'
 gem 'responders'
@@ -68,3 +72,4 @@ gem 'chosen-rails'
 gem 'friendly_id', '~> 5.0.0'
 gem 'roadie-rails'
 gem 'jquery-fileupload-rails'
+

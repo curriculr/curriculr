@@ -19,11 +19,11 @@ ui_modal_confirmation = (kind, hdr, body, link, close) ->
 window.ui_modal_confirmation = ui_modal_confirmation
 
 window.ui_rebind_application_events  = ($) ->
-  $(window).scroll ->
-    if $(".navbar").offset().top > 25
-      $(".navbar-fixed-top").addClass("top-nav-collapse")
-    else
-      $(".navbar-fixed-top").removeClass("top-nav-collapse")
+  # $(window).scroll ->
+  #   if $(".navbar").offset().top > 25
+  #     $(".navbar-fixed-top").addClass("top-nav-collapse")
+  #   else
+  #     $(".navbar-fixed-top").removeClass("top-nav-collapse")
       
   # mediaelementjs
   $('video.mediaelementjs, audio.mediaelementjs').mediaelementplayer()

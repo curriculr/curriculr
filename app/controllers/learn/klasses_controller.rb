@@ -35,7 +35,14 @@ module Learn
       if current_user
         if params[:agreed]
           if KlassEnrollment.enroll(@klass, current_student)
-            KlassEnrollment.send_email(current_user.email, [@klass], url_for(:controller => 'devise/sessions', :action => 'new')) 
+            Mailer.klass_enrollment(
+              current_account.slug, 
+              current_account.config['mailer']['noreply'],
+              current_user.email, 
+              [@klass].map {|k| k.id}, 
+              url_for(:controller => 'devise/sessions', :action => 'new')
+            ).deliver_later
+
             redirect_to learn_klass_path(@klass), :flash => {:notice => t('activerecord.messages.successful_enroll')}
           else
             redirect_to learn_klass_path(@klass), :flash => {:error => t('activerecord.messages.failure_to_enroll')} 

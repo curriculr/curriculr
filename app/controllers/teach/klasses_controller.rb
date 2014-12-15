@@ -14,7 +14,7 @@ module Teach
     end
     
     def update
-      @klass = Klass.find(params[:id])
+      @klass = Klass.scoped.find(params[:id])
 
       respond_with @klass do |format|
         if @klass.update(klass_params)
@@ -75,17 +75,25 @@ module Teach
           invitable &&= @klass.private and current_user.email != params[:invitation][:invitee] and staff?(current_user, @course)
           
           if invitable
-            user = User.find_by(:email => params[:invitation][:invitee])
+            user = User.scoped.find_by(:email => params[:invitation][:invitee])
 
             invitable &&= user && (enrollment = KlassEnrollment.enroll(@klass, user.self_student, true))
 
             invitable &&=  !enrollment.active && enrollment.dropped_at.blank? && enrollment.accepted_or_declined_at.blank?
           end
         end
-
+        
         if invitable
           url = url_for :controller => 'devise/sessions', :action => 'new'  
-          Mailer.klass_invitation(current_account, current_user.name || current_user.email, @klass, params[:invitation][:invitee], url).deliver
+          Mailer.klass_invitation(
+            current_account.slug, 
+            current_account.config['mailer']['noreply'],
+            @invitation.invitee,
+            @klass.id,
+            current_user.name || current_user.email, 
+            url
+          ).deliver_later
+
           redirect_to students_learn_klass_path(@klass), :notice => t('activerecord.messages.invitation_sent')
         else
           flash.now[:alert] = t('activerecord.messages.unable_to_invite')

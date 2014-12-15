@@ -159,12 +159,13 @@ section {
 
 //hero unit and jumbotron styling
 .hero-unit {
-  background: url('/images/jumbotron-bg.jpg') no-repeat;
+  background: $brand-primary; //url('/images/jumbotron-bg.jpg') no-repeat;
   background-size: cover;
   border-bottom: $border-style;
-  padding: 100px 0;
-  .pattern {
-    background: url('/images/blank.gif') repeat;
+  // padding: 100px 0;
+  .jumbotron {
+    background: $brand-primary; //url('/images/blank.gif') repeat;
+    padding: 40px 0px;
   }
 }
 
@@ -882,10 +883,10 @@ ul.breadcrumb {
     -moz-transition: background .6s ease-in-out,padding .6s ease-in-out;
     transition: background .6s ease-in-out,padding .6s ease-in-out;
   }
-  .top-nav-collapse {
-    padding: 0;
-    background-color: $mystical-dark;
-  }
+  // .top-nav-collapse {
+  //   padding: 0;
+  //   background-color: $mystical-dark;
+  // }
 }
 
 @media(max-width:767px) {

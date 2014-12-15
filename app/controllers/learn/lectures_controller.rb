@@ -26,7 +26,7 @@ module Learn
     end
     
     def show_page
-      @page = Page.find(params[:page_id])
+      @page = Page.scoped.find(params[:page_id])
       @lecture.log_attendance(@klass, current_student, @page)
 
       @mark_as_taken = true

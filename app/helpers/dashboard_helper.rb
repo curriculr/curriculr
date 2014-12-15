@@ -27,7 +27,7 @@ module DashboardHelper
   end
 
   def dashboard_course_medium_counts(course)
-    counts = Medium.group('kind').where(course: course).count.to_a
+    counts = Medium.scoped.group('kind').where(course: course).count.to_a
 
     data = [['Label', 'Value']]
     max = 0
@@ -189,13 +189,14 @@ module DashboardHelper
 
   # Admin Dashboard
   def dashboard_admin_activity_counts
+    klasses = Klass.scoped.open.active.to_a
     counts = [
-      [ t('page.titles.registration'), User.count ],
-      [ t('page.titles.confirmation'), User.where('confirmed_at is not null').count ],
-      [ t('page.titles.enrollment'), Enrollment.where(klass: Klass.open.active).count ],
-      [ t('page.titles.withdrawal'), Enrollment.where(klass: Klass.open.active).
+      [ t('page.titles.registration'), User.scoped.count ],
+      [ t('page.titles.confirmation'), User.scoped.where('confirmed_at is not null').count ],
+      [ t('page.titles.enrollment'), Enrollment.where(klass: klasses).count ],
+      [ t('page.titles.withdrawal'), Enrollment.where(klass: klasses).
           where('active = FALSE and dropped_at is not null').count ],
-      [ t('page.titles.activity'), Activity.where(klass: Klass.open.active).count ]
+      [ t('page.titles.activity'), Activity.where(klass: klasses).count ]
     ]
     data = [['Label', 'Value']]
 
@@ -243,7 +244,7 @@ module DashboardHelper
   end
   
   def _users_by_day(since, confirmed = true, date = 'created_at')
-    users_by_day = User.where(date => since.beginning_of_day..Time.zone.now.end_of_day).
+    users_by_day = User.scoped.where(date => since.beginning_of_day..Time.zone.now.end_of_day).
       group("date(#{date})").
       select("date(#{date}) as day, count(*) as count")
       

@@ -18,4 +18,5 @@ Rails.application.config.assets.precompile += %w(
   bootstrap/blue_rtl.css 
   bootstrap/vanilla_rtl.css 
   bootstrap/overrides.js
+  ink.css
 )

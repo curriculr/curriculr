@@ -122,7 +122,7 @@ ar:
       site_settings: إعدادات الموقع
       new_attempt: <i class="fa fa-plus"></i> إبدأ محاولة جديدة
       copy: انسخ
-      course_builder: للمدرسين
+      course_builder: <i class="fa fa-cogs"></i> للمدرسين
       help: للمساعدة
       learn_more: اعرف أكثر
       open: افتح
@@ -143,10 +143,10 @@ ar:
       privacy: سرية البيانات
       terms: اتفاقية الاستخدام
       services: خدماتنا
-      blogs: المدونة الرئيسية
+      blogs: <i class="fa fa-newspaper-o"></i> المدونة الرئيسية
       sign_up: إنشاء حساب
       sign_in: ادخل
-      sign_out: اخرج
+      sign_out: <i class="fa fa-sign-out"></i> اخرج
       send: ارسل
       reply: أجب
       start: ابدأ
@@ -190,7 +190,7 @@ ar:
       add_role: اضف دور %{role}
       remove_role: احذف دور %{role}
       stats: احصائيات
-      change_password: غير كلمة السر
+      change_password: <i class="fa fa-pencil-square-o"></i> غير كلمة السر
       new_password: هل نسيت كلمة السر؟
       facebook: فيسبوك
       twitter: تويتر

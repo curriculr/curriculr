@@ -88,6 +88,6 @@ feature 'Admins' do
     #
     click_button 'Update'
     #save_and_open_page
-    expect(User.unscoped.find(@admin.id).name).to eq 'Super Admin'
+    expect(User.find(@admin.id).name).to eq 'Super Admin'
   end
 end

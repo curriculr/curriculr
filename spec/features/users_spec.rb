@@ -49,6 +49,7 @@ feature 'Guests' do
 
   scenario 'can visit privacy page' do
     visit localized_page_path(:privacy)
+    #save_and_open_page
     within 'h2' do expect(page).to have_content("Privacy") end
   end
 

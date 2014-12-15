@@ -121,7 +121,7 @@ en:
       site_settings: Site settings
       new_attempt: <i class="fa fa-plus"></i> New attempt
       copy: Copy
-      course_builder: Builder
+      course_builder: <i class="fa fa-cogs"></i> Builder
       help: Help
       learn_more: Learn more
       open: Open
@@ -141,10 +141,10 @@ en:
       contactus: Contact us
       privacy: Privacy
       terms: Terms of service
-      blogs: Blog
+      blogs: <i class="fa fa-newspaper-o"></i> Blog
       sign_up: Create an account
       sign_in: Login
-      sign_out: Sign out
+      sign_out: <i class="fa fa-sign-out"></i> Sign out
       send: Send
       reply: Reply
       start: Start
@@ -188,7 +188,7 @@ en:
       add_role: Add role %{role}
       remove_role: Remove role %{role}
       stats: Statistics
-      change_password: Change password
+      change_password: <i class="fa fa-pencil-square-o"></i> Change password
       new_password: Forgot your password?
       facebook: Facebook
       twitter: Twitter

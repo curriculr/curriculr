@@ -24,7 +24,7 @@
     <%= javascript_include_tag "//cdn.sublimevideo.net/js/#{$site['sublimevideo_site_token']}.js" %>
   <% end %>
 </head>
-<body<%= " style='padding-top: 0px;'".html_safe if !current_user && action_name == 'front' %>>
+<body>
   <% Announcement.current(cookies.signed[:hidden_announcement_ids]).each do |announcement| %>
     <%= div_for announcement do %>
       <%= announcement.message %>

@@ -5,9 +5,9 @@ class PagesController < AuthorizedController
   def index
     if current_user
       if current_user.has_role? :admin
-        @q = Page.where(:owner_type => 'User').search(params[:q])
+        @q = Page.scoped.where(:owner_type => 'User').search(params[:q])
       else
-        @q = Page.where(:owner_type => 'User', :owner_id => current_user.id).search(params[:q])
+        @q = Page.scoped.where(:owner_type => 'User', :owner_id => current_user.id).search(params[:q])
       end 
     else
       @q = Page.none.search(params[:q])

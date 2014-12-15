@@ -96,7 +96,7 @@ module Pageable
 
   private
     def set_page
-      @page = Page.find(params[:id])  
+      @page = Page.scoped.find(params[:id])  
 
       @req_objects << @page
     end

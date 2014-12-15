@@ -26,7 +26,7 @@ class Page < ActiveRecord::Base
   }
   
   scope :blogs, -> {
-    where(:owner_type => 'User', :public => true, :published => true, :blog => true)
+    scoped.where(:owner_type => 'User', :public => true, :published => true, :blog => true)
   }
   
   def by_author
@@ -40,9 +40,9 @@ class Page < ActiveRecord::Base
   end
 
   def self.localized(slug)
-    page = Page.where(slug: "#{slug}-#{I18n.locale}").first
+    page = Page.scoped.where(slug: "#{slug}-#{I18n.locale}").first
     if page.blank?
-      page = Page.find_by(slug: "#{slug}-#{I18n.default_locale}")
+      page = Page.scoped.find_by(slug: "#{slug}-#{I18n.default_locale}")
     end
     
     page

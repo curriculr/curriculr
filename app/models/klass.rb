@@ -27,28 +27,30 @@ class Klass < ActiveRecord::Base
   PARTS = %w[lectures pages materials assessments discussions reports]
   
   def self.which_are(kind, user)
-    case kind
-    when 'featured'
-      joins(:course).active.featured.looking_ahead.public_only.distinct
-    when 'popular'
-      joins(:course).active.looking_ahead.public_only.limit(20).order(:active_enrollments).reverse_order.distinct
-    when 'open'
-      joins(:course).active.open.public_only.distinct
-    when 'coming'
-      joins(:course).active.coming.public_only.distinct
-    when 'enrolled'
-      joins(:course).joins(:enrollments).active.looking_ahead.enrolled(user).distinct if user
-    when 'taking'
-      joins(:course).joins(:enrollments).active.open.enrolled(user).distinct if user
-    when 'taken'
-      joins(:course).joins(:enrollments).active.closed.enrolled(user).distinct if user
-    else
-      available(user)
-    end
+    (
+      case kind
+      when 'featured'
+        joins(:course).active.featured.looking_ahead.public_only.distinct
+      when 'popular'
+        joins(:course).active.looking_ahead.public_only.limit(20).order(:active_enrollments).reverse_order.distinct
+      when 'open'
+        joins(:course).active.open.public_only.distinct
+      when 'coming'
+        joins(:course).active.coming.public_only.distinct
+      when 'enrolled'
+        joins(:course).joins(:enrollments).active.looking_ahead.enrolled(user).distinct if user
+      when 'taking'
+        joins(:course).joins(:enrollments).active.open.enrolled(user).distinct if user
+      when 'taken'
+        joins(:course).joins(:enrollments).active.closed.enrolled(user).distinct if user
+      else
+        available(user)
+      end
+    ).scoped
   end
 
   def self.available(user)
-    user ? available_2_user(user) : available_2_all
+    (user ? available_2_user(user) : available_2_all).scoped
   end
   
   # Scopes

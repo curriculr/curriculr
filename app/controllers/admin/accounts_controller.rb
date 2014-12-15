@@ -64,7 +64,7 @@ module Admin
     private
       def set_account
         @account = Account.find(params[:id])
-        @account.admin = User.unscoped.find(@account.admin_id)
+        @account.admin = User.find(@account.admin_id)
         puts $redis.get("config.account.a#{@account.id}").to_json
         @account.config = JSON.parse($redis.get("config.account.a#{@account.id}"))
         @account.settings = JSON.pretty_generate(@account.config)

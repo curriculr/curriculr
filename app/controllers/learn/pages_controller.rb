@@ -1,7 +1,7 @@
 module Learn
   class PagesController < BaseController
     def show
-      @page = Page.find(params[:id])
+      @page = Page.scoped.find(params[:id])
     end
     
     def index

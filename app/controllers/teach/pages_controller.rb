@@ -3,7 +3,7 @@ module Teach
     include Pageable
     
     def set_page
-      @page = Page.find(params[:id])
+      @page = Page.scoped.find(params[:id])
       @lecture = @page.owner if @page.owner.is_a?(Lecture)
       @unit
     end

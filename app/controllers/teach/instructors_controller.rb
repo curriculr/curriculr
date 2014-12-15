@@ -14,7 +14,7 @@ module Teach
       @instructor = Instructor.new(instructor_params)
       respond_with @instructor do |format|
         if @instructor.valid?
-          @instructor.user = User.find_by(:email => @instructor.email)
+          @instructor.user = User.scoped.find_by(:email => @instructor.email)
           if @instructor.user and @instructor.save
             format.html { redirect_to teach_course_path(@course, show: 'people') }
           else

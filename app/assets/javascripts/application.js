@@ -4,7 +4,6 @@
 //= require pagedown/Markdown.Converter
 //= require pagedown/Markdown.Sanitizer
 //= require pagedown/Markdown.Editor
-//= require yamm
 //= require rails-timeago.js
 //= require locales/jquery.timeago.ar.js
 //= require jquery.timepicker.js

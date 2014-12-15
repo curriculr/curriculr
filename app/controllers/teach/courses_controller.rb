@@ -6,9 +6,9 @@ module Teach
     
     def index
       if current_user.has_role?(:admin)
-        @q = Course.all.order('updated_at DESC').search(params[:q])
+        @q = Course.scoped.all.order('updated_at DESC').search(params[:q])
       else 
-        @q = Course.for_user_with_roles(current_user, t('config.staff').keys).order('updated_at DESC').search(params[:q])
+        @q = Course.scoped.for_user_with_roles(current_user, t('config.staff').keys).order('updated_at DESC').search(params[:q])
       end
       
       @courses = @q.result.page(params[:page]).per(10)

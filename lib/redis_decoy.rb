@@ -15,8 +15,7 @@ class RedisDecoy
     end
   
     config = YAML.load_file("#{Rails.root}/config/config-course.yml")
-    courses = Course.unscoped.all
-    courses.each do |c|
+    Course.all.each do |c|
       @db["config.course.a#{c.account_id}_c#{c.id}"] = config['course'].to_json
     end
 

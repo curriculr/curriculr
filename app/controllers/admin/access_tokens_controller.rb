@@ -4,7 +4,7 @@ module Admin
     responders :flash, :http_cache
     
     def create
-      @user = User.find(params[:user_id])
+      @user = User.scoped.find(params[:user_id])
       @access_token = @user.access_tokens.new
       @access_token.scope = :all 
       @access_token.save
@@ -30,7 +30,7 @@ module Admin
 
     private
       def set_access_token
-        @user = User.find(params[:user_id])
+        @user = User.scoped.find(params[:user_id])
         @access_token = AccessToken.find(params[:id])
       end
 

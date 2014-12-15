@@ -17,7 +17,7 @@ module Mediable
     if @course
       @q = @course.media.where(:kind => kind).order('created_at desc').search(params[:q])
     else
-      @q = Medium.where(:course_id => nil, :kind => kind).order('created_at desc').search(params[:q])
+      @q = Medium.scoped.where(:course_id => nil, :kind => kind).order('created_at desc').search(params[:q])
     end
     
     @media =  @q.result.page(params[:page]).per(10)
@@ -127,7 +127,7 @@ module Mediable
 
   private
   def set_medium
-    @medium = Medium.find(params[:id])
+    @medium = Medium.scoped.find(params[:id])
   end
   
   def the_form_path

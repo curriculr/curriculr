@@ -11,7 +11,7 @@ class Instructor < ActiveRecord::Base
 	validate :valid_user_email
   
   def valid_user_email 
-    user = User.find_by(:email => self.email, :active => true)
+    user = User.scoped.find_by(:email => self.email, :active => true)
     instructor = user.present? ? Instructor.where(user_id: user.id, course_id: course.id).first : nil
     
     errors.add :email, :already if new_record? && instructor.present?

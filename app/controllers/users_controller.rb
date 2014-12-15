@@ -8,10 +8,8 @@ class UsersController < AuthorizedController
 
   def front
     if current_user
-      home
+      redirect_to home_path
     else
-      #@user = User.new
-    
       @q = Klass.available(current_user).search(params[:q])
       @klasses = @q.result.page(params[:page]).per(10)
 
@@ -20,34 +18,28 @@ class UsersController < AuthorizedController
   end
 
   def home
-    if current_user
-      if current_user.has_role? :faculty
-        redirect_to teach_courses_path
-      else
-        redirect_to learn_klasses_path
-      end
-    else
+    unless current_user
       redirect_to root_path 
     end
   end  
   
   def index
-    @q = User.search(params[:q])
+    @q = User.scoped.search(params[:q])
     @users = @q.result.page(params[:page]).per(10).order(:id)
 
     respond_with @users
   end
 
   def show
-    @user = User.find(params[:id])
+    @user = User.scoped.find(params[:id])
   end
 
   def edit
-    @user = User.find(params[:id])
+    @user = User.scoped.find(params[:id])
   end
   
   def update
-		@user = User.find(params[:id])
+		@user = User.scoped.find(params[:id])
 		@user.active = !@user.active if params[:opr] == 'activate'
     
     @to_update_role = false
@@ -82,7 +74,7 @@ class UsersController < AuthorizedController
   end
 
   def destroy
-    @user = User.find(params[:id])
+    @user = User.scoped.find(params[:id])
     @user.destroy
 
     respond_with @user do |format|

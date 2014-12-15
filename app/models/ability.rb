@@ -4,7 +4,7 @@ class Ability
   def initialize(account, user, student = nil, course = nil, klass = nil, assessment = nil)
     user ||= User.new
     
-    can :front, User
+    can [:front, :root], User
     can :hide, Announcement
     can [ :show, :localized ], Page, :published => true, :public => true
     can :blogs, Page

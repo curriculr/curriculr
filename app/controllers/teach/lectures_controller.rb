@@ -87,7 +87,7 @@ module Teach
         when 'question'
           Question.where(:id => id.first).update_all(order: i + 1)
         when 'page'
-          Page.where(:id => id.first).update_all(order: i + 1)
+          Page.scoped.where(:id => id.first).update_all(order: i + 1)
         when 'assessment'
           Assessment.where(:id => id.first).update_all(order: i + 1)
         end

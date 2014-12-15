@@ -5,7 +5,7 @@ module Admin
     responders :flash, :http_cache, :collection
     
     def index
-      @announcements = Announcement.all
+      @announcements = Announcement.scoped.all
       respond_with(@announcements)
     end
 
@@ -45,7 +45,7 @@ module Admin
 
     private
       def set_announcement
-        @announcement = Announcement.find(params[:id])
+        @announcement = Announcement.scoped.find(params[:id])
       end
 
       def announcement_params

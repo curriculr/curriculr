@@ -1,0 +1,102 @@
+<div class="row">
+  <div class="<%= css_columns(4) %>">
+    <ul class="list-unstyled"> 
+      <li>
+        <% if current_user.has_role?(:admin) || current_user.has_role?(:faculty) %>
+          <%= link(:course, :new, main_app.new_teach_course_path, 
+                :class => css(button: [:success, :xs], :align => :right)) %>
+        <% end %>
+
+        <%= ui_header Klass.model_name.human(count: 3) %>
+      </li>
+
+      <li class="divider"></li>
+
+      <li><%= link(:klass, :taking_klasses, main_app.learn_klasses_path(:s => :taking)) %></li>
+      <li><%= link(:klass, :enrolled_klasses, main_app.learn_klasses_path(:s => :enrolled)) %></li>
+      <li><%= link(:klass, :taken_klasses, main_app.learn_klasses_path(:s => :taken)) %></li>
+
+      <% if current_account.config['allow_user_student_dependents'] %>
+        <li class="divider"></li>
+        <li><%= content_tag :h4, Student.model_name.human(count: 3) %></li> 
+        <li><%= link :student, :index,  main_app.learn_students_path %></li>
+      <% end %>
+
+      <% if current_user.has_any_role?(:admin) %>
+        <li>
+          <%= link(:page, :new, new_page_path, class: css(button: [:success, :xs], align: :right)) %>
+          <%= ui_header Page.model_name.human(count: 3) %>
+        </li>
+        <li class="divider"></li>
+        <li><%= link :page, :static_pages_or_blogs, main_app.pages_path %></li>
+      <% elsif current_user.has_any_role?(:faculty) %>
+        <li>
+          <%= link(:page, :new, new_page_path, class: css(button: [:success, :xs], align: :right)) %>
+          <%= content_tag :h4, Page.model_name.human(count: 3) %>
+        </li>
+        <li class="divider"></li>
+        <li><%= link :page, :blog_posts, main_app.pages_path %></li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="<%= css_columns(4) %>">
+    <% if current_user.has_role? :admin %>
+      <ul class="list-unstyled">
+        <li><%= ui_header t('page.titles.administration') %></li>  
+        <li class="divider"></li>
+        <% if current_user.id == 1 %>
+          <li><%= link :account, :index,  main_app.admin_accounts_path %></li>
+        <% end %>
+
+        <li><%= link :user, :index,  main_app.users_path %></li>
+        <li><%= link :medium, :index, main_app.media_path %></li>
+        <li><%= link :announcement, :index,  main_app.admin_announcements_path %></li>
+
+        <li><%= link_to t('page.titles.dashboard'), main_app.admin_dashboard_path %></li>
+
+        <%= mountable_fragments :app_admin_menu %>
+
+        <li><%= ui_header t('page.titles.settings') %></li> 
+        <li class="divider"></li>
+        <% if current_user.id == 1 %>
+          <li>
+            <%= link :configuration, :site_settings,  main_app.admin_config_edit_path %>
+          </li>
+        <% end %>
+        <% if current_user.id == current_account.admin_id %>
+          <li>
+            <%= link :account, :account_settings,  main_app.edit_admin_account_path(current_account) %>
+          </li>
+        <% end %>
+
+        <% if Rails.application.secrets.redis_enabled %>
+          <li>
+            <%= link :translation, :index,  main_app.edit_admin_translation_path(I18n.locale) %>
+          </li>
+          <% if current_user.id == 1 %>
+            <li>
+              <%= link_to :Sidekiq,  main_app.sidekiq_path, target: '_new' %>
+            </li>
+          <% end %>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+  <div class="<%= css_columns(4) %>">
+    <ul class="list-unstyled">
+      <li>
+        <%= ui_header(capture do %>
+          <%= link(:profile, :edit, main_app.edit_user_path(current_user), 
+                class: css(button: [:success, :xs], align: :right)) %>
+          <%= "#{current_user.profile.prefix} #{current_user.name}" %> 
+          <small><%= current_user.profile.nickname %></small>
+        <% end) %>
+      </li>
+      <li class="divider"></li>
+      <li>
+        <%= ui_media current_user.profile.avatar_url(current_account, :med).to_s, current_user.email,
+              markdown(summary(current_user.profile.about, 100)) %>
+      </li>
+    </ul>
+  </div>
+</div>

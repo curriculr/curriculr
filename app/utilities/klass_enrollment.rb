@@ -18,15 +18,7 @@ class KlassEnrollment
       enrollment =  klass.enrollments.where(:student_id => student.id).first_or_initialize
       return enrollment if enrollment.active
 
-      to_activitate = if enrollment.new_record?
-        true
-      elsif enrollment.dropped_at.present?
-        enrollment.dropped_at = nil
-        true
-      elsif enrollment.suspended_at.present?
-        enrollment.suspended_at = nil
-        true
-      elsif klass.private
+      to_activitate = if klass.private
         if invitation_only
           enrollment.invited_at = Time.zone.now
           false
@@ -38,6 +30,14 @@ class KlassEnrollment
             false
           end
         end
+      elsif enrollment.new_record?
+        true
+      elsif enrollment.dropped_at.present?
+        enrollment.dropped_at = nil
+        true
+      elsif enrollment.suspended_at.present?
+        enrollment.suspended_at = nil
+        true
       else
         false
       end
@@ -61,13 +61,6 @@ class KlassEnrollment
 
   def self.suspend(enrollment)
     unenroll(enrollment, [:suspend])
-  end
-  
-  def self.send_email(email, klasses, url, payment = nil)
-    begin
-      Mailer.klass_enrollment(current_account, email, klasses, url, payment).deliver
-    rescue
-    end
   end
 
   def self.unenroll(enrollment, actions = [:drop])

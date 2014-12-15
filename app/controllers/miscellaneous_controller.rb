@@ -3,7 +3,7 @@ class MiscellaneousController < ApplicationController
   responders :flash, :http_cache
   
   def team
-		@members = User.joins(:roles).where('users.active = TRUE and roles.name = ?', :team)
+		@members = User.scoped.joins(:roles).where('users.active = TRUE and roles.name = ?', :team)
   end
 
   def contactus
@@ -12,7 +12,12 @@ class MiscellaneousController < ApplicationController
       @message.to = current_account.config['mailer']['contact_us_at']
       respond_with @message do |format|
     		if @message.valid?
-      		Mailer.contactus_email(current_account, @message).deliver
+      		Mailer.contactus_email(
+            current_account.config['mailer']['send_from'], @message.to, 
+            account: current_account.slug, name: @message.name, 
+            subject: @message.subject, contact_email: @message.email, 
+            message: @message.content
+          ).deliver_later
       		format.html { redirect_to root_path }
     		end
       end

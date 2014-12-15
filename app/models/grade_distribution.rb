@@ -33,7 +33,7 @@ class GradeDistribution < ActiveRecord::Base
   end
   
   scope :final_score_report, ->(klass, student_id) {
-    participation = Klass.unscoped.joins(%(inner join (
+    participation = Klass.joins(%(inner join (
         select klass_id, student_id, sum(points) as points
         from activities
         where 

@@ -22,6 +22,10 @@ module Duroosi
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    # Be sure to have the adapter's gem in your Gemfile and follow
+    # the adapter's specific installation and deployment instructions.
+    config.active_job.queue_adapter = :sidekiq
     
     # Configuring generators to use rspec and factory-girl
     config.generators do |g| 

@@ -29,4 +29,9 @@
 	<li>
 		<%= link :translation, :index,  main_app.edit_admin_translation_path(I18n.locale) %>
 	</li>
+	<% if current_user.id == 1 %>
+  	<li>
+  		<%= link_to :Sidekiq,  main_app.sidekiq_path, target: '_new' %>
+  	</li>
+	<% end %>
 <% end %>

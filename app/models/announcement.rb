@@ -11,7 +11,7 @@ class Announcement < ActiveRecord::Base
     end 
   end 
   def self.current(hidden_ids = nil)
-    result = where("suspended = FALSE and starts_at <= :now and ends_at >= :now", now: Time.zone.now)
+    result = scoped.where("suspended = FALSE and starts_at <= :now and ends_at >= :now", now: Time.zone.now)
     result = result.where("id not in (?)", hidden_ids) if hidden_ids.present?
     result
   end
