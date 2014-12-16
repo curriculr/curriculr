@@ -5,87 +5,122 @@
     <meta name="viewport" content="width=device-width"/>
 
     <%= stylesheet_link_tag "ink" %>
-
   </head>
-  <body>
+  <body lang="<%= @locale || 'en' %>" dir="<%= @rtl || 'ltr' %>">
     <table class="body">
       <tr>
         <td class="center" align="center" valign="top">
           <center>
-            <table class="row header">
-              <tr>
-                <td class="center" align="center">
+
+          <table class="row header highlight">
+            <tr>
+              <td class="center" align="center">
+                <center>
+
+                  <table class="container">
+                    <tr>
+                      <td class="wrapper">
+
+                        <table class="twelve columns">
+                          <tr>
+                            <td class="six sub-columns">
+                              <h4 class="title"><%= @title || 'curriculr' %></h4>
+                            </td>
+                            <td class="six sub-columns last" style="text-align:right; vertical-align:middle;">
+                              <%= @site_link %>
+                            </td>
+                            <td class="expander"></td>
+                          </tr>
+                        </table>
+
+                      </td>
+                    </tr>
+                  </table>
+
+                  <table class="highlight"></table>
+
+                </center>
+              </td>
+            </tr>
+          </table>
+
+          <table class="row content">
+            <tr>
+              <td class="center content-body" align="center">
                   <center>
+
                     <table class="container">
                       <tr>
-                        <td class="wrapper last">
+
+                        <td class="wrapper">
+
                           <table class="twelve columns">
                             <tr>
-                              <td class="six sub-columns">
-                                <%= image_tag @site_logo %>
+                              <td><%= yield %></td>
+                            </tr>
+
+                            <% if @url %>
+                            <tr>
+                              <td class="wrapper offset-by-four">
+                              
+                                <table class="four columns">
+                                  <tr>
+                                    <td>
+
+                                      <table class="button radius">
+                                        <tr>
+                                          <td>
+                                            <%= @url %>
+                                          </td>
+                                        </tr>
+                                      </table>
+
+                                    </td>
+                                    <td class="expander"></td>
+                                  </tr>
+                                </table>
+
                               </td>
-                              <td class="six sub-columns last" style="text-align:right; vertical-align:middle;">
-                                <%= @site_link %>
+                            </tr>
+                            <% end %>
+                          </table>
+                        </td>
+                      </tr>
+                  </table>
+
+                </center>
+              </td>
+            </tr>
+          </table>
+
+          <table class="row footer">
+              <tr>
+              <td class="center" align="center">
+                  <center>
+
+                    <table class="container">
+                      <tr>
+
+                        <td class="wrapper">
+
+                          <table class="twelve columns">
+                            <tr>
+                              <td align="center" class="footer">
+                                <center><%= @footer.html_safe %></center>
                               </td>
                               <td class="expander"></td>
                             </tr>
                           </table>
+
                         </td>
                       </tr>
-                    </table>
-                  </center>
-                </td>
-              </tr>
-            </table>
-            <table class="container">
-              <tr>
-                <td>
-                  <table class="row callout">
-                    <tr>
-                      <td class="wrapper last">
-                        <table class="twelve columns">
-                          <tr>
-                            <h4 class="title"><%= @subject %></h4>
-                          </tr>
-                          <tr>
-                            <td class="panel panel-body">
-                              <%= yield %>
-                            </td>
-                            <td class="expander"></td>
-                          </tr>
-                          <% if @url %>
-                          <tr>
-                            <td class="panel panel-footer">
-                              <center>
-                                <%= @url %>
-                              </center>
-                            </td>
-                            <td class="expander"></td>
-                          </tr>
-                          <% end %>
-                        </table>
-                      </td>
-                    </tr>
                   </table>
-                </td>
-              </tr>
-            </table>
-            <table class="row">
-              <tr>
-                <td class="wrapper last">
-                  <table class="twelve columns">
-                    <tr>
-                      <td align="center" class="footer">
-                        <center>
-                          <%= @footer.html_safe %>
-                        </center>
-                      </td>
-                      <td class="expander"></td>
-                    </tr>
-                  </table>
-                </td>
-              </tr>
-            </table>
+
+                </center>
+              </td>
+            </tr>
+          </table>
+
           </center>
         </td>
       </tr>

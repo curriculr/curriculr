@@ -2,6 +2,8 @@
 * Ink v1.0.5 - Copyright 2013 ZURB Inc        *
 **********************************************/
 
+/****** Blue Theme ******/
+
 /* Client-specific Styles & Reset */
 
 #outlook a { 
@@ -352,20 +354,20 @@ small {
 }
 
 a {
-  color: #2ba6cb; 
+  color: #428bca; 
   text-decoration: none;
 }
 
 a:hover { 
-  color: #2795b6 !important;
+  color: #3a79b0 !important;
 }
 
 a:active { 
-  color: #2795b6 !important;
+  color: #3a79b0 !important;
 }
 
 a:visited { 
-  color: #2ba6cb !important;
+  color: #428bca !important;
 }
 
 h1 a, 
@@ -374,7 +376,7 @@ h3 a,
 h4 a, 
 h5 a, 
 h6 a {
-  color: #2ba6cb;
+  color: #428bca;
 }
 
 h1 a:active, 
@@ -383,7 +385,7 @@ h3 a:active,
 h4 a:active, 
 h5 a:active, 
 h6 a:active { 
-  color: #2ba6cb !important; 
+  color: #428bca !important; 
 } 
 
 h1 a:visited, 
@@ -392,7 +394,7 @@ h3 a:visited,
 h4 a:visited, 
 h5 a:visited, 
 h6 a:visited { 
-  color: #2ba6cb !important; 
+  color: #428bca !important; 
 } 
 
 /* Panels */
@@ -430,8 +432,8 @@ table.large-button td {
   display: block;
   width: auto !important;
   text-align: center;
-  background: #2ba6cb;
-  border: 1px solid #2284a1;
+  background: #428bca;
+  border: 1px solid #3a79b0;
   color: #ffffff;
   padding: 8px 0;
 }
@@ -484,7 +486,7 @@ table.large-button td a {
 table.button:hover td,
 table.button:visited td,
 table.button:active td {
-  background: #2795b6 !important;
+  background: #3a79b0 !important;
 }
 
 table.button:hover td a,
@@ -498,7 +500,7 @@ table.tiny-button:hover td,
 table.small-button:hover td,
 table.medium-button:hover td,
 table.large-button:hover td {
-  background: #2795b6 !important;
+  background: #3a79b0 !important;
 }
 
 table.button:hover td a,
@@ -582,7 +584,6 @@ body.outlook p {
 
   table[class="body"] img {
     width: auto !important;
-    height: auto !important;
   }
 
   table[class="body"] center {
@@ -687,64 +688,61 @@ body.outlook p {
   }
 }
 
-
-/* Custom Styles */
-/* Your custom styles go here */
-body {
-  background: white;
+/* Custom */
+.title {
+  color: #428bca;
 }
-a {
-  color: #BC2A38;
-  text-decoration: none;
+
+ul {
+  list-style: none;
+  padding:0;
+  margin:0;
+}
+
+li { 
+  padding-left: 1em; 
+}
+
+li:before {
+  content: "\2022";
+  padding-right: 10px;
+  color: #428bca;
+}
+
+.highlight {
+  border-bottom: 4px solid #428bca;
+}
+
+body {
+  background: #f2eded;
 }
 p, li {
   font-size: 16px;
   line-height: 1.6;
-  color: white;
+  color: #595556;
   font-weight: 200;
 }
-li {
-  color: #808080;
-}
 small {
-  color: #aaaeb2;
+  color: #797c80;
   font-size: 12px;
+}
+.header {
+  background: #333333;
+}
+.logo {
+  height: 22px;
+  padding: 4px 0;
 }
 .template-label {
   font-size: 14px;
   font-weight: 200;
 }
-.title {
-  text-align: center;
-  margin: 30px 0;
+.content {
+  background: #faf5f5;
 }
-.panel {
-  border: none;
-  background: #262c33;
-}
-.panel-body {
-  padding: 30px !important;
-  border-top-right-radius: 10px;
-  border-top-left-radius: 10px;
-}
-p a {
-  color: #BC2A38 !important;
-  text-decoration: none !important;
-}
-.panel-footer {
-  background: #BC2A38;
-  padding: 25px !important;
-  border-bottom-right-radius: 10px;
-  border-bottom-left-radius: 10px;
-}
-.panel-footer span {
-  color: #ffffff;
-  font-size: 16px;
-  font-weight: 200;
-}
-.panel-footer span:hover {
-  color: #ccfff7;
+.content-body {
+  padding: 30px 0;
 }
 .footer {
-  padding: 20px !important;
+  margin: 30px 0;
 }
