@@ -1,11 +1,4 @@
 <h4><%= Instructor.model_name.human(count: 3) %></h4>
-<% instructors = @klass.course.instructors.where("role <> :role", :role => 'technician').order(:order).to_a %>
-<% if instructors.blank? %>
-  <% 
-    instructors = [ 
-      Instructor.new(:user_id => @klass.course.originator_id, :role => t('config.staff.instructor'))
-    ]
-  %>
-<% end %>
+<% instructors = @klass.instructors %>
 
 <%= render :partial => 'learn/instructors/show', :collection => instructors, :as => :instructor %>

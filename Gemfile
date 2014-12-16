@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # By Rails 
-gem 'rails', '4.2.0.rc2'
+gem 'rails', '4.2.0.rc3'
 
 # Either postgresql  
 gem 'pg'
@@ -20,8 +20,8 @@ gem 'capistrano-rails', group: :development
 
 group :development, :test do 
   gem 'rspec-rails'
-  #gem 'byebug'
-  #gem 'web-console', '~> 2.0'
+  gem 'byebug'
+  gem 'web-console', '~> 2.0'
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'spring'  
@@ -70,6 +70,6 @@ gem 'responders'
 gem 'acts-as-taggable-on'
 gem 'chosen-rails'
 gem 'friendly_id', '~> 5.0.0'
-gem 'roadie-rails'
+#gem 'roadie-rails'
 gem 'jquery-fileupload-rails'
 

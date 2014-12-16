@@ -194,26 +194,19 @@ class Klass < ActiveRecord::Base
   def free?
     free
   end
-  
+
+  def instructors
+    instructors = self.course.instructors.where("role <> :role", :role => 'technician').order(:order).to_a 
+    if instructors.blank?
+      instructors = [ Instructor.new(:user_id => self.course.originator_id, :role => I18n.t('config.staff.instructor'))]
+    end
+
+    instructors
+  end
 
   # To be overridden by any payment plugin
   def with_access?(part, user, enrollment)
     true
-=begin
-    if KlassEnrollment.staff?(user, course)
-      true
-    elsif enrollment
-      if self.free
-        true
-      elsif self.tuition.required_for?(part)
-        !enrollment.paid_by.blank? 
-      else
-        true
-      end
-    else
-      false
-    end
-=end
   end
 
   # NOTE: mysql-specific

@@ -12,6 +12,10 @@ module Teach
           body = view_context.markdown(@update.body) 
           students = @update.klass.students.joins(:user).where('enrollments.active = TRUE').
             select('users.name as user_name, users.email as user_email, students.name as student_name')
+
+          instructors = update.klass.instructors
+          body << %(<p>#{Instructor.model_name.human(count: instructors.count) + ': <br>'.html_safe + instructors.map{|i| (i.name || i.user.name)}.join(', ')}</p>).html_safe
+
           students.map do |s|
             Mailer.klass_update(
               current_account.slug, 

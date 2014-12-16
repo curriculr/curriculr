@@ -773,3 +773,4 @@ ar:
       select_files_or_drop: أو اسحبها إلى أي مكان في هذه الصفحة
       file_or_external_link: ملف أو وصلة خارجية
       external_link: وصلة خارجية
+      the_last_information_from_html: أخر رسائل التحديث من %{url}.

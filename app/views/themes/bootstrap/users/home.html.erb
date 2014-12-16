@@ -75,7 +75,7 @@
           </li>
           <% if current_user.id == 1 %>
             <li>
-              <%= link_to :Sidekiq,  main_app.sidekiq_path, target: '_new' %>
+              <%= link_to :Sidekiq,  main_app.sidekiq_web_path, target: '_new' %>
             </li>
           <% end %>
         <% end %>
