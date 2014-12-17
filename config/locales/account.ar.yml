@@ -3,13 +3,28 @@ ar:
     site:
       title: دروسي
       slogan:
-        line1: تعليم تفاعلي مفتوح
-        line2: فصول دراسية عالية الجودة يمكن أخذها في أي وقت ومن أي مكان.
+        line1_html: تعليم تفاعلي مفتوح
+        line2_html:
+          <ul class="list-inline">
+            <li>مجاني</li>
+            <li class="divider">|</li>
+            <li>مفتوح</li>
+            <li class="divider">|</li>
+            <li>بسيط</li>
+            <li class="divider">|</li>
+            <li>ذو مقدرة عالية</li>
+          </ul>
+        line3_html:
+          <a href="https://github.com/aalgahmi/curriculr" class="btn btn-default btn-lg">
+            <i class="fa fa-github"></i> استعرض على Github
+          </a>
+          <a href="https://github.com/aalgahmi/curriculr/zipball/master" class="btn btn-default btn-lg">
+            <i class="fa fa-download"></i> حمل بصيغة Zip
+          </a>
       blog:
-        line1: المدونة الرئيسية
-        line2: أخبار و تطورات - نقاشات - و المزيد
+        line1_html: المدونة الرئيسية
+        line2_html: أخبار و تطورات - نقاشات - و المزيد
       mailer:
-        logo: https://www.duroosi.com/images/logo/dark-red.en.png
         links:
           view_site: قم بزيارة موقعنا
           change_password: غير كلمة السر
@@ -52,4 +67,4 @@ ar:
         footer_html:
           <small>يرجى عدم الرد على هذه الرسالة. قم بزيارة موقعنا للإطلاع على اتفاقية الخصوصية. إذا كان لديك أي سؤال قم بالتواصل مع خدمة العملاء.</small> 
           <br> 
-          <small>© 2014 Duroosi.com. جميع الحقوق محفوظة</small>
+          <small>© 2015 www.curriculr.org. جميع الحقوق محفوظة</small>

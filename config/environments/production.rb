@@ -76,11 +76,11 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  # Duroosi's Production Setup
+  # Curriculr's Production Setup
   config.time_zone = 'Mountain Time (US & Canada)'
   
   # Active Mailer
-  #config.action_mailer.default_url_options = { :host => 'www.duroosi.com' }
+  config.action_mailer.default_url_options = { :host => 'www.curriculr.org' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true

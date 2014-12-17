@@ -3,4 +3,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Duroosi::Application.load_tasks
+Curriculr::Application.load_tasks

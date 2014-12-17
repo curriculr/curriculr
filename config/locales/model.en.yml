@@ -142,8 +142,8 @@ en:
       privacy: Privacy
       terms: Terms of service
       blogs: <i class="fa fa-newspaper-o"></i> Blog
-      sign_up: Create an account
-      sign_in: Login
+      sign_up: <i class="fa fa-plus"></i> Create an account
+      sign_in: <i class="fa fa-sign-out"></i> Login
       sign_out: <i class="fa fa-sign-out"></i> Sign out
       send: Send
       reply: Reply
@@ -728,7 +728,7 @@ en:
       neutral: Thank you for your attempt.
       unit_problem: Unit problems
       unit_quiz: Unit quizzes
-      honor_system: "We expect our students and parents to follow the honor system set forth by Duroosi. All class materials, questions, and exams are private to the class and should not be shared with anybody outside of it, as this will impact other students' ability to benefit from this class."
+      honor_system: "We expect our students and parents to follow the honor system set forth by Curriculr. All class materials, questions, and exams are private to the class and should not be shared with anybody outside of it, as this will impact other students' ability to benefit from this class."
       klass_enroll_html: You are about to enroll in the class (or classes) above. To proceed, you must agree to the <a href="#">rules and guidelines</a> of online education  and abide by its honor system.
       free_class: Free
       today: Today

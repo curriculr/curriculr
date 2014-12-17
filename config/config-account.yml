@@ -1,5 +1,5 @@
 account:
-  title: Duroosi
+  title: Curriculr
   locale: en
   time_zone: "Mountain Time (US & Canada)"
   theme: 
@@ -18,8 +18,8 @@ account:
     noreply: noreply@example.com
 
   social_pages: 
-    facebook: https://www.facebook.com/duroosi
-    twitter: https://twitter.com/duroosi
+    facebook: https://www.facebook.com/curriculr
+    twitter: https://twitter.com/curriculr
     google-plus: https://plus.google.com/101434561769243560321
     youtube:
     linkedin:

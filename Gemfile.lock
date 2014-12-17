@@ -97,7 +97,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.8.0)
-    colorize (0.7.4)
+    colorize (0.7.5)
     columnize (0.9.0)
     compass (0.12.7)
       chunky_png (~> 1.2)
@@ -222,9 +222,9 @@ GEM
     jquery-fileupload-rails (0.4.1)
       actionpack (>= 3.1)
       railties (>= 3.1)
-    jquery-rails (4.0.0)
+    jquery-rails (4.0.1)
       rails-dom-testing (~> 1.0)
-      railties (>= 4.2.0.beta, < 5.0)
+      railties (>= 4.2.0.beta)
       thor (>= 0.14, < 2.0)
     jquery-timepicker-rails (1.4.3)
       railties (>= 3.1.0)
@@ -390,8 +390,8 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
-    sshkit (1.5.1)
-      colorize
+    sshkit (1.6.1)
+      colorize (>= 0.7.0)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
     temple (0.7.3)

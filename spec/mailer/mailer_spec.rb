@@ -2,8 +2,8 @@ if false
 require 'faker'
 
 account = Account.find(1)
-from = "#{Faker::Lorem.word}@duroosi.com"
-to = "aalgahmi@duroosi.com"
+from = "#{Faker::Lorem.word}@curriculr.org"
+to = "aalgahmi@curriculr.org"
 msg = {
 	account: account.slug,
 	contact_email: from,

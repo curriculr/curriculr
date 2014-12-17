@@ -39,7 +39,7 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
   
-  # Duroosi's Devevlopment Setup
+  # Curriculr's Devevlopment Setup
   #config.action_controller.include_all_helpers = false
   
   config.time_zone = 'Central Time (US & Canada)'

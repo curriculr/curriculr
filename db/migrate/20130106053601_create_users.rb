@@ -6,7 +6,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :email,              :null => false, :default => ""
       t.string :encrypted_password, :null => false, :default => ""
       
-      ## Duroosi's Own
+      ## Curriculr's Own
       t.boolean :active, :default => true
       t.integer :pages_count, :default => 0
       t.string :time_zone 

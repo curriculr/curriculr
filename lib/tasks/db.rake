@@ -1,4 +1,4 @@
-namespace :duroosi do  
+namespace :curriculr do  
   namespace :db do
     desc "Migrates the database. It the database doesn't exists, it creates it."
     task :migrate => [] do

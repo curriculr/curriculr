@@ -1,4 +1,4 @@
-namespace :duroosi do  
+namespace :curriculr do  
   namespace :assets do
     desc "Compile all the assets named in config.assets.precompile and runs css-flip to support RTL."
     task :precompile => :environment do

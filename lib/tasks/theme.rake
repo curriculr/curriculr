@@ -1,4 +1,4 @@
-namespace :duroosi do  
+namespace :curriculr do  
   namespace :theme do
     desc "Adds a brand new theme supplied by THEME=? ABOUT=?."
     task :new => :environment do
@@ -19,7 +19,7 @@ namespace :duroosi do
           end
         end
       else
-        puts "No theme to add. try 'rake duroosi:theme:new THEME=? ABOUT=?'."
+        puts "No theme to add. try 'rake curriculr:theme:new THEME=? ABOUT=?'."
       end
     end
 
@@ -41,7 +41,7 @@ namespace :duroosi do
           end
         end
       else
-        puts "No theme to delete. try 'rake duroosi:theme:delete THEME=?'."
+        puts "No theme to delete. try 'rake curriculr:theme:delete THEME=?'."
       end
     end
   end

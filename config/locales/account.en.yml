@@ -1,15 +1,30 @@
 en:
   account:
     site:
-      title: Duroosi
+      title: Curriculr
       slogan:
-        line1: Open Interactive Education
-        line2: High quality classes that can be taken anytime and from anywhere.
+        line1_html: Open and Interactive Learning
+        line2_html: 
+          <ul class="list-inline">
+            <li>Free</li>
+            <li class="divider">|</li>
+            <li>Open</li>
+            <li class="divider">|</li>
+            <li>Simple</li>
+            <li class="divider">|</li>
+            <li>Powerful</li>
+          </ul>
+        line3_html:
+          <a href="https://github.com/aalgahmi/curriculr" class="btn btn-default btn-lg">
+            <i class="fa fa-github"></i> View on Github
+          </a>
+          <a href="https://github.com/aalgahmi/curriculr/zipball/master" class="btn btn-default btn-lg">
+            <i class="fa fa-download"></i> Download Zip file
+          </a>
       blog:
-        line1: Official Blog
-        line2: News, announcements, discussions, and more
+        line1_html: Official Blog
+        line2_html: News, announcements, discussions, and more
       mailer:
-        logo: https://www.duroosi.com/images/logo/dark-red.en.png
         links:
           view_site: View Our Site
           change_password: Change Password
@@ -57,4 +72,4 @@ en:
           Visit <a href="%{site_url}">our site</a> to view our Privacy Policy. 
           For any questions contact customer service. </small>
           <br>
-          <small>© 2014 Duroosi.com. All rights reserved.</small>
+          <small>© 2015 www.curriculr.org. All rights reserved.</small>

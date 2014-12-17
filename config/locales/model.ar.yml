@@ -144,8 +144,8 @@ ar:
       terms: اتفاقية الاستخدام
       services: خدماتنا
       blogs: <i class="fa fa-newspaper-o"></i> المدونة الرئيسية
-      sign_up: إنشاء حساب
-      sign_in: ادخل
+      sign_up: <i class="fa fa-plus"></i> إنشاء حساب
+      sign_in: <i class="fa fa-sign-out"></i> ادخل
       sign_out: <i class="fa fa-sign-out"></i> اخرج
       send: ارسل
       reply: أجب

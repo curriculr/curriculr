@@ -40,7 +40,7 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
-  # Duroosi's Test Setup
+  # Curriculr's Test Setup
   config.time_zone = 'Central Time (US & Canada)'
   
   # Don't care if the mailer can't send

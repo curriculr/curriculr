@@ -36,7 +36,7 @@ group :test do
   gem 'selenium-webdriver'
 end
 
-# By Duroosi
+# By Curriculr
 gem 'redis'
 gem 'sidekiq'
 gem 'sinatra', require: false

@@ -1,4 +1,4 @@
-namespace :duroosi do  
+namespace :curriculr do  
   namespace :locale do
     desc "Adds a brand new locale supplied by LOCALE=? NAME=?."
     task :new => :environment do
@@ -42,7 +42,7 @@ namespace :duroosi do
           end
         end
       else
-        puts "No locale to add. try 'rake duroosi:locale:new LOCALE=? NAME=?'."
+        puts "No locale to add. try 'rake curriculr:locale:new LOCALE=? NAME=?'."
       end
     end
 
@@ -72,7 +72,7 @@ namespace :duroosi do
           end
         end
       else
-        puts "No locale to delete. try 'rake duroosi:locale:delete LOCALE=?'."
+        puts "No locale to delete. try 'rake curriculr:locale:delete LOCALE=?'."
       end
     end
   end

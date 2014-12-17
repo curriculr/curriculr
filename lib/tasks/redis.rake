@@ -1,4 +1,4 @@
-namespace :duroosi do  
+namespace :curriculr do  
   namespace :redis do
     #desc "Flush all redis content"
     task :flush => :environment do
@@ -13,7 +13,7 @@ namespace :duroosi do
     desc "Restores redis's original configurations and translations."
     task :reset => :environment do   
       if Rails.application.secrets.redis_enabled
-        Rake::Task["duroosi:redis:clear"].invoke 
+        Rake::Task["curriculr:redis:clear"].invoke 
 
         config = YAML.load_file("#{Rails.root}/config/config-site.yml")
         $redis.set 'config.site', config['site'].to_json

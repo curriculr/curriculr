@@ -9,8 +9,10 @@
 				<span class="icon-bar"></span>
 			</button>
 			<%= link_to current_user ? main_app.home_path : main_app.root_path, :class => "navbar-brand" do %>
-        <%= image_tag logo_path, :height => 30 %>
+        <%# image_tag logo_path, :height => 30 %>
+        <strong><%= current_account.config['title'] %></strong>
       <% end %>
+
     </div>
 		<div class="navbar-collapse collapse">
 			<%= render "/ui_main_menu" %>

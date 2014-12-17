@@ -163,11 +163,12 @@ module Themes::Bootstrap::BootstrapHelper
   end
   
   def logo_path
-    path = "/images/logo/%{dark_or_light}-%{flavor}.%{locale}.png"
-    #path = "/images/logo/%{dark_or_light}.png"
-    dark_or_light = :dark
-    flavor = current_account.config['theme']['flavor'] || $site['theme']['flavor']
-    path % {dark_or_light: dark_or_light, flavor: flavor , locale: locale}
+    # path = "/images/logo/%{dark_or_light}-%{flavor}.%{locale}.png"
+    # dark_or_light = :dark
+    # flavor = current_account.config['theme']['flavor'] || $site['theme']['flavor']
+    # path % {dark_or_light: dark_or_light, flavor: flavor , locale: locale}
+
+    "/images/logo.svg"
   end
 
   def ui_klass_labels(klass)
@@ -782,7 +783,7 @@ module Themes::Bootstrap::BootstrapHelper
             options[:image]
           end )
         else
-          html << content_tag(:button, t(key, scope: "activerecord.actions", name: name), 
+          html << content_tag(:button, t(key, scope: "activerecord.actions", name: name).html_safe, 
               type: "submit", class: "btn btn-primary")
         end
       end
