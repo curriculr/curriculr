@@ -46,6 +46,8 @@ RSpec.configure do |config|
   
   # Include devise test helpers
   config.include Devise::TestHelpers, :type => :controller
+  config.include Warden::Test::Helpers
+  Warden.test_mode!
   
   # Loading the default account and super user and making them accessible globaly
   config.include GlobalData

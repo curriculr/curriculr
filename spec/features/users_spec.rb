@@ -57,4 +57,30 @@ feature 'Guests' do
     visit localized_page_path(:terms)
     within 'h2' do expect(page).to have_content("Terms of service") end
   end
+
+  scenario 'can register with a name, email and password' do
+    visit new_user_registration_path
+    fill_in "Name",                 :with => "John Smith "
+    fill_in "Email",                 :with => "jsmith@example.com"
+    fill_in "Password",              :with => "a_secret"
+    fill_in "Confirm Password", :with => "a_secret"
+    
+    click_button "Create an account"
+    
+    expect(page.html).to have_content("A message with a confirmation link has been sent to your email address.")
+    expect(current_path).to eq root_path
+  end
+
+  scenario 'can sign in' do
+    user = create(:user, name: 'John Smith')
+    visit new_user_session_path
+    fill_in 'user_email', with: user.email
+    fill_in 'Password', with: user.password
+
+    click_button 'Login'
+    
+    #save_and_open_page
+    expect(page).to have_content 'John'
+    expect(current_path).to eq home_path
+  end
 end
