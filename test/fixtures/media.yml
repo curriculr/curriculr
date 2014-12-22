@@ -1,9 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-# Course eng101
-video_eng101:
+<% %w(eng101 stat101).each do |c| %>
+video_<%= c %>:
   account: primary
-  course: eng101
+  course: <%= c %>
   name: Video Medium
   kind: video
   url: Xyz189uejs
@@ -12,75 +12,36 @@ video_eng101:
   # path: MyString
   # file_size: MyString
 
-image_eng101:
+image_<%= c %>:
   account: primary
-  course: eng101
+  course: <%= c %>
   name: Image Medium
   kind: image
   url: http://www.foo.bar/images/poster.png
   content_type: link/www
 
-audio_eng101:
+audio_<%= c %>:
   account: primary
-  course: eng101
+  course: <%= c %>
   name: Audio Medium
   kind: audio
   url: http://www.foo.bar/sounds/track.mp3
   content_type: link/www
 
-audio_eng101:
+audio_<%= c %>:
   account: primary
-  course: eng101
+  course: <%= c %>
   name: Document Medium
   kind: document
   url: http://www.foo.bar/docs/intro.pdf
   content_type: link/www
 
-other_eng101:
+other_<%= c %>:
   account: primary
-  course: eng101
+  course: <%= c %>
   name: Other Medium
   kind: other
   url: http://www.foo.bar/scripts/text.txt
   content_type: link/www
 
-# Course stat101
-video_stat101:
-  account: primary
-  course: stat101
-  name: Video Medium
-  kind: video
-  url: Xyz189uejs
-  content_type: link/youtube
-
-image_stat101:
-  account: primary
-  course: stat101
-  name: Image Medium
-  kind: image
-  url: http://www.foo.bar/images/poster.png
-  content_type: link/www
-
-audio_stat101:
-  account: primary
-  course: stat101
-  name: Audio Medium
-  kind: audio
-  url: http://www.foo.bar/sounds/track.mp3
-  content_type: link/www
-
-audio_stat101:
-  account: primary
-  course: stat101
-  name: Document Medium
-  kind: document
-  url: http://www.foo.bar/docs/intro.pdf
-  content_type: link/www
-
-other_stat101:
-  account: primary
-  course: stat101
-  name: Other Medium
-  kind: other
-  url: http://www.foo.bar/scripts/text.txt
-  content_type: link/www
+<% end %>

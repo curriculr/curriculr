@@ -28,6 +28,8 @@ class AssessmentTest < ActiveSupport::TestCase
   test "invalid if allowed_attempts <= 0" do
   	@assessment.allowed_attempts = 0
     assert_not @assessment.valid?
+    @assessment.allowed_attempts = -1
+    assert_not @assessment.valid?
   end
   
   test "invalid if penalty is not numeric or < 0" do
@@ -64,11 +66,6 @@ class AssessmentTest < ActiveSupport::TestCase
   
   test "invalid if droppable_attempts < 0" do
   	@assessment.droppable_attempts = -1
-    assert_not @assessment.valid?
-  end
-  
-  test "invalid if allowed_attempts <= 0" do
-  	@assessment.allowed_attempts = 0
     assert_not @assessment.valid?
   end
 end

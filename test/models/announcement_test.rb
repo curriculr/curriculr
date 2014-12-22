@@ -1,7 +1,11 @@
 require 'test_helper'
 
 class AnnouncementTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  def setup
+		@announcement = announcements(:maintenance)
+	end
+
+	test "with valid fixtures" do
+    assert @announcement.valid?
+  end
 end

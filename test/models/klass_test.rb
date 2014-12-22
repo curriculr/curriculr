@@ -6,7 +6,9 @@ class KlassTest < ActiveSupport::TestCase
 	end
 
   test "with valid fixtures" do
-    assert @klass.valid?
+    assert klasses(:eng101_sec01).valid?
+    assert klasses(:eng101_sec02).valid?
+    assert klasses(:stat101_sec01).valid?
   end
 
   test "valid without an about" do

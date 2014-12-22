@@ -6,7 +6,8 @@ class UpdateTest < ActiveSupport::TestCase
 	end
 
   test "with valid fixtures" do
-    assert @update.valid?
+    assert updates(:one).valid?
+    assert updates(:tow).valid?
   end
 
   test "invalid without a subject if www" do
