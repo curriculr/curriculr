@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+<% ['eng101_sec01', 'eng101_sec02', 'stat101_sec01'].each do |k| %>
+  <% ['general', 'lecture', 'graded'].each do |f| %>
+topic_<%= %(#{f}_#{k}) %> :
+  forum: <%= %(#{f}_#{k}) %>
+  author: <%= k =~ /eng101/ ? 'assistant' : 'professor' %>(User)
+  name: Ultricies Porta Sit Amet
+  about: 
+    Sed posuere consectetur est at lobortis. Etiam porta sem malesuada magna 
+    mollis euismod. Cum sociis natoque penatibus et magnis dis parturient montes, 
+    nascetur ridiculus mus. Maecenas sed diam eget risus varius blandi non magna.
+  active: true
+  hits: 1
+  ups: 1
+  downs: 0
+  points_per_post: 0
+  points_per_reply: 0
+  anonymous: false
+  <% end %>
+<% end %>

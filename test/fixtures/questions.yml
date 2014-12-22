@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+<% ['eng101', 'stat101'].each do |c| %>
+  <% %w(simple fill pick_2_fill pick_one pick_many match sort).each do |k| %>
+<%= k %>_<%= c %>:
+  course: <%= c %>
+  kind: <%= k %>
+  question: 
+    Maecenas faucibus mollis interdum. Vivamus sagittis lacus vel augue 
+    laoreet rutrum faucibus dolor auctor. Maecenas faucibus mollis 
+    interdum. Nullam id dolor id nibh ultricies vehicula ut id elit.
+  hint: Aenean Egestas Vehicula Inceptos
+  explanation: Fringilla Tortor Pharetra Parturient Cras
+  order: 1
+  include_in_lecture: false
+  <% end %>
+<% end %>

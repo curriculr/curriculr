@@ -1,0 +1,51 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# Course eng101
+u01_eng101:
+  course: eng101
+  order: 1
+  name: Week 1
+  about: 
+    Curabitur blandit tempus porttitor. Donec ullamcorper nulla non 
+    metus auctor fringilla.
+  on_date: <%= Time.zone.today %>
+  based_on: <%= Time.zone.today %>
+  for_days: 60
+  previewed: false
+
+u02_eng101:
+  course: eng101
+  order: 2
+  name: Week 2
+  about: 
+    Aenean lacinia bibendum nulla sed consectetur. Donec ullamcorper 
+    nulla non metus auctor fringilla.
+  on_date: <%= Time.zone.today %>
+  based_on: <%= Time.zone.today %>
+  for_days: 60
+  previewed: false
+
+# Course stat101
+u01_stat101:
+  course: stat101
+  order: 1
+  name: Week 1
+  about: 
+    Curabitur blandit tempus porttitor. Donec ullamcorper nulla non 
+    metus auctor fringilla.
+  on_date: <%= Time.zone.today %>
+  based_on: <%= Time.zone.today %>
+  for_days: 60
+  previewed: false
+
+u02_stat101:
+  course: stat101
+  order: 2
+  name: Week 2
+  about: 
+    Aenean lacinia bibendum nulla sed consectetur. Donec ullamcorper 
+    nulla non metus auctor fringilla.
+  on_date: <%= Time.zone.today %>
+  based_on: <%= Time.zone.today %>
+  for_days: 60
+  previewed: false

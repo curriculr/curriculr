@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# @Questions
+<% ['eng101', 'stat101'].each do |c| %>
+  <% %w(simple fill pick_2_fill pick_one pick_many match sort).each do |k| %>
+tagging_<%= k %>_<%= c %>:
+  tag_id: <%= ActiveRecord::FixtureSet.identify(:main) %>
+  taggable_id: <%= ActiveRecord::FixtureSet.identify(:"#{k}_#{c}") %>
+  taggable_type: Question
+  context: banks
+
+  <% end %>
+<% end %>

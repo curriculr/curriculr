@@ -1,0 +1,34 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+<% words = 'maecenas faucibus mollis interdum vivamus sagittis lacus vel augue laoreet'.split(' ') %>
+<% ['eng101', 'stat101'].each do |c| %>
+  <% %w(simple fill pick_2_fill pick_one pick_many match sort).each do |k| %>
+    <% (1..[3, Option.render_options[k.to_sym][:count]].min).each do |n| %>
+      <% 
+      answer = case k.to_sym
+      when :pick_one, :pick_many
+        ( 1 % n) == 0 ? '1' : '0'
+      else
+        words.sample(1).join(' ')
+      end
+
+      answer_options = []
+      if n == 'pick_2_fill'
+        answer_options +=  words.sample(3)
+        answer_options << answer unless answer_options.include?(answer)
+      end 
+      %>
+<%= k %>_<%= n %>_<%= c %>:
+  question: <%= k %>_<%= c %>
+      <% if Option.render_options[k.to_sym][:option] %>
+  option: <%= words.sample(4).join(' ') %>
+      <% end %>
+      <% if Option.render_options[k.to_sym][:answer] %>
+  answer: <%=  answer %>
+      <% end %>
+      <% if Option.render_options[k.to_sym][:answer_options] %>
+  answer_options: <%= answer_options.join("\n") %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

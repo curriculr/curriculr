@@ -1,0 +1,33 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+<% ['eng101_sec01', 'eng101_sec02', 'stat101_sec01'].each do |k| %>
+general_<%= k %>:
+  klass: <%= k %>
+  name: General Instruction
+  about: 
+    Aenean lacinia bibendum nulla sed consectetur. Aenean eu leo quam. 
+    Pellentesque ornare sem lacinia quam venenatis vestibulum.
+  active: true
+  lecture_comments: false
+  graded: false
+
+lecture_<%= k %>:
+  klass: <%= k %>
+  name: Lecture Comments
+  about: 
+    Praesent commodo cursus magna, vel scelerisque nisl consectetur et. 
+    Cras justo odio, dapibus ac facilisis in, egestas eget quam.
+  active: true
+  lecture_comments: true
+  graded: false
+
+graded_<%= k %>:
+  klass: <%= k %>
+  name: Graded Discussions
+  about: 
+    Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis 
+    vestibulum. Nulla vitae elit libero, a pharetra augue.
+  active: true
+  lecture_comments: false
+  graded: true
+<% end %>

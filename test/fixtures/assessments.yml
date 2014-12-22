@@ -1,0 +1,87 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# Course eng101
+quiz_eng101:
+  course: eng101
+  unit: u01_eng101
+  lecture: l01_u01_eng101
+  kind: quiz
+  name: Porta Magna Sollicitudin Sem
+  about: Donec id elit non mi porta gravida at eget metus.
+  allowed_attempts: 10
+  from_datetime: <%= Time.zone.now %>
+  to_datetime: <%= 7.days.from_now %>
+  based_on: <%= Time.zone.today %>
+  after_deadline: false
+  ready: true
+  order: 1
+
+problem_eng101:
+  course: eng101
+  unit: u01_eng101
+  kind: problem
+  name: Ligula Purus Sem
+  about: Donec id elit non mi porta gravida at eget metus.
+  allowed_attempts: 10
+  from_datetime: <%= Time.zone.now %>
+  to_datetime: <%= 7.days.from_now %>
+  based_on: <%= Time.zone.today %>
+  after_deadline: false
+  ready: true
+  order: 1
+
+final_eng101:
+  course: eng101
+  kind: final
+  name: Elit Ipsum Vestibulum
+  about: Donec id elit non mi porta gravida at eget metus.
+  allowed_attempts: 10
+  from_datetime: <%= Time.zone.now %>
+  to_datetime: <%= 7.days.from_now %>
+  based_on: <%= Time.zone.today %>
+  after_deadline: false
+  ready: true
+  order: 1
+
+# Course stat101
+quiz_stat101:
+  course: stat101s
+  unit: u01_stat101
+  lecture: l01_u01_stat101
+  kind: quiz
+  name: Porta Magna Sollicitudin Sem
+  about: Donec id elit non mi porta gravida at eget metus.
+  allowed_attempts: 10
+  from_datetime: <%= Time.zone.now %>
+  to_datetime: <%= 7.days.from_now %>
+  based_on: <%= Time.zone.today %>
+  after_deadline: false
+  ready: true
+  order: 1
+
+problem_stat101:
+  course: stat101
+  unit: u01_stat101
+  kind: problem
+  name: Ligula Purus Sem
+  about: Donec id elit non mi porta gravida at eget metus.
+  allowed_attempts: 10
+  from_datetime: <%= Time.zone.now %>
+  to_datetime: <%= 7.days.from_now %>
+  based_on: <%= Time.zone.today %>
+  after_deadline: false
+  ready: true
+  order: 1
+
+final_stat101:
+  course: stat101
+  kind: final
+  name: Elit Ipsum Vestibulum
+  about: Donec id elit non mi porta gravida at eget metus.
+  allowed_attempts: 10
+  from_datetime: <%= Time.zone.now %>
+  to_datetime: <%= 7.days.from_now %>
+  based_on: <%= Time.zone.today %>
+  after_deadline: false
+  ready: true
+  order: 1

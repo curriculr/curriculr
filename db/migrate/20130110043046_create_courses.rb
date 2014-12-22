@@ -13,7 +13,7 @@ class CreateCourses < ActiveRecord::Migration
       t.integer :assessments_count, :default => 0
       t.integer :pages_count, :default => 0
       t.integer :media_count, :default => 0
-      t.belongs_to :originator
+      t.belongs_to :originator, :polymorphic => true
       t.string :locale
       t.string :country
 

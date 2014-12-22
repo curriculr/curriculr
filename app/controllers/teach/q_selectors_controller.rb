@@ -33,26 +33,7 @@ module Teach
         end
       end
     end
-=begin
-    def update
-      respond_with @q_selector do |format|
-        if @question.update(question_params)
-          format.html { 
-            redirect_to question_bank_path(:index, @question.kind.split('_').first) }
-        else
-          format.html { render action: 'edit' }
-        end
-      end
-    end
 
-    def destroy
-      kind = @question.kind
-      @question.destroy
-      respond_with @q_selector do |format|
-        format.html { redirect_to question_bank_path(:index, @question.kind.split('_').first) }
-      end
-    end
-=end
     def destroy
       @q_selector.destroy
       respond_with @q_selector do |format|

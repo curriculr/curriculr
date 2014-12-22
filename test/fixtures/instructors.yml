@@ -1,0 +1,28 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# Course eng101
+instructor_eng101:
+  user: assistant
+  course: eng101
+  order: 1
+  name: Dolor Adipiscing Fringilla
+  title: Instructor
+  role: instructor
+  about: 
+    Etiam porta sem malesuada magna mollis euismod. Nullam id dolor 
+    id nibh ultricies vehicula ut id elit. Vivamus sagittis lacus vel 
+    augue laoreet rutrum faucibus dolor auctor.
+  active: true
+
+# Course stat101
+instructor_stat101:
+  user: professor
+  course: stat101
+  order: 1
+  name: Vehicula Tristique Fermentum
+  title: Instructor
+  role: instructor
+  about: 
+    Nullam id dolor id nibh ultricies vehicula ut id elit. Praesent commodo 
+    cursus magna, vel scelerisque nisl consectetur et.
+  active: true

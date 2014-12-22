@@ -1,0 +1,20 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+<% ['eng101', 'stat101'].each_with_index do |c, i| %>
+  <% ['u01', 'u02'].each_with_index do |u, j| %>
+  <% (1..2).each do |l| %>
+<%= %(l#{l}_#{u}_#{c}) %>:
+  unit: <%= %(#{u}_#{c}) %>
+  order: <%= l %>
+  name: Inceptos Tellus Fusce Sit Condimentum
+  about: 
+    Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. 
+    Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
+  on_date: <%= Time.zone.today %>
+  based_on: <%= Time.zone.today %>
+  for_days: 
+  previewed: false
+  allow_discussion: true
+    <% end %>
+  <% end %>
+<% end %>

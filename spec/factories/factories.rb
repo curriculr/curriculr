@@ -300,9 +300,15 @@ FactoryGirl.define do
   end
 
   factory :announcement do
-    message "MyText"
-    starts_at "2014-06-11 19:45:04"
-    ends_at "2014-06-11 19:45:04"
+    message Faker::Lorem.words(5).join(" ")
+    starts_at Time.zone.today
+    ends_at 20.days.from_now
     suspended false
+  end
+
+  factory :page do
+    name Faker::Lorem.words(2).join(' ')
+    about { Faker::Lorem.paragraphs(2).join("\n") } 
+    slug Faker::Lorem.word
   end
 end

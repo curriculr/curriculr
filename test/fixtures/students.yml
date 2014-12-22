@@ -1,0 +1,39 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+super:
+  user: super
+  relationship: self
+  # name: MyString
+  # avatar: MyString
+
+admin:
+  user: admin
+  relationship: self
+
+professor:
+  user: professor
+  relationship: self
+
+assistant:
+  user: assistant
+  relationship: self
+
+console:
+  user: console
+  relationship: self
+
+support:
+  user: support
+  relationship: self
+
+one:
+  user: one
+  relationship: self
+
+two:
+  user: two
+  relationship: self
+
+three:
+  user: three
+  relationship: self

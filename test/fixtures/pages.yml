@@ -1,0 +1,65 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# Course eng101
+faq_eng101:
+  account: primary
+  owner: eng101(Course)
+  name: Frequently Asked Questions
+  about: 
+    Nulla vitae elit libero, a pharetra augue. Donec ullamcorper nulla non 
+    metus auctor fringilla. Sed posuere consectetur est at lobortis. Aenean 
+    eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. 
+    Nullam id dolor id nibh ultricies vehicula ut id elit. Nullam id dolor 
+    id nibh ultricies vehicula ut id elit.
+  blog: false
+  html: false
+  public: false
+  published: true
+  order: 1
+
+notes_eng101:
+  account: primary
+  owner: l02_u01_eng101(Lecture)
+  name: Dapibus Nullam Commodo Ligula
+  about: 
+    Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget 
+    lacinia odio sem nec elit. Morbi leo risus, porta ac consectetur ac, 
+    vestibulum at eros. Maecenas sed diam eget risus varius blandit sit 
+    amet non magna. Maecenas faucibus mollis interdum.
+  blog: false
+  html: false
+  public: false
+  published: true
+  order: 1
+
+# Course stat101
+faq_stat101:
+  account: primary
+  owner: stat101(Course)
+  name: Frequently Asked Questions
+  about: 
+    Metus auctor fringilla sed posuere consectetur est at lobortis. Aenean 
+    eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. 
+    Nullam id dolor id nibh ultricies vehicula ut id elit. Nullam id dolor 
+    id nibh ultricies vehicula ut id elit.
+  blog: false
+  html: false
+  public: false
+  published: true
+  order: 1
+
+notes_stat101:
+  account: primary
+  owner: l06_u01_eng101(Lecture)
+  name: Elit Dapibus Justo Ligula
+  about: 
+    Sed posuere consectetur est at lobortis. Sed posuere consectetur est at 
+    lobortis. Donec id elit non mi porta gravida at eget metus. Cras justo 
+    odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula 
+    porta felis euismod semper. Vestibulum id ligula porta felis euismod 
+    semper. Donec sed odio dui.
+  blog: false
+  html: false
+  public: false
+  published: true
+  order: 1

@@ -63,7 +63,7 @@
             <%= link :configuration, :site_settings,  main_app.admin_config_edit_path %>
           </li>
         <% end %>
-        <% if current_user.id == current_account.admin_id %>
+        <% if current_user.id == current_account.user_id %>
           <li>
             <%= link :account, :account_settings,  main_app.edit_admin_account_path(current_account) %>
           </li>

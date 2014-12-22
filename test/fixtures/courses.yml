@@ -1,0 +1,28 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+eng101:
+  account: primary
+  slug: eng101
+  name: Basic English
+  about:
+    Praesent commodo cursus magna, vel scelerisque nisl consectetur et. 
+    Donec ullamcorper nulla non metus auctor fringilla.
+  active: true
+  weeks: 8
+  workload: 4
+  originator: assistant(User)
+  locale: en
+
+stat101:
+  account: primary
+  slug: stat101
+  name: Introductory statistics
+  about:
+    Integer posuere erat a ante venenatis dapibus posuere aliquet. 
+    Nullam id dolor id nibh ultricies vehicula ut id elit.
+  active: true
+  weeks: 12
+  workload: 5
+  originator: professor(User)
+  locale: en
+  country: US

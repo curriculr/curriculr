@@ -1,0 +1,86 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# Course eng101
+video_eng101:
+  account: primary
+  course: eng101
+  name: Video Medium
+  kind: video
+  url: Xyz189uejs
+  content_type: link/youtube
+  # slug: 
+  # path: MyString
+  # file_size: MyString
+
+image_eng101:
+  account: primary
+  course: eng101
+  name: Image Medium
+  kind: image
+  url: http://www.foo.bar/images/poster.png
+  content_type: link/www
+
+audio_eng101:
+  account: primary
+  course: eng101
+  name: Audio Medium
+  kind: audio
+  url: http://www.foo.bar/sounds/track.mp3
+  content_type: link/www
+
+audio_eng101:
+  account: primary
+  course: eng101
+  name: Document Medium
+  kind: document
+  url: http://www.foo.bar/docs/intro.pdf
+  content_type: link/www
+
+other_eng101:
+  account: primary
+  course: eng101
+  name: Other Medium
+  kind: other
+  url: http://www.foo.bar/scripts/text.txt
+  content_type: link/www
+
+# Course stat101
+video_stat101:
+  account: primary
+  course: stat101
+  name: Video Medium
+  kind: video
+  url: Xyz189uejs
+  content_type: link/youtube
+
+image_stat101:
+  account: primary
+  course: stat101
+  name: Image Medium
+  kind: image
+  url: http://www.foo.bar/images/poster.png
+  content_type: link/www
+
+audio_stat101:
+  account: primary
+  course: stat101
+  name: Audio Medium
+  kind: audio
+  url: http://www.foo.bar/sounds/track.mp3
+  content_type: link/www
+
+audio_stat101:
+  account: primary
+  course: stat101
+  name: Document Medium
+  kind: document
+  url: http://www.foo.bar/docs/intro.pdf
+  content_type: link/www
+
+other_stat101:
+  account: primary
+  course: stat101
+  name: Other Medium
+  kind: other
+  url: http://www.foo.bar/scripts/text.txt
+  content_type: link/www

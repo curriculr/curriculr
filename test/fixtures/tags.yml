@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+poster:
+  name: poster
+
+promo:
+  name: promo
+
+main:
+  name: main
+
+survey:
+  name: survey

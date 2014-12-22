@@ -1,0 +1,69 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+super:
+  account: primary
+  name: Super User
+  email: super@bar.foo
+  encrypted_password: <%= Devise.bcrypt(User, 'password') %>
+  active: true
+  roles: admin
+
+admin:
+  account: secondary
+  name: Admin User
+  email: admin@bar.foo
+  encrypted_password: <%= Devise.bcrypt(User, 'password') %>
+  active: true
+  roles: admin
+
+professor:
+  account: primary
+  name: Professor User
+  email: professor@bar.foo
+  encrypted_password: <%= Devise.bcrypt(User, 'password') %>
+  active: true
+  roles: faculty
+
+assistant:
+  account: primary
+  name: Assisstant User
+  email: assistant@bar.foo
+  encrypted_password: <%= Devise.bcrypt(User, 'password') %>
+  active: true
+  roles: faculty
+
+console:
+  account: primary
+  name: Console User
+  email: console@bar.foo
+  encrypted_password: <%= Devise.bcrypt(User, 'password') %>
+  active: true
+  roles: console
+
+support:
+  account: primary
+  name: Support User
+  email: support@bar.foo
+  encrypted_password: <%= Devise.bcrypt(User, 'password') %>
+  active: true
+
+one:
+  account: primary
+  name: Student One
+  email: one@bar.foo
+  encrypted_password: <%= Devise.bcrypt(User, 'password') %>
+  active: true
+
+two:
+  account: primary
+  name: Student Two
+  email: two@bar.foo
+  encrypted_password: <%= Devise.bcrypt(User, 'password') %>
+  active: true
+
+three:
+  account: primary
+  name: Student Three
+  email: faculty@bar.foo
+  encrypted_password: <%= Devise.bcrypt(User, 'password') %>
+  active: true

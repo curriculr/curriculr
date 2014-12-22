@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# Course eng101
+poster_eng101:
+  owner: eng101(Course)
+  medium: image_eng101
+  kind: image
+  order: 1
+
+promo_eng101:
+  owner: eng101(Course)
+  medium: video_eng101
+  kind: video
+  order: 1
+
+# Course stat101
+poster_stat101:
+  owner: stat101(Course)
+  medium: image_stat101
+  kind: image
+  order: 1
+
+promo_stat101:
+  owner: stat101(Course)
+  medium: video_stat101
+  kind: video
+  order: 1

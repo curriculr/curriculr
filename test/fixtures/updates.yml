@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# Class eng101_sec02
+one:
+  klass: eng101_sec02
+  www: true
+  email: false
+  event: on-demand
+  to: students
+  subject: Cursus Pellentesque Mattis Sollicitudin Tristique
+  body: 
+    Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec 
+    ullamcorper nulla non metus auctor fringilla. Donec ullamcorper nulla non 
+    metus auctor fringilla.
+  made: true
+  made_at: <%= Time.zone.now %>
+
+# Class stat101_sec01
+two:
+  klass: stat101_sec01
+  www: true
+  email: false
+  event: on-demand
+  to: students
+  subject: Mattis Tellus Vulputate Bibendum Tortor
+  body: 
+    Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Donec 
+    ullamcorper nulla non metus auctor fringilla. Nullam quis risus eget urna 
+    mollis ornare vel eu leo.
+  made: true
+  made_at: <%= Time.zone.now %>

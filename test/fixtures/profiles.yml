@@ -1,0 +1,66 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+super:
+  user: super
+  # nickname: MyString
+  # prefix: MyString
+  # avatar: MyString
+  about: 
+    Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia 
+    odio sem nec elit. Aenean lacinia bibendum nulla sed consectetur.
+  public: false
+
+admin:
+  user: admin
+  about: 
+    Curabitur blandit tempus porttitor. Lorem ipsum dolor sit 
+    amet, consectetur adipiscing elit.
+  public: false
+
+professor:
+  user: professor
+  about: 
+    Donec id elit non mi porta gravida at eget metus. Maecenas sed diam 
+    eget risus varius blandit sit amet non magna.
+  public: true
+
+assistant:
+  user: assistant
+  about: 
+    Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus 
+    mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis.
+  public: true
+
+console:
+  user: console
+  about: 
+    Vestibulum id ligula porta felis euismod semper. Maecenas sed diam eget 
+    risus varius blandit sit amet non magna.
+  public: true
+
+support:
+  user: support
+  about: 
+    Vestibulum id ligula porta felis euismod semper. Nulla vitae pharetra augue.
+  public: true
+
+one:
+  user: one
+  about: 
+    Nullam quis risus eget urna mollis ornare vel eu leo. Etiam porta 
+    sem malesuada magna mollis euismod.
+  public: true
+
+two:
+  user: two
+  about: 
+    Sed posuere consectetur est at lobortis. Aenean lacinia bibendum nulla 
+    sed consectetur.
+  public: true
+
+three:
+  user: three
+  about: 
+    Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, 
+    ut fermentum massa justo sit amet risus. Lorem ipsum adipiscing elit.
+  public: true

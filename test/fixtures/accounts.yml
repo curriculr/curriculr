@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+primary:
+  user: super
+  slug: primary
+  name: Primary Account
+  about: 
+    Etiam porta sem malesuada magna mollis euismod. Maecenas sed diam eget risus 
+    varius blandit sit amet non magna. Porta ac consectetur estibulum at eros.
+  active: true
+  live: true
+  live_since: <%= 3.days.ago %>
+
+secondary:
+  user: admin
+  slug: secondary
+  name: Secondary Account
+  about: 
+    Egestas eget quam. Etiam porta sem malesuada risus varius blandit sit amet non magna
+    magna mollis euismod. Maecenas sed diam eget. Morbi leo risus, porta ac consectetur.
+  active: true
+  live: true
+  live_since: <%= 3.days.ago %>

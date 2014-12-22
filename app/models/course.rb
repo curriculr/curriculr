@@ -9,7 +9,7 @@ class Course < ActiveRecord::Base
   
   resourcify
   
-  belongs_to :originator, :class_name => "User"
+  belongs_to :originator, :polymorphic => true
   has_many :instructors, :dependent => :destroy
   has_many :media, :dependent => :destroy
   has_many :pages, :dependent => :destroy, :as => :owner

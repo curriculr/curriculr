@@ -15,12 +15,12 @@
     <h4><%= t('page.titles.administrator') %></h4>
     <strong><%= User.human_attribute_name(:name) %></strong><br>
     <span class="<%= css_text(:muted) %>">
-      <%=  @account.admin.name %>
+      <%=  @account.user.name %>
     </span><br>
 
     <strong><%= User.human_attribute_name(:email) %></strong><br>
     <span class="<%= css_text(:muted) %>">
-      <%=  @account.admin.email %>
+      <%=  @account.user.email %>
     </span>
     <br><br>
     <%= link :account, :edit, edit_admin_account_path(@account), :class => css_button(:primary) %>

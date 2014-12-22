@@ -14,7 +14,7 @@
       </fieldset>
       <fieldset>
         <legend><%= t('page.titles.administrator') %></legend>
-        <%= f.fields_for :admin do |a| %>
+        <%= f.fields_for :user do |a| %>
           <% if @account.new_record? %>
             <%= form_text a, :name %>
             <%= form_email a, :email %>

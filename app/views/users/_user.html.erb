@@ -14,7 +14,7 @@
       roles_cur = user.roles.map {|r| r.name }.uniq.sort
 			links = []
 			links << link(:profile, :edit, edit_user_path(user))
-			unless user == current_account.admin 
+			unless user == current_account.user 
         (roles_all - roles_cur).each do |r|
   				links << link_to(t('activerecord.actions.add_role', role: t("config.role.#{r}")),
   					user_path(user.id, :opr => r), :method => :put, 

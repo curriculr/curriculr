@@ -16,7 +16,7 @@ module Admin
     end
 
     def new
-      @account = Account.new(:admin => User.new)
+      @account = Account.new(:user => User.new)
       config = YAML.load_file("#{Rails.root}/config/config-account.yml")
       @account.settings = JSON.pretty_generate(config['account'])
       respond_with(@account)
@@ -41,7 +41,7 @@ module Admin
       end
       
       @account.update(account_params.reject { |k,v| k.to_s == 'admin_attributes' })
-      if current_user.id == @account.admin_id
+      if current_user.id == @account.user_id
         redirect_to home_path, :notice => t('flash.actions.create.notice', :resource_name => Account.model_name.human)
       else
         respond_with(:admin, @account)
@@ -64,15 +64,15 @@ module Admin
     private
       def set_account
         @account = Account.find(params[:id])
-        @account.admin = User.find(@account.admin_id)
-        puts $redis.get("config.account.a#{@account.id}").to_json
+        #@account.user = User.find(@account.user_id)
+        #puts $redis.get("config.account.a#{@account.id}").to_json
         @account.config = JSON.parse($redis.get("config.account.a#{@account.id}"))
         @account.settings = JSON.pretty_generate(@account.config)
       end
 
       def account_params
         params.require(:account).permit(:slug, :name, :about, :settings, :active, :live, :live_since,
-          :admin_attributes => [ :email, :name, :password, :password_confirmation ]
+          :user_attributes => [ :email, :name, :password, :password_confirmation ]
         )
       end
   end

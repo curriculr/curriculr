@@ -1,7 +1,7 @@
 class CreateAccounts < ActiveRecord::Migration
   def change
     create_table :accounts do |t|
-      t.belongs_to :admin, index: true
+      t.belongs_to :user, index: true
       t.string :slug, index: true
       t.string :name
       t.text :about

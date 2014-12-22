@@ -1,0 +1,18 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+<% ['eng101_sec01', 'eng101_sec02', 'stat101_sec01'].each do |k| %>
+  <% ['general', 'lecture', 'graded'].each do |f| %>
+post_<%= %(#{f}_#{k}) %> :
+  forum: <%= %(#{f}_#{k}) %>
+  topic: topic_<%= %(#{f}_#{k}) %>
+  author_id: <%= k =~ /eng101/ ? 4 : 2 %>
+  author_type: User
+  about: 
+    Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. 
+    Donec sed odio dui. Maecenas sed diam eget risus varius blandit sit 
+    amet non magna. Nullam id dolor id nibh ultricies vehicula ut id elit. 
+  ups: 1
+  downs: 0
+  anonymous: false
+  <% end %>
+<% end %>

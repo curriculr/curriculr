@@ -1,0 +1,24 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+<% ['eng101', 'stat101'].each do |c| %>
+yes_no_quiz_<%= c %>:
+  assessment: quiz_<%= c %>
+  points: 6
+  order: 1
+  question: pick_one_<%= c %>
+  questions_count: 1
+
+yes_no_problem_<%= c %>:
+  assessment: problem_<%= c %>
+  points: 8
+  order: 1
+  question: pick_one_<%= c %>
+  questions_count: 1
+
+yes_no_final_<%= c %>:
+  assessment: final_<%= c %>
+  points: 10
+  order: 1
+  question: pick_one_<%= c %>
+  questions_count: 1
+<% end %>

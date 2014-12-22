@@ -1,0 +1,24 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+admin:
+  users: 
+    - super
+    - admin
+  name: admin
+
+faculty:
+  users:
+    - professor
+    - assistant
+  name: faculty
+
+console:
+  users: console
+  name: console
+
+team:
+  name: team
+
+partner:
+  name: partner
+

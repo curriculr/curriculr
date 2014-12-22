@@ -1,12 +1,12 @@
 class Account < ActiveRecord::Base
-	belongs_to :admin, :class_name => "User"
+  belongs_to :user
 
   has_many :announcements, :dependent => :destroy
   has_many :courses, :dependent => :destroy
   has_many :media, :dependent => :destroy
   has_many :users, :dependent => :destroy
 
-  accepts_nested_attributes_for :admin
+  accepts_nested_attributes_for :user
 
 	attr_accessor :config, :settings
 
@@ -32,9 +32,9 @@ class Account < ActiveRecord::Base
 
   # Callback
   after_create do |account|
-    account.admin.skip_confirmation!
-    account.admin.update(account: account);
-    account.admin.add_role :admin
+    account.user.skip_confirmation!
+    account.user.update(account: account);
+    account.user.add_role :admin
 
     # Create about, mission, privacy, help and agreement pages
     I18n.t('config.auto_generated_pages').each do |slug, name| 
@@ -44,7 +44,7 @@ class Account < ActiveRecord::Base
           :about => I18n.t("page.text.under_construction"), 
           :public => true,
           :published => true,
-          :owner => account.admin,
+          :owner => account.user,
           :slug => "#{slug}-#{locale}",
           :account => account
         )
