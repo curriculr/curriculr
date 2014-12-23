@@ -204,7 +204,7 @@ class InstructorFlowsTest < ActionDispatch::IntegrationTest
     expect(page).to have_content(name)
   end
 
-  test 'can edit assessment' do
+  test 'can edit an assessment' do
     @assessment = create(:assessment, kind: 'survey')
     @course.assessments << @assessment
     login_as(@instructor, :scope => :user)

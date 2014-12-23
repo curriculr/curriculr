@@ -1,8 +1,8 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-primary:
+main:
   user: super
-  slug: primary
+  slug: main
   name: Primary Account
   about: 
     Etiam porta sem malesuada magna mollis euismod. Maecenas sed diam eget risus 

@@ -18,31 +18,14 @@ module ApplicationHelper
     locale == :ar
   end
   
-  if false and Rails.env.development?
-    def t(key, options = {})
-      begin
-        super(key, options.merge(:raise => true).reject {|k,v| k.to_sym == :default})
-      rescue
-        k = options[:scope].present? ? "#{options[:scope]}.#{key}" : key
-        if options[:default].present? and options[:default].kind_of?(Symbol)
-          d = options[:scope].present? ? "#{current_account.slug}.site.#{options[:scope]}.#{options[:default]}" : options[:default]
-        else
-          d = false
-        end
+  def scoped_t(*args)
+    key, params =  *args
+    params = {} if params.blank?
+    params[:default] = t(key.sub(/^[^\.]*\./, 'account.'), params)
 
-        if Translator.store["#{I18n.locale}.#{k}"].blank?
-          I18n.backend.store_translations(I18n.locale, { k => k.to_s.split('.').last }, escape: false)
-        end
-        
-        if d.present? and Translator.store["#{I18n.locale}.#{d}"].blank?
-          I18n.backend.store_translations(I18n.locale, { d => d.to_s.split('.').last }, escape: false)
-        end
-        
-        super(key, options)
-      end
-    end
+    t(key, params)
   end
-  
+
   def link(model, action, options = nil, html_options = nil)
     link_text = case action
     when :index

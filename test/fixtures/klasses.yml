@@ -1,7 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 eng101_sec01:
-  account: primary
+  account: main
   course: eng101
   slug: sec01
   about: 
@@ -14,7 +14,7 @@ eng101_sec01:
   free: true
 
 eng101_sec02:
-  account: primary
+  account: main
   course: eng101
   slug: sec02
   about: 
@@ -27,7 +27,7 @@ eng101_sec02:
   free: true
 
 stat101_sec01:
-  account: primary
+  account: main
   course: stat101
   slug: sec01
   about: 

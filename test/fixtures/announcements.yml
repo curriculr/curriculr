@@ -1,7 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 maintenance:
-  account: primary
+  account: main
   user: super
   message: 
     Maecenas sed diam eget risus varius blandit sit amet non magna. 

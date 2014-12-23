@@ -2,7 +2,7 @@
 
 # Course eng101
 faq_eng101:
-  account: primary
+  account: main
   owner: eng101(Course)
   name: Frequently Asked Questions
   about: 
@@ -18,7 +18,7 @@ faq_eng101:
   order: 1
 
 notes_eng101:
-  account: primary
+  account: main
   owner: l02_u01_eng101(Lecture)
   name: Dapibus Nullam Commodo Ligula
   about: 
@@ -34,7 +34,7 @@ notes_eng101:
 
 # Course stat101
 faq_stat101:
-  account: primary
+  account: main
   owner: stat101(Course)
   name: Frequently Asked Questions
   about: 
@@ -49,7 +49,7 @@ faq_stat101:
   order: 1
 
 notes_stat101:
-  account: primary
+  account: main
   owner: l06_u01_eng101(Lecture)
   name: Elit Dapibus Justo Ligula
   about: 

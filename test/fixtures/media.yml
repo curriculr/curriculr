@@ -2,7 +2,7 @@
 
 <% %w(eng101 stat101).each do |c| %>
 video_<%= c %>:
-  account: primary
+  account: main
   course: <%= c %>
   name: Video Medium
   kind: video
@@ -13,7 +13,7 @@ video_<%= c %>:
   # file_size: MyString
 
 image_<%= c %>:
-  account: primary
+  account: main
   course: <%= c %>
   name: Image Medium
   kind: image
@@ -21,7 +21,7 @@ image_<%= c %>:
   content_type: link/www
 
 audio_<%= c %>:
-  account: primary
+  account: main
   course: <%= c %>
   name: Audio Medium
   kind: audio
@@ -29,7 +29,7 @@ audio_<%= c %>:
   content_type: link/www
 
 audio_<%= c %>:
-  account: primary
+  account: main
   course: <%= c %>
   name: Document Medium
   kind: document
@@ -37,7 +37,7 @@ audio_<%= c %>:
   content_type: link/www
 
 other_<%= c %>:
-  account: primary
+  account: main
   course: <%= c %>
   name: Other Medium
   kind: other

@@ -2,11 +2,11 @@ require 'test_helper'
 
 class AccountTest < ActiveSupport::TestCase
   def setup
-		@account = accounts(:primary)
+		@account = accounts(:main)
 	end
 
 	test "with valid fixtures" do
-    assert accounts(:primary).valid?
+    assert accounts(:main).valid?
     assert accounts(:secondary).valid?
   end
 

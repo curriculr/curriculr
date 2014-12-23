@@ -1,7 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 super:
-  account: primary
+  account: main
   name: Super User
   email: super@bar.foo
   encrypted_password: <%= Devise.bcrypt(User, 'password') %>
@@ -17,7 +17,7 @@ admin:
   roles: admin
 
 professor:
-  account: primary
+  account: main
   name: Professor User
   email: professor@bar.foo
   encrypted_password: <%= Devise.bcrypt(User, 'password') %>
@@ -25,7 +25,7 @@ professor:
   roles: faculty
 
 assistant:
-  account: primary
+  account: main
   name: Assisstant User
   email: assistant@bar.foo
   encrypted_password: <%= Devise.bcrypt(User, 'password') %>
@@ -33,7 +33,7 @@ assistant:
   roles: faculty
 
 console:
-  account: primary
+  account: main
   name: Console User
   email: console@bar.foo
   encrypted_password: <%= Devise.bcrypt(User, 'password') %>
@@ -41,28 +41,28 @@ console:
   roles: console
 
 support:
-  account: primary
+  account: main
   name: Support User
   email: support@bar.foo
   encrypted_password: <%= Devise.bcrypt(User, 'password') %>
   active: true
 
 one:
-  account: primary
+  account: main
   name: Student One
   email: one@bar.foo
   encrypted_password: <%= Devise.bcrypt(User, 'password') %>
   active: true
 
 two:
-  account: primary
+  account: main
   name: Student Two
   email: two@bar.foo
   encrypted_password: <%= Devise.bcrypt(User, 'password') %>
   active: true
 
 three:
-  account: primary
+  account: main
   name: Student Three
   email: faculty@bar.foo
   encrypted_password: <%= Devise.bcrypt(User, 'password') %>

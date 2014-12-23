@@ -3,15 +3,15 @@ class Mailer < Devise::Mailer
   #include Devise::Controllers::UrlHelpers 
   helper :application
   layout 'mailer'
-  
+
   def prepare_msg(account, title=nil)
     @site_url = root_url
     @site_logo = t("#{account}.site.mailer.logo")
-    title = t("#{account}.site.title") unless title
+    title = scoped_t("#{account}.site.title") unless title
     @site_link = view_context.link_to(title || :curriculr, @site_url)
     @preheader = t("page.text.the_last_information_from_html", url: @site_link)
 
-    @footer = t("#{account}.site.mailer.footer_html", :site_url => @site_url).html_safe
+    @footer = scoped_t("#{account}.site.mailer.footer_html", :site_url => @site_url).html_safe
   end
 
   def prepare_url(text, link, mail_to = false)
@@ -39,10 +39,10 @@ class Mailer < Devise::Mailer
     prepare_msg(account)
     record = User.find(uid)
 
-    @url = prepare_url(t("#{account}.site.mailer.links.confirm_account"), url_for(controller: 'devise/confirmations', action: 'show', confirmation_token: token))
+    @url = prepare_url(scoped_t("#{account}.site.mailer.links.confirm_account"), url_for(controller: 'devise/confirmations', action: 'show', confirmation_token: token))
       
-    @subject = t("#{account}.site.mailer.confirmation_instructions.subject")
-    @body = t("#{account}.site.mailer.confirmation_instructions.body_html", :name => record.email, :url => @url)
+    @subject = scoped_t("#{account}.site.mailer.confirmation_instructions.subject")
+    @body = scoped_t("#{account}.site.mailer.confirmation_instructions.body_html", :name => record.email, :url => @url)
     mail(:from => opts[:from], :to => opts[:to], :subject => @subject, template_name: 'basic')
   end
 
@@ -50,10 +50,10 @@ class Mailer < Devise::Mailer
     prepare_msg(account)
     record = User.find(uid)
 
-    @url = prepare_url(t("#{account}.site.mailer.links.change_password"), url_for(controller: 'devise/passwords', action: 'edit', reset_password_token: token))
+    @url = prepare_url(scoped_t("#{account}.site.mailer.links.change_password"), url_for(controller: 'devise/passwords', action: 'edit', reset_password_token: token))
       
-    @subject = t("#{account}.site.mailer.reset_password_instructions.subject")    
-    @body = t("#{account}.site.mailer.reset_password_instructions.body_html", :name => record.email, :url => @url)
+    @subject = scoped_t("#{account}.site.mailer.reset_password_instructions.subject")    
+    @body = scoped_t("#{account}.site.mailer.reset_password_instructions.body_html", :name => record.email, :url => @url)
     mail(:from => opts[:from], :to => opts[:to], :subject => @subject, template_name: 'basic')
   end
 
@@ -67,11 +67,11 @@ class Mailer < Devise::Mailer
     klass = Klass.find(kid)
     prepare_msg(account, klass.course.name)
 
-    @url = prepare_url(t("#{account}.site.mailer.links.sign_in"), url)
+    @url = prepare_url(scoped_t("#{account}.site.mailer.links.sign_in"), url)
 
     @klasses = [ klass ]
-    @subject = t("#{account}.site.mailer.klass_invitation.subject")
-    @body = t("#{account}.site.mailer.klass_invitation.body_html", :name => name, :url => @url, 
+    @subject = scoped_t("#{account}.site.mailer.klass_invitation.subject")
+    @body = scoped_t("#{account}.site.mailer.klass_invitation.body_html", :name => name, :url => @url, 
       :course_name => klass.course.name)
       
     mail(:from => from, :to => to, :subject => @subject, template_name: 'basic')
@@ -81,10 +81,10 @@ class Mailer < Devise::Mailer
   def klass_enrollment(account, from, to, klasses, url)
     @klasses = Klass.find(klasses)
     prepare_msg(account, @klasses.map{|k| k.course.name}.join(', '))
-    @url = prepare_url(t("#{account}.site.mailer.links.sign_in"), url)
+    @url = prepare_url(scoped_t("#{account}.site.mailer.links.sign_in"), url)
 
-    @subject = t("#{account}.site.mailer.klass_enrollment.subject")
-    @body = t("#{account}.site.mailer.klass_enrollment.body_html", :url => @url)
+    @subject = scoped_t("#{account}.site.mailer.klass_enrollment.subject")
+    @body = scoped_t("#{account}.site.mailer.klass_enrollment.body_html", :url => @url)
       
     mail(:from => from, :to => to, :subject => @subject, template_name: 'basic') 
   end
@@ -94,7 +94,7 @@ class Mailer < Devise::Mailer
     klass = Klass.find(kid)
     prepare_msg(account, klass.course.name)
 
-    @url = prepare_url(t("#{account}.site.mailer.links.go_to_class"), learn_klass_url(kid))
+    @url = prepare_url(scoped_t("#{account}.site.mailer.links.go_to_class"), learn_klass_url(kid))
 
     @subject = subject
     @body = body
