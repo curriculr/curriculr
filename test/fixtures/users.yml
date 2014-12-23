@@ -5,6 +5,7 @@ super:
   name: Super User
   email: super@bar.foo
   encrypted_password: <%= Devise.bcrypt(User, 'password') %>
+  confirmed_at: <%= Time.zone.now %>
   active: true
   roles: admin
 
@@ -13,6 +14,7 @@ admin:
   name: Admin User
   email: admin@bar.foo
   encrypted_password: <%= Devise.bcrypt(User, 'password') %>
+  confirmed_at: <%= Time.zone.now %>
   active: true
   roles: admin
 
@@ -21,6 +23,7 @@ professor:
   name: Professor User
   email: professor@bar.foo
   encrypted_password: <%= Devise.bcrypt(User, 'password') %>
+  confirmed_at: <%= Time.zone.now %>
   active: true
   roles: faculty
 
@@ -29,6 +32,7 @@ assistant:
   name: Assisstant User
   email: assistant@bar.foo
   encrypted_password: <%= Devise.bcrypt(User, 'password') %>
+  confirmed_at: <%= Time.zone.now %>
   active: true
   roles: faculty
 
@@ -37,6 +41,7 @@ console:
   name: Console User
   email: console@bar.foo
   encrypted_password: <%= Devise.bcrypt(User, 'password') %>
+  confirmed_at: <%= Time.zone.now %>
   active: true
   roles: console
 
@@ -45,6 +50,7 @@ support:
   name: Support User
   email: support@bar.foo
   encrypted_password: <%= Devise.bcrypt(User, 'password') %>
+  confirmed_at: <%= Time.zone.now %>
   active: true
 
 one:
@@ -52,6 +58,7 @@ one:
   name: Student One
   email: one@bar.foo
   encrypted_password: <%= Devise.bcrypt(User, 'password') %>
+  confirmed_at: <%= Time.zone.now %>
   active: true
 
 two:
@@ -59,6 +66,7 @@ two:
   name: Student Two
   email: two@bar.foo
   encrypted_password: <%= Devise.bcrypt(User, 'password') %>
+  confirmed_at: <%= Time.zone.now %>
   active: true
 
 three:
@@ -66,4 +74,5 @@ three:
   name: Student Three
   email: faculty@bar.foo
   encrypted_password: <%= Devise.bcrypt(User, 'password') %>
+  confirmed_at: <%= Time.zone.now %>
   active: true

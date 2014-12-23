@@ -1,10 +1,29 @@
 require 'test_helper'
 
 class GuestFlowsTest < ActionDispatch::IntegrationTest
+  def setup
+    [accounts(:main), accounts(:secondary)].each do |a|
+      I18n.t('config.auto_generated_pages').each do |slug, name| 
+        $site['supported_locales'].keys.each do |locale|
+          page = Page.create(
+            :name => name, 
+            :about => I18n.t("page.text.under_construction"), 
+            :public => true,
+            :published => true,
+            :owner => a.user,
+            :slug => "#{slug}-#{locale}",
+            :account => a
+          )
+        end
+      end
+    end
+  end
+
   test 'can visit front page' do
     visit root_path
 
     assert page.has_text?("Open and Interactive Learning")
+    `pg_dump -a -T schema_migrations curriculr_test > #{Rails.root}/db/backup_fixtures.sql`
   end
 
   test 'can visit blogs page' do
@@ -67,20 +86,7 @@ class GuestFlowsTest < ActionDispatch::IntegrationTest
     
     click_button "Create an account"
     
-    assert page.html.has_content?("A message with a confirmation link has been sent to your email address.")
+    assert page.html.include?("A message with a confirmation link has been sent to your email address.")
     assert_equal root_path, current_path
-  end
-
-  test 'can sign in' do
-    user = students(:one)
-    visit new_user_session_path
-    fill_in 'user_email', with: user.email
-    fill_in 'Password', with: 'password'
-
-    click_button 'Login'
-    
-    save_and_open_page
-    assert page.has_content?(user.name)
-    assert_equal home_path, current_path
   end
 end
