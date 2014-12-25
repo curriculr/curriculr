@@ -6,14 +6,16 @@
     <% (1..[3, Option.render_options[k.to_sym][:count]].min).each do |n| %>
       <% 
       answer = case k.to_sym
-      when :pick_one, :pick_many
-        ( 1 % n) == 0 ? '1' : '0'
+      when :pick_one
+        (1 % n) == 0 ? '1' : '0'
+      when :pick_many
+        ((1 % n) == 0 || (1 % n) == 1) ? '1' : '0'
       else
         words.sample(1).join(' ')
       end
 
       answer_options = []
-      if n == 'pick_2_fill'
+      if k == 'pick_2_fill'
         answer_options +=  words.sample(3)
         answer_options << answer unless answer_options.include?(answer)
       end 
@@ -27,7 +29,8 @@
   answer: <%=  answer %>
       <% end %>
       <% if Option.render_options[k.to_sym][:answer_options] %>
-  answer_options: <%= answer_options.join("\n") %>
+  answer_options: 
+    <%= answer_options.join("\n    ") %>
       <% end %>
     <% end %>
   <% end %>

@@ -1,16 +1,21 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 poster_tag:
+  id: 1
   name: poster
 
 promo_tag:
+  id: 2
   name: promo
 
 main_tag:
+  id: 3
   name: main
 
 survey_tag:
+  id: 4
   name: survey
 
 syllabus_tag:
+  id: 5
   name: syllabus

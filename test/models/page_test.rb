@@ -6,8 +6,9 @@ class PageTest < ActiveSupport::TestCase
 	end
 
 	test "with valid fixtures" do
+    assert pages(:syllabus_eng101).valid?
     assert pages(:faq_eng101).valid?
-    assert pages(:notes_stat101).valid?
+    assert pages(:guide_stat101).valid?
   end
 
   test "invalid without a name" do

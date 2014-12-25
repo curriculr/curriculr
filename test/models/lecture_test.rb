@@ -64,7 +64,7 @@ class LectureTest < ActiveSupport::TestCase
     enrollment = klass.enrollments.create(:student_id => student.id, :active => true)
 
     #puts unit.lectures.select('id, unit_id, based_on, on_date').to_a.to_yaml
-    assert_equal 4, Lecture.open_4_students(klass, unit, student).to_a.count
+    assert_equal 2, Lecture.open_4_students(klass, unit, student).to_a.count
   end
   
   test "checks attendance" do

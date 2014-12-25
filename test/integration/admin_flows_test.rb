@@ -3,23 +3,15 @@ require 'test_helper'
 class AdminFlowsTest < ActionDispatch::IntegrationTest
   def setup
     @admin = users(:super)
+    login_as(@admin, :scope => :user)
+    visit home_path
   end
 
-  test 'can sign in' do
-    visit new_user_session_path
-    fill_in 'user_email', with: @admin.email
-    fill_in 'Password', with: @admin.password
-    click_button 'Login'
-    
-    expect(page).to have_content("Administration")
-    expect(current_path).to eq home_path
+  def teardown
+    logout(:user)
   end
 
   test 'can list users' do
-    login_as(@admin, :scope => :user)
-    visit root_path
-    
-    expect(current_path).to eq home_path
     find(:xpath, "//a[@href='/users']").click
 
     #save_and_open_page
@@ -30,13 +22,10 @@ class AdminFlowsTest < ActionDispatch::IntegrationTest
 
     click_button 'Update'
     
-    expect(User.find(@admin.id).name).to eq 'Mighty Admin'
+    assert_equal 'Mighty Admin', User.find(@admin.id).name
   end
 
   test 'can add a new user' do
-    login_as(@admin, :scope => :user)
-    visit root_path
-
     find(:xpath, "//a[@href='/users']").click
 
     click_link 'New'
@@ -48,25 +37,20 @@ class AdminFlowsTest < ActionDispatch::IntegrationTest
 
     click_button 'Create'
 
-    expect(page).to have_content(email)
+    assert page.has_content?(email)
   end
 
   test 'can grant user a faculty role' do
-    instructor = create(:user, name: 'Instructor Jane')
-    login_as(@admin, :scope => :user)
-    visit root_path
+    instructor = users(:one)
 
     find(:xpath, "//a[@href='/users']").click
 
     find(:xpath, "//a[@href='/users/#{instructor.id}?opr=faculty']").click
     
-    save_and_open_page
+    assert instructor.has_role?(:faculty)
   end
 
   test 'can create an announcement' do
-    login_as(@admin, :scope => :user)
-    visit root_path
-
     find(:xpath, "//a[@href='/admin/announcements']").click
 
     click_link 'New'
@@ -77,13 +61,11 @@ class AdminFlowsTest < ActionDispatch::IntegrationTest
 
     click_button 'Create'
 
-    expect(page).to have_content(message)
+    assert page.has_content?(message)
   end
 
   test 'can edit an announcement' do
-    announcement = create(:announcement)
-    login_as(@admin, :scope => :user)
-    visit root_path
+    announcement = announcements(:maintenance)
 
     find(:xpath, "//a[@href='/admin/announcements']").click
 
@@ -94,34 +76,25 @@ class AdminFlowsTest < ActionDispatch::IntegrationTest
 
     click_button 'Update'
 
-    expect(page).to have_content(message)
+    assert page.has_content?(message)
   end
 
-  test 'can remove an announcement' do
-    announcement = create(:announcement, message: 'This is the announcement', starts_at: Time.zone.today, ends_at: 20.days.from_now)
-    login_as(@admin, :scope => :user)
-    visit root_path
+  # test 'can remove an announcement' do
+  #   announcement = announcements(:maintenance)
 
-    find(:xpath, "//a[@href='/admin/announcements']").click
+  #   find(:xpath, "//a[@href='/admin/announcements']").click
+  #   find(:xpath, "//a[@href='/admin/announcements/#{announcement.id}']").click
 
-    find(:xpath, "//a[@href='/admin/announcements/#{announcement.id}']").click
-
-    save_and_open_page
-  end
+  #   #save_and_open_page
+  # end
 
   test 'can visit dashboard' do
-    login_as(@admin, :scope => :user)
-    visit root_path
-
     find(:xpath, "//a[@href='/admin/dashboard']").click
     
-    expect(page).to have_content('Dashboard')
+    assert page.has_content?('Dashboard')
   end
 
   test 'can create a page' do
-    login_as(@admin, :scope => :user)
-    visit root_path
-
     find(:xpath, "//a[@href='/pages']").click
 
     click_link 'New'
@@ -132,18 +105,18 @@ class AdminFlowsTest < ActionDispatch::IntegrationTest
 
     click_button 'Create'
 
-    expect(page).to have_content(title)
+    assert page.has_content?(title)
   end
 
   test 'can edit a page' do
-    page = create(:page)
-    login_as(@admin, :scope => :user)
-    visit root_path
+    blog = pages(:blog_post)
 
     find(:xpath, "//a[@href='/pages']").click
+    find(:xpath, "//a[@href='/pages/#{blog.slug}/edit']").click
 
-    find(:xpath, "//a[@href='/pages/:slug/edit']").click
+    fill_in 'page_name', with: 'Blog one'
+    click_button 'Update'
 
-    save_and_open_page
+    assert page.has_content?('Blog one')
   end
 end

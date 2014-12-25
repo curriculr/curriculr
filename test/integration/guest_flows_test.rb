@@ -36,7 +36,6 @@ class GuestFlowsTest < ActionDispatch::IntegrationTest
   test 'can visit klasses page' do
     visit learn_klasses_path
 
-    #save_and_open_page
     assert page.has_content?(klasses(:stat101_sec01).course.name)
   end
 
@@ -67,7 +66,6 @@ class GuestFlowsTest < ActionDispatch::IntegrationTest
   test 'can visit privacy page' do
     visit localized_page_path(:privacy)
 
-    #save_and_open_page
     assert page.has_content?("Privacy") 
   end
 
@@ -87,6 +85,57 @@ class GuestFlowsTest < ActionDispatch::IntegrationTest
     click_button "Create an account"
     
     assert page.html.include?("A message with a confirmation link has been sent to your email address.")
+    assert_equal root_path, current_path
+  end
+
+  test 'can sign in as a student' do
+    user = users(:two)
+    visit new_user_session_path
+    fill_in 'user_email', with: user.email
+    fill_in 'Password', with: 'password'
+
+    click_button 'Login'
+    
+    assert page.has_content?(user.name)
+    assert_equal home_path, current_path
+
+    logout(:user)
+  end
+
+  test 'can sign in as an instructor' do
+    instructor = users(:assistant)
+    visit new_user_session_path
+    fill_in 'user_email', with: instructor.email
+    fill_in 'Password', with: 'password'
+
+    click_button 'Login'
+    
+    assert page.has_content?("Builder")
+    assert_equal home_path, current_path
+
+    logout(:user)
+  end
+
+  test 'can sign in as an admin' do
+    admin = users(:super)
+    visit new_user_session_path
+    fill_in 'user_email', with: admin.email
+    fill_in 'Password', with: 'password'
+    
+    click_button 'Login'
+    
+    assert page.has_content?("Administration")
+    assert_equal home_path, current_path
+
+    logout(:user)
+  end
+
+  test 'can sign out' do
+    user = users(:one)
+    login_as(user, :scope => :user)
+    visit home_path
+
+    click_link "Sign out"
     assert_equal root_path, current_path
   end
 end

@@ -6,7 +6,7 @@
 <%= %(l#{l}_#{u}_#{c}) %>:
   unit: <%= %(#{u}_#{c}) %>
   order: <%= l %>
-  name: Inceptos Tellus Fusce Sit Condimentum
+  name: Lecture <%= l %>
   about: 
     Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. 
     Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.

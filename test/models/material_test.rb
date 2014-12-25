@@ -14,11 +14,6 @@ class MaterialTest < ActiveSupport::TestCase
     @material.kind = nil
   	assert_not @material.valid?
   end    
-  
-  test "invalid without a medium" do
-  	@material.medium = nil
-  	assert_not @material.valid?
-  end
 
   test "has a url" do
     assert @material.at_url.present?

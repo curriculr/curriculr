@@ -23,13 +23,7 @@ class KlassTest < ActiveSupport::TestCase
   
   test "valid without ends_on" do
     @klass.ends_on = nil
-    assert_not @klass.valid?
-  end
-  
-  test "invalid when begins_on is before today" do
-  	@klass.begins_on = 2.days.ago
-  	@klass.based_on = Time.zone.today
-    assert_not @klass.valid?
+    assert @klass.valid?
   end
   
   test "invalid when ends_on is before begins_on" do

@@ -48,7 +48,7 @@ class CourseTest < ActiveSupport::TestCase
   end
   
   test "has its initial class" do
-    assert_equal 1, @course.klasses.to_a.count
+    assert_equal 1, courses(:stat101).klasses.to_a.count
   end
   
   test "has its settings/config" do
@@ -57,8 +57,8 @@ class CourseTest < ActiveSupport::TestCase
   
   test "has its syllabus and/or pages" do
     assert @course.syllabus.present?
-		assert_equal 1, @course.pages.count
-    assert_equal 0, @course.non_syllabus_pages.count
+		assert_equal 3, @course.pages.count
+    assert_equal 2, @course.non_syllabus_pages.count
   end
   
   test "has grade distribution" do

@@ -53,7 +53,7 @@ class AbilityTest < ActiveSupport::TestCase
   # Student
   test "student can enroll in klasses" do
   	@ability = Ability.new(@account, @student, @student.self_student, @course_x, @klass_x)
-    assert @ability.cannot?(:enroll, @klass_x)
+    assert @ability.can?(:enroll, @klass_x)
   end
 
   test "student cannot drop a klass that she's not enrolled in" do

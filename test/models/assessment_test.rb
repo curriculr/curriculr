@@ -15,7 +15,7 @@ class AssessmentTest < ActiveSupport::TestCase
   end
   
   test "valid without about" do
-    @assessment.body = nil
+    @assessment.about = nil
     assert @assessment.valid?
   end
   
@@ -44,9 +44,9 @@ class AssessmentTest < ActiveSupport::TestCase
     assert_not @assessment.valid?
   end
   
-  test "invalid without a to_datetime" do
+  test "valid without a to_datetime" do
   	@assessment.to_datetime = nil
-    assert_not @assessment.valid?
+    assert @assessment.valid?
   end
   
   test "invalid if to_datetime is before from_datetime" do

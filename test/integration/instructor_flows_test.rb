@@ -2,50 +2,45 @@ require 'test_helper'
 
 class InstructorFlowsTest < ActionDispatch::IntegrationTest
   def setup
-    @instructor = create(:faculty, name: 'Instructor Joe', email: 'foo@bar.com')
-    @course = create(:course)
-    @unit = create(:unit, course: @course)
-    @lecture = create(:lecture)
-    @course.update(originator: @instructor)
-    @page = create(:page)
+    @course = courses(:eng101)
+    @instructor = @course.originator
+    @unit = @course.units.first
+    @lecture = @unit.lectures.first
+    @page = @course.pages.second
+
+    login_as(@instructor, :scope => :user)
+    visit home_path
   end
 
-  test 'can sign in' do
-    visit new_user_session_path
-    fill_in 'user_email', with: @instructor.email
-    fill_in 'Password', with: @instructor.password
-    click_button 'Login'
-    
-    expect(page).to have_content("Builder")
-    expect(current_path).to eq home_path
+  def teardown
+    logout(:user)
   end
 
   test 'can list courses and create new one' do
-    login_as(@instructor, :scope => :user)
-    visit root_path
-    
-    expect(current_path).to eq home_path
+    assert_equal home_path, current_path
     find(:xpath, "//a[@href='/teach/courses']").click
-    expect(current_path).to eq teach_courses_path
 
     click_link 'New'
-    expect(current_path).to eq new_teach_course_path
+    assert_equal new_teach_course_path, current_path
 
-    fill_in 'course_slug', with: 'stat101'
-    fill_in 'course_name', with: 'Statistics 101'
+    fill_in 'course_slug', with: 'chem101'
+    fill_in 'course_name', with: 'Chemistry 101'
     fill_in 'wmd-input', with: Faker::Lorem.paragraphs(2).join("\n")
     fill_in 'course_weeks', with: 8
     fill_in 'course_workload', with: 5
 
     click_button 'Create'
 
-    expect(page).to have_content('Statistics 101')
+    assert page.has_content?('Chemistry 101')
+  end
+
+  test 'visit class syllabus' do
+    visit teach_course_page_path(@course, @course.syllabus)
+
+    assert page.has_content?(@course.syllabus.name)
   end
 
   test 'can edit syllabus' do
-    login_as(@instructor, :scope => :user)
-    visit root_path
-    
     visit teach_course_path(@course)
 
     visit edit_teach_course_page_path(@course, @course.syllabus)
@@ -55,13 +50,10 @@ class InstructorFlowsTest < ActionDispatch::IntegrationTest
 
     click_button 'Update'
 
-    expect(page).to have_content(description)
+    assert page.has_content?(description)
   end
 
   test 'can create assessment' do
-    login_as(@instructor, :scope => :user)
-    visit root_path
-    
     visit teach_course_path(@course)
 
     visit new_teach_course_assessment_path(@course, t: 'final')
@@ -75,15 +67,12 @@ class InstructorFlowsTest < ActionDispatch::IntegrationTest
 
     click_button 'Create'
 
-    expect(page).to have_content(name)
+    assert page.has_content?(name)
   end
 
   test 'can edit assessment' do
-    @assessment = create(:assessment, kind: 'final')
-    @course.assessments << @assessment
-    login_as(@instructor, :scope => :user)
-    visit root_path
-    
+    @assessment = assessments(:final_eng101)
+
     visit teach_course_path(@course)
 
     visit edit_teach_course_assessment_path(@course, @assessment)
@@ -97,33 +86,28 @@ class InstructorFlowsTest < ActionDispatch::IntegrationTest
 
     click_button 'Update'
 
-    expect(page).to have_content(name)
+    assert page.has_content?(name)
   end
 
   test 'can add people' do
-    login_as(@instructor, :scope => :user)
-    visit root_path
-    
     visit teach_course_path(@course)
 
     visit new_teach_course_instructor_path(@course)
 
     name = Faker::Lorem.words(2).join(" ")
-    fill_in 'instructor_email', with: 'foo@bar.com'
+    fill_in 'instructor_email', with: 'one@bar.foo'
     select('Assistant', :from => 'instructor_role')
     fill_in 'instructor_name', with: name
     fill_in 'wmd-input', with: Faker::Lorem.paragraphs(3).join("\n")
 
     click_button 'Create'
 
-    expect(page).to have_content(name)
+    assert page.has_content?(name)
   end
 
   test 'can edit people' do
-    user = create(:user)
-    assisstant = create(:instructor, user: user, course: @course, email: 'foo@bar.com', role: 'Assistant')
-    login_as(@instructor, :scope => :user)
-    visit root_path
+    user = users(:three)
+    assisstant = instructors(:instructor_eng101)
     
     visit teach_course_path(@course)
 
@@ -137,13 +121,10 @@ class InstructorFlowsTest < ActionDispatch::IntegrationTest
 
     click_button 'Update'
 
-    expect(page).to have_content(name)
+    assert page.has_content?(name)
   end
 
   # scenario 'can add books' do
-  #   login_as(@instructor, :scope => :user)
-  #   visit root_path
-    
   #   visit teach_course_path(@course)
 
   #   visit new_teach_course_material_path(@course, s: 'document', t: 'books')
@@ -152,9 +133,6 @@ class InstructorFlowsTest < ActionDispatch::IntegrationTest
   # end
 
   test 'can create a page' do
-    login_as(@instructor, :scope => :user)
-    visit root_path
-    
     visit teach_course_path(@course)
 
     visit new_teach_course_page_path(@course)
@@ -165,13 +143,10 @@ class InstructorFlowsTest < ActionDispatch::IntegrationTest
 
     click_button 'Create'
 
-    expect(page).to have_content(name)
+    assert page.has_content?(name)
   end
 
   test 'can edit a page' do
-    login_as(@instructor, :scope => :user)
-    visit root_path
-    
     visit teach_course_path(@course)
 
     visit edit_teach_course_page_path(@course, @page)
@@ -182,13 +157,10 @@ class InstructorFlowsTest < ActionDispatch::IntegrationTest
 
     click_button 'Update'
 
-    expect(page).to have_content(name)
+    assert page.has_content?(name)
   end
 
   test 'can create a survey' do
-    login_as(@instructor, :scope => :user)
-    visit root_path
-    
     visit teach_course_path(@course)
 
     visit new_teach_course_assessment_path(@course, t: 'survey')
@@ -201,34 +173,10 @@ class InstructorFlowsTest < ActionDispatch::IntegrationTest
 
     click_button 'Create'
 
-    expect(page).to have_content(name)
-  end
-
-  test 'can edit an assessment' do
-    @assessment = create(:assessment, kind: 'survey')
-    @course.assessments << @assessment
-    login_as(@instructor, :scope => :user)
-    visit root_path
-    
-    visit teach_course_path(@course)
-
-    visit edit_teach_course_assessment_path(@course, @assessment)
-    
-    name = Faker::Lorem.words(2).join(" ")
-    fill_in 'assessment_name', with: name
-    fill_in 'assessment_from_datetime', with: Time.zone.today
-    fill_in 'assessment_to_datetime', with: 10.days.from_now
-    select('On class enrollment', :from => 'assessment_event_list')
-
-    click_button 'Update'
-
-    expect(page).to have_content(name)
+    assert page.has_content?(name)
   end
 
   test 'can create a unit' do
-    login_as(@instructor, :scope => :user)
-    visit root_path
-    
     visit teach_course_path(@course)
 
     visit new_teach_course_unit_path(@course)
@@ -241,13 +189,10 @@ class InstructorFlowsTest < ActionDispatch::IntegrationTest
 
     click_button 'Create'
 
-    expect(page).to have_content(name)
+    assert page.has_content?(name)
   end
 
   test 'can edit a unit' do
-    login_as(@instructor, :scope => :user)
-    visit root_path
-    
     visit teach_course_path(@course)
 
     visit edit_teach_course_unit_path(@course, @unit)
@@ -260,13 +205,10 @@ class InstructorFlowsTest < ActionDispatch::IntegrationTest
 
     click_button 'Update'
 
-    expect(page).to have_content(name)
+    assert page.has_content?(name)
   end
 
   test 'can create a lecture in the unit' do
-    login_as(@instructor, :scope => :user)
-    visit root_path
-
     visit teach_course_path(@course)
 
     visit new_teach_course_unit_lecture_path(@course, @unit)
@@ -280,13 +222,10 @@ class InstructorFlowsTest < ActionDispatch::IntegrationTest
 
     click_button 'Create'
 
-    expect(page).to have_content(name)
+    assert page.has_content?(name)
   end
 
-  # test 'can edit a lecture in the unit' do
-  #   login_as(@instructor, :scope => :user)
-  #   visit root_path
-    
+  # test 'can edit a lecture in the unit' do    
   #   visit teach_course_path(@course)
 
   #   visit edit_teach_course_unit_lecture_path(@course, @unit, @lecture)
@@ -300,15 +239,12 @@ class InstructorFlowsTest < ActionDispatch::IntegrationTest
   
   #   click_button 'Update'
 
-  #   expect(page).to have_content(name)
+  #   assert page.has_content?(name)
 
   #   save_and_open_page
   # end
 
   test 'can create an assessment in the unit' do
-    login_as(@instructor, :scope => :user)
-    visit root_path
-    
     visit teach_course_path(@course)
 
     visit  new_teach_course_unit_assessment_path(@course, @unit, t: 'quiz')
@@ -322,14 +258,12 @@ class InstructorFlowsTest < ActionDispatch::IntegrationTest
 
     click_button 'Create'
 
-    expect(page).to have_content(name)
+    assert page.has_content?(name)
   end
 
   test 'can edit an assessment in the unit' do
-    @assessment = create(:assessment, kind: 'quiz')
-    login_as(@instructor, :scope => :user)
-    visit root_path
-    
+    @assessment = assessments(:problem_eng101)
+
     visit teach_course_path(@course)
 
     visit  edit_teach_course_unit_assessment_path(@course, @unit, @assessment)
@@ -343,13 +277,10 @@ class InstructorFlowsTest < ActionDispatch::IntegrationTest
 
     click_button 'Update'
 
-    expect(page).to have_content(name)
+    assert page.has_content?(name)
   end
 
   test 'can create a page in the unit' do
-    login_as(@instructor, :scope => :user)
-    visit root_path
-    
     visit teach_course_path(@course)
 
     visit  new_teach_course_unit_page_path(@course, @unit)
@@ -360,13 +291,10 @@ class InstructorFlowsTest < ActionDispatch::IntegrationTest
 
     click_button 'Create'
 
-    expect(page).to have_content(name)
+    assert page.has_content?(name)
   end
 
-  test 'can edit a page in the unit' do
-    login_as(@instructor, :scope => :user)
-    visit root_path
-    
+  test 'can edit a page in the unit' do    
     visit teach_course_path(@course)
 
     visit  edit_teach_course_unit_page_path(@course, @unit, @page)
@@ -377,13 +305,10 @@ class InstructorFlowsTest < ActionDispatch::IntegrationTest
 
     click_button 'Update'
 
-    expect(page).to have_content(name)
+    assert page.has_content?(name)
   end
 
   # test 'can add a document in the unit' do
-  #   login_as(@instructor, :scope => :user)
-  #   visit root_path
-    
   #   visit teach_course_path(@course)
 
   #   visit  new_teach_course_unit_material_path(@course, @unit, s: 'document')
@@ -392,9 +317,6 @@ class InstructorFlowsTest < ActionDispatch::IntegrationTest
   # end
 
   # test 'can add a file' do
-  #   login_as(@instructor, :scope => :user)
-  #   visit root_path
-    
   #   visit teach_course_path(@course)
 
   #   visit multi_new_teach_course_medium_path(@course)

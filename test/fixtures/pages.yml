@@ -1,65 +1,75 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-# Course eng101
-faq_eng101:
-  account: main
-  owner: eng101(Course)
-  name: Frequently Asked Questions
-  about: 
-    Nulla vitae elit libero, a pharetra augue. Donec ullamcorper nulla non 
-    metus auctor fringilla. Sed posuere consectetur est at lobortis. Aenean 
-    eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. 
-    Nullam id dolor id nibh ultricies vehicula ut id elit. Nullam id dolor 
-    id nibh ultricies vehicula ut id elit.
-  blog: false
-  html: false
-  public: false
-  published: true
-  order: 1
+<% words = "Sed posuere consectetur est at lobortis beneaneu leo quam Pellentesque ornare sem".split(' ') %>
 
-notes_eng101:
+blog_post:
   account: main
-  owner: l02_u01_eng101(Lecture)
-  name: Dapibus Nullam Commodo Ligula
+  owner: super(User)
+  name: <%= words.sample(5).join(' ') %>
   about: 
-    Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget 
-    lacinia odio sem nec elit. Morbi leo risus, porta ac consectetur ac, 
-    vestibulum at eros. Maecenas sed diam eget risus varius blandit sit 
-    amet non magna. Maecenas faucibus mollis interdum.
-  blog: false
+    <%= words.sample(7).join(' ') %>. Donec id elit non mi porta gravida metus.
+    Cras odio, dapibus facilisis in, egestas eget quam. Vestibulum id ligula 
+    porta felis euismod semper. Vestibulum id ligula porta felis euismod 
+    semper. Donec sed odio dui. <%= words.sample(10).join(' ') %>.
+  blog: true
   html: false
-  public: false
+  public: true
   published: true
-  order: 1
+  slug: intro
 
-# Course stat101
-faq_stat101:
+# Course pages
+<% %w(eng101 stat101).each do |c| %>
+  <% %w(syllabus faq guide).each do |p| %>
+<%= p %>_<%= c %>:
   account: main
-  owner: stat101(Course)
-  name: Frequently Asked Questions
+  owner: <%= c %>(Course)
+  name: <%= words.sample(5).join(' ') %>
   about: 
-    Metus auctor fringilla sed posuere consectetur est at lobortis. Aenean 
-    eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. 
-    Nullam id dolor id nibh ultricies vehicula ut id elit. Nullam id dolor 
-    id nibh ultricies vehicula ut id elit.
-  blog: false
-  html: false
-  public: false
-  published: true
-  order: 1
-
-notes_stat101:
-  account: main
-  owner: l06_u01_eng101(Lecture)
-  name: Elit Dapibus Justo Ligula
-  about: 
-    Sed posuere consectetur est at lobortis. Sed posuere consectetur est at 
-    lobortis. Donec id elit non mi porta gravida at eget metus. Cras justo 
-    odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula 
+    <%= words.sample(7).join(' ') %>. Donec id elit non mi porta gravida metus.
+    Cras odio, dapibus facilisis in, egestas eget quam. Vestibulum id ligula 
     porta felis euismod semper. Vestibulum id ligula porta felis euismod 
     semper. Donec sed odio dui.
   blog: false
   html: false
   public: false
   published: true
+
+  <% end %>
+<% end %>
+
+# Lecture & unit pages
+<% ['eng101', 'stat101'].each_with_index do |c, i| %>
+  <% ['u01', 'u02'].each_with_index do |u, j| %>
+summary_<%= %(#{u}_#{c}) %>:
+  account: main
+  owner: <%= %(#{u}_#{c}) %>(Unit)
+  name: <%= words.sample(5).join(' ') %>
+  about: 
+    <%= words.sample(7).join(' ') %>. Duis mollis, est commodo luctus, nisi 
+    erat porttitor ligula, eget lacinia odio sem nec elit. Morbi leo risus, 
+    porta ac consectetur ac, vestibulum at eros. Maecenas sed diam eget risus 
+    varius blandit sit amet non magna. Maecenas faucibus mollis interdum.
+  blog: false
+  html: false
+  public: false
+  published: true
   order: 1
+
+  <% (1..2).each do |l| %>
+notes_<%= %(l#{l}_#{u}_#{c}) %>:
+  account: main
+  owner: <%= %(l#{l}_#{u}_#{c}) %>(Lecture)
+  name: <%= words.sample(5).join(' ') %>
+  about: 
+    <%= words.sample(7).join(' ') %>. Duis mollis, est commodo luctus, nisi 
+    erat porttitor ligula, eget lacinia odio sem nec elit. Morbi leo risus, 
+    porta ac consectetur ac, vestibulum at eros. Maecenas sed diam eget risus 
+    varius blandit sit amet non magna. Maecenas faucibus mollis interdum.
+  blog: false
+  html: false
+  public: false
+  published: true
+  order: 1
+    <% end %>
+  <% end %>
+<% end %>

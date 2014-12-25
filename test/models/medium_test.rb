@@ -26,6 +26,7 @@ class MediumTest < ActiveSupport::TestCase
   test "invalid without a path and a url" do
   	@medium.url = nil
   	@medium.path = nil
+    @medium.is_a_link = '0'
   	assert_not @medium.valid?
   end
   

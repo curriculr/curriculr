@@ -28,7 +28,7 @@ audio_<%= c %>:
   url: http://www.foo.bar/sounds/track.mp3
   content_type: link/www
 
-audio_<%= c %>:
+document_<%= c %>:
   account: main
   course: <%= c %>
   name: Document Medium

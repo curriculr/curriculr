@@ -12,16 +12,12 @@ class QuestionTest < ActiveSupport::TestCase
   end
 
   test "with valid fixtures" do
-    puts "\n\n\n#{@simple.banks.map {|t| t.name}}\n\n\n"
-    @simple.valid?
-    puts @simple.errors.full_messages
   	assert @simple.valid?
-    puts @simple.errors.full_messages
   	assert @fill.valid?
-  	assert @pick_2_fill_question.valid?
+    assert @pick_2_fill.valid?
   	assert @pick_one.valid?
   	assert @pick_many.valid?
-  	assert @mat.valid?
+  	assert @match.valid?
   	assert @sort.valid?
   end
 
@@ -47,11 +43,6 @@ class QuestionTest < ActiveSupport::TestCase
   
   test "invalid if it's a simple and answer is nil" do
   	@simple.options.destroy_all
-    assert_not @simple.valid?
-  end
-  
-  test "invalid if it's a simple with more that one answer" do
-  	@simple.options << options(:simple_1_eng101)
     assert_not @simple.valid?
   end
   

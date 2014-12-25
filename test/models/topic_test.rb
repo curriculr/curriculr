@@ -16,6 +16,6 @@ class TopicTest < ActiveSupport::TestCase
   
   test "invalid without about" do
   	@topic.about = nil
-    assert_not @topic.valid?
+    assert_not @topic.valid?(:create)
   end
 end
