@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # By Rails 
-gem 'rails', '4.2.0.rc3'
+gem 'rails', '4.2.0'
 
 # Either postgresql  
 gem 'pg'
@@ -67,6 +67,4 @@ gem 'responders'
 gem 'acts-as-taggable-on'
 gem 'chosen-rails'
 gem 'friendly_id', '~> 5.0.0'
-#gem 'roadie-rails'
 gem 'jquery-fileupload-rails'
-

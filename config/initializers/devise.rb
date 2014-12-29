@@ -1,6 +1,4 @@
 Devise.setup do |config|
-  # ==> Mailer Configuration
-  config.mailer_sender = Rails.application.secrets.auth_mailer_sender
   config.mailer = "Mailer"
 
   require 'devise/orm/active_record'
@@ -18,7 +16,6 @@ Devise.setup do |config|
   config.sign_out_via = :delete
 
   # ==> OmniAuth
-  #require "omniauth-facebook"
   OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE if Rails.env.development? 
   %w(facebook google_oauth2 twitter linkedin github).each do |app|
     if Rails.application.secrets.auth[app]

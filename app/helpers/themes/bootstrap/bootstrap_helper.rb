@@ -163,12 +163,7 @@ module Themes::Bootstrap::BootstrapHelper
   end
   
   def logo_path
-    # path = "/images/logo/%{dark_or_light}-%{flavor}.%{locale}.png"
-    # dark_or_light = :dark
-    # flavor = current_account.config['theme']['flavor'] || $site['theme']['flavor']
-    # path % {dark_or_light: dark_or_light, flavor: flavor , locale: locale}
-
-    "/images/logo.svg"
+    current_account.config['theme']['logo'].present? ? "/images/logo.png" : false
   end
 
   def ui_klass_labels(klass)

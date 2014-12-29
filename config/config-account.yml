@@ -6,6 +6,7 @@ account:
     name: bootstrap
     fluid: false
     flavor: vanilla
+    logo: true
   
   use_gravatar: true
 

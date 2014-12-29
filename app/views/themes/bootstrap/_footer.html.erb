@@ -21,7 +21,9 @@
        <div class="<%= css_columns(2) %> col-sm-4 col-xs-4">
          <ul>
            <li><h4><span><%= t('page.titles.more_info_html') %></span></h4></li>
-           <li><%= link(:klass, :index, main_app.learn_klasses_path) %></li>
+           <li>
+            <%= link_to(css_icon('th-list', 1) + Klass.model_name.human(count: 3) , main_app.  learn_klasses_path) %>
+           </li>
            <li><%= link(:page, :blogs, main_app.blogs_path) %></li>
          </ul>
        </div>

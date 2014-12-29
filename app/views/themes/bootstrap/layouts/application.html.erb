@@ -10,7 +10,7 @@
   <% flavor = current_account.config['theme']['flavor'] || $site['theme']['flavor'] %>
   <%= stylesheet_link_tag "bootstrap/#{flavor}#{rtl? ? '_rtl' : ''}", :media => "all" %>
 	<%= stylesheet_link_tag "application", :media => "all" %>
-  <%= favicon_link_tag '/images/favicon.png' %>
+  <%= favicon_link_tag '/favicon.ico' %>
 	<%= csrf_meta_tags %>
   
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

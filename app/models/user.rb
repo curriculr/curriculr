@@ -1,9 +1,7 @@
 class User < ActiveRecord::Base  
   include Scopeable
   include Omniauthable
-  # Include default devise modules. Others available are:
-  # :token_authenticatable, :confirmable,
-  # :lockable, :timeoutable and :omniauthable
+
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :omniauth_providers => [
@@ -84,7 +82,7 @@ class User < ActiveRecord::Base
      update_attributes(:active => true)
   end
 
-  # Devise
+  # Devise notifications
   def send_devise_notification(notification, *args)
     args[1][:from] = self.account.config['mailer']['send_from']
     args[1][:to] = self.email

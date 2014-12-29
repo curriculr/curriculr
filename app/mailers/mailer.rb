@@ -1,7 +1,5 @@
 class Mailer < Devise::Mailer
-  #include Roadie::Rails::Automatic
-  #include Devise::Controllers::UrlHelpers 
-  helper :application
+  include ApplicationHelper
   layout 'mailer'
 
   def prepare_msg(account, title=nil)
