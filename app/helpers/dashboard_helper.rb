@@ -82,7 +82,7 @@ module DashboardHelper
       group("date(updated_at)").select("date(updated_at) as day, '#' as url, 'none' as content_type, count(*) as count").to_a
 
     names = ['medium', 'question', 'assessment']
-    activities = (since.to_date..Date.today).map do |date|
+    activities = (since.to_date..Time.zone.today).map do |date|
       data = Hash[names.map do |n| [n, 0] end]
       media = media_by_day.select { |m| m.day.to_date == date }
       media.each {|m| data['medium'] = m.count}
@@ -97,7 +97,7 @@ module DashboardHelper
     end
     
     i = -1
-    data = (since.to_date..Date.today).map do |date|
+    data = (since.to_date..Time.zone.today).map do |date|
       i += 1
       [date.strftime('%b %d'), activities[i].values].flatten
     end
@@ -150,7 +150,7 @@ module DashboardHelper
       select('action, sum(times) as count, date(created_at) as day').to_a
 
     names = %w(assessment attendance participation enrollment)
-    activities = (since.to_date..Date.today).map do |date|
+    activities = (since.to_date..Time.zone.today).map do |date|
       data = Hash[names.map do |n| [n, 0] end]
       acts = activity_by_day.select { |a| a.day.to_date == date }
       acts.each do |a| 
@@ -162,7 +162,7 @@ module DashboardHelper
     end
     
     i = -1
-    data = (since.to_date..Date.today).map do |date|
+    data = (since.to_date..Time.zone.today).map do |date|
       i += 1
       [date.strftime('%b %d'), activities[i].values].flatten
     end
@@ -218,7 +218,7 @@ module DashboardHelper
     signins = _users_by_day(since, true, 'last_sign_in_at')
     
     i = -1
-    data = (since.to_date..Date.today).map do |date|
+    data = (since.to_date..Time.zone.today).map do |date|
       i += 1
       [date.strftime('%b %d'), r_users[i], c_users[i], enrollments[i], signins[i]]
     end
@@ -235,7 +235,7 @@ module DashboardHelper
     c_users = _users_by_day(since)
     enrollments = _enrollments_by_day(since)
     i = -1
-    data = (since.to_date..Date.today).map do |date|
+    data = (since.to_date..Time.zone.today).map do |date|
       i += 1
       [c_users[i], enrollments[i]]
     end
@@ -250,7 +250,7 @@ module DashboardHelper
       
     users_by_day = users_by_day.where('confirmed_at is not null') if confirmed
     
-    (since.to_date..Date.today).map do |date|
+    (since.to_date..Time.zone.today).map do |date|
       user = users_by_day.detect { |user| user.day.to_date == date }
       user && user.count || 0
     end
@@ -261,7 +261,7 @@ module DashboardHelper
       group("date(created_at)").
       select("date(created_at) as day, count(*) as count")
     
-    (since.to_date..Date.today).map do |date|
+    (since.to_date..Time.zone.today).map do |date|
       enrollment = enrollments_by_day.detect { |enrollment| enrollment.day.to_date == date }
       enrollment && enrollment.count || 0
     end

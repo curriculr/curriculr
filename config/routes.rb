@@ -193,8 +193,14 @@ Rails.application.routes.draw do
   get 'about', :to => "miscellaneous#team", :as => 'about'
   get 'contactus', :to => "miscellaneous#contactus", :as => 'contactus'
   get 'home', :to => 'users#home', :as => :home
+
   root :to => 'users#front', :via => :get  
   
-	# Temporary fix for catching routing errors
-	get '*path', :to => 'application#routing_error'
+  # Handling errors
+  match '/401', to: 'errors#unauthorized', via: :all, as: :error_401
+  match '/404', to: 'errors#not_found', via: :all, as: :error_404
+  match '/422', to: 'errors#unprocessable', via: :all, as: :error_422
+  match '/500', to: 'errors#server_error', via: :all, as: :error_500
+
+  #get "*any", via: :all, to: "errors#not_found"
 end

@@ -17,8 +17,7 @@ class ApplicationController < PreApplicationController
   before_action :set_theme
   before_action :configure_devise_params, if: :devise_controller?
   
-	#rescue_from CanCan::AccessDenied, :with => :render_401
-  #rescue_from ActionController::RoutingError, :with => :render_404
+	rescue_from CanCan::AccessDenied, :with => :render_401
   rescue_from KlassAccessDeniedError do |e|
     flash[:part] = e.message
     redirect_to access_learn_klass_path(@klass)
@@ -73,23 +72,9 @@ class ApplicationController < PreApplicationController
 	def render_401 (exception = nil)
 		if exception
       if current_user
-        if current_user.has_role? :faculty
-          redirect_to main_app.teach_courses_path, :flash => {:error => t('activerecord.messages.page_unauthorized_html', :path => request.path) }
-        else
-          redirect_to main_app.learn_klasses_path, :flash => {:error => t('activerecord.messages.page_unauthorized_html', :path => request.path) }
-        end
+        redirect_to error_401_path
       else
         redirect_to main_app.new_user_session_path, :flash => {:notice => t('activerecord.messages.must_signin', :path => request.path) }
-      end
-		end
-	end
-  
-	def render_404 (exception = nil)
-		if exception
-      if current_user
-			  redirect_to main_app.root_path, :flash => {:error => t('activerecord.messages.page_not_found_html', :path => request.path) }
-      else
-        redirect_to main_app.root_path, :flash => {:notice => t('activerecord.messages.must_signin', :path => request.path) }
       end
 		end
 	end

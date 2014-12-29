@@ -28,7 +28,7 @@ class LectureTest < ActiveSupport::TestCase
   end
   
   test "valid with on_date = today" do
-    @lecture.on_date = Date.today
+    @lecture.on_date = Time.zone.today
   	assert @lecture.valid?
   end
   

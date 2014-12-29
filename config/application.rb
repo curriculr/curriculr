@@ -27,19 +27,6 @@ module Curriculr
     # the adapter's specific installation and deployment instructions.
     config.active_job.queue_adapter = :sidekiq
     
-    # Configuring generators to use rspec and factory-girl
-    # config.generators do |g| 
-    #   g.test_framework :rspec, 
-    #     :fixtures => true, 
-    #     :view_specs => false, 
-    #     :helper_specs => false, 
-    #     :routing_specs => false, 
-    #     :controller_specs => true, 
-    #     :request_specs => false 
-      
-    #   g.fixture_replacement :factory_girl, :dir => "spec/factories" 
-    # end
-    
     # Initialize redis and load application configuration
     config.redis_databases = {
       "development" => 0, 
@@ -67,5 +54,7 @@ module Curriculr
     
     config.time_zone = config.site['time_zone']
     config.i18n.default_locale = config.site['locale']
+
+    config.exceptions_app = self.routes
   end
 end
