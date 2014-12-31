@@ -2,7 +2,7 @@ Curriculr is a free open-source online course management and delivery system des
 
 - **Full-fledged**: Instructors can create courses and organize their contents into units and lectures with videos, audios, images, and documents. Students can enroll in classes, participate in discussions, attend lectures, attempt quizzes and exams, and track their progress.
 
-- **Internationalized**: It comes out of the box with support for two locals `en` (English) and `ar` (Arabic); and other locales can easily be added.
+- **Internationalized**: It comes out of the box with support for two locales `en` (English) and `ar` (Arabic); and other locales can easily be added.
 
 - **Multi-tenant**: Tenants, which are called accounts (not to be confused with user accounts) are identified by subdomains and are completely separate from one another. Each account (tenant) acts as if it is a separate site with its own configuration, courses, users and theme.
 
@@ -27,7 +27,7 @@ On the server side, Curriculr is built using
 
 A complete list of the gems used in building Curriculr is found at [Gemfile](https://github.com/curriculr/curriculr/blob/master/Gemfile).
 
-Our goal is to keep Curriculr as standard a Rails application as possible so that all the best practices of Rails development and deployment can be easily leveraged.
+Our goal is to keep Curriculr as standard a Rails application as possible so that all the best practices of Rails development and deployment can easily be leveraged.
 
 ## Installation
 Refer to the [installation guide](http://www.curriculr.org/docs/installation.html) for detailed instructions.
@@ -41,7 +41,7 @@ There are three kinds of configurations that can be used to change the behavior 
 
 - **Course settings**: Managed by the course instructor, these configurations apply to the course being configured and include configurations such as `grade_distribution`.
 
-Refer to the [configuration guide](http://www.curriculr.org/docs/installation.html) for more detailed information.
+Refer to the [configuration guide](http://www.curriculr.org/docs/configuration.html) for more detailed information.
 
 ## Running the Tests
 To run the tests, you need to run
