@@ -15,7 +15,7 @@ end
 account = nil
 if Account.where(:slug => $site['default_account']).to_a.empty?
   account = Account.create(
-    :admin => su,
+    :user => su,
     :slug => $site['default_account'],
     :name => 'Default Account',
     :about => 'The default account of the site',

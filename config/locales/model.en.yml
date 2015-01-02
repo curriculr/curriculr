@@ -119,6 +119,7 @@ en:
       new_link: <i class="fa fa-plus"></i> External link
       account_settings: Account settings
       site_settings: Site settings
+      course_settings: Course settings
       new_attempt: <i class="fa fa-plus"></i> New attempt
       copy: Copy
       course_builder: <i class="fa fa-cogs"></i> Builder

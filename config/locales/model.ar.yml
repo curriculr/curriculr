@@ -120,6 +120,7 @@ ar:
       new_link: <i class="fa fa-plus"></i> أضف وصلة خارجية
       account_settings: إعدادت الحساب
       site_settings: إعدادات الموقع
+      course_settings: إعدادات المقرر
       new_attempt: <i class="fa fa-plus"></i> إبدأ محاولة جديدة
       copy: انسخ
       course_builder: <i class="fa fa-cogs"></i> للمدرسين

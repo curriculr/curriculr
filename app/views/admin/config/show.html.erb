@@ -1,4 +1,4 @@
-<%= ui_header t('page.titles.configurations'), :style => :h3 %>
+<%= ui_header t('activerecord.actions.site_settings'), :style => :h3 %>
 
 <% themed_form_for 'site', :url => admin_config_path, :method => :put, :show_help => true do |f| %>
   <%= form_hidden f, :settings, :value => @settings %>
