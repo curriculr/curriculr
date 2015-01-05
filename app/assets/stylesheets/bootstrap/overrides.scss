@@ -166,6 +166,10 @@ section {
   .jumbotron {
     background: $brand-primary; //url('/images/blank.gif') repeat;
     padding: 40px 0px;
+
+    h4 {
+      padding-top: 20px;
+    }
   }
 }
 
