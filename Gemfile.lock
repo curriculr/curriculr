@@ -326,7 +326,7 @@ GEM
     ref (1.0.5)
     responders (2.0.2)
       railties (>= 4.2.0.alpha, < 5)
-    rmagick (2.13.4)
+    rmagick (2.13.2)
     rolify (3.4.1)
     rubyzip (1.1.6)
     sass (3.2.19)
@@ -445,7 +445,7 @@ DEPENDENCIES
   redis
   redis-namespace
   responders
-  rmagick
+  rmagick (= 2.13.2)
   rolify
   sass-rails (~> 4.0)
   sdoc (~> 0.4.0)
