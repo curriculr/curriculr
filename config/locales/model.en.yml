@@ -770,3 +770,5 @@ en:
       file_or_external_link: file or external link
       external_link: external link
       the_last_information_from_html: The last information from %{url}.
+      powered_by_html: <small>Powered by</small> %{logo}
+      file_upload_not_allowed: File upload is turned off.

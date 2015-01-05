@@ -1,24 +1,28 @@
 <%= ui_header t('page.titles.select_files'), style: @course ? :h3 : :h2 %>
 
-<%= themed_form_for the_form_path, :html => {
-			:multipart => true, id: 'multi_new_medium', class: 'dropzone', 
-			data: { extensions: @medium.allowed_file_extensions.join('|')}} do |f| %>	
-	<%= form_hidden f, :account_id %>
-	<%= form_hidden f, :course_id %>
-  <%= form_hidden f, :multi, value: "multi_load" %>
-  <%= form_files f, :path, name: "medium[path]", label: t('activerecord.actions.select_files'),
-  		hint: t('page.text.select_files_or_drop') %> 
-<% end %>
+<% if @medium.file_upload_allowed? %>
+	<%= themed_form_for the_form_path, :html => {
+				:multipart => true, id: 'multi_new_medium', class: 'dropzone', 
+				data: { extensions: @medium.allowed_file_extensions.join('|')}} do |f| %>	
+		<%= form_hidden f, :account_id %>
+		<%= form_hidden f, :course_id %>
+	  <%= form_hidden f, :multi, value: "multi_load" %>
+	  <%= form_files f, :path, name: "medium[path]", label: t('activerecord.actions.select_files'),
+	  		hint: t('page.text.select_files_or_drop') %> 
+	<% end %>
 
-<%= link_to t('activerecord.actions.close'), 
-		  @medium.m.present? ? the_material_path_out(@medium.kind, @medium.m) : the_path_out,
-	 	  class: css(button: :default) %>
+	<%= link_to t('activerecord.actions.close'), 
+			  @medium.m.present? ? the_material_path_out(@medium.kind, @medium.m) : the_path_out,
+		 	  class: css(button: :default) %>
 
-<script id="template-upload" type="text/x-tmpl">
-	<div class="upload">
-	  {%= o.name %}
-	  <div class="progress">
-	  	<div class="progress-bar" role="progressbar" style="width: 0%;"></div>
+	<script id="template-upload" type="text/x-tmpl">
+		<div class="upload">
+		  {%= o.name %}
+		  <div class="progress">
+		  	<div class="progress-bar" role="progressbar" style="width: 0%;"></div>
+			</div>
 		</div>
-	</div>
-</script>
+	</script>
+<% else %>
+	<%= ui_alert nil, t('page.text.file_upload_not_allowed'), :info %>
+<% end %>

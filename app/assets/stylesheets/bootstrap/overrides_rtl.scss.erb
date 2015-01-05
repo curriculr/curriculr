@@ -1,8 +1,11 @@
+@import url(//fonts.googleapis.com/css?family=Open+Sans:300);
+@import url(//fonts.googleapis.com/earlyaccess/droidarabickufi.css);
+
+$font-family-base: 'lucida grande', tahoma, verdana, arial, sans-serif;
 <% if ENV['RTL'].present? && ENV['RTL'] == 'ar' %>
-	@import url(//fonts.googleapis.com/earlyaccess/droidarabickufi.css);
-  $font-family-base: 'Droid Arabic Kufi', 'lucida grande', tahoma, verdana, arial, sans-serif;
+  $font-family-base: 'Droid Arabic Kufi', 'Open Sans', $font-family-base;
   $font-size-base: 14px;
 <% else %>
-	$font-family-base: 'lucida grande', tahoma, verdana, arial, sans-serif;
+	$font-family-base: 'Open Sans', 'Droid Arabic Kufi', $font-family-base;
 	$font-size-base: 14px;
 <% end %>

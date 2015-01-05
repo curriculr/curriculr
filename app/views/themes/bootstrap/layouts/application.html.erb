@@ -46,7 +46,7 @@
     <%= render :template => 'layouts/blog' %>
   <% elsif @course and !@course.new_record? %>
     <%= render :template => "layouts/teach" %>
-  <% elsif @klass #and (@klass.enrolled?(current_student) or  staff?(current_user, @klass.course)) %>
+  <% elsif @klass %>
     <%= render :template => "layouts/learn" %>
   <% else %>
     <%= render :template => "layouts/default" %>

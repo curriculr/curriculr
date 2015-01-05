@@ -775,3 +775,5 @@ ar:
       file_or_external_link: ملف أو وصلة خارجية
       external_link: وصلة خارجية
       the_last_information_from_html: أخر رسائل التحديث من %{url}.
+      powered_by_html: Powered by %{logo}
+      file_upload_not_allowed: تحميل الملفات غير مفعل حاليا.

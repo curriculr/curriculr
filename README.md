@@ -4,7 +4,7 @@ Curriculr is a free open-source online course management and delivery system des
 
 - **Internationalized**: It comes out of the box with support for two locales `en` (English) and `ar` (Arabic); and other locales can easily be added.
 
-- **Multi-tenant**: Tenants, which are called accounts (not to be confused with user accounts) are identified by subdomains and are completely separate from one another. Each account (tenant) acts as if it is a separate site with its own configuration, courses, users and theme.
+- **Multi-tenant**: Tenants, which are called accounts (not to be confused with user accounts) are identified by sub-domains and are completely separate from one another. Each account (tenant) acts as if it is a separate site with its own configuration, courses, users and theme.
 
 - **Themeable**: It supports themes and theme inheritance. Adding a new theme can be as easy as providing a name and changing a few CSS style classes.
 

@@ -34,8 +34,7 @@
            <% current_account.config['social_pages'].each do |page, at| %>
              <% if at && at.strip.present? %>
                <li>
-                 <%= link_to at, 
-                       :title => t('activerecord.actions.visit_us_at', :name => page) do %>
+                 <%= link_to at, :title => t('activerecord.actions.visit_us_at', :name => page) do %>
                    <i class="fa fa-<%= page %> fa-lg"></i> 
                    <%= page.titleize %>
                  <% end %>
@@ -48,6 +47,7 @@
      </div>
    </div>
  </div>
+ 
  <div class="footer-bottom">
    <div class="<%= css_container %>">
      <div class="row">
@@ -60,7 +60,15 @@
            <%= link :page, :privacy, main_app.localized_page_path(:privacy) %>
          </span>
        </div>
-       <div class="<%= css_columns(4) %>"></div>
+       <div class="<%= css_columns(4) %>">
+         <div class="row text-right">
+          <% if current_account.config['title'] !~ /Curriculr/i %>
+            <%= t('page.text.powered_by_html', logo: link_to(
+                  image_tag("/images/curriculr-white.png"), 'http://www.curriculr.org', target: '_new'
+                )) %>
+          <% end %>
+         </div>
+       </div>
      </div>
    </div>
  </div>
