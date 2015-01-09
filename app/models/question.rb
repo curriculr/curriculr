@@ -13,7 +13,19 @@ class Question < ActiveRecord::Base
   def answer # Used in attempt
     answer = {}
     options.each do |o|
-      answer[o.id] = o.answer
+      case kind.to_sym
+      when :sort
+        o.option_items.each_with_index do |item, i|
+          answer[i + 1] = item
+        end
+      when :match
+        answers = o.answer_options_items
+        o.option_items.each_with_index do |item, i|
+          answer[i + 1] = answers[i]
+        end
+      else
+        answer[o.id] = o.answer
+      end
     end
     
     answer
@@ -35,73 +47,99 @@ class Question < ActiveRecord::Base
 	def has_valid_options?
     return if kind.blank?
     
-    blank_option = false
-		q_options = []
-    q_answers = []
-    count = 0
-    blank = false
-    missing_option = false
-    missing_answer = false
-    missing_answer_options = false
+    render_options = Option.render_options[kind.to_sym]
+		extracted_items = []
+    q_a_options = []
+    q_b_options = []
+    options_count = 0
+    has_blank_option = false
+    missing_a_option = false
+    missing_b_option = false
     is_survey = 'survey'.in?(bank_list)
 		options.each do |o| 
 			unless o.marked_for_destruction?
-				q_options << o.option unless o.option.blank?
-				q_answers << o.answer unless o.answer.blank?
-        
-        blank = true if o.option.blank? and o.answer.blank? and o.answer_options.blank?
-        missing_option = true if o.option.blank?
-        missing_answer = true if o.answer.blank?
-        missing_answer_options = true if o.answer_options.blank?
-        count += 1
+        q_a_options << o.option
+        q_b_options << o.answer_options
+        extracted_items << o.extract_items_from_multiline_option
+
+        has_blank_option = true if (render_options[:option] && o.option.blank?) && (
+          render_options[:answer_options].blank? || (render_options[:answer_options] && o.answer_options.blank?)
+        )
+
+        o.answer_options.blank?
+        missing_a_option = true if render_options[:option] && o.option.blank?
+        missing_b_option = true if render_options[:answer_options] && o.answer_options.blank?
+
+        options_count += 1
 			end 
 		end
-  
-		if kind.to_s == 'simple'
-      if !is_survey and q_answers.empty?
-			  errors.add :options, I18n.t('errors.models.question.answers.blank')
-      end
-      if count > 1
-        errors.add :options, I18n.t('errors.models.question.answers.not_one')
+
+    err_messages = []
+    a_options = q_a_options.map
+    # Validate counts
+    if render_options[:count] == 1 
+      if options_count != 1
+        err_messages << I18n.t('errors.models.question.options_not_one', name: I18n.t("page.text.#{render_options[:name]}"))
       end
     else
-      if blank
-        errors.add :options, I18n.t('errors.models.question.options.blank')
+      if options_count < render_options[:min]
+        err_messages << I18n.t('errors.models.question.options_less_than', count: render_options[:min], name: I18n.t("page.text.#{render_options[:name]}"))
       end
-    
-      if Option.render_options[kind.to_sym][:count] > 1 and q_options.count < 2
-        errors.add :options, I18n.t('errors.models.question.options.less_than_two')
-      end
-      
-      if missing_option and Option.render_options[kind.to_sym][:option]
-        errors.add :options, I18n.t('errors.models.question.options.blank_option')
-      end
-      
-      if !is_survey and missing_answer and Option.render_options[kind.to_sym][:answer]
-        errors.add :options, I18n.t('errors.models.question.answers.blank')
-      end
-      
-      if missing_answer_options and Option.render_options[kind.to_sym][:answer_options]
-        errors.add :options, I18n.t('errors.models.question.options.blank_answer_options')
-      end
-      
-      if !is_survey and (kind.to_s == 'pick_one' or kind.to_s == 'pick_many')
-        a_count = 0
-        q_answers.each {|a| a_count += 1 if a == '1'}
+
+      if kind.to_s == 'pick_one' || kind.to_s == 'pick_many'
+        if (q_a_options.select{|o| o.blank? || o.strip.blank?}).present?
+          err_messages << I18n.t('errors.models.question.option_blank')
+        end
+
+        a_count = (q_b_options.select{|o| o.present? && o != '0'}).count
         if kind.to_s == 'pick_many' and a_count < 2
-          errors.add :options, I18n.t('errors.models.question.answers.less_than_two')
+          err_messages << I18n.t('errors.models.question.answers_less_than', count: 2)
         elsif kind.to_s == 'pick_one' and a_count != 1
-          errors.add :options, I18n.t('errors.models.question.answers.not_one')
+          err_messages << I18n.t('errors.models.question.answers_not_one')
         end
       end
-		end
+    end
+
+    extracted_items.each do |e|
+      if render_options[:option][:min] && render_options[:option][:min] > 1
+        if e.first.count < render_options[:option][:min]
+          err_messages << I18n.t('errors.models.question.items_less_than', count: render_options[:option][:min])
+        end
+      end
+
+      if render_options[:answer_options] && render_options[:answer_options][:min] && render_options[:answer_options][:min] > 1
+        if e.last.count < render_options[:answer_options][:min]
+          err_messages << I18n.t('errors.models.question.items_less_than', count: render_options[:answer_options][:min])
+        end
+      end
+    end
+
+    # Validate blanks
+    if has_blank_option
+      err_messages << I18n.t('errors.models.question.option_blank')
+    end
+
+    if err_messages.present?
+      errors.add :options, err_messages.sort.uniq.join(' ')
+    end
 	end
  
+  def survey?
+    'survey'.in?(bank_list)
+  end
+  
   # call back
   before_save do 
-    if self.kind.to_s == 'sort'
-      self.options.each_with_index  do |option, ndx|
-        option.answer = "#{ndx + 1}"
+    self.options.each_with_index  do |option, ndx|
+      case self.kind.to_sym
+      when :fill_one, :fill_many
+        option.answer = option.option.strip
+      when :pick_2_fill
+        option.answer = option.option_items.first
+      when :pick_one, :pick_many, :match
+        option.answer = option.answer_options_items.first
+      when :sort
+        option.answer = [1..option.option_items.count].join("\n")
       end
     end
   end

@@ -4,11 +4,10 @@
   <% 
   html = markdown(q.question)
   q.options.each do |o|
-    o.option_items.map {|i| [a, a]}
-
-    html.sub!('...', select_tag("attempt[#{q.id}][#{o.id}]", options_for_select(o.option_items.map {|i| [i, i]}, a ? a[o.id] : nil), 
-      :disabled => read_only,
-      :include_blank => true, :class => css_form_control))
+    html.sub!('...', text_field_tag("attempt[#{q.id}][#{o.id}]", '', :size => [(q.answer[o.id].length + 3), 60].min, 
+      :value => (a ? a[o.id] : nil),
+      :readonly => read_only,
+      :class => css_form_control))
   end
   %>
 
@@ -26,4 +25,3 @@
     <% end %>
   <% end %>
 </div>
-

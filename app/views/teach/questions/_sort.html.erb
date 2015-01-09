@@ -1,22 +1,29 @@
 <div class="panel-body">
   <%= render 'teach/questions/preamble', :q => q, :show_answer => show_answer %>
+
+  <strong><%= markdown(q.question) %></strong>
+
+  <% unless q.hint.blank? %>
+    <%= content_tag :div, id: "#{q.id}-hint", class: "question-hint hidden" do %>
+      <%= markdown("**#{Question.human_attribute_name(:hint)}**! #{q.hint}") %>
+    <% end %>
+  <% end %>
+
+  <% if (@attempt.blank? or @attempt.state == 2) and q.explanation.present? %>
+    <%= content_tag :div, id: "#{q.id}-explanation", class: "question-explanation hidden" do %>
+      <%= markdown("**#{Question.human_attribute_name(:explanation)}**! #{q.explanation}") %>
+    <% end %>
+  <% end %>
 </div>
 
 <table class="<%= css_table %>">
   <tbody class="sortable-question-sort">
-    <% 
-      options = if a.present?
-        q.options.sort { |x,y| a[x.id] <=> a[y.id] }
-      else
-        q.options.sample(q.options.length)
-      end
-    %>
-    <% options.each_with_index do |o, i| %>
+    <% q.options.first.option_items.each_with_index do |o, i| %>
       <tr class="row" id="question<%= q.id %>_<%= i + 1 %>">
         <td class="<%= css_columns(12) %>">
-          <i class="fa fa-arrows"></i>&nbsp;<%= processed_text(o.option) %>
-          <%= hidden_field_tag("attempt[#{q.id}][#{o.id}]", a && a[o.id] ? a[o.id] : i + 1) %>
-          <div id="<%= "answer_#{q.id}_#{o.id}"%>" class="question-answer"></div>
+          <i class="fa fa-arrows"></i>&nbsp;<%= processed_text(o) %>
+          <%= hidden_field_tag("attempt[#{q.id}][#{i + 1}]", a && a[i + 1] ? a[i + 1] : i + 1) %>
+          <div id="<%= "answer_#{q.id}_#{i + 1}"%>" class="question-answer"></div>
         </td>
       </tr>
     <% end %>

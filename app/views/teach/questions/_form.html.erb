@@ -3,86 +3,92 @@
 <%= themed_form_for [:teach, @course, @unit, @lecture, @question] do |f| %>
   <%= form_hidden f, :course_id %>
   <%= form_hidden f, :kind %>
-  
-  <% if @question.new_record? %>
-    <%= form_hidden f, :unit_id %>
-    <%= form_hidden f, :lecture_id %>
-  <% else %>
-    <div style="display: none;">
-      <%= f.grouped_collection_select :unit_lectures, @course.units, :lectures, :name, :id, :name, include_blank: true %>
-    </div>
-    <div class="row">
-      <div class="<%= css_columns(6) %>">
-        <%= form_select f, :unit_id, @course.units %>
-      </div>
-      <div class="<%= css_columns(6) %>">
-        <%= form_select f, :lecture_id, @unit ? @unit.lectures : [] %>
-      </div>
-    </div>
-  <% end %>
-  
-  <% if @question.new_record? && @question.question.blank? && !@question.kind.in?(['simple', 'sort']) %>
-    <%= form_markdown f, @question, :question, :size => '60x5', :value => t("page.text.#{@question.kind}_question") %>
-  <% else %>
-    <%= form_markdown f, @question, :question, :size => '60x5' %>
-  <% end %>
-  
-	<%= form_hidden f, :hint %>
-	<%= form_hidden f, :explanation %>
-  
-  <div class="row">
-    <div class="<%= css_columns(8) %>">
-      <%= form_select f, :bank_list, question_banks.invert, 
-        {:value => @question.bank_list}, {:multiple => true, :class => "chosen-select #{rtl? ? 'chosen-rtl' : ''}", 
-          :'data-placeholder'=> t('activerecord.placeholders.bank_list')} %>
-    </div>
-    <div class="<%= css_columns(4) %>"><br/>
-      <%= form_checkbox f, :include_in_lecture if @lecture %>
-    </div>
-  </div>
+  <% render_options = Option.render_options[@question.kind.to_sym] %>
 
-  <%= content_tag :span, Question.human_attribute_name(:hint), 
-        :class => "ui-modal-field #{css_button(:default)}", 
-        :data => {
-          :field => 'question_hint', 
-          :header => Question.human_attribute_name(:hint), 
-          :body => form_text_area(f, :hint, :label => false).gsub(/\r?\n/, ""), 
-          :btn => t('activerecord.actions.save'),
-          :close => t('activerecord.actions.close')
-        } %>
-  
-  <%= content_tag :span, Question.human_attribute_name(:explanation), 
-        :class => "ui-modal-field #{css_button(:default)}", 
-        :data => {
-          :field => 'question_explanation', 
-          :header => Question.human_attribute_name(:explanation), 
-          :body => form_text_area(f, :explanation, :label => false).gsub(/\r?\n/, ""), 
-          :btn => t('activerecord.actions.save'),
-          :close => t('activerecord.actions.close')
-        } %>
-  
-  <br/><br/>
-  <% unless @question.kind == 'simple' %>
-    <%
-    name = ['pick_one', 'pick_many'].include?(@question.kind) ? Option.model_name.human : t('page.titles.part')
-    %>
-    <%= link_to_add_options(t('activerecord.actions.new', :name => name).html_safe, f, :options) %>
-    <%= content_tag :h4, ['pick_one', 'pick_many'].include?(@question.kind) ? t('activerecord.attributes.question.options') : t('activerecord.attributes.question.parts') %>
-  <% end %>
-  
-  <div class="field-container">
-    <%= f.fields_for :options do |o| %>
-      <div class='removable <%= 'has-error'  unless @question.errors[:options].empty? %>'>
-        <%= tag :hr unless Option.render_options[@question.kind.to_sym][:count] == 1 %>
-        <%= render "fields_4_question", :f => o %>
+  <div class="row">
+    <div class="<%= css_columns(9) %>">
+      <% if @question.new_record? %>
+        <%= form_hidden f, :unit_id %>
+        <%= form_hidden f, :lecture_id %>
+      <% else %>
+        <div style="display: none;">
+          <%= f.grouped_collection_select :unit_lectures, @course.units, :lectures, :name, :id, :name, include_blank: true %>
+        </div>
+        <div class="row">
+          <div class="<%= css_columns(6) %>">
+            <%= form_select f, :unit_id, @course.units %>
+          </div>
+          <div class="<%= css_columns(6) %>">
+            <%= form_select f, :lecture_id, @unit ? @unit.lectures : [] %>
+          </div>
+        </div>
+      <% end %>
+
+      <% placeholder = t("activerecord.placeholders.#{@question.kind}_question") %>
+      <% hint = t("activerecord.hints.#{@question.kind}_question", default: '') %>
+      <%= form_markdown f, @question, :question, :size => '60x8', :placeholder => placeholder, :hint => hint %>
+      
+      <div class="field-container">
+        <%= f.fields_for :options do |o| %>
+          <div class='removable <%= 'has-error'  unless @question.errors[:options].empty? %>'>
+            <%= render "fields_4_question", :f => o, :option_index => o.index %>
+          </div>
+        <% end %>
       </div>
-    <% end %>
-  </div>
-  
-  <div class="has-error">
-  	<% @question.errors[:options].each do |msg| %>
-  		<span class='error help-block'><%= msg %></span>
-  	<% end %>
+      
+      <div class="has-error">
+        <% @question.errors[:options].each do |msg| %>
+          <span class='error help-block'><%= msg %></span>
+        <% end %>
+      </div>
+
+    </div>
+    <div class="<%= css_columns(3) %>">
+      <%= form_static f, :kind, :value => t("config.question.kind.#{@question.kind}") %>
+
+      <% if @question.survey? %>
+        <%= form_hidden f, :bank_list, name: 'question[bank_list][]' %>
+        <%= form_static f, :bank_list, value: t("config.question.bank.#{@question.bank_list}") %>
+      <% else %>
+        <%= form_select f, :bank_list, question_banks(true).invert, 
+          {:value => @question.bank_list}, {:multiple => true, :class => "chosen-select #{rtl? ? 'chosen-rtl' : ''}", 
+            :'data-placeholder'=> t('activerecord.placeholders.bank_list')} %>
+      <% end %>
+
+      <%= form_checkbox f, :include_in_lecture if @lecture %>
+
+      <%= form_hidden f, :hint %>
+      <%= form_hidden f, :explanation %>
+      
+      <%= content_tag :span, %(#{css_icon(@question.hint.present? ? :edit : :plus)} #{Question.human_attribute_name(:hint)}).html_safe, 
+            :class => "ui-modal-field #{css_button(:default)}", 
+            :data => {
+              :field => 'question_hint', 
+              :header => Question.human_attribute_name(:hint), 
+              :body => form_text_area(f, :hint, :label => false).gsub(/\r?\n/, ""), 
+              :btn => t('activerecord.actions.save'),
+              :close => t('activerecord.actions.close')
+            } %>
+      
+      <%= content_tag :span, %(#{css_icon(@question.explanation.present? ? :edit : :plus)} #{Question.human_attribute_name(:explanation)}).html_safe, 
+            :class => "ui-modal-field #{css_button(:default)}", 
+            :data => {
+              :field => 'question_explanation', 
+              :header => Question.human_attribute_name(:explanation), 
+              :body => form_text_area(f, :explanation, :label => false).gsub(/\r?\n/, ""), 
+              :btn => t('activerecord.actions.save'),
+              :close => t('activerecord.actions.close')
+            } %>
+      <br/><br/>
+
+      <% unless render_options[:count] == 1 %>
+        <hr/>
+        <%= link_to_add_options((css_icon(:plus, 1) + t("page.text.#{render_options[:name]}")).html_safe, f, :options) %>
+      <% end %>
+
+      <%# link_to t("activerecord.actions.preview"), url_for([:preview, :teach, @course, @unit, @lecture, @question]), 
+            class: css_button(:default), remote: true %>
+    </div>
   </div>
   
   <%= form_submit f, question_bank_path(:index, @question.kind.split('_').first) %>

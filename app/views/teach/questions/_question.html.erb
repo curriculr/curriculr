@@ -32,7 +32,7 @@
         <%= content_tag :span, t('page.text.points', :count => question.points), :class => css_align(:right) %>
       <% end %>
     
-      <% unless @q_selector || @assessment %>
+      <% unless @q_selector || @assessment || defined? no_options %>
         <%= ui_button_dropdown(ui_options_button_text, [
               link(:question, :edit, [:edit, :teach, @course, @unit, @lecture, question]),
               nil,

@@ -229,9 +229,21 @@ window.ui_rebind_application_events  = ($) ->
       
   make_fields_removable = (event) ->
     $(this).prev('input[type=hidden]').val('1')
-    $(this).closest('.removable').hide()
+    $(this).closest('.removable').remove()
+    number_fields()
     event.preventDefault()
     
+  number_fields = () ->
+    if $('.field-container .removable .control-label span').length >= 1
+      $('.field-container .removable .control-label span').each (index, element) ->
+        a = $(element).text().split(' ')
+        if a[a.length - 1].match(/\d+/)
+          text = a[0...(a.length - 1)].join(' ')
+        else
+          text = a.join(' ')
+
+        $(element).text("#{text} #{index + 1}" )
+
   $('.remove_fields').unbind().on 'click', make_fields_removable
 
   $('.add_fields').unbind().on 'click', (event) ->
@@ -263,9 +275,12 @@ window.ui_rebind_application_events  = ($) ->
     
     if $('#question_bank_list').length > 0
       show_hide_answer_fields $('#question_bank_list').val()
-    
+
+    number_fields()
     event.preventDefault()
 
+  number_fields()
+  
   # Questions
   # 2: Making units and lectures dynamic    
   all_lectures = $('#question_unit_lectures').html()

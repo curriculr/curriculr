@@ -1,42 +1,52 @@
 <% render = Option.render_options[@question.kind.to_sym] %>
+<% cols = (@question.kind == 'pick_one' || @question.kind == 'pick_many') ? 9 : 12/render[:cols] %>
 
 <div class="row">
   <% if render[:option] %>
-    <%= content_tag :div, class: css_columns(12/render[:cols]) do %>
-      <% label = t("activerecord.labels.#{@question.kind}_question") %>
-      <% hint = t("activerecord.hints.#{@question.kind}_question") %>
-      <%= form_text_area f, :option, :hint => hint, :label => label, rows: 3 %>
+    <%= content_tag :div, class: css_columns(cols) do %>
+      <% 
+        label = content_tag(:span, t("activerecord.labels.#{@question.kind}_question_#{render[:option][:name]}"))
+        unless render[:count] == 1 
+          label << ' '
+          label << f.hidden_field(:_destroy)
+          label << link(:option, :destroy, '#', class: "remove_fields #{css_button(:danger, :xs)}")
+        end 
+
+        label = label.html_safe
+      %>
+
+      <% placeholder = t("activerecord.placeholders.#{@question.kind}_question_#{render[:option][:name]}") %>
+      <% if render[:option][:lines] > 1 %>
+        <%= form_text_area f, :option, :placeholder => placeholder, :label => label, rows: render[:option][:lines] %>
+      <% else %>
+        <% if @question.survey? %>
+           <%= form_hidden f, :option, value: "*" %>
+        <% else %>
+          <%= form_text f, :option, :placeholder => placeholder, :label => label %>
+        <% end %>
+      <% end %>
     <% end %>
   <% end %>
 
   <% if render[:answer_options] %>
-    <%= content_tag :div, class: css_columns(12/render[:cols]) do %>
-      <% label = t("activerecord.labels.#{@question.kind}_answer_options") %>
-      <% hint = t("activerecord.hints.#{@question.kind}_answer_options") %>
-      <%= form_text_area f, :answer_options, rows: 3, :hint => hint, :label => label %>
-    <% end %>
-  <% end %>
-  
-  <%= content_tag :div, class: css_columns(12/render[:cols]) do %>
-    <div class="answer-field">
-      <% if @question.kind == 'pick_one' or @question.kind == 'pick_many' %>
-        <br/>
-        <%= form_checkbox f, :answer, label: t("activerecord.labels.#{@question.kind}_answer") %>
-      <% elsif render[:answer] %>
-        <% hint = t("activerecord.hints.#{@question.kind}_answer") %>
-        <% label = t("activerecord.labels.#{@question.kind}_answer") %>
-        <% if @question.kind == 'match' %>
-          <%= form_text_area f, :answer, rows: 3, :hint => hint, :label => label %>
+    <%= content_tag :div, class: css_columns(12 - cols) do %>
+      <% if @question.kind == 'pick_one' || @question.kind == 'pick_many' %>
+        <% if @question.survey? %>
+           <%= form_hidden f, :answer_options, value: "1" %>
         <% else %>
-          <%= form_text f, :answer, :hint => hint, :label => label %>
+          <br/>
+          <%= form_checkbox f, :answer_options, 
+                label: t("activerecord.labels.#{@question.kind}_question_#{render[:answer_options][:name]}") %>
+        <% end %>
+      <% else %>
+        <% label = content_tag(:span, t("activerecord.labels.#{@question.kind}_question_#{render[:answer_options][:name]}")) %>
+        <% placeholder = t("activerecord.placeholders.#{@question.kind}_question_#{render[:answer_options][:name]}") %>
+        <% if render[:answer_options][:lines] > 1 %>
+          <%= form_text_area f, :answer_options, :placeholder => placeholder, :label => label, rows: render[:answer_options][:lines] %>
+        <% else %>
+          <%= form_text f, :answer_options, :placeholder => placeholder, :label => label %>
         <% end %>
       <% end %>
-    </div>
-    <br>
-    <% unless render[:count] == 1 %>
-      <%= tag :br if @question.kind == 'sort' %>
-      <%= f.hidden_field :_destroy %>
-      <%= link :option, :destroy, '#', class: "remove_fields #{css_button(:danger, :xs)}" %>
     <% end %>
   <% end %>
 </div>

@@ -79,9 +79,9 @@ ar:
         
     question:
       kind:
-        simple: إجابة بسيطة
-        fill: فراغات
-        pick_2_fill: فراغات من قوائم
+        fill_one: فراغ واحد
+        fill_many: فراغات
+        pick_2_fill: فراغات بقوائم
         pick_one: خيار وحيد
         pick_many: خيارات عديدة
         match: ربط خيارات
@@ -89,7 +89,6 @@ ar:
         sort: ترتيب
     
       group:
-        simple: بسيطة
         fill: فراغات
         pick: اختيار
         match: ربط الخيارات

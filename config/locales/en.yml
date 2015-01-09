@@ -37,6 +37,15 @@ en:
   
     models:
       question:
+        options_not_one: Requires only one %{name}.
+        options_less_than: 
+          one: Requires at least %{count} %{name}.
+          other: Requires at least %{count} %{name}s.
+        answers_less_than: Requires at least %{count} answers.
+        answers_not_one: Requires only one answer.
+        items_less_than: Has a field with less than %{count} items.
+        option_blank: Blank field; must be filled.
+
         options:
           not_allowed: Multiple options/parts not allowed.
           less_than_two: Must have at least two options/parts.

@@ -378,11 +378,10 @@ section {
   color: $brand-success;
 }
 
-.question-fill{
+.question-fill_many, .question-pick_2_fill{
   .form-control{
     width: auto;
     display: inline-block;
-    margin-left: 20px;
   }
 }
 

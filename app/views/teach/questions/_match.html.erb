@@ -1,7 +1,42 @@
 <div class="panel-body">
   <%= render 'teach/questions/preamble', :q => q, :show_answer => show_answer %>
+
+  <strong><%= markdown(q.question) %></strong>
+
+  <% unless q.hint.blank? %>
+    <%= content_tag :div, id: "#{q.id}-hint", class: "question-hint hidden" do %>
+      <%= markdown("**#{Question.human_attribute_name(:hint)}**! #{q.hint}") %>
+    <% end %>
+  <% end %>
+
+  <% if (@attempt.blank? or @attempt.state == 2) and q.explanation.present? %>
+    <%= content_tag :div, id: "#{q.id}-explanation", class: "question-explanation hidden" do %>
+      <%= markdown("**#{Question.human_attribute_name(:explanation)}**! #{q.explanation}") %>
+    <% end %>
+  <% end %>
 </div>
 
+<table class="<%= css_table %>">
+  <tbody>
+    <% options = q.options.first.answer_options_items.map do |o| [o, o] end %>
+    <% q.options.first.option_items.each_with_index do |o, i| %>
+      <tr class="row" id="option_<%= i + 1 %>">
+        <td class="<%= css_columns(7) %>">
+          <%= i + 1 %>. <%= processed_text(o) %>
+        </td>
+        <td class="<%= css_columns(5) %>">
+          <%= select_tag("attempt[#{q.id}][#{i + 1}]", 
+                options_for_select(options.sample(options.length), a ? a[i + 1] : nil), 
+                :disabled => read_only,
+                :include_blank => true, :class => css_form_control) %>
+          <div id="<%= "answer_#{q.id}_#{i + 1}"%>" class="question-answer"></div>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<!-- 
 <table class="<%= css_table %>">
   <% 
   is_sortable = (controller_name == 'questions' && action_name == 'index' && staff?(current_user, @course))
@@ -24,3 +59,5 @@
     <% end %>
   </tbody>
 </table>
+
+ -->

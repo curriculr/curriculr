@@ -1,0 +1,10 @@
+<% 
+	html = render(partial: "teach/questions/question", collection: [@question], locals: { show_answer: false, no_options: true }) ;
+%>
+
+<% if html %>
+  $('#page-modal .modal-dialog .modal-content').html("<%= j html %>");
+  $("#page-modal").modal();
+<% end %>
+
+ui_rebind_application_events(jQuery);

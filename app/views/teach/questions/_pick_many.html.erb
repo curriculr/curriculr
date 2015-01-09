@@ -1,5 +1,19 @@
 <div class="panel-body">
   <%= render 'teach/questions/preamble', :q => q, :show_answer => show_answer %>
+
+  <strong><%= markdown(q.question) %></strong>
+
+  <% unless q.hint.blank? %>
+    <%= content_tag :div, id: "#{q.id}-hint", class: "question-hint hidden" do %>
+      <%= markdown("**#{Question.human_attribute_name(:hint)}**! #{q.hint}") %>
+    <% end %>
+  <% end %>
+
+  <% if (@attempt.blank? or @attempt.state == 2) and q.explanation.present? %>
+    <%= content_tag :div, id: "#{q.id}-explanation", class: "question-explanation hidden" do %>
+      <%= markdown("**#{Question.human_attribute_name(:explanation)}**! #{q.explanation}") %>
+    <% end %>
+  <% end %>
 </div>
 
 <table class="<%= css_table %>">

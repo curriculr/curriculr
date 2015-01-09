@@ -283,6 +283,14 @@ ar:
       pick_one_question: خيار لابد من تحديده‫.‬
       simple_answer: يجب إدخال الإجابة الصحيحة للسؤال بالضبط كما هو‫.‬
       sort_question: يتم إدخال خيار الفرز بالترتيب الصحيح‫.‬
+      simple_question: 
+      fill_question:
+      pick_2_fill_question:
+      pick_one_question:
+      pick_many_question:
+      match_question:
+      underline_question:
+      sort_question:
       
     labels:
       fill_answer: الجواب الصحيح
@@ -298,6 +306,7 @@ ar:
       pick_one_question: خيار
       simple_answer: جواب صحيح
       sort_question: الخيار
+
       
     placeholders:
       slug: جزء من الرابط. احرف و أرقام و - و ـ و بدون فراغات
@@ -312,6 +321,14 @@ ar:
       course_slug_or_course_name_or_course_about_cont: للبحث ...
       user_name_or_user_email_cont: للبحث ...
       student_name_or_student_user_name_or_student_user_email_cont: للبحث ...
+      simple_question: 
+      fill_question:
+      pick_2_fill_question:
+      pick_one_question:
+      pick_many_question:
+      match_question:
+      underline_question:
+      sort_question:
       
         
     attributes:

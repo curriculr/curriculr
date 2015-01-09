@@ -80,22 +80,21 @@ en:
         
     question:
       kind:
-        simple: Simple answer
-        fill: Blanks
-        pick_2_fill: Blanks from lists
+        fill_one: Single blank
+        fill_many: Multiple blanks
+        pick_2_fill: Blanks with options
         pick_one: Single choice
-        pick_many: Multiple choinces
+        pick_many: Multiple choices
         match: Matching
         #underline: Underline
         sort: Sorting
     
       group:
-        simple: Simple
         fill: Blanks
-        pick: Choice
-        match: Match choices
+        pick: Choices
+        match: Matching
         #underline: Underline
-        sort: Sort
+        sort: Sorting
         
       bank:
         main: Main

@@ -38,7 +38,7 @@ class AssessmentAttempt
     attempt
   end
 
-  def is_simple_correct?(t, q)
+  def is_fill_one_correct?(t, q)
     q.options.each do|o|
       t[:t][o.id] = @attempt_params["#{q.id}"]["#{o.id}"].strip if @attempt_params["#{q.id}"] && @attempt_params["#{q.id}"]["#{o.id}"]
       if "#{t[:a][o.id]}".downcase.strip != "#{t[:t][o.id]}".downcase.strip 
@@ -49,6 +49,20 @@ class AssessmentAttempt
     end
   
     true
+  end
+
+  def is_fill_many_correct?(t, q)
+    is_correct = true
+    q.options.each do|o|
+      t[:t][o.id] = @attempt_params["#{q.id}"]["#{o.id}"].strip if @attempt_params["#{q.id}"] && @attempt_params["#{q.id}"]["#{o.id}"]
+      if "#{t[:a][o.id]}".downcase.strip != "#{t[:t][o.id]}".downcase.strip
+        is_correct = false 
+      else
+        t[:c] += 1
+      end
+    end
+  
+    is_correct
   end
 
   def is_pick_one_correct?(t, q)
@@ -83,20 +97,6 @@ class AssessmentAttempt
 
   def is_pick_2_fill_correct?(t, q)
     is_fill_correct?(t, q)
-  end
-
-  def is_fill_correct?(t, q)
-    is_correct = true
-    q.options.each do|o|
-      t[:t][o.id] = @attempt_params["#{q.id}"]["#{o.id}"].strip if @attempt_params["#{q.id}"] && @attempt_params["#{q.id}"]["#{o.id}"]
-      if "#{t[:a][o.id]}".downcase.strip != "#{t[:t][o.id]}".downcase.strip
-        is_correct = false 
-      else
-        t[:c] += 1
-      end
-    end
-  
-    is_correct
   end
 
   def is_match_correct?(t, q)
@@ -145,7 +145,7 @@ class AssessmentAttempt
     correct = 0
     incorrect = 0
     question.answer.each do |o, a|
-      unless a == '*' && question.kind == 'simple'
+      unless a == '*' && question.kind == 'fill_one'
         t = attempt[o]
         if t && a.strip.downcase == t.strip.downcase
           correct += 1

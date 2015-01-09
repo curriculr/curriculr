@@ -34,7 +34,7 @@ module Teach
       if params[:s] and params[:s] != 'all' 
         criteria << "kind like '#{params[:s]}%' "
       else
-        criteria << "kind like 'simple%' "
+        criteria << "kind like 'fill%' "
       end
       
       @q = query.where(criteria.join(' and ')).search(params[:q])
@@ -45,10 +45,16 @@ module Teach
       @question = Question.new(:course => @course, 
         :unit => @unit,
         :lecture => @lecture,
-        :kind => params[:s] ? params[:s] : :simple)
+        :kind => params[:s] ? params[:s] : :fill_one)
       
       @question.bank_list = [ params[:b] ? params[:b] : 'main' ]
       @question.options.build
+    end
+
+    def preview
+      respond_with @question do |format|
+        format.js 
+      end
     end
 
     def edit

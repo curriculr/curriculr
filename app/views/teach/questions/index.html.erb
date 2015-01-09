@@ -63,7 +63,7 @@
 
 <ul class="<%= css_nav(:tabs) %>">
   <% t('config.question.group').each do |k,v| %>
-  <li class="<%= 'active' if k.to_s == params[:s] or (!params[:s] and k == :simple) %>">
+  <li class="<%= 'active' if k.to_s == params[:s] || (!params[:s] && k == :fill) %>">
     <%= link_to v, question_bank_path(:index, k, @assessment, @bank) %>
   </li>
   <% end %>

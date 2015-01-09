@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     resources :questions, :except => :show do
       post :sort_option, :on => :member
       post :include_in_lecture, :on => :member
+      get :preview, :on => :member
     end
     
     resources :assessments, :except => :index do
