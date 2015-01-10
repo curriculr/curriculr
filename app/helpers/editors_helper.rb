@@ -141,7 +141,6 @@ module EditorsHelper
       excerpt(text, text[1..50],  radius: length)
     end
   end 
-  
 
   # Ace Editor
   def highlighted_code(text, lang, input=nil)

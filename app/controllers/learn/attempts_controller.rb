@@ -1,12 +1,24 @@
 module Learn
   class AttemptsController < BaseController
     def new
-      util = AssessmentAttempt.new(@klass, @student, @assessment)
-      @attempt = util.build 
-    
-  		respond_to do |format|
-        format.html { render 'show' }
-        format.js { render 'invideo' }
+      if @assessment.can_be_taken?(@klass, @student)
+        util = AssessmentAttempt.new(@klass, @student, @assessment)
+        @attempt = util.build 
+      
+    		respond_to do |format|
+          format.html { render 'show' }
+          format.js { render 'invideo' }
+        end
+      else
+        url = if @assessment.lecture
+          learn_klass_lecture_path(@klass, @assessment.lecture, :show_assessment => @assessment.id)
+        elsif @assessment.unit
+          learn_klass_assessments_path(@klass, :s => @assessment.kind)
+        else
+          learn_klass_assessment_path(@klass, @assessment)
+        end
+
+        redirect_to url
       end
     end
   

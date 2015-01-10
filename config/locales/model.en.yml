@@ -298,10 +298,10 @@ en:
       pick_2_fill_question_blank_options: The options to fill in the blanks from. Correct option at the the top. One option per line.
       pick_one_question_option: An option to be selected.
       pick_many_question_option: An option to be selected.
-      match_question_side_1: Side 1 items. One item per line.
-      match_question_side_2: Side 2 items exactly in the correct order matching Side 1 items. One item per line.
+      match_question_side_1: Side 1 items. One item per line. Empty lines can be used to separate items.
+      match_question_side_2: Side 2 items exactly in the correct order matching Side 1 items. One item per line. Empty lines can be used to separate items.
       underline_question_items: 
-      sort_question_items: The items to be sorted in the correct order. One item per line.
+      sort_question_items: The items to be sorted in the correct order. One item per line. Empty lines can be used to separate items.
     
     labels:
       # fill_answer: Correct answer
@@ -357,10 +357,10 @@ en:
       pick_2_fill_question_blank_options: The options to fill in the blanks from. Correct option at the the top. One option per line.
       pick_one_question_option: An option to be selected.
       pick_many_question_option: An option to be selected.
-      match_question_side_1: Side 1 items. One item per line.
-      match_question_side_2: Side 2 items exactly in the correct order matching Side 1 items. One item per line.
+      match_question_side_1: Side 1 items. One item per line. Empty lines can be used to separate items.
+      match_question_side_2: Side 2 items exactly in the correct order matching Side 1 items. One item per line. Empty lines can be used to separate items.
       underline_question_items: 
-      sort_question_items: The items to be sorted in the correct order. One item per line.
+      sort_question_items: The items to be sorted in the correct order. One item per line. Empty lines can be used to separate items.
           
     attributes:
       account:

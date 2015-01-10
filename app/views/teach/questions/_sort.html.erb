@@ -18,11 +18,19 @@
 
 <table class="<%= css_table %>">
   <tbody class="sortable-question-sort">
-    <% q.options.first.option_items.each_with_index do |o, i| %>
+    <%
+      if a && a.present?
+        options = a.values
+      else
+        options = q.options.first.option_items
+        options = options.sample(options.length)
+      end
+    %>
+    <% options.each_with_index do |o, i| %>
       <tr class="row" id="question<%= q.id %>_<%= i + 1 %>">
         <td class="<%= css_columns(12) %>">
           <i class="fa fa-arrows"></i>&nbsp;<%= processed_text(o) %>
-          <%= hidden_field_tag("attempt[#{q.id}][#{i + 1}]", a && a[i + 1] ? a[i + 1] : i + 1) %>
+          <%= hidden_field_tag("attempt[#{q.id}][#{i + 1}]", o) %>
           <div id="<%= "answer_#{q.id}_#{i + 1}"%>" class="question-answer"></div>
         </td>
       </tr>

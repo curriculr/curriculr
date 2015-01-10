@@ -1,7 +1,7 @@
 <% subtext = @assessment && @assessment.kind == 'survey' ? nil : capture do %>
   <% 
   banks = [ link_to(t("activerecord.actions.all"), teach_course_questions_path(@course, :a => (@assessment ? @assessment.id : nil))) ] 
-  question_banks.each do |k, v|
+  question_banks(params[:a].present?).each do |k, v|
     banks << link_to(v, teach_course_questions_path(@course, :a => (@assessment ? @assessment.id : nil), :b => k))
   end
   %>
@@ -30,7 +30,7 @@
 <% else %>
   <%
     links = []
-    t('config.question.kind').each do |k,v|
+    question_kinds(@bank == 'survey').each do |k,v|
       links << link_to(v, {action: :new, controller: 'questions', 
           course_id: @course.id, unit_id: (@unit ? @unit.id : nil),
           lecture_id: (@lecture ? @lecture.id : nil), :s => k, :b => @bank})

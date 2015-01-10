@@ -229,7 +229,10 @@ window.ui_rebind_application_events  = ($) ->
       
   make_fields_removable = (event) ->
     $(this).prev('input[type=hidden]').val('1')
-    $(this).closest('.removable').remove()
+    if $(this).data('opr') == 'remove'
+      $(this).closest('.removable').remove()
+    else
+      $(this).closest('.removable').hide()
     number_fields()
     event.preventDefault()
     

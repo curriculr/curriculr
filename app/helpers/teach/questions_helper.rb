@@ -10,4 +10,12 @@ module Teach::QuestionsHelper
     
     link_to(name, '#', class: "add_fields #{css(button: :success)}", data: {id: id, fields: fields.gsub("\n", "")})
   end
+
+  def question_kinds(survey = false)
+    if survey
+      t('config.question.kind').select{|k,v| Option.render_options[k][:survey]}
+    else
+      t('config.question.kind')
+    end
+  end
 end

@@ -7,30 +7,13 @@
 
   <div class="row">
     <div class="<%= css_columns(9) %>">
-      <% if @question.new_record? %>
-        <%= form_hidden f, :unit_id %>
-        <%= form_hidden f, :lecture_id %>
-      <% else %>
-        <div style="display: none;">
-          <%= f.grouped_collection_select :unit_lectures, @course.units, :lectures, :name, :id, :name, include_blank: true %>
-        </div>
-        <div class="row">
-          <div class="<%= css_columns(6) %>">
-            <%= form_select f, :unit_id, @course.units %>
-          </div>
-          <div class="<%= css_columns(6) %>">
-            <%= form_select f, :lecture_id, @unit ? @unit.lectures : [] %>
-          </div>
-        </div>
-      <% end %>
-
       <% placeholder = t("activerecord.placeholders.#{@question.kind}_question") %>
       <% hint = t("activerecord.hints.#{@question.kind}_question", default: '') %>
       <%= form_markdown f, @question, :question, :size => '60x8', :placeholder => placeholder, :hint => hint %>
       
       <div class="field-container">
         <%= f.fields_for :options do |o| %>
-          <div class='removable <%= 'has-error'  unless @question.errors[:options].empty? %>'>
+          <div class='removable <%= 'has-error'  unless @question.errors[:options].empty? %>' data-opr="remove">
             <%= render "fields_4_question", :f => o, :option_index => o.index %>
           </div>
         <% end %>
@@ -45,6 +28,17 @@
     </div>
     <div class="<%= css_columns(3) %>">
       <%= form_static f, :kind, :value => t("config.question.kind.#{@question.kind}") %>
+
+      <% if @question.new_record? %>
+        <%= form_hidden f, :unit_id %>
+        <%= form_hidden f, :lecture_id %>
+      <% else %>
+        <div style="display: none;">
+          <%= f.grouped_collection_select :unit_lectures, @course.units, :lectures, :name, :id, :name, include_blank: true %>
+        </div>
+        <%= form_select f, :unit_id, @course.units %>
+        <%= form_select f, :lecture_id, @unit ? @unit.lectures : [] %>
+      <% end %>
 
       <% if @question.survey? %>
         <%= form_hidden f, :bank_list, name: 'question[bank_list][]' %>

@@ -96,19 +96,27 @@ class AssessmentAttempt
   end
 
   def is_pick_2_fill_correct?(t, q)
-    is_fill_correct?(t, q)
+    is_fill_many_correct?(t, q)
   end
 
   def is_match_correct?(t, q)
-    is_fill_correct?(t, q)
+    is_correct = true
+    q.options.each do |o| 
+      o.option_items.each_with_index do |item, i|
+        t[:t][i + 1] = @attempt_params["#{q.id}"]["#{i + 1}"].strip if @attempt_params["#{q.id}"] && @attempt_params["#{q.id}"]["#{i + 1}"]
+        if "#{t[:a][i + 1]}".downcase.strip != "#{t[:t][i + 1]}".downcase.strip
+          is_correct = false 
+        else
+          t[:c] += 1
+        end
+      end
+    end
+  
+    is_correct
   end
 
   def is_sort_correct?(t, q)
-    is_fill_correct?(t, q)
-  end
-
-  def is_underline_correct?(t, q)
-    is_fill_correct?(t, q)
+    is_match_correct?(t, q)
   end
 
   def grade(test)

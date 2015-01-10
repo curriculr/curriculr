@@ -7,7 +7,7 @@ class QSelector < ActiveRecord::Base
   
   validates :questions_count, :numericality => {:only_integer => true, :greater_than => 0}
   validates :order, :numericality => {:only_integer => true}
-  validates :points, :numericality => {:only_integer => true, :greater_than_or_equal_to => 0}
+  validates :points, :numericality => {:only_integer => true, :greater_than_or_equal_to => 0}, :unless => Proc.new { |q| q.assessment.survey? }
   validate :has_enough_questions
   
   def has_enough_questions

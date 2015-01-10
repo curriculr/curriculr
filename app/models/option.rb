@@ -18,31 +18,38 @@ class Option < ActiveRecord::Base
     {
       fill_one: {
         option: { name: :answer, lines: 1 }, 
-        answer_options: false, count: 1, cols: 1
+        answer_options: false, count: 1, cols: 1, 
+        survey: true
       },
       fill_many: {
         option: { name: :blank_answer, lines: 1 }, 
-        answer_options: false, count: 99, cols: 1, name: :blank, min: 1
+        answer_options: false, count: 99, cols: 1, name: :blank, min: 1, 
+        survey: false
       },
       pick_2_fill: {
         option: { name: :blank_options, lines: 5, min: 2 }, 
-        answer_options: false, count: 99, cols: 1, name: :blank, min: 1
+        answer_options: false, count: 99, cols: 1, name: :blank, min: 1, 
+        survey: true
       },
       pick_one: {
         option: { name: :option, lines: 2 },
-        answer_options: { name: :answer? }, count: 99, cols: 2, name: :option, min: 2
+        answer_options: { name: :answer? }, count: 99, cols: 2, name: :option, min: 2, 
+        survey: true
       },
       pick_many: {
         option: { name: :option, lines: 2 },
-        answer_options: { name: :answer? }, count: 99, cols: 2, name: :option, min: 3
+        answer_options: { name: :answer? }, count: 99, cols: 2, name: :option, min: 3, 
+        survey: true
       },
       match: {
         option: { name: :side_1, lines: 10, min: 2 },
-        answer_options: { name: :side_2, lines: 10, min: 2 }, count: 1, cols: 2
+        answer_options: { name: :side_2, lines: 10, min: 2 }, count: 1, cols: 2, 
+        survey: false
       },
       sort: {
         option: { name: :items, lines: 10, min: 2},
-        answer_options: false, count: 1, cols: 1
+        answer_options: false, count: 1, cols: 1, 
+        survey: false
       }
     }
   end

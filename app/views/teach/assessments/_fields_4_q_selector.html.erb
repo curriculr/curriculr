@@ -4,14 +4,15 @@
     <%= form_hidden f, :_destroy %>
     <%= link f.object.question.present? ? :question : :q_selector, :destroy, '#', class: "remove_fields #{css(button: [:danger, :xs], align: :right)}" %>
   </div>
+  <% cols = @assessment.survey? ? 12 : 9 %>
   <div class="panel-body">
-    <div class="<%= css_columns(9) %>"> 
+    <div class="<%= css_columns(cols) %>"> 
       <% if f.object.question %>
         <%= render partial: "teach/questions/question", locals: {question: f.object.question, show_answer: false } %>
       <% else %>
         <div class="row">
           <div class="<%= css_columns(3) %>">
-            <%= form_checkbox_collection f, :tags, question_banks.stringify_keys, 
+            <%= form_checkbox_collection f, :tags, question_banks(true).stringify_keys, 
                   :first, :second, {:label => t('page.titles.question_banks')}, :class => 'checkbox' %>
           </div>
           <div class="<%= css_columns(9) %>">
@@ -48,10 +49,12 @@
         </div>  
       <% end %>  
     </div>
-    <div class="<%= css_columns(3) %>">
-      <%= @assessment.kind != 'survey' ? form_number(f, :points) : form_static(f, :points)  %>
-      
-      <%= form_hidden f, :order, class: "order-field" %>
-    </div>
+    <% unless @assessment.survey? %>
+      <div class="<%= css_columns(12 - cols) %>">
+        <%= @assessment.kind != 'survey' ? form_number(f, :points) : form_static(f, :points)  %>
+        
+        <%= form_hidden f, :order, class: "order-field" %>
+      </div>
+    <% end %>
   </div>
 </div>

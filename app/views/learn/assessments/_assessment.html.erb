@@ -34,9 +34,11 @@
                 <th><%= Assessment.human_attribute_name(:attempt) %></th>
                 <th><%= Assessment.human_attribute_name(:when) %></th>
                 <th><%= Assessment.human_attribute_name(:questions_count) %></th>
-                <th><%= Assessment.human_attribute_name(:points) %></th>
-                <th><%= Assessment.human_attribute_name(:grade) %></th>
-                <th>%</th>
+                <% unless assessment.survey? %>
+                  <th><%= Assessment.human_attribute_name(:points) %></th>
+                  <th><%= Assessment.human_attribute_name(:grade) %></th>
+                  <th>%</th>
+                <% end %>
                 <% if !attempts.blank? and assessment.show_answer?(@klass) %>
                   <th></th>
                 <% end %>
@@ -51,16 +53,17 @@
                 </td>
                 <td><%= timeago_tag at.updated_at, :nojs => true, :limit => 10.days.ago %></td>
                 <td><%= assessment.questions_count %></td>
-                <td><%= at.points %></td>
-                <td><%= at.scored_points if at.state == 2 %></td>
-                <td>
-                  <% if at.state == 2 %>
-                    <%= (((at.score ? at.score.round(2) : 0.0) / at.points) * 100.00).round(2) %>
-                  <% else %>
-                    <%= t('page.text.unfinished_attempt') %>
-                  <% end %>
-                </td>
-                
+                <% unless assessment.survey? %>
+                  <td><%= at.points %></td>
+                  <td><%= at.scored_points if at.state == 2 %></td>
+                  <td>
+                    <% if at.state == 2 %>
+                      <%= (((at.score ? at.score.round(2) : 0.0) / at.points) * 100.00).round(2) %>
+                    <% else %>
+                      <%= t('page.text.unfinished_attempt') %>
+                    <% end %>
+                  </td>
+                <% end %>
                 <% if !attempts.blank? and at.show_answer? %>
                   <td>
                     <%= link :attempt, :show_answer, 
@@ -70,23 +73,25 @@
                 <% end %>
               </tr>
               <% end %>
-              <% if attempts.length < 1 %>
-              <tr>
-                <td colspan="6"><%= t('page.text.assessments_no_attempt_yet') %></td>
-              </tr>
-              <% else %>
-              <tr>
-                <td colspan="2"></td>
-                <td colspan="3">
-                  <strong>
-                    <%= t('page.text.assessments_final_score', 
-                        :score => t("config.assessment.multiattempt_grading.#{assessment.multiattempt_grading}")) %>
-                  </strong>
-                </td>
-                <td colspan="2">
-                  <%= ((assessment.score(@klass, current_student) / assessment.points) * 100.0).round(2) %>
-                </td>
-              </tr>
+              <% unless assessment.survey? %>
+                <% if attempts.length < 1 %>
+                  <tr>
+                    <td colspan="6"><%= t('page.text.assessments_no_attempt_yet') %></td>
+                  </tr>
+                <% else %>
+                  <tr>
+                    <td colspan="2"></td>
+                    <td colspan="3">
+                      <strong>
+                        <%= t('page.text.assessments_final_score', 
+                            :score => t("config.assessment.multiattempt_grading.#{assessment.multiattempt_grading}")) %>
+                      </strong>
+                    </td>
+                    <td colspan="2">
+                      <%= ((assessment.score(@klass, current_student) / assessment.points) * 100.0).round(2) %>
+                    </td>
+                  </tr>
+                <% end %>
               <% end %>
             </tbody>
           </table>

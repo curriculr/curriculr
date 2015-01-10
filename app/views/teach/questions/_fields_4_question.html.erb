@@ -1,5 +1,5 @@
 <% render = Option.render_options[@question.kind.to_sym] %>
-<% cols = (@question.kind == 'pick_one' || @question.kind == 'pick_many') ? 9 : 12/render[:cols] %>
+<% cols = @question.kind.in?(%w(pick_one pick_many)) ? (@question.survey? ? 12 : 9) : 12/render[:cols] %>
 
 <div class="row">
   <% if render[:option] %>
@@ -9,7 +9,7 @@
         unless render[:count] == 1 
           label << ' '
           label << f.hidden_field(:_destroy)
-          label << link(:option, :destroy, '#', class: "remove_fields #{css_button(:danger, :xs)}")
+          label << link(:option, :destroy, '#', class: "remove_fields #{css_button(:danger, :xs)}", data: {opr: 'remove'})
         end 
 
         label = label.html_safe
@@ -32,7 +32,7 @@
     <%= content_tag :div, class: css_columns(12 - cols) do %>
       <% if @question.kind == 'pick_one' || @question.kind == 'pick_many' %>
         <% if @question.survey? %>
-           <%= form_hidden f, :answer_options, value: "1" %>
+           <%= form_hidden f, :answer_options, value: "0" %>
         <% else %>
           <br/>
           <%= form_checkbox f, :answer_options, 

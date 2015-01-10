@@ -45,6 +45,8 @@ en:
         answers_not_one: Requires only one answer.
         items_less_than: Has a field with less than %{count} items.
         option_blank: Blank field; must be filled.
+        option_blank_count_mismatch: Number of ellipses (...) in question not matching number of blanks.
+        less_side_1_items: Side 2 must have at least as many items as side 1.
 
         options:
           not_allowed: Multiple options/parts not allowed.

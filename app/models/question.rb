@@ -86,16 +86,24 @@ class Question < ActiveRecord::Base
         err_messages << I18n.t('errors.models.question.options_less_than', count: render_options[:min], name: I18n.t("page.text.#{render_options[:name]}"))
       end
 
-      if kind.to_s == 'pick_one' || kind.to_s == 'pick_many'
+      if kind.in? %w(fill_many pick_2_fill)
+        if question.present? && question.scan(/\.\.\./).count != options_count
+          err_messages << I18n.t('errors.models.question.option_blank_count_mismatch')
+        end
+      end
+
+      if kind.in? %w(pick_one pick_many)
         if (q_a_options.select{|o| o.blank? || o.strip.blank?}).present?
           err_messages << I18n.t('errors.models.question.option_blank')
         end
 
-        a_count = (q_b_options.select{|o| o.present? && o != '0'}).count
-        if kind.to_s == 'pick_many' and a_count < 2
-          err_messages << I18n.t('errors.models.question.answers_less_than', count: 2)
-        elsif kind.to_s == 'pick_one' and a_count != 1
-          err_messages << I18n.t('errors.models.question.answers_not_one')
+        unless survey?
+          a_count = (q_b_options.select{|o| o.present? && o != '0'}).count
+          if kind.to_s == 'pick_many' and a_count < 2
+            err_messages << I18n.t('errors.models.question.answers_less_than', count: 2)
+          elsif kind.to_s == 'pick_one' and a_count != 1
+            err_messages << I18n.t('errors.models.question.answers_not_one')
+          end
         end
       end
     end
@@ -111,6 +119,12 @@ class Question < ActiveRecord::Base
         if e.last.count < render_options[:answer_options][:min]
           err_messages << I18n.t('errors.models.question.items_less_than', count: render_options[:answer_options][:min])
         end
+      end
+    end
+
+    if kind.in? %w(match)
+      if q_a_options.first.present? && q_b_options.first.present? && extracted_items.first.first.count > extracted_items.first.last.count
+        err_messages << I18n.t('errors.models.question.less_side_1_items')
       end
     end
 
@@ -133,11 +147,11 @@ class Question < ActiveRecord::Base
     self.options.each_with_index  do |option, ndx|
       case self.kind.to_sym
       when :fill_one, :fill_many
-        option.answer = option.option.strip
+        option.answer = option.option.strip unless self.survey?
       when :pick_2_fill
         option.answer = option.option_items.first
       when :pick_one, :pick_many, :match
-        option.answer = option.answer_options_items.first
+        option.answer = option.answer_options_items.first unless self.survey?
       when :sort
         option.answer = [1..option.option_items.count].join("\n")
       end

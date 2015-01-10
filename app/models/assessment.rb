@@ -79,6 +79,10 @@ class Assessment < ActiveRecord::Base
     (closes_at_datetime(klass) - Time.zone.now)/3600.0
   end
   
+  def survey?
+    kind == 'survey'
+  end
+
   # NOTE: mysql-specific # use 
   scope :course_level, -> { where(:unit_id => nil, :lecture_id => nil) }
   scope :unit_level, ->{ where(:lecture_id => nil) }
