@@ -272,41 +272,34 @@ ar:
       must_be_admin: لا بد ان تكون مديرا حتى يمكنك الدخول الى هذه الصفحة‫.‬
         
     hints:
-      fill_answer: يجب إدخال الإجابة الصحيحة على هذا الجزء من السؤال بالضبط كما هو‫.‬
-      fill_question: جزء من السؤال. استخدم النقاط (...) للدلالة على مكان فراغ. فقط يسمح فراغ واحد لكل جزء‫.‬
-      match_answer: عنصر جانب‫.‬ B يطابق بشكل صحيح عنصر جانب A المقاب
-      match_question: عنصر جانب A‫.‬
-      pick_2_fill_answer: الخيار من القائمة التي تمثل الإجابة الصحيحة.
-      pick_2_fill_answer_options: خيارات لملء الفراغات. خيار واحد لكل سطر.
-      pick_2_fill_question: جزء من السؤال. استخدم النقاط (...) للدلالة على مكان فراغ. فقط يسمح فراغ واحد لكل جزء‫.‬
-      pick_many_question: خيار لابد من تحديده‫.‬
-      pick_one_question: خيار لابد من تحديده‫.‬
-      simple_answer: يجب إدخال الإجابة الصحيحة للسؤال بالضبط كما هو‫.‬
-      sort_question: يتم إدخال خيار الفرز بالترتيب الصحيح‫.‬
-      simple_question: 
-      fill_question:
-      pick_2_fill_question:
-      pick_one_question:
-      pick_many_question:
-      match_question:
-      underline_question:
-      sort_question:
+      fill_one_question: 
+      fill_many_question: أدخل السؤال هنا. استخدم النقاط (...) للدلالة على مكان كل فراغ.
+      pick_2_fill_question: أدخل السؤال هنا. استخدم النقاط (...) للدلالة على مكان كل فراغ.
+      pick_one_question: 
+      pick_many_question: 
+      match_question: 
+      sort_question: 
+
+      fill_one_question_answer: أدخل الإجابة الصحيحة بالضبط كما ينبغي أن تدخل.
+      fill_many_question_blank_answer: أدخل الإجابة الصحيحة بالضبط كما ينبغي أن تدخل.
+      pick_2_fill_question_blank_options: الخيارات المستخدمة لملء الفراغ. الخيار الصحيح في البداية. خيار واحد لكل سطر. يمكنك الفصل بين الخيارات بسطور فارغة.
+      pick_one_question_option: خيار لاختيار.
+      pick_many_question_option: خيار لاختيار.
+      match_question_side_1: خيارات الجانب 1. خيار واحد لكل سطر. يمكنك الفصل بين الخيارات بسطور فارغة.
+      match_question_side_2: خيارات الجانب 2 بالتريب المطابق لخيارات الجانب 1. خيار واحد لكل سطر. يمكنك الفصل بين الخيارات بسطور فارغة.
+      sort_question_items: الخيارات التي سيجري ترتيبها مرتبة بشكل صحيح. خيار واحد لكل سطر. يمكنك الفصل بين الخيارات بسطور فارغة.
       
     labels:
-      fill_answer: الجواب الصحيح
-      fill_question: جزء السؤال
-      match_answer: الجانب B
-      match_question: الجانب A
-      pick_2_fill_answer: الجواب الصحيح
-      pick_2_fill_answer_options: خيارات الجواب
-      pick_2_fill_question: جزء السؤال
-      pick_many_answer: جواب صحيح؟
-      pick_many_question: خيار
-      pick_one_answer: جواب صحيح؟
-      pick_one_question: خيار
-      simple_answer: جواب صحيح
-      sort_question: الخيار
-
+      fill_one_question_answer: الإجابة الصحيحة
+      fill_many_question_blank_answer: الإجابة الصحيحة للفراغ
+      pick_2_fill_question_blank_options: خيارات الفراغ
+      pick_one_question_option: الخيار
+      pick_one_question_answer?: إجابة صحيحة؟
+      pick_many_question_option: الخيار
+      pick_many_question_answer?: إجابة صحيحة؟
+      match_question_side_1: الجانب
+      match_question_side_2: الجانب
+      sort_question_items: خيارات الترتيب
       
     placeholders:
       slug: جزء من الرابط. احرف و أرقام و - و ـ و بدون فراغات
@@ -321,15 +314,23 @@ ar:
       course_slug_or_course_name_or_course_about_cont: للبحث ...
       user_name_or_user_email_cont: للبحث ...
       student_name_or_student_user_name_or_student_user_email_cont: للبحث ...
-      simple_question: 
-      fill_question:
-      pick_2_fill_question:
-      pick_one_question:
-      pick_many_question:
-      match_question:
-      underline_question:
-      sort_question:
-      
+
+      fill_one_question: أدخل السؤال هنا
+      fill_many_question: أدخل السؤال هنا. استخدم النقاط (...) للدلالة على مكان كل فراغ.
+      pick_2_fill_question: أدخل السؤال هنا. استخدم النقاط (...) للدلالة على مكان كل فراغ.
+      pick_one_question: أدخل السؤال هنا
+      pick_many_question: أدخل السؤال هنا
+      match_question: أدخل السؤال هنا
+      sort_question: أدخل السؤال هنا
+
+      fill_one_question_answer: أدخل الإجابة الصحيحة بالضبط كما ينبغي أن تدخل.
+      fill_many_question_blank_answer: أدخل الإجابة الصحيحة بالضبط كما ينبغي أن تدخل.
+      pick_2_fill_question_blank_options: الخيارات المستخدمة لملء الفراغ. الخيار الصحيح في البداية. خيار واحد لكل سطر. يمكنك الفصل بين الخيارات بسطور فارغة.
+      pick_one_question_option: خيار لاختيار.
+      pick_many_question_option: خيار لاختيار.
+      match_question_side_1: خيارات الجانب 1. خيار واحد لكل سطر. يمكنك الفصل بين الخيارات بسطور فارغة.
+      match_question_side_2: خيارات الجانب 2 بالتريب المطابق لخيارات الجانب 1. خيار واحد لكل سطر. يمكنك الفصل بين الخيارات بسطور فارغة.
+      sort_question_items: الخيارات التي سيجري ترتيبها مرتبة بشكل صحيح. خيار واحد لكل سطر. يمكنك الفصل بين الخيارات بسطور فارغة.
         
     attributes:
       account:

@@ -2,8 +2,8 @@ require 'test_helper'
 
 class QuestionTest < ActiveSupport::TestCase
   def setup
-  	@simple = questions(:simple_eng101)
-  	@fill = questions(:fill_eng101)
+  	@fill_one = questions(:fill_one_eng101)
+  	@fill_many = questions(:fill_many_eng101)
   	@pick_2_fill = questions(:pick_2_fill_eng101)
   	@pick_one = questions(:pick_one_stat101)
   	@pick_many = questions(:pick_many_stat101)
@@ -12,8 +12,8 @@ class QuestionTest < ActiveSupport::TestCase
   end
 
   test "with valid fixtures" do
-  	assert @simple.valid?
-  	assert @fill.valid?
+  	assert @fill_one.valid?
+  	assert @fill_many.valid?
     assert @pick_2_fill.valid?
   	assert @pick_one.valid?
   	assert @pick_many.valid?
@@ -22,33 +22,33 @@ class QuestionTest < ActiveSupport::TestCase
   end
 
   test "invalid without an question" do
-  	@simple.question = nil
-    assert_not @simple.valid?
+  	@fill_one.question = nil
+    assert_not @fill_one.valid?
   end
   
   test "invalid without a kind" do
-    @fill.kind = nil
-    assert_not @fill.valid?
+    @fill_many.kind = nil
+    assert_not @fill_many.valid?
   end
   
   test "valid without a hint" do
-    @fill.hint = nil
-    assert @fill.valid?
+    @fill_many.hint = nil
+    assert @fill_many.valid?
   end
   
   test "valid without an explanation" do
-    @fill.explanation = nil
-    assert @fill.valid?
+    @fill_many.explanation = nil
+    assert @fill_many.valid?
   end
   
-  test "invalid if it's a simple and answer is nil" do
-  	@simple.options.destroy_all
-    assert_not @simple.valid?
+  test "invalid if it's a fill_one and answer is nil" do
+  	@fill_one.options.destroy_all
+    assert_not @fill_one.valid?
   end
   
-  test "invalid if it's a fill and has no choice" do
-    @fill.options.destroy_all
-    assert_not @fill.valid?
+  test "invalid if it's a fill_many and has no choice" do
+    @fill_many.options.destroy_all
+    assert_not @fill_many.valid?
   end
   
   test "invalid if it's a pick_2_fill and has no choice" do

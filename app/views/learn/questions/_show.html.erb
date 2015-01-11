@@ -4,7 +4,7 @@
   <% questions =  [question] %>
   <% questions.each_with_index do |q, ndx| %>
     <div id="attempt-question-<%= ndx %>" 
-         class ="attempt-question panel panel-default" 
+         class ="attempt-question panel panel-default question-<%= q.kind %>" 
          style="padding: 5px;<%= ' display: none;' if ndx > 0 %>">
          
       <%= render "teach/questions/#{q.kind}", :q => q, 

@@ -167,7 +167,7 @@ module Themes::Bootstrap::BootstrapHelper
   end
 
   def ui_klass_labels(klass)
-    labels = ''.html_safe #content_tag :span, klass.tuition.to_s, :class => "label label-klass"
+    labels = ''.html_safe 
     unless klass.course.country.blank? 
       flag = flag_tag(klass.course.country)
       labels << content_tag(:span, flag, :class => "text-muted") 

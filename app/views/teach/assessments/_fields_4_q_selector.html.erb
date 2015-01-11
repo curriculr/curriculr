@@ -4,6 +4,7 @@
     <%= form_hidden f, :_destroy %>
     <%= link f.object.question.present? ? :question : :q_selector, :destroy, '#', class: "remove_fields #{css(button: [:danger, :xs], align: :right)}" %>
   </div>
+
   <% cols = @assessment.survey? ? 12 : 9 %>
   <div class="panel-body">
     <div class="<%= css_columns(cols) %>"> 
@@ -18,7 +19,7 @@
           <div class="<%= css_columns(9) %>">
             <div class="row">
               <div class="<%= css_columns(6) %>"> 
-                <%= form_select f, :kind, t('config.question.kind').invert, :value => params[:s] %>
+                <%= form_select f, :kind, t('config.question.kind').invert, :value => params[:s], include_blank: true %>
               </div>
               <div class="<%= css_columns(6) %>">
                 <%= form_number f, :questions_count %>
@@ -49,6 +50,7 @@
         </div>  
       <% end %>  
     </div>
+    
     <% unless @assessment.survey? %>
       <div class="<%= css_columns(12 - cols) %>">
         <%= @assessment.kind != 'survey' ? form_number(f, :points) : form_static(f, :points)  %>

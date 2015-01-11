@@ -38,11 +38,34 @@ module Learn
     def show_question
       @question = Question.find(params[:question_id])
       if params[:attempt]
-        @answer = Hash[params[:attempt][@question.id.to_s].map do |k, v| [k.to_i, v.strip] end]
+        case @question.kind
+        when 'pick_one'
+          @answer = Hash[@question.options.map do |o| 
+            correct = (o.option.strip == params[:attempt][@question.id.to_s] &&  o.answer_options == '1')
+            [o.id, correct ? '1' : '0']
+          end]
+        when 'pick_many'
+          @answer = Hash[@question.options.map do |o| 
+            correct = (o.option.strip == params[:attempt][@question.id.to_s][o.id.to_s] &&  o.answer_options == '1')
+            [o.id, correct ? '1' : '0']
+          end]
+        else
+          @answer = Hash[params[:attempt][@question.id.to_s].map do |k, v| [k.to_i, v.strip] end]
+        end
         @lecture.log_attendance(@klass, current_student, @question, @answer)
 
-        #params[:attempt][@question.id.to_s]
-        @correct_answer = Hash[@question.options.map{|o| ["answer_#{@question.id}_#{o.id}", o.answer]}]
+        # @correct_answer = Hash[@question.options.map{|o| ["answer_#{@question.id}_#{o.id}", o.answer]}]
+
+        case @question.kind
+        when 'fill_many', 'pick_2_fill'
+          @correct_answer = { "answer_#{@question.id}" => @question.options.map{|o| o.answer} }
+        when 'match', 'sort'
+          answers = @question.answer
+          @correct_answer = Hash[answers.keys.map{|k| ["answer_#{@question.id}_#{k}", answers[k]]}]
+        else
+          @correct_answer = Hash[@question.options.map{|o| ["answer_#{@question.id}_#{o.id}", o.answer]}]
+        end
+
         @mark_as_taken = true
 
         @result = AssessmentAttempt.is_correct?(@question, @answer)

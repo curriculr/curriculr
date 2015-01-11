@@ -25,12 +25,12 @@
       <tr class="row" id="option_<%= o.id %>">
         <td class="<%= css_columns(11) %>">
           <%= label_tag "attempt[#{q.id}]_#{o.option}", class: "radio" do %>
-            <%= i + 1%>. <%= processed_text(o.option) %>
+            <%= processed_text(o.option) %>
           <% end %>
         </td>
         <td class="<%= css_columns(1) %>">
-          <%= radio_button_tag "attempt[#{q.id}]", o.option, (a and a[o.id] == '1'), :disabled => read_only %>
-          <div id="<%= "answer_#{q.id}_#{o.id}"%>" style="display: inline;"></div>
+          <%= radio_button_tag "attempt[#{q.id}]", o.option, (a && a[o.id] == '1'), :disabled => read_only %>
+          <div id="<%= "answer_#{q.id}_#{o.id}"%>" style="display: inline;" class="question-answer"></div>
         </td>
       </tr>
     <% end %>

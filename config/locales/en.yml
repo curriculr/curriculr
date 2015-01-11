@@ -47,18 +47,6 @@ en:
         option_blank: Blank field; must be filled.
         option_blank_count_mismatch: Number of ellipses (...) in question not matching number of blanks.
         less_side_1_items: Side 2 must have at least as many items as side 1.
-
-        options:
-          not_allowed: Multiple options/parts not allowed.
-          less_than_two: Must have at least two options/parts.
-          more_than_two: Must not have more than two options/parts.
-          blank: Must fill all blanks.
-          blank_option: Must fill the missing option/part.
-          blank_answer_options: Must provide the answer options of this part.
-        answers:
-          blank: You must answer this question.
-          not_one: This question requires only one answer.
-          less_than_two: This question must have at least two multiple choice answers.
       assessment:
         attributes:
           from_datetime:

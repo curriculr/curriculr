@@ -17,7 +17,7 @@
 </div>
 
 <table class="<%= css_table %>">
-  <tbody class="sortable-question-sort">
+  <tbody class="sortable-question-sort" data-question="<%= q.id %>">
     <%
       if a && a.present?
         options = a.values

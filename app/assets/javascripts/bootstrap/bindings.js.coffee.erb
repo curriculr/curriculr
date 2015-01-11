@@ -66,8 +66,6 @@ window.ui_rebind_application_events  = ($) ->
 
   $('.chosen-select').chosen
     allow_single_deselect: true
-    # no_results_text: 'No results matched'
-    # width: '100%'
 
   $('.video-open-link').unbind().on 'click', (e) ->
     vid = "sv_m_#{$(this).data('id')}"
@@ -252,7 +250,6 @@ window.ui_rebind_application_events  = ($) ->
   $('.add_fields').unbind().on 'click', (event) ->
     time = new Date().getTime()
     regexp = new RegExp($(this).data('id'), 'g')
-    #$(this).before($(this).data('fields').replace(regexp, time))
     $('.field-container').append($(this).data('fields').replace(regexp, time))
     $('.remove_fields').unbind().on 'click', make_fields_removable
     $('.field-container .removable .order-field').each (index) ->
@@ -415,8 +412,11 @@ window.ui_rebind_application_events  = ($) ->
   $('.sortable-question-sort').sortable(
     axis: 'y' 
     update: ->
+      qid = $(this).data('question')
       $(this).find('input[type=hidden]').each (index, element) ->
-        $(element).val("#{index + 1}")
+        $(element).attr('id', "attempt_#{qid}_#{index + 1}")
+        $(element).attr('name', "attempt[#{qid}][#{index + 1}]")
+        #$(element).val("#{index + 1}")
   )
 
   set_lecture_pager_position = (pos) ->

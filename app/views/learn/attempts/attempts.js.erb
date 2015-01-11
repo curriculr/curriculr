@@ -5,6 +5,11 @@
     html = %(
       <i class="fa fa-check"></i>
     ) if a == '1'
+  elsif %w(fill_many pick_2_fill).include?(@question.kind)
+    html = %(
+      <strong>#{Question.human_attribute_name(:answer)}</strong>: 
+      <ul>#{a.map{|i| content_tag(:li, i)}.join("\n")}</ul>
+    )
   else
     html = %(
       <strong>#{Question.human_attribute_name(:answer)}</strong>: <span>#{a}</span>

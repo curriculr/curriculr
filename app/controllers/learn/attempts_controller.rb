@@ -81,8 +81,16 @@ module Learn
       
       	format.js { 
           @question = Question.find(params[:question_id])
-          @answer = Hash[@question.options.map{|o| ["answer_#{@question.id}_#{o.id}", o.answer]}]
-        
+          case @question.kind
+          when 'fill_many', 'pick_2_fill'
+            @answer = { "answer_#{@question.id}" => @question.options.map{|o| o.answer} }
+          when 'match', 'sort'
+            answers = @question.answer
+            @answer = Hash[answers.keys.map{|k| ["answer_#{@question.id}_#{k}", answers[k]]}]
+          else
+            @answer = Hash[@question.options.map{|o| ["answer_#{@question.id}_#{o.id}", o.answer]}]
+          end
+
           render 'attempts' 
   			} 
   		end

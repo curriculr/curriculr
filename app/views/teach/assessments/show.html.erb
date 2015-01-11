@@ -69,7 +69,7 @@
       </span><br>
       <% if @assessment.lecture && @assessment.invideo_id && (invideo = Material.find_by(id: @assessment.invideo_id)) %>
         <strong><%= Assessment.human_attribute_name(:invideo_id) %></strong><br>
-        <span class="<%= css_text(:muted) %>"><%= invedio.medium.name %></span><br>
+        <span class="<%= css_text(:muted) %>"><%= invideo.medium.name %></span><br>
       <% end %>
     </div>
     <div class="<%= css_columns(4) %>">

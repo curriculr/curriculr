@@ -12,7 +12,8 @@
   %>
 
   <%= html.html_safe %>
-
+  <div id="<%= "answer_#{q.id}"%>" class="question-answer"></div>
+  
   <% unless q.hint.blank? %>
     <%= content_tag :div, id: "#{q.id}-hint", class: "question-hint hidden" do %>
       <%= markdown("**#{Question.human_attribute_name(:hint)}**! #{q.hint}") %>

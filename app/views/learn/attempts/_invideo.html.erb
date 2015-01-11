@@ -21,7 +21,7 @@
       end
     %>
     <div id="attempt-question-<%= ndx %>" 
-         class ="attempt-question panel panel-default <%= css_bg %>" 
+         class ="attempt-question panel panel-default <%= css_bg %> question-<%= q.kind %>" 
          style="padding: 5px;<%= ' display: none;' if ndx > 0 %>">
          
       <%= render "teach/questions/#{q.kind}", :q => q, 

@@ -31,7 +31,7 @@ class Attempt < ActiveRecord::Base
     result = nil
     if state == 2 
 		  if test[i][:g] > 0 
-        if test[i][:c] == q.options_count 
+        if test[i][:c] == q.actual_options_count 
 			    result = :correct
         else
           result = :partially_correct

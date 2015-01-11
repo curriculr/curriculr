@@ -274,17 +274,6 @@ en:
       must_be_admin: You must be an administrator to access this page.
         
     hints:
-      # fill_answer: The correct answer to this part of the question exactly as it should be entered.
-      # fill_question: A part of the question. Use ellipsis (...) to indicate the place of the blank. Only one blank is allowed per part.
-      # match_answer: A side B item that correctly matches the corresponding side A item.
-      # match_question: A side A item.
-      # pick_2_fill_answer: The option from the list that represent the correct answer.
-      # pick_2_fill_answer_options: The options to fill in the blanks from. One option per line.
-      # pick_2_fill_question: A part of the question. Use ellipsis (...) to indicate the place of the blank. Only one blank is allowed per part.
-      # pick_many_question: An option to be selected.
-      # pick_one_question: An option to be selected.
-      # simple_answer: The correct answer to the question exactly as it should be entered.
-      # sort_question: A sortable option in entered in the correct order.
       fill_one_question: 
       fill_many_question: Make sure that the number of ellipses (...) is the same as the number of blank answers.
       pick_2_fill_question: Make sure that the number of ellipses (...) is the same as the number of blank option lists.
@@ -304,19 +293,6 @@ en:
       sort_question_items: The items to be sorted in the correct order. One item per line. Empty lines can be used to separate items.
     
     labels:
-      # fill_answer: Correct answer
-      # fill_question: Question part
-      # match_answer: Side B item
-      # match_question: Side A item
-      # pick_2_fill_answer: Correct answer
-      # pick_2_fill_answer_options: Answer options
-      # pick_2_fill_question: Question part
-      # pick_many_answer: Correct answer?
-      # pick_many_question: Option
-      # pick_one_answer: Correct answer?
-      # pick_one_question: Option
-      # simple_answer: 
-      # sort_question: Sortable item
       fill_one_question_answer: Correct answer
       fill_many_question_blank_answer: Correct answer for blank
       pick_2_fill_question_blank_options: Options for blank
@@ -326,7 +302,6 @@ en:
       pick_many_question_answer?: Correct answer?
       match_question_side_1: Side
       match_question_side_2: Side
-      underline_question_items:
       sort_question_items: Sortable items
             
     placeholders:

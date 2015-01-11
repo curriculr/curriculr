@@ -127,7 +127,7 @@ class AssessmentAttempt
       @attempt.questions << question
       t[:c] = 0
       eval("is_#{question.kind}_correct?(t,question)")
-      t[:g] = (t[:p] * 1.0) * (t[:c] * 1.0 / question.options_count)
+      t[:g] = (t[:p] * 1.0) * (t[:c] * 1.0 / question.actual_options_count)
       points += t[:g]
     end
 
@@ -149,6 +149,7 @@ class AssessmentAttempt
     end
   end
   
+  # Used to correct questions in lectures
   def self.is_correct?(question, attempt)
     correct = 0
     incorrect = 0

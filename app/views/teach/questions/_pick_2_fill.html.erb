@@ -4,15 +4,16 @@
   <% 
   html = markdown(q.question)
   q.options.each do |o|
-    o.option_items.map {|i| [a, a]}
+    items = o.option_items
 
-    html.sub!('...', select_tag("attempt[#{q.id}][#{o.id}]", options_for_select(o.option_items.map {|i| [i, i]}, a ? a[o.id] : nil), 
+    html.sub!('...', select_tag("attempt[#{q.id}][#{o.id}]", options_for_select(items.sample(items.count).map {|i| [i, i]}, a ? a[o.id] : nil), 
       :disabled => read_only,
       :include_blank => true, :class => css_form_control))
   end
   %>
 
   <%= html.html_safe %>
+  <div id="<%= "answer_#{q.id}"%>" class="question-answer"></div>
 
   <% unless q.hint.blank? %>
     <%= content_tag :div, id: "#{q.id}-hint", class: "question-hint hidden" do %>

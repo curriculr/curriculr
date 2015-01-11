@@ -176,17 +176,17 @@ ar:
     
     models:
       question:
-        options:
-          not_allowed: لا ينبغى أن يكون لهذا السؤال خيارات.
-          less_than_two: لا ينبغى أن يكون لهذا السؤال أقل من خيارين.
-          more_than_two: لا ينبغى أن يكون لهذا السؤال أكثر من خيارين.
-          blank: لا بد من تعبئة بيانات الخيار أو جزء السؤال مع خيارات الإجابة.
-          blank_option: لا بد من تعبئة بيانات الخيار أو جزء السؤال.
-          blank_answer_options: لا بد من تحديد الخيارات المتاحة للإجابة.
-        answers:
-          blank: لا بد من الإجابة على هذا السؤال.
-          not_one: يحتاج هذا السؤال خيارا وحيدا للإجابة.
-          less_than_two: لا ينبغى أن يكون لهذا السؤال أقل من خيارين للإجابة.
+        options_not_one: يحتاج %{name} واحد.
+        options_less_than: 
+          one: يحتاج على الأقل %{count} %{name}.
+          other: يحتاج على الأقل %{count} %{name}.
+        answers_less_than: يحتاج على الأقل %{count} إجابة.
+        answers_not_one: يحتاج إجابة واحدة.
+        items_less_than: هناك حقل بأقل من %{count} خيار.
+        option_blank: خقل فارغ; لا بد من ملؤه.
+        option_blank_count_mismatch: عدد النقاط الممثلة للفراغات لا تساوي عدد الفراغاتز
+        less_side_1_items: خيارات الجانب 2 لا بد أن تساوي على الأقل خيارات الجانب 2.
+
       assessment:
         attributes:
           from_datetime:

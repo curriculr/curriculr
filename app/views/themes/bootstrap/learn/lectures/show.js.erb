@@ -41,6 +41,7 @@ $("#<%= pane %> audio.mediaelementjs").mediaelementplayer();
   <% @correct_answer.each do |id, a| %>
     <%
     html = content_tag :div, :style => 'display: none;' do
+      puts "\n\n#{id}:#{a}\n\n"
       if  %w(pick_one pick_many).include?(@question.kind)
          a == '1' ? %(<i class="fa fa-check"></i>).html_safe : ''
       else
@@ -52,12 +53,6 @@ $("#<%= pane %> audio.mediaelementjs").mediaelementplayer();
   <% end %>
 <% end %>
 
-
-// $("#<%= pane %> video.sublime").each(function(){
-//   sublime.prepare($(this).attr('id'), function(player) {
-//   // player is now ready.
-//   });
-// });
 mark_as_taken = <%= @mark_as_taken.present? %>;
 lecture_pager_position = <%= params[:position] ? params[:position] : (@question ? @question.order : 1) %>
 ui_rebind_application_events(jQuery);

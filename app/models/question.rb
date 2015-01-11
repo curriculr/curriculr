@@ -10,6 +10,16 @@ class Question < ActiveRecord::Base
   
   has_many :options, :dependent => :destroy
   accepts_nested_attributes_for :options, :allow_destroy => true
+
+  def actual_options_count
+    case kind
+    when 'match', 'sort'
+      options.first.option_items.count
+    else 
+      options_count
+    end
+  end
+
   def answer # Used in attempt
     answer = {}
     options.each do |o|
@@ -150,10 +160,10 @@ class Question < ActiveRecord::Base
         option.answer = option.option.strip unless self.survey?
       when :pick_2_fill
         option.answer = option.option_items.first
-      when :pick_one, :pick_many, :match
+      when :pick_one, :pick_many
         option.answer = option.answer_options_items.first unless self.survey?
-      when :sort
-        option.answer = [1..option.option_items.count].join("\n")
+      when :match, :sort
+        option.answer = ''
       end
     end
   end
