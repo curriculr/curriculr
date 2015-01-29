@@ -106,7 +106,7 @@ module Teach
       def klass_params
         params.require(:klass).permit(:about, :featured, :begins_on, 
           :ends_on, :private, :previewed, :allow_enrollment, :slug,
-          :lectures_on_closed, :free, :tuition_plan, :membership => [], :required_for => [])
+          :lectures_on_closed, :free, :payment_program_id, :required_for => [])
       end
   end
 end

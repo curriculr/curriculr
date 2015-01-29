@@ -1,5 +1,6 @@
 class Klass < ActiveRecord::Base
   include Scopeable
+  # include Payment::Payable
   extend FriendlyId
   
   friendly_id :name, use: [ :slugged, :finders ]
@@ -9,8 +10,6 @@ class Klass < ActiveRecord::Base
   has_many :enrollments, :dependent => :destroy
   has_many :forums, :dependent => :destroy
   has_many :updates, :dependent => :destroy
-  
-  #acts_as_payable_for
   
 	# Validation Rules
   validates :slug, :presence => true, :length => {:maximum => 100 }
@@ -192,7 +191,7 @@ class Klass < ActiveRecord::Base
 
   # To be overridden by any payment plugin
   def free?
-    free
+    free || (respond_to?(:required_for?) && !required_for?(:all))
   end
 
   def instructors
@@ -202,11 +201,6 @@ class Klass < ActiveRecord::Base
     end
 
     instructors
-  end
-
-  # To be overridden by any payment plugin
-  def with_access?(part, user, enrollment)
-    true
   end
 
   # NOTE: mysql-specific

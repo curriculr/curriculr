@@ -92,14 +92,17 @@ class ApplicationController < PreApplicationController
   end
   
   def check_access! (part)
-    if !@klass.with_access?(part, current_user, @enrollment)
+    if !check_access?(part)
       raise KlassAccessDeniedError, part
     end
   end
   
   def check_access? (part)
-    flash[:part] = part
-    @klass.with_access?(part, current_user, @enrollment)
+    if @klass.respond_to?(:with_access?) 
+      @klass.with_access?(part, current_student, @enrollment)
+    else
+      true
+    end
   end
   
   def require_admin
