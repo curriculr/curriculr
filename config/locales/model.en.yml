@@ -773,11 +773,11 @@ en:
       match_question: Match the items on Side A to their corresponding ones on Side B.
       underline_question: Underline
       currency_USD: Dollars
-      lecture_comments: Lecture Comments
-      graded_discussions: Graded Discussions
-      general: General Instruction
-      assessments: Assessments
-      study_groups: Study Groups
+      lecture_comments: Lecture Comments Forum
+      graded_discussions: Graded Discussions Forum
+      general: General Instruction Forum
+      assessments: Assessments Forum
+      study_groups: Study Groups Forum
       settings_change_warning_html: 
         <strong>Warning!</strong> 
         Any change to the settings below must be done very carefully.

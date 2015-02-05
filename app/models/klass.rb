@@ -283,7 +283,7 @@ class Klass < ActiveRecord::Base
   after_create do |klass|
     forums = klass.course.config['discussion']['forums']
     forums.each do |f|
-      klass.forums.create(:name => I18n.t("page.titles.#{f}"), :about => I18n.t("page.text.under_construction"))
+      klass.forums.create(:name => I18n.t("page.titles.#{f}", default: f), :about => I18n.t("page.text.#{f}", default: I18n.t("page.text.under_construction")))
     end if forums.present?
     
     lecture_forum = klass.forums.create(:name => I18n.t('page.titles.lecture_comments'), 

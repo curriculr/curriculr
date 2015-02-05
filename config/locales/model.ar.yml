@@ -773,11 +773,11 @@ ar:
       match_question: اختر من الجانب A ما يقابله في الجانب B
       underline_question: Underline
       currency_USD: دولارا
-      lecture_comments: تعليقات المحاضرة
-      graded_discussions: مناقشات محسوبة
+      lecture_comments: منتدى تعليقات المحاضرة
+      graded_discussions: منتدى المناقشات المحسوبة
       general: المنتدى العام
       assessments: منتدى الامتحانات
-      study_groups: مجموعات المذاكرة
+      study_groups: منتدى مجموعات المذاكرة
       settings_change_warning_html: 
         <strong>تحذير !</strong> 
         أي تغيير في الاعدادات ينبغي أن يتم بحذر شديد لضمان أن تظل هذه الاعدادات صحيحة في شكلها و قيمها.

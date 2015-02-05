@@ -46,7 +46,7 @@
 <% elsif @unit %>
   <% 
   links = []
-  @unit.lectures.each do |lecture|
+  @unit.lectures.order('lectures.order').each do |lecture|
     links << link_to(lecture.name, teach_course_unit_lecture_questions_path(@course, @unit, lecture, :a => (@assessment ? @assessment.id : nil), :b => @bank))
   end
   %>
@@ -54,7 +54,7 @@
 <% else %>
   <% 
     links = []
-    @course.units.each do |unit|
+    @course.units.order('units.order').each do |unit|
       links << link_to(unit.name, teach_course_unit_questions_path(@course, unit, :a => (@assessment ? @assessment.id : nil), :b => @bank))
     end
   %>
