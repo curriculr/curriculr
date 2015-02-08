@@ -5,8 +5,6 @@
           { :opr => :ready, :'assessment[ready]' => !@assessment.ready }].flatten, 
           :method => :put, :remote => true, :id => "assessment_ready_#{@assessment.id}_link"),
         nil,
-        link(:assessment, :preview, [:preview, @req_objects].flatten),
-        nil,
         link(:assessment, :destroy, @req_objects, :method => :delete, :confirm => true)
       ], class: css_button(:default), align: :right)
 %>
@@ -106,7 +104,8 @@
           :class => css(button: :success, align: :right)) %>  
   <% end %>
   
-  <%= ui_header Question.model_name.human(count: 3), style: :h4, action: action %>
+  <% browse_action = link(:assessment, :preview, [:preview, @req_objects].flatten, class: css_button(:default)) %>
+  <%= ui_header Question.model_name.human(count: 3) + ' ' + browse_action, style: :h4, action: action %>
 
   <div class="field-container sortable-selector sortable" data-update-url="<%= url_for([:sort_q_selector, :teach, @course, @unit, @lecture, @assessment]) %>">
     <%= f.fields_for :q_selectors do |s| %>
