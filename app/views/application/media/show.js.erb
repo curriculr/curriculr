@@ -1,6 +1,6 @@
 <% 
 	html = j(render(:partial => "application/media/medium", 
 		:locals => { medium: @medium, medium_counter: 0 })) %>
-$('#content_<%= @medium.id %>.medium').replaceWith('<%= html %>');
+$('#content_<%= @medium.id %>_medium').replaceWith('<%= html %>');
 
 ui_rebind_application_events(jQuery);

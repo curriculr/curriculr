@@ -496,7 +496,7 @@ window.ui_rebind_application_events  = ($) ->
         </div>
       </div>
       
-      <canvas id="#{id}" height="400" style="border: 1px solid #eee; width: 100%; height: 400; #{bg}"></canvas>
+      <canvas id="#{id}" height="400" style="border: 1px solid #eee; #{bg}"></canvas>
     """
     $(container).html(html)
     $("##{id}").sketch()
@@ -507,6 +507,7 @@ window.ui_rebind_application_events  = ($) ->
     else
       bg = ''
     display_sketchpad($(this), $(this).data('id'), bg)
+    $("##{$(this).data('id')}").css({'width': '100%', 'height': '400'})
   
 jQuery ->
   ui_rebind_application_events jQuery
