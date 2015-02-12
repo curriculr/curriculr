@@ -17,6 +17,7 @@
 //= require pnotify
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
+//= require sketch
 //
 // Application's Own Scripts
 //= require app-text

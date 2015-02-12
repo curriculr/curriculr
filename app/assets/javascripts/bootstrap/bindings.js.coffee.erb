@@ -470,6 +470,44 @@ window.ui_rebind_application_events  = ($) ->
       $(this).find('.medium-url').hide()
   )
 
+  display_sketchpad = (container, id, bg) ->
+    html = """
+      <div class="btn-toolbar" role="toolbar" aria-label="Sketchpad toolbar">
+        <div class="btn-group" role="group" aria-label="colors">
+          <a href="##{id}" data-color="#f00" class="btn btn-default" style="background: #f00;">&nbsp;</a>
+          <a href="##{id}" data-color="#ff0" class="btn btn-default" style="background: #ff0;">&nbsp;</a>
+          <a href="##{id}" data-color="#0f0" class="btn btn-default" style="background: #0f0;">&nbsp;</a>
+          <a href="##{id}" data-color="#0ff" class="btn btn-default" style="background: #0ff;">&nbsp;</a>
+          <a href="##{id}" data-color="#00f" class="btn btn-default" style="background: #00f;">&nbsp;</a>
+          <a href="##{id}" data-color="#f0f" class="btn btn-default" style="background: #f0f;">&nbsp;</a>
+          <a href="##{id}" data-color="#000" class="btn btn-default" style="background: #000;">&nbsp;</a>
+          <a href="##{id}" data-color="#fff" class="btn btn-default" style="background: #fff;">&nbsp;</a>
+        </div>
+        <div class="btn-group" role="group" aria-label="strokes">
+          <a href="##{id}" data-size="3" class="btn btn-default">3</a>
+          <a href="##{id}" data-size="5" class="btn btn-default">5</a>
+          <a href="##{id}" data-size="10" class="btn btn-default">10</a>
+          <a href="##{id}" data-size="15" class="btn btn-default">15</a>
+        </div>
+        <div class="btn-group pull-right" role="group" aria-label="buttons">
+          <a href="##{id}" data-tool="marker" class="btn btn-default" title="Marker"><i class="fa fa-paint-brush"></i></a>
+          <a href="##{id}" data-tool="eraser" class="btn btn-default" title="Eraser"><i class="fa fa-eraser"></i></a>
+          <a href="##{id}" data-download="png" class="btn btn-default" title="Download"><i class="fa fa-download"></i></a>
+        </div>
+      </div>
+      
+      <canvas id="#{id}" height="400" style="border: 1px solid #eee; width: 100%; height: 400; #{bg}"></canvas>
+    """
+    $(container).html(html)
+    $("##{id}").sketch()
+
+  $('.sketchpad-able').each ->
+    if $(this).data('background')
+      bg = "background: url(#{$(this).data('background')}) no-repeat center center;" 
+    else
+      bg = ''
+    display_sketchpad($(this), $(this).data('id'), bg)
+  
 jQuery ->
   ui_rebind_application_events jQuery
   

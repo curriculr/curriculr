@@ -84,6 +84,15 @@ module EditorsHelper
         <audio src="#{$1}"></audio>
         <i class="fa fa-volume-up"></i>
       </span>).html_safe
+    elsif text =~ /\[ext\:([^\:]*)\:([^\|]*)(\|(.*))?\]/
+      data = {'id' => $2}
+      if $4
+        $4.split('|').each do |p| 
+          t = p.split('=') 
+          data[t.first] = t.last if t.size == 2
+        end
+      end
+      content_tag :div, '', class: "#{$1}-able", data: data
     elsif text =~ /\<code\>(.+?)\<\/code\>/
       body = $1
       if body =~ /\$\$(.*)\$\$/ 
