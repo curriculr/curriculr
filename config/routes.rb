@@ -66,9 +66,7 @@ Rails.application.routes.draw do
       end
     
       resources :klasses do
-        resources :forums, :except => :show do
-          resources :topics 
-        end
+        resources :forums, :except => :show
       
         resources :updates, :except => [:index, :show] do
           put :make, :on => :member
@@ -80,6 +78,8 @@ Rails.application.routes.draw do
         put :discuss, :on => :member
       end
       
+      resources :forums, :except => :show # For common forums
+
       get :settings, :on => :member
       post :configure, :on => :member
       delete :configure, :on => :member

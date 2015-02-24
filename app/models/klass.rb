@@ -1,6 +1,5 @@
 class Klass < ActiveRecord::Base
   include Scopeable
-  # include Payment::Payable
   extend FriendlyId
   
   friendly_id :name, use: [ :slugged, :finders ]
@@ -281,9 +280,9 @@ class Klass < ActiveRecord::Base
   end
   
   after_create do |klass|
-    forums = klass.course.config['discussion']['forums']
+    forums = klass.course.forums.where(active: true)
     forums.each do |f|
-      klass.forums.create(:name => I18n.t("page.titles.#{f}", default: f), :about => I18n.t("page.text.#{f}", default: I18n.t("page.text.under_construction")))
+      klass.forums.create(:name => f.name, :about => f.about, graded: f.graded)
     end if forums.present?
     
     lecture_forum = klass.forums.create(:name => I18n.t('page.titles.lecture_comments'), 

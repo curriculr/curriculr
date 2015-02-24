@@ -1,6 +1,6 @@
 class Enrollment < ActiveRecord::Base
   include Actionable
-  
+
   belongs_to :klass, :counter_cache => true
   belongs_to :student
   belongs_to :paid_by, :polymorphic => true
@@ -61,5 +61,10 @@ class Enrollment < ActiveRecord::Base
         log_activity(activity, klass, student)
       end
     end
+  end
+
+  def dropped?
+    self.changes[:active] && self.changes[:active][0] && !self.changes[:active][1] &&
+    self.changes[:dropped_at] && self.changes[:dropped_at][0].nil? && self.changes[:dropped_at][1].present?
   end
 end

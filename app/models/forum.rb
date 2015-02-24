@@ -4,12 +4,13 @@ class Forum < ActiveRecord::Base
   has_many :topics, :dependent => :destroy
   has_many :posts, :through => :topics
   
+  belongs_to :course
   belongs_to :klass
   
   # Validations
   validates :name, :presence => true
   validates :about, :presence => true
-  validates :klass_id, :presence => true
+  #validates :klass_id, :presence => true
   
   # scopes
   default_scope -> { 

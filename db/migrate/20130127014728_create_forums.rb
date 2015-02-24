@@ -1,6 +1,7 @@
 class CreateForums < ActiveRecord::Migration
   def change
     create_table :forums do |t|
+      t.belongs_to :course, index: true
       t.belongs_to :klass, index: true
       t.string :name
       t.text :about

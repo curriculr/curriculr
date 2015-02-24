@@ -151,6 +151,30 @@
          </table>
        </div>
       </div> 
+
+      <% forums = @course.forums.to_a %>
+      <div class="panel panel-inverse">
+       <div class="panel-heading">
+         <h4 class="panel-title">
+           <a data-toggle="collapse" data-parent="#accordion" href="#forums">
+             <%= Forum.model_name.human(count: 3) %>
+             <%= content_tag :span, forums.count, :class => css_badge %>
+           </a>
+           <%= link(:forum, :new,
+               new_teach_course_forum_path(@course), :class => css(button: [:xs, :primary], align: :right)) %>
+         </h4>
+       </div>
+       <div id="forums" class="panel-collapse collapse <%= 'in' if active_course_section('forums') %>">
+         <div class="panel-body">
+          <div class="row">
+            <div class="<%= css_columns(12) %>">
+              <%= t('page.text.course_forums') %>
+            </div>
+          </div>
+         </div>
+         <%= render partial: 'teach/forums/index', locals: { forums: @course.forums } %> 
+       </div>
+      </div> 
       
       <%
         assessments = @course.assessments.where(unit_id: nil).where("kind = 'survey'").to_a

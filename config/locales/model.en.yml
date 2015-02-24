@@ -795,5 +795,4 @@ en:
       the_last_information_from_html: The last information from %{url}.
       powered_by_html: <small>Powered by</small> %{logo}
       file_upload_not_allowed: File upload is turned off.
-      blank: blank
-      option: option
+      course_forums: The common forums of this course that will be copied automatically to all of its future classes.

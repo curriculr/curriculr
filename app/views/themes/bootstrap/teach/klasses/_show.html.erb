@@ -39,6 +39,6 @@
     <%= render partial: 'teach/updates/index', locals: { klass: klass } %>
   </div>
   <div class="tab-pane <%= active_klass_section('forums') %>" id="klass-<%= klass.id %>-forums">    
-    <%= render partial: 'teach/forums/index', locals: { klass: klass } %> 
+    <%= render partial: 'teach/forums/index', locals: { forums: klass.forums } %> 
   </div>
 </div>

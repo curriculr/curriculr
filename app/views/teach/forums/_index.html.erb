@@ -10,7 +10,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<% klass.forums.each_with_index do |forum, ndx| %>
+		<% forums.each_with_index do |forum, ndx| %>
 		<tr>
 			<td><%= ndx + 1 %></td>
 			<td>
@@ -22,16 +22,16 @@
 			<td><%= forum.topics_count %></td>
 			<td>
 				<%= ui_button_dropdown(ui_options_button_text, [
-					    link(:forum, :edit, edit_teach_course_klass_forum_path(@course, klass, forum)),
+					    link(:forum, :edit, forum.klass ? edit_teach_course_klass_forum_path(@course, forum.klass, forum) : edit_teach_course_forum_path(@course, forum)),
 					    nil,
-					    link(:forum, :destroy, teach_course_klass_forum_path(@course, klass, forum), 
+					    link(:forum, :destroy, forum.klass ? teach_course_klass_forum_path(@course, forum.klass, forum) : teach_course_forum_path(@course, forum), 
 						    method: :delete, confirm: true)
 				    ], class: css_button(:default), align: :right) %>         
 			</td>
 		</tr>
     <% end %>
     
-    <% if klass.forums.empty? %>
+    <% if forums.empty? %>
 	    <tr>
 	      <td colspan="6"><%= t('page.text.no_record_found') %></td>
 	    </tr>

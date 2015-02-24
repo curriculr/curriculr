@@ -16,6 +16,7 @@ class Course < ActiveRecord::Base
   has_many :units, :dependent => :destroy
   has_many :assessments, :dependent => :destroy
   has_many :klasses, :dependent => :destroy
+  has_many :forums, :dependent => :destroy
 
   attr_accessor :config, :settings
   
@@ -102,6 +103,11 @@ class Course < ActiveRecord::Base
     syllabus.tag_list.add('syllabus')
     
     syllabus.save
+
+    forums = self.config['discussion']['forums']
+    forums.each do |f|
+      course.forums.create(:name => I18n.t("page.titles.#{f}", default: f), :about => I18n.t("page.text.#{f}", default: I18n.t("page.text.under_construction")))
+    end if forums.present?
   end
   
   after_update do |course|

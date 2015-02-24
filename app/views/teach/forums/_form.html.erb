@@ -1,10 +1,10 @@
 <%= form_header %>
 
-<%= themed_form_for [:teach, @course, @klass, @forum] do |f| %>
+<%= themed_form_for (@klass ? [:teach, @course, @klass, @forum] : [:teach, @course, @forum]) do |f| %>
   <%= form_text f, :name, :input_html => {:class => 'span6'} %>
   <%= form_markdown f, @forum, :about %>
   <%= form_checkbox f, :active %>
   <%= form_checkbox f, :graded %>
   
-  <%= form_submit f, teach_course_klass_path(@course, @klass, :show => 'forums') %>
+  <%= form_submit f, @klass ? teach_course_klass_path(@course, @klass, :show => 'forums') : teach_course_path(@course, :show => 'forums') %>
 <% end %>

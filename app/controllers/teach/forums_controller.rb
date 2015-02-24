@@ -7,11 +7,13 @@ module Teach
     end
   
     def create
-      @forum = @klass.forums.new(forum_params)
+      @forum = (@klass ? @klass.forums.new(forum_params) : @course.forums.new(forum_params))
     
       respond_with @forum do |format|
         if @forum.save
-          format.html { redirect_to teach_course_klass_path(@course, @klass, :show => 'forums') }
+          format.html { 
+            redirect_to @klass ? teach_course_klass_path(@course, @klass, :show => 'forums') : teach_course_path(@course, :show => 'forums') 
+          }
         else
           format.html { render :action => 'new' }
         end
@@ -27,7 +29,9 @@ module Teach
       
       respond_with @forum do |format|
         if @forum.update(forum_params)
-          format.html { redirect_to teach_course_klass_path(@course, @klass, :show => 'forums') }
+          format.html { 
+            redirect_to @klass ? teach_course_klass_path(@course, @klass, :show => 'forums') : teach_course_path(@course, :show => 'forums') 
+          }
         else
           format.html { render :action => 'edit' }
         end
@@ -39,7 +43,9 @@ module Teach
     
       respond_with @forum do |format|
         if @forum.destroy
-          format.html { redirect_to teach_course_klass_path(@course, @klass, :show => 'forums') }
+          format.html { 
+            redirect_to @klass ? teach_course_klass_path(@course, @klass, :show => 'forums') : teach_course_path(@course, :show => 'forums') 
+          }
         end
       end
     end
