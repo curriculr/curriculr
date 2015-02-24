@@ -6,6 +6,7 @@ class Lecture < ActiveRecord::Base
 	has_many :assessments, :dependent => :destroy
   has_many :questions, :dependent => :destroy
   has_many :pages, :dependent => :destroy, :as => :owner
+  has_many :updates, :dependent => :destroy
   
 	# Validation Rules
 	validates :name, :presence => true, :length => {:maximum => 100 }

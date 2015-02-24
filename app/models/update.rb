@@ -13,7 +13,7 @@ class Update < ActiveRecord::Base
      www
   end
   def no_kind?
-    if !www and !email and !sms
+    if !www and !email
       errors.add :www, I18n.t('errors.models.update.kind.no_kind')
     end
   end
@@ -22,16 +22,12 @@ class Update < ActiveRecord::Base
      www or email
   end
   
-  def course
-    klass.course
-  end
-  
   default_scope -> {
     order('updates.updated_at DESC')
   }
   
-  scope :active, ->(klass, options = {}) {
-    criteria = "updates.made = TRUE and updates.cancelled = FALSE and klasses.id = :klass_id "
+  scope :sent, ->(klass, options = {}) {
+    criteria = "updates.active = TRUE and updates.sent_at is not NULL and klasses.id = :klass_id "
     criteria << " and updates.www = TRUE" if options[:www]
     criteria << " and updates.email = TRUE" if options[:email]
     criteria << " and updates.sms = TRUE" if options[:sms]

@@ -394,9 +394,7 @@ en:
         subject: Subject
         body: Body
         status: Status
-        begins_at: Begins at
-        ends_at: Ends at
-        sticky: Sticky
+        active: Active
       assessment:
         name: Name
         about: About

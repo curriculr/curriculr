@@ -7,6 +7,7 @@
 <%
 assessments = unit.assessments.where(lecture_id: nil).to_a
 documents =  unit.materials_of_kind(:document).to_a 
+updates = unit.updates.to_a
 %>
 <hr>
 <ul class="nav nav-tabs" role="tablist">
@@ -34,6 +35,12 @@ documents =  unit.materials_of_kind(:document).to_a
       <%= content_tag :span, documents.count, :class => css_badge %>
     </a>
   </li>
+  <li class="<%= active_unit_section('updates') %>">
+    <a href="#unit-<%= unit.id %>-updates" role="tab" data-toggle="tab" data-unit="<%= unit.id %>">
+      <%= Update.model_name.human(count: 3) %>
+      <%= content_tag :span, updates.count, :class => css_badge %>
+    </a>
+  </li>
   <li id="unit-<%= unit.id %>-lectures-new" class="unit-<%= unit.id %>-new-link pull-right" style="<%= 'display: none;' unless active_unit_section('lectures') %>">
     <%= link :lecture, :new, new_teach_course_unit_lecture_path(@course, unit) %>
   </li>
@@ -54,6 +61,9 @@ documents =  unit.materials_of_kind(:document).to_a
   <li id="unit-<%= unit.id %>-documents-new" class="unit-<%= unit.id %>-new-link pull-right" style="<%= 'display: none;' unless active_unit_section('documents') %>">
     <%= link :material, :new_document, new_teach_course_unit_material_path(@course, unit, 
           :s => :document) %>
+  </li>
+  <li id="unit-<%= unit.id %>-updates-new" class="unit-<%= unit.id %>-new-link pull-right" style="<%= 'display: none;' unless active_unit_section('updates') %>">
+    <%= link :update, :new, new_teach_course_unit_update_path(@course, unit) %>
   </li>
 </ul>
 <div class="tab-content">
@@ -116,5 +126,8 @@ documents =  unit.materials_of_kind(:document).to_a
         <% end %>   
       </tbody>
     </table>
+  </div>
+  <div class="tab-pane <%= active_unit_section('updates') %>" id="unit-<%= unit.id %>-updates">
+    <%= render partial: 'teach/updates/index', locals: { updates: updates } %> 
   </div>
 </div>

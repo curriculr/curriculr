@@ -17,6 +17,7 @@ class Course < ActiveRecord::Base
   has_many :assessments, :dependent => :destroy
   has_many :klasses, :dependent => :destroy
   has_many :forums, :dependent => :destroy
+  has_many :updates, :dependent => :destroy
 
   attr_accessor :config, :settings
   

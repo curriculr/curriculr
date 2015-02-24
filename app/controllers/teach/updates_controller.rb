@@ -1,11 +1,12 @@
 module Teach
   class UpdatesController < BaseController
     responders :flash, :http_cache
+    helper_method :the_path_out
   
     def make
       @update = Update.find(params[:id])
-      if !@update.made and !@update.cancelled
-        @update.made = true
+      if @update.active && @update.sent_at.blank?
+        @update.sent_at = Time.zone.now
         @update.save!
 
         if @update.email
@@ -70,11 +71,19 @@ module Teach
     end
 
     def create
-      @update = Update.new(update_params)
+      @update = if @klass
+        @klass.updates.new(update_params)
+      elsif @lecture
+        @lecture.updates.new(update_params)
+      elsif @unit
+        @unit.updates.new(update_params)
+      else
+        @course.updates.new(update_params)
+      end
 
       respond_with @update do |format|
         if @update.save
-          format.html { redirect_to teach_course_klass_path(@course, @klass, :show => 'updates') }
+          format.html { redirect_to the_path_out }
         else
           format.html { render action: "new" }
         end
@@ -86,7 +95,7 @@ module Teach
 
       respond_with @update do |format|
         if @update.update(update_params)
-          format.html { redirect_to teach_course_klass_path(@course, @klass, :show => 'updates') }
+          format.html { redirect_to the_path_out }
         else
           format.html { render action: "edit" }
         end
@@ -98,14 +107,27 @@ module Teach
       @update.destroy
 
       respond_with @update do |format|
-        format.html { redirect_to teach_course_klass_path(@course, @klass, :show => 'updates') }
+        format.html { redirect_to the_path_out }
       end
     end
 
     private
     def update_params
-      params.require(:update).permit(:course_id, :unit_id, :lecture_id, :klass_id, :www, 
-        :email, :sms, :twitter, :facebook, :event, :frequency, :to, :subject, :body)
+      params.require(:update).permit(:www, :email, :active, :to, :subject, :body)
+    end
+
+    def the_path_out
+      if @klass
+        teach_course_klass_path(@course, @klass, :show => 'updates')
+      else
+        if @lecture 
+          teach_course_unit_lecture_path(@course, @lecture.unit, @lecture, show: 'updates')
+        elsif @unit
+          teach_course_unit_path(@course, @unit, show: 'updates')
+        elsif @course
+          teach_course_path(@course, show: 'updates')
+        end
+      end
     end
   end
 end

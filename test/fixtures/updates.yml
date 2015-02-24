@@ -12,8 +12,8 @@ one:
     Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec 
     ullamcorper nulla non metus auctor fringilla. Donec ullamcorper nulla non 
     metus auctor fringilla.
-  made: true
-  made_at: <%= Time.zone.now %>
+  active: true
+  sent_at: <%= Time.zone.now %>
 
 # Class stat101_sec01
 two:
@@ -27,5 +27,5 @@ two:
     Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Donec 
     ullamcorper nulla non metus auctor fringilla. Nullam quis risus eget urna 
     mollis ornare vel eu leo.
-  made: true
-  made_at: <%= Time.zone.now %>
+  active: true
+  sent_at: <%= Time.zone.now %>

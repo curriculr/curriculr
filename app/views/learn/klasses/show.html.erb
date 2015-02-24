@@ -26,7 +26,7 @@
   <%= yield :additional_nav %>
 
   <!-- Klass Updates -->
-  <% updates = Update.active(@klass, :www => true) %>
+  <% updates = Update.sent(@klass, :www => true) %>
   <% unless updates.empty? %>
     <% updates.each_with_index do |update,ndx| %>
     <h4><%= update.subject %></h4>

@@ -36,7 +36,7 @@
     </div>
   </div>
   <div class="tab-pane <%= active_klass_section('updates') %>" id="klass-<%= klass.id %>-updates">
-    <%= render partial: 'teach/updates/index', locals: { klass: klass } %>
+    <%= render partial: 'teach/updates/index', locals: { updates: klass.updates } %>
   </div>
   <div class="tab-pane <%= active_klass_section('forums') %>" id="klass-<%= klass.id %>-forums">    
     <%= render partial: 'teach/forums/index', locals: { forums: klass.forums } %> 

@@ -10,15 +10,11 @@ class CreateUpdates < ActiveRecord::Migration
       t.boolean :sms, :default => false
       t.boolean :twitter, :default => false
       t.boolean :facebook, :default => false
-      t.string :event, :default => 'on-demand'
-      t.string :kind
       t.string :to, :default => 'students'
       t.string :subject
       t.text :body
-      t.integer :frequency, :default => 0
-      t.boolean :made, :default => false
-      t.datetime :made_at
-      t.boolean :cancelled, :default => false
+      t.boolean :active, :default => false
+      t.datetime :sent_at
       t.datetime :cancelled_at
       t.timestamps
     end

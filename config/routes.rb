@@ -63,6 +63,8 @@ Rails.application.routes.draw do
           put :discuss, :on => :member
           post :content_sort, :on => :member
         end
+
+        resources :updates, :except => [:index, :show]
       end
     
       resources :klasses do
@@ -79,6 +81,9 @@ Rails.application.routes.draw do
       end
       
       resources :forums, :except => :show # For common forums
+      resources :updates, :except => [:index, :show] do
+        put :make, :on => :member
+      end
 
       get :settings, :on => :member
       post :configure, :on => :member

@@ -389,9 +389,7 @@ ar:
         subject: الموضوع
         body: المحتوى/الرسالة
         status: الحالة
-        begins_at: ابتداءا من
-        ends_at: حتى
-        sticky: لاصق؟
+        active: مفعل
       assessment:
         name: الاسم
         about: الوصف
@@ -795,4 +793,4 @@ ar:
       the_last_information_from_html: أخر رسائل التحديث من %{url}.
       powered_by_html: مُشغَّل من قِبَل %{logo}
       file_upload_not_allowed: تحميل الملفات غير مفعل حاليا.
-      course_forums: المنتديات الشائقة لهذا المقرر التي ستكون تلقائيا جزءا من كل فصول هذا المقرر الدراسية اللاحقة.
+      course_forums: المنتديات الشائعة لهذا المقرر التي ستكون تلقائيا جزءا من كل فصول هذا المقرر الدراسية اللاحقة.

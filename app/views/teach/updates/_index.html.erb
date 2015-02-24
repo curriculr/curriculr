@@ -1,14 +1,15 @@
 <table class="<%= css_table %>">
 	<tbody>
-    <% if klass.updates.any? %>
-  		<% klass.updates.each_with_index do |update, ndx| %>
+    <% if updates.any? %>
+  		<% updates.each_with_index do |update, ndx| %>
   		<tr>
   			<td>
           <% 
+            klass = update.klass
             links = []
-            links << link(:update, :edit, edit_teach_course_klass_update_path(@course, klass, update))
+            links << link(:update, :edit, klass ? edit_teach_course_klass_update_path(@course, klass, update) : [:edit, :teach, @course, @unit, @lecture, update])
             links << nil
-            links << link(:update, :destroy, teach_course_klass_update_path(@course, klass, update), method: :delete, confirm: true)
+            links << link(:update, :destroy, klass ? teach_course_klass_update_path(@course, klass, update) : [:teach, @course, @unit, @lecture, update], method: :delete, confirm: true)
           %>
           <%= ui_button_dropdown ui_options_button_text, links, class: css_button(:default), align: :right %>
 
@@ -32,9 +33,9 @@
             </small>
   				</h4>
 
-          <% unless update.made || update.cancelled %>
+          <% if klass && update.sent_at.blank? %>
             <div class="<%= css_alert(:warning) %>">
-              <%= t('page.text.unpublished_update_html', link: link(:update, :send, make_teach_course_klass_update_path(@course, klass, update), method: :put)) %>
+              <%= t('page.text.unpublished_update_html', link: link(:update, :send, klass ? make_teach_course_klass_update_path(@course, klass, update) : [:make, :teach, @course, @unit, @lecture, update], method: :put)) %>
             </div>
           <% end %>
   				<%= markdown update.body, :class => 'shortenable-text' %>
