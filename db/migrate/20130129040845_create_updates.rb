@@ -16,6 +16,7 @@ class CreateUpdates < ActiveRecord::Migration
       t.boolean :active, :default => false
       t.datetime :sent_at
       t.datetime :cancelled_at
+      t.integer :generator_id
       t.timestamps
     end
   end

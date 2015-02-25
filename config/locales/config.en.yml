@@ -48,7 +48,7 @@ en:
       started: Assessments started
       started_discussion: Discussion started
       visited: Visits
-      participation: Participations
+      participation: Participation
       opened: Materials opened
         
     assessment:
@@ -154,6 +154,6 @@ en:
       privacy: Privacy
       services: Services
       terms: Terms of service
-      front: Front mattter
+      front: Front matter
       mission: Our mission
     

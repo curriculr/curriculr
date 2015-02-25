@@ -22,7 +22,7 @@ en:
       inclusion: Not acceptable.
       invalid: Invalid.
       invalid_email: Invalid email.
-      invalid_slug: Only alphanumeric, -  and ـ charactors are allowed.
+      invalid_slug: Only alphanumeric, -  and ـ characters are allowed.
       less_than: Must be less than %{count}.
       less_than_or_equal_to: Must be less than or equal to %{count}.
       not_a_number: Not a number.
@@ -64,17 +64,17 @@ en:
       klass:
         attributes:
           begins_on:
-            before_today: The begining date cannot be before today's' date.
+            before_today: The beginning date cannot be before today's' date.
           ends_on:
-            before_begin_date: The ending date can not be before the begining date.
+            before_begin_date: The ending date can not be before the beginning date.
       update:
         attributes:
           kind:
             no_kind: An update must have a type.
           begins_at:
-            before_klass_begin_date: The begining day cannot be before the day the class begins %{date}.
+            before_klass_begin_date: The beginning day cannot be before the day the class begins %{date}.
           ends_at:
-            before_begin_date: The ending date cannot be before the begining date.
+            before_begin_date: The ending date cannot be before the beginning date.
             after_end_date: The ending date cannot be after the last day for the class %{date}.
       instructor:
         attributes:

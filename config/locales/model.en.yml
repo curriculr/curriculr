@@ -251,7 +251,7 @@ en:
       new_attempt: 
         Submitting this request means that you agree to the rules of 
         the honor system followed by this class, and that you are ready to 
-        take this assessmet.
+        take this assessment.
       
     messages:
       successful_enroll: You are now enrolled in this class.
@@ -305,7 +305,7 @@ en:
       sort_question_items: Sortable items
             
     placeholders:
-      slug: Appears in URL; only alphanumeric, - and _ are alowed. No spaces.
+      slug: Appears in URL; only alphanumeric, - and _ are allowed. No spaces.
       bank_list: Select question bank to add this question to...
       country: Select a country...
       level_list: Select applicable levels...
@@ -353,7 +353,7 @@ en:
         current_password: Current Password
         roles: Roles
         role: Role
-        active: Acive?
+        active: Active?
         faculty: Faculty?
         remember_me: Remember me
         time_zone: Time Zone
@@ -593,7 +593,7 @@ en:
       privacy: Privacy
       services: Services
       terms: Terms of service
-      front: Front mattter
+      front: Front matter
       mission: Our mission
       sessions: Sessions
       administration: Administration
@@ -616,7 +616,7 @@ en:
       profile: User Profile
       statistics: Statistics
       usage: Usage
-      latest_activities: Lastest activities
+      latest_activities: Latest activities
       latest_topics: Latest topics
       hits: Hits
       honor_system: Honor System
@@ -630,7 +630,7 @@ en:
       home: <i class="fa fa-home"></i>&nbsp; Home
       images: Images
       others: Other
-      vidoes: Vidoes
+      videos: Videos
       requests: Requests
       guardians: Guardians
       basic_info: Basic Information
@@ -683,7 +683,7 @@ en:
       grading_msg: 
         Submitting this request means that you agree to the rules of 
         the honor system followed by this class, and that you are ready for 
-        this %{name} assessmet to be graded.
+        this %{name} assessment to be graded.
       guardian_report_intro:
         This page allows you to view the reports of all the students you are 
         legally responsible for in all the classes they are enrolled in. To 
@@ -721,9 +721,9 @@ en:
       unpublished_page_html: <i class="fa fa-warning"></i> This page has not been published yet. %{link}
       unpublished_update_html: <i class="fa fa-warning"></i> This update has not been published/sent yet. %{link}
       private_page_html: <i class="fa fa-warning"></i> This page has not been made public yet and therefore cannot be seen by anyone other than you. %{link}
-      by_admin_private_page_html: <i class="fa fa-warning"></i> Adminstrator's approval is required to make this page public so it can be seen by anyone other than you.
+      by_admin_private_page_html: <i class="fa fa-warning"></i> Administrator's approval is required to make this page public so it can be seen by anyone other than you.
       approved_klass_html: <i class="fa fa-warning"></i> This class has not been approved yet. Approving this class makes it accessible to others. %{link}
-      by_admin_approved_klass_html: <i class="fa fa-warning"></i> Adminstrator's approval of this class is required. Approving this class makes it accessible to others.
+      by_admin_approved_klass_html: <i class="fa fa-warning"></i> Administrator's approval of this class is required. Approving this class makes it accessible to others.
       unready: Unpublished
       unready_assessment_html: <i class="fa fa-warning"></i> This assessment has not been published yet. %{link}
       upcoming_deadlines:
@@ -793,4 +793,6 @@ en:
       the_last_information_from_html: The last information from %{url}.
       powered_by_html: <small>Powered by</small> %{logo}
       file_upload_not_allowed: File upload is turned off.
-      course_forums: The common forums of this course that will be copied automatically to all of its future classes.
+      course_forums: Any forum listed here will automatically be a part of every future class of this course.
+      course_updates: These updates will be automatically posted on the main pages of the open classes of this course. Update emails will be automatically sent to students when they first enroll.
+      unit_updates: These updates will be automatically posted on the main pages of its classes when this unit is made available. Update emails will also be automatically sent to enrolled students.

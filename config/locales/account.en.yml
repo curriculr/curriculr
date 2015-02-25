@@ -55,7 +55,7 @@ en:
             <p>Click the link below to unlock your account.</p>
             
         klass_invitation:
-          subject: Accepting Class Invitation Instuctions
+          subject: Accepting Class Invitation Instructions
           body_html:
             <p>
               Instructor %{name} has invited you to a private class on %{course_name}. To accept this 
