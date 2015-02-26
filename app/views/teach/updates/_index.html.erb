@@ -37,7 +37,7 @@
 
           <% if update.active && klass && klass.approved && klass.open? && update.sent_at.blank? %>
             <div class="<%= css_alert(:warning) %>">
-              <%= t('page.text.unpublished_update_html', link: link(:update, :send, klass ? make_teach_course_klass_update_path(@course, klass, update) : [:make, :teach, @course, @unit, @lecture, update], method: :put)) %>
+              <%= t('page.text.unpublished_update_html', link: link(:update, :send, make_teach_course_klass_update_path(@course, klass, update), method: :put)) %>
             </div>
           <% end %>
   				<%= markdown update.body, :class => 'shortenable-text' %>

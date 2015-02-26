@@ -83,7 +83,7 @@ module Mediable
     end
 
     respond_with @medium do |format|
-      if @medium.save!
+      if @medium.save
         format.html { 
           if @medium.m.present?
             path_ids = @medium.m.split(',')

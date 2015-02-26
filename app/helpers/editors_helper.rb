@@ -45,7 +45,10 @@ module EditorsHelper
       @req_attributes[:math?] = true
     end 
     
-    content_tag :div, text.html_safe, class: "markdown-output #{options[:class] if options} #{"hidden-til-processed" if options and options[:hidden_til_processed]}"
+    %(<div class="#{"markdown-output #{options[:class] if options} #{"hidden-til-processed" if options and options[:hidden_til_processed]}"}">
+      #{text}
+    </div>).html_safe
+    #content_tag :div, text.html_safe, class: "markdown-output #{options[:class] if options} #{"hidden-til-processed" if options and options[:hidden_til_processed]}"
   end
   
   def processed_text(text)

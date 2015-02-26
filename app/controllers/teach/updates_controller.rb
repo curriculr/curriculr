@@ -6,15 +6,12 @@ module Teach
     def make
       @update = Update.find(params[:id])
       if @update.active && @update.sent_at.blank?
-        @update.sent_at = Time.zone.now
-        @update.save!
-
         if @update.email
           body = view_context.markdown(@update.body) 
           students = @update.klass.students.joins(:user).where('enrollments.active = TRUE').
             select('users.name as user_name, users.email as user_email, students.name as student_name')
 
-          instructors = update.klass.instructors
+          instructors = @update.klass.instructors
           body << %(<p>#{Instructor.model_name.human(count: instructors.count) + ': <br>'.html_safe + instructors.map{|i| (i.name || i.user.name)}.join(', ')}</p>).html_safe
 
           students.map do |s|
@@ -27,6 +24,9 @@ module Teach
             ).deliver_later
           end
         end
+
+        @update.sent_at = Time.zone.now
+        @update.save
       end
       
       respond_with @update do |format|
@@ -120,13 +120,15 @@ module Teach
       if @klass
         teach_course_klass_path(@course, @klass, :show => 'updates')
       else
-        if @lecture 
-          teach_course_unit_lecture_path(@course, @lecture.unit, @lecture, show: 'updates')
-        elsif @unit
-          teach_course_unit_path(@course, @unit, show: 'updates')
-        elsif @course
-          teach_course_path(@course, show: 'updates')
-        end
+        url_for([:teach, @course || @update.course, @unit || @update.unit, @lecture || @update.lecture, @klass, show: 'updates'])
+
+        # if @lecture 
+        #   teach_course_unit_lecture_path(@course, @lecture.unit, @lecture, show: 'updates')
+        # elsif @unit
+        #   teach_course_unit_path(@course, @unit, show: 'updates')
+        # elsif @course
+        #   teach_course_path(@course, show: 'updates')
+        # end
       end
     end
   end

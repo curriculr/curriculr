@@ -1,6 +1,6 @@
 <%= form_header %>
 
-<%= themed_form_for [:teach, @course, @unit, @lecture, @klass, @update] do |f| %>
+<%= themed_form_for [:teach, @course || @update.course, @unit || @update.unit, @lecture || @update.lecture, @klass, @update] do |f| %>
   <div class="row">
     <div class="<%= css_columns(4) %>">
       <%= form_select f, :to, t('config.update.to').invert %>
