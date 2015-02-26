@@ -31,7 +31,7 @@
             <br>
             <small>
             <%= t('page.text.to') %> <%= t('config.update.to.' + update.to) %>
-            <%= "#{I18n.t('page.text.on')} #{I18n.l(update.created_at.to_date)})" %>
+            <%= "#{I18n.t('page.text.on')} #{I18n.l(update.created_at.to_date)})" if klass %>
             </small>
   				</h4>
 
