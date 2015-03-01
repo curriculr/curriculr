@@ -5,7 +5,6 @@ one:
   klass: eng101_sec02
   www: true
   email: false
-  event: on-demand
   to: students
   subject: Cursus Pellentesque Mattis Sollicitudin Tristique
   body: 
@@ -20,7 +19,6 @@ two:
   klass: stat101_sec01
   www: true
   email: false
-  event: on-demand
   to: students
   subject: Mattis Tellus Vulputate Bibendum Tortor
   body: 
