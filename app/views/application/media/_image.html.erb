@@ -1,4 +1,4 @@
-<tr id="content_<%= image.id %>_medium" class="medium-content">
+<tr id="content_<%= image.id %>_medium" sortid="content_<%= image.id %>.medium" class="medium-content">
   <td>
     <div class="row">
       <div class="<%= css_columns(8) %>">
@@ -14,5 +14,6 @@
           <%= render partial: 'application/media/links', locals: { medium: image, form: form, action: action } %>
         <% end %>
       </div>
+    </div>
   </td>
 </tr>

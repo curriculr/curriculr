@@ -13,6 +13,16 @@ module Scopeable
     before_create do |model|
     	model.account_id = Account.current_id if Account.current_id.present?
     end
+
+    before_create do |model|
+      model.account_id = Account.current_id if Account.current_id.present?
+    end
+
+    before_validation do |model|
+      if model.account_id.blank?
+        model.account_id = Account.current_id if Account.current_id.present?
+      end
+    end
   end
 
   def account

@@ -72,7 +72,7 @@
                     confirm: true) 
                 } %>
         <% when Question %>
-          <tr id="content_<%= item.id %>.question">
+          <tr id="content_<%= item.id %>_question" sortid="content_<%= item.id %>.question">
             <td>
               <h5>
                 <%= link(:question, :edit, 
@@ -85,7 +85,7 @@
             </td>
           </tr>
         <% when Page %>
-          <tr id="content_<%= item.id %>.page">
+          <tr id="content_<%= item.id %>_page" sortid="content_<%= item.id %>.page">
             <td>
               <h5>
                 <%= link(:page, :edit, 
@@ -99,7 +99,7 @@
             </td>
           </tr>
         <% when Assessment %>
-          <tr id="content_<%= item.id %>.assessment">
+          <tr id="content_<%= item.id %>_assessment" sortid="content_<%= item.id %>.assessment">
             <td>
               <h5>
                 <%= link(:assessment, :edit, 

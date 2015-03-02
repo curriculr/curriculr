@@ -361,7 +361,11 @@ window.ui_rebind_application_events  = ($) ->
   $('.sortable').sortable(
     axis: 'y' 
     update: ->
-      $.post($(this).data('update-url'), $(this).sortable('serialize'))
+      sortid = 'id'
+      child = $(this).children(":first")
+      if child? && child.attr('sortid')?
+        sortid = 'sortid'
+      $.post($(this).data('update-url'), $(this).sortable('serialize', {'attribute': sortid}))
   )
   
   $('.sortable .lecture').unbind().on 'click', ->

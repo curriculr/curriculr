@@ -80,10 +80,7 @@ module Teach
   
     private 
     def course_params
-      params.require(:course).permit(
-        :slug, :name, :about, :active, :weeks, :workload, :locale, :country, :settings,
-        :tag_list => [], :level_list => [], :category_list => [], :school_list => []
-      )
+      params.require(:course).permit(:slug, :name, :about, :active, :weeks, :workload, :locale, :country, :settings, :tag_list => [], :level_list => [], :category_list => [], :school_list => [])
     end
   end
 end

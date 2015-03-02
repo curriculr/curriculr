@@ -53,7 +53,7 @@ class Ability
       can [ :home, :show, :edit, :update, :destroy_session, :edit_password, 
         :change_password ], User, :id => user.id
         
-      if user.has_role? :faculty or ((course or klass) and KlassEnrollment.staff?(user, course || klass))
+      if user.has_role? :faculty || ((course || klass) && KlassEnrollment.staff?(user, course || klass))
         can [ :new, :create, :index ], Course if user.has_role? :faculty
 
         course = klass.course if course.blank? && klass.present?
