@@ -1,4 +1,4 @@
-<% form = form_for @req_objects do |f| %>
+<% form = form_for @req_objects, html: {id: "select_mediam_#{medium.id}"} do |f| %>
   <%= form_hidden f, :kind, :value => "#{params[:s]}" %>
   <%= form_hidden f, :tag_list, :value => "#{params[:t]}" %>
   <%= form_hidden f, :medium_id, :value => "#{medium.id}" %>
