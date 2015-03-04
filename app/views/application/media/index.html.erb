@@ -21,9 +21,16 @@
         multi_new_medium_path, class: css(button: :success) %>
   <% end %>
 <% else %>
-  <% url = [:new, @req_objects[0..(@req_objects.count-2)], :material, s: params[:s], t: params[:t], m: true].flatten %>
-  <%= link :medium, :"add_#{params[:s]}", url, 
+  <%= content_tag :div, class: css(button: :group, align: :right) do %>
+    <% req_objects = @req_objects[0..(@req_objects.count-2)] %>
+    <% if params[:multiple] && req_objects.present? %>
+      <% url = [req_objects, show: (@lecture ? nil : (@unit ? 'documents' : (@course ? 'books' : nil)))].flatten %>
+      <%= link_to t('activerecord.actions.back_to', name: req_objects.last.class.model_name.human), url, class: css_button(:default) %> 
+    <% end %>
+    <% url = [:new, req_objects, :material, s: params[:s], t: params[:t], m: true].flatten %>
+    <%= link :medium, :"add_#{params[:s]}", url, 
         class: css(button: :success, align: :right) %>
+  <% end %>
 <% end %>
  
 <ul class="<%= css_nav(:tabs) %>">

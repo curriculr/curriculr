@@ -80,6 +80,8 @@
           show_map = { lecture: 'read', unit: 'pages', course: @page && @course.syllabus.id == @page.id ? 'syllabus' : 'pages' }
         elsif controller_name == 'assessments'
           show_map = { lecture: 'assess', unit: 'assessments', course: @assessment && @assessment.kind == 'survey' ? 'surveys' : 'assessments' }
+        elsif controller_name == 'materials'
+          show_map = { unit: 'documents', course: 'books' }
         end
 
         if @lecture

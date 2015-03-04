@@ -7,9 +7,9 @@
           <% 
             klass = update.klass
             links = []
-            links << link(:update, :edit, klass ? edit_teach_course_klass_update_path(@course, klass, update) : [:edit, :teach, @course, @unit, @lecture, update])
+            links << link(:update, :edit, klass ? edit_teach_course_klass_update_path(@course, klass, update) : [:edit, :teach, @course, @unit, update])
             links << nil
-            links << link(:update, :destroy, klass ? teach_course_klass_update_path(@course, klass, update) : [:teach, @course, @unit, @lecture, update], method: :delete, confirm: true)
+            links << link(:update, :destroy, klass ? teach_course_klass_update_path(@course, klass, update) : [:teach, @course, @unit, update], method: :delete, confirm: true)
           %>
           <%= ui_button_dropdown ui_options_button_text, links, class: css_button(:default), align: :right %>
 

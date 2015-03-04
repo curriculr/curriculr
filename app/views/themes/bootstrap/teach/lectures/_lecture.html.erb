@@ -9,7 +9,7 @@
   
   %w(video audio document other).each do |kind|
     links << link(:material, kind, 
-      new_teach_course_unit_lecture_material_path(@course, unit, lecture, :s => kind))
+      new_teach_course_unit_lecture_material_path(@course, unit, lecture, :s => kind, :multiple => true))
   end
 
   links << nil

@@ -59,8 +59,8 @@ updates = unit.updates.to_a
     <%= link :page, :new, new_teach_course_unit_page_path(@course, unit) %>
   </li>
   <li id="unit-<%= unit.id %>-documents-new" class="unit-<%= unit.id %>-new-link pull-right" style="<%= 'display: none;' unless active_unit_section('documents') %>">
-    <%= link :material, :new_document, new_teach_course_unit_material_path(@course, unit, 
-          :s => :document) %>
+    <%= link :material, :add_document, new_teach_course_unit_material_path(@course, unit, 
+          :s => :document, :multiple => true) %>
   </li>
   <li id="unit-<%= unit.id %>-updates-new" class="unit-<%= unit.id %>-new-link pull-right" style="<%= 'display: none;' unless active_unit_section('updates') %>">
     <%= link :update, :new, new_teach_course_unit_update_path(@course, unit) %>

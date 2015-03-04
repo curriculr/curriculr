@@ -61,6 +61,7 @@ module Materializeable
           
       respond_with @material do |format|
         format.html { redirect_to @req_objects }
+        format.js {}
       end
     end
   end

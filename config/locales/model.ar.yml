@@ -24,7 +24,7 @@ ar:
         one: جهة اتصال
         other: جهات اتصال
       course: 
-        one: مقرر
+        one: المقرر
         other: المقررات
       instructor:
         one: مدرس
@@ -69,10 +69,10 @@ ar:
         one: مادة
         other: مواد
       unit: 
-        one: وحدة
+        one: الوحدة
         other: الوحدات
       lecture: 
-        one: محاضرة
+        one: المحاضرة
         other: المحاضرات
       page: 
         one: صفحة
@@ -234,13 +234,14 @@ ar:
       manage: للإشراف
       back_to_assessment: عد إلى ال%{name}
       back_to_list: عد إلى القائمة
+      back_to: عد إلى %{name}
       add_question: إضف سؤالا
       resume_lecture: استأنف المحاضرة
-      add_video: أضف فيديو جديد
-      add_image: أضف صورة
-      add_audio: أضف ملف صوتي
-      add_document: أضف وثيقة
-      add_other: أضف مرفقا
+      add_video: <i class="fa fa-plus"></i> أضف فيديو جديد
+      add_image: <i class="fa fa-plus"></i> أضف صورة
+      add_audio: <i class="fa fa-plus"></i> أضف ملف صوتي
+      add_document: <i class="fa fa-plus"></i> أضف وثيقة
+      add_other: <i class="fa fa-plus"></i> أضف مرفقا
       decline: ارفض الدعوة
       blog_posts: مقالاتي
       static_pages_or_blogs: الصفحات / المقالات

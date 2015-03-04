@@ -99,7 +99,7 @@
             </a>
             <%= link(:material, :new_book,
                 new_teach_course_material_path(@course, :s => :document,
-                :t => :books), :class => css(button: [:xs, :primary], align: :right)) %>
+                :t => :books, :multiple => true), :class => css(button: [:xs, :primary], align: :right)) %>
           </h4>
         </div>
         <div id="books" class="panel-collapse collapse <%= 'in' if active_course_section('books') %>">

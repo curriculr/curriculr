@@ -233,13 +233,14 @@ en:
       manage: Manage
       back_to_assessment: Back to %{name}
       back_to_list: Back to list
+      back_to: Back to %{name}
       add_question: Add question
       resume_lecture: Resume lecture
-      add_video: Add video
-      add_image: Add image
-      add_audio: Add audio
-      add_document: Add document
-      add_other: Add attachment
+      add_video: <i class="fa fa-plus"></i> Add video
+      add_image: <i class="fa fa-plus"></i> Add image
+      add_audio: <i class="fa fa-plus"></i> Add audio
+      add_document: <i class="fa fa-plus"></i> Add document
+      add_other: <i class="fa fa-plus"></i> Add attachment
       decline: Decline invitation
       blog_posts: My blog posts
       static_pages_or_blogs: Static pages/Blog posts
