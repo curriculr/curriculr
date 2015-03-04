@@ -47,8 +47,9 @@ course:
     forums: true
     assessments: true
     reports: true
+    final_score: false
 
-  allow_file_uploads: true
+  allow_file_uploads: false
   allowed_file_types:
     image:
       - png
