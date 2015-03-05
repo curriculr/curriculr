@@ -105,7 +105,7 @@
         <%= ui_video(@klass.course.video, @klass.course.poster) %>
       <% end if @klass.course.video %>
       <br/>
-      <%= ui_klass_enrollment_action @klass %>
+      <%= ui_klass_enrollment_action @klass, :enroll %>
     </div>
   </div>
   <hr/>

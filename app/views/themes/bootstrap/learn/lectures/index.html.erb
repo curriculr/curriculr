@@ -29,7 +29,7 @@
         <% unless expanded %>
           <i class="fa fa-check <%= css_align(:right) %>"></i>
         <% end %>
-        <% ui_klass_enrollment_action(@klass, true) unless (@klass.enrolled?(current_student) || staff?(current_user, @klass.course)) %>
+        <% ui_klass_enrollment_action(@klass, :enroll, true) unless (@klass.enrolled?(current_student) || staff?(current_user, @klass.course)) %>
       </h4>
     </div>
     

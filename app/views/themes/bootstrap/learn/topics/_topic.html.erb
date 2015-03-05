@@ -53,6 +53,6 @@
   <% if @klass.past? %>
     <%= t('page.text.closed_klass_html') %>
   <% else %>
-    <%= t('page.text.enroll_to_comment_html', :action => ui_klass_enrollment_action(@klass, true)) %>
+    <%= t('page.text.enroll_to_comment_html', :action => ui_klass_enrollment_action(@klass, :enroll, true)) %>
   <% end %>
 <% end %>

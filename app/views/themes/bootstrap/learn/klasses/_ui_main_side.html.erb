@@ -100,7 +100,7 @@
     end
     
     if !staff?(current_user, @klass.course) and (@klass.open? or @klass.future?) and enrolled
-      reports_links << link(:klass, :drop, drop_learn_klass_path(@klass), method: :put, confirm: true)
+      reports_links << ui_klass_enrollment_action(@klass, :drop)
     end
 
     if reports_links.present?

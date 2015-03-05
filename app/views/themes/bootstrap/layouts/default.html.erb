@@ -13,7 +13,7 @@
           action = nil
           subtext = nil
           if !current_user and @klass and @klass.previewed 
-            action = ui_klass_enrollment_action(@klass, true, true)
+            action = ui_klass_enrollment_action(@klass, :enroll, true, true)
           end
           
           subtext = klass_from_and_to_dates(@klass) if @klass

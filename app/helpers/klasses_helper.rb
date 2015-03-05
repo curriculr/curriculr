@@ -20,7 +20,7 @@ module KlassesHelper
           end
         else
           #add_2_cart
-          mountable_links = mountable_fragments(:klass_actions, klass: klass, previewed: in_preview)
+          mountable_links = mountable_fragments(:klass_actions, klass: klass, action: :enroll, previewed: in_preview)
         end
 
         if klass.invited_and_not_yet_accepted?(current_user)
@@ -47,7 +47,15 @@ module KlassesHelper
     %(#{links.join(' ').html_safe}  #{mountable_links}).html_safe
   end
   
-  def ui_klass_enrollment_action(klass, previewed = false, right = false)
-    klass_actions(klass, previewed)
+  def ui_klass_enrollment_action(klass, action, previewed = false, right = false)
+    if action == :enroll
+      klass_actions(klass, previewed)
+    else
+      if klass.free? 
+        link(:klass, :drop, drop_learn_klass_path(@klass), method: :put, confirm: true)
+      else
+        mountable_fragments(:klass_actions, klass: klass, action: :drop, previewed: previewed)
+      end
+    end
   end
 end

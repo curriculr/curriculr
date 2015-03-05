@@ -23,6 +23,6 @@
       <%= labels %>
     </div></small>
     <%= markdown(summary(klass.course.about)) if allow_description %>
-    <%= ui_klass_enrollment_action(klass) if allow_actions %>
+    <%= ui_klass_enrollment_action(klass, :enroll) if allow_actions %>
   </div>
 </div>
