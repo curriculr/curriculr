@@ -97,6 +97,8 @@
         <%= ui_media current_user.profile.avatar_url(current_account, :med).to_s, current_user.email,
               markdown(summary(current_user.profile.about, 100)) %>
       </li>
+
+      <%= mountable_fragments :app_user_menu %>
     </ul>
   </div>
 </div>
