@@ -27,6 +27,7 @@ class Ability
         can :enroll, Klass if klass.can_enroll?(user, student)
         can :decline, Klass if klass.invited_and_not_yet_accepted?(user)
         if klass.enrolled?(student)
+          can :access, Klass
           can :drop, Klass 
           can [ :index, :show, :show_page, :show_material, :show_question, :show_assessment ], Lecture
           can [ :index, :show ], [ Forum, Topic ]

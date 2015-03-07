@@ -72,6 +72,7 @@ module Learn
     end
   
     def report
+      check_access! "reports"
       if params[:student_id] && staff?(current_user, @klass)
         @student = Student.find(params[:student_id])
       else
@@ -109,6 +110,9 @@ module Learn
       end
       
       @klasses
+    end
+
+    def access
     end
   end
 end

@@ -32,12 +32,12 @@ module UiHelper
     
       options = {
         :app_id => Rails.application.secrets.auth['facebook']['id'],
-        :link => URI.join(root_url, learn_klass_path(klass)), 
-        :picture => URI.join(root_url, ui_image_src(klass.course.poster ? klass.course.poster.at_url(:md) : nil, '/images/holder-md.png')),
+        :link => URI.join(main_app.root_url, main_app.learn_klass_path(klass)), 
+        :picture => URI.join(main_app.root_url, ui_image_src(klass.course.poster ? klass.course.poster.at_url(:md) : nil, '/images/holder-md.png')),
         :name => klass.course.name,
         :caption => caption,
         :description => ui_social_message(klass),
-        :redirect_uri => URI.join(root_url, learn_klass_path(klass))
+        :redirect_uri => URI.join(main_app.root_url, main_app.learn_klass_path(klass))
       }
 
       link_to "https://www.facebook.com/dialog/feed?#{options.to_query}", class: css_button(:facebook) do
@@ -63,7 +63,7 @@ module UiHelper
     options = {
       :text => ui_social_message(klass),
       :hashtags => klass.course.name, 
-      :url => URI.join(root_url, learn_klass_path(klass))
+      :url => URI.join(main_app.root_url, main_app.learn_klass_path(klass))
     }
 
     link_to "https://twitter.com/share?#{options.to_query}", class: css_button(:twitter) do
@@ -74,7 +74,7 @@ module UiHelper
   
   def ui_google_plus_link(klass)
     options = {
-      :url => URI.join(root_url, learn_klass_path(klass))
+      :url => URI.join(main_app.root_url, main_app.learn_klass_path(klass))
     }
 
     link_to "https://plus.google.com/share?#{options.to_query}", class: css_button(:google) do

@@ -11,11 +11,11 @@ module KlassesHelper
         if klass.free? 
           if klass.dropped?(current_student)
             #enroll again
-            links << link(:enrollment, :enroll, enroll_learn_klass_path(klass), 
+            links << link(:enrollment, :enroll, main_app.enroll_learn_klass_path(klass), 
               :class => css(button: :success), :method => :post, :as => :again)
           elsif !klass.private || klass.invited_and_not_yet_accepted?(current_user)
             #enroll 
-            links << link(:enrollment, :enroll, enroll_learn_klass_path(klass), 
+            links << link(:enrollment, :enroll, main_app.enroll_learn_klass_path(klass), 
               :class => css(button: :success), :method => :post, :as => :'4_free')
           end
         else
@@ -25,13 +25,13 @@ module KlassesHelper
 
         if klass.invited_and_not_yet_accepted?(current_user)
           #decline
-          links << link(:enrollment, :decline, decline_learn_klass_path(klass), 
+          links << link(:enrollment, :decline, main_app.decline_learn_klass_path(klass), 
                       :class => css(button: :danger), :method => :put)
         end
 
         if !in_preview and klass.previewed
           #preview
-          links << link(:enrollment, :preview,  learn_klass_lectures_path(klass), 
+          links << link(:enrollment, :preview,  main_app.learn_klass_lectures_path(klass), 
               :class => css(button: :primary))
         end
       else
@@ -41,7 +41,7 @@ module KlassesHelper
       end
     elsif klass.previously_enrolled?(current_student)
       #go2class_past
-      links << link(:klass, :goto, learn_klass_path(klass), :class => css_button(:primary))
+      links << link(:klass, :goto, main_app.learn_klass_path(klass), :class => css_button(:primary))
     end
     
     %(#{links.join(' ').html_safe}  #{mountable_links}).html_safe
@@ -52,7 +52,7 @@ module KlassesHelper
       klass_actions(klass, previewed)
     else
       if klass.free? 
-        link(:klass, :drop, drop_learn_klass_path(@klass), method: :put, confirm: true)
+        link(:klass, :drop, main_app.drop_learn_klass_path(@klass), method: :put, confirm: true)
       else
         mountable_fragments(:klass_actions, klass: klass, action: :drop, previewed: previewed)
       end

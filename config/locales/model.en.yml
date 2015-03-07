@@ -452,7 +452,7 @@ en:
         ends_on: Ends on
         previewed: Can be previewed without registration?
         allow_enrollment: Allow enrollment?
-        lectures_on_closed: Make classes available to students after class has ended?
+        lectures_on_closed: Make lectures available to students after class has ended?
         private: Private
         closed: Closed
         free: Free
