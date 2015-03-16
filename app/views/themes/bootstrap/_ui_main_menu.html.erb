@@ -6,11 +6,11 @@
   <% end %>
 
   <li class="<%= 'active' if @course.blank? && (controller_name == 'klasses' || @klass.present?) %>">   
-    <%= link_to(css_icon('th-list', 1) + Klass.model_name.human(count: 3) , main_app.learn_klasses_path) %>
+    <%= link(:klass, :learn, main_app.learn_klasses_path) %>
   </li>
         
   <% if current_user && (current_user.has_role?(:admin) || current_user.has_role?(:faculty)) %>
-    <%= content_tag :li, link(:course, :course_builder, main_app.teach_courses_path), 
+    <%= content_tag :li, link(:course, :teach, main_app.teach_courses_path), 
           :class =>  controller_name == 'courses' || @course.present? ? 'active' : nil %>
   <% end %>
 

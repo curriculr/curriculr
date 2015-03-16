@@ -38,7 +38,7 @@ module Mediable
   def new
     attributes = { :kind => params[:s], :m => params[:m] }
     @medium = @course ? @course.media.new(attributes) : Medium.new(attributes)
-    @medium.is_a_link = params[:m] ? false : true
+    @medium.is_a_link = true#params[:m] ? false : true
     respond_with @medium do |format|
       format.html {render 'application/media/new'}
     end

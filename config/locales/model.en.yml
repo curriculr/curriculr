@@ -5,7 +5,7 @@ en:
         user:
           attributes:
             password:
-              confirmation: Please confirm Password
+              confirmation: Please confirm password
             
     models:
       account: 
@@ -114,6 +114,7 @@ en:
         one: Password
     
     actions:
+      go_back: Go back
       dashboard: <i class="fa fa-tachometer"></i>&nbsp; Dashboard
       upload: <i class="fa fa-upload"></i> Upload files
       new_link: <i class="fa fa-plus"></i> External link
@@ -122,7 +123,9 @@ en:
       course_settings: Course settings
       new_attempt: <i class="fa fa-plus"></i> New attempt
       copy: Copy
-      course_builder: <i class="fa fa-cogs"></i> Builder
+      course_builder: <i class="fa fa-cogs"></i> Course Builder
+      teach: <i class="fa fa-cogs"></i> Teach
+      learn: <i class="fa fa-th-list"></i> Learn
       help: Help
       learn_more: Learn more
       open: Open
@@ -261,11 +264,11 @@ en:
       must_agree_to_terms: You must agree to the terms of this class first.
       successful_drop: You have been dropped from this class.
       failure_to_drop: Unable to drop you from this class.
-      not_enrolled_to_drop: You are not enrolled in this class to drop it.
+      not_enrolled_to_drop: You are not enrolled in this class.
       must_signin: You must sign in first to access this page.
       invitation_accepted: Invitation to this class has been accepted.
       unable_to_accept: Unable to accept the invitation to this class.
-      not_allowed_to_accept_invitation: You are not allowed to accept this class invitation.
+      not_allowed_to_accept_invitation: You are not allowed to accept class invitation.
       invitation_sent: Invitation to this class has been sent.
       unable_to_invite: Unable to send invitation. Check invitee email.
       unable_to_decline: Unable to decline invitation. Try another time.
@@ -573,7 +576,7 @@ en:
       registration: Registration
       confirmation: Confirmation
       user_activities: User activities
-      confirmation_vs_enrollments: Confirmation vs enrollments
+      confirmations_vs_enrollments: Confirmations vs enrollments
       daily_activities: Daily activities
       activity_counts: Activity counts
       dashboard: Dashboard
@@ -663,7 +666,7 @@ en:
         one: one assessment
         other: "%{count} assessments"
       assessments_final_score: Final score
-      assessments_no_attempt_yet: You have not attempted to take this assessment.
+      assessments_no_attempt_yet: You have not attempted this assessment yet.
       attempts_count: "%{count}/%{total} attempts"
       comments_count: 
         one: one comment
@@ -781,9 +784,9 @@ en:
         <strong>Warning!</strong> 
         Any change to the settings below must be done very carefully.
       include_in_assessment: Add to '%{name}'
-      closed_klass_html: This class is closed. Cannot see comments or attempt assessments
+      closed_klass_html: This class is closed. Cannot see comments or attempt assessments.
       sign_in_using: Using %{provider}
-      external_sign_in_using: You can login using one the following accounts
+      external_sign_in_using: You can also login using any of your existing accounts with
       participation_forums_html: <h2>%{times}</h2><h3><small>Forums</small></h3>
       participation_topics_html: <h2>%{times}</h2><h3><small>Topics</small></h3>
       participation_posts_html: <h2>%{times}</h2><h3><small>Posts</small></h3>
@@ -793,7 +796,7 @@ en:
       external_link: external link
       the_last_information_from_html: The last information from %{url}.
       powered_by_html: <small>Powered by</small> %{logo}
-      file_upload_not_allowed: File upload is turned off.
+      file_upload_not_allowed: File upload is turned off. %{link}
       course_forums: Any forum listed here will automatically be a part of every future class of this course.
       course_updates: These updates will be automatically posted on the main pages of the open classes of this course. Update emails will be automatically sent to students when they first enroll.
       unit_updates: These updates will be automatically posted on the main pages of its classes when this unit is made available. Update emails will also be automatically sent to enrolled students.

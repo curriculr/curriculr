@@ -222,12 +222,6 @@ ar:
             not_found: لا وجود لمستخدم بالبريد الالكتروني الذي أدخلت.
             invalid: غير ملائم. تأكد من أنه ليس نفس بريد مدرس هذا المقرر.
             already: المدرس ذو البريد الذي أدخلته موجود أصلا.
-      payments/verifier:
-        attributes:
-          receipt:
-            required_email_or_phone_plus_receipt: رقم القسيمة مطلوب مع إما رقم التلفون أو البريد الإلكتروني.
-          code:
-            required_valid_code: كود التحقيق مطلوب.
             
     template:
       body: ! 'يرجى التحقق من الحقول التالية:'

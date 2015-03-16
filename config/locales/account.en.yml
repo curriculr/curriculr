@@ -68,7 +68,7 @@ en:
             <p>Your are now enrolled in the following classes. To visit these classes, click the link below.</p>
             
         footer_html:
-          <small>Please do not respond to this message. 
+          <small>Please do not reply to this message. 
           Visit <a href="%{site_url}">our site</a> to view our Privacy Policy. 
           For any questions contact customer service. </small>
           <br>

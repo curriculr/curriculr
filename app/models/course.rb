@@ -96,6 +96,11 @@ class Course < ActiveRecord::Base
     $redis.set "config.course.a#{course.account_id}_c#{course.id}", config.to_json
     GradeDistribution.redistribute(course, self.config)
     
+    forums = self.config['discussion']['forums']
+    forums.each do |f|
+      course.forums.create(:name => I18n.t("page.titles.#{f}", default: f), :about => I18n.t("page.text.#{f}", default: I18n.t("page.text.under_construction")))
+    end if forums.present?
+
     self.klasses.create(:slug => 'sec-01', :begins_on => Time.zone.today, :ends_on => (Time.zone.today + (course.weeks * 7)))
     
     syllabus = self.pages.create(:name => I18n.t('page.titles.syllabus'),
@@ -104,11 +109,6 @@ class Course < ActiveRecord::Base
     syllabus.tag_list.add('syllabus')
     
     syllabus.save
-
-    forums = self.config['discussion']['forums']
-    forums.each do |f|
-      course.forums.create(:name => I18n.t("page.titles.#{f}", default: f), :about => I18n.t("page.text.#{f}", default: I18n.t("page.text.under_construction")))
-    end if forums.present?
   end
   
   after_update do |course|

@@ -24,5 +24,5 @@
 		</div>
 	</script>
 <% else %>
-	<%= ui_alert nil, t('page.text.file_upload_not_allowed'), :info %>
+	<%= ui_alert nil, t('page.text.file_upload_not_allowed', link: link_to(t('activerecord.actions.go_back'), the_path_out)), :info %>
 <% end %>

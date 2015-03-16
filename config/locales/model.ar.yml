@@ -115,6 +115,7 @@ ar:
         one: كلمة سر
     
     actions:
+      go_back: عد إلى حيث أتيت
       dashboard: <i class="fa fa-tachometer"></i>&nbsp; مؤشرات
       upload: <i class="fa fa-upload"></i> ارفع ملفات
       new_link: <i class="fa fa-plus"></i> أضف وصلة خارجية
@@ -124,6 +125,8 @@ ar:
       new_attempt: <i class="fa fa-plus"></i> إبدأ محاولة جديدة
       copy: انسخ
       course_builder: <i class="fa fa-cogs"></i> للمدرسين
+      teach: <i class="fa fa-cogs"></i> للمدرسين
+      learn: <i class="fa fa-th-list"></i> الفصول الدراسية
       help: للمساعدة
       learn_more: اعرف أكثر
       open: افتح
@@ -568,7 +571,7 @@ ar:
       registration: تسجيل الاستخدام
       confirmation: تأكيد الاستخدام
       user_activities: انشطة المستخدمين
-      confirmation_vs_enrollments: تأكيد الاستخدام مقابل تسجيل الفصول
+      confirmations_vs_enrollments: تأكيد الاستخدام مقابل تسجيل الفصول
       daily_activities: الأنشطة اليومية
       activity_counts: تكرارات الأنشطة
       dashboard: مؤشرات
@@ -783,7 +786,7 @@ ar:
       include_in_assessment: أضف لـ '%{name}'
       closed_klass_html: هذا الفصل مغلق. لا يمكن أن تصل إلى التعليقات أو أن تحاول الاختبارات. 
       sign_in_using: بإستخدام %{provider}
-      external_sign_in_using: يمكنك الدخول باستخدام أي من الحسابات التالية
+      external_sign_in_using: يمكنك الدخول باستخدام أي من حساباتك الحالية على
       participation_forums_html: <h2>%{times}</h2><h3><small>منتديات</small></h3>
       participation_topics_html: <h2>%{times}</h2><h3><small>مواضيع</small></h3>
       participation_posts_html: <h2>%{times}</h2><h3><small>مشاركات</small></h3>
@@ -793,7 +796,7 @@ ar:
       external_link: وصلة خارجية
       the_last_information_from_html: أخر رسائل التحديث من %{url}.
       powered_by_html: مُشغَّل من قِبَل %{logo}
-      file_upload_not_allowed: تحميل الملفات غير مفعل حاليا.
+      file_upload_not_allowed: تحميل الملفات غير مفعل حاليا. %{link}
       course_forums: أي منتدى في هذه القائمة سيكون تلقائيا جزءا من منتديات أي فصل دراسي قادمة لهذا المقرر.
       course_updates: هذه التحديثات ستنشر تلقائيا على الصفحات الرئيسية للفصول الدراسية لهذا المقرر عقب فتحها. التحديثات عبر البريد الإلكتروني سترسل تلقائيا للطلاب عقب تسجيلهم في هذه الفصول لأول مرة.
       unit_updates: هذه التحديثات ستنشر تلقائيا على الصفحات الرئيسية للفصول الدراسية لهذا المقرر عقب توافر هذه الوحدة. عندها أيضا سترسل التحديثات عبر البريد الإلكتروني تلقائيا للطلاب المسجلين.

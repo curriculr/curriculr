@@ -15,7 +15,7 @@ en:
       confirmation: Not the same.
       empty: Blank; must be filled.
       equal_to: Must be equal to %{count}.
-      even: Must be even number.
+      even: Must be an even number.
       exclusion: Reserved.
       greater_than: Must be greater than %{count}.
       greater_than_or_equal_to: Must be greater than or equal to %{count}.
@@ -64,30 +64,24 @@ en:
       klass:
         attributes:
           begins_on:
-            before_today: The beginning date cannot be before today's' date.
+            before_today: The beginning date cannot be before today's date.
           ends_on:
-            before_begin_date: The ending date can not be before the beginning date.
+            before_begin_date: End date cannot be before begin date.
       update:
         attributes:
           kind:
             no_kind: An update must have a type.
           begins_at:
-            before_klass_begin_date: The beginning day cannot be before the day the class begins %{date}.
+            before_klass_begin_date: Begin day cannot be before the day the class begins %{date}.
           ends_at:
-            before_begin_date: The ending date cannot be before the beginning date.
-            after_end_date: The ending date cannot be after the last day for the class %{date}.
+            before_begin_date: End date cannot be before begin date.
+            after_end_date: End date cannot be after the last day for the class %{date}.
       instructor:
         attributes:
           email:
             not_found: No user exists with the email address you entered.
-            invalid: Invalid. Make sure this is not the same email as the instructor's'.
-            already: The instructor with entered email is already added.
-      payments/verifier:
-        attributes:
-          receipt:
-            required_email_or_phone_plus_receipt: Receipt number is required with a phone number or email address.
-          code:
-            required_valid_code: A valid code is required. 
+            invalid: Invalid. Make sure this is not the same email as the instructor's.
+            already: The instructor with the entered email is already added.
     template:
       body: ! 'Please verify the correctness of the following fields:'
       header:
