@@ -278,6 +278,9 @@ en:
       must_be_admin: You must be an administrator to access this page.
         
     hints:
+      about: 
+        Inline Latex Math formulae can only be included between <code>\(</code> and <code>\)</code>; 
+        block formulae between <code>\[</code> and <code>\]</code>.
       fill_one_question: 
       fill_many_question: Make sure that the number of ellipses (...) is the same as the number of blank answers.
       pick_2_fill_question: Make sure that the number of ellipses (...) is the same as the number of blank option lists.
@@ -309,6 +312,7 @@ en:
       sort_question_items: Sortable items
             
     placeholders:
+      url: The video ID for a YouTube video; the full URL for anything else.
       slug: Appears in URL; only alphanumeric, - and _ are allowed. No spaces.
       bank_list: Select question bank to add this question to...
       country: Select a country...

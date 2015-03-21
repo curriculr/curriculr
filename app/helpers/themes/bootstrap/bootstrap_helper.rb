@@ -474,7 +474,7 @@ module Themes::Bootstrap::BootstrapHelper
         case hint
         when TrueClass
           hint = t("activerecord.hints.#{form.object.class.name.underscore}.#{field}", 
-            :default => t("activerecord.hints.#{field}"))
+            :default => t("activerecord.hints.#{field}")).html_safe
         end
 
         html << ( content_tag :span, hint, class: "help-block") if hint

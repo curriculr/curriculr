@@ -44,7 +44,7 @@
   <%= themed_form_for [:learn, @klass, @forum, @topic, @post], remote: @lecture.present?  do |f| %>
     <%= hidden_field_tag(:tab, tab) if defined? tab %>
     <%= hidden_field_tag(:lecture_id, @lecture.id) if @lecture %>
-  	<%= form_markdown f, @post, :about, :label => false %>
+  	<%= form_markdown f, @post, :about, :label => false, hint: true %>
   	<%= form_checkbox f, :anonymous %> 
 
     <%= form_submit f %>

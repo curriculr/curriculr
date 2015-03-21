@@ -53,5 +53,6 @@ $("#<%= pane %> audio.mediaelementjs").mediaelementplayer();
 <% end %>
 
 mark_as_taken = <%= @mark_as_taken.present? %>;
-lecture_pager_position = <%= params[:position] ? params[:position] : (@question ? @question.order - 1 : 1) %>
+lecture_pager_position = <%= params[:position] ? params[:position] : (@question && @question.order > 0? @question.order - 1 : 1) %>
 ui_rebind_application_events(jQuery);
+

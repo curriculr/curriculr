@@ -21,7 +21,7 @@
 
   <%= form_select f, :source, t("config.medium.#{@medium.kind}.source"), 
         value: @medium.source, include_blank: false %>
-  <%= form_text f, :url %>
+  <%= form_text f, :url, :placeholder => true %>
   <%= form_hidden f, :tag_list %>
   
   <% 

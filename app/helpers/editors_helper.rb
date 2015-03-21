@@ -32,6 +32,10 @@ module EditorsHelper
     
     text.sub!(/#{MARKDOWN_SUMMARY_DELIMITER}/i, "\n") if text.present?
 
+    #preprocess math
+    math_formulae = text.scan(/(\\\([\S|\s]+?\\\)+?)|(\\\[[\S|\s]+?\\\]+?)/).flatten.reject {|m| m.nil?}
+    math_formulae.each_with_index {|m,i| text.sub!(m,"{{{{#{i}}}}}")}
+    
     text = markdown.render(text || '')
     text.gsub! /\[([^\[\]]*)\]/ do |m|
       post_process m
@@ -41,7 +45,8 @@ module EditorsHelper
       post_process m
     end
     
-    if text =~ /\$[[^\s].\n]+/
+    math_formulae.each_with_index {|m,i| text.sub!("{{{{#{i}}}}}", m)}
+    if math_formulae.present?
       @req_attributes[:math?] = true
     end 
     
