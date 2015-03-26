@@ -28,6 +28,16 @@ class User < ActiveRecord::Base
     false # To prevent devise from checking email uniqueness which we'll do ourselves.
   end
   
+  def first_name 
+    parts = name.split(/\s/)
+    parts.present? ? parts.first : nil
+  end
+
+  def last_name 
+    parts = name.split(/\s/)
+    parts.present? ? parts.last : nil
+  end
+
   def self.new_with_session(params, session)
     super.tap do |user|
       if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]

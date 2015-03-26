@@ -33,6 +33,7 @@ module EditorsHelper
     text.sub!(/#{MARKDOWN_SUMMARY_DELIMITER}/i, "\n") if text.present?
 
     #preprocess math
+    text = '' if text.nil?
     math_formulae = text.scan(/(\\\([\S|\s]+?\\\)+?)|(\\\[[\S|\s]+?\\\]+?)/).flatten.reject {|m| m.nil?}
     math_formulae.each_with_index {|m,i| text.sub!(m,"{{{{#{i}}}}}")}
     
