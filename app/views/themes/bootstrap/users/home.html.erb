@@ -1,46 +1,9 @@
 <div class="row">
-  <div class="<%= css_columns(4) %>">
-    <ul class="list-unstyled"> 
-      <li>
-        <% if current_user.has_role?(:admin) || current_user.has_role?(:faculty) %>
-          <%= link(:course, :new, main_app.new_teach_course_path, 
-                :class => css(button: [:success, :xs], :align => :right)) %>
-        <% end %>
-
-        <%= ui_header Klass.model_name.human(count: 3) %>
-      </li>
-
-      <li class="divider"></li>
-
-      <li><%= link(:klass, :taking_klasses, main_app.learn_klasses_path(:s => :taking)) %></li>
-      <li><%= link(:klass, :enrolled_klasses, main_app.learn_klasses_path(:s => :enrolled)) %></li>
-      <li><%= link(:klass, :taken_klasses, main_app.learn_klasses_path(:s => :taken)) %></li>
-
-      <% if current_account.config['allow_user_student_dependents'] %>
-        <li class="divider"></li>
-        <li><%= content_tag :h4, Student.model_name.human(count: 3) %></li> 
-        <li><%= link :student, :index,  main_app.learn_students_path %></li>
-      <% end %>
-
-      <% if current_user.has_any_role?(:admin) %>
-        <li>
-          <%= link(:page, :new, new_page_path, class: css(button: [:success, :xs], align: :right)) %>
-          <%= ui_header Page.model_name.human(count: 3) %>
-        </li>
-        <li class="divider"></li>
-        <li><%= link :page, :static_pages_or_blogs, main_app.pages_path %></li>
-      <% elsif current_user.has_any_role?(:faculty) %>
-        <li>
-          <%= link(:page, :new, new_page_path, class: css(button: [:success, :xs], align: :right)) %>
-          <%= content_tag :h4, Page.model_name.human(count: 3) %>
-        </li>
-        <li class="divider"></li>
-        <li><%= link :page, :blog_posts, main_app.pages_path %></li>
-      <% end %>
-    </ul>
-  </div>
-  <div class="<%= css_columns(4) %>">
-    <% if current_user.has_role? :admin %>
+  <% if current_user.has_role? :admin %>
+    <div class="<%= css_columns(6) %>">
+      <%= t("page.text.under_construction") %>
+    </div>
+    <div class="<%= css_columns(3) %>">
       <ul class="list-unstyled">
         <li><%= ui_header t('page.titles.administration') %></li>  
         <li class="divider"></li>
@@ -80,9 +43,13 @@
           <% end %>
         <% end %>
       </ul>
-    <% end %>
-  </div>
-  <div class="<%= css_columns(4) %>">
+    </div>
+  <% else %>
+    <div class="<%= css_columns(9) %>">
+      <%= t("page.text.under_construction") %>
+    </div>
+  <% end %>
+  <div class="<%= css_columns(3) %>">
     <ul class="list-unstyled">
       <li>
         <%= ui_header(capture do %>
@@ -99,6 +66,44 @@
       </li>
 
       <%= mountable_fragments :app_user_menu %>
+    </ul>
+    <ul class="list-unstyled"> 
+      <li>
+        <% if current_user.has_role?(:admin) || current_user.has_role?(:faculty) %>
+          <%= link(:course, :new, main_app.new_teach_course_path, 
+                :class => css(button: [:success, :xs], :align => :right)) %>
+        <% end %>
+
+        <%= ui_header Klass.model_name.human(count: 3), style: :h4 %>
+      </li>
+
+      <li class="divider"></li>
+
+      <li><%= link(:klass, :taking_klasses, main_app.learn_klasses_path(:s => :taking)) %></li>
+      <li><%= link(:klass, :enrolled_klasses, main_app.learn_klasses_path(:s => :enrolled)) %></li>
+      <li><%= link(:klass, :taken_klasses, main_app.learn_klasses_path(:s => :taken)) %></li>
+
+      <% if current_account.config['allow_user_student_dependents'] %>
+        <li class="divider"></li>
+        <li><%= content_tag :h4, Student.model_name.human(count: 3) %></li> 
+        <li><%= link :student, :index,  main_app.learn_students_path %></li>
+      <% end %>
+
+      <% if current_user.has_any_role?(:admin) %>
+        <li>
+          <%= link(:page, :new, new_page_path, class: css(button: [:success, :xs], align: :right)) %>
+          <%= ui_header t('page.titles.blogs'), style: :h4 %>
+        </li>
+        <li class="divider"></li>
+        <li><%= link :page, :static_pages_or_blogs, main_app.pages_path %></li>
+      <% elsif current_user.has_any_role?(:faculty) %>
+        <li>
+          <%= link(:page, :new, new_page_path, class: css(button: [:success, :xs], align: :right)) %>
+          <%= ui_header t('page.titles.blogs'), style: :h4 %>
+        </li>
+        <li class="divider"></li>
+        <li><%= link :page, :blog_posts, main_app.pages_path %></li>
+      <% end %>
     </ul>
   </div>
 </div>

@@ -5,7 +5,7 @@
     <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
       <%= form_email f, :email %>
   
-      <%= form_submit f,  new_session_path(:user) %>
+      <%= form_submit f, new_session_path(:user), [{text: t('page.titles.sign_in'), path: new_session_path(resource_name)}] %>
     <% end %>
   </div>
 </div>

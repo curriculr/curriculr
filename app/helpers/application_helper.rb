@@ -1,4 +1,6 @@
 module ApplicationHelper
+  include Flot
+  
   FLASH_MSG_TYPES = {
     alert: :error,
     error: :error,
@@ -164,7 +166,6 @@ module ApplicationHelper
     html
   end
   
-
   def to_medium_kind(kind)
     return :video unless kind
     
@@ -184,5 +185,17 @@ module ApplicationHelper
     else
       kind.to_sym
     end
+  end
+
+  def resource_name
+    :user
+  end
+
+  def resource
+    @resource ||= User.new
+  end
+
+  def devise_mapping
+    @devise_mapping ||= Devise.mappings[:user]
   end
 end

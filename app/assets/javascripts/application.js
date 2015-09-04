@@ -21,3 +21,7 @@
 //
 // Application's Own Scripts
 //= require app-text
+//= require semantic-ui-card
+//
+//= require payment/payment
+//= require payment/braintree

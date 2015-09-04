@@ -147,7 +147,7 @@ en:
       terms: Terms of service
       blogs: <i class="fa fa-newspaper-o"></i> Blog
       sign_up: <i class="fa fa-plus"></i> Create an account
-      sign_in: <i class="fa fa-sign-out"></i> Login
+      sign_in: <i class="fa fa-sign-in"></i> Sign in
       sign_out: <i class="fa fa-sign-out"></i> Sign out
       send: Send
       reply: Reply
@@ -804,3 +804,5 @@ en:
       course_forums: Any forum listed here will automatically be a part of every future class of this course.
       course_updates: These updates will be automatically posted on the main pages of the open classes of this course. Update emails will be automatically sent to students when they first enroll.
       unit_updates: These updates will be automatically posted on the main pages of its classes when this unit is made available. Update emails will also be automatically sent to enrolled students.
+      sign_up: To create an account
+      sign_in: To sign in

@@ -2,14 +2,15 @@
   allow_actions = defined?(actions).blank? || actions == true
   allow_description = defined?(description).blank? || description == true
   img_size = defined?(image_size).blank? ? 240 : image_size
-  hdr = allow_actions ? link_to(klass.course.name, [main_app, :learn, klass]) : klass.course.name
+  hdr = allow_actions ? link_to(klass.course.name, [main_app, :learn, klass], :class => 'header') : klass.course.name
   hdr << content_tag(:span, Klass.human_attribute_name(:private), :class => css_label(:danger)) if klass.private
   subhdr = l(klass.begins_on)
   subhdr << %( - #{l(klass.ends_on)}) if klass.ends_on
   th = ui_image_src(klass.course.poster ? klass.course.poster.at_url(:sm) : nil, '/images/holder-sm.png')
-  labels = ui_klass_labels(klass)
+  labels = ui_course_labels(klass.course)
 %>
 
+<% if false %>
 <div class="media">
   <a class="pull-left" href="#">
     <img alt="" class="media-object" src="<%= th %>" style="max-width: <%= img_size %>px;">
@@ -24,5 +25,44 @@
     </div></small>
     <%= markdown(summary(klass.course.about)) if allow_description %>
     <%= ui_klass_enrollment_action(klass, :enroll) if allow_actions %>
+  </div>
+</div>
+<% end %>
+
+<div class="column">
+  <div class="ui fluid card">
+    <div class="blurring dimmable image">
+        <div class="ui dimmer">
+          <div class="content">
+            <div class="center">
+              <%= ui_klass_enrollment_action(klass, :enroll) if allow_actions %>
+            </div>
+          </div>
+        </div>
+        <% if klass.enrolled?(current_student) %>
+          <a class="ui green left corner label">
+            <i class="fa fa-check fa-lg adjusted-for-ribbon"></i>
+          </a>
+        <% elsif 30.days.ago.to_date <= klass.begins_on %>
+          <a class="ui red left corner label">
+            <i class="fa fa-gift fa-lg adjusted-for-ribbon"></i>
+          </a>
+        <% end %>
+        <img src="<%= th %>">
+      </div>
+    <div class="content">
+      <%= hdr %>
+      <div class="meta">
+        <small><%= subhdr %></small>
+      </div>
+      <div class="description">
+        <%= markdown(summary(klass.course.about)) if allow_description %>
+      </div>
+    </div>
+    <% if labels.present? %>
+      <div class="extra content">
+        <%= labels %>
+      </div>
+    <% end %>
   </div>
 </div>

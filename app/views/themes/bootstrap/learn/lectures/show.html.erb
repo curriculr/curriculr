@@ -78,6 +78,7 @@
     </div>
   </div>
   <div class="panel-body">
+    <% if data.size > 1 %>
     <ul class="nav nav-tabs lecture-contents">
       <% data.each_with_index do |item, i| %>
         <%
@@ -128,6 +129,7 @@
         </li>
       <% end %>
     </ul>
+    <% end %>
     <div id="media-pane">
       <% item = data[position] %>
       <% if item %>

@@ -1,0 +1,39 @@
+<% 
+  hdr = link_to course.name, [:teach, course], :class => 'header'
+  th = ui_image_src(course.poster ? course.poster.at_url(:sm) : nil, '/images/holder-sm.png')
+  action = link(:course, :edit, edit_teach_course_path(course), :class => css_button(:primary)) 
+  labels = ui_course_labels(course)
+  %>
+<%# ui_media(th, "#{hdr} #{content_tag :span, t('page.text.inactive'), :class => css_label(:warning) unless course.active}",
+      (markdown(summary(course.about)) + action),
+      img_url: teach_course_path(course), :img_options => { style: "max-width: 240px;" })
+%>
+
+<div class="column">
+  <div class="ui fluid card">
+    <div class="blurring dimmable image">
+      <div class="ui dimmer">
+        <div class="content">
+          <div class="center">
+            <%= action %>
+          </div>
+        </div>
+      </div>
+      <img src="<%= th %>">
+    </div>
+    <div class="content">
+      <%= hdr %>
+      <div class="meta">
+        <small><%= l(course.updated_at) %></small>
+      </div>
+      <div class="description">
+        <%= markdown(summary(course.about)) %>
+      </div>
+    </div>
+    <% if labels.present? %>
+      <div class="extra content">
+        <%= labels %>
+      </div>
+    <% end %>
+  </div>
+</div>

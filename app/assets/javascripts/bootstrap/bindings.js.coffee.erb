@@ -514,6 +514,11 @@ window.ui_rebind_application_events  = ($) ->
     $("##{$(this).data('id')}").css({'width': '100%', 'height': '400'})
 
   MathJax.Hub.Queue(["Typeset",MathJax.Hub])
+
+  # Card dimmer - semantic-ui
+  $('.ui.card .image').dimmer(
+    on: 'hover'
+  )
   
 jQuery ->
   ui_rebind_application_events jQuery

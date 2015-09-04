@@ -15,7 +15,7 @@
   </div>
 </div>
 <br>
-<div id="all-courses">
+<div id="all-courses" class="ui three column stackable stretched grid">
   <%= render :partial => 'teach/courses/course', :collection => @courses %>
   <% if @courses.empty? %>
     <%= t('page.text.no_record_found') %>

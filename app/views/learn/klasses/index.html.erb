@@ -22,7 +22,7 @@
         <div id="paginator" class="<%= css_align(:left) %>"><%= paginate @klasses, :remote => true %></div>
       </div>
     </div>
-    <div id='klass-list' class="klass-list klass-media-object">
+    <div id='klass-list' class="klass-list klass-media-object ui three column stackable stretched grid">
       <%= render :partial => 'learn/klasses/klass', :collection => @klasses %>
       <% if @klasses.empty? %>
         <%= t('page.text.no_record_found') %>

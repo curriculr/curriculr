@@ -1,5 +1,5 @@
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
+  <%# devise_error_messages! %>
 
   <%= form_email f, :email %>
   <%= form_password f, :password%>
@@ -13,6 +13,3 @@
   <% end %>
   <%= form_submit f, false, links %>
 <% end %>
-
-
- 

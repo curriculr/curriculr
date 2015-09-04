@@ -167,15 +167,19 @@ module Themes::Bootstrap::BootstrapHelper
   end
 
   def ui_klass_labels(klass)
+    ui_course_labels(klass.course)
+  end
+
+  def ui_course_labels(course)
     labels = ''.html_safe 
-    unless klass.course.country.blank? 
-      flag = flag_tag(klass.course.country)
+    unless course.country.blank? 
+      flag = flag_tag(course.country)
       labels << content_tag(:span, flag, :class => "text-muted") 
       labels << "&nbsp;".html_safe
     end
 
     t('config.level').each_with_index do |l, i|
-      if Course.scoped.tagged_with(l.first, :on => :levels).to_a.include? klass.course
+      if Course.scoped.tagged_with(l.first, :on => :levels).to_a.include? course
         (0..i).each { labels << content_tag(:i, '', class: 'fa fa-circle') }
         ((i+1)..3).each { labels << content_tag(:i, '', class: 'fa fa-circle-o') }
         labels << content_tag(:span, l.second, :class => "text-muted") 
@@ -800,7 +804,7 @@ module Themes::Bootstrap::BootstrapHelper
         else
           html << link[:text]
         end
-      end
+      end if links.present?
       
       html.html_safe
     end

@@ -69,3 +69,4 @@ gem 'chosen-rails'
 gem 'friendly_id', '~> 5.0.0'
 gem 'jquery-fileupload-rails'
 gem 'whenever', :require => false
+gem 'payment', :path => '/Users/aalgahmi/Workspace/duroosi/gems/payment'
