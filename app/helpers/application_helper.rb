@@ -1,6 +1,4 @@
 module ApplicationHelper
-  include Flot
-  
   FLASH_MSG_TYPES = {
     alert: :error,
     error: :error,
