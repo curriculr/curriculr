@@ -24,19 +24,16 @@
   <%= mountable_fragments :app_right_main_menu %>
   
   <% unless current_user %>
-    <% unless request.path.ends_with?('/sign_in')  || request.path.ends_with?('/sign_up') || 
-        controller_name.in?(['registrations', 'passwords', 'confirmations']) %>
-    <li>
-      <a data-toggle="modal" href="#siteSignInOrUpModal">
-        <%= t('activerecord.actions.sign_in').html_safe %>
-      </a>
-    </li>
+    <% unless request.path.ends_with?('/sign_in')  || request.path.ends_with?('/sign_up') %>
+      <li>
+        <%= link :user, :sign_in, main_app.new_user_session_path %>
+      </li>
     <% end %>
     <% if false %>
     <% if request.path.ends_with?('/sign_in') %>
-      <li><%= link :user, :sign_up, new_user_registration_path %></li>
+      <li><%= link :user, :sign_up, main_app.new_user_registration_path %></li>
     <% elsif request.path.ends_with?('/sign_up') %>
-      <li><%= link :user, :sign_in, new_user_session_path %></li>
+      <li><%= link :user, :sign_in, main_app.new_user_session_path %></li>
     <% else %>
       <li><%= link :user, :sign_up, main_app.new_user_registration_path %></li>
       <li><%= link :user, :sign_in, main_app.new_user_session_path %></li>

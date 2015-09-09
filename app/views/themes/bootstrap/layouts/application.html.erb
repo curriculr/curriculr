@@ -58,9 +58,6 @@
     </div>
   </div>
 
-  <% unless current_user %>
-    <%= render partial: 'users/sign_in_or_up' %>
-  <% end %>
   <% if content_for? :site_728x90_center_bottom_banner %>
     <div class="container">
       <%= yield :site_728x90_center_bottom_banner %>
