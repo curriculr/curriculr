@@ -1,0 +1,9 @@
+<%= render 'admin/dashboard/show' %>
+
+<% klasses = Klass.which_are('popular', current_user).limit(3).to_a %>
+<% if klasses.present? %>
+  <%= ui_header t('page.titles.popular_classes') %>
+  <div class="ui three column stackable stretched grid">
+    <%= render :partial => 'learn/klasses/klass', :collection => klasses %>
+  </div>
+<% end %>

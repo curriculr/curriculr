@@ -23,12 +23,17 @@
       <% active = (active_klass_id.present? && klass.id == active_klass_id) || (active_klass_id.blank? && i == 0) %>
       <div id="collapse-<%= klass.id %>" class="panel-collapse klass collapse <%= 'in' if active %>">
         <div class="panel-body">
-          <div id="klass-approve-indicator" class="<%= css_alert(:warning) %> <%= 'hidden' if klass.approved %>">
-            <% if !current_account.config['require_admin_approval_of_classes'] || current_user.has_role?(:admin) %>
-              <%= t('page.text.approved_klass_html', 
-                    link: link(:klass, klass.approved ? :disapprove : :approve, approve_teach_course_klass_path(@course, klass), :method => :put)) %>
+          <div id="klass-approve-indicator" class="<%= css_alert(:warning) %> <%= 'hidden' if klass.ready_to_approve && klass.approved %>">
+            <% if klass.ready_to_approve %>
+              <% if !current_account.config['require_admin_approval_of_classes'] || current_user.has_role?(:admin) %>
+                <%= t('page.text.approved_klass_html', 
+                      link: link(:klass, klass.approved ? :disapprove : :approve, approve_teach_course_klass_path(@course, klass), :method => :put)) %>
+              <% else %>
+                <%= t('page.text.by_admin_approved_klass_html') %>
+              <% end %>
             <% else %>
-              <%= t('page.text.by_admin_approved_klass_html') %>
+              <%= t('page.text.ready_to_approve_klass_html', 
+                      link: link(:klass, klass.ready_to_approve ? :unready : :ready, ready_teach_course_klass_path(@course, klass), :method => :put)) %>
             <% end %>
             
           </div>

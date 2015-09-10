@@ -3,9 +3,9 @@ module KlassesHelper
     links = []
     mountable_links = nil
     
-    if klass.enrolled?(current_student)
-      #go2class
-      links << link(:klass, :goto, learn_klass_path(klass), :class => css_button(:primary))
+    if klass.enrolled?(current_student) || klass.previously_enrolled?(current_student)
+      #go2class or #go2class_past
+      links << link(:klass, :goto, main_app.learn_klass_path(klass), :class => css_button(:primary))
     elsif klass.can_enroll?(current_user, current_student)
       if controller_name == 'klasses' && action_name == 'show' || @lecture
         if klass.free? 
@@ -39,9 +39,9 @@ module KlassesHelper
         links << link(:klass, :learn_more, learn_klass_path(klass), :class => css_button(:primary))
         mountable_links = mountable_fragments(:klass_flags, klass: klass, previewed: in_preview)
       end
-    elsif klass.previously_enrolled?(current_student)
-      #go2class_past
-      links << link(:klass, :goto, main_app.learn_klass_path(klass), :class => css_button(:primary))
+    elsif current_user && staff?(current_user, klass)
+      #admin or faculty
+      links << link(:klass, :goto, main_app.teach_course_klass_path(klass.course, klass), :class => css_button(:primary))
     end
     
     %(#{links.join(' ').html_safe}  #{mountable_links}).html_safe

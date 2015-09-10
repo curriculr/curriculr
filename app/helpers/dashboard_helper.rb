@@ -231,6 +231,33 @@ module DashboardHelper
     ])
   end
 
+  def dashboard_admin_user_activities_1(since)
+    r_users = _users_by_day(since, false)
+    c_users = _users_by_day(since) 
+    enrollments = _enrollments_by_day(since)
+    signins = _users_by_day(since, true, 'last_sign_in_at')
+    
+    i = -1
+    labels = ['Day']
+    data = [
+      [t('page.titles.registration')], 
+      [t('page.titles.confirmation')], 
+      [t('page.titles.enrollment')], 
+      [t('page.titles.signing_in')]
+    ]
+
+    (since.to_date..Time.zone.today).each do |date|
+      i += 1
+      labels << date.strftime('%b %d')
+      data[0] << r_users[i]
+      data[1] << c_users[i]
+      data[2] << enrollments[i]
+      data[3] << signins[i]
+    end
+    
+    return labels, data
+  end
+
   def dashboard_confirmations_vs_enrollments(since, x, y)
     c_users = _users_by_day(since)
     enrollments = _enrollments_by_day(since)

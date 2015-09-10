@@ -50,9 +50,26 @@ module Teach
     end
     
     def approve
-      if current_user.has_role? :admin or (staff?(current_user, @course) and !current_account.config['require_admin_approval_of_classes'])
+      if current_user.has_role? :admin || (staff?(current_user, @course) && !current_account.config['require_admin_approval_of_classes'])
         @klass.approved = !@klass.approved 
         @klass.approved_at = Time.zone.now
+        @klass.save 
+        
+        respond_with @klass do |format|
+          format.html { redirect_to teach_course_klasses_path(@course) }
+        end
+      end
+    end
+
+    def ready
+      if current_user && staff?(current_user, @course) 
+        if @klass.ready_to_approve
+          @klass.ready_to_approve = false
+          @klass.approved = false
+        else
+          @klass.ready_to_approve = true
+        end
+        
         @klass.save 
         
         respond_with @klass do |format|

@@ -77,6 +77,7 @@ Rails.application.routes.draw do
         get :invite, :on => :member
         post :invite, :on => :member
         put :approve, :on => :member
+        put :ready, :on => :member
         put :discuss, :on => :member
       end
       

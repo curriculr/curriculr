@@ -173,8 +173,8 @@ en:
       unpublish: Un-publish
       privatize: Make private
       publicize: Make public
-      ready: Publish
-      unready: Un-publish
+      ready: Mark as ready to release
+      unready: Mark as not ready to release
       revoke: Revoke
       enact: Enact
       available_klasses: Available
@@ -312,6 +312,10 @@ en:
       sort_question_items: Sortable items
             
     placeholders:
+      name: Name
+      email: Email
+      password: Password
+      password_confirmation: Confirm password
       url: The video ID for a YouTube video; the full URL for anything else.
       slug: Appears in URL; only alphanumeric, - and _ are allowed. No spaces.
       bank_list: Select question bank to add this question to...
@@ -731,6 +735,9 @@ en:
       private_page_html: <i class="fa fa-warning"></i> This page has not been made public yet and therefore cannot be seen by anyone other than you. %{link}
       by_admin_private_page_html: <i class="fa fa-warning"></i> Administrator's approval is required to make this page public so it can be seen by anyone other than you.
       approved_klass_html: <i class="fa fa-warning"></i> This class has not been approved yet. Approving this class makes it accessible to others. %{link}
+      ready_to_approve_klass_html: 
+        <i class="fa fa-warning"></i> This class is not ready to approve yet. You must mark 
+        it as ready before it can be approved. Only approved classes are accessible to others. %{link}
       by_admin_approved_klass_html: <i class="fa fa-warning"></i> Administrator's approval of this class is required. Approving this class makes it accessible to others.
       unready: Unpublished
       unready_assessment_html: <i class="fa fa-warning"></i> This assessment has not been published yet. %{link}

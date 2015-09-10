@@ -29,16 +29,6 @@
         <%= link :user, :sign_in, main_app.new_user_session_path %>
       </li>
     <% end %>
-    <% if false %>
-    <% if request.path.ends_with?('/sign_in') %>
-      <li><%= link :user, :sign_up, main_app.new_user_registration_path %></li>
-    <% elsif request.path.ends_with?('/sign_up') %>
-      <li><%= link :user, :sign_in, main_app.new_user_session_path %></li>
-    <% else %>
-      <li><%= link :user, :sign_up, main_app.new_user_registration_path %></li>
-      <li><%= link :user, :sign_in, main_app.new_user_session_path %></li>
-    <% end %>
-    <% end %>
   <% else %>
     <li id="no-line" class="dropdown">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown">

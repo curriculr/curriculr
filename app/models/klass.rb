@@ -75,6 +75,7 @@ class Klass < ActiveRecord::Base
         :today => Time.zone.today, :lookahead_day => Time.zone.today + 60)
   }
   scope :active, -> { where("klasses.active = TRUE and klasses.approved = TRUE") }
+  scope :ready_to_approve, -> { where("klasses.active = TRUE and klasses.ready_to_approve = TRUE") }
   scope :open, -> { where("klasses.begins_on <= :today and (klasses.ends_on is null or klasses.ends_on >= :today)", :today => Time.zone.today) }
   scope :closed, -> { where("klasses.ends_on < :today", :today => Time.zone.today) }
   scope :enrolled, ->(user) { 

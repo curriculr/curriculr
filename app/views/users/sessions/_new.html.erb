@@ -1,8 +1,8 @@
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
   <%# devise_error_messages! %>
 
-  <%= form_email f, :email %>
-  <%= form_password f, :password%>
+  <%= form_email f, :email, label: false, placeholder: true %>
+  <%= form_password f, :password, label: false, placeholder: true %>
 
   <% if false && devise_mapping.rememberable? %>
     <%= form_checkbox f, :remember_me %>

@@ -18,6 +18,7 @@
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
 //= require sketch
+// require chartjs/chart
 //
 // Application's Own Scripts
 //= require app-text
@@ -25,3 +26,6 @@
 //
 //= require payment/payment
 //= require payment/braintree
+
+
+ 

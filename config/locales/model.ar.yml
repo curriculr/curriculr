@@ -175,8 +175,8 @@ ar:
       unpublish: لا تنشر
       privatize: اجعله خاصا
       publicize: اجعله عاما
-      ready: انشر
-      unready: لا تنشر
+      ready: أكد جهوزيته
+      unready: اسحب جهوزيته
       revoke: إبطال
       enact: أحدث
       available_klasses: المتوافرة
@@ -307,6 +307,10 @@ ar:
       sort_question_items: خيارات الترتيب
       
     placeholders:
+      name: الاسم
+      email: البريد الإلكتروني
+      password: كلمة السر
+      password_confirmation: توكيد كلمة السر
       url: أدخل رقم الفيديو في حالة فيديوهات يوتوب أو أدخل العنوان كاملا.
       slug: جزء من الرابط. احرف و أرقام و - و ـ و بدون فراغات
       bank_list: اختر بنك الأسئلة الذي تريد اضافة هذا السؤال اليه ‫...‬
@@ -717,6 +721,9 @@ ar:
       unpublished_page_html: <i class="fa fa-warning"></i> هذه الصفحة لم تنشر بعد. %{link}
       unpublished_update_html: <i class="fa fa-warning"></i> هذا التحديث لم يرسل أو ينشر بعد. %{link}
       approved_klass_html: <i class="fa fa-warning"></i> هذا الفصل لما تتم الموافقة عليه بعد. الموافقة على هذا الفصل تجعله في متناول الآخرين. %{link}
+      ready_to_approve_klass_html:
+        <i class="fa fa-warning"></i> هذا الفصل ليس جاهزا للموافقة عليه بعد. يجب أن 
+        تؤكد جهوزيته قبل أن يوافق عليه. الفصول الموافق عليها فقط تكون في متناول الآخرين. %{link}
       by_admin_approved_klass_html: <i class="fa fa-warning"></i> موافقة إدارة الموقع على هذا الفصل مطلوبة لجعله في متناول الآخرين.
       private_page_html: <i class="fa fa-warning"></i> هذه الصفحة ليست عامة و غير مرئية لغيرك. %{link}
       by_admin_private_page_html: <i class="fa fa-warning"></i> موافقة إدارة الموقع مطلوبة لجعل هذه الصفحة عامة و تمكين الاخرين من الوصول إليها. 
