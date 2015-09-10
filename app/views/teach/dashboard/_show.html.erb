@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="<%= css_columns(3) %>">
+    <% data = dashboard_course_activity_counts(@course) %>
+    <%= ui_chart 'course_activity_counts', 
+      'PieChart', data[:counts], {legend: 'none', title: t('page.titles.activity_counts')}, 300 %>
+  </div>
+  <div class="<%= css_columns(3) %>">
+    <% data = dashboard_course_medium_counts(@course) %>
+    <%= ui_chart 'course_medium_counts', 
+      'PieChart', data[:counts], {legend: 'none', title: Medium.model_name.human(:count => 3)}, 300 %>
+  </div>
+  <div class="<%= css_columns(3) %>">
+    <% data = dashboard_course_question_counts(@course) %>
+    <%= ui_chart 'course_question_counts', 
+      'PieChart', data[:counts], {legend: 'none', title: Question.model_name.human(:count => 3)}, 300 %>
+  </div>
+  <div class="<%= css_columns(3) %>">
+    <% data = dashboard_course_assessment_counts(@course) %>
+    <%= ui_chart 'course_assessment_counts', 
+      'PieChart', data[:counts], {legend: 'none', title: Assessment.model_name.human(:count => 3)}, 300 %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="<%= css_columns(12) %>">
+    <%# ui_header t('page.titles.daily_activities'), :style => :h3 %>
+    <%= ui_chart 'course_daily_activities', 
+      'LineChart', 
+      dashboard_course_activities_by_day(3.weeks.ago, @course),
+      {curveType: 'function', legend: { position: 'top' }, chartArea:{left:0,top:40,width:'100%',height:'75%'} }, 300 %>
+  </div>
+</div>

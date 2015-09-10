@@ -9,39 +9,33 @@
     <% end %>
   </div>
   <div class="<%= css_columns(3) %>">
-    <%= ui_header(capture do %>
-      <%= link(:profile, :edit, main_app.edit_user_path(current_user), 
-            class: css(button: [:success, :xs], align: :right)) %>
-      <%= "#{current_user.profile.prefix} #{current_user.name}" %> 
-      <small><%= current_user.profile.nickname %></small>
-    <% end) %>
+    <%= ui_header "#{current_user.profile.prefix} #{current_user.name}" %>
 
     <%= ui_media current_user.profile.avatar_url(current_account, :med).to_s, current_user.email,
           markdown(summary(current_user.profile.about, 100)) %>
-    <br/><br/><hr/>
+
+    <br/><br/>
+    <%= link(:profile, :edit_profile, main_app.edit_user_path(current_user),
+          class: css_button(:success, :block)) %>
+    <hr/>
     <ul class="list-unstyled">
+      <li><%= link :page, :blog_posts, main_app.pages_path %></li>
       <%= mountable_fragments :app_user_menu %>
     </ul>
-    
+
     <ul class="nav nav-pills nav-stacked">
-      <% if current_user.has_role?(:admin) || current_user.has_role?(:faculty) %>
-        <li class="header"><%= t('page.titles.for_instructors') %></li>  
-        <li><%= link(:course, :start_new_course, main_app.new_teach_course_path) %></li>
-        <li><%= link :page, :blog_posts, main_app.pages_path %></li>
-      <% end %>
-      
 <!--       <li><%= link(:klass, :taking_klasses, main_app.learn_klasses_path(:s => :taking)) %></li>
       <li><%= link(:klass, :enrolled_klasses, main_app.learn_klasses_path(:s => :enrolled)) %></li>
       <li><%= link(:klass, :taken_klasses, main_app.learn_klasses_path(:s => :taken)) %></li> -->
 
       <% if current_account.config['allow_user_student_dependents'] %>
         <li class="divider"></li>
-        <li><%= content_tag :h4, Student.model_name.human(count: 3) %></li> 
+        <li><%= content_tag :h4, Student.model_name.human(count: 3) %></li>
         <li><%= link :student, :index,  main_app.learn_students_path %></li>
       <% end %>
 
     <% if current_user.has_role? :admin %>
-        <li class="header"><%= t('page.titles.administration') %></li>  
+        <li class="header"><%= t('page.titles.administration') %></li>
         <% if current_user.id == 1 %>
           <li><%= link :account, :index,  main_app.admin_accounts_path %></li>
         <% end %>
@@ -54,7 +48,7 @@
 
         <%= mountable_fragments :app_admin_menu %>
 
-        <li><%= t('page.titles.settings') %></li> 
+        <li><%= t('page.titles.settings') %></li>
         <% if current_user.id == 1 %>
           <li>
             <%= link :configuration, :site_settings,  main_app.admin_config_edit_path %>

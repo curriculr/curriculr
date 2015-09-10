@@ -7,7 +7,7 @@
             <a data-toggle="collapse" data-parent="#accordion" href="#syllabus">
               <%= t('page.titles.syllabus') %>
             </a>
-            <%= link(:page, :edit, edit_teach_course_page_path(@course, @course.syllabus), 
+            <%= link(:page, :edit, edit_teach_course_page_path(@course, @course.syllabus),
                   class: css(button: [:xs, :primary], align: :right)) %>
           </h4>
         </div>
@@ -21,25 +21,25 @@
           </div>
         </div>
       </div>
-  
+
       <%
         links = []
 
         @course.config["grading"]["distribution"]["assessments"]["course"].keys.each do |k|
           links << link_to(k, new_teach_course_assessment_path(@course, :t => k))
         end
-        
+
         assessments = @course.assessments.where(unit_id: nil).where("kind <> 'survey'").to_a
       %>
       <div class="panel panel-inverse">
         <div class="panel-heading">
           <h4 class="panel-title">
             <a data-toggle="collapse" data-parent="#accordion" href="#assessments">
-              
+
               <%= Assessment.model_name.human(count: 3) %>
               <%= content_tag :span, assessments.count, :class => css_badge %>
             </a>
-            <%= ui_button_dropdown(t('activerecord.actions.new', name: Assessment.model_name.human), links, 
+            <%= ui_button_dropdown(t('activerecord.actions.new', name: Assessment.model_name.human), links,
                 class: css_button(:xs, :primary), align: :right) %>
           </h4>
         </div>
@@ -51,7 +51,7 @@
               <tr>
                 <td>
                   <h5>
-                    <%= link(:assessment, :edit, edit_teach_course_assessment_path(@course, a), 
+                    <%= link(:assessment, :edit, edit_teach_course_assessment_path(@course, a),
                         :class => css(button: :success, align: :right)) %>
                     <%= link_to(a.name, teach_course_assessment_path(@course, a)) %>
                     <small><%= a.kind %></small>
@@ -74,7 +74,7 @@
               <%= t('page.titles.people') %>
               <%= content_tag :span, instructors.count, :class => css_badge %>
             </a>
-            <%= link(:instructor, :new, new_teach_course_instructor_path(@course), 
+            <%= link(:instructor, :new, new_teach_course_instructor_path(@course),
                   :class => css(button: [:xs, :primary], align: :right)) %>
           </h4>
         </div>
@@ -88,7 +88,7 @@
           </div>
         </div>
       </div>
-      
+
       <% books = @course.books.to_a %>
       <div class="panel panel-inverse">
         <div class="panel-heading">
@@ -107,19 +107,19 @@
           <table class="<%= css_table %>">
           	<tbody>
               <% books.each_with_index do |book, i| %>
-                <%= render partial: "application/media/medium", 
-                      locals: {medium: book.medium, medium_counter: i, 
-                        action: link(:material, :destroy, 
-                          teach_course_material_path(@course, book), 
-                          :method => :delete, :class => css_button(:danger, :xs), 
-                          confirm: true) 
+                <%= render partial: "application/media/medium",
+                      locals: {medium: book.medium, medium_counter: i,
+                        action: link(:material, :destroy,
+                          teach_course_material_path(@course, book),
+                          :method => :delete, :class => css_button(:danger, :xs),
+                          confirm: true)
                       } %>
-              <% end %>   
+              <% end %>
             </tbody>
           </table>
         </div>
       </div>
-  
+
       <% pages = @course.non_syllabus_pages.to_a %>
       <div class="panel panel-inverse">
        <div class="panel-heading">
@@ -140,7 +140,7 @@
                <tr>
                  <td>
                    <h5>
-                     <%= link_to page.name, teach_course_page_path(@course, page) %> 
+                     <%= link_to page.name, teach_course_page_path(@course, page) %>
                      <small><%= l(page.created_at.to_date) %></small>
                      <%= content_tag(:span, t('page.text.unpublished'), :class => css_label(:warning)) unless page.published %>
                    </h5>
@@ -150,7 +150,7 @@
            </tbody>
          </table>
        </div>
-      </div> 
+      </div>
 
       <% forums = @course.forums.to_a %>
       <div class="panel panel-inverse">
@@ -172,10 +172,10 @@
             </div>
           </div>
          </div>
-         <%= render partial: 'teach/forums/index', locals: { forums: @course.forums } %> 
+         <%= render partial: 'teach/forums/index', locals: { forums: @course.forums } %>
        </div>
-      </div> 
-      
+      </div>
+
       <% updates = @course.updates.to_a %>
       <div class="panel panel-inverse">
        <div class="panel-heading">
@@ -196,9 +196,9 @@
             </div>
           </div>
          </div>
-         <%= render partial: 'teach/updates/index', locals: { updates: @course.updates } %> 
+         <%= render partial: 'teach/updates/index', locals: { updates: @course.updates } %>
        </div>
-      </div> 
+      </div>
 
       <%
         assessments = @course.assessments.where(unit_id: nil).where("kind = 'survey'").to_a
@@ -207,7 +207,7 @@
         <div class="panel-heading">
           <h4 class="panel-title">
             <a data-toggle="collapse" data-parent="#accordion" href="#surveys">
-              
+
               <%= t('page.titles.surveys') %>
               <%= content_tag :span, assessments.count, :class => css_badge %>
             </a>
@@ -223,7 +223,7 @@
               <tr>
                 <td>
                   <h5>
-                    <%= link(:survey, :edit, edit_teach_course_assessment_path(@course, a), 
+                    <%= link(:survey, :edit, edit_teach_course_assessment_path(@course, a),
                         :class => css(button: :success, align: :right)) %>
                     <%= link_to(a.name, teach_course_assessment_path(@course, a)) %>
                     <small><%= a.kind %></small>

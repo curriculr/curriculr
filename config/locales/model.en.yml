@@ -6,78 +6,78 @@ en:
           attributes:
             password:
               confirmation: Please confirm password
-            
+
     models:
-      account: 
+      account:
         one: Account
         other: Accounts
-      user: 
+      user:
         one: User
         other: Users
-      guardianship: 
+      guardianship:
         one: Guardianship
         other: Guardianships
-      profile: 
+      profile:
         one: Profile
         other: Profiles
-      contact: 
+      contact:
         one: Contact
         other: Contacts
-      course: 
+      course:
         one: Course
         other: Courses
       instructor:
         one: Instructor
         other: Instructors
-      update: 
+      update:
         one: Class Update
         other: Class Updates
-      assessment: 
+      assessment:
         one: Assessment
         other: Assessments
       attempt:
         one: Attempt
         other: Attempts
-      question: 
+      question:
         one: Question
         other: Questions
-      option: 
+      option:
         one: Option
         other: Options
       q_selector:
         one: Selector
         other: Selectors
-      klass: 
+      klass:
         one: Class
         other: Classes
-      enrollment: 
+      enrollment:
         one: Enrollment
         other: Enrollments
-      forum: 
+      forum:
         one: Forum
         other: Forums
-      topic: 
+      topic:
         one: Topic
         other: Topics
-      post: 
+      post:
         one: Post
         other: Posts
-      medium: 
+      medium:
         one: File
         other: Files
-      material: 
+      material:
         one: Material
         other: Materials
-      unit: 
+      unit:
         one: Unit
         other: Units
-      lecture: 
+      lecture:
         one: Lecture
         other: Lectures
-      page: 
+      page:
         one: Page
         other: Pages
-      access_token: 
+      access_token:
         one: Access Token
         other: Access Tokens
       configuration:
@@ -86,7 +86,7 @@ en:
       config:
         one: Configurations
         other: Configurations
-      announcement: 
+      announcement:
         one: Announcement
         other: Announcements
       translation:
@@ -112,7 +112,7 @@ en:
         one: Session
       password:
         one: Password
-    
+
     actions:
       go_back: Go back
       dashboard: <i class="fa fa-tachometer"></i>&nbsp; Dashboard
@@ -173,8 +173,8 @@ en:
       unpublish: Un-publish
       privatize: Make private
       publicize: Make public
-      ready: Mark as ready to release
-      unready: Mark as not ready to release
+      ready: Mark as ready
+      unready: Mark as not ready
       revoke: Revoke
       enact: Enact
       available_klasses: Available
@@ -247,16 +247,19 @@ en:
       decline: Decline invitation
       blog_posts: My blog posts
       static_pages_or_blogs: Static pages/Blog posts
-    
+      start_new_course: Start a new course
+      edit_profile: <i class="fa fa-edit"></i> Edit my profile
+
+
     confirmations:
       destroy: Are you sure you want to delete this %{name}?
       new: Are you sure you want to proceed with this?
       drop: By dropping this class, you will not be able to access its lectures, materials, assessments and forums. Are you sure you want to proceed?
-      new_attempt: 
-        Submitting this request means that you agree to the rules of 
-        the honor system followed by this class, and that you are ready to 
+      new_attempt:
+        Submitting this request means that you agree to the rules of
+        the honor system followed by this class, and that you are ready to
         take this assessment.
-      
+
     messages:
       successful_enroll: You are now enrolled in this class.
       failure_to_enroll: Unable to enroll you in this class.
@@ -276,12 +279,12 @@ en:
       page_unauthorized_html: Not authorized to access this page.
       page_not_found_html: The page you tried to access is not found.
       must_be_admin: You must be an administrator to access this page.
-        
+
     hints:
-      about: 
-        Inline Latex Math formulae can only be included between <code>\(</code> and <code>\)</code>; 
+      about:
+        Inline Latex Math formulae can only be included between <code>\(</code> and <code>\)</code>;
         block formulae between <code>\[</code> and <code>\]</code>.
-      fill_one_question: 
+      fill_one_question:
       fill_many_question: Make sure that the number of ellipses (...) is the same as the number of blank answers.
       pick_2_fill_question: Make sure that the number of ellipses (...) is the same as the number of blank option lists.
       pick_one_question:
@@ -296,9 +299,9 @@ en:
       pick_many_question_option: An option to be selected.
       match_question_side_1: Side 1 items. One item per line. Empty lines can be used to separate items.
       match_question_side_2: Side 2 items exactly in the correct order matching Side 1 items. One item per line. Empty lines can be used to separate items.
-      underline_question_items: 
+      underline_question_items:
       sort_question_items: The items to be sorted in the correct order. One item per line. Empty lines can be used to separate items.
-    
+
     labels:
       fill_one_question_answer: Correct answer
       fill_many_question_blank_answer: Correct answer for blank
@@ -310,7 +313,7 @@ en:
       match_question_side_1: Side
       match_question_side_2: Side
       sort_question_items: Sortable items
-            
+
     placeholders:
       name: Name
       email: Email
@@ -346,9 +349,9 @@ en:
       pick_many_question_option: An option to be selected.
       match_question_side_1: Side 1 items. One item per line. Empty lines can be used to separate items.
       match_question_side_2: Side 2 items exactly in the correct order matching Side 1 items. One item per line. Empty lines can be used to separate items.
-      underline_question_items: 
+      underline_question_items:
       sort_question_items: The items to be sorted in the correct order. One item per line. Empty lines can be used to separate items.
-          
+
     attributes:
       account:
         slug: Subdomain
@@ -401,7 +404,7 @@ en:
       update:
         www: In site
         email: Via email
-        sms: Via SMS 
+        sms: Via SMS
         to: Audience
         subject: Subject
         body: Body
@@ -490,7 +493,7 @@ en:
       medium:
         kind: Kind
         name: Name
-        path: Upload file 
+        path: Upload file
         is_a_link: External link(no file to upload)?
         url: URL
         source: Source
@@ -536,7 +539,7 @@ en:
         name: Name
         avatar: Avatar
         relationship: Relationship to user
-  
+
   # Non-persistent models and validation messages
   activemodel:
     attributes:
@@ -549,7 +552,7 @@ en:
         course: Course
         klass: Class
         invitee: Invitee
-  
+
   flash:
     actions:
       create:
@@ -558,7 +561,7 @@ en:
         notice: "%{resource_name} was successfully updated."
       destroy:
         notice: "%{resource_name} was successfully deleted."
-        alert: "%{resource_name} could not be deleted." 
+        alert: "%{resource_name} could not be deleted."
       save_attempt:
         notice: "Your attempt at this assessment has been saved. You can finish it later."
       submit_attempt:
@@ -571,7 +574,7 @@ en:
       previous: "&lsaquo; Prev"
       next: "Next &rsaquo;"
       truncate: "&hellip;"
-      
+
   page:
     titles:
       assessment: Assessment
@@ -635,7 +638,7 @@ en:
       upcoming_deadlines: Upcoming Deadlines
       audios: Audios
       documents: Documents
-      videos: Videos 
+      videos: Videos
       people: People
       books: Books
       document: Document
@@ -659,28 +662,33 @@ en:
       part: Part
       own_recent_topics: My recent topics
       own_recent_posts: My recent posts
-      
+      ready_to_approve: Classes pending approval
+      being_worked_on: Courses being worked on
+      open_classes_i_teach: Open classes I teach
+      classes_i_am_taking: Classes I'm taking
+      classes_i_took: Classes I took
+
     text:
       more: More
       less: Less
       accepted: Accepted %{at}
-      klass_agreement: 
-        I agree to the terms and conditions of open education and to the rules of 
+      klass_agreement:
+        I agree to the terms and conditions of open education and to the rules of
         the honor system followed in the classes of this site.
-      assessment_penalty_msg: 
+      assessment_penalty_msg:
         The deadline to take this assessment has passed. Your attempt will have a penalty %{penalty}%.
       assessments_already_taken: This assessment is already taken. No more attempts allowed.
-      assessments_count: 
+      assessments_count:
         one: one assessment
         other: "%{count} assessments"
       assessments_final_score: Final score
       assessments_no_attempt_yet: You have not attempted this assessment yet.
       attempts_count: "%{count}/%{total} attempts"
-      comments_count: 
+      comments_count:
         one: one comment
         other: "%{count} comments"
       copyrights: "%{year} all rights reserved"
-      course_assessments_notice_html: 
+      course_assessments_notice_html:
       course_books_notice_html:
       course_klasses_notice_html:
       course_pages_notice_html:
@@ -692,21 +700,21 @@ en:
       enroll_to_attempt_assessment_html: "You must %{action} before you can attempt this assessment."
       enroll_to_comment_html: "You must %{action} before you can see or add comments."
       enrolled: Already enrolled in
-      grading_msg: 
-        Submitting this request means that you agree to the rules of 
-        the honor system followed by this class, and that you are ready for 
+      grading_msg:
+        Submitting this request means that you agree to the rules of
+        the honor system followed by this class, and that you are ready for
         this %{name} assessment to be graded.
       guardian_report_intro:
-        This page allows you to view the reports of all the students you are 
-        legally responsible for in all the classes they are enrolled in. To 
-        do so, select both the student you are interested in and the class 
+        This page allows you to view the reports of all the students you are
+        legally responsible for in all the classes they are enrolled in. To
+        do so, select both the student you are interested in and the class
         she/he is taking or has already taken.
       here: here
       if_no_user_account: If you don't have an account with us yet
       if_user_account: If you already have an account with us
       inactive: Inactive
-      no_instructor_but_originator_html: 
-        No instructor has been added to this course. In this case, 
+      no_instructor_but_originator_html:
+        No instructor has been added to this course. In this case,
         originator %{originator} will be listed.
       no_record_found: Nothing to display
       not_accepted: Not accepted
@@ -735,19 +743,19 @@ en:
       private_page_html: <i class="fa fa-warning"></i> This page has not been made public yet and therefore cannot be seen by anyone other than you. %{link}
       by_admin_private_page_html: <i class="fa fa-warning"></i> Administrator's approval is required to make this page public so it can be seen by anyone other than you.
       approved_klass_html: <i class="fa fa-warning"></i> This class has not been approved yet. Approving this class makes it accessible to others. %{link}
-      ready_to_approve_klass_html: 
-        <i class="fa fa-warning"></i> This class is not ready to approve yet. You must mark 
+      ready_to_approve_klass_html:
+        <i class="fa fa-warning"></i> This class is not ready to approve yet. You must mark
         it as ready before it can be approved. Only approved classes are accessible to others. %{link}
       by_admin_approved_klass_html: <i class="fa fa-warning"></i> Administrator's approval of this class is required. Approving this class makes it accessible to others.
       unready: Unpublished
-      unready_assessment_html: <i class="fa fa-warning"></i> This assessment has not been published yet. %{link}
+      unready_assessment_html: <i class="fa fa-warning"></i> This assessment has not been marked as ready to release yet. %{link}
       upcoming_deadlines:
         one: Assessment %{name} to close in a day.
         other: Assessment %{name} to close in %{count} days.
-      weeks: 
+      weeks:
         one: "Lasts for one weeks"
         other: "Lasts for %{count} weeks"
-      workload: 
+      workload:
         one: "%{count} hour/week of studying is recommended"
         other: "%{count} hours/week of studying is recommended"
       points:
@@ -791,8 +799,8 @@ en:
       general: General Instruction Forum
       assessments: Assessments Forum
       study_groups: Study Groups Forum
-      settings_change_warning_html: 
-        <strong>Warning!</strong> 
+      settings_change_warning_html:
+        <strong>Warning!</strong>
         Any change to the settings below must be done very carefully.
       include_in_assessment: Add to '%{name}'
       closed_klass_html: This class is closed. Cannot see comments or attempt assessments.
@@ -813,3 +821,9 @@ en:
       unit_updates: These updates will be automatically posted on the main pages of its classes when this unit is made available. Update emails will also be automatically sent to enrolled students.
       sign_up: To create an account
       sign_in: To sign in
+      course_unit_html:
+        <div class="alert alert-info" role="alert">
+          A course is divided into one or more units. A unit can correspond to a
+          chapter in a book, a week in multi-week course, or a part of the course main subject. It is
+          made of one or more lectures. This page is where you add and manage units and their lectures.
+        </div>

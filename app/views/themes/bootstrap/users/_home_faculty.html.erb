@@ -1,1 +1,27 @@
-for faculty
+<% klasses = Klass.being_worked_on.to_a %>
+<%= ui_header t('page.titles.being_worked_on') %>
+<% if klasses.present? %>
+  <div class="ui three column stackable stretched grid">
+    <%= render :partial => 'learn/klasses/klass', :collection => klasses %>
+  </div>
+<% else %>
+    <%= link(:course, :start_new_course, main_app.new_teach_course_path, :class => css_button(:success)) %>
+<% end %>
+
+<% klasses = Klass.for_instructor(current_user).ready_to_approve.to_a %>
+<% if klasses.present? %>
+  <%= ui_header t('page.titles.ready_to_approve') %>
+  <div class="ui three column stackable stretched grid">
+    <%= render :partial => 'learn/klasses/klass', :collection => klasses %>
+  </div>
+<% end %>
+
+<% klasses = Klass.for_instructor(current_user).active.open.to_a %>
+<%= ui_header t('page.titles.open_classes_i_teach') %>
+<% if klasses.present? %>
+  <div class="ui three column stackable stretched grid">
+    <%= render :partial => 'learn/klasses/klass', :collection => klasses %>
+  </div>
+<% else %>
+    <%= t('page.text.no_record_found') %>
+<% end %>

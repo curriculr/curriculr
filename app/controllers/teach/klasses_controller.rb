@@ -70,7 +70,7 @@ module Teach
           @klass.ready_to_approve = true
         end
         
-        @klass.save 
+        @klass.save
         
         respond_with @klass do |format|
           format.html { redirect_to teach_course_klasses_path(@course) }

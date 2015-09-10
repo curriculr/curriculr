@@ -6,78 +6,78 @@ ar:
           attributes:
             password:
               confirmation: لا بد من إعادة كتابتها.
-            
+
     models:
-      account: 
+      account:
         one: حساب
         other: الحسابات
-      user: 
+      user:
         one: المستخدم
         other: المستخدمون
-      guardianship: 
+      guardianship:
         one:  ولاية أمر
         other: ولايات أمر
-      profile: 
+      profile:
         one: بياناتي الخاصة
         other: البيانات الخاصة
-      contact: 
+      contact:
         one: جهة اتصال
         other: جهات اتصال
-      course: 
+      course:
         one: المقرر
         other: المقررات
       instructor:
         one: مدرس
         other: هيئة التدريس
-      update: 
+      update:
         one: تحديث الفصل
         other: تحديثات الفصل
-      assessment: 
+      assessment:
         one: اختبار
         other: اختبارات
       attempt:
         one: محاولة
         other: محاولات
-      question: 
+      question:
         one: سؤال
         other: الأسئلة
-      option: 
+      option:
         one: اختيار
         other: اختيارات
       q_selector:
         one: محدد
         other: محددات
-      klass: 
+      klass:
         one: فصل دراسي
         other: الفصول الدراسية
-      enrollment: 
+      enrollment:
         one: تسجيل
         other: تسجيل
-      forum: 
+      forum:
         one: منتدى
         other: المنتديات
-      topic: 
+      topic:
         one: موضوع
         other: مواضيع
-      post: 
+      post:
         one: مشاركة
         other: مشاركات
-      medium: 
+      medium:
         one: ملف
         other: الملفات
-      material: 
+      material:
         one: مادة
         other: مواد
-      unit: 
+      unit:
         one: الوحدة
         other: الوحدات
-      lecture: 
+      lecture:
         one: المحاضرة
         other: المحاضرات
-      page: 
+      page:
         one: صفحة
         other: الصفحات
-      access_token: 
+      access_token:
         one: رمز الدخول
         other: رموز الدخول
       configuration:
@@ -86,7 +86,7 @@ ar:
       configuration:
         one: إعدادات الموقع
         other: إعدادات الموقع
-      announcement: 
+      announcement:
         one: اعلان
         other: الاعلانات
       translation:
@@ -113,7 +113,7 @@ ar:
         one: جلسة
       password:
         one: كلمة سر
-    
+
     actions:
       go_back: عد إلى حيث أتيت
       dashboard: <i class="fa fa-tachometer"></i>&nbsp; مؤشرات
@@ -133,7 +133,7 @@ ar:
       close: اغلق
       show: اظهر
       new: <i class="fa fa-plus"></i> أضف %{name}
-      create: إنشاء 
+      create: إنشاء
       edit: <i class="fa fa-edit"></i> عدل %{name}
       update: عدل
       destroy: <i class="fa fa-remove"></i>&nbsp; احذف
@@ -229,7 +229,7 @@ ar:
       new_video: فيديو جديد
       other: أخرى
       problem: المسائل
-      quiz: الفحوصات  
+      quiz: الفحوصات
       exercise: التدريبات
       video: فيديو
       all: الكل
@@ -248,13 +248,15 @@ ar:
       decline: ارفض الدعوة
       blog_posts: مقالاتي
       static_pages_or_blogs: الصفحات / المقالات
-    
+      start_new_course: أبدأ مقررا جديدا
+      edit_profile: <i class="fa fa-edit"></i> عدل بياناتي الخاصة
+
     confirmations:
       destroy: هل انت متأكد من حذف ال%{name}؟
       new: هل انت متأكد من المواصلة معنا؟
       drop: إلغاؤك تسجيلك لهذا الفصل يعني أن لا تصل إلى مواده العلمية و اختباراته و لا تتمكن من المشاركة في منتدياته. هل تريد مواصلة طلبك؟
-      new_attempt: تقديم هذا الطلب يعني أنك توافق على قواعد نظام الشرف المتبوعة في هذا الفصل، وأنك على استعداد لاتخاذ هذا الاختبار.   
-      
+      new_attempt: تقديم هذا الطلب يعني أنك توافق على قواعد نظام الشرف المتبوعة في هذا الفصل، وأنك على استعداد لاتخاذ هذا الاختبار.
+
     messages:
       successful_enroll: تم التسجيل في هذا الفصل بنجاح‫.‬
       failure_to_enroll: لا تستطيع التسجيل في هذا الفصل‫.‬
@@ -274,16 +276,16 @@ ar:
       page_unauthorized_html: الذهاب الى هذه الصفحة غير مسموح لك‫.‬
       page_not_found_html: الصفحة التي حاولت الذهاب اليها غير موجودة‫.‬
       must_be_admin: لا بد ان تكون مديرا حتى يمكنك الدخول الى هذه الصفحة‫.‬
-        
+
     hints:
       about: لإدخال الصيغ الرياضية اللاتينية ضعها بين <code>\(</code> و <code>\)</code> أو بين <code>\[</code> و <code>\]</code>.
-      fill_one_question: 
+      fill_one_question:
       fill_many_question: أدخل السؤال هنا. استخدم النقاط (...) للدلالة على مكان كل فراغ.
       pick_2_fill_question: أدخل السؤال هنا. استخدم النقاط (...) للدلالة على مكان كل فراغ.
-      pick_one_question: 
-      pick_many_question: 
-      match_question: 
-      sort_question: 
+      pick_one_question:
+      pick_many_question:
+      match_question:
+      sort_question:
 
       fill_one_question_answer: أدخل الإجابة الصحيحة بالضبط كما ينبغي أن تدخل.
       fill_many_question_blank_answer: أدخل الإجابة الصحيحة بالضبط كما ينبغي أن تدخل.
@@ -293,7 +295,7 @@ ar:
       match_question_side_1: خيارات الجانب 1. خيار واحد لكل سطر. يمكنك الفصل بين الخيارات بسطور فارغة.
       match_question_side_2: خيارات الجانب 2 بالتريب المطابق لخيارات الجانب 1. خيار واحد لكل سطر. يمكنك الفصل بين الخيارات بسطور فارغة.
       sort_question_items: الخيارات التي سيجري ترتيبها مرتبة بشكل صحيح. خيار واحد لكل سطر. يمكنك الفصل بين الخيارات بسطور فارغة.
-      
+
     labels:
       fill_one_question_answer: الإجابة الصحيحة
       fill_many_question_blank_answer: الإجابة الصحيحة للفراغ
@@ -305,7 +307,7 @@ ar:
       match_question_side_1: الجانب
       match_question_side_2: الجانب
       sort_question_items: خيارات الترتيب
-      
+
     placeholders:
       name: الاسم
       email: البريد الإلكتروني
@@ -341,7 +343,7 @@ ar:
       match_question_side_1: خيارات الجانب 1. خيار واحد لكل سطر. يمكنك الفصل بين الخيارات بسطور فارغة.
       match_question_side_2: خيارات الجانب 2 بالتريب المطابق لخيارات الجانب 1. خيار واحد لكل سطر. يمكنك الفصل بين الخيارات بسطور فارغة.
       sort_question_items: الخيارات التي سيجري ترتيبها مرتبة بشكل صحيح. خيار واحد لكل سطر. يمكنك الفصل بين الخيارات بسطور فارغة.
-        
+
     attributes:
       account:
         slug: الرمز
@@ -483,7 +485,7 @@ ar:
       medium:
         kind: النوع
         name: العنوان
-        path: ملف التحميل 
+        path: ملف التحميل
         is_a_link: وصلة فقط؛ لا ملف للتحميل؟
         url: الوصلة
         source: المصدر
@@ -529,7 +531,7 @@ ar:
         name: الاسم
         avatar: الصورة
         relationship: علاقته بالمستخدم
-  
+
   # Non-persistent models and validation messages
   activemodel:
     attributes:
@@ -542,7 +544,7 @@ ar:
         course: المقرر
         klass: الفصل
         invitee: المدعو
-        
+
   flash:
     actions:
       create:
@@ -556,7 +558,7 @@ ar:
         notice: تم بنجاح الاحتفاظ بمحاولتك لهذا الامتحان و يمكنك اتمامها لاحقا.
       submit_attempt:
         notice: تم بنجاح قبول محاولتك لهذا الامتحان.
-  
+
   views:
     pagination:
       first: "&raquo; الأولى"
@@ -564,7 +566,7 @@ ar:
       previous: "&rsaquo; السابقة"
       next: "التالية &lsaquo;"
       truncate: "&hellip;"
-              
+
   page:
     titles:
       assessment: اختبارات
@@ -629,7 +631,7 @@ ar:
       upcoming_deadlines: مواعيد مقبلة
       audios: مقاطع صوتية
       documents: ملفات
-      videos: فيديوهات 
+      videos: فيديوهات
       people: أشخاص
       books: كتب
       document: ملف
@@ -653,7 +655,12 @@ ar:
       part: جزء
       own_recent_topics: آخر مواضيعي
       own_recent_posts: آخر مشاركاتي
-      
+      ready_to_approve: فصول تنتظر الموافقة
+      being_worked_on: مقررات قيد التجهيز
+      open_classes_i_teach: الفصول المفتوحة التي أُدَرِسها
+      classes_i_am_taking: الفصول التي آخذها
+      classes_i_took: الفصول التي أخذتها
+
     text:
       more: اكثر
       less: اقل
@@ -668,9 +675,9 @@ ar:
         many: "%{count} اختبارا"
         other: "%{count} اختبار"
       assessments_final_score: الدرجة النهائية
-      assessments_no_attempt_yet: لم تحاول اخذ هذا الاختار بعد‫.‬	
+      assessments_no_attempt_yet: لم تحاول اخذ هذا الاختار بعد‫.‬
       attempts_count: "المحاولات: %{count}/%{total}"
-      comments_count: 
+      comments_count:
         zero: تعليقات
         one: تعليق واحد
         two: تعليقان
@@ -678,7 +685,7 @@ ar:
         many: "%{count} تعليقا"
         other: "%{count} تعليق"
       copyrights: "جميع الحقوق محفوظة %{year}"
-      course_assessments_notice_html: 
+      course_assessments_notice_html:
       course_books_notice_html:
       course_klasses_notice_html:
       course_pages_notice_html:
@@ -690,8 +697,8 @@ ar:
       enroll_to_attempt_assessment_html: "لابد ان %{action} قبل محاولتك هذا الاختبار‫.‬"
       enroll_to_comment_html: "لابد أن %{action} قبل أن تتمكن من رؤية التعليقات أو إضافة تعليق."
       enrolled: مسجل فيها
-      grading_msg: تقديم هذا الطلب يعني موافقتك على قواعد نظام الأمانة العلمية المتبع في هذا الفصل، وأنك على استعداد لتقديم هذا الاختبار للتصحيح. 
-      guardian_report_intro: هذا الصفحة تسمح لك بعرض تقارير جميع الطلاب التي أنت مسؤول عنهم قانونيا في جميع الفصول التي هم مسجلون فيها. للقيام بذلك، حدد الطالب المهتم به والفصل الدراسي الذي\التي يأخذه او قد اخذه.			
+      grading_msg: تقديم هذا الطلب يعني موافقتك على قواعد نظام الأمانة العلمية المتبع في هذا الفصل، وأنك على استعداد لتقديم هذا الاختبار للتصحيح.
+      guardian_report_intro: هذا الصفحة تسمح لك بعرض تقارير جميع الطلاب التي أنت مسؤول عنهم قانونيا في جميع الفصول التي هم مسجلون فيها. للقيام بذلك، حدد الطالب المهتم به والفصل الدراسي الذي\التي يأخذه او قد اخذه.
       here: هنا
       if_no_user_account: إذا لم يكن لديك حساب معنا
       if_user_account: إذا كان لديك حساب معنا
@@ -722,13 +729,13 @@ ar:
       unpublished_update_html: <i class="fa fa-warning"></i> هذا التحديث لم يرسل أو ينشر بعد. %{link}
       approved_klass_html: <i class="fa fa-warning"></i> هذا الفصل لما تتم الموافقة عليه بعد. الموافقة على هذا الفصل تجعله في متناول الآخرين. %{link}
       ready_to_approve_klass_html:
-        <i class="fa fa-warning"></i> هذا الفصل ليس جاهزا للموافقة عليه بعد. يجب أن 
+        <i class="fa fa-warning"></i> هذا الفصل ليس جاهزا للموافقة عليه بعد. يجب أن
         تؤكد جهوزيته قبل أن يوافق عليه. الفصول الموافق عليها فقط تكون في متناول الآخرين. %{link}
       by_admin_approved_klass_html: <i class="fa fa-warning"></i> موافقة إدارة الموقع على هذا الفصل مطلوبة لجعله في متناول الآخرين.
       private_page_html: <i class="fa fa-warning"></i> هذه الصفحة ليست عامة و غير مرئية لغيرك. %{link}
-      by_admin_private_page_html: <i class="fa fa-warning"></i> موافقة إدارة الموقع مطلوبة لجعل هذه الصفحة عامة و تمكين الاخرين من الوصول إليها. 
+      by_admin_private_page_html: <i class="fa fa-warning"></i> موافقة إدارة الموقع مطلوبة لجعل هذه الصفحة عامة و تمكين الاخرين من الوصول إليها.
       unready: غير منشور
-      unready_assessment_html: <i class="fa fa-warning"></i> هذا الاختبار لم ينشر بعد. %{link}
+      unready_assessment_html: <i class="fa fa-warning"></i> هذا الاختبار ليس جاهزا بعد. %{link}
       upcoming_deadlines:
         zero: سيغلق اختبار %{name} اليوم.
         one: سيغلق اختبار %{name} غدا.
@@ -789,11 +796,11 @@ ar:
       general: المنتدى العام
       assessments: منتدى الامتحانات
       study_groups: منتدى مجموعات المذاكرة
-      settings_change_warning_html: 
-        <strong>تحذير !</strong> 
+      settings_change_warning_html:
+        <strong>تحذير !</strong>
         أي تغيير في الاعدادات ينبغي أن يتم بحذر شديد لضمان أن تظل هذه الاعدادات صحيحة في شكلها و قيمها.
       include_in_assessment: أضف لـ '%{name}'
-      closed_klass_html: هذا الفصل مغلق. لا يمكن أن تصل إلى التعليقات أو أن تحاول الاختبارات. 
+      closed_klass_html: هذا الفصل مغلق. لا يمكن أن تصل إلى التعليقات أو أن تحاول الاختبارات.
       sign_in_using: بإستخدام %{provider}
       external_sign_in_using: يمكنك الدخول باستخدام أي من حساباتك الحالية على
       participation_forums_html: <h2>%{times}</h2><h3><small>منتديات</small></h3>
@@ -811,3 +818,9 @@ ar:
       unit_updates: هذه التحديثات ستنشر تلقائيا على الصفحات الرئيسية للفصول الدراسية لهذا المقرر عقب توافر هذه الوحدة. عندها أيضا سترسل التحديثات عبر البريد الإلكتروني تلقائيا للطلاب المسجلين.
       sign_up: لإنشاء حساب جديد
       sign_in: للدخول
+      course_unit_html:
+        <div class="alert alert-info" role="alert">
+          يقسم المقرر إلى وحدة واحدة أو أكثر. قد تكون الوحدة فصلا من كتاب أو جزءا من موضوع المقرر
+          أو حتى اسبوعا من مقرر يتطلب أخذه عدة أسابيع. كل وحدة تحتوي على محاضرة واحدة أو أكثر.
+          من خلال هذه الصفحة يمكنك أن تضيف إلى أو تدير وحدات هذا المقرر و محاضراتها.
+        </div>

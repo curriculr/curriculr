@@ -1,16 +1,1 @@
-<% data = dashboard_klass_activity_counts(@klass) %>
-<%= ui_chart 'klass_activity_counts', 
-      'Gauge', data[:counts], { height: 250, max: (data[:max] / 100.0).ceil * 100 }, 250 %>
-
-<%= ui_header t('page.titles.daily_activities'), :style => :h3 %>
-<%= ui_chart 'klass_daily_activities', 
-     'LineChart', 
-     dashboard_klass_activities_by_day(3.weeks.ago, @klass),
-     {legend: { position: 'top' }, chartArea:{left:0,top:30,width:'100%',height:'80%'}}, 400 %>
-
-<%= ui_header t('page.titles.activity_counts'), :style => :h3 %>
-<%= ui_chart 'klass_activities', 
-             'ColumnChart', 
-             dashboard_klass_activities(@klass),
-             {chartArea:{left:40,top:10,width:'80%',height:'90%'}} %>
-
+<%= render partial: 'learn/dashboard/show', locals: {klass: @klass} %>

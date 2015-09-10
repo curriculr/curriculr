@@ -17,11 +17,18 @@ module Teach::BaseHelper
       nil,
       link(:klass, :show, learn_klass_path(klass), as: :student_view)
     ]
-      
-    if current_user and current_user.has_role? :admin
+    
+    if klass.ready_to_approve
+      if current_user and current_user.has_role? :admin
+        links << nil
+        links << link(:klass, klass.approved ? :disapprove : :approve, approve_teach_course_klass_path(@course, klass), 
+          :method => :put)
+        links << link(:klass, :unready, ready_teach_course_klass_path(@course, klass), :method => :put) 
+      end
+    else
       links << nil
-      links << link(:klass, klass.approved ? :disapprove : :approve, approve_teach_course_klass_path(@course, klass), 
-        :method => :put) 
+      links << link(:klass, :ready, ready_teach_course_klass_path(@course, klass), :method => :put) 
+
     end
 
     links
