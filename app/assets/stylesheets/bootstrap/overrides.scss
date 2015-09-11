@@ -77,7 +77,7 @@ $list-group-border: $light-gray;
   -moz-box-shadow:$top $left $bottom $right $color #{$inset};
   box-shadow:$top $left $bottom $right $color #{$inset};
 }
-      
+
 hr {
   margin: 0;
 }
@@ -260,7 +260,7 @@ section {
       font-size: 45%;
     }
   }
-  
+
   h3 {
     small {
       .dropdown {
@@ -279,7 +279,7 @@ section {
   }
 }
 
-//student side navbar design 
+//student side navbar design
 .side-navabar {
   img {
     margin-top: 40px;
@@ -291,23 +291,23 @@ section {
     border-top: 2px solid $brand-primary;
     border-bottom-left-radius: $border-radius-base;
     border-bottom-right-radius: $border-radius-base;
-    
+
     ul {
       display: block;
       padding: 25px 0;
       margin-bottom: 0px;
-      
+
       li {
         list-style-type: none;
-      
-        a {  
+
+        a {
           display: block;
           padding: 4px 10px;
-          color: $main-text-color;        
+          color: $main-text-color;
           &:hover {
             color: $brand-primary;
           }
-          &::after {  
+          &::after {
             content: "\f105";
             font-family: FontAwesome;
             float: right;
@@ -328,7 +328,7 @@ section {
     .social-buttons{
       padding:15px 5px;
       border-top: 1px dashed $light-gray;
-      
+
       .btn{
         border: 0px;
       }
@@ -395,29 +395,29 @@ section {
       box-shadow: none;
     }
   }
-}  
+}
 
 //report styling
 ul.report-lists {
   padding-left: 0;
   padding-bottom: 15px;
-  
+
   li {
     list-style-type: none;
     padding-left: 10px;
-    &:before {    
+    &:before {
       font-family: 'FontAwesome';
       content: '\f00d';
       color: $brand-danger;
       padding-right: 5px;
-    
+
     }
-    &.attended:before {    
+    &.attended:before {
       font-family: 'FontAwesome';
       content: '\f00c';
       color: $brand-success;
       padding-right: 5px;
-    
+
     }
   }
 }
@@ -432,7 +432,7 @@ ul.report-lists {
       a.thumbs-down, a.thumbs-up{
         font-weight: 200;
         color: darken($light-gray, 10%);
-        
+
         .text-danger {
           color: darken($light-gray, 10%);
           &:hover {
@@ -481,8 +481,8 @@ ul.report-lists {
   .table-hover {
     margin-bottom: 0;
     vertical-align: middle;
-    
-    td { 
+
+    td {
       vertical-align: middle;
       padding-left: 20px;
       padding-right: 20px;
@@ -502,7 +502,7 @@ ul.report-lists {
         background-color: $lighter-gray;
       }
     }
-  
+
     td {
       border-color: $light-gray;
       border-top: 1px dotted $light-gray;
@@ -523,21 +523,21 @@ ul.report-lists {
     background: $lighter-gray;
   }
 }
-  
+
 .panel.panel-inverse{
   @include box-shadow(0, 0, 0, 1px, $light-gray, inset);
-  
+
   .table-hover, .table-condensed {
     margin-bottom: 1px;
     margin-left: 1px;
     width: calc(100% - 2px);
   }
-  
+
   &.klass-lecture{
     .col-md-9 {
       padding: 20px 15px 20px 35px;
     }
-    
+
     .col-md-3 {
       padding: 20px 35px 20px 15px;
     }
@@ -545,7 +545,7 @@ ul.report-lists {
     .col-sm-9 {
       padding: 20px 15px 20px 35px;
     }
-    
+
     .col-sm-3 {
       padding: 20px 35px 20px 15px;
     }
@@ -566,11 +566,11 @@ ul.report-lists {
         }
       }
     }
-    
+
     .panel-title {
       padding: 5px 0;
       font-weight: 300;
-            
+
       a:not(.btn, .dropdown-menu) {
         &:hover {
           color: $brand-primary;
@@ -595,7 +595,7 @@ ul.report-lists {
     .col-md-12 {
       padding: 20px 35px;
     }
-    
+
     .btn-primary{
       border: 0;
       &:hover{
@@ -606,7 +606,7 @@ ul.report-lists {
     hr {
       margin: 0px;
     }
-    
+
     .nav-tabs {
       margin-left: 1px;
       width: calc(100% - 2px);
@@ -615,16 +615,16 @@ ul.report-lists {
         background: none;
       }
     }
-    
+
     .page-header h4 {
       margin-top: 0;
     }
-    
+
     #home {
       ul {
         padding-left: 15px;
         li {
-          
+
           a {
             color: $main-text-color;
             &:hover{
@@ -637,7 +637,7 @@ ul.report-lists {
 
     .attempt-question {
       border: none;
-      
+
       .panel-body {
         border-top: none !important;
       }
@@ -663,7 +663,7 @@ ul.report-lists {
 #klass-approve-indicator {
   margin-bottom: 0;
   border-radius: 0;
-  
+
 }
 
 #media-pane {
@@ -708,7 +708,7 @@ ul.breadcrumb {
   color: darken($light-gray, 10%);
   font-weight: 300;
   margin-top: 100px;
-  
+
   .footer-links {
     ul {
       padding: 0px;
@@ -719,7 +719,7 @@ ul.breadcrumb {
     li {
       list-style-type: none;
       padding-bottom: 5px;
-      
+
       h1, h2, h3, h4, h5, h6 {
         color: #ffffff;
       }
@@ -728,7 +728,7 @@ ul.breadcrumb {
       }
       a {
         color: darken($light-gray, 10%);
-        
+
         &:hover {
           text-decoration: none;
           color: $brand-primary;
@@ -746,7 +746,7 @@ ul.breadcrumb {
   padding: 15px;
   color: #ffffff;
   font-weight: 300;
-  
+
   a {
     color: $brand-primary;
     &:hover {
@@ -926,7 +926,7 @@ ul.breadcrumb {
     }
     .media-body{
       padding-left: 15px;
-      
+
       .klass-labels{
         margin: 5px 0;
         .text-muted{
@@ -940,7 +940,7 @@ ul.breadcrumb {
           &:last-child {
             border-right: none;
           }
-        }        
+        }
       }
     }
   }
@@ -984,7 +984,7 @@ $btn-twitter-color:#55acee;
   @include button-variant(white, $btn-twitter-color, rgba(0, 0, 0, 0.2));
 }
 
-#paginator .pagination { 
+#paginator .pagination {
   margin: 0 auto 20px 0;
 }
 
@@ -1014,12 +1014,12 @@ select.form-control + .chosen-container.chosen-container-single .chosen-single {
   transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
   background-image:none;
 }
- 
+
 select.form-control + .chosen-container.chosen-container-single .chosen-single div {
   top:4px;
   color:#000;
 }
- 
+
 select.form-control + .chosen-container .chosen-drop {
   background-color: #FFF;
   border: 1px solid #CCC;
@@ -1029,9 +1029,9 @@ select.form-control + .chosen-container .chosen-drop {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   background-clip: padding-box;
   margin: 2px 0 0;
- 
+
 }
- 
+
 select.form-control + .chosen-container .chosen-search input[type=text] {
   display: block;
   width: 100%;
@@ -1050,7 +1050,7 @@ select.form-control + .chosen-container .chosen-search input[type=text] {
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
   background-image:none;
 }
- 
+
 select.form-control + .chosen-container .chosen-results {
   margin: 2px 0 0;
   padding: 5px 0;
@@ -1059,8 +1059,8 @@ select.form-control + .chosen-container .chosen-results {
   background-color: #fff;
   margin-bottom: 5px;
 }
- 
-select.form-control + .chosen-container .chosen-results li , 
+
+select.form-control + .chosen-container .chosen-results li ,
 select.form-control + .chosen-container .chosen-results li.active-result {
   display: block;
   padding: 3px 20px;
@@ -1072,7 +1072,7 @@ select.form-control + .chosen-container .chosen-results li.active-result {
   background-image:none;
 }
 
-select.form-control + .chosen-container .chosen-results li:hover, 
+select.form-control + .chosen-container .chosen-results li:hover,
 select.form-control + .chosen-container .chosen-results li.active-result:hover,
 select.form-control + .chosen-container .chosen-results li.highlighted {
   color: #FFF;
@@ -1080,7 +1080,7 @@ select.form-control + .chosen-container .chosen-results li.highlighted {
   background-color: #428BCA;
   background-image:none;
 }
- 
+
 select.form-control + .chosen-container-multi .chosen-choices {
   display: block;
   width: 100%;
@@ -1099,12 +1099,12 @@ select.form-control + .chosen-container-multi .chosen-choices {
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
   background-image:none;
 }
- 
+
 select.form-control + .chosen-container-multi .chosen-choices li.search-field input[type="text"] {
   height:auto;
   padding:5px 0;
 }
- 
+
 select.form-control + .chosen-container-multi .chosen-choices li.search-choice {
   background-image: none;
   padding: 3px 24px 3px 5px;
@@ -1122,12 +1122,12 @@ select.form-control + .chosen-container-multi .chosen-choices li.search-choice {
   background-color: #FFF;
   border-color: #CCC;
 }
- 
+
 select.form-control + .chosen-container-multi .chosen-choices li.search-choice .search-choice-close {
   top:8px;
   right:6px;
 }
- 
+
 select.form-control + .chosen-container-multi.chosen-container-active .chosen-choices,
 select.form-control + .chosen-container.chosen-container-single.chosen-container-active .chosen-single,
 select.form-control + .chosen-container .chosen-search input[type=text]:focus{
@@ -1136,7 +1136,7 @@ select.form-control + .chosen-container .chosen-search input[type=text]:focus{
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),0 0 8px rgba(102, 175, 233, 0.6);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),0 0 8px rgba(102, 175, 233, 0.6);
 }
- 
+
 select.form-control + .chosen-container-multi .chosen-results li.result-selected{
   display: list-item;
   color: #ccc;
@@ -1157,13 +1157,13 @@ select.form-control + .chosen-container-multi .chosen-results li.result-selected
   }
 }
 
-.search-form{  
+.search-form{
   padding: 10px 0px;
   .form-group {
     display: block;
     width: 100%;
   }
-  
+
   .form-control, form- {
     width: 100%;
   }
@@ -1174,16 +1174,16 @@ select.form-control + .chosen-container-multi .chosen-results li.result-selected
   padding: 10px 0;
   border-bottom-left-radius: $border-radius-base;
   border-bottom-right-radius: $border-radius-base;
-  
+
   .checkbox {
     height: 20px;
     padding: 0 20px;
   }
-  
+
   hr{
     border-style: dashed;
   }
-  
+
   h5{
     padding: 0 20px;
   }
@@ -1214,7 +1214,7 @@ form.search-form {
   padding-bottom: 56.25%;
   padding-top: 30px; height: 0; overflow: hidden;
 }
- 
+
 .video-container-yt iframe,
 .video-container-yt object,
 .video-container-yt embed {
@@ -1225,16 +1225,16 @@ form.search-form {
   height: 100%;
 }
 
-.ace_editor { 
-  margin: 10px 0; 
+.ace_editor {
+  margin: 10px 0;
 }
 
-.hidden-til-processed { 
+.hidden-til-processed {
   display: none;
 }
 
 label.required {
-  &:after {    
+  &:after {
     content: '*';
     color: red;
     padding-left: 2px;
@@ -1242,6 +1242,10 @@ label.required {
 }
 
 .fa.adjusted-for-ribbon {
-  padding-top: 10px; 
+  padding-top: 10px;
   margin-left: -15px;
+}
+
+.ui.card .nav>li>a {
+  padding: 0px 15px;
 }
