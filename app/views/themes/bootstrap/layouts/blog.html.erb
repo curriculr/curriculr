@@ -9,19 +9,17 @@
 </div>
 
 <div id="main-container" class="<%= css_container %>">
+  <%= render partial: '/side_rails' %>
   <div class="row">
-    <div class="<%= css_columns(2) %> hidden-xs hidden-sm">
-      <%= yield :blog_160x600_left_top_banner %>
-    </div>
-		<div class="<%= css_columns(8) %>">
+		<div class="<%= css_columns(8, 2) %>">
       <% if @page_header %>
-        <% 
+        <%
         action = nil
         subtext = nil
-        if !current_user and @klass and @klass.previewed 
+        if !current_user and @klass and @klass.previewed
           action = ui_klass_enrollment_action(@klass, :enroll, true, true)
         end
-        
+
         subtext = klass_from_and_to_dates(@klass) if @klass
         %>
         <%= ui_header @page_header, action: action, style: :h2, subtext: subtext %>
@@ -29,9 +27,5 @@
 
 			<%= yield %>
 		</div>
-    <div class="<%= css_columns(2) %> hidden-xs hidden-sm">
-      <%= yield :blog_160x600_right_top_banner %>
-    </div>
   </div>
 </div>
-

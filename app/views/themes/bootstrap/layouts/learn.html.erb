@@ -1,4 +1,5 @@
 <div id="main-container" class="<%= css_container %>">
+  <%= render partial: '/side_rails' %>
   <% if request.path.ends_with?('sign_in') or request.path.ends_with?('sign_up') %>
 	  <div class="row">
 			<div class="<%= css_columns(12) %>">
@@ -6,16 +7,16 @@
       </div>
     </div>
   <% else %>
-    <% 
+    <%
     students = nil
     if current_user and current_account.config['allow_user_student_dependents'] and @klass.course.config['allow_user_student_dependents']
       students = current_user.students.order(:id).to_a
       student_picker = if students.present?
-        capture do 
+        capture do
     %>
       <div class="btn-group pull-right">
         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-          <%= image_tag current_student.avatar_url(current_account, :tny) %> 
+          <%= image_tag current_student.avatar_url(current_account, :tny) %>
           <%= current_student.name %>
           <span class="caret"></span>
           <span class="sr-only">Change student</span>
@@ -23,7 +24,7 @@
         <ul class="dropdown-menu" role="menu">
           <% students.each do |student| %>
           <li>
-            <%= image_tag student.avatar_url(current_account, :tny), class: "badge" %> 
+            <%= image_tag student.avatar_url(current_account, :tny), class: "badge" %>
             <% if student == current_student %>
               <%= link_to student.name, :disabled => true%>
             <% else %>
@@ -33,24 +34,24 @@
           <% end %>
         </ul>
       </div>
-    <% 
+    <%
         end
       end
     else
       nil
-    end 
+    end
     %>
-    
+
 		<% if @klass and (@klass.enrolled?(current_student) or staff?(current_user, @klass.course)) %>
       <div class="row">
 				<div class="<%= css_columns(2) %> side-navabar">
-			    <%= render "learn/klasses/ui_main_side" %> 
+			    <%= render "learn/klasses/ui_main_side" %>
           <%= yield :student_160x200_left_bottom_banner %>
 				</div>
 				<div class="<%= css_columns(10) %>">
           <% if @page_header %>
             <% hdr = @page_header %>
-            <% 
+            <%
               badges = []
               badges << :private if @klass.private
               badges << :closed if @klass.past?
@@ -62,7 +63,7 @@
             <% subtext = @klass.course.by_instructors %>
             <%= ui_header hdr, :style => :h2, :subtext => subtext, :action => staff_or_student_view(student_picker) %>
           <% end %>
-        
+
 					<%= yield %>
         </div>
       </div>
@@ -79,4 +80,4 @@
       </div>
 		<% end %>
   <% end %>
-</div> 
+</div>

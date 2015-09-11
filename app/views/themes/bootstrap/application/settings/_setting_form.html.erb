@@ -20,18 +20,18 @@
 	    	<p class="form-control-static"><%= path %></p>
 	    <% end %>
 	  </div>
-	  <%= 
+	  <%=
 	  if key.blank?
 	  	case type
 	  	when TrueClass, FalseClass
 				json_settings_form_value(true)
 	 		when Numeric
 	 			json_settings_form_value(0.0)
-	  	else 
+	  	else
 	  		json_settings_form_value('')
 	  	end
 	  else
-	  	json_settings_form_value(value) 
+	  	json_settings_form_value(value)
 	  end
 	  %>
   </div>

@@ -12,10 +12,11 @@
 <% end %>
 
 <div id="main-container" class="<%= css_container %>">
+  <%= render partial: '/side_rails' %>
   <div class="row">
     <div class="<%= css_columns(12) %>">
       <br/>
-      <% front = Page.localized(:front) %> 
+      <% front = Page.localized(:front) %>
 
       <%= markdown front.about, :html => front.html if front %>
 

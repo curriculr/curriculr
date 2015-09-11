@@ -18,14 +18,10 @@
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
 //= require sketch
-// require chartjs/chart
+//= require semantic-ui
 //
 // Application's Own Scripts
 //= require app-text
-//= require semantic-ui-card
 //
 //= require payment/payment
 //= require payment/braintree
-
-
- 

@@ -8,7 +8,7 @@
  *= require jquery-ui-timepicker-addon.min
  *= require jquery.countdown
  *= require pnotify
+ *= require semantic-ui
  *
  *= require app-text
- *= require semantic-ui-card
 */

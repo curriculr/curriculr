@@ -10,8 +10,12 @@ module Themes::Bootstrap::BootstrapHelper
     end
   end
 
-  def css_columns(columns = 12)
-    "col-md-#{columns}"
+  def css_columns(columns = 12, offset = 0)
+    if offset > 0
+      "col-md-#{columns} col-md-offset-#{offset}"
+    else
+      "col-md-#{columns}"
+    end
   end
 
   def css_align(direction)

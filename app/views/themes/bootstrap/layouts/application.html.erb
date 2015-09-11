@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">  
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <title>
     <%= @page_header ? "#{title}: #{@page_header}" : $site['title'] %>
   </title>
@@ -12,14 +12,14 @@
 	<%= stylesheet_link_tag "application", :media => "all" %>
   <%= favicon_link_tag '/favicon.ico' %>
 	<%= csrf_meta_tags %>
-  
+
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
   <![endif]-->
-  
+
   <% if $site['sublimevideo_site_token'].present? %>
     <%= javascript_include_tag "//cdn.sublimevideo.net/js/#{$site['sublimevideo_site_token']}.js" %>
   <% end %>
@@ -31,15 +31,15 @@
       <%= link :announcement, :hide, hide_admin_announcement_path(announcement), remote: true %>
     <% end %>
   <% end %>
-  
+
   <% if content_for? :site_728x90_center_top_banner %>
     <div class="container">
       <%= yield :site_728x90_center_top_banner %>
     </div>
   <% end %>
-  
+
   <%= render "/navbar" %>
-  
+
   <% if action_name == 'front' %>
     <%= render :template => "layouts/front" %>
   <% elsif action_name == 'blogs' %>
@@ -51,7 +51,7 @@
   <% else %>
     <%= render :template => "layouts/default" %>
   <% end %>
-  
+
   <div id="page-modal" class="modal fade" role="dialog" aria-labelledby="page-modal-label" aria-hidden="true">
     <div class="modal-dialog modal-md">
       <div class="modal-content"></div>
@@ -63,12 +63,9 @@
       <%= yield :site_728x90_center_bottom_banner %>
     </div>
   <% end %>
-  
+
   <%= render "/footer" %>
-  
-  <%= yield :site_160x600_left_top_banner %>
-  <%= yield :site_160x600_right_top_banner %>
-  
+
   <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
       extensions: ["tex2jax.js"],
@@ -90,12 +87,12 @@
   <%= javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/ace.js" if @req_attributes[:code?] %>
   <%= mountable_fragments :pre_app_javascript %>
 	<%= javascript_include_tag "application" %>
-	<%= javascript_include_tag "bootstrap/overrides" %> 
+	<%= javascript_include_tag "bootstrap/overrides" %>
   <%= javascript_include_tag "//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML" %>
   <%= mountable_fragments :post_app_javascript %>
   <%= timeago_script_tag %>
   <%= pnotify_script_tag %>
-  
+
   <%= render :partial => 'layouts/analytics' if Rails.env == 'production' %>
 </body>
 </html>
