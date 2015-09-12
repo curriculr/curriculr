@@ -4,35 +4,35 @@
   <div class="media">
     <div class="media-body">
       <% unless @lecture %>
-        <%= image_tag(@topic.author_avatar(current_account, :tny, "/images/nobody-th.png"), :class => "media-object pull-left") %>
-        <h3 class="media-heading">
+        <%# image_tag(@topic.author_avatar(current_account, :tny, "/images/nobody-th.png"), :class => "media-object pull-left") %>
+        <div class="media-heading">
           <%= content_tag_for :div, @topic, class: "thumbs-up-and-down pull-right" do %>
             <%= link_to_if @klass.open?, %(#{@topic.ups} #{content_tag :i, '', class: 'fa fa-thumbs-up text-success'}).html_safe,
-                  up_learn_klass_forum_topic_path(@klass, @forum, @topic), 
-                  class: "thumbs-up", method: :put, remote: true do %>
+                  up_learn_klass_forum_topic_path(@klass, @forum, @topic),
+                  class: "thumbs-up", method: :put, remote: true, data: {:'disable-with' => "#{css_animated_icon(:spinner)}"} do %>
               <%= @topic.ups %> <i class="fa fa-thumbs-up text-success"></i>
             <% end %>
-          
+
             <%= link_to_if @klass.open?, %(#{@topic.downs} #{content_tag :i, '', class: 'fa fa-thumbs-down text-danger'}).html_safe,
-                  down_learn_klass_forum_topic_path(@klass, @forum, @topic), 
-                  class: "thumbs-down", method: :put, remote: true do %>
+                  down_learn_klass_forum_topic_path(@klass, @forum, @topic),
+                  class: "thumbs-down", method: :put, remote: true, data: {:'disable-with' => "#{css_animated_icon(:spinner)}"} do %>
               <%= @topic.downs %> <i class="fa fa-thumbs-down text-danger"></i>
             <% end %>
           <% end %>
-          
-          <%= @topic.name %><br>
+
+          <strong><%= @topic.name %></strong><br>
           <small>
             <%# image_tag(@topic.author_avatar(current_account, :tny, "/images/nobody-th.png"), :class => "media-object pull-left") %>
-            
+
             <%= timeago_tag @topic.created_at, :nojs => true, :limit => 10.days.ago %>
           </small>
-        </h3>
+        </div>
 
         <div>
-          <%= markdown(@topic.about) %> 
+          <%= markdown(@topic.about) %>
         </div>
         <hr>
-      <% end %>  
+      <% end %>
       <% posts = @topic.posts.where(:parent_id => nil).to_a %>
       <%= render :partial => 'learn/topics/post', :collection => posts,
             :locals => { tab: defined?(tab)? tab : 0 } %>
@@ -45,7 +45,7 @@
     <%= hidden_field_tag(:tab, tab) if defined? tab %>
     <%= hidden_field_tag(:lecture_id, @lecture.id) if @lecture %>
   	<%= form_markdown f, @post, :about, :label => false, hint: true %>
-  	<%= form_checkbox f, :anonymous %> 
+  	<%= form_checkbox f, :anonymous %>
 
     <%= form_submit f %>
   <% end %>

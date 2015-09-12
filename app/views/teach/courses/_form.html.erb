@@ -9,9 +9,9 @@
 	    <%= form_text f, :name %>
     </div>
   </div>
-  
+
 	<%= form_markdown f, @course, :about, :size => '60x5' %>
-  
+
   <div class="row">
     <div class="<%= css_columns(6) %>">
 	    <%= form_number f, :weeks %>
@@ -32,12 +32,12 @@
 
   <div class="row">
     <div class="<%= css_columns(6) %>">
-      <%= form_select f, :level_list, t('config.level').invert, 
+      <%= form_select f, :level_list, t('config.level').invert,
             {:value => @course.level_list}, {:multiple => true, :class => "chosen-select #{rtl? ? 'chosen-rtl' : ''}",
              :'data-placeholder'=> t('activerecord.placeholders.level_list')} %>
     </div>
     <div class="<%= css_columns(6) %>">
-      <%= form_select f, :category_list, t('config.category').invert, 
+      <%= form_select f, :category_list, t('config.category').invert,
             {:value => @course.category_list}, {:multiple => true, :class => "chosen-select #{rtl? ? 'chosen-rtl' : ''}",
              :'data-placeholder'=> t('activerecord.placeholders.category_list')} %>
     </div>

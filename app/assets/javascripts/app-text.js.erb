@@ -1,26 +1,26 @@
 /*******************************************************************************
  * A few basic things
 *******************************************************************************/
-(function ($, undefined) {     
-	$.fn.getCursorPosition = function() {         
-		var el = $(this).get(0);         
-		var pos = 0;         
-		if('selectionStart' in el) {             
-			pos = el.selectionStart;         
-		} else if('selection' in document) {             
-			el.focus();             
-			var Sel = document.selection.createRange();             
-			var SelLength = document.selection.createRange().text.length;             
-			Sel.moveStart('character', -el.value.length);             
-			pos = Sel.text.length - SelLength;         
-		}         
-		return pos;     
-	} 
-})(jQuery); 
+(function ($, undefined) {
+	$.fn.getCursorPosition = function() {
+		var el = $(this).get(0);
+		var pos = 0;
+		if('selectionStart' in el) {
+			pos = el.selectionStart;
+		} else if('selection' in document) {
+			el.focus();
+			var Sel = document.selection.createRange();
+			var SelLength = document.selection.createRange().text.length;
+			Sel.moveStart('character', -el.value.length);
+			pos = Sel.text.length - SelLength;
+		}
+		return pos;
+	}
+})(jQuery);
 
 function updateCountdown() {
 	var remaining = 250 - $('.countdown-area').val().length;
-    
+
 	if(remaining < 0) {
 		$('.countdown-area').val($('.countdown-area').val().substring(0, 250));
 		$('.countdown').text('0 characters remaining.');
@@ -49,25 +49,25 @@ $(function() {
 			setCount($(this)[0], elem);
 		}
 	});
-  
+
 	$('.countdown-area').change(updateCountdown);
 	$('.countdown-area').keyup(updateCountdown);
-  
+
 	$('#assessment-countdown').countdown({
 		until : new Date(parseInt($('#assessment-countdown').attr('data-time'))),
-		onExpiry: function() { $('#assessment-attempt-form').submit(); } 
+		onExpiry: function() { $('#assessment-attempt-form').submit(); }
 	});
-  
+
 	// Equations
 	$('.markdown-output pre').each(function(index){
 		text = $(this).find('code').text();
-    
+
 		if(text != null && text.indexOf('wiris.net') != -1){
 			text = text.replace('http://', 'https://');
 			$(this).replaceWith('<img src="' + text + '">');
 		}
 	});
-  
+
 	$(".pronounce-able").click(function() {
 		$(this).find('audio').get(0).play();
 	});
@@ -76,19 +76,22 @@ $(function() {
 /*******************************************************************************
  * Setting and extending page-down markdown editor
 *******************************************************************************/
-var ui_markdown_control = function(index){
-	var md_converter = Markdown.getSanitizingConverter();
+var ui_markdown_control = function(){
 	var wmd_id = '';
 	if ($(this).attr('data') !== undefined) {
 		wmd_id = $(this).attr('data');
 	}
-	var md_editor = new Markdown.Editor(md_converter, wmd_id);
-	md_editor.run();
+
+	if ($("#wmd-button-row" + wmd_id).length < 1) {
+		var md_converter = Markdown.getSanitizingConverter();
+		var md_editor = new Markdown.Editor(md_converter, wmd_id);
+		md_editor.run();
+  }
 }
 
 window.ui_markdown_control = ui_markdown_control
-$('.wmd-input').each(ui_markdown_control);
 
+$('.wmd-input').each(ui_markdown_control);
 
 /* Shortening text during display */
 $('.shortenable-text').shorten({

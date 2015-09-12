@@ -1,36 +1,57 @@
 <div id="main-container" class="<%= css_container %>">
   <%= render partial: '/side_rails' %>
-  <div class="row course-header">
+  <div class="row course-header1">
     <div class="<%= css_columns(2) %>">
-      <%= image_tag ui_image_src(@course.poster ? @course.poster.at_url(:md) : nil, '/images/holder-md.png'),
-            class: "hidden-xs hidden-sm #{css_image(:responsive)}" %>
-      <div class="hidden-xs hidden-sm text-center">
-        <%=
-        if @course.video
-          link_to teach_course_material_path(@course, @course.video), :method => :delete, :confirm => true,
-          class: css_button(:xs, :danger), :title => t('activerecord.actions.remove_promo_video') do
-            content_tag(:i, '', class: 'fa fa-remove') + space_tag(3) + content_tag(:i, '', class: 'fa fa-video-camera')
+      <br/>
+      <div class="ui fluid card">
+        <div class="blurring dimmable image">
+          <div class="ui dimmer">
+            <div class="content">
+              <div class="center">
+                <%=
+                if @course.video
+                  link_to teach_course_material_path(@course, @course.video), :method => :delete, :confirm => true,
+                  class: css_button(:xs, :danger), :title => t('activerecord.actions.remove_promo_video') do
+                    content_tag(:i, '', class: 'fa fa-remove') + space_tag(3) + content_tag(:i, '', class: 'fa fa-video-camera')
+                  end
+                else
+                  link_to new_teach_course_material_path(@course, :s => :video, :t => :promo),
+                  class: css_button(:xs, :success), :title => t('activerecord.actions.add_promo_video') do
+                    content_tag(:i, '', class: 'fa fa-plus') + space_tag(3) + content_tag(:i, '', class: 'fa fa-video-camera')
+                  end
+                end
+                %>
+                <%=
+                if @course.poster
+                  link_to teach_course_material_path(@course, @course.poster), :method => :delete, :confirm => true,
+                  class: css_button(:xs, :danger), :title => t('activerecord.actions.remove_poster_image') do
+                    content_tag(:i, '', class: 'fa fa-remove') + space_tag(3) + content_tag(:i, '', class: 'fa fa-image')
+                  end
+                else
+                  link_to new_teach_course_material_path(@course, :s => :image, :t => :poster),
+                  class: css_button(:xs, :success), :title => t('activerecord.actions.add_poster_image') do
+                    content_tag(:i, '', class: 'fa fa-plus') + space_tag(3) + content_tag(:i, '', class: 'fa fa-image')
+                  end
+                end
+                %>
+              </div>
+            </div>
+          </div>
+          <%= image_tag ui_image_src(@course.poster ? @course.poster.at_url(:md) : nil, '/images/holder-md.png') %>
+        </div>
+        <div class="extra content">
+          <% instructor = @course.instructors.order(:order).first %>
+          <%
+          if instructor
+            avatar = (instructor.avatar_url(current_account, :th) || instructor.user.profile.avatar_url(current_account, :th) || '/images/nobody-th.png')
+            name = instructor.name
+          else
+            avatar = (@course.originator.profile.avatar_url(current_account, :th) || '/images/nobody-th.png')
+            name = @course.originator.name
           end
-        else
-          link_to new_teach_course_material_path(@course, :s => :video, :t => :promo),
-          class: css_button(:xs, :success), :title => t('activerecord.actions.add_promo_video') do
-            content_tag(:i, '', class: 'fa fa-plus') + space_tag(3) + content_tag(:i, '', class: 'fa fa-video-camera')
-          end
-        end
-        %>
-        <%=
-        if @course.poster
-          link_to teach_course_material_path(@course, @course.poster), :method => :delete, :confirm => true,
-          class: css_button(:xs, :danger), :title => t('activerecord.actions.remove_poster_image') do
-            content_tag(:i, '', class: 'fa fa-remove') + space_tag(3) + content_tag(:i, '', class: 'fa fa-image')
-          end
-        else
-          link_to new_teach_course_material_path(@course, :s => :image, :t => :poster),
-          class: css_button(:xs, :success), :title => t('activerecord.actions.add_poster_image') do
-            content_tag(:i, '', class: 'fa fa-plus') + space_tag(3) + content_tag(:i, '', class: 'fa fa-image')
-          end
-        end
-        %>
+          %>
+          <img class="ui avatar image" src="<%= avatar %>"> <small><%= name %></small>
+        </div>
       </div>
 
       <%= yield :teach_160x200_left_middle_banner %>

@@ -66,6 +66,10 @@ module Themes::Bootstrap::BootstrapHelper
     content_tag :i, ('&nbsp;' * spaces).html_safe, class: "fa fa-#{name}"
   end
 
+  def css_animated_icon(name, spin = true)
+    content_tag :i, '', class: "fa fa-#{name} fa-#{spin ? "spin" : "pulse"}"
+  end
+
   def css(options = {})
     output = []
     options.each do |k, v|
@@ -315,12 +319,13 @@ module Themes::Bootstrap::BootstrapHelper
         if options[:video]
           ui_video(media, nil, thumbnail: true, :class => 'media-object img-polaroid pull-left')
         else
-          tag :img, { class: "media-object", src: "#{media}", alt: "#{options[:alt]}" }.merge(options[:img_options])
+          image_tag media, {class: "media-object", alt: "#{options[:alt]}"}.merge(options[:img_options])
+          #tag :img, { class: "media-object", src: "#{media}", alt: "#{options[:alt]}" }.merge(options[:img_options])
         end
       end )
 
       html << ( content_tag :div, class: "media-body" do
-        main = (content_tag :h4, class: "media-heading" do
+        main = (content_tag :div, class: "media-heading" do
           (options[:subhdr].present? ? (heading + content_tag(:small, options[:subhdr])) : heading).html_safe
         end )
         main << body
@@ -705,10 +710,10 @@ module Themes::Bootstrap::BootstrapHelper
     when Hash
       select_options = options_for_select(collection, value)
     else
-      if collection.kind_of? Array and (
-          collection.first.kind_of? Symbol or
-          collection.first.kind_of? String or
-          collection.first.kind_of? Fixnum
+      if collection.kind_of?(Array) && (
+          collection.first.kind_of?(Symbol) ||
+          collection.first.kind_of?(String) ||
+          collection.first.kind_of?(Fixnum)
          )
 
         select_options = options_for_select(collection, value)
@@ -780,12 +785,12 @@ module Themes::Bootstrap::BootstrapHelper
                   :onclick => "ui_modal_confirmation('form', '#{options[:data][:"confirm-title"] || t('page.titles.hold_on')}', '#{confirm}', '#{j link}', '#{t('activerecord.actions.close')}' )")
       else
         if options[:image]
-          html << ( content_tag :button, type: "submit", style: "border: none; background: none;" do
+          html << ( content_tag :button, type: "submit", style: "border: none; background: none;", data: {:'disable-with' => "#{css_animated_icon(:spinner)}"} do
             options[:image]
           end )
         else
           html << content_tag(:button, t(key, scope: "activerecord.actions", name: name).html_safe,
-              type: "submit", class: "btn btn-primary")
+              type: "submit", class: "btn btn-primary", data: {:'disable-with' => "#{css_animated_icon(:spinner)}"})
         end
       end
 

@@ -1,17 +1,17 @@
 <% @depth += 1 %>
 <% lecture_id = @lecture.present? ? @lecture.id : nil %>
-<div class="media">  
+<div class="media">
   <%= image_tag(post.author_avatar(current_account, :tny, "/images/nobody-th.png"), :class => "media-object pull-left") %>
   <div class="media-body">
-    <h6 class="media-heading">
+    <div class="media-heading">
       <% unless post.anonymous %>
         <%= post.author_name %>
       <% else %>
         <%# Post.human_attribute_name(:anonymous) %>
       <% end %>
-    </h6>
+    </div>
     <div>
-      <%= markdown(post.about) %> 
+      <%= markdown(post.about) %>
     </div>
     <h6>
       <small>
@@ -19,15 +19,15 @@
       </small>
       <% if current_user and @depth <= 3 and @klass.open? %>
         <a class="reply-to-post pull-right" data-post-id="<%= post.id %>"
-                data-reply-btn="<%= t('activerecord.actions.reply') %>" 
+                data-reply-btn="<%= t('activerecord.actions.reply') %>"
                 data-cancel-btn="<%= t('activerecord.actions.cancel') %>">
           <i class="fa fa-reply"></i> <%= t('activerecord.actions.reply') %>
         </a>
       <% end %>
-  
+
       <% if current_user %>
         <% role = current_user.has_role?(:admin) ? "admin" : (current_user.has_role?(:faculty) ? "faculty" : "author" ) %>
-        <% 
+        <%
           deletable = (
             @klass.course.config["discussion"]['post_deletion_by'][role] and post.replies.length == 0 and (
               staff?(current_user, @klass.course) or ( @student.present? and @student.id == post.author.id )
@@ -35,42 +35,42 @@
           )
         %>
         <% if deletable %>
-          <%= link(:post, :destroy, learn_klass_forum_topic_post_path(@klass, @forum, @topic, post, 
-                :lecture_id => lecture_id), :method => :delete, confirm: true, 
+          <%= link(:post, :destroy, learn_klass_forum_topic_post_path(@klass, @forum, @topic, post,
+                :lecture_id => lecture_id), :method => :delete, confirm: true,
                 :class => "delete-post #{css(align: :right)}") %>
         <% end %>
       <% end %>
-    
+
       <%= content_tag_for :div, post, class: "thumbs-up-and-down pull-right" do %>
-        <%= link_to_if @klass.open?, %(#{post.ups} #{content_tag :i, '', class: 'fa fa-thumbs-up text-success'}).html_safe, 
-              up_learn_klass_forum_topic_post_path(@klass, @forum, @topic, post, :lecture_id => lecture_id), 
-              class: "thumbs-up", method: :put, remote: true do %>
+        <%= link_to_if @klass.open?, %(#{post.ups} #{content_tag :i, '', class: 'fa fa-thumbs-up text-success'}).html_safe,
+              up_learn_klass_forum_topic_post_path(@klass, @forum, @topic, post, :lecture_id => lecture_id),
+              class: "thumbs-up", method: :put, remote: true, data: {:'disable-with' => "#{css_animated_icon(:spinner)}"} do %>
           <%= post.ups %> <i class="fa fa-thumbs-up text-success"></i>
         <% end %>
-  
+
         <%= link_to_if @klass.open?, %(#{post.downs} #{content_tag :i, '', class: 'fa fa-thumbs-down text-danger'}).html_safe,
-              down_learn_klass_forum_topic_post_path(@klass, @forum, @topic, post, :lecture_id => lecture_id), 
-              class: "thumbs-down", method: :put, remote: true do %>
+              down_learn_klass_forum_topic_post_path(@klass, @forum, @topic, post, :lecture_id => lecture_id),
+              class: "thumbs-down", method: :put, remote: true, data: {:'disable-with' => "#{css_animated_icon(:spinner)}"} do %>
           <%= post.downs %> <i class="fa fa-thumbs-down text-danger"></i>
         <% end %>
       <% end %>
     </h6>
-    
+
     <% if @depth <= 3 %>
     <div id='reply-to-post-<%= post.id %>' class="hidden">
       <%= themed_form_for [:learn, @klass, @forum, @topic, post, Post.new], remote: @lecture.present?  do |f| %>
         <%= hidden_field_tag(:tab, tab) if defined? tab %>
         <%= hidden_field_tag(:lecture_id, @lecture.id) if @lecture %>
         <%= form_text_area f, :about, :rows => 2, hint: true %>
-        <%= form_checkbox f, :anonymous %>       
-       
+        <%= form_checkbox f, :anonymous %>
+
         <%= form_submit f %>
       <% end %>
     </div>
     <% end %>
     <hr>
-        
-    <%= render :partial => 'learn/topics/post', :collection => post.replies, 
+
+    <%= render :partial => 'learn/topics/post', :collection => post.replies,
           :locals => {tab: defined?(tab)? tab : 0}  %>
   </div>
 </div>

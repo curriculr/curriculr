@@ -12,7 +12,7 @@ module EditorsHelper
 
   def markdown(text, options = {})
     return text.html_safe if options[:html] and options[:html] == true
-    
+
     renderer = HTMLwithPygments.new(hard_wrap: true, filter_html: true)
     markdown = Redcarpet::Markdown.new(renderer,
       :no_intra_emphasis => true,
@@ -22,53 +22,53 @@ module EditorsHelper
       :disable_indented_code_blocks => true,
       :strikethrough => true,
       :lax_spacing => true,
-      :space_after_headers => true, 
+      :space_after_headers => true,
       :superscript => true,
       :underline => true,
       :highlight => true,
       :quote => true,
       :footnotes => true
     )
-    
+
     text.sub!(/#{MARKDOWN_SUMMARY_DELIMITER}/i, "\n") if text.present?
 
     #preprocess math
     text = '' if text.nil?
     math_formulae = text.scan(/(\\\([\S|\s]+?\\\)+?)|(\\\[[\S|\s]+?\\\]+?)/).flatten.reject {|m| m.nil?}
     math_formulae.each_with_index {|m,i| text.sub!(m,"{{{{#{i}}}}}")}
-    
+
     text = markdown.render(text || '')
     text.gsub! /\[([^\[\]]*)\]/ do |m|
       post_process m
     end
-    
+
     text.gsub! /\<code\>.+?\<\/code\>/ do |m|
       post_process m
     end
-    
+
     math_formulae.each_with_index {|m,i| text.sub!("{{{{#{i}}}}}", m)}
     if math_formulae.present?
       @req_attributes[:math?] = true
-    end 
-    
+    end
+
     %(<div class="#{"markdown-output #{options[:class] if options} #{"hidden-til-processed" if options and options[:hidden_til_processed]}"}">
       #{text}
     </div>).html_safe
     #content_tag :div, text.html_safe, class: "markdown-output #{options[:class] if options} #{"hidden-til-processed" if options and options[:hidden_til_processed]}"
   end
-  
+
   def processed_text(text)
     text.gsub! /\[([^\[\]]*)\]/ do |m|
       post_process m
     end
-    
+
     text.gsub! /\<code\>.+?\<\/code\>/ do |m|
       post_process m
     end
-    
+
     text.html_safe
   end
-  
+
   def post_process(text)
     if text =~ /\[math\:(.*)\]/
       "<img src='#{$1}'>".html_safe
@@ -96,39 +96,39 @@ module EditorsHelper
     elsif text =~ /\[ext\:([^\:]*)\:([^\|]*)(\|(.*))?\]/
       data = {'id' => $2}
       if $4
-        $4.split('|').each do |p| 
-          t = p.split('=') 
+        $4.split('|').each do |p|
+          t = p.split('=')
           data[t.first] = t.last if t.size == 2
         end
       end
       content_tag :div, '', class: "#{$1}-able", data: data
     elsif text =~ /\<code\>(.+?)\<\/code\>/
       body = $1
-      if body =~ /\$\$(.*)\$\$/ 
+      if body =~ /\$\$(.*)\$\$/
         "$$ #{$1} $$"
-      elsif body =~ /\$(.*)\$/ 
+      elsif body =~ /\$(.*)\$/
         "$ #{$1} $"
-      else 
+      else
         "<code>#{body}</code>".html_safe
       end
     end
   end
-  
+
   def markdown_textarea (form, model, field, options = {})
     output ||= %(<div class="input string field_with_errors">)
     if options[:label]
       label ||= options[:label]
-      unless !label.nil? and !!label == label 
+      unless !label.nil? and !!label == label
         output += form.label field
       end
     end
-    
+
     wmd_id = options[:data] ? options[:data]: ''
-       
+
     output += %(
     <div class="wmd-panel">
       <div id="wmd-button-bar#{wmd_id}"></div>)
-   
+
     ta_options = { size: '60x10', class: 'wmd-input', id: "wmd-input#{wmd_id}" }
     options.map do |k,v|
       if k == :class
@@ -137,14 +137,14 @@ module EditorsHelper
         ta_options[k] = v
       end
     end
-    
-    output += form.text_area field, ta_options 
+
+    output += form.text_area field, ta_options
     output += "</div>"
 
     output += %(
       <div id="wmd-preview#{wmd_id}" class="wmd-panel wmd-preview well"></div>
     ) if options.include?(:preview) && options[:preview]
-    
+
     output += "</div>"
     output.html_safe
   end
@@ -155,17 +155,17 @@ module EditorsHelper
       if text =~ /#{delimiter}/i
         text = text.split(/#{delimiter}/i).first.strip
       end
-      
+
       excerpt(text, text[1..50],  radius: length)
     end
-  end 
+  end
 
   # Ace Editor
   def highlighted_code(text, lang, input=nil)
     @req_attributes[:code?] = true
     lines_count = [[ text.lines.count, 25 ].max, 40].min
     options = {
-      :class => "ace-editor", 
+      :class => "ace-editor",
       :style => "height: #{lines_count * 16}px;",
       :data => {
         :mode => lang,

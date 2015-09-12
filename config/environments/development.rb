@@ -25,7 +25,7 @@ Rails.application.configure do
   # Debug mode disables concatenation and preprocessing of assets.
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
-  config.assets.debug = true
+  config.assets.debug = false
 
   # Asset digests allow you to set far-future HTTP expiration dates on all assets,
   # yet still be able to expire them through the digest params.
@@ -38,12 +38,12 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
-  
+
   # Curriculr's Devevlopment Setup
   #config.action_controller.include_all_helpers = false
-  
+
   config.time_zone = 'Central Time (US & Canada)'
-  
+
   # Don't care if the mailer can't send
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
   config.action_mailer.delivery_method = :smtp
@@ -56,6 +56,6 @@ Rails.application.configure do
     authentication: "plain",
     enable_starttls_auto: true,
     user_name: Rails.application.secrets.mailer['username'],
-    password: Rails.application.secrets.mailer['password']  
+    password: Rails.application.secrets.mailer['password']
   }
 end

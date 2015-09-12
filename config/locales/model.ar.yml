@@ -387,6 +387,8 @@ ar:
         workload: الجهد المطلوب (بالساعة في الأسبوع)
         locale: اللغة
         country: البلد
+        level_list: المستوى
+        category_list: التصنيف
       instructor:
         email: البريد الالكتروني
         name: الاسم
