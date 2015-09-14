@@ -1249,3 +1249,10 @@ label.required {
 .ui.card .nav>li>a {
   padding: 0px 15px;
 }
+
+div.media-heading {
+  font-weight: bold;
+  small {
+    color: rgba(0, 0, 0, 0.3);
+  }
+}
