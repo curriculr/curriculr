@@ -1,18 +1,18 @@
 module Teach
   class KlassesController < BaseController
     responders :flash, :http_cache
-  
-    def show      
+
+    def show
       render :action => :index
     end
-    
+
     def edit
       @klass.slug = @klass.slug.split(':')[1]
     end
 
     def index
     end
-    
+
     def update
       @klass = Klass.scoped.find(params[:id])
 
@@ -48,13 +48,13 @@ module Teach
         end
       end
     end
-    
+
     def approve
       if current_user.has_role? :admin || (staff?(current_user, @course) && !current_account.config['require_admin_approval_of_classes'])
-        @klass.approved = !@klass.approved 
+        @klass.approved = !@klass.approved
         @klass.approved_at = Time.zone.now
-        @klass.save 
-        
+        @klass.save
+
         respond_with @klass do |format|
           format.html { redirect_to teach_course_klasses_path(@course) }
         end
@@ -62,22 +62,22 @@ module Teach
     end
 
     def ready
-      if current_user && staff?(current_user, @course) 
+      if current_user && staff?(current_user, @course)
         if @klass.ready_to_approve
           @klass.ready_to_approve = false
           @klass.approved = false
         else
           @klass.ready_to_approve = true
         end
-        
+
         @klass.save
-        
+
         respond_with @klass do |format|
           format.html { redirect_to teach_course_klasses_path(@course) }
         end
       end
     end
-    
+
     def invite
       if request.get?
         @invitation = Invitation.new
@@ -86,11 +86,11 @@ module Teach
         @invitation = Invitation.new
         @invitation.invitee = params[:invitation][:invitee]
 
-        invitable = true 
+        invitable = true
         invitable &&= @invitation.valid?
         if invitable
           invitable &&= @klass.private and current_user.email != params[:invitation][:invitee] and staff?(current_user, @course)
-          
+
           if invitable
             user = User.scoped.find_by(:email => params[:invitation][:invitee])
 
@@ -99,15 +99,15 @@ module Teach
             invitable &&=  !enrollment.active && enrollment.dropped_at.blank? && enrollment.accepted_or_declined_at.blank?
           end
         end
-        
+
         if invitable
-          url = url_for :controller => 'devise/sessions', :action => 'new'  
+          url = url_for :controller => 'devise/sessions', :action => 'new'
           Mailer.klass_invitation(
-            current_account.slug, 
+            current_account.slug,
             current_account.config['mailer']['noreply'],
             @invitation.invitee,
             @klass.id,
-            current_user.name || current_user.email, 
+            current_user.name || current_user.email,
             url
           ).deliver_later
 
@@ -118,12 +118,12 @@ module Teach
         end
       end
     end
-    
-    private 
+
+    private
       def klass_params
-        params.require(:klass).permit(:about, :featured, :begins_on, 
+        params.require(:klass).permit(:about, :featured, :begins_on,
           :ends_on, :private, :previewed, :allow_enrollment, :slug,
-          :lectures_on_closed, :free, :payment_program_id, :required_for => [])
+          :lectures_on_closed, :free, :payment_plan_id, :required_for => [])
       end
   end
 end
