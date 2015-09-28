@@ -197,11 +197,6 @@ class Klass < ActiveRecord::Base
     name
   end
 
-  # To be overridden by any payment plugin
-  def free?
-    free || (respond_to?(:required_for?) && !required_for?(:all))
-  end
-
   def instructors
     instructors = self.course.instructors.where("role <> :role", :role => 'technician').order(:order).to_a
     if instructors.blank?

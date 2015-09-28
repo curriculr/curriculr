@@ -12,7 +12,9 @@ class CreateQSelectors < ActiveRecord::Migration
       t.references :unit, index: true
       t.text :tags
 
-      t.timestamps
+      t.timestamps null: false
     end
+
+    add_foreign_key :q_selectors, :assessments
   end
 end

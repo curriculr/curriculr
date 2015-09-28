@@ -5,8 +5,10 @@ class CreateMaterials < ActiveRecord::Migration
       t.belongs_to :medium, :index => true
       t.string :kind
       t.integer :order, :default => 0
-      
-      t.timestamps
+
+      t.timestamps null: false
     end
+
+    add_foreign_key :materials, :media
   end
 end

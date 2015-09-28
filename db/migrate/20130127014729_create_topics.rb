@@ -15,8 +15,10 @@ class CreateTopics < ActiveRecord::Migration
       t.boolean :sticky, :default => false
       t.boolean :locked, :default => false
       t.boolean :anonymous, :default => false
-      
-      t.timestamps
+
+      t.timestamps null: false
     end
+
+    add_foreign_key :topics, :forums
   end
 end

@@ -17,7 +17,9 @@ class CreateCourses < ActiveRecord::Migration
       t.string :locale
       t.string :country
 
-      t.timestamps
+      t.timestamps null: false
     end
+
+    add_foreign_key :courses, :accounts
   end
 end

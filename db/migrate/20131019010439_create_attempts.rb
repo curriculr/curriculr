@@ -10,7 +10,12 @@ class CreateAttempts < ActiveRecord::Migration
       t.integer :points
       t.float :score
 
-      t.timestamps
+      t.timestamps null: false
     end
+
+    add_foreign_key :attempts, :klasses
+    add_foreign_key :attempts, :enrollments
+    add_foreign_key :attempts, :students
+    add_foreign_key :attempts, :assessments
   end
 end

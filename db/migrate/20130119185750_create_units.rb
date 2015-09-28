@@ -12,8 +12,10 @@ class CreateUnits < ActiveRecord::Migration
       t.date :based_on
       t.integer :for_days
       t.boolean :previewed, :default => false
-			
-      t.timestamps
+
+      t.timestamps null: false
     end
+
+    add_foreign_key :units, :courses
   end
 end

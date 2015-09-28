@@ -1,4 +1,4 @@
-<% 
+<%
   pills = []
   pills << [ link(:klass, :available_klasses, main_app.learn_klasses_path),
     (@courses.nil? and (params[:s].nil? or params[:s] == 'available'))]
@@ -31,17 +31,17 @@
   </div>
   <div class="<%= css_columns(3) %>">
     <% unless controller_name == 'payments' %>
-      <%= mountable_fragments :klass_index %>
-      
+      <%= mountable_fragments :klass_index_actions %>
+
       <%= search_form_for [:learn, @q], class: "search-form form-inline", :remote => true do |f| %>
-        <%# content_tag :strong, t('page.titles.search') %> 
-        <%= form_search f, :course_slug_or_course_name_or_course_about_cont, 
+        <%# content_tag :strong, t('page.titles.search') %>
+        <%= form_search f, :course_slug_or_course_name_or_course_about_cont,
               hint: false, label: false, placeholder: true %>
         <%# form_submit f %>
       <% end %>
       <%= render 'learn/klasses/search' %>
-    <% end %>  
-    
+    <% end %>
+
     <%= yield :klasses_sidebar %>
   </div>
 </div>

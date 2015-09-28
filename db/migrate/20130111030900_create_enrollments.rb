@@ -13,7 +13,10 @@ class CreateEnrollments < ActiveRecord::Migration
       t.datetime :last_attended_at
       t.text :data
 
-      t.timestamps
+      t.timestamps null: false
     end
+
+    add_foreign_key :enrollments, :klasses
+    add_foreign_key :enrollments, :students
   end
 end

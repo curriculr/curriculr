@@ -23,9 +23,12 @@ class CreateAssessments < ActiveRecord::Migration
       t.integer :invideo_at
       t.boolean :ready, :default => false
       t.integer :order, :default => 0
-      
-      t.timestamps
+
+      t.timestamps null: false
     end
+
+    add_foreign_key :assessments, :courses
+    add_foreign_key :assessments, :units
+    add_foreign_key :assessments, :lectures
   end
 end
-

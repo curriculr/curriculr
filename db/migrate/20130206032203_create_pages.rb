@@ -12,8 +12,10 @@ class CreatePages< ActiveRecord::Migration
       t.boolean :public, :default => false
       t.boolean :published, :default => false
       t.integer :order, :default => 0
-      
-      t.timestamps
+
+      t.timestamps null: false
     end
+
+    add_foreign_key :pages, :accounts
   end
 end

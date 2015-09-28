@@ -11,8 +11,11 @@ class CreateMedia < ActiveRecord::Migration
       t.string :file_size
       t.string :slug
       t.string :copyrights
-			
-      t.timestamps
+
+      t.timestamps null: false
     end
+
+    add_foreign_key :media, :accounts
+    add_foreign_key :media, :courses
   end
 end

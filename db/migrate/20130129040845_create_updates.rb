@@ -17,7 +17,12 @@ class CreateUpdates < ActiveRecord::Migration
       t.datetime :sent_at
       t.datetime :cancelled_at
       t.integer :generator_id
-      t.timestamps
+      t.timestamps null: false
     end
+
+    add_foreign_key :updates, :courses
+    add_foreign_key :updates, :units
+    add_foreign_key :updates, :lectures
+    add_foreign_key :updates, :klasses
   end
 end

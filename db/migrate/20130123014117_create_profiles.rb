@@ -7,8 +7,10 @@ class CreateProfiles < ActiveRecord::Migration
       t.string :avatar
 			t.text :about
       t.boolean :public, :default => false
-      
-      t.timestamps
+
+      t.timestamps null: false
     end
+
+    add_foreign_key :profiles, :users
   end
 end

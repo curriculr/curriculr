@@ -12,7 +12,10 @@ class CreateForums < ActiveRecord::Migration
       t.integer :topics_count, :default => 0
       t.integer :posts_count, :default => 0
 
-      t.timestamps
+      t.timestamps null: false
     end
+
+    add_foreign_key :forums, :courses
+    add_foreign_key :forums, :klasses
   end
 end

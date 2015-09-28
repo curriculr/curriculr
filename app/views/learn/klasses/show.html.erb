@@ -12,8 +12,8 @@
           <ul>
             <% deadlines.each do |deadline| %>
               <li>
-                <%= t("page.text.upcoming_deadlines", :name => deadline.name, 
-                      :count => (deadline.closes_at.to_date - Time.zone.today).to_i) 
+                <%= t("page.text.upcoming_deadlines", :name => deadline.name,
+                      :count => (deadline.closes_at.to_date - Time.zone.today).to_i)
                 %>
               </li>
           	<% end %>
@@ -22,7 +22,7 @@
       <% end %>
     <% end %>
   <% end %>
-  
+
   <%= yield :additional_nav %>
 
   <!-- Klass Updates -->
@@ -34,16 +34,16 @@
     <%= markdown(update.body) %>
     <hr>
     <% end %>
-    
+
     <h4><%= t('page.titles.about_class') %></h4>
   <% end %>
 
   <div class="row">
     <div class="<%= css_columns(7) %>">
       <%= markdown(@klass.course.about, :class => 'shortenable-text', :hidden_til_processed => true) %>
-      
+
       <br>
-      <strong><%= t("page.text.weeks", count: @klass.course.weeks) %></strong> 
+      <strong><%= t("page.text.weeks", count: @klass.course.weeks) %></strong>
       &nbsp;&nbsp;|&nbsp;&nbsp;
       <strong><%= t("page.text.workload", count: @klass.course.workload) %></strong>
     </div>
@@ -57,7 +57,7 @@
   <div class="row">
     <div class="<%= css_columns(7) %>">
       <%= markdown(@klass.course.about) %>
-      
+
       <%= themed_form_for [ :teach, @klass.course ] do |f| %>
         <div class="row">
           <div class="<%= css_columns(6) %>">
@@ -93,12 +93,12 @@
           <%= content_tag :div, :class => css_columns(6) do %>
             <%= form_static f, :country, :value => flag_tag(@klass.course.country) %>
           <% end if @klass.course.country.present? %>
-          
-          <%= mountable_fragments :klass_attributes, :f => f %>
+
+          <%= mountable_fragments :klass_attributes_actions, :f => f %>
         </div>
       <% end %>
-      
-      
+
+
     </div>
     <div class="<%= css_columns(5) %>">
       <%= content_tag :div do %>
@@ -116,7 +116,7 @@
     </div>
     <div class="<%= css_columns(4) %>">
       <%= render 'learn/instructors/index' %>
-      
+
       <hr>
       <h4><%= t('page.titles.honor_system') %></h4>
       <small>
@@ -127,5 +127,5 @@
       </small>
     </div>
   </div>
-   
+
 <% end %>

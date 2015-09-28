@@ -7,7 +7,12 @@ class CreateLectureDiscussions < ActiveRecord::Migration
       t.belongs_to :lecture, index: true
       t.boolean :active
 
-      t.timestamps
+      t.timestamps null: false
     end
+
+    add_foreign_key :lecture_discussions, :klasses
+    add_foreign_key :lecture_discussions, :forums
+    add_foreign_key :lecture_discussions, :topics
+    add_foreign_key :lecture_discussions, :lectures
   end
 end

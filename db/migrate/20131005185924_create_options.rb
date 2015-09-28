@@ -7,7 +7,9 @@ class CreateOptions < ActiveRecord::Migration
       t.text :answer_options
       t.integer :order, :default => 0
 
-      t.timestamps
+      t.timestamps null: false
     end
+
+    add_foreign_key :options, :questions
   end
 end

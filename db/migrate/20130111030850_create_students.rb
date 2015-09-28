@@ -6,7 +6,9 @@ class CreateStudents < ActiveRecord::Migration
       t.string :name
       t.string :avatar
 
-      t.timestamps
+      t.timestamps null: false
     end
+
+    add_foreign_key :students, :users
   end
 end

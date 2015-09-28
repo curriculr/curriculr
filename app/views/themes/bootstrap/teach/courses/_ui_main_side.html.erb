@@ -1,56 +1,52 @@
+<%
+any_active = (
+  controller_name == 'units' ||
+  controller_name == 'media' ||
+  controller_name.in?([ 'klasses', 'forums', 'updates' ]) ||
+  controller_name == 'questions' ||
+  action_name == 'settings' ||
+  controller_name == 'dashboard'
+)
+
+add_item_to_app_menu(:course_side, link_to(css_icon(:home, 2) + t("activerecord.actions.home"), teach_course_path(@course),
+      :class => any_active ? nil : 'active'))
+add_item_to_app_menu(:course_side, tag(:hr))
+
+link = (link_to teach_course_units_path(@course), :class => controller_name == 'units' ? 'active' : nil do
+  raw Unit.model_name.human(count: 3) + '&nbsp' + content_tag(:span, @course.units_count, :class => css_badge)
+end)
+add_item_to_app_menu :course_side, link
+
+link = (link_to teach_course_media_path(@course), :class => controller_name == 'media' ? 'active' : nil do
+  raw Medium.model_name.human(count: 3) + '&nbsp' + content_tag(:span, @course.media_count, :class => css_badge)
+end)
+add_item_to_app_menu :course_side, link
+
+link = (link_to teach_course_klasses_path(@course), :class => controller_name.in?([ 'klasses', 'forums', 'updates' ]) ? 'active' : nil do
+  raw Klass.model_name.human(count: 3) + '&nbsp' + content_tag(:span, @course.klasses_count, :class => css_badge)
+end)
+add_item_to_app_menu :course_side, link
+
+add_item_to_app_menu :course_side, link_to(t('page.titles.question_banks'), teach_course_questions_path(@course),
+  :class => controller_name == 'questions' ? 'active' : nil)
+
+add_item_to_app_menu(:course_side, tag(:hr))
+
+add_item_to_app_menu(:course_side, link_to(css_icon(:cog, 2) + t('activerecord.models.setting', count: 3), settings_teach_course_path(@course),
+  :class => action_name == 'settings' ? 'active' : nil))
+add_item_to_app_menu(:course_side, link_to(t('activerecord.actions.dashboard').html_safe, teach_course_dashboard_path(@course),
+  :class => controller_name == 'dashboard' ? 'active' : nil))
+add_item_to_app_menu(:course_side, tag(:hr))
+
+add_item_to_app_menu(:course_side, link(:course, :destroy, teach_course_path(@course), :method => :delete, :confirm => true))
+
+mountable_fragments :course_side_menu
+%>
+
 <div class="nav-and-social-container">
   <ul>
-    <li>
-      <%
-      any_active = (
-        controller_name == 'units' ||
-        controller_name == 'media' ||
-        controller_name.in?([ 'klasses', 'forums', 'updates' ]) ||
-        controller_name == 'questions' ||
-        action_name == 'settings' ||
-        controller_name == 'dashboard'
-      )
-      %>
-      <%= link_to css_icon(:home, 2) + t("activerecord.actions.home"), teach_course_path(@course),
-            :class => any_active ? nil : 'active' %>
-    </li>
-    <li><hr></li>
-    <li>
-      <%= link_to teach_course_units_path(@course), :class => controller_name == 'units' ? 'active' : nil  do %>
-        <%= Unit.model_name.human(count: 3) %>
-        <%= content_tag :span, @course.units_count, :class => css_badge %>
-      <% end %>
-    </li>
-    <li>
-      <%= link_to teach_course_media_path(@course), :class => controller_name == 'media' ? 'active' : nil  do %>
-        <%= Medium.model_name.human(count: 3) %>
-        <%= content_tag :span, @course.media_count, :class => css_badge %>
-      <% end %>
-    </li>
-    <li>
-      <%= link_to teach_course_klasses_path(@course), :class => controller_name.in?([ 'klasses', 'forums', 'updates' ]) ? 'active' : nil  do %>
-        <%= Klass.model_name.human(count: 3) %>
-        <%= content_tag :span, @course.klasses_count, :class => css_badge %>
-      <% end %>
-    </li>
-    <li>
-      <%= link_to t('page.titles.question_banks'),  teach_course_questions_path(@course),
-            :class => controller_name == 'questions' ? 'active' : nil %>
-    </li>
-    <li><hr></li>
-    <li>
-      <%= link_to(css_icon(:cog, 2) + t('activerecord.models.setting', count: 3), settings_teach_course_path(@course),
-           :class => action_name == 'settings' ? 'active' : nil) %>
-    </li>
-    <li>
-      <%= link_to t('activerecord.actions.dashboard').html_safe, teach_course_dashboard_path(@course),
-            :class => controller_name == 'dashboard' ? 'active' : nil  %>
-    </li>
-    <li><hr></li>
-    <li>
-      <%= link(:course, :destroy, teach_course_path(@course), :method => :delete, :confirm => true)  %>
-   </li>
-   
-   <%= mountable_fragments :course_side_menu %>
+    <% app_menu(:course_side)[:_].each do |item| %>
+      <li><%= item %></li>
+    <% end %>
   </ul>
 </div>

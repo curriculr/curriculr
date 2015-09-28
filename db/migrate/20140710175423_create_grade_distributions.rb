@@ -6,7 +6,9 @@ class CreateGradeDistributions < ActiveRecord::Migration
       t.string :kind
       t.float :grade
 
-      t.timestamps
+      t.timestamps null: false
     end
+
+    add_foreign_key :grade_distributions, :courses
   end
 end

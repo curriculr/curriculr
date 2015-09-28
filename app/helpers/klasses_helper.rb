@@ -8,7 +8,7 @@ module KlassesHelper
       links << link(:klass, :goto, main_app.learn_klass_path(klass), :class => css_button(:primary))
     elsif klass.can_enroll?(current_user, current_student)
       if controller_name == 'klasses' && action_name == 'show' || @lecture
-        if klass.free?
+        if klass.free
           if klass.dropped?(current_student)
             #enroll again
             links << link(:enrollment, :enroll, main_app.enroll_learn_klass_path(klass),
@@ -20,7 +20,7 @@ module KlassesHelper
           end
         else
           #add_2_cart
-          mountable_links = mountable_fragments(:klass_actions, klass: klass, action: :enroll, previewed: in_preview)
+          mountable_links = mountable_fragments(:klass_enrollment_actions, klass: klass, action: :enroll, previewed: in_preview)
         end
 
         if klass.invited_and_not_yet_accepted?(current_user)
@@ -37,7 +37,7 @@ module KlassesHelper
       else
         #learn_more
         links << link(:klass, :learn_more, learn_klass_path(klass), :class => css_button(:primary))
-        mountable_links = mountable_fragments(:klass_flags, klass: klass, previewed: in_preview)
+        mountable_links = mountable_fragments(:klass_flags_actions, klass: klass, previewed: in_preview)
       end
     elsif current_user && staff?(current_user, klass)
       #admin or faculty

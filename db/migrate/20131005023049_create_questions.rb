@@ -11,8 +11,12 @@ class CreateQuestions < ActiveRecord::Migration
       t.integer :options_count, :default => 0
       t.integer :order, :default => 0
       t.boolean :include_in_lecture, :default => false
-      
-      t.timestamps
+
+      t.timestamps null: false
     end
+
+    add_foreign_key :questions, :courses
+    add_foreign_key :questions, :units
+    add_foreign_key :questions, :lectures
   end
 end

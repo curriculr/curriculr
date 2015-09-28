@@ -18,8 +18,11 @@ class CreateKlasses < ActiveRecord::Migration
       t.integer :active_enrollments, :default => 0
       t.datetime :approved_at
       t.boolean :free, :default => true
-			
-      t.timestamps
+
+      t.timestamps null: false
     end
+
+    add_foreign_key :klasses, :accounts
+    add_foreign_key :klasses, :courses
   end
 end

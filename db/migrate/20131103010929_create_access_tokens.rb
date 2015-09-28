@@ -10,7 +10,8 @@ class CreateAccessTokens < ActiveRecord::Migration
       t.datetime :revoked_at
       t.datetime :created_at
     end
-    
+
     add_index :access_tokens, :token, :unique => true
+    add_foreign_key :access_tokens, :users
   end
 end

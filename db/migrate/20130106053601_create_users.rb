@@ -5,11 +5,11 @@ class CreateUsers < ActiveRecord::Migration
       ## Database authenticatable
       t.string :email,              :null => false, :default => ""
       t.string :encrypted_password, :null => false, :default => ""
-      
+
       ## Curriculr's Own
       t.boolean :active, :default => true
       t.integer :pages_count, :default => 0
-      t.string :time_zone 
+      t.string :time_zone
 
       ## Recoverable
       t.string   :reset_password_token
@@ -36,7 +36,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :uid
       t.string :name
       t.string :avatar  # URLs to avatars from providers like facebook, twitter, googleplus or gravatar
-      
+
       ## Lockable
       # t.integer  :failed_attempts, :default => 0 # Only if lock strategy is :failed_attempts
       # t.string   :unlock_token # Only if unlock strategy is :email or :both
@@ -45,7 +45,7 @@ class CreateUsers < ActiveRecord::Migration
       ## Token authenticatable
       # t.string :authentication_token
 
-      t.timestamps
+      t.timestamps null: false
     end
 
     add_index :users, [ :email, :account_id ], :unique => true
@@ -53,6 +53,8 @@ class CreateUsers < ActiveRecord::Migration
     add_index :users, :confirmation_token, :unique => true
     # add_index :users, :unlock_token,         :unique => true
     # add_index :users, :authentication_token, :unique => true
+
+    add_foreign_key :users, :accounts
+    add_foreign_key :accounts, :users
   end
 end
-

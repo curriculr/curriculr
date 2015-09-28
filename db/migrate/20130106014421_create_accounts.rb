@@ -9,7 +9,7 @@ class CreateAccounts < ActiveRecord::Migration
       t.boolean :live, :default => false
       t.datetime :live_since
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end

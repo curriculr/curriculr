@@ -1,39 +1,41 @@
-<ul class="nav navbar-nav">
-  <% if current_user %>
+<% if current_user %>
+  <% add_item_to_app_menu(:site_top, capture do %>
     <li class="<%= 'active' if action_name =='home' && controller_name == 'users' %>">
       <%= link_to(css_icon(:home, 1) + t("activerecord.actions.home"), main_app.home_path) %>
     </li>
-  <% end %>
+  <% end) %>
+<% end %>
 
+<% add_item_to_app_menu(:site_top, capture do %>
   <li class="<%= 'active' if @course.blank? && (controller_name == 'klasses' || @klass.present?) %>">
     <%= link(:klass, :learn, main_app.learn_klasses_path) %>
   </li>
+<% end) %>
 
-  <% if current_user && (current_user.has_role?(:admin) || current_user.has_role?(:faculty)) %>
+<% if current_user && (current_user.has_role?(:admin) || current_user.has_role?(:faculty)) %>
+  <% add_item_to_app_menu(:site_top, capture do %>
     <%= content_tag :li, link(:course, :teach, main_app.teach_courses_path),
           :class =>  controller_name == 'courses' || @course.present? ? 'active' : nil %>
-  <% end %>
+  <% end) %>
+<% end %>
 
+<% add_item_to_app_menu(:site_top, capture do %>
   <%= content_tag :li, link(:page, :blogs, main_app.blogs_path),
       :class =>  controller_name == 'pages' && action_name == 'blogs' ? 'active' : nil %>
+<% end) %>
 
-  <%= mountable_fragments :app_left_main_menu %>
-</ul>
-
-<ul class="nav navbar-nav navbar-right">
-  <%= mountable_fragments :app_right_main_menu %>
-
-  <% unless current_user %>
-    <% unless request.path.ends_with?('/sign_in')  || request.path.ends_with?('/sign_up') %>
-      <li>
-        <%= link :user, :sign_in, main_app.new_user_session_path %>
-      </li>
-    <% end %>
-  <% else %>
+<% unless current_user %>
+  <% unless request.path.ends_with?('/sign_in')  || request.path.ends_with?('/sign_up') %>
+    <% add_item_to_app_menu(:site_top, capture do %>
+      <li><%= link :user, :sign_in, main_app.new_user_session_path %></li>
+    <% end, :right) %>
+  <% end %>
+<% else %>
+  <% add_item_to_app_menu(:site_top, capture do %>
     <li id="no-line" class="dropdown">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown">
         <b class="caret"></b>
-        <%= image_tag ui_image_src(current_user.profile.avatar_url(current_account, :tny), '/images/nobody-tny.png'), 
+        <%= image_tag ui_image_src(current_user.profile.avatar_url(current_account, :tny), '/images/nobody-tny.png'),
               :size => "21x21" %>
         <%= current_user.name %>
       </a>
@@ -44,5 +46,19 @@
         <li><%= link :session, :sign_out, main_app.destroy_user_session_path, :method => :delete %></li>
       </ul>
     </li>
+  <% end, :right) %>
+<% end %>
+
+<%= mountable_fragments :site_top_menu %>
+
+<ul class="nav navbar-nav">
+  <% app_menu(:site_top)[:_].each do |item| %>
+    <%= item %>
+  <% end %>
+</ul>
+
+<ul class="nav navbar-nav navbar-right">
+  <% app_menu(:site_top)[:right].each do |item| %>
+    <%= item %>
   <% end %>
 </ul>

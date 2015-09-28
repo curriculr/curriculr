@@ -11,7 +11,10 @@ class CreateInstructors < ActiveRecord::Migration
       t.string :avatar
       t.boolean :active, :default => true
 
-      t.timestamps
+      t.timestamps null: false
     end
+
+    add_foreign_key :instructors, :users
+    add_foreign_key :instructors, :courses
   end
 end

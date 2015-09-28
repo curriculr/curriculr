@@ -13,8 +13,10 @@ class CreateLectures < ActiveRecord::Migration
       t.integer :for_days
 			t.boolean :allow_discussion, :default => true
       t.boolean :previewed, :default => false
-			
-      t.timestamps
+
+      t.timestamps null: false
     end
+
+    add_foreign_key :lectures, :units
   end
 end

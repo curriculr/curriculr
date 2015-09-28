@@ -8,7 +8,10 @@ class CreateAnnouncements < ActiveRecord::Migration
       t.datetime :ends_at
       t.boolean :suspended, :default => false
 
-      t.timestamps
+      t.timestamps null: false
     end
+
+    add_foreign_key :announcements, :accounts
+    add_foreign_key :announcements, :users
   end
 end

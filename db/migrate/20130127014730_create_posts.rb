@@ -10,8 +10,11 @@ class CreatePosts < ActiveRecord::Migration
       t.integer  :downs, :default => 0
       t.integer  :posts_count, :default => 0
       t.boolean  :anonymous, :default => false
-      
-      t.timestamps
+
+      t.timestamps null: false
     end
+
+    add_foreign_key :posts, :forums
+    add_foreign_key :posts, :topics
   end
 end

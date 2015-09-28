@@ -10,7 +10,10 @@ class CreateActivities < ActiveRecord::Migration
       t.float :points, :default => 0.0
       t.text :data
 
-      t.timestamps
+      t.timestamps null: false
     end
+
+    add_foreign_key :activities, :klasses
+    add_foreign_key :activities, :students
   end
 end
