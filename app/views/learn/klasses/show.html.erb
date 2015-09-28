@@ -41,11 +41,14 @@
   <div class="row">
     <div class="<%= css_columns(7) %>">
       <%= markdown(@klass.course.about, :class => 'shortenable-text', :hidden_til_processed => true) %>
-
-      <br>
-      <strong><%= t("page.text.weeks", count: @klass.course.weeks) %></strong>
-      &nbsp;&nbsp;|&nbsp;&nbsp;
-      <strong><%= t("page.text.workload", count: @klass.course.workload) %></strong>
+      <ul class="list-inline">
+        <% if @klass.course.weeks %>
+          <li><%= t("page.text.weeks", count: @klass.course.weeks) %></li>
+        <% end %>
+        <% if @klass.course.workload %>
+          <li><%= t("page.text.workload", count: @klass.course.workload) %></li>
+        <% end %>
+      </ul>
     </div>
     <div class="<%= css_columns(5) %>">
       <%= content_tag :div do %>
@@ -61,10 +64,10 @@
       <%= themed_form_for [ :teach, @klass.course ] do |f| %>
         <div class="row">
           <div class="<%= css_columns(6) %>">
-            <%= form_static f, :weeks %>
+            <%= form_static f, :weeks if @klass.course.weeks %>
           </div>
           <div class="<%= css_columns(6) %>">
-            <%= form_static f, :workload %>
+            <%= form_static f, :workload if @klass.course.workload %>
           </div>
         </div>
         <div class="row">

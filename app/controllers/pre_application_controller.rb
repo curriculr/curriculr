@@ -74,11 +74,11 @@ class PreApplicationController < ActionController::Base
 
   def set_app_menus
     @app_menus = {
-      :site_top => {:_ => []},
-      :site_bottom => {:_ => []},
-      :course_side => {:_ => []},
-      :klass_side => {:_ => []},
-      :home_page => {:_ => []}
+      :site_top     => {:_ => [], :right => []},
+      :site_bottom  => {},
+      :course_side  => {:_ => []},
+      :klass_side   => {:_ => []},
+      :home_page    => {:_ => []}
     }
   end
 

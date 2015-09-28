@@ -1,6 +1,5 @@
 class Klass < ActiveRecord::Base
   include Scopeable
-  include Payment::Payable
   extend FriendlyId
 
   friendly_id :name, use: [ :slugged, :finders ]

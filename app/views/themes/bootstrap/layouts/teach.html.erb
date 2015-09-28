@@ -71,12 +71,14 @@
         <div class="<%= css_columns(7) %>">
           <%= markdown(@course.about, :class => 'shortenable-text', :hidden_til_processed => true) %>
 
-          <br>
-          <strong>
-            <%= t("page.text.weeks", count: @course.weeks) %>
-            &nbsp;&nbsp;|&nbsp;&nbsp;
-            <%= t("page.text.workload", count: @course.workload) %>
-          </strong>
+          <ul class="list-inline">
+            <% if @course.weeks %>
+              <li><%= t("page.text.weeks", count: @course.weeks) %></li>
+            <% end %>
+            <% if @course.workload %>
+              <li><%= t("page.text.workload", count: @course.workload) %></li>
+            <% end %>
+          </ul>
         </div>
         <div class="<%= css_columns(5) %>">
           <%= content_tag :div do %>

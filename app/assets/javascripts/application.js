@@ -22,7 +22,3 @@
 //
 // Application's Own Scripts
 //= require app-text
-//
-//= require banner/banners
-//= require payment/payment
-//= require payment/braintree
