@@ -46,7 +46,7 @@
       <div class="row">
 				<div class="<%= css_columns(2) %> side-navabar">
 			    <%= render "learn/klasses/ui_main_side" %>
-          <%= yield :student_160x200_left_bottom_banner %>
+          <%= mountable_fragments :learn_160x600_left_bottom_banner %>
 				</div>
 				<div class="<%= css_columns(10) %>">
           <% if @page_header %>

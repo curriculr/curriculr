@@ -1,4 +1,4 @@
-module Admin 
+module Admin
   class AccountsController < BaseController
     include WithSettings
     responders :flash, :http_cache, :collection
@@ -31,7 +31,7 @@ module Admin
         config = YAML.load_file("#{Rails.root}/config/config-account.yml")
         $redis.set "config.account.a#{@account.id}", config['account'].to_json
       end
-      
+
       respond_with(:admin, @account)
     end
 
@@ -39,7 +39,7 @@ module Admin
       if account_params[:live] and @account.live_since.blank?
         @account.live_since = Time.zone.now
       end
-      
+
       @account.update(account_params.reject { |k,v| k.to_s == 'admin_attributes' })
       if current_user.id == @account.user_id
         redirect_to home_path, :notice => t('flash.actions.create.notice', :resource_name => Account.model_name.human)
@@ -64,8 +64,6 @@ module Admin
     private
       def set_account
         @account = Account.find(params[:id])
-        #@account.user = User.find(@account.user_id)
-        #puts $redis.get("config.account.a#{@account.id}").to_json
         @account.config = JSON.parse($redis.get("config.account.a#{@account.id}"))
         @account.settings = JSON.pretty_generate(@account.config)
       end

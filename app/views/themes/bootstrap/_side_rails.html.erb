@@ -1,18 +1,16 @@
-<% if content_for?(:site_160x600_left_top_banner) || content_for?(:site_160x600_right_top_banner) %>
-  <div class="row">
-    <div class="<%= css_columns(12) %>">
-      <div class="ui segment">
-        <div class="ui left rail" style="width: 160px;">
-          <div class="ui segment">
-            <%= yield :site_160x600_left_top_banner %>
-          </div>
+<div class="row">
+  <div class="<%= css_columns(12) %>">
+    <div class="ui segment">
+      <div class="ui left rail" style="width: 160px;">
+        <div class="ui segment">
+          <%= mountable_fragments :site_160x600_left_rail_banner %>
         </div>
-        <div class="ui right rail" style="width: 160px;">
-          <div class="ui segment">
-            <%= yield :site_160x600_right_top_banner %>
-          </div>
+      </div>
+      <div class="ui right rail" style="width: 160px;">
+        <div class="ui segment">
+          <%= mountable_fragments :site_160x600_right_rail_banner %>
         </div>
       </div>
     </div>
   </div>
-<% end %>
+</div>

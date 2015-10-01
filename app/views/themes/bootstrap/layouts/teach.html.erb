@@ -54,7 +54,7 @@
         </div> -->
       </div>
 
-      <%= yield :teach_160x200_left_middle_banner %>
+      <%= mountable_fragments :teach_160x200_left_top_banner %>
     </div>
     <div class="<%= css_columns(10) %>">
       <%
@@ -94,7 +94,7 @@
   <div class="row extra-padded">
 	  <div class="<%= css_columns(2) %> side-navabar">
       <%= render "teach/courses/ui_main_side" %>
-      <%= yield :teach_160x600_left_bottom_banner %>
+      <%= mountable_fragments :teach_160x600_left_bottom_banner %>
     </div>
     <div id="course-main-content" class="<%= css_columns(10) %>">
       <%

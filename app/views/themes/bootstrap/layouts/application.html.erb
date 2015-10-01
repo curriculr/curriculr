@@ -25,6 +25,7 @@
   <% end %>
 </head>
 <body>
+
   <% Announcement.current(cookies.signed[:hidden_announcement_ids]).each do |announcement| %>
     <%= div_for announcement do %>
       <%= announcement.message %>
@@ -32,13 +33,11 @@
     <% end %>
   <% end %>
 
-  <% if content_for? :site_728x90_center_top_banner %>
-    <div class="container">
-      <%= yield :site_728x90_center_top_banner %>
-    </div>
-  <% end %>
+	<%= mountable_fragments :pre_layout_actions %>
 
   <%= render "/navbar" %>
+
+	<div class="container"><%= mountable_fragments :site_728x90_center_top_banner %></div>
 
   <% if action_name == 'front' %>
     <%= render :template => "layouts/front" %>
@@ -58,37 +57,36 @@
     </div>
   </div>
 
-  <% if content_for? :site_728x90_center_bottom_banner %>
-    <div class="container">
-      <%= yield :site_728x90_center_bottom_banner %>
-    </div>
-  <% end %>
+  <div class="container"><%= mountable_fragments :site_728x90_center_bottom_banner %></div>
 
   <%= render "/footer" %>
 
-  <script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-      extensions: ["tex2jax.js"],
-      tex2jax: {
-        inlineMath: [ ['\\(','\\)'] ],
-        displayMath: [ ['\\[','\\]'] ],
-        processEscapes: true,
-        skipTags: ["script","noscript","style","textarea","pre","code"],
-        ignoreClass: "tex2jax_ignore"
-      },
-      MathMenu: {
-        //helpURL: "http://www.mathjax.org/help/user/",
-        showRenderer: false,
-        showLocale: false
-      }
-    });
-  </script>
+	<%= mountable_fragments :post_layout_actions %>
 
   <%= javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/ace.js" if @req_attributes[:code?] %>
   <%= mountable_fragments :pre_app_javascript %>
 	<%= javascript_include_tag "application" %>
 	<%= javascript_include_tag "bootstrap/overrides" %>
-  <%= javascript_include_tag "//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML" %>
+	<% if @req_attributes[:math?] %>
+		<script type="text/x-mathjax-config">
+			MathJax.Hub.Config({
+				extensions: ["tex2jax.js"],
+				tex2jax: {
+					inlineMath: [ ['\\(','\\)'] ],
+					displayMath: [ ['\\[','\\]'] ],
+					processEscapes: true,
+					skipTags: ["script","noscript","style","textarea","pre","code"],
+					ignoreClass: "tex2jax_ignore"
+				},
+				MathMenu: {
+					//helpURL: "http://www.mathjax.org/help/user/",
+					showRenderer: false,
+					showLocale: false
+				}
+			});
+		</script>
+	  <%= javascript_include_tag "//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML" %>
+	<% end %>
   <%= mountable_fragments :post_app_javascript %>
   <%= timeago_script_tag %>
   <%= pnotify_script_tag %>

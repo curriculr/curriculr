@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 
-# By Rails 
+# By Rails
 gem 'rails', '4.2.0'
 
-# Either postgresql  
+# Either postgresql
 gem 'pg'
 # or mysql
 #gem 'mysql2'
@@ -18,17 +18,17 @@ gem 'unicorn'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'capistrano-rails', group: :development
 
-group :development, :test do 
+group :development, :test do
   gem 'byebug'
   gem 'web-console', '~> 2.0'
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'spring'  
-end 
+  gem 'spring'
+end
 
-group :test do  
-  gem 'faker' 
-  gem 'capybara' 
+group :test do
+  gem 'faker'
+  gem 'capybara'
   gem 'launchy'
   gem 'selenium-webdriver'
 end
@@ -69,4 +69,3 @@ gem 'chosen-rails'
 gem 'friendly_id', '~> 5.0.0'
 gem 'jquery-fileupload-rails'
 gem 'whenever', :require => false
-gem 'payment', :path => '/Users/aalgahmi/Workspace/duroosi/gems/payment'

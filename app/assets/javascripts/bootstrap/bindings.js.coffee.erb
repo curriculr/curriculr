@@ -15,7 +15,7 @@ ui_modal_confirmation = (kind, hdr, body, link, close) ->
   """
   $("##{kind}-modal .modal-dialog .modal-content").html(html)
   $("##{kind}-modal").modal()
-  
+
 window.ui_modal_confirmation = ui_modal_confirmation
 
 window.ui_rebind_application_events  = ($) ->
@@ -24,7 +24,7 @@ window.ui_rebind_application_events  = ($) ->
   #     $(".navbar-fixed-top").addClass("top-nav-collapse")
   #   else
   #     $(".navbar-fixed-top").removeClass("top-nav-collapse")
-      
+
   # mediaelementjs
   $('video.mediaelementjs, audio.mediaelementjs').mediaelementplayer()
 
@@ -72,38 +72,38 @@ window.ui_rebind_application_events  = ($) ->
     length = $("##{vid}").length
     if length > 0
       vid = "#{vid}_#{length}"
-    
+
     if $(this).data('sublime')
       if $(this).data('youtube')
         video = """
-          <video class="sublime" data-uid="#{vid}" 
-                 data-youtube-id="#{$(this).data('url')}" id="#{vid}" 
-                 preload="none" title="#{$(this).data('title')}" width="568" 
+          <video class="sublime" data-uid="#{vid}"
+                 data-youtube-id="#{$(this).data('url')}" id="#{vid}"
+                 preload="none" title="#{$(this).data('title')}" width="568"
                  height="320">
           </video>
         """
       else
         video = """
-          <video class="sublime" data-uid="#{vid}" 
-                 id="#{vid}" 
-                 preload="none" title="#{$(this).data('title')}" width="568" 
+          <video class="sublime" data-uid="#{vid}"
+                 id="#{vid}"
+                 preload="none" title="#{$(this).data('title')}" width="568"
                  height="320">
-            <source src="#{$(this).data('url')}"></source>  
+            <source src="#{$(this).data('url')}"></source>
           </video>
         """
     else
       if $(this).data('youtube')
         video = """
-          <video class="mediaelementjs" id="#{vid}" 
-                 preload="none" title="#{$(this).data('title')}" width="568" 
+          <video class="mediaelementjs" id="#{vid}"
+                 preload="none" title="#{$(this).data('title')}" width="568"
                  height="320">
-            <source type="video/youtube" src="https://youtu.be/#{$(this).data('url')}"></source> 
+            <source type="video/youtube" src="https://youtu.be/#{$(this).data('url')}"></source>
           </video>
         """
       else
         video = """
           <video class="mediaelementjs" id="#{vid}" src="#{$(this).data('url')}"
-                 preload="none" title="#{$(this).data('title')}" width="568" 
+                 preload="none" title="#{$(this).data('title')}" width="568"
                  height="320">
           </video>
         """
@@ -198,22 +198,22 @@ window.ui_rebind_application_events  = ($) ->
       $(".answer-field").hide()
     else
       $(".answer-field").show()
-      
+
   $('#question_bank_list').unbind().on 'change', ->
     show_hide_answer_fields($(this).val())
-    
+
   if $('#question_bank_list').length > 0
     show_hide_answer_fields $('#question_bank_list').val()
-    
-  # Making units and lectures dynamic    
+
+  # Making units and lectures dynamic
   all_lectures = $('#assessment_lecture_id').html()
   $('[id ^=assessment_q_selectors_attributes][id $=lecture_id]').each ->
     if $(this).find('option').length <= 1
       $(this).parent().hide()
     else
       $(this).parent().show()
-  
-  $('[id ^=assessment_q_selectors_attributes][id $=unit_id]').unbind().on 'change', -> 
+
+  $('[id ^=assessment_q_selectors_attributes][id $=unit_id]').unbind().on 'change', ->
     uid = $(this).attr('id')
     lid = $(this).closest('.removable').find('[id ^=assessment_q_selectors_attributes][id $=lecture_id]').attr('id')
     unit = $("##{uid} :selected").text()
@@ -224,7 +224,7 @@ window.ui_rebind_application_events  = ($) ->
     else
       $("##{lid}").empty()
       $("##{lid}").parent().hide()
-      
+
   make_fields_removable = (event) ->
     $(this).prev('input[type=hidden]').val('1')
     if $(this).data('opr') == 'remove'
@@ -233,7 +233,7 @@ window.ui_rebind_application_events  = ($) ->
       $(this).closest('.removable').hide()
     number_fields()
     event.preventDefault()
-    
+
   number_fields = () ->
     if $('.field-container .removable .control-label span').length >= 1
       $('.field-container .removable .control-label span').each (index, element) ->
@@ -254,14 +254,14 @@ window.ui_rebind_application_events  = ($) ->
     $('.remove_fields').unbind().on 'click', make_fields_removable
     $('.field-container .removable .order-field').each (index) ->
       @value = index + 1
-    
+
     $('[id ^=assessment_q_selectors_attributes][id $=lecture_id]').each ->
       if $(this).find('option').length <= 1
         $(this).parent().hide()
       else
         $(this).parent().show()
-    
-    $('[id ^=assessment_q_selectors_attributes][id $=unit_id]').unbind().on 'change', -> 
+
+    $('[id ^=assessment_q_selectors_attributes][id $=unit_id]').unbind().on 'change', ->
       uid = $(this).attr('id')
       lid = $(this).closest('.removable').find('[id ^=assessment_q_selectors_attributes][id $=lecture_id]').attr('id')
       unit = $("##{uid} :selected").text()
@@ -272,7 +272,7 @@ window.ui_rebind_application_events  = ($) ->
       else
         $("##{lid}").empty()
         $("##{lid}").parent().hide()
-    
+
     if $('#question_bank_list').length > 0
       show_hide_answer_fields $('#question_bank_list').val()
 
@@ -280,12 +280,12 @@ window.ui_rebind_application_events  = ($) ->
     event.preventDefault()
 
   number_fields()
-  
+
   # Questions
-  # 2: Making units and lectures dynamic    
+  # 2: Making units and lectures dynamic
   all_lectures = $('#question_unit_lectures').html()
-  
-  $('#question_unit_id').unbind().on 'change', -> 
+
+  $('#question_unit_id').unbind().on 'change', ->
     uid = $(this).attr('id')
     lid = "question_lecture_id"
     unit = $("##{uid} :selected").text()
@@ -301,8 +301,8 @@ window.ui_rebind_application_events  = ($) ->
   $('.include-in-lecture').unbind().on 'click', (e) ->
     $(this).closest('form').submit()
 
-  # Updates 
-  show_hide_update_fields_by_kind = (www, email, sms) ->  
+  # Updates
+  show_hide_update_fields_by_kind = (www, email, sms) ->
     if $(www).is(':checked') or $(email).is(':checked')
       $('#update_subject').closest('.form-group').show()
     else
@@ -349,17 +349,17 @@ window.ui_rebind_application_events  = ($) ->
     if $(this).data('active') == 0
       $.get($(this).data('update-url'))
       $(this).data('active', '1')
-    
+
   # Sortables
   $('#sortable-units-accordion').sortable(
-    axis: 'y' 
+    axis: 'y'
     handle: '.sort-handle'
     update: ->
       $.post($(this).data('update-url'), $(this).sortable('serialize'))
   )
-  
+
   $('.sortable').sortable(
-    axis: 'y' 
+    axis: 'y'
     update: ->
       sortid = 'id'
       child = $(this).children(":first")
@@ -367,19 +367,19 @@ window.ui_rebind_application_events  = ($) ->
         sortid = 'sortid'
       $.post($(this).data('update-url'), $(this).sortable('serialize', {'attribute': sortid}))
   )
-  
+
   $('.sortable .lecture').unbind().on 'click', ->
     if $("#lecture-#{$(this).data('lecture')}").length == 0
       $.get($(this).data('update-url'))
     else
       $("#sortable-lectures-#{$(this).data('unit')} .lecture").removeClass("active")
       $(this).addClass("active")
-      
+
   $('.unit .nav-tabs a[data-toggle="tab"]').unbind('shown.bs.tab').on 'shown.bs.tab', (e) ->
     unit = $(this).data('unit')
     $(".unit-#{unit}-new-link").hide()
     $($(this).attr('href') + '-new').show()
-    
+
   $('.klass a[data-toggle="tab"]').unbind('shown.bs.tab').on 'shown.bs.tab', (e) ->
     klass = $(this).data('klass')
     $(".klass-#{klass}-new-link").hide()
@@ -414,7 +414,7 @@ window.ui_rebind_application_events  = ($) ->
     e.preventDefault()
 
   $('.sortable-question-sort').sortable(
-    axis: 'y' 
+    axis: 'y'
     update: ->
       qid = $(this).data('question')
       $(this).find('input[type=hidden]').each (index, element) ->
@@ -439,16 +439,16 @@ window.ui_rebind_application_events  = ($) ->
       $(".lecture-contents .lecture-content-link-pos-#{pos}").addClass("active")
 
   $('.btn-popover').hover(
-    (e) -> 
+    (e) ->
       $(this).find('i.fa').html('&nbsp;&nbsp;' + $(this).data('content'))
-    (e) -> 
+    (e) ->
       $(this).find('i.fa').html('')
   )
 
   $('.show_lecture_question_answer').unbind().on 'click', (e) ->
     $(this).closest('.attempt-question').find('.question-answer div').show()
     e.preventDefault()
-    
+
   set_lecture_pager_position(lecture_pager_position) if lecture_pager_position?
 
   $('#multi_new_medium').fileupload
@@ -468,9 +468,9 @@ window.ui_rebind_application_events  = ($) ->
         data.context.find('.progress-bar').css('width', progress + '%')
 
   $('tr.medium-content').hover(
-    (e) -> 
+    (e) ->
       $(this).find('.medium-url').show()
-    (e) -> 
+    (e) ->
       $(this).find('.medium-url').hide()
   )
 
@@ -499,7 +499,7 @@ window.ui_rebind_application_events  = ($) ->
           <a href="##{id}" data-download="png" class="btn btn-default" title="Download"><i class="fa fa-download"></i></a>
         </div>
       </div>
-      
+
       <canvas id="#{id}" height="400" style="border: 1px solid #eee; #{bg}"></canvas>
     """
     $(container).html(html)
@@ -507,31 +507,31 @@ window.ui_rebind_application_events  = ($) ->
 
   $('.sketchpad-able').each ->
     if $(this).data('background')
-      bg = "background: url(#{$(this).data('background')}) no-repeat center center;" 
+      bg = "background: url(#{$(this).data('background')}) no-repeat center center;"
     else
       bg = ''
     display_sketchpad($(this), $(this).data('id'), bg)
     $("##{$(this).data('id')}").css({'width': '100%', 'height': '400'})
 
-  MathJax.Hub.Queue(["Typeset",MathJax.Hub])
+  MathJax.Hub.Queue(["Typeset",MathJax.Hub]) if MathJax?
 
   # Card dimmer - semantic-ui
   $('.ui.card .image').dimmer(on: 'hover')
-  
+
 jQuery ->
   ui_rebind_application_events jQuery
-  
+
 #jQuery ->
-#  $('#course-main-content-container a:not([data-toggle="collapse"])').on 'click', (e) -> 
+#  $('#course-main-content-container a:not([data-toggle="collapse"])').on 'click', (e) ->
 #    e.preventDefault()
-#      
+#
 #    $.get @href, (data) ->
 #      $('#course-main-content').html(data)
 #      eb = new EventBinder
 #      eb.bind jQuery
-#      
+#
 #    history.pushState(null, document.title, @href)
-#    
+#
 #  $(window).bind "popstate", ->
 #    $.get location.href, (data) ->
 #      $('#course-main-content').html(data)
