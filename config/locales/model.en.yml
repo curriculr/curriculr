@@ -829,3 +829,4 @@ en:
           made of one or more lectures. This page is where you add and manage units and their lectures.
         </div>
       no_info_to_display: No information to display
+      first_and_others: "%{first}, ..."

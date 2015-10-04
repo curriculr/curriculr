@@ -7,7 +7,6 @@ class PreApplicationController < ActionController::Base
   before_action :set_page_header
   before_action :set_app_menus
 
-  #after_action :store_location
   helper_method :add_item_to_app_menu, :app_menu
 
   layout :set_layout
@@ -18,18 +17,8 @@ class PreApplicationController < ActionController::Base
     request.xhr? ? false : 'application'
   end
 
-  def store_location
-    if (request.fullpath != "/users/sign_in" &&
-        request.fullpath != "/users/sign_up" &&
-        request.fullpath != "/users/password" &&
-        request.fullpath != "/users/sign_out" &&
-        !request.xhr?) # don't store ajax calls
-      session[:previous_url] = request.fullpath
-    end
-  end
-
   def after_sign_in_path_for(resource)
-    session[:previous_url] || root_path
+    stored_location_for(:user) || home_path
   end
 
   def set_timezone

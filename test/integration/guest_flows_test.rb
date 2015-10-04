@@ -3,11 +3,11 @@ require 'test_helper'
 class GuestFlowsTest < ActionDispatch::IntegrationTest
   def setup
     [accounts(:main), accounts(:secondary)].each do |a|
-      I18n.t('config.auto_generated_pages').each do |slug, name| 
+      I18n.t('config.auto_generated_pages').each do |slug, name|
         $site['supported_locales'].keys.each do |locale|
           page = Page.create(
-            :name => name, 
-            :about => I18n.t("page.text.under_construction"), 
+            :name => name,
+            :about => I18n.t("page.text.under_construction"),
             :public => true,
             :published => true,
             :owner => a.user,
@@ -48,13 +48,13 @@ class GuestFlowsTest < ActionDispatch::IntegrationTest
   test 'can visit signup page' do
     visit new_user_registration_path
 
-    assert_text("New Registration")
+    assert_text("By signing up for a new account, you are agreeing to")
   end
 
   test 'can visit about page' do
     visit about_path
-    
-    assert page.has_content?("About") 
+
+    assert page.has_content?("About")
   end
 
   test 'can visit contactus page' do
@@ -66,24 +66,24 @@ class GuestFlowsTest < ActionDispatch::IntegrationTest
   test 'can visit privacy page' do
     visit localized_page_path(:privacy)
 
-    assert page.has_content?("Privacy") 
+    assert page.has_content?("Privacy")
   end
 
   test 'can visit terms and conditions page' do
     visit localized_page_path(:terms)
 
-    assert page.has_content?("Terms of service") 
+    assert page.has_content?("Terms of service")
   end
 
   test 'can register with a name, email and password' do
     visit new_user_registration_path
-    fill_in "Name",                 :with => "John Smith "
-    fill_in "Email",                 :with => "jsmith@example.com"
-    fill_in "Password",              :with => "a_secret"
-    fill_in "Confirm Password", :with => "a_secret"
-    
+    fill_in "#user_name",                 :with => "John Smith "
+    fill_in "#user_email",                 :with => "jsmith@example.com"
+    fill_in "#user_password",              :with => "a_secret"
+    fill_in "#user_password_confirmation", :with => "a_secret"
+
     click_button "Create an account"
-    
+
     assert page.html.include?("A message with a confirmation link has been sent to your email address.")
     assert_equal root_path, current_path
   end
@@ -91,11 +91,11 @@ class GuestFlowsTest < ActionDispatch::IntegrationTest
   test 'can sign in as a student' do
     user = users(:two)
     visit new_user_session_path
-    fill_in 'user_email', with: user.email
-    fill_in 'Password', with: 'password'
+    fill_in '#user_email', with: user.email
+    fill_in '#user_password', with: 'password'
 
-    click_button 'Login'
-    
+    click_button 'Sign in'
+
     assert page.has_content?(user.name)
     assert_equal home_path, current_path
 
@@ -105,11 +105,11 @@ class GuestFlowsTest < ActionDispatch::IntegrationTest
   test 'can sign in as an instructor' do
     instructor = users(:assistant)
     visit new_user_session_path
-    fill_in 'user_email', with: instructor.email
-    fill_in 'Password', with: 'password'
+    fill_in '#user_email', with: instructor.email
+    fill_in '#user_password', with: 'password'
 
-    click_button 'Login'
-    
+    click_button 'Sign in'
+
     assert page.has_content?("Builder")
     assert_equal home_path, current_path
 
@@ -119,11 +119,11 @@ class GuestFlowsTest < ActionDispatch::IntegrationTest
   test 'can sign in as an admin' do
     admin = users(:super)
     visit new_user_session_path
-    fill_in 'user_email', with: admin.email
+    fill_in 'Email', with: admin.email
     fill_in 'Password', with: 'password'
-    
-    click_button 'Login'
-    
+
+    click_button 'Sign in'
+
     assert page.has_content?("Administration")
     assert_equal home_path, current_path
 

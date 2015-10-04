@@ -55,6 +55,5 @@ class CreateUsers < ActiveRecord::Migration
     # add_index :users, :authentication_token, :unique => true
 
     add_foreign_key :users, :accounts
-    add_foreign_key :accounts, :users
   end
 end

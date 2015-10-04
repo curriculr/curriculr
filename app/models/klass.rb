@@ -196,13 +196,8 @@ class Klass < ActiveRecord::Base
     name
   end
 
-  def instructors
-    instructors = self.course.instructors.where("role <> :role", :role => 'technician').order(:order).to_a
-    if instructors.blank?
-      instructors = [ Instructor.new(:user_id => self.course.originator_id, :role => I18n.t('config.staff.instructor'))]
-    end
-
-    instructors
+  def instructors(mode = :all)
+    course.by_instructors(mode)
   end
 
   # NOTE: mysql-specific

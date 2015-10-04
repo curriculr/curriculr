@@ -49,15 +49,20 @@ class Course < ActiveRecord::Base
     self.klasses.where(:approved => false)
   end
 
-  def by_instructors
+  def by_instructors(mode = :by)
     staff = instructors.where("role <> :role", :role => 'technician').order(:order).to_a
     if staff.blank?
-      staff = [ originator.name ]
-    else
-      staff = staff.map do |s| s.name end
+      staff = [Instructor.new(:user_id => originator_id, :name => originator.name, :role => I18n.t('config.staff.instructor'))]
     end
 
-    %(#{I18n.t('page.text.by')} #{staff.join(' , ')})
+    case mode
+    when :first
+      return staff.first, staff.count
+    when :all
+      staff
+    when :by
+      %(#{I18n.t('page.text.by')} #{staff.map(&:name).join(' , ')})
+    end
   end
 
   def syllabus

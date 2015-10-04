@@ -1,8 +1,9 @@
-<% 
+<%
   hdr = link_to course.name, [:teach, course], :class => 'header'
   th = ui_image_src(course.poster ? course.poster.at_url(:sm) : nil, '/images/holder-sm.png')
-  action = link(:course, :edit, edit_teach_course_path(course), :class => css_button(:primary)) 
+  action = link(:course, :edit, edit_teach_course_path(course), :class => css_button(:primary))
   labels = ui_course_labels(course)
+  instructor, instructors_count = course.by_instructors(:first)
   %>
 <%# ui_media(th, "#{hdr} #{content_tag :span, t('page.text.inactive'), :class => css_label(:warning) unless course.active}",
       (markdown(summary(course.about)) + action),
@@ -27,13 +28,18 @@
         <small><%= l(course.updated_at) %></small>
       </div>
       <div class="description">
-        <%= markdown(summary(course.about)) %>
+        <%= markdown(summary(course.about)) %><br />
       </div>
+      <% if labels.present? %>
+        <div class="meta">
+          <%= labels %>
+        </div>
+      <% end %>
     </div>
-    <% if labels.present? %>
-      <div class="extra content">
-        <%= labels %>
-      </div>
-    <% end %>
+    <div class="extra content">
+      <%= image_tag((instructor.avatar_url(current_account, :th) || instructor.user.profile.avatar_url(current_account, :th) || '/images/nobody-th.png'),
+            :size => '21x21', :class => "right floated ui avatar image") %>
+      <%= instructors_count > 1 ? t('page.text.first_and_others', :first => instructor.name) : instructor.name %>
+    </div>
   </div>
 </div>

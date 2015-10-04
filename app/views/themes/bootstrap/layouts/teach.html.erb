@@ -39,19 +39,6 @@
           </div>
           <%= image_tag ui_image_src(@course.poster ? @course.poster.at_url(:md) : nil, '/images/holder-md.png') %>
         </div>
-        <!-- <div class="extra content">
-          <%# instructor = @course.instructors.order(:order).first %>
-          <%#
-          if instructor
-            avatar = (instructor.avatar_url(current_account, :th) || instructor.user.profile.avatar_url(current_account, :th) || '/images/nobody-th.png')
-            name = instructor.name
-          else
-            avatar = (@course.originator.profile.avatar_url(current_account, :th) || '/images/nobody-th.png')
-            name = @course.originator.name
-          end
-          %>
-          <img class="ui avatar image" src="<%# avatar %>"> <small><%# name %></small>
-        </div> -->
       </div>
 
       <%= mountable_fragments :teach_160x200_left_top_banner %>
