@@ -2,12 +2,12 @@ account:
   title: Curriculr
   locale: en
   time_zone: "Mountain Time (US & Canada)"
-  theme: 
+  theme:
     name: bootstrap
     fluid: false
     flavor: vanilla
     logo: true
-  
+
   use_gravatar: true
 
   require_admin_approval_of_classes: true
@@ -18,7 +18,7 @@ account:
     contact_us_at: admin@example.com
     noreply: noreply@example.com
 
-  social_pages: 
+  social_pages:
     facebook: https://www.facebook.com/curriculr
     twitter: https://twitter.com/curriculr
     google-plus: https://plus.google.com/101434561769243560321
@@ -27,6 +27,7 @@ account:
     github:
 
   allow_user_student_dependents: false
+  allow_faculty_applications: true
   allow_file_uploads: true
   allowed_file_types:
     image:

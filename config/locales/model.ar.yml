@@ -113,6 +113,9 @@ ar:
         one: جلسة
       password:
         one: كلمة سر
+      facultyapplication:
+        one: طلب عضوية هيئة التدريس
+        other: طلبات عضوية هيئة التدريس
 
     actions:
       go_back: عد إلى حيث أتيت
@@ -245,11 +248,12 @@ ar:
       add_audio: <i class="fa fa-plus"></i> أضف ملف صوتي
       add_document: <i class="fa fa-plus"></i> أضف وثيقة
       add_other: <i class="fa fa-plus"></i> أضف مرفقا
-      decline: ارفض الدعوة
+      decline: ارفض 
       blog_posts: مقالاتي
       static_pages_or_blogs: الصفحات / المقالات
       start_new_course: أبدأ مقررا جديدا
       edit_profile: <i class="fa fa-edit"></i> عدل بياناتي الخاصة
+      become_a_faculty: انظم إلى هيئة التدريس
 
     confirmations:
       destroy: هل انت متأكد من حذف ال%{name}؟
@@ -533,6 +537,20 @@ ar:
         name: الاسم
         avatar: الصورة
         relationship: علاقته بالمستخدم
+      faculty_application:
+        name: الاسم
+        about: السيرة الذاتية
+        prefix: البادئة
+        update_profile: حدث بياناتي الخاصة
+        course: اسم المقرر
+        description: نبذة عن المقرر
+        weeks: مدة الفصل بالأسابيع
+        workload: الجهد المطلوب (بالساعة في الأسبوع)
+        locale: اللغة
+        country: البلد
+        level_list: المستوى
+        category_list: التصنيف
+        approved: موافق عليه
 
   # Non-persistent models and validation messages
   activemodel:
@@ -663,6 +681,9 @@ ar:
       classes_i_am_taking: الفصول التي آخذها
       classes_i_took: الفصول التي أخذتها
       get_involved: تعاون معنا
+      about_you: بياناتك الخاصة
+      about_your_course: بيانات مقررك الدراسي
+      faculty_application: طلب عضوية هيئة التدريس
 
     text:
       more: اكثر
@@ -829,3 +850,12 @@ ar:
         </div>
       no_info_to_display: لا معلومات للعرض
       first_and_others: "%{first}, ..."
+      faculty_agreement: أوافق على بنود وشروط التعليم المفتوح المعمول بها في هذا الموقع و على قواعد نظام الأمانة العلمية المتبعة في فصوله الدراسية.
+      faculty_application_html:
+        <div class="alert alert-info" role="alert">
+          لتتمكن من إنشاء مقرراتك الدراسية و فتح فصولها لمستخدمي الموقع
+          لا بد أولا أن تكون عضوا في هيئة تدريس هذا الموقع. املأ الفراغات
+          التالية عنك و عن المقرر الدراسي الذي ترغب تدريسه لتقديم طلبك الانضمام
+          إلى هيئة التدريس. بعد أن تتم مراجعة طلبك و الموافقة عليه ستتمكن
+          من ذلك المقرر.
+        </div>

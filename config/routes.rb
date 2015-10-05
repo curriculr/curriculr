@@ -4,12 +4,12 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => {
     :omniauth_callbacks => "omniauth_callbacks"
   }
-  
+
   # Concerns
   concern :sortable do
     post :sort, :on => :collection
   end
-  
+
   concern :with_media do
     resources :media do
       get :multi, :on => :new, :as => :multi
@@ -17,42 +17,47 @@ Rails.application.routes.draw do
   end
 
   concerns :with_media
-  
+
   concern :with_materials do
     resources :materials, :only => [:show, :new, :create, :destroy]
   end
-  
+
   concern :with_pages do
     resources :pages, :except => [:index]
   end
-  
+
   concern :assessable do
     resources :questions, :except => :show do
       post :sort_option, :on => :member
       post :include_in_lecture, :on => :member
     end
-    
+
     resources :assessments, :except => :index do
       resources :q_selectors, :except => [:show, :index]
       get :preview, :on => :member
       post :sort_q_selector, :on => :member
     end
   end
-  
+
   concern :announceable do
     resources :updates, :except => [:show]
   end
-  
+
   resources :users do
     resources :access_tokens, :only => [:create, :destroy], :module => 'admin' do
       get :revoke, :on => :member
     end
   end
-  
+
   resources :pages
   get 'blogs', :to => 'pages#blogs', :as => 'blogs'
   get 'pages/localized/:slug', :to => 'pages#localized', :as => 'localized_page'
-    
+
+  resources :faculty_applications do
+    put :approve, :on => :member
+    put :decline, :on => :member
+  end
+
 	# Courses Resources
   namespace :teach do
   	resources :courses, concerns: [:with_media, :with_materials, :assessable, :with_pages] do
@@ -66,21 +71,21 @@ Rails.application.routes.draw do
 
         resources :updates, :except => [:index, :show]
       end
-    
+
       resources :klasses do
         resources :forums, :except => :show
-      
+
         resources :updates, :except => [:index, :show] do
           put :make, :on => :member
         end
-        
+
         get :invite, :on => :member
         post :invite, :on => :member
         put :approve, :on => :member
         put :ready, :on => :member
         put :discuss, :on => :member
       end
-      
+
       resources :forums, :except => :show # For common forums
       resources :updates, :except => [:index, :show] do
         put :make, :on => :member
@@ -93,11 +98,11 @@ Rails.application.routes.draw do
       get 'dashboard/courses/:course_id', :to => 'dashboard#show', :as => 'dashboard'
     end
   end
-  
+
   # Klasses Resources
   namespace :learn do
-    resources :students 
-    
+    resources :students
+
     resources :klasses, :only => [:index, :show] do
       resources :instructors, :only => :index
       resources :lectures, :only => [:index, :show] do
@@ -111,46 +116,46 @@ Rails.application.routes.draw do
           get 'assessments/:assessment_id', :as => :show_assessment_of, :to => 'lectures#show_assessment'
         end
       end
-      
+
       resources :units, :only => [] do
         resources :pages, :only => :index
         resources :materials, :only => :index
       end
-      
+
       resources :pages, :only => [ :show, :index ]
       resources :materials, :only => :index
       resources :updates, :except => [ :show, :index ]
       get :access, :on => :member
       get :report, :on => :member
       get :students, :on => :member
-      
+
       resources :forums do
         resources :topics, :except => :index do
           resources :posts, :except => [:index, :show] do
             resources :posts
-            
+
             put :up, :on => :member
             put :down, :on => :member
           end
-          
+
           put :up, :on => :member
           put :down, :on => :member
         end
       end
-    
+
       resources :assessments, :only => [:index, :show] do
         resources :attempts, :only => [:new, :create] do
           post :show_answer, :on => :member
         end
-      
+
         post 'questions/:question_id/show_answer',
           :to => 'attempts#show_answer',
           :as => 'show_answer'
       end
-    
+
       put 'accept', :to => 'klasses#accept', :on => :member
       put 'decline', :to => 'klasses#decline', :on => :member
-      
+
     	put 'drop', :to => 'klasses#drop', :on => :member
       post 'enroll', :to => 'klasses#enroll', :on => :member
       put 'students/:id/current', :to => 'students#current',
@@ -159,15 +164,15 @@ Rails.application.routes.draw do
 
       get 'dashboard/klasses/:klass_id', :to => 'dashboard#show', :as => 'dashboard'
     end
-    
+
     get 'search/klasses', :to => 'klasses#search', :as => 'klass_search'
   end
-  
+
   # Mountable engines
   Rails.application.config.site_engines.each do |name, engine|
     mount engine[:class] => "/#{name}"
   end
-    
+
   namespace :admin do
     resources :announcements, :except => :show do
       get :hide, :on => :member
@@ -176,32 +181,32 @@ Rails.application.routes.draw do
     resources :accounts do
       post :configure, :on => :member
     end
-    
+
     resources :users, :only => [:new, :create]
 
     get 'dashboard', :to => 'dashboard#show', :as => 'dashboard'
   end
-  
+
   get 'admin/config/edit', :to => 'admin/config#edit'
   post 'admin/config', :to => 'admin/config#update'
-  
-  get 'admin/translation/:locale/edit', :to => 'admin/translations#edit', :as => :edit_admin_translation  
+
+  get 'admin/translation/:locale/edit', :to => 'admin/translations#edit', :as => :edit_admin_translation
   post 'admin/translation/:locale', :to => 'admin/translations#update', :as => :admin_translation
   delete 'admin/translation/:locale', :to => 'admin/translations#update'
 
   post "miscellaneous/contactus"
-    
+
   authenticate :user, lambda {|u| u.has_role?(:admin)} do
     mount Sidekiq::Web => '/sidekiq'
   end
-  
+
   # Top-level pages
   get 'about', :to => "miscellaneous#team", :as => 'about'
   get 'contactus', :to => "miscellaneous#contactus", :as => 'contactus'
   get 'home', :to => 'users#home', :as => :home
 
-  root :to => 'users#front', :via => :get  
-  
+  root :to => 'users#front', :via => :get
+
   # Handling errors
   match '/401', to: 'errors#unauthorized', via: :all, as: :error_401
   match '/404', to: 'errors#not_found', via: :all, as: :error_404

@@ -1,0 +1,46 @@
+<%= ui_header t('page.titles.faculty_application') %>
+
+<%= themed_form_for @faculty_application do |f| %>
+  <%= t('page.text.faculty_application_html') %>
+  <div class="row">
+    <div class="<%= css_columns(6) %>">
+      <fieldset>
+        <legend><%= t('page.titles.about_you') %></legend>
+        <%= form_static f, :name %>
+        <%= form_static f, :prefix %>
+        <%= form_static f, :about, :value => markdown(@faculty_application.about) %>
+        <%= form_checkbox f, :update_profile, :disabled => true %>
+      </fieldset>
+    </div>
+    <div class="<%= css_columns(6) %>">
+      <fieldset>
+        <legend><%= t('page.titles.about_your_course') %></legend>
+        <%= form_static f, :course %>
+        <%= form_static f, :description, :value => markdown(@faculty_application.description) %>
+
+        <div class="row">
+          <div class="<%= css_columns(6) %>">
+      	    <%= form_static f, :weeks %>
+          </div>
+          <div class="<%= css_columns(6) %>">
+      	    <%= form_static f, :workload %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="<%= css_columns(6) %>">
+            <%= form_static f, :locale, :value => $site['supported_locales'][@faculty_application.locale] %>
+          </div>
+          <div class="<%= css_columns(6) %>">
+            <%= form_static f, :country %>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+
+  <%= link :faculty_application, :approve, approve_faculty_application_path(@faculty_application),
+        :method => :put, :class => css_button(:success) %>
+  <%= link :faculty_application, :decline, decline_faculty_application_path(@faculty_application),
+        :method => :put, :class => css_button(:danger) %>
+  <%= link :faculty_application, :cancel, home_path, :class => css_button(:default) %>
+<% end %>

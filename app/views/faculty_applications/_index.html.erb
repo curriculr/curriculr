@@ -1,0 +1,19 @@
+<% faculty_applications = FacultyApplication.pending.to_a %>
+<% unless faculty_applications.empty? %>
+  <%= ui_header t('page.titles.pending_faculty_applications') %>
+
+  <table class="<%= css_table %>">
+  	<thead>
+  		<tr>
+  			<th><%= FacultyApplication.human_attribute_name(:name) %></th>
+  			<th><%= User.human_attribute_name(:email) %></th>
+  			<th><%= FacultyApplication.human_attribute_name(:course) %></th>
+        <th><%= User.human_attribute_name(:since) %></th>
+  		</tr>
+  	</thead>
+  	<tbody id="pending-faculty-applications">
+      <% faculty_applications = FacultyApplication.pending.to_a %>
+  		<%= render faculty_applications %>
+  	</tbody>
+  </table>
+<% end %>

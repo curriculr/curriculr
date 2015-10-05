@@ -7,3 +7,7 @@
     <%= render :partial => 'learn/klasses/klass', :collection => klasses %>
   </div>
 <% end %>
+
+<% if current_account.config['allow_faculty_applications'] %>
+  <%= render :partial => 'faculty_applications/index' %>
+<% end %>

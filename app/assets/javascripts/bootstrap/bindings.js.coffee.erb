@@ -515,6 +515,18 @@ window.ui_rebind_application_events  = ($) ->
 
   MathJax.Hub.Queue(["Typeset",MathJax.Hub]) if MathJax?
 
+  # Faculty Application
+  force_agreement_to_faculty_application = (ch) ->
+    if $(ch).is(':checked')
+      $(ch).closest('form').find('button').attr('disabled', false)
+    else
+      $(ch).closest('form').find('button').attr('disabled', true)
+
+  force_agreement_to_faculty_application($("#agreed_to_faculty_application"))
+
+  $("#agreed_to_faculty_application").unbind().on 'change', ->
+    force_agreement_to_faculty_application($(this))
+
   # Card dimmer - semantic-ui
   $('.ui.card .image').dimmer(on: 'hover')
 

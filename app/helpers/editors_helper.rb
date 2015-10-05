@@ -123,7 +123,8 @@ module EditorsHelper
       end
     end
 
-    wmd_id = options[:data] ? options[:data]: ''
+    options[:data] ||= field.to_s
+    wmd_id = options[:data] #? options[:data]: ''
 
     output += %(
     <div class="wmd-panel">

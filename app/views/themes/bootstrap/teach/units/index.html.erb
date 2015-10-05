@@ -1,14 +1,12 @@
 <%= t('page.text.course_unit_html') %>
 
-<%= link(:unit, :new, new_teach_course_unit_path(@course), 
+<%= link(:unit, :new, new_teach_course_unit_path(@course),
       :class => css(button: :success, align: :right)) %>
+      
+<br /><br />
 
-
-<br>
-<br>
-
-<% 
-  units = @course.units.order('units.order').to_a 
+<%
+  units = @course.units.order('units.order').to_a
 
   active_unit_id = @unit ? @unit.id : nil
 %>
@@ -20,7 +18,7 @@
           <a data-toggle="collapse" class="sort-handle" data-parent="#sortable-units-accordion" href="#collapse-<%= unit.id %>">
             <%= unit.name %>
           </a>
-          
+
           <%= ui_button_dropdown(ui_options_button_text, [
                 link(:unit, :edit, edit_teach_course_unit_path(@course, unit)),
                 nil,
@@ -34,8 +32,8 @@
             :'data-update-url' => teach_course_unit_path(@course, unit, :format => :js) do %>
         <div class="panel-body">
           <% if true #active %>
-            <%= render :partial => 'teach/units/show', :locals => { unit: unit} %>  
-          <% end %> 
+            <%= render :partial => 'teach/units/show', :locals => { unit: unit} %>
+          <% end %>
         </div>
       <% end %>
     <% end %>

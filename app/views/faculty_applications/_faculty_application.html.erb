@@ -1,0 +1,10 @@
+<tr>
+	<td><%= link_to("#{faculty_application.prefix} #{faculty_application.name}" , faculty_application) %></td>
+	<td><%= faculty_application.user.email %></td>
+	<td><%= faculty_application.course %></td>
+  <td>
+    <small>
+      <%= timeago_tag faculty_application.updated_at, :nojs => true, :limit => 10.days.ago %>
+    </small>
+  </td>
+</tr>

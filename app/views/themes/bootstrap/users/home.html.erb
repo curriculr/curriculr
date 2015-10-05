@@ -8,9 +8,18 @@ if current_account.config['allow_user_student_dependents']
     Student.model_name.human(count: 3))
 end
 
-if !current_user.has_role?(:admin) && !current_user.has_role?(:faculty)
-  section = t('page.titles.get_involved')
-  add_item_to_app_menu(:home_page, link_to('Become an instructor',  '#'), section)
+if current_account.config['allow_faculty_applications']
+  if !current_user.has_role?(:admin) && !current_user.has_role?(:faculty)
+    section = t('page.titles.get_involved')
+    faculty_application = FacultyApplication.approved_or_pending(current_user).first
+    if faculty_application
+      if faculty_application.pending?
+        add_item_to_app_menu(:home_page, link(:faculty_application, :become_a_faculty, main_app.edit_faculty_application_path(faculty_application)), section)
+      end
+    else
+      add_item_to_app_menu(:home_page, link(:faculty_application, :become_a_faculty, main_app.new_faculty_application_path), section)
+    end
+  end
 end
 
 if current_user.has_role? :admin
