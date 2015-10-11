@@ -47,6 +47,7 @@ class FacultyApplicationsController < AuthorizedController
   end
 
   def approve
+    success = false
     @faculty_application.transaction do
       @faculty_application.update(:approved => true)
       @faculty_application.user.add_role :faculty
@@ -56,9 +57,19 @@ class FacultyApplicationsController < AuthorizedController
           :about => @faculty_application.about,
           :prefix => @faculty_application.prefix)
       end
+
+      success = true
     end
 
-    # send Email
+    if success
+      Mailer.faculty_application(
+        current_account.slug,
+        current_account.config['mailer']['noreply'],
+        current_user.email,
+        url_for(:controller => 'devise/sessions', :action => 'new'),
+        true
+      ).deliver_later
+    end
 
     respond_with(@faculty_application) do |format|
       format.html { redirect_to home_path}
@@ -66,8 +77,15 @@ class FacultyApplicationsController < AuthorizedController
   end
 
   def decline
-    @faculty_application.update(:approved => false,
-      :declined_at => Time.zone.now)
+     if @faculty_application.update(:approved => false, :declined_at => Time.zone.now)
+       Mailer.faculty_application(
+         current_account.slug,
+         current_account.config['mailer']['noreply'],
+         current_user.email,
+         url_for(:controller => 'devise/sessions', :action => 'new'),
+         false
+       ).deliver_later
+     end
 
     # send Email
     respond_with(@faculty_application) do |format|

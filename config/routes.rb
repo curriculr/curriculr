@@ -47,6 +47,8 @@ Rails.application.routes.draw do
     resources :access_tokens, :only => [:create, :destroy], :module => 'admin' do
       get :revoke, :on => :member
     end
+
+    put :confirm, :on => :member
   end
 
   resources :pages

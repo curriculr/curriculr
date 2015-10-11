@@ -4,7 +4,7 @@
   		<% updates.each_with_index do |update, ndx| %>
   		<tr>
   			<td>
-          <% 
+          <%
             klass = update.klass
             links = []
             links << link(:update, :edit, klass ? edit_teach_course_klass_update_path(@course, klass, update) : [:edit, :teach, @course, @unit, update])
@@ -14,20 +14,20 @@
           <%= ui_button_dropdown ui_options_button_text, links, class: css_button(:default), align: :right %>
 
           <h4>
-            <%= update.subject %></strong> &nbsp;
+            <%= update.subject %> &nbsp;
             <%= content_tag :span, t('page.text.inactive'), :class => "badge" unless update.active %>
             &nbsp;
             <%= content_tag :span do %>
               <%= content_tag :i, '', :class => 'fa fa-globe', :title => t("config.update.kind.www") %>
-            <% end if update.www %> 
+            <% end if update.www %>
             &nbsp;
             <%= content_tag :span do %>
               <%= content_tag :i, '', :class => 'fa fa-envelope', :title => t("config.update.kind.email") %>
-            <% end if update.email %> 
+            <% end if update.email %>
             &nbsp;
             <%= content_tag :span do %>
               <%= content_tag :i, '', :class => 'fa fa-comment', :title => t("config.update.kind.sms") %>
-            <% end if update.sms %> 
+            <% end if update.sms %>
             <br>
             <small>
             <%= t('page.text.to') %> <%= t('config.update.to.' + update.to) %>
@@ -49,4 +49,3 @@
     <% end %>
 	</tbody>
 </table>
-

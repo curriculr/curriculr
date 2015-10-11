@@ -4,7 +4,7 @@ en:
       title: Curriculr
       slogan:
         line1_html: Open and Interactive Learning
-        line2_html: 
+        line2_html:
           <ul class="list-inline">
             <li>Free</li>
             <li class="divider">|</li>
@@ -32,13 +32,13 @@ en:
           unlock_account: Unlock Account
           sign_in: Sign in
           go_to_class: Go to class
-        
+
         confirmation_instructions:
           subject: Confirming Account Instructions
           body_html:
             <p>Welcome %{name}!</p>
             <p>Thank you for signing up for an account with us. You can confirm your account email through the link below.</p>
-            
+
         reset_password_instructions:
           subject: Resetting Password Instructions
           body_html:
@@ -46,30 +46,37 @@ en:
             <p>Someone has requested a link to change your password. You can do this through the link below.</p>
             <p>Your password won't change until you access this link and create a new password.</p>
             <p>If you didn't request this, please ignore this email.</p>
-        
+
         unlock_instructions:
           subject: Unlocking Account Instructions
           body_html:
             <p>Hello %{name}!</p>
             <p>Your account has been locked due to an excessive number of unsuccessful sign in attempts.</p>
             <p>Click the link below to unlock your account.</p>
-            
+
         klass_invitation:
           subject: Accepting Class Invitation Instructions
           body_html:
             <p>
-              Instructor %{name} has invited you to a private class on %{course_name}. To accept this 
+              Instructor %{name} has invited you to a private class on %{course_name}. To accept this
               invitation, click the link below.
-            </p>   
-            
+            </p>
+
         klass_enrollment:
           subject: Notification of Class Enrollment(s)
           body_html:
-            <p>Your are now enrolled in the following classes. To visit these classes, click the link below.</p>
-            
+            <p>You are now enrolled in the following classes. To visit these classes, click the link below.</p>
+
+        faculty_application:
+          subject: Faculty Application Processed
+          approved_body_html:
+            <p>Your faculty application has been approved. You can now start creating your courses.</p>
+          declined_body_html:
+            <p>We are sorry to inform you that your faculty application has been declined at this time.</p>
+
         footer_html:
-          <small>Please do not reply to this message. 
-          Visit <a href="%{site_url}">our site</a> to view our Privacy Policy. 
+          <small>Please do not reply to this message.
+          Visit <a href="%{site_url}">our site</a> to view our Privacy Policy.
           For any questions contact customer service. </small>
           <br>
           <small>© 2015 www.curriculr.org. All rights reserved.</small>

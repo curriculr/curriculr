@@ -11,15 +11,13 @@
       <%= form_date f, :ends_on, :class => 'datepicker' %>
     </div>
   </div>
-  
+
   <div class="row">
     <div class="<%= css_columns(6) %>">
       <%= form_checkbox f, :private %>
       <%= form_checkbox f, :previewed %>
       <%# form_checkbox f, :allow_enrollment # Not supported yet %>
       <%= form_checkbox f, :lectures_on_closed %>
-  
-      <%= form_checkbox f, :free %>
     </div>
     <div class="<%= css_columns(6) %>">
       <%= mountable_fragments :klass_form, f: f, klass: @klass %>

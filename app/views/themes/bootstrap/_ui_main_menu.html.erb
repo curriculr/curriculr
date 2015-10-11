@@ -1,7 +1,7 @@
 <% if current_user %>
   <% add_item_to_app_menu(:site_top, capture do %>
     <li class="<%= 'active' if action_name =='home' && controller_name == 'users' %>">
-      <%= link_to(css_icon(:home, 1) + t("activerecord.actions.home"), main_app.home_path) %>
+      <%= link_to(css_icon([:home, :lg]), main_app.home_path) %>
     </li>
   <% end) %>
 <% end %>

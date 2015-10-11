@@ -123,7 +123,7 @@ module Teach
       def klass_params
         params.require(:klass).permit(:about, :featured, :begins_on,
           :ends_on, :private, :previewed, :allow_enrollment, :slug,
-          :lectures_on_closed, :free)
+          :lectures_on_closed)
       end
   end
 end

@@ -29,7 +29,7 @@ class Mailer < Devise::Mailer
 
     @subject = msg[:subject]
     @body = %(<p>From: #{msg[:name]}</p><p>#{msg[:message]}</p>).html_safe
-    
+
     mail(:from => from, :to => to, :subject => msg[:subject], template_name: 'basic')
   end
 
@@ -38,7 +38,7 @@ class Mailer < Devise::Mailer
     record = User.find(uid)
 
     @url = prepare_url(scoped_t("#{account}.site.mailer.links.confirm_account"), url_for(controller: 'devise/confirmations', action: 'show', confirmation_token: token))
-      
+
     @subject = scoped_t("#{account}.site.mailer.confirmation_instructions.subject")
     @body = scoped_t("#{account}.site.mailer.confirmation_instructions.body_html", :name => record.email, :url => @url)
     mail(:from => opts[:from], :to => opts[:to], :subject => @subject, template_name: 'basic')
@@ -49,8 +49,8 @@ class Mailer < Devise::Mailer
     record = User.find(uid)
 
     @url = prepare_url(scoped_t("#{account}.site.mailer.links.change_password"), url_for(controller: 'devise/passwords', action: 'edit', reset_password_token: token))
-      
-    @subject = scoped_t("#{account}.site.mailer.reset_password_instructions.subject")    
+
+    @subject = scoped_t("#{account}.site.mailer.reset_password_instructions.subject")
     @body = scoped_t("#{account}.site.mailer.reset_password_instructions.body_html", :name => record.email, :url => @url)
     mail(:from => opts[:from], :to => opts[:to], :subject => @subject, template_name: 'basic')
   end
@@ -59,7 +59,7 @@ class Mailer < Devise::Mailer
     record = User.find(uid)
     super(record, token, opts)
   end
-  
+
   # Klass invitation emails
   def klass_invitation(account, from, to, kid, name, url)
     klass = Klass.find(kid)
@@ -69,12 +69,12 @@ class Mailer < Devise::Mailer
 
     @klasses = [ klass ]
     @subject = scoped_t("#{account}.site.mailer.klass_invitation.subject")
-    @body = scoped_t("#{account}.site.mailer.klass_invitation.body_html", :name => name, :url => @url, 
+    @body = scoped_t("#{account}.site.mailer.klass_invitation.body_html", :name => name, :url => @url,
       :course_name => klass.course.name)
-      
+
     mail(:from => from, :to => to, :subject => @subject, template_name: 'basic')
   end
-  
+
   # Klass enrollment emails
   def klass_enrollment(account, from, to, klasses, url)
     @klasses = Klass.find(klasses)
@@ -83,10 +83,10 @@ class Mailer < Devise::Mailer
 
     @subject = scoped_t("#{account}.site.mailer.klass_enrollment.subject")
     @body = scoped_t("#{account}.site.mailer.klass_enrollment.body_html", :url => @url)
-      
-    mail(:from => from, :to => to, :subject => @subject, template_name: 'basic') 
+
+    mail(:from => from, :to => to, :subject => @subject, template_name: 'basic')
   end
-  
+
   # Update emails
   def klass_update(account, from, to, subject, body, kid)
     klass = Klass.find(kid)
@@ -96,7 +96,18 @@ class Mailer < Devise::Mailer
 
     @subject = subject
     @body = body
-      
+
+    mail(:from => from, :to => to, :subject => @subject, template_name: 'basic')
+  end
+
+  # Faculty application approved or declined
+  def faculty_application(account, from, to, url, approved)
+    prepare_msg(account, scoped_t("#{account}.site.mailer.faculty_application.subject"))
+    @url = prepare_url(scoped_t("#{account}.site.mailer.links.sign_in"), url)
+
+    @subject = scoped_t("#{account}.site.mailer.faculty_application.subject")
+    @body = scoped_t("#{account}.site.mailer.faculty_application.#{approved ? 'approved' : 'declined'}_body_html", :url => @url)
+
     mail(:from => from, :to => to, :subject => @subject, template_name: 'basic')
   end
 end

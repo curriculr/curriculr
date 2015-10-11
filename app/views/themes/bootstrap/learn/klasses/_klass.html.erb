@@ -20,21 +20,8 @@
 %>
 
 <% unless allow_actions %>
-  <div class="media">
-    <a class="pull-left" href="#">
-      <img alt="" class="media-object" src="<%= th %>" style="max-width: <%= img_size %>px;">
-    </a>
-    <div class="media-body">
-      <h4 class="media-heading">
-        <%= hdr.html_safe %>
-        <small><%= subhdr %></small>
-      </h4>
-      <small><div class="klass-labels">
-        <%= labels %>
-      </div></small>
-      <%= markdown(summary(klass.course.about)) if allow_description %>
-      <%= ui_klass_enrollment_action(klass, :enroll) if allow_actions %>
-    </div>
+  <div class="ui items">
+    <%= ui_item(th, hdr, subhdr, allow_description ? markdown(summary(klass.course.about)) : '', labels) %>
   </div>
 <% else %>
   <div class="column">

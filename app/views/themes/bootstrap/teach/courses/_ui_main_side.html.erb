@@ -13,17 +13,17 @@ add_item_to_app_menu(:course_side, link_to(css_icon(:home, 2) + t("activerecord.
 add_item_to_app_menu(:course_side, tag(:hr))
 
 link = (link_to teach_course_units_path(@course), :class => controller_name == 'units' ? 'active' : nil do
-  raw Unit.model_name.human(count: 3) + '&nbsp' + content_tag(:span, @course.units_count, :class => css_badge)
+  raw Unit.model_name.human(count: 3) + '&nbsp;' + content_tag(:span, @course.units_count, :class => css_badge)
 end)
 add_item_to_app_menu :course_side, link
 
 link = (link_to teach_course_media_path(@course), :class => controller_name == 'media' ? 'active' : nil do
-  raw Medium.model_name.human(count: 3) + '&nbsp' + content_tag(:span, @course.media_count, :class => css_badge)
+  raw Medium.model_name.human(count: 3) + '&nbsp;' + content_tag(:span, @course.media_count, :class => css_badge)
 end)
 add_item_to_app_menu :course_side, link
 
 link = (link_to teach_course_klasses_path(@course), :class => controller_name.in?([ 'klasses', 'forums', 'updates' ]) ? 'active' : nil do
-  raw Klass.model_name.human(count: 3) + '&nbsp' + content_tag(:span, @course.klasses_count, :class => css_badge)
+  raw Klass.model_name.human(count: 3) + '&nbsp;' + content_tag(:span, @course.klasses_count, :class => css_badge)
 end)
 add_item_to_app_menu :course_side, link
 

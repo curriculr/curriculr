@@ -6,6 +6,7 @@ class CreateKlasses < ActiveRecord::Migration
       t.string :slug, index: true
       t.text :about
     	t.boolean :active, :default => true
+      t.boolean :ready_to_approve, :default => false
     	t.boolean :featured, :default => false
       t.boolean :approved, :default => false
       t.boolean :previewed, :default => false
@@ -17,7 +18,6 @@ class CreateKlasses < ActiveRecord::Migration
       t.integer :enrollments_count, :default => 0
       t.integer :active_enrollments, :default => 0
       t.datetime :approved_at
-      t.boolean :free, :default => true
 
       t.timestamps null: false
     end

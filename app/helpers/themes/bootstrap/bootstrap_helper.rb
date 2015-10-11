@@ -63,7 +63,8 @@ module Themes::Bootstrap::BootstrapHelper
   end
 
   def css_icon(name, spaces = 0)
-    content_tag :i, ('&nbsp;' * spaces).html_safe, class: "fa fa-#{name}"
+    cls = name.kind_of?(Array) ? name.map{|n| "fa-#{n}"}.join(' ') : name
+    content_tag :i, ('&nbsp;' * spaces).html_safe, class: "fa #{cls}"
   end
 
   def css_animated_icon(name, spin = true)
@@ -335,6 +336,50 @@ module Themes::Bootstrap::BootstrapHelper
 
       html.html_safe
     end
+  end
+
+  def ui_item(media, hdr, subhdr, body, extra)
+    %(<div class="item">
+        <div class="image">
+          #{image_tag media}
+        </div>
+        <div class="content">
+          <div class="header">#{hdr}</div>
+          <div class="meta">
+            <span>#{subhdr}</span>
+          </div>
+          <div class="description">
+            #{body}
+          </div>
+          <div class="extra">
+            #{extra}
+          </div>
+        </div>
+      </div>).html_safe
+  end
+
+  def ui_comment(media, author, date, body, actions, form, comments)
+    %(<div class="comment">
+        <div class="avatar">
+          #{image_tag media}
+        </div>
+        <div class="content">
+          <a class="author">#{author}</a>
+          <div class="metadata">
+            <span class="date">#{date}</span>
+          </div>
+          <div class="text">
+            #{body}
+          </div>
+          <div class="actions">
+            #{actions}
+          </div>
+        </div>
+        #{form}
+        <div class="comments">
+          #{comments}
+        </div>
+      </div>).html_safe
   end
 
   def ui_modal(body, options = {})
@@ -774,7 +819,7 @@ module Themes::Bootstrap::BootstrapHelper
       name = (options[:name] || t("activerecord.models.#{options[:model] || controller_name.classify.downcase}.one"))
       if confirm.present?
         html << %(
-        <div id="form-modal" class="modal fade" role="dialog" aria-labelledby="page-modal-label" aria-hidden="true">
+        <div id="form-modal" class="modal fade" role="dialog">
           <div class="modal-dialog modal-md">
             <div class="modal-content"></div>
           </div>

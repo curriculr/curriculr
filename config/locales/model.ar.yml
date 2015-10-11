@@ -24,14 +24,14 @@ ar:
         one: جهة اتصال
         other: جهات اتصال
       course:
-        one: المقرر
-        other: المقررات
+        one: مقرر
+        other: مقررات
       instructor:
         one: مدرس
         other: هيئة التدريس
       update:
-        one: تحديث الفصل
-        other: تحديثات الفصل
+        one: تحديث فصل
+        other: تحديثات فصل
       assessment:
         one: اختبار
         other: اختبارات
@@ -49,13 +49,13 @@ ar:
         other: محددات
       klass:
         one: فصل دراسي
-        other: الفصول الدراسية
+        other: فصول دراسية
       enrollment:
         one: تسجيل
         other: تسجيل
       forum:
         one: منتدى
-        other: المنتديات
+        other: منتديات
       topic:
         one: موضوع
         other: مواضيع
@@ -64,19 +64,19 @@ ar:
         other: مشاركات
       medium:
         one: ملف
-        other: الملفات
+        other: ملفات
       material:
         one: مادة
         other: مواد
       unit:
-        one: الوحدة
-        other: الوحدات
+        one: وحدة
+        other: وحدات
       lecture:
-        one: المحاضرة
-        other: المحاضرات
+        one: محاضرة
+        other: محاضرات
       page:
         one: صفحة
-        other: الصفحات
+        other: صفحات
       access_token:
         one: رمز الدخول
         other: رموز الدخول
@@ -88,7 +88,7 @@ ar:
         other: إعدادات الموقع
       announcement:
         one: اعلان
-        other: الاعلانات
+        other: اعلانات
       translation:
         one: ترجمة
         other: ترجمة/لغات
@@ -97,7 +97,7 @@ ar:
         other: تقرير الأداء
       setting:
         one: إعداد
-        other: الإعدادات
+        other: إعدادات
       student:
         one: طالب
         other: طلاب
@@ -128,8 +128,8 @@ ar:
       new_attempt: <i class="fa fa-plus"></i> إبدأ محاولة جديدة
       copy: انسخ
       course_builder: <i class="fa fa-cogs"></i> للمدرسين
-      teach: <i class="fa fa-cogs"></i> للمدرسين
-      learn: <i class="fa fa-th-list"></i> الفصول الدراسية
+      teach: درِّس
+      learn: تعلم
       help: للمساعدة
       learn_more: اعرف أكثر
       open: افتح
@@ -137,7 +137,7 @@ ar:
       show: اظهر
       new: <i class="fa fa-plus"></i> أضف %{name}
       create: إنشاء
-      edit: <i class="fa fa-edit"></i> عدل %{name}
+      edit: <i class="fa fa-edit"></i> عدل
       update: عدل
       destroy: <i class="fa fa-remove"></i>&nbsp; احذف
       cancel: ألغ
@@ -150,7 +150,7 @@ ar:
       privacy: سرية البيانات
       terms: اتفاقية الاستخدام
       services: خدماتنا
-      blogs: <i class="fa fa-newspaper-o"></i> المدونة الرئيسية
+      blogs: دوِّن
       sign_up: <i class="fa fa-plus"></i> إنشاء حساب
       sign_in: <i class="fa fa-sign-in"></i> ادخل
       sign_out: <i class="fa fa-sign-out"></i> اخرج
@@ -248,7 +248,7 @@ ar:
       add_audio: <i class="fa fa-plus"></i> أضف ملف صوتي
       add_document: <i class="fa fa-plus"></i> أضف وثيقة
       add_other: <i class="fa fa-plus"></i> أضف مرفقا
-      decline: ارفض 
+      decline: ارفض
       blog_posts: مقالاتي
       static_pages_or_blogs: الصفحات / المقالات
       start_new_course: أبدأ مقررا جديدا
@@ -794,7 +794,7 @@ ar:
       unit_problem: مسائل الوحدة
       unit_quiz: اختبارات الوحدة
       honor_system: يؤخذ هذا الفصل الدراسي عبر الانترنت و لا رقيب على الطالب إلا نفسه و أخلاقه و أمانته العلمية. نشجع الطلاب و ندعوهم لأن يتواصلوا مع بعضهم البعض و مع المحاضرين عبر منتديات هذا الفصل و وسائل التواصل الأخرى المتاحة، و أن ينشؤا مجموعات للدراسة و المذاكرة و تبادل الأفكار. و نطلب منهم أن لا يغشوا أو ينقل أحدهم إجابات شخص آخر، و أن لا يرفعوا إلى المُحاضر إلا ما كان نتاج جهدهم الفكري. كما نعول على أخلاقهم و أمانتهم في أن لا يعيدوا نشر أي مادة علمية من مواد هذا الفصل أو من امتحاناته، حتي لا يفسدوا هذه المواد على من يأخذه من بعدهم.
-      klass_enroll_html: أنت بصدد التسجيل في الفصل (أو الفصول) الدراسية السابقة. لإكمال عملية التسجيل لا بد من موافقتك أولا على <a href="#">شروط و قواعد</a> التعليم المفتوح و التزامك بنظام الامانة العلمية المتبع.
+      klass_enroll_html: أنت بصدد التسجيل في هذا الفصل الدراسي. لإكمال عملية التسجيل لا بد من موافقتك أولا على <a href="#">شروط و قواعد</a> التعليم المفتوح و التزامك بنظام الامانة العلمية المتبع.
       free_class: مجاني
       today: اليوم
       in_days:

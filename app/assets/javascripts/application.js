@@ -18,7 +18,6 @@
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
 //= require sketch
-//= require semantic-ui
 //
 // Application's Own Scripts
 //= require app-text

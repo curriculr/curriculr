@@ -13,16 +13,16 @@ class UsersController < AuthorizedController
       @q = Klass.available(current_user).search(params[:q])
       @klasses = @q.result.page(params[:page]).per(10)
 
-      render 'front' 
+      render 'front'
     end
   end
 
   def home
     unless current_user
-      redirect_to root_path 
+      redirect_to root_path
     end
-  end  
-  
+  end
+
   def index
     @q = User.scoped.search(params[:q])
     @users = @q.result.page(params[:page]).per(10).order(:id)
@@ -37,11 +37,18 @@ class UsersController < AuthorizedController
   def edit
     @user = User.scoped.find(params[:id])
   end
-  
+
+  def confirm
+    @user = User.scoped.find(params[:id])
+    @user.confirm! if @user && !@user.confirmed?
+
+    redirect_to users_path
+  end
+
   def update
 		@user = User.scoped.find(params[:id])
 		@user.active = !@user.active if params[:opr] == 'activate'
-    
+
     @to_update_role = false
     if params[:opr] && t('config.role').keys.include?(params[:opr].to_sym)
       if @user.has_role? params[:opr]
@@ -50,26 +57,26 @@ class UsersController < AuthorizedController
       else
         @user.add_role params[:opr]
       end
-      
+
       @to_update_role = true
     end
-    
+
 		respond_with @user do |format|
-			format.html { 
+			format.html {
         if @user.update(user_params)
 				  redirect_to (params[:opr] ? users_path : home_path)
   			else
   		  	render action: "edit"
         end
       }
-  		format.js   { 
+  		format.js   {
         if @user.save
   			  @update_class = "usr_activate_#{@user.id}_link" if params[:opr] == 'activate'
     		  @update_class = "usr_#{params[:opr]}_#{@user.id}_link" if @to_update_role
         end
-        
-    		render 'users' 
-			} 
+
+    		render 'users'
+			}
 		end
   end
 
@@ -79,9 +86,9 @@ class UsersController < AuthorizedController
 
     respond_with @user do |format|
       format.html { redirect_to users_url }
-      format.js   { 
+      format.js   {
         @delete_class = "usr_delete_#{@user.id}_link"
-        render 'users' 
+        render 'users'
       }
     end
   end
@@ -89,10 +96,10 @@ class UsersController < AuthorizedController
   private
     def user_params
       params.require(:user).permit(
-        :email, :name, :active, :time_zone, 
+        :email, :name, :active, :time_zone,
         :profile_attributes => [
           :prefix, :avatar, :about, :nickname, :public
-        ] 
+        ]
       )
     end
 end

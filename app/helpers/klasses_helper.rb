@@ -1,27 +1,23 @@
 module KlassesHelper
   def klass_actions(klass, in_preview = false)
     links = []
-    mountable_links = nil
 
     if klass.enrolled?(current_student) || klass.previously_enrolled?(current_student)
       #go2class or #go2class_past
       links << link(:klass, :goto, main_app.learn_klass_path(klass), :class => css_button(:primary))
     elsif klass.can_enroll?(current_user, current_student)
       if controller_name == 'klasses' && action_name == 'show' || @lecture
-        if klass.free
-          if klass.dropped?(current_student)
-            #enroll again
-            links << link(:enrollment, :enroll, main_app.enroll_learn_klass_path(klass),
-              :class => css(button: :success), :method => :post, :as => :again)
-          elsif !klass.private || klass.invited_and_not_yet_accepted?(current_user)
-            #enroll
-            links << link(:enrollment, :enroll, main_app.enroll_learn_klass_path(klass),
-              :class => css(button: :success), :method => :post, :as => :'4_free')
-          end
-        else
-          #add_2_cart
-          mountable_links = mountable_fragments(:klass_enrollment_actions, klass: klass, action: :enroll, previewed: in_preview)
+        # Enrollment links
+        if klass.dropped?(current_student)
+          #enroll again
+          links << link(:enrollment, :enroll, main_app.enroll_learn_klass_path(klass),
+            :class => css(button: :success), :method => :post, :as => :again)
+        elsif !klass.private || klass.invited_and_not_yet_accepted?(current_user)
+          #enroll
+          links << link(:enrollment, :enroll, main_app.enroll_learn_klass_path(klass),
+            :class => css(button: :success), :method => :post, :as => :'4_free')
         end
+        mountable_fragments(:klass_enrollment_actions, klass: klass, action: :enroll, previewed: in_preview, links: links)
 
         if klass.invited_and_not_yet_accepted?(current_user)
           #decline
@@ -37,14 +33,14 @@ module KlassesHelper
       else
         #learn_more
         links << link(:klass, :learn_more, learn_klass_path(klass), :class => css_button(:primary))
-        mountable_links = mountable_fragments(:klass_flags_actions, klass: klass, previewed: in_preview)
+        mountable_fragments(:klass_flags_actions, klass: klass, previewed: in_preview, links: links)
       end
     elsif current_user && staff?(current_user, klass)
       #admin or faculty
       links << link(:klass, :goto, main_app.teach_course_klass_path(klass.course, klass), :class => css_button(:primary))
     end
 
-    %(#{links.join(' ').html_safe}  #{mountable_links}).html_safe
+    links.join(' ').html_safe
   end
 
   def ui_klass_enrollment_action(klass, action, previewed = false, right = false)

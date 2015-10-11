@@ -51,7 +51,7 @@ module Learn
         else
           @klasses = [@klass]
           @url = main_app.enroll_learn_klass_path(@klass)
-          @page_header = t('page.titles.klass_agreement');
+          #@page_header = t('page.titles.klass_agreement');
           flash.now[:alert] = t('activerecord.messages.must_agree_to_terms') if params[:klasses]
           render 'agreement'
         end
