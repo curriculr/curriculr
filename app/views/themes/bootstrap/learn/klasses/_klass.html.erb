@@ -1,5 +1,5 @@
 <%
-  allow_actions = defined?(actions).blank? || actions == true
+  #allow_actions = defined?(actions).blank? || actions == true
   allow_description = defined?(description).blank? || description == true
   img_size = defined?(image_size).blank? ? 240 : image_size
   hdr = if allow_actions
@@ -11,18 +11,16 @@
   else
     klass.course.name
   end
-  hdr << content_tag(:span, Klass.human_attribute_name(:private), :class => css_label(:danger)) if klass.private
+
   subhdr = l(klass.begins_on)
   subhdr << %( - #{l(klass.ends_on)}) if klass.ends_on
   th = ui_image_src(klass.course.poster ? klass.course.poster.at_url(:sm) : nil, '/images/holder-sm.png')
-  labels = ui_course_labels(klass.course)
+  labels = ui_klass_labels(klass)
   instructor, instructors_count = klass.instructors(:first)
 %>
 
-<% unless allow_actions %>
-  <div class="ui items">
-    <%= ui_item(th, hdr, subhdr, allow_description ? markdown(summary(klass.course.about)) : '', labels) %>
-  </div>
+<% if view == :item || !allow_actions %>
+  <%= ui_item(th, hdr, subhdr, allow_description ? markdown(summary(klass.course.about)) : '', labels) %>
 <% else %>
   <div class="column">
     <div class="ui fluid card">

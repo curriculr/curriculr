@@ -1,4 +1,4 @@
-<% 
+<%
   data = @lecture_contents
   pagers = @lecture.pagers(@klass, current_student)
   pager_links = []
@@ -6,7 +6,7 @@
     url: (pagers.first ? learn_klass_lecture_path(@klass, pagers.first[:lecture]) : nil),
     remote: false
   }
-  
+
   position = 0
   data.each_with_index do |item, i|
     pager_links << {
@@ -35,19 +35,19 @@
     <div class="row">
       <div class="<%= css_columns(9) %>">
         <h4 class="panel-title">
-          <% 
+          <%
             nav_links = []
-            unit_pagers = @lecture.unit.pagers
+            unit_pagers = @lecture.unit.pagers(@klass, current_student)
             if unit_pagers[0]
               nav_links << link_to(unit_pagers[0].name, learn_klass_lectures_path(@klass, unit: unit_pagers[0].id))
               nav_links << nil
             end
 
-            @lecture.unit.lectures.with_content_4_students.order('lectures.order').each do |lecture|
+            Lecture.open_4_students(@klass, @lecture.unit, current_student).order('lectures.order').each do |lecture|
               name = %(#{lecture.name} #{css_icon("check", 2) if @lecture == lecture})
               nav_links << link_to(name.html_safe, learn_klass_lecture_path(@klass, lecture))
             end
-            
+
             if unit_pagers[1]
               nav_links << nil
               nav_links << link_to(unit_pagers[1].name, learn_klass_lectures_path(@klass, unit: unit_pagers[1].id))
@@ -59,8 +59,8 @@
       </div>
       <div class="<%= css_columns(3) %>">
         <%= pager_html = capture do %>
-          <ul class="pager lecture-pager" 
-              data-prev="<%= t('activerecord.actions.prev_html').html_safe %>" 
+          <ul class="pager lecture-pager"
+              data-prev="<%= t('activerecord.actions.prev_html').html_safe %>"
               data-next="<%= t('activerecord.actions.next_html').html_safe %>">
             <% pager_links.each_with_index do |link, i| %>
               <%
@@ -90,9 +90,9 @@
             }
           }
 
-          active = if item.kind_of?(Assessment) 
+          active = if item.kind_of?(Assessment)
             Attempt.for(@klass, current_student, item).exists?
-          else 
+          else
             item.has?(['visited', 'attempted', 'opened'], @klass, current_student)
           end
         %>
@@ -151,18 +151,18 @@
         <% elsif item.kind_of?(Question) %>
           <div class="row">
             <div class="<%= css_columns(12) %>">
-              <% 
-                activity = item.activity('attempted', @klass, current_student) 
+              <%
+                activity = item.activity('attempted', @klass, current_student)
                 answer = activity ? activity.data : nil
               %>
-              
+
               <%= render partial: "learn/questions/show", locals: { question: item, answer: answer, result: nil} %>
             </div>
           </div>
         <% elsif item.kind_of?(Assessment) %>
           <div class="row">
             <div class="<%= css_columns(12) %>">
-              <%= render partial: "learn/assessments/assessment", locals: { assessment: item } %>      
+              <%= render partial: "learn/assessments/assessment", locals: { assessment: item } %>
             </div>
           </div>
         <% end %>
@@ -177,7 +177,7 @@
       <div class="row">
         <div class="<%= css_columns(12) %>">
           <%= ui_header t('page.titles.discussion'), style: :h4 %>
-          <%= content_tag :div, id: "comments" do %>  
+          <%= content_tag :div, id: "comments" do %>
             <div class="row">
               <div class="<%= css_columns(12) %> topics" >
                 <%= render 'learn/topics/topic' %>
@@ -188,7 +188,5 @@
       </div>
     </div>
   <% end %>
-  
+
 </div>
-
-

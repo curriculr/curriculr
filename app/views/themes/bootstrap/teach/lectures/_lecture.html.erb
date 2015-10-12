@@ -5,7 +5,7 @@
 
 <%
   links = []
-  data = lecture ? lecture.contents : []
+  data = lecture ? lecture.contents(false, true) : []
 
   %w(video audio document other).each do |kind|
     links << link(:material, kind,

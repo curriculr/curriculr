@@ -3,8 +3,8 @@
 <% klasses = Klass.ready_to_approve.distinct.to_a %>
 <% if klasses.present? %>
   <%= ui_header t('page.titles.ready_to_approve') %>
-  <div class="ui three column stackable stretched grid">
-    <%= render :partial => 'learn/klasses/klass', :collection => klasses %>
+  <div class="ui divided items">
+    <%= render :partial => 'learn/klasses/klass', :collection => klasses, :locals => {allow_actions: true, view: :item} %>
   </div>
 <% end %>
 

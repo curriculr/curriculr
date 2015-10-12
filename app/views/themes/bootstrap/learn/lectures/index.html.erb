@@ -2,12 +2,12 @@
 <% units = Unit.open(@klass, current_student).to_a %>
 <% units.each_with_index do |unit, i| %>
   <% lectures = Lecture.open_4_students(@klass, unit, current_student).to_a %>
-  <% 
-  expanded = if params[:unit] == unit.id.to_s || lectures.empty? 
+  <%
+  expanded = if params[:unit] == unit.id.to_s || lectures.empty?
     true
   else
     (
-      lectures.select do |lecture| 
+      lectures.select do |lecture|
         total = if lecture.attendance_data
           data = YAML.load(lecture.attendance_data)
           data[:count] || 0
@@ -15,9 +15,9 @@
           0
         end
 
-        total == 0 || lecture.attended  != total 
+        total == 0 || lecture.attended  != total
       end
-    ).present? 
+    ).present?
   end
   %>
   <div class="panel panel-inverse klass-lecture">
@@ -30,19 +30,19 @@
           <i class="fa fa-check <%= css_align(:right) %>"></i>
         <% end %>
         <% if @klass.enrolled?(current_student) || staff?(current_user, @klass.course) %>
-          <% data = unit.contents(true) %>
+          <% data = unit.contents(true, true) %>
           <% if data.present? %>
-            <% 
+            <%
               attachment_links = []
               data.each do |item|
-                case item 
+                case item
                 when Material
                   attachment_links << link_to(css_icon(:paperclip, 2) + item.medium.name, item.at_url, :target => '_new')
-                when Page 
+                when Page
                   attachment_links << link_to(css_icon(:globe, 2) + item.name, learn_klass_page_path(@klass, item))
-                when Assessment 
+                when Assessment
                   attachment_links << link_to(css_icon(:flask, 2) + item.name, learn_klass_assessment_path(@klass, item))
-                end 
+                end
               end
             %>
 
@@ -54,11 +54,11 @@
         <% end %>
       </h4>
     </div>
-    
+
     <div id="unit-<%= unit.id %>" class="panel-collapse collapse <%= 'in' if expanded %>">
       <div class="panel-body">
         <% if false && (@klass.enrolled?(current_student) || KlassEnrollment.staff?(current_user, @klass)) %>
-          <% data = unit.contents(true) %> 
+          <% data = unit.contents(true, true) %>
           <% if data.present? %>
             <ul class="nav nav-tabs">
               <% data.each do |item| %>
@@ -92,7 +92,7 @@
             <%= unit.about %>
           </div>
         </div>
-        
+
         <% unless lectures.to_a.empty? %>
           <table class="table table-condensed">
             <tbody>
@@ -121,7 +121,6 @@
         <% end %>
       </div>
     </div>
-  </div>    
+  </div>
 <% end %>
 </div>
-

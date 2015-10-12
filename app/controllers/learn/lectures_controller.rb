@@ -1,7 +1,7 @@
 module Learn
   class LecturesController < BaseController
     def show
-      @lecture_contents = @lecture.contents(true)
+      @lecture_contents = @lecture.contents(true, staff?(current_user, @klass) || @klass.enrolled?(current_student))
       if @lecture_contents && @klass.open? && (@klass.enrolled?(current_student) || staff?(current_user, @klass))
         points = 0.0
         count = 0.0
@@ -14,7 +14,7 @@ module Learn
           @lecture.log_attendance(@klass, current_student, item, nil, count)
         end
       end
-      
+
       @discussion = @lecture.discussion(@klass)
       @forum = Forum.unscoped do @discussion.forum end
       @topic = @discussion.topic
@@ -24,7 +24,7 @@ module Learn
 
     def index
     end
-    
+
     def show_page
       @page = Page.scoped.find(params[:page_id])
       @lecture.log_attendance(@klass, current_student, @page)
@@ -34,18 +34,18 @@ module Learn
         format.js { render 'show' }
       end
     end
-    
+
     def show_question
       @question = Question.find(params[:question_id])
       if params[:attempt]
         case @question.kind
         when 'pick_one'
-          @answer = Hash[@question.options.map do |o| 
+          @answer = Hash[@question.options.map do |o|
             correct = (o.option.strip == params[:attempt][@question.id.to_s] &&  o.answer_options == '1')
             [o.id, correct ? '1' : '0']
           end]
         when 'pick_many'
-          @answer = Hash[@question.options.map do |o| 
+          @answer = Hash[@question.options.map do |o|
             correct = (o.option.strip == params[:attempt][@question.id.to_s][o.id.to_s] &&  o.answer_options == '1')
             [o.id, correct ? '1' : '0']
           end]

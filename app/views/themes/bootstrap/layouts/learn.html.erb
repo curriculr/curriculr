@@ -51,17 +51,19 @@
 				<div class="<%= css_columns(10) %>">
           <% if @page_header %>
             <% hdr = @page_header %>
+
+            <% subtext = @klass.course.by_instructors %>
             <%
               badges = []
-              badges << :private if @klass.private
-              badges << :closed if @klass.past?
-              badges.each do |b|
-                hdr << ' '
-                hdr << content_tag(:span, Klass.human_attribute_name(b), :class => css_label(:danger))
+              badges << Klass.human_attribute_name(:private) if @klass.private
+              badges << Klass.human_attribute_name(:closed) if @klass.past?
+              if badges.present?
+                subtext << '&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;'
+                subtext << badges.join('&nbsp;&nbsp;|&nbsp;&nbsp;')
               end
             %>
-            <% subtext = @klass.course.by_instructors %>
-            <%= ui_header hdr, :style => :h2, :subtext => subtext, :action => staff_or_student_view(student_picker) %>
+
+            <%= ui_header hdr, :style => :h2, :subtext => subtext.html_safe, :action => staff_or_student_view(student_picker) %>
           <% end %>
 
 					<%= yield %>
@@ -71,8 +73,7 @@
       <div class="row">
 				<div class="<%= css_columns(12) %>">
           <% if @page_header %>
-            <%= ui_header @page_header, style: :h2, subtext: klass_from_and_to_dates(@klass),
-                  :action => student_picker %>
+            <%= ui_header @page_header, style: :h2, subtext: klass_from_and_to_dates(@klass), :action => student_picker %>
           <% end %>
 
 					<%= yield %>

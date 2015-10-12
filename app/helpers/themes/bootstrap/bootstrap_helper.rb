@@ -176,7 +176,13 @@ module Themes::Bootstrap::BootstrapHelper
   end
 
   def ui_klass_labels(klass)
-    ui_course_labels(klass.course)
+    labels = ui_course_labels(klass.course)
+    if klass.private
+      labels << "&nbsp;|&nbsp;".html_safe if labels.present?
+      labels << Klass.human_attribute_name(:private)
+    end
+
+    content_tag :small, labels.html_safe
   end
 
   def ui_course_labels(course)
@@ -336,6 +342,10 @@ module Themes::Bootstrap::BootstrapHelper
 
       html.html_safe
     end
+  end
+
+  def ui_label(text)
+    content_tag :div, text, class: 'ui label'
   end
 
   def ui_item(media, hdr, subhdr, body, extra)

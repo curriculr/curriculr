@@ -1,13 +1,13 @@
 class Lecture < ActiveRecord::Base
   include WithMaterials
   include Actionable
-  
+
   belongs_to :unit, :counter_cache => true
 	has_many :assessments, :dependent => :destroy
   has_many :questions, :dependent => :destroy
   has_many :pages, :dependent => :destroy, :as => :owner
   has_many :updates, :dependent => :destroy
-  
+
 	# Validation Rules
 	validates :name, :presence => true, :length => {:maximum => 100 }
 	validates :on_date, :based_on, :about, :presence => true
@@ -21,37 +21,37 @@ class Lecture < ActiveRecord::Base
       errors.add :on_date, :must_be_after_date, :date => based_on
     end
   end
-  
+
   def course
     unit.course
   end
-  
+
   def poster
     self.materials.joins(:taggings).joins(:tags).where("materials.kind = 'image' and tags.name = 'poster'").first
   end
-  
+
   def discussion(klass)
     forum = Forum.unscoped.find_by(:klass_id => klass.id, :lecture_comments => true)
-    
-    LectureDiscussion.where(klass_id: klass.id, 
-      forum_id: forum.id, lecture_id: self.id).first_or_initialize  
+
+    LectureDiscussion.where(klass_id: klass.id,
+      forum_id: forum.id, lecture_id: self.id).first_or_initialize
   end
-  
-  def contents(for_student = false)
+
+  def contents(published_only, staff_or_enrolled)
     data = []
     data += self.materials_of_kind([:video, :audio, :document, :other]).to_a
-    data += self.questions.where(:include_in_lecture => true).to_a
+    data += self.questions.where(:include_in_lecture => true).to_a if staff_or_enrolled
 
-    if for_student
+    if published_only
       data += self.pages.where(:published => true).to_a
-      data += self.assessments.where(:ready => true).where("invideo_id is null").to_a
+      data += self.assessments.where(:ready => true).where("invideo_id is null").to_a if staff_or_enrolled
     else
       data += self.pages.to_a
-      data += self.assessments.to_a
+      data += self.assessments.to_a if staff_or_enrolled
     end
 
     data.sort! { |x,y| x.order <=> y.order}
-    
+
     data
   end
 
@@ -68,14 +68,14 @@ class Lecture < ActiveRecord::Base
     else
       nil
     end
-    
+
     if activity && activity.times == 1
       a = self.activities.where(:action => 'attended', :klass => klass, :student => student).first_or_initialize
 
       points = a.new_record? ? self.points : (a.data ? a.data[:points] : 0.0)
       count = a.new_record? ? count : (count == 0.0 ? (a.data ? a.data[:count] : 0.0) : count)
 
-      self.log_activity('attended', klass, student, nil, (points.to_f / count.to_f).round(2) , 
+      self.log_activity('attended', klass, student, nil, (points.to_f / count.to_f).round(2) ,
         true, { points: points, count: count })
     end
   end
@@ -91,19 +91,19 @@ class Lecture < ActiveRecord::Base
       order('units.order, lectures.order').
       select('courses.id as course, units.id as unit, lectures.id as lecture, units.order, lectures.order').
       where("courses.id = :course_id and klasses.id = :klass_id and
-             (lectures.on_date - lectures.based_on) <= (DATE(:today) - DATE(:begins_on)) and 
-             (lectures.for_days is null or #{date_clause} > :today)", 
+             (lectures.on_date - lectures.based_on) <= (DATE(:today) - DATE(:begins_on)) and
+             (lectures.for_days is null or #{date_clause} > :today)",
              :course_id => klass.course.id,
              :klass_id => klass.id,
              :begins_on => klass.begins_on,
              :today => Time.zone.now)
 
     unless klass.enrolled?(student) || (student && KlassEnrollment.staff?(student.user, klass))
-      lectures = lectures.where('klasses.previewed = TRUE and units.previewed = TRUE and lectures.previewed = TRUE') 
+      lectures = lectures.where('klasses.previewed = TRUE and units.previewed = TRUE and lectures.previewed = TRUE')
     end
-      
+
     lectures = lectures.to_a
-    
+
     index = lectures.find_index { |l| l[:lecture] == self.id }
     count = lectures.count
     if count <= 1
@@ -116,11 +116,11 @@ class Lecture < ActiveRecord::Base
       [ lectures[index - 1], lectures[index + 1] ]
     end
   end
-	  
-  # default_scope -> { 
+
+  # default_scope -> {
   #   order 'lectures.order'
   # }
-  
+
 	scope :attendance, ->(klass, student) {
     if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
       unit_date_clause = "(klasses.begins_on + (units.on_date - units.based_on))"
@@ -131,7 +131,7 @@ class Lecture < ActiveRecord::Base
     end
 
     joins(:unit => {:course => :klasses}).
-    joins("left outer join activities on activities.klass_id = klasses.id and 
+    joins("left outer join activities on activities.klass_id = klasses.id and
              activities.actionable_type = 'Lecture' and activities.actionable_id = lectures.id and
              activities.student_id = #{student.id}").
     where("klasses.id = #{klass.id} and
@@ -142,23 +142,23 @@ class Lecture < ActiveRecord::Base
     select('units.order, lectures.order').
     order('units.order, lectures.order')
   }
-  
+
   #
   scope :with_content_4_students, ->  {
     where(%(
       exists (
-        SELECT * FROM materials 
+        SELECT * FROM materials
         WHERE materials.owner_type = 'Lecture' AND materials.owner_id = lectures.id AND
           materials.kind <> 'image'
       ) OR exists (
-        SELECT pages.* FROM pages 
+        SELECT pages.* FROM pages
         WHERE pages.owner_type = 'Lecture' AND pages.owner_id = lectures.id AND
           pages.published = TRUE
       ) OR exists (
-        SELECT questions.* FROM questions 
+        SELECT questions.* FROM questions
         WHERE questions.lecture_id = lectures.id AND questions.include_in_lecture = TRUE
       ) OR exists (
-        SELECT assessments.* FROM assessments 
+        SELECT assessments.* FROM assessments
         WHERE assessments.lecture_id = lectures.id AND assessments.ready = TRUE
       )
     ))
@@ -168,16 +168,16 @@ class Lecture < ActiveRecord::Base
     q = joins(:unit => {:course => :klasses}).
     joins(%(left outer join (
       SELECT activities.*
-      FROM activities WHERE 
-        activities.actionable_type = 'Lecture' AND 
-        activities.student_id = #{student && klass.enrolled?(student) ? student.id : -1} AND 
-        activities.klass_id = #{klass.id} AND 
+      FROM activities WHERE
+        activities.actionable_type = 'Lecture' AND
+        activities.student_id = #{student && klass.enrolled?(student) ? student.id : -1} AND
+        activities.klass_id = #{klass.id} AND
         activities.action = 'attended') activity on lectures.id = activity.actionable_id)).
     # joins(%(left outer join (
     #   SELECT activities.context_id, count(activities.id) as count
-    #   FROM activities WHERE 
-    #     activities.klass_id = #{klass.id} AND 
-    #     activities.student_id = #{student.id} AND 
+    #   FROM activities WHERE
+    #     activities.klass_id = #{klass.id} AND
+    #     activities.student_id = #{student.id} AND
     #     activities.context_type = 'Lecture'
     #   GROUP BY activities.context_id
     #   ) attendance on lectures.id = attendance.context_id)).
@@ -187,29 +187,29 @@ class Lecture < ActiveRecord::Base
       q = q.where("
         (klasses.ends_on is null or (klasses.ends_on < :today and klasses.lectures_on_closed = TRUE) or
         (klasses.ends_on > :today and
-        (lectures.on_date - lectures.based_on) <= (DATE(:today) - klasses.begins_on) and 
-        (lectures.for_days is null or 
+        (lectures.on_date - lectures.based_on) <= (DATE(:today) - klasses.begins_on) and
+        (lectures.for_days is null or
           (klasses.begins_on + (lectures.on_date - lectures.based_on) + lectures.for_days) > :today))) and
-        courses.id = :course_id and units.id = :unit_id and klasses.id = :klass_id", 
+        courses.id = :course_id and units.id = :unit_id and klasses.id = :klass_id",
         :course_id => klass.course.id, :unit_id => unit.id, :klass_id => klass.id, :today => Time.zone.now)
     else
       q = q.where("
         (klasses.ends_on is null or (klasses.ends_on < :today and klasses.lectures_on_closed = TRUE) or
         (klasses.ends_on > :today and
-        (lectures.on_date - lectures.based_on) <= (DATE(:today) - klasses.begins_on) and 
-        (lectures.for_days is null or 
+        (lectures.on_date - lectures.based_on) <= (DATE(:today) - klasses.begins_on) and
+        (lectures.for_days is null or
           adddate(klasses.begins_on, (lectures.on_date - lectures.based_on) + lectures.for_days) > :today))) and
-        courses.id = :course_id and units.id = :unit_id and klasses.id = :klass_id", 
+        courses.id = :course_id and units.id = :unit_id and klasses.id = :klass_id",
         :course_id => klass.course.id, :unit_id => unit.id, :klass_id => klass.id, :today => Time.zone.now)
     end
 
     unless klass.enrolled?(student) || (student && KlassEnrollment.staff?(student.user, klass))
-      q = q.where('klasses.previewed = TRUE and units.previewed = TRUE and lectures.previewed = TRUE') 
+      q = q.where('klasses.previewed = TRUE and units.previewed = TRUE and lectures.previewed = TRUE')
     end
-    
+
     q.select(%(
-      lectures.order, lectures.id, lectures.name, lectures.about, 
-      lectures.based_on, lectures.on_date, lectures.for_days, 
+      lectures.order, lectures.id, lectures.name, lectures.about,
+      lectures.based_on, lectures.on_date, lectures.for_days,
       coalesce(activity.times, 0) as attended, activity.data as attendance_data
     )).order("lectures.order").distinct
   }
@@ -224,21 +224,21 @@ class Lecture < ActiveRecord::Base
   before_create do |lecture|
     lecture.order = (Lecture.where(unit_id: lecture.unit.id).maximum(:order) || 0) + 1
   end
-  
+
   after_create do |lecture|
     forums = Forum.unscoped.joins(:klass => :course).where('courses.id = :course_id and lecture_comments = TRUE', :course_id => lecture.course.id)
     forums.transaction do
       forums.each do |forum|
-        discussion = LectureDiscussion.where(klass_id: forum.klass.id, 
+        discussion = LectureDiscussion.where(klass_id: forum.klass.id,
           forum_id: forum.id, lecture_id: lecture.id).first_or_initialize
-        discussion.topic = forum.topics.create(:name => lecture.name, :about => lecture.about, 
+        discussion.topic = forum.topics.create(:name => lecture.name, :about => lecture.about,
           :author => lecture.unit.course.originator)
-      
+
         discussion.save
       end
     end
   end
-  
+
   after_destroy do |lecture|
     discussions = LectureDiscussion.where(lecture_id: lecture.id)
     discussions.transaction do
@@ -248,25 +248,25 @@ class Lecture < ActiveRecord::Base
       end
     end
   end
-  
+
   def self.generate_discussion_topics(klasses)
     klasses.each do |klass|
       forum = Forum.unscoped.joins(:klass).
-        where('klasses.course_id = :course_id and lecture_comments = TRUE and klasses.id = :klass_id', 
+        where('klasses.course_id = :course_id and lecture_comments = TRUE and klasses.id = :klass_id',
         :course_id => klass.course_id, :klass_id => klass.id).first
       Lecture.joins(:unit).where('units.course_id = :course_id', :course_id => klass.course_id).each do |lecture|
         forum.transaction do
-          discussion = LectureDiscussion.where(klass_id: klass.id, 
+          discussion = LectureDiscussion.where(klass_id: klass.id,
             forum_id: forum.id, lecture_id: lecture.id).first_or_initialize
           if discussion.new_record? or discussion.topic.blank?
-            discussion.topic = forum.topics.create(:name => lecture.name, :about => lecture.about, 
+            discussion.topic = forum.topics.create(:name => lecture.name, :about => lecture.about,
               :author => lecture.unit.course.originator)
-  
+
             discussion.save
           end
         end
       end
     end
   end
-  
+
 end

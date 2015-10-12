@@ -1,8 +1,8 @@
 <% klasses = Klass.which_are('enrolled', current_user).open.distinct.to_a %>
 <%= ui_header t('page.titles.classes_i_am_taking') %>
 <% if klasses.present? %>
-  <div class="ui three column stackable stretched grid">
-    <%= render :partial => 'learn/klasses/klass', :collection => klasses %>
+  <div class="ui divided items">
+    <%= render :partial => 'learn/klasses/klass', :collection => klasses, :locals => {allow_actions: true, view: :item} %>
   </div>
 <% else %>
     <%= t('page.text.no_record_found') %>
@@ -11,8 +11,8 @@
 <% klasses = Klass.which_are('taken', current_user).distinct.to_a %>
 <%= ui_header t('page.titles.classes_i_took') %>
 <% if klasses.present? %>
-  <div class="ui three column stackable stretched grid">
-    <%= render :partial => 'learn/klasses/klass', :collection => klasses %>
+  <div class="ui divided items">
+    <%= render :partial => 'learn/klasses/klass', :collection => klasses, :locals => {allow_actions: true, view: :item} %>
   </div>
 <% else %>
     <%= t('page.text.no_record_found') %>
