@@ -4,7 +4,7 @@
 <% if klasses.present? %>
   <%= ui_header t('page.titles.ready_to_approve') %>
   <div class="ui divided items">
-    <%= render :partial => 'learn/klasses/klass', :collection => klasses, :locals => {allow_actions: true, view: :item} %>
+    <%= render :partial => 'learn/klasses/klass', :collection => klasses, :locals => {view: :item} %>
   </div>
 <% end %>
 

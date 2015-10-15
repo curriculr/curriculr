@@ -175,32 +175,33 @@ module Themes::Bootstrap::BootstrapHelper
     current_account.config['theme']['logo'].present? ? "/images/logo.png" : false
   end
 
-  def ui_klass_labels(klass)
+  def ui_klass_labels(klass, wrapped = false)
     labels = ui_course_labels(klass.course)
     if klass.private
-      labels << "&nbsp;|&nbsp;".html_safe if labels.present?
-      labels << Klass.human_attribute_name(:private)
+      labels << content_tag(:div, Klass.human_attribute_name(:private), :class => :item)
     end
 
-    content_tag :small, labels.html_safe
+    wrapped ? content_tag(:div, labels.join("\n").html_safe, :class => "ui big horizontal list") : labels
   end
 
-  def ui_course_labels(course)
-    labels = ''
+  def ui_course_labels(course, wrapped = false)
+    labels = []
     unless course.country.blank?
-      labels << flag_tag(course.country)
+      labels << content_tag(:div, flag_tag(course.country), :class => :item)
     end
 
     t('config.level').each_with_index do |l, i|
       if Course.scoped.tagged_with(l.first, :on => :levels).to_a.include? course
-        labels << ("&nbsp;|&nbsp;".html_safe) if labels.present?
-        (1..i).each { labels << content_tag(:i, '', class: 'fa fa-circle') } if i > 0
-        ((i+1)..3).each { labels << content_tag(:i, '', class: 'fa fa-circle-o') }
-        labels << "&nbsp;" << l.second
+        html = ''
+        (1..i).each { html << content_tag(:i, '', class: 'fa fa-circle') } if i > 0
+        ((i+1)..3).each { html << content_tag(:i, '', class: 'fa fa-circle-o') }
+        html << "&nbsp;" << l.second
+
+        labels << content_tag(:div, html.html_safe, :class => :item)
       end
     end
 
-    labels.html_safe
+    wrapped ? content_tag(:div, labels.join("\n").html_safe, :class => "ui big horizontal list") : labels
   end
 
   def ui_image_src(url_1, url_2 = '/images/nobody-th.png')
@@ -289,15 +290,22 @@ module Themes::Bootstrap::BootstrapHelper
   end
 
   def staff_or_student_view(default_action = nil)
-    if @course and !@course.id.nil? and staff?(current_user, @course)
+    if @course && !@course.id.nil? && staff?(current_user, @course)
       klass = (@klass || @course.klasses.last)
       if klass and !klass.new_record?
         link :klass, :show, learn_klass_path(klass), as: :student_view, :class => 'btn btn-default pull-right'
       end
-    elsif @klass and staff?(current_user, @klass.course)
+    elsif @klass && staff?(current_user, @klass.course)
       link :klass, :show, teach_course_klass_path(@klass.course, @klass), as: :instructor_view, :class => 'btn btn-default pull-right'
-    elsif default_action.present?
-      default_action
+    else
+      action = ''
+      action << default_action if default_action.present?
+      if @klass && @klass.previewed && !@klass.enrolled?(current_student)  &&
+        (controller_name != 'klasses' || !action_name.in?(['show', 'enroll']))
+        action << content_tag(:span, '&nbsp;'.html_safe, :class => 'pull-right')
+        action << ui_klass_enrollment_action(@klass, :enroll, true, true)
+      end
+      action
     end
   end
 
@@ -348,15 +356,18 @@ module Themes::Bootstrap::BootstrapHelper
     content_tag :div, text, class: 'ui label'
   end
 
-  def ui_item(media, hdr, subhdr, body, extra)
+  def ui_item(media, hdr, labels, body, extra = nil, ribbon = nil)
     %(<div class="item">
         <div class="image">
           #{image_tag media}
+          #{ribbon}
         </div>
         <div class="content">
           <div class="header">#{hdr}</div>
           <div class="meta">
-            <span>#{subhdr}</span>
+            <div class="ui big horizontal list">
+              #{labels.join("\n").html_safe}
+            </div>
           </div>
           <div class="description">
             #{body}

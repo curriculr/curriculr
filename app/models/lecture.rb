@@ -164,7 +164,7 @@ class Lecture < ActiveRecord::Base
     ))
   }
 
-  scope :open_4_students, ->(klass, unit, student) {
+  scope :open_4_students, ->(klass, unit, student, include_everything = false) {
     q = joins(:unit => {:course => :klasses}).
     joins(%(left outer join (
       SELECT activities.*
@@ -203,14 +203,15 @@ class Lecture < ActiveRecord::Base
         :course_id => klass.course.id, :unit_id => unit.id, :klass_id => klass.id, :today => Time.zone.now)
     end
 
-    unless klass.enrolled?(student) || (student && KlassEnrollment.staff?(student.user, klass))
+    unless include_everything || klass.enrolled?(student) || (student && KlassEnrollment.staff?(student.user, klass))
       q = q.where('klasses.previewed = TRUE and units.previewed = TRUE and lectures.previewed = TRUE')
     end
 
     q.select(%(
       lectures.order, lectures.id, lectures.name, lectures.about,
       lectures.based_on, lectures.on_date, lectures.for_days,
-      coalesce(activity.times, 0) as attended, activity.data as attendance_data
+      coalesce(activity.times, 0) as attended, activity.data as attendance_data,
+      lectures.previewed
     )).order("lectures.order").distinct
   }
 
@@ -218,6 +219,14 @@ class Lecture < ActiveRecord::Base
     today = Time.zone.today
     on_day = (self.on_date - self.based_on).to_i
     on_day <= (today - klass.begins_on).to_i and (self.for_days.blank? or (klass.begins_on + on_day + self.for_days) > today)
+  end
+
+  def begins_on(klass)
+    (klass.begins_on + (self.on_date - self.based_on).to_i)
+  end
+
+  def ends_on(klass)
+    self.for_days.present? ? (begins_on(klass) + self.for_days) : nil
   end
 
   # callbacks

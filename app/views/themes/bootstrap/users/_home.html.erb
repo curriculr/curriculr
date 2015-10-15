@@ -2,7 +2,7 @@
 <%= ui_header t('page.titles.classes_i_am_taking') %>
 <% if klasses.present? %>
   <div class="ui divided items">
-    <%= render :partial => 'learn/klasses/klass', :collection => klasses, :locals => {allow_actions: true, view: :item} %>
+    <%= render :partial => 'learn/klasses/klass', :collection => klasses, :locals => {view: :item} %>
   </div>
 <% else %>
     <%= t('page.text.no_record_found') %>
@@ -12,7 +12,7 @@
 <%= ui_header t('page.titles.classes_i_took') %>
 <% if klasses.present? %>
   <div class="ui divided items">
-    <%= render :partial => 'learn/klasses/klass', :collection => klasses, :locals => {allow_actions: true, view: :item} %>
+    <%= render :partial => 'learn/klasses/klass', :collection => klasses, :locals => {view: :item} %>
   </div>
 <% else %>
     <%= t('page.text.no_record_found') %>

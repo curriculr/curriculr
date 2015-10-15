@@ -1,26 +1,20 @@
 <%
-  #allow_actions = defined?(actions).blank? || actions == true
-  allow_description = defined?(description).blank? || description == true
   img_size = defined?(image_size).blank? ? 240 : image_size
-  hdr = if allow_actions
-    if current_user && staff?(current_user, klass)
-      link_to(klass.course.name, main_app.teach_course_klass_path(klass.course, klass), :class => 'header')
-    else
-      link_to(klass.course.name, [main_app, :learn, klass], :class => 'header')
-    end
+  hdr = if current_user && staff?(current_user, klass)
+    link_to(klass.course.name, main_app.teach_course_klass_path(klass.course, klass), :class => 'header')
   else
-    klass.course.name
+    link_to(klass.course.name, [main_app, :learn, klass], :class => 'header')
   end
 
   subhdr = l(klass.begins_on)
   subhdr << %( - #{l(klass.ends_on)}) if klass.ends_on
+  labels = [content_tag(:div, subhdr, :class => :item), ui_klass_labels(klass)].flatten
   th = ui_image_src(klass.course.poster ? klass.course.poster.at_url(:sm) : nil, '/images/holder-sm.png')
-  labels = ui_klass_labels(klass)
   instructor, instructors_count = klass.instructors(:first)
 %>
 
-<% if view == :item || !allow_actions %>
-  <%= ui_item(th, hdr, subhdr, allow_description ? markdown(summary(klass.course.about)) : '', labels) %>
+<% if view == :item %>
+  <%= ui_item(th, hdr, labels, markdown(summary(klass.course.about))) %>
 <% else %>
   <div class="column">
     <div class="ui fluid card">
@@ -28,7 +22,7 @@
         <div class="ui dimmer">
           <div class="content">
             <div class="center">
-              <%= ui_klass_enrollment_action(klass, :enroll) if allow_actions %>
+              <%= ui_klass_enrollment_action(klass, :enroll, true) %>
             </div>
           </div>
         </div>
@@ -49,13 +43,11 @@
           <small><%= subhdr %></small>
         </div>
         <div class="description">
-          <%= markdown(summary(klass.course.about)) if allow_description %><br />
+          <%= markdown(summary(klass.course.about)) %><br />
         </div>
-        <% if labels.present? %>
-          <div class="extra content">
-            <%= labels %>
-          </div>
-        <% end %>
+        <div class="extra">
+          <%= ui_klass_labels(klass, true) %>
+        </div>
       </div>
       <div class="extra content">
         <%= image_tag((instructor.avatar_url(current_account, :th) || instructor.user.profile.avatar_url(current_account, :th) || '/images/nobody-th.png'),

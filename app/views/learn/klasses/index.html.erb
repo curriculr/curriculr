@@ -23,7 +23,7 @@
       </div>
     </div>
     <div id='klass-list' class="klass-list klass-media-object ui three column stackable stretched grid">
-      <%= render :partial => 'learn/klasses/klass', :collection => @klasses, :locals => {allow_actions: true, view: :card} %>
+      <%= render :partial => 'learn/klasses/klass', :collection => @klasses, :locals => {view: :card} %>
       <% if @klasses.empty? %>
         <%= t('page.text.no_record_found') %>
       <% end %>

@@ -2,7 +2,7 @@
 <%= ui_header t('page.titles.being_worked_on') %>
 <% if klasses.present? %>
   <div class="ui divided items">
-    <%= render :partial => 'learn/klasses/klass', :collection => klasses, :locals => {allow_actions: true, view: :item} %>
+    <%= render :partial => 'learn/klasses/klass', :collection => klasses, :locals => {view: :item} %>
   </div>
 <% else %>
     <%= link(:course, :start_new_course, main_app.new_teach_course_path, :class => css_button(:success)) %>
@@ -12,7 +12,7 @@
 <% if klasses.present? %>
   <%= ui_header t('page.titles.ready_to_approve') %>
   <div class="ui divided items">
-    <%= render :partial => 'learn/klasses/klass', :collection => klasses, :locals => {allow_actions: true, view: :item} %>
+    <%= render :partial => 'learn/klasses/klass', :collection => klasses, :locals => {view: :item} %>
   </div>
 <% end %>
 
@@ -20,7 +20,7 @@
 <%= ui_header t('page.titles.open_classes_i_teach') %>
 <% if klasses.present? %>
   <div class="ui divided items">
-    <%= render :partial => 'learn/klasses/klass', :collection => klasses, :locals => {allow_actions: true, view: :item} %>
+    <%= render :partial => 'learn/klasses/klass', :collection => klasses, :locals => {view: :item} %>
   </div>
 <% else %>
     <%= t('page.text.no_record_found') %>

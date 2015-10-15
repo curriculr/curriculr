@@ -1,10 +1,14 @@
 <div class="row">
-  <div id='featured-klass-list' class="klass-list <%= css_columns(12) %>">
+  <div id='featured-klass-list' class="klass-list <%= css_columns(10, 1) %> ">
     <% klasses = @klasses.limit(10) %>
-    
-    <% if klasses.present? %>  
-      <%= ui_header(t('activerecord.actions.recent_klasses')) %>
-      <%= render :partial => 'learn/klasses/klass', :collection => klasses %>
+
+    <% if klasses.present? %>
+      <br />
+      <%# ui_header(t('activerecord.actions.recent_klasses')) %>
+      <div class="ui three column stackable stretched grid">
+        <%= render :partial => 'learn/klasses/klass', :collection => klasses, :locals => {view: :card} %>
+      </div>
     <% end %>
   </div>
 </div>
+<hr />

@@ -39,7 +39,7 @@ class Unit < ActiveRecord::Base
   #   order 'units.order'
   # }
 
-	scope :open, ->(klass, student) {
+	scope :open, ->(klass, student, include_everything = false) {
     if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
       date_clause = "(units.on_date - units.based_on) <= (DATE :today - klasses.begins_on) and
         (units.for_days is null or
@@ -56,7 +56,7 @@ class Unit < ActiveRecord::Base
       courses.id = :course_id and klasses.id = :klass_id ",
       :course_id => klass.course.id, :klass_id => klass.id, :today => Time.zone.today)
 
-    unless klass.enrolled?(student) || (student && KlassEnrollment.staff?(student.user, klass.course))
+    unless include_everything || klass.enrolled?(student) || (student && KlassEnrollment.staff?(student.user, klass.course))
       q = q.where('klasses.previewed = TRUE and units.previewed = TRUE')
     end
 
@@ -83,6 +83,14 @@ class Unit < ActiveRecord::Base
     today = Time.zone.today
     on_day = (self.on_date - self.based_on).to_i
     on_day <= (today - klass.begins_on).to_i and (self.for_days.blank? or (klass.begins_on + on_day + self.for_days) > today)
+  end
+
+  def begins_on(klass)
+    (klass.begins_on + (self.on_date - self.based_on).to_i)
+  end
+
+  def ends_on(klass)
+    self.for_days.present? ? (begins_on(klass) + self.for_days) : nil
   end
 
   # callbacks
