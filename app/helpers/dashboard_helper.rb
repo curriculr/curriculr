@@ -1,6 +1,6 @@
 module DashboardHelper
 	def ui_chart(name, type, data, options, height = 500)
-    render :partial => "application/ui_chart", 
+    render :partial => "application/ui_chart",
            :locals => { :name => name, :type => type, :data => data, :options => options, :height => height }
   end
 
@@ -18,12 +18,12 @@ module DashboardHelper
     max = 0
     counts.each do |c|
       data << [c[0], c[1]]
-      if c[1] > max 
+      if c[1] > max
         max = c[1]
       end
     end
 
-    { counts: data, max: max }           
+    { counts: data, max: max }
   end
 
   def dashboard_course_medium_counts(course)
@@ -33,12 +33,12 @@ module DashboardHelper
     max = 0
     counts.each do |c|
       data << [t("config.medium.kind.#{c[0]}"), c[1]]
-      if c[1] > max 
+      if c[1] > max
         max = c[1]
       end
     end
 
-    { counts: data, max: max }        
+    { counts: data, max: max }
   end
 
   def dashboard_course_question_counts(course)
@@ -48,12 +48,12 @@ module DashboardHelper
     max = 0
     counts.each do |c|
       data << [t("config.question.kind.#{c[0]}"), c[1]]
-      if c[1] > max 
+      if c[1] > max
         max = c[1]
       end
     end
 
-    { counts: data, max: max }           
+    { counts: data, max: max }
   end
 
   def dashboard_course_assessment_counts(course)
@@ -63,21 +63,21 @@ module DashboardHelper
     max = 0
     counts.each do |c|
       data << [c[0], c[1]]
-      if c[1] > max 
+      if c[1] > max
         max = c[1]
       end
     end
 
-    { counts: data, max: max }           
+    { counts: data, max: max }
   end
 
   def dashboard_course_activities_by_day(since, course)
     media_by_day = course.media.where(:updated_at => since.beginning_of_day..Time.zone.now.end_of_day).
       group("date(updated_at)").select("date(updated_at) as day, '#' as url, 'none' as content_type, count(*) as count").to_a
-    
+
     questions_by_day = Question.where(:course => course, :updated_at => since.beginning_of_day..Time.zone.now.end_of_day).
       group("date(updated_at)").select("date(updated_at) as day, count(*) as count").to_a
-    
+
     assessments_by_day = course.assessments.where(:updated_at => since.beginning_of_day..Time.zone.now.end_of_day).
       group("date(updated_at)").select("date(updated_at) as day, '#' as url, 'none' as content_type, count(*) as count").to_a
 
@@ -92,16 +92,16 @@ module DashboardHelper
 
       assessments = assessments_by_day.select { |a| a.day.to_date == date }
       assessments.each {|a| data['assessment'] = a.count}
-      
+
       data
     end
-    
+
     i = -1
     data = (since.to_date..Time.zone.today).map do |date|
       i += 1
       [date.strftime('%b %d'), activities[i].values].flatten
     end
-    
+
     data.insert(0, ['Day', names.map do |n| t("activerecord.models.#{n}", count: 3) end].flatten)
     data
   end
@@ -126,7 +126,7 @@ module DashboardHelper
       t('page.titles.participation') => activities['started_discussion'] + activities['posted'] + activities['replied']
     }
 
-    { counts: data.to_a.insert(0, ['label', 'value']), max: data.values.max }  
+    { counts: data.to_a.insert(0, ['label', 'value']), max: data.values.max }
   end
 
   def _classified_action(action)
@@ -153,20 +153,20 @@ module DashboardHelper
     activities = (since.to_date..Time.zone.today).map do |date|
       data = Hash[names.map do |n| [n, 0] end]
       acts = activity_by_day.select { |a| a.day.to_date == date }
-      acts.each do |a| 
+      acts.each do |a|
         name = _classified_action(a.action)
         data[name] += a.count
       end
-      
+
       data
     end
-    
+
     i = -1
     data = (since.to_date..Time.zone.today).map do |date|
       i += 1
       [date.strftime('%b %d'), activities[i].values].flatten
     end
-    
+
     data.insert(0, ['Day', names.map{|n| t("page.titles.#{n}")}].flatten)
   end
 
@@ -178,13 +178,13 @@ module DashboardHelper
     activities.each do |activity|
       data[''][activity.action] = activity.count
     end
-    
+
     table = data.map do |klass, activities|
       [klass, activities.values].flatten
     end
 
     table.insert(0, ['Klass', actions.map{|a| t("config.activity.#{a}")}].flatten)
-    table          
+    table
   end
 
   # Admin Dashboard
@@ -203,46 +203,46 @@ module DashboardHelper
     max = 0
     counts.each do |c|
       data << [c[0], c[1]]
-      if c[1] > max 
+      if c[1] > max
         max = c[1]
       end
     end
 
-    { counts: data, max: max }    
+    { counts: data, max: max }
   end
 
   def dashboard_admin_user_activities(since)
     r_users = _users_by_day(since, false)
-    c_users = _users_by_day(since) 
+    c_users = _users_by_day(since)
     enrollments = _enrollments_by_day(since)
     signins = _users_by_day(since, true, 'last_sign_in_at')
-    
+
     i = -1
     data = (since.to_date..Time.zone.today).map do |date|
       i += 1
       [date.strftime('%b %d'), r_users[i], c_users[i], enrollments[i], signins[i]]
     end
-    
-    data.insert(0, ['Day', 
-      t('page.titles.registration'), 
+
+    data.insert(0, ['Day',
+      t('page.titles.registration'),
       t('page.titles.confirmation'),
-      t('page.titles.enrollment'), 
+      t('page.titles.enrollment'),
       t('page.titles.signing_in')
     ])
   end
 
   def dashboard_admin_user_activities_1(since)
     r_users = _users_by_day(since, false)
-    c_users = _users_by_day(since) 
+    c_users = _users_by_day(since)
     enrollments = _enrollments_by_day(since)
     signins = _users_by_day(since, true, 'last_sign_in_at')
-    
+
     i = -1
     labels = ['Day']
     data = [
-      [t('page.titles.registration')], 
-      [t('page.titles.confirmation')], 
-      [t('page.titles.enrollment')], 
+      [t('page.titles.registration')],
+      [t('page.titles.confirmation')],
+      [t('page.titles.enrollment')],
       [t('page.titles.signing_in')]
     ]
 
@@ -254,7 +254,7 @@ module DashboardHelper
       data[2] << enrollments[i]
       data[3] << signins[i]
     end
-    
+
     return labels, data
   end
 
@@ -266,28 +266,28 @@ module DashboardHelper
       i += 1
       [c_users[i], enrollments[i]]
     end
-    
+
     data.insert(0, [x, y])
   end
-  
+
   def _users_by_day(since, confirmed = true, date = 'created_at')
     users_by_day = User.scoped.where(date => since.beginning_of_day..Time.zone.now.end_of_day).
       group("date(#{date})").
       select("date(#{date}) as day, count(*) as count")
-      
+
     users_by_day = users_by_day.where('confirmed_at is not null') if confirmed
-    
+
     (since.to_date..Time.zone.today).map do |date|
       user = users_by_day.detect { |user| user.day.to_date == date }
       user && user.count || 0
     end
   end
-  
+
   def _enrollments_by_day(since)
     enrollments_by_day = Enrollment.where(:created_at => since.beginning_of_day..Time.zone.now.end_of_day).
       group("date(created_at)").
       select("date(created_at) as day, count(*) as count")
-    
+
     (since.to_date..Time.zone.today).map do |date|
       enrollment = enrollments_by_day.detect { |enrollment| enrollment.day.to_date == date }
       enrollment && enrollment.count || 0

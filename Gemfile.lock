@@ -271,10 +271,14 @@ GEM
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
     orm_adapter (0.5.0)
+    pdf-core (0.6.0)
     pg (0.18.1)
     polyamorous (1.1.0)
       activerecord (>= 3.0)
     posix-spawn (0.3.9)
+    prawn (2.0.2)
+      pdf-core (~> 0.6.0)
+      ttfunk (~> 1.4.0)
     pygments.rb (0.6.0)
       posix-spawn (~> 0.3.6)
       yajl-ruby (~> 1.1.0)
@@ -381,6 +385,7 @@ GEM
     tilt (1.4.1)
     timers (4.0.1)
       hitimes
+    ttfunk (1.4.0)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (2.7.0)
@@ -440,6 +445,7 @@ DEPENDENCIES
   omniauth-facebook
   omniauth-google-oauth2
   pg
+  prawn
   pygments.rb
   rails (= 4.2.0)
   rails-timeago (~> 2.0)

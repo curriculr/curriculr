@@ -34,8 +34,11 @@ module Learn
     def enroll
       if current_user
         if params[:agreed]
-          if KlassEnrollment.enroll(@klass, current_student)
-            ActiveSupport::Notifications.instrument 'learn.klass.enrolled', :klass => @klass, :student => current_student
+          if (enrollment = KlassEnrollment.enroll(@klass, current_student))
+            ActiveSupport::Notifications.instrument('learn.klass.enrolled', :klass => @klass,
+              :account => current_account, :user => current_user, :student => current_student,
+              :enrollment => enrollment)
+
             Mailer.klass_enrollment(
               current_account.slug,
               current_account.config['mailer']['noreply'],
@@ -61,7 +64,8 @@ module Learn
     def drop
       if current_user
         if KlassEnrollment.drop(@enrollment)
-          ActiveSupport::Notifications.instrument 'learn.klass.dropped', :klass => @klass, :student => current_student
+          ActiveSupport::Notifications.instrument('learn.klass.dropped', :account => current_account, :klass => @klass, :student => current_student,
+            :enrollment => @enrollment)
 
           if (survey = @klass.course.assessments.tagged_with(:on_drop, :on => :events).first) and survey.can_be_taken?(@klass, current_student)
             redirect_to new_learn_klass_assessment_attempt_path(@klass, survey), :flash => {:notice => t('activerecord.messages.successful_drop')}

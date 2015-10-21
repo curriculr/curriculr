@@ -63,7 +63,7 @@ module Themes::Bootstrap::BootstrapHelper
   end
 
   def css_icon(name, spaces = 0)
-    cls = name.kind_of?(Array) ? name.map{|n| "fa-#{n}"}.join(' ') : name
+    cls = name.kind_of?(Array) ? name.map{|n| "fa-#{n}"}.join(' ') : "fa-#{name}"
     content_tag :i, ('&nbsp;' * spaces).html_safe, class: "fa #{cls}"
   end
 

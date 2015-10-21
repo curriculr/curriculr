@@ -3,16 +3,15 @@ class Enrollment < ActiveRecord::Base
 
   belongs_to :klass, :counter_cache => true
   belongs_to :student
-  belongs_to :paid_by, :polymorphic => true
 
-  serialize :data 
-  
+  serialize :data
+
   # Scopes
   scope :for, ->(course, user) {
-    joins(:klass).joins(:student).where('klasses.course_id = :course_id and students.user_id = :user_id and enrollments.active = TRUE', 
+    joins(:klass).joins(:student).where('klasses.course_id = :course_id and students.user_id = :user_id and enrollments.active = TRUE',
     :course_id => course.id, :user_id => user.id)
-  }  
-    
+  }
+
   # callbacks
   after_create do
     if klass.private && self.invited_at.present?
@@ -28,14 +27,14 @@ class Enrollment < ActiveRecord::Base
   after_update do |enrollment|
     unless self.changes[:last_attended_at].present?
       activity = nil
-    
+
       if self.active
-        klass.increment!(:active_enrollments) unless self.changes[:active][0]
+        klass.increment!(:active_enrollments) if self.changes[:active] && !self.changes[:active][0]
       else
         klass.decrement!(:active_enrollments) if self.changes[:active] && self.changes[:active][0]
       end
 
-      if enrollment.active 
+      if enrollment.active
         if self.accepted_or_declined_at.present? && self.changes[:accepted_or_declined_at] && self.changes[:accepted_or_declined_at][0].blank?
           activity = 'accepted'
         end

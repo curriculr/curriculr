@@ -7,36 +7,36 @@ en:
       team: Team member
       console: Service provider
       partner: Partner
-    
+
     relationship:
       parent: Parent
       child: Child
       spouse: Spouse
       relative: Relative
       friend: Friend
-        
+
     staff:
       technician: Technician
       assistant: Assistant
       instructor: Instructor
-      
+
     report:
       student:
         since: Class student since
         user_since: Site user since
         klass_begins: Class begins
         klass_ends: Class ends
-          
+
       assessment:
         lecture: Lecture assessments
         unit: Unit assessments
         course: Class assessments
-        
+
       you: You
       minimum: Minimum
       average: Average
       maximum: Maximum
-      
+
     activity:
       attempted: Assessment Attempts
       attended: Lectures Attended
@@ -50,7 +50,7 @@ en:
       visited: Visits
       participation: Participation
       opened: Materials opened
-        
+
     assessment:
       show_answer:
         always: Always
@@ -58,15 +58,15 @@ en:
         after_deadline: After deadline
         after_attempt: After attempt
         during_attempt: During attempt
-            
+
       multiattempt_grading:
         highest: Highest
         average: Average
-        
+
       survey_events:
         on_enroll: On class enrollment
         #on_drop: On dropping class
-        
+
     update:
       kind:
         sms: SMS
@@ -74,10 +74,10 @@ en:
         www: WWW
         twitter: Twitter
         Facebook: Facebook
-        
+
       to:
         students: Students
-        
+
     question:
       kind:
         fill_one: Single blank
@@ -88,18 +88,18 @@ en:
         match: Matching
         #underline: Underline
         sort: Sorting
-    
+
       group:
         fill: Blanks
         pick: Choices
         match: Matching
         #underline: Underline
         sort: Sorting
-        
+
       bank:
         main: Main
         survey: Survey
-    
+
     medium:
       kind:
         video: Video
@@ -107,7 +107,7 @@ en:
         audio: Audio
         document: Document
         other: Other
-    
+
       video:
         source:
           - youtube
@@ -120,23 +120,23 @@ en:
           - www
       document:
         source:
-          - www  
+          - www
       other:
         source:
-          - www 
+          - www
 
     filter:
       language: By language
       country: By country
       level: By level
       category: By category
-    
+
     level:
       beginner: Beginner
       intermediate: Intermediate
       advanced: Advanced
       expert: Expert
-    
+
     category:
       arabic: Arabic
       english: English
@@ -156,4 +156,3 @@ en:
       terms: Terms of service
       front: Front matter
       mission: Our mission
-    
