@@ -77,10 +77,11 @@ class GuestFlowsTest < ActionDispatch::IntegrationTest
 
   test 'can register with a name, email and password' do
     visit new_user_registration_path
-    fill_in "#user_name",                 :with => "John Smith "
-    fill_in "#user_email",                 :with => "jsmith@example.com"
-    fill_in "#user_password",              :with => "a_secret"
-    fill_in "#user_password_confirmation", :with => "a_secret"
+
+    fill_in "user_name",                 :with => "John Smith "
+    fill_in "user_email",                 :with => "jsmith@example.com"
+    fill_in "user_password",              :with => "a_secret"
+    fill_in "user_password_confirmation", :with => "a_secret"
 
     click_button "Create an account"
 
@@ -91,8 +92,9 @@ class GuestFlowsTest < ActionDispatch::IntegrationTest
   test 'can sign in as a student' do
     user = users(:two)
     visit new_user_session_path
-    fill_in '#user_email', with: user.email
-    fill_in '#user_password', with: 'password'
+
+    fill_in 'user_email', with: user.email
+    fill_in 'user_password', with: 'password'
 
     click_button 'Sign in'
 
@@ -105,12 +107,13 @@ class GuestFlowsTest < ActionDispatch::IntegrationTest
   test 'can sign in as an instructor' do
     instructor = users(:assistant)
     visit new_user_session_path
-    fill_in '#user_email', with: instructor.email
-    fill_in '#user_password', with: 'password'
+
+    fill_in 'user_email', with: instructor.email
+    fill_in 'user_password', with: 'password'
 
     click_button 'Sign in'
 
-    assert page.has_content?("Builder")
+    assert page.has_content?("Teach")
     assert_equal home_path, current_path
 
     logout(:user)
@@ -119,8 +122,8 @@ class GuestFlowsTest < ActionDispatch::IntegrationTest
   test 'can sign in as an admin' do
     admin = users(:super)
     visit new_user_session_path
-    fill_in 'Email', with: admin.email
-    fill_in 'Password', with: 'password'
+    fill_in 'user_email', with: admin.email
+    fill_in 'user_password', with: 'password'
 
     click_button 'Sign in'
 

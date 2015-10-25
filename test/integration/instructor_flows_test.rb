@@ -18,14 +18,15 @@ class InstructorFlowsTest < ActionDispatch::IntegrationTest
 
   test 'can list courses and create new one' do
     assert_equal home_path, current_path
-    find(:xpath, "//a[@href='/teach/courses']").click
+
+    first(:xpath, "//a[@href='/teach/courses']").click
 
     click_link 'New'
     assert_equal new_teach_course_path, current_path
 
     fill_in 'course_slug', with: 'chem101'
     fill_in 'course_name', with: 'Chemistry 101'
-    fill_in 'wmd-input', with: Faker::Lorem.paragraphs(2).join("\n")
+    fill_in 'wmd-inputabout', with: Faker::Lorem.paragraphs(2).join("\n")
     fill_in 'course_weeks', with: 8
     fill_in 'course_workload', with: 5
 
@@ -46,7 +47,7 @@ class InstructorFlowsTest < ActionDispatch::IntegrationTest
     visit edit_teach_course_page_path(@course, @course.syllabus)
 
     description = Faker::Lorem.paragraphs(3).join("\n")
-    fill_in 'wmd-input', with: description
+    fill_in 'wmd-inputabout', with: description
 
     click_button 'Update'
 
@@ -76,7 +77,7 @@ class InstructorFlowsTest < ActionDispatch::IntegrationTest
     visit teach_course_path(@course)
 
     visit edit_teach_course_assessment_path(@course, @assessment)
-    
+
     name = Faker::Lorem.words(2).join(" ")
     fill_in 'assessment_penalty', with: '5'
     fill_in 'assessment_name', with: name
@@ -98,7 +99,7 @@ class InstructorFlowsTest < ActionDispatch::IntegrationTest
     fill_in 'instructor_email', with: 'one@bar.foo'
     select('Assistant', :from => 'instructor_role')
     fill_in 'instructor_name', with: name
-    fill_in 'wmd-input', with: Faker::Lorem.paragraphs(3).join("\n")
+    fill_in 'wmd-inputabout', with: Faker::Lorem.paragraphs(3).join("\n")
 
     click_button 'Create'
 
@@ -108,16 +109,15 @@ class InstructorFlowsTest < ActionDispatch::IntegrationTest
   test 'can edit people' do
     user = users(:three)
     assisstant = instructors(:instructor_eng101)
-    
+
     visit teach_course_path(@course)
 
     visit edit_teach_course_instructor_path(@course, assisstant)
 
     name = Faker::Lorem.words(2).join(" ")
-    fill_in 'instructor_email', with: 'foo@bar.com'
     select('Assistant', :from => 'instructor_role')
     fill_in 'instructor_name', with: name
-    fill_in 'wmd-input', with: Faker::Lorem.paragraphs(3).join("\n")
+    fill_in 'wmd-inputabout', with: Faker::Lorem.paragraphs(3).join("\n")
 
     click_button 'Update'
 
@@ -139,7 +139,7 @@ class InstructorFlowsTest < ActionDispatch::IntegrationTest
 
     name = Faker::Lorem.words(3).join(" ")
     fill_in 'page_name', with: name
-    fill_in 'wmd-input', with: Faker::Lorem.paragraphs(3).join("\n")
+    fill_in 'wmd-inputabout', with: Faker::Lorem.paragraphs(3).join("\n")
 
     click_button 'Create'
 
@@ -153,7 +153,7 @@ class InstructorFlowsTest < ActionDispatch::IntegrationTest
 
     name = Faker::Lorem.words(3).join(" ")
     fill_in 'page_name', with: name
-    fill_in 'wmd-input', with: Faker::Lorem.paragraphs(3).join("\n")
+    fill_in 'wmd-inputabout', with: Faker::Lorem.paragraphs(3).join("\n")
 
     click_button 'Update'
 
@@ -183,7 +183,7 @@ class InstructorFlowsTest < ActionDispatch::IntegrationTest
 
     name = Faker::Lorem.words(2).join(" ")
     fill_in 'unit_name', with: name
-    fill_in 'wmd-input', with: Faker::Lorem.paragraphs(2).join("\n")
+    fill_in 'wmd-inputabout', with: Faker::Lorem.paragraphs(2).join("\n")
     fill_in 'unit_on_date', with: Time.zone.today
     fill_in 'unit_for_days', with: '10'
 
@@ -199,7 +199,7 @@ class InstructorFlowsTest < ActionDispatch::IntegrationTest
 
     name = Faker::Lorem.words(2).join(" ")
     fill_in 'unit_name', with: name
-    fill_in 'wmd-input', with: Faker::Lorem.paragraphs(2).join("\n")
+    fill_in 'wmd-inputabout', with: Faker::Lorem.paragraphs(2).join("\n")
     fill_in 'unit_on_date', with: Time.zone.today
     fill_in 'unit_for_days', with: '10'
 
@@ -225,7 +225,7 @@ class InstructorFlowsTest < ActionDispatch::IntegrationTest
     assert page.has_content?(name)
   end
 
-  # test 'can edit a lecture in the unit' do    
+  # test 'can edit a lecture in the unit' do
   #   visit teach_course_path(@course)
 
   #   visit edit_teach_course_unit_lecture_path(@course, @unit, @lecture)
@@ -236,7 +236,7 @@ class InstructorFlowsTest < ActionDispatch::IntegrationTest
   #   fill_in 'lecture_on_date', with: Time.zone.today
   #   fill_in 'lecture_for_days', with: '15'
   #   fill_in 'lecture_points', with: '5'
-  
+
   #   click_button 'Update'
 
   #   assert page.has_content?(name)
@@ -287,21 +287,21 @@ class InstructorFlowsTest < ActionDispatch::IntegrationTest
 
     name = Faker::Lorem.words(3).join(" ")
     fill_in 'page_name', with: name
-    fill_in 'wmd-input', with: Faker::Lorem.paragraphs(3).join("\n")
+    fill_in 'wmd-inputabout', with: Faker::Lorem.paragraphs(3).join("\n")
 
     click_button 'Create'
 
     assert page.has_content?(name)
   end
 
-  test 'can edit a page in the unit' do    
+  test 'can edit a page in the unit' do
     visit teach_course_path(@course)
 
     visit  edit_teach_course_unit_page_path(@course, @unit, @page)
 
     name = Faker::Lorem.words(3).join(" ")
     fill_in 'page_name', with: name
-    fill_in 'wmd-input', with: Faker::Lorem.paragraphs(3).join("\n")
+    fill_in 'wmd-inputabout', with: Faker::Lorem.paragraphs(3).join("\n")
 
     click_button 'Update'
 

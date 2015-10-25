@@ -20,11 +20,11 @@ class StudentFlowsTest < ActionDispatch::IntegrationTest
   test 'can enroll in a class' do
     klass = klasses(:eng101_sec02)
     visit learn_klasses_path
-    
+
     click_link 'Learn more'
     click_link 'Enroll in this class - It\'s free'
     check('agreed')
-    
+
     click_button 'Submit'
 
     assert page.has_content?(klass.course.name)
@@ -38,8 +38,8 @@ class StudentFlowsTest < ActionDispatch::IntegrationTest
 
   test 'visit lecture' do
     visit learn_klass_lecture_path(@klass, @lecture)
-    
-    assert page.has_content?(@lecture.name)  
+
+    assert page.has_content?(@lecture.name)
   end
 
   test 'can create a topic' do
@@ -51,7 +51,7 @@ class StudentFlowsTest < ActionDispatch::IntegrationTest
 
     name = Faker::Lorem.words(2).join(" ")
     fill_in 'topic_name', with: name
-    fill_in 'wmd-input', with: Faker::Lorem.paragraphs(1).join("\n")
+    fill_in 'wmd-inputabout', with: Faker::Lorem.paragraphs(1).join("\n")
     check('topic_anonymous')
 
     click_button 'Create'

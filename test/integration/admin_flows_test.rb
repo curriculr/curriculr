@@ -14,14 +14,12 @@ class AdminFlowsTest < ActionDispatch::IntegrationTest
   test 'can list users' do
     find(:xpath, "//a[@href='/users']").click
 
-    #save_and_open_page
-
     find(:xpath, "//a[@href='/users/#{@admin.id}/edit']").click
 
     fill_in 'Name', with: 'Mighty Admin'
 
     click_button 'Update'
-    
+
     assert_equal 'Mighty Admin', User.find(@admin.id).name
   end
 
@@ -46,7 +44,7 @@ class AdminFlowsTest < ActionDispatch::IntegrationTest
     find(:xpath, "//a[@href='/users']").click
 
     find(:xpath, "//a[@href='/users/#{instructor.id}?opr=faculty']").click
-    
+
     assert instructor.has_role?(:faculty)
   end
 
@@ -55,7 +53,7 @@ class AdminFlowsTest < ActionDispatch::IntegrationTest
 
     click_link 'New'
     message = Faker::Lorem.words(5).join(" ")
-    fill_in 'wmd-input', with: message
+    fill_in 'wmd-inputmessage', with: message
     fill_in 'announcement_starts_at', with: Time.zone.today
     fill_in 'announcement_ends_at', with: 20.days.from_now
 
@@ -72,7 +70,7 @@ class AdminFlowsTest < ActionDispatch::IntegrationTest
     find(:xpath, "//a[@href='/admin/announcements/#{announcement.id}/edit']").click
 
     message = Faker::Lorem.words(4).join(" ")
-    fill_in 'wmd-input', with: message
+    fill_in 'wmd-inputmessage', with: message
 
     click_button 'Update'
 
@@ -89,8 +87,6 @@ class AdminFlowsTest < ActionDispatch::IntegrationTest
   # end
 
   test 'can visit dashboard' do
-    find(:xpath, "//a[@href='/admin/dashboard']").click
-    
     assert page.has_content?('Dashboard')
   end
 
@@ -100,7 +96,7 @@ class AdminFlowsTest < ActionDispatch::IntegrationTest
     click_link 'New'
     title = Faker::Lorem.words(2).join(' ')
     fill_in 'page_name', with: title
-    fill_in 'wmd-input', with: Faker::Lorem.paragraphs(3).join("\n")
+    fill_in 'wmd-inputabout', with: Faker::Lorem.paragraphs(3).join("\n")
     fill_in 'page_slug', with: Faker::Lorem.word
 
     click_button 'Create'

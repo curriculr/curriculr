@@ -54,7 +54,7 @@ class Ability
       can [ :home, :show, :edit, :update, :destroy_session, :edit_password,
         :change_password ], User, :id => user.id
 
-      if user.has_role? :faculty || ((course || klass) && KlassEnrollment.staff?(user, course || klass))
+      if user.has_role?(:faculty) || ((course || klass) && KlassEnrollment.staff?(user, course || klass))
         can [ :new, :create, :index ], Course if user.has_role? :faculty
 
         course = klass.course if course.blank? && klass.present?
@@ -66,21 +66,21 @@ class Ability
         end
       end
 
-      if user.has_role? :blogger
+      if user.has_role?(:blogger)
         can :manage, Page, :owner_id => user.id
       end
 
       can :manage, :all if user.id == 1
 
-      if user.has_role? :admin && account == user.account
+      if user.has_role?(:admin) && account == user.account
         can :manage, :all
       end
 
-      if user.has_role? :console
+      if user.has_role?(:console)
         can :manage, AccessToken
       end
 
-      unless user.has_role? :faculty
+      unless user.has_role?(:faculty)
         can [:new, :create, :edit, :update], FacultyApplication
       end
     end
