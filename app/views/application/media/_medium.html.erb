@@ -7,11 +7,11 @@
   <%= form_hidden f, :tag_list, :value => "#{params[:t]}" %>
   <%= form_hidden f, :medium_id, :value => "#{medium.id}" %>
   <%= form_submit f, nil, [], :as => :select %>
-<% end if @course and @material %>
+<% end if @course && @material %>
 
-<%= 
-  render :partial => "application/media/#{medium.kind}", 
-         :locals => { :form => form, medium.kind.to_sym => medium, 
-           "#{medium.kind}_counter".to_sym => medium_counter, 
-           :action => (defined? action) ? action : nil } 
+<%=
+  render :partial => "application/media/#{medium.kind}",
+         :locals => { :form => form, medium.kind.to_sym => medium,
+           "#{medium.kind}_counter".to_sym => medium_counter,
+           :action => (defined? action) ? action : nil }
 %>

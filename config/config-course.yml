@@ -21,11 +21,11 @@ course:
     passing_grade: 75
 
   discussion:
-    forums:  
+    forums:
       - general
       - study_groups
       - assessments
-    
+
     post_deletion_by:
       admin: true
       faculty: true
@@ -35,11 +35,11 @@ course:
     - technician
     - assistant
     - instructor
-  
+
   question_banks:
     - main
     - survey
-    
+
   allow_user_student_dependents: false
   allow_access_to:
     syllabus: true
@@ -55,6 +55,7 @@ course:
       - png
       - jpg
       - jpeg
+      - gif
     video:
       - mp4
     audio:
@@ -64,4 +65,3 @@ course:
     other:
       - txt
       - csv
-      - dat

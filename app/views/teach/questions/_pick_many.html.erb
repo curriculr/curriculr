@@ -9,7 +9,7 @@
     <% end %>
   <% end %>
 
-  <% if (@attempt.blank? or @attempt.state == 2) and q.explanation.present? %>
+  <% if (@attempt.blank? || @attempt.state == 2) && q.explanation.present? %>
     <%= content_tag :div, id: "#{q.id}-explanation", class: "question-explanation hidden" do %>
       <%= markdown("**#{Question.human_attribute_name(:explanation)}**! #{q.explanation}") %>
     <% end %>
@@ -17,7 +17,7 @@
 </div>
 
 <table class="<%= css_table %>">
-  <% 
+  <%
   is_sortable = (controller_name == 'questions' && action_name == 'index' && staff?(current_user, @course))
   %>
   <tbody class="<%= 'sortable' if is_sortable  %>" data-update-url="<%= url_for([:sort_option, :teach, @course, @unit, @lecture, q]) if is_sortable %>">
@@ -29,7 +29,7 @@
           <% end %>
         </td>
         <td class="<%= css_columns(1) %>">
-          <%= check_box_tag "attempt[#{q.id}][#{o.id}]", o.option, (a and a[o.id] == '1'), :disabled => read_only %>
+          <%= check_box_tag "attempt[#{q.id}][#{o.id}]", o.option, (a && a[o.id] == '1'), :disabled => read_only %>
           <div id="<%= "answer_#{q.id}_#{o.id}"%>" style="display: inline;" class="question-answer"></div>
         </td>
       </tr>

@@ -1,17 +1,22 @@
 <%
 add_item_to_app_menu :site_bottom, link('miscellaneous', :about, main_app.localized_page_path(:about)), title
-add_item_to_app_menu :site_bottom, link(:page, :services, main_app.localized_page_path(:services)), title
+#add_item_to_app_menu :site_bottom, link(:page, :services, main_app.localized_page_path(:services)), title
 add_item_to_app_menu :site_bottom, link('miscellaneous', :contactus, main_app.contactus_path), title
 
-section = t('page.titles.more_info_html')
-add_item_to_app_menu :site_bottom, link_to(css_icon('th-list', 1) + Klass.model_name.human(count: 3) , main_app.  learn_klasses_path), section
+
+section = :goto
+add_item_to_app_menu :site_bottom, link(:user, :home, main_app.home_path), :goto if current_user
+add_item_to_app_menu :site_bottom, link(:klass, :learn, main_app.learn_klasses_path), section
+if current_user && (current_user.has_role?(:admin) || current_user.has_role?(:faculty))
+  add_item_to_app_menu :site_bottom, link(:course, :teach, main_app.teach_courses_path), :goto
+end
 add_item_to_app_menu :site_bottom, link(:page, :blogs, main_app.blogs_path), section
 
-section = t('page.titles.follow_us_html')
+section = :social
 current_account.config['social_pages'].each do |page, at|
   if at && at.strip.present?
-    link = (link_to at, :title => t('activerecord.actions.visit_us_at', :name => page) do
-      content_tag(:i, '', class: "fa fa-#{page} fa-lg") + " " + page.titleize
+    link = (link_to at, :class => "btn btn-#{page}" do
+      css_icon([page, :lg])
     end)
     add_item_to_app_menu :site_bottom, link, section
   end
@@ -23,8 +28,9 @@ end
 <footer>
   <div class="footer">
     <div class="<%= css_container %> footer-links">
+
       <div class="row">
-        <div class="<%= css_columns(6) %>">
+        <div class="<%= css_columns(7) %>">
           <% mission = Page.localized(:mission) %>
           <%= markdown mission.about, :html => mission.html if mission %>
 
@@ -32,16 +38,29 @@ end
             <%= link(:page, :edit, main_app.edit_page_path(mission), :class => css(button: [:success, :xs])) %>
           <% end %>
         </div>
-        <% app_menu(:site_bottom).reject{|k,v| k == :_}.each do |section, items| %>
-          <div class="<%= css_columns(2) %> col-sm-4 col-xs-4">
-            <ul>
-              <li><h4><span><%= section %></span></h4></li>
-              <% items.each do |item| %>
-                <li><%= item %></li>
+        <div class="<%= css_columns(2, 1) %> col-sm-4 col-xs-4">
+          <ul>
+            <li><h4><span><%= t('page.titles.goto') %></span></h4></li>
+            <% app_menu(:site_bottom)[:goto].each do |item| %>
+              <li><%= item %></li>
+            <% end %>
+          </ul>
+        </div>
+        <div class="<%= css_columns(2) %> col-sm-4 col-xs-4">
+          <ul>
+            <li><h4><span><%= title %></span></h4></li>
+            <% app_menu(:site_bottom)[title].each do |item| %>
+              <li><%= item %></li>
+            <% end %>
+            <li>
+              <br />
+              <%= t('page.text.follow_us_html') %>
+              <% app_menu(:site_bottom)[:social].each do |item| %>
+                <%= item %>
               <% end %>
-            </ul>
-          </div>
-        <% end %>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -53,8 +72,6 @@ end
             © <%= t('page.text.copyrights', :year => Time.zone.now.year) %>
             &nbsp;&nbsp;|&nbsp;&nbsp;
             <%= link :page, :terms, main_app.localized_page_path(:terms) %>
-            &nbsp;&nbsp;|&nbsp;&nbsp;
-            <%= link :page, :privacy, main_app.localized_page_path(:privacy) %>
           </span>
         </div>
         <div class="<%= css_columns(4) %>">

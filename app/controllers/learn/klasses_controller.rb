@@ -20,7 +20,7 @@ module Learn
     def show
       if @klass.enrolled?(current_student) #and @enrollment.last_attended_at.blank?
         @enrollment.update(last_attended_at: Time.zone.now)
-        if (survey = @klass.course.assessments.tagged_with(:on_enroll, :on => :events).first) and survey.can_be_taken?(@klass, current_student)
+        if (survey = @klass.course.assessments.tagged_with(:on_enroll, :on => :events).first) && survey.can_be_taken?(@klass, current_student)
           redirect_to new_learn_klass_assessment_attempt_path(@klass, survey)
         end
       end
@@ -67,7 +67,7 @@ module Learn
           ActiveSupport::Notifications.instrument('learn.klass.dropped', :account => current_account, :klass => @klass, :student => current_student,
             :enrollment => @enrollment)
 
-          if (survey = @klass.course.assessments.tagged_with(:on_drop, :on => :events).first) and survey.can_be_taken?(@klass, current_student)
+          if (survey = @klass.course.assessments.tagged_with(:on_drop, :on => :events).first) && survey.can_be_taken?(@klass, current_student)
             redirect_to new_learn_klass_assessment_attempt_path(@klass, survey), :flash => {:notice => t('activerecord.messages.successful_drop')}
           else
             redirect_to learn_klass_path(@klass), :flash => {:notice => t('activerecord.messages.successful_drop')}

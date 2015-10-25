@@ -1,10 +1,10 @@
 <% name = current_user && @user == current_user ? "#{@user.profile.prefix} #{@user.name}" : Profile.model_name.human %>
-<%= ui_header name, style: :h2, action: link(:profile, :edit, edit_user_path(@user), 
+<%= ui_header name, style: :h2, action: link(:profile, :edit, edit_user_path(@user),
       class: css(button: :success, align: :right)) %>
 
-<%= image_tag @user.profile.avatar_url(current_account, :med).to_s, 
+<%= image_tag @user.profile.avatar_url(current_account, :med).to_s,
       :class => 'pull-right img-polaroid' if @user.profile.avatar_url(current_account, :med) %>
-<% unless current_user and @user.id == current_user.id %>
+<% unless current_user && @user.id == current_user.id %>
   <h4><%= User.human_attribute_name(:email) %></h4>
   <%= @user.email %>
 <% end %>
@@ -17,9 +17,9 @@
 <% if @user.has_role? :console %>
   <hr>
   <% access_tokens = @user.access_tokens.to_a %>
-  <%= link :access_token, :create, user_access_tokens_path(@user), :method => :post, 
+  <%= link :access_token, :create, user_access_tokens_path(@user), :method => :post,
         :class => css(button: :success, align: :right) if access_tokens.blank? %>
-  
+
   <table class="<%= css_table %>">
   	<thead>
   		<tr>
@@ -40,17 +40,17 @@
   			<td>
   				<%
   					links = []
-  					links << link(:access_token, token.revoked_at.present? ? :enact : :revoke, 
+  					links << link(:access_token, token.revoked_at.present? ? :enact : :revoke,
               revoke_user_access_token_path(@user, token))
             links << nil
-  					links << link(:access_token, :destroy, user_access_token_path(@user, token), 
+  					links << link(:access_token, :destroy, user_access_token_path(@user, token),
               :method => :delete, confirm: true)
   				%>
-  				<%= ui_button_dropdown ui_options_button_text, links, class: css_button(:default), align: :right %>      
+  				<%= ui_button_dropdown ui_options_button_text, links, class: css_button(:default), align: :right %>
   			</td>
   		</tr>
   		<% end %>
-    
+
       <% if @user.access_tokens.empty? %>
       <tr>
         <td colspan="5"><%= t('page.text.no_record_found') %></td>

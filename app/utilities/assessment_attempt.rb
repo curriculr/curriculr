@@ -6,12 +6,12 @@ class AssessmentAttempt
     @attempt = attempt
     @attempt_params = attempt_params.nil? ? {} : attempt_params
   end
-  
+
   def build
     test = []
     points = 0
     questions = []
-    attempt = Attempt.find_or_initialize_by(:klass => @klass, :student => @student, 
+    attempt = Attempt.find_or_initialize_by(:klass => @klass, :student => @student,
     :assessment_id => @assessment.id, :state => 1)
     if attempt.new_record?
       questions = @assessment.questions
@@ -23,7 +23,7 @@ class AssessmentAttempt
 
       attempt.test = test
       attempt.points = points
-      
+
       attempt.save if @student
     else
       attempt.test.each do |t|
@@ -32,22 +32,22 @@ class AssessmentAttempt
         questions << question
       end
     end
-      
+
     attempt.questions = questions
-    
+
     attempt
   end
 
   def is_fill_one_correct?(t, q)
     q.options.each do|o|
       t[:t][o.id] = @attempt_params["#{q.id}"]["#{o.id}"].strip if @attempt_params["#{q.id}"] && @attempt_params["#{q.id}"]["#{o.id}"]
-      if "#{t[:a][o.id]}".downcase.strip != "#{t[:t][o.id]}".downcase.strip 
+      if "#{t[:a][o.id]}".downcase.strip != "#{t[:t][o.id]}".downcase.strip
         return false
       else
         t[:c] = 1
       end
     end
-  
+
     true
   end
 
@@ -56,12 +56,12 @@ class AssessmentAttempt
     q.options.each do|o|
       t[:t][o.id] = @attempt_params["#{q.id}"]["#{o.id}"].strip if @attempt_params["#{q.id}"] && @attempt_params["#{q.id}"]["#{o.id}"]
       if "#{t[:a][o.id]}".downcase.strip != "#{t[:t][o.id]}".downcase.strip
-        is_correct = false 
+        is_correct = false
       else
         t[:c] += 1
       end
     end
-  
+
     is_correct
   end
 
@@ -71,12 +71,12 @@ class AssessmentAttempt
     q.options.each do |o|
       t[:t][o.id] = (answer == o.option ? '1' : '0')
       if t[:a][o.id] != t[:t][o.id]
-        is_correct = false 
+        is_correct = false
       else
         t[:c] += 1
       end
     end
-  
+
     is_correct
   end
 
@@ -86,12 +86,12 @@ class AssessmentAttempt
       answer = @attempt_params["#{q.id}"]["#{o.id}"] if @attempt_params["#{q.id}"]
       t[:t][o.id] = (answer == o.option ? '1' : '0')
       if t[:a][o.id] != t[:t][o.id]
-        is_correct = false 
+        is_correct = false
       else
         t[:c] += 1
       end
     end
-  
+
     is_correct
   end
 
@@ -101,17 +101,17 @@ class AssessmentAttempt
 
   def is_match_correct?(t, q)
     is_correct = true
-    q.options.each do |o| 
+    q.options.each do |o|
       o.option_items.each_with_index do |item, i|
         t[:t][i + 1] = @attempt_params["#{q.id}"]["#{i + 1}"].strip if @attempt_params["#{q.id}"] && @attempt_params["#{q.id}"]["#{i + 1}"]
         if "#{t[:a][i + 1]}".downcase.strip != "#{t[:t][i + 1]}".downcase.strip
-          is_correct = false 
+          is_correct = false
         else
           t[:c] += 1
         end
       end
     end
-  
+
     is_correct
   end
 
@@ -121,7 +121,7 @@ class AssessmentAttempt
 
   def grade(test)
     points = 0.0
-    
+
     test.each do |t|
       question = Question.find(t[:q])
       @attempt.questions << question
@@ -135,7 +135,7 @@ class AssessmentAttempt
   end
 
   def score(params, to_save = false)
-    if @attempt and @attempt.state == 1
+    if @attempt && @attempt.state == 1
       @attempt.questions = []
       points = grade(@attempt.test)
 
@@ -148,7 +148,7 @@ class AssessmentAttempt
       @attempt.save
     end
   end
-  
+
   # Used to correct questions in lectures
   def self.is_correct?(question, attempt)
     correct = 0

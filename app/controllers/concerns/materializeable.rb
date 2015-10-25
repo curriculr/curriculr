@@ -1,19 +1,19 @@
 module Materializeable
   extend ActiveSupport::Concern
-  
+
   included do
     helper_method :path_for, :the_path_out
     responders :flash
   end
-  
+
   def show
     redirect_to @material.at_url
   end
-  
+
   def new
     if params[:m]
-      redirect_to new_teach_course_medium_path(@course, s: params[:s], m: [ 
-        @course.id, @unit.present? ? @unit.id : 0, @lecture.present? ? @lecture.id : 0, 
+      redirect_to new_teach_course_medium_path(@course, s: params[:s], m: [
+        @course.id, @unit.present? ? @unit.id : 0, @lecture.present? ? @lecture.id : 0,
         params[:t] ? params[:t] : 0 ].join(','))
     else
       @material = Material.new(:kind => params[:s])
@@ -27,13 +27,13 @@ module Materializeable
   end
 
   def new_medium
-    
+
   end
-  
+
   def create_medium
-    
+
   end
-  
+
   def create
     section = {}
     if @lecture
@@ -53,12 +53,12 @@ module Materializeable
       @material = @course.materials.new(material_params)
       section[:show] = 'books'
     end
-    
+
     @req_objects << @material
     if @material.save
       @req_objects.pop
       @req_objects << section
-          
+
       respond_with @material do |format|
         format.html { redirect_to @req_objects }
         format.js {}
@@ -70,7 +70,7 @@ module Materializeable
     @material = Material.find(params[:id])
     @material.destroy
     respond_with @material do |format|
-      format.html { 
+      format.html {
         section = {}
 
         if @lecture
@@ -89,12 +89,12 @@ module Materializeable
         end
 
         @req_objects << section
-        redirect_to @req_objects 
+        redirect_to @req_objects
       }
     end
   end
-  
-  private  
+
+  private
     def material_params
       params.require(:material).permit(:medium_id, :kind, :tag_list)
     end

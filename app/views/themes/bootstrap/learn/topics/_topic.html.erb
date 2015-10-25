@@ -1,4 +1,4 @@
-<% if (@klass.open? and @klass.enrolled?(current_student)) || staff?(current_user, @klass.course) %>
+<% if (@klass.open? && @klass.enrolled?(current_student)) || staff?(current_user, @klass.course) %>
   <% @depth = 0 %>
 
   <div class="media">

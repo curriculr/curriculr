@@ -3,8 +3,8 @@ module Learn
     def new
       if @assessment.can_be_taken?(@klass, @student)
         util = AssessmentAttempt.new(@klass, @student, @assessment)
-        @attempt = util.build 
-      
+        @attempt = util.build
+
     		respond_to do |format|
           format.html { render 'show' }
           format.js { render 'invideo' }
@@ -21,21 +21,21 @@ module Learn
         redirect_to url
       end
     end
-  
+
     def create
       util = AssessmentAttempt.new(@klass, current_student, @assessment, @attempt, request[:attempt])
       is_to_save = (params[:commit] == t('activerecord.actions.save'))
       util.score(params, is_to_save)
-    
+
       if is_to_save
         flash.now[:notice] = t('flash.actions.save_attempt.notice')
       else
         flash.now[:notice] = t('flash.actions.submit_attempt.notice')
       end
-    
+
   		respond_to do |format|
-        format.html { 
-          if @assessment.kind == 'survey' and 'on_enroll'.in?(@assessment.event_list)
+        format.html {
+          if @assessment.kind == 'survey' && 'on_enroll'.in?(@assessment.event_list)
             redirect_to learn_klass_path(@klass)
           else
             render 'show'
@@ -61,7 +61,7 @@ module Learn
                 end
               end
             else
-              attempt_params[t[:q].to_s]  = Hash[t[:t].map{|o,a| 
+              attempt_params[t[:q].to_s]  = Hash[t[:t].map{|o,a|
                 if question.kind == 'pick_many'
                   if a == '1'
                     option = question.options.find(o)
@@ -73,13 +73,13 @@ module Learn
               }]
             end
           end
-        
+
           util = AssessmentAttempt.new(@klass, current_student, @assessment, @attempt, attempt_params)
           util.grade(@attempt.test)
           render 'answer'
         }
-      
-      	format.js { 
+
+      	format.js {
           @question = Question.find(params[:question_id])
           case @question.kind
           when 'fill_many', 'pick_2_fill'
@@ -91,11 +91,11 @@ module Learn
             @answer = Hash[@question.options.map{|o| ["answer_#{@question.id}_#{o.id}", o.answer]}]
           end
 
-          render 'attempts' 
-  			} 
+          render 'attempts'
+  			}
   		end
     end
-  
+
     private
       def attempt_params
         params.require(:attempt).permit()

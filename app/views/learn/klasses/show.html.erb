@@ -1,7 +1,7 @@
-<% enrolled =  (@klass.enrolled?(current_student) or staff?(current_user, @klass.course)) %>
+<% enrolled =  (@klass.enrolled?(current_student) || staff?(current_user, @klass.course)) %>
 
 <% if enrolled %>
-  <% if @klass.open? and @klass.allow_enrollment %>
+  <% if @klass.open? && @klass.allow_enrollment %>
     <% deadlines = @klass.upcoming_deadlines %>
     <% unless deadlines.to_a.empty? %>
       <% content_for :additional_nav do %>
@@ -80,7 +80,7 @@
               t('page.text.in_days', :count =>  -1 * days)
             elsif days > 0
               past = @klass.ends_on ? (Date.current - @klass.ends_on) : nil
-              if past == nil or past <= 0
+              if past == nil || past <= 0
                 t('page.text.open_for_enrollment')
               else
                 t('page.text.closed')

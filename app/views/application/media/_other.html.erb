@@ -2,7 +2,7 @@
   <td>
     <div class="row">
       <div class="<%= css_columns(8) %>">
-       <i class="fa fa-file-code-o"></i>&nbsp; <%= other.name %> 
+       <i class="fa fa-file-code-o"></i>&nbsp; <%= other.name %>
         (<small><%= timeago_tag(other.created_at, :nojs => true, :limit => 10.days.ago) %></small>)
         <div class="medium-url" style="display: none;">
           <%= css_icon("external-link") %> <small class="text-muted"><%= other.full_url %></small>
@@ -11,13 +11,13 @@
       <div class="<%= css_columns(4) %>">
         <%= content_tag :div, class: css(button: :group, align: :right) do %>
           <%= link :medium, :open, other.at_url, :class => css_button(:default, :xs), :target => '_new' unless @material %>
-          
+
           <%= render partial: 'application/media/links', locals: { medium: other, form: form, action: action } %>
-          
-          <% if other.path.present? and !other.copyrights.blank? %>
+
+          <% if other.path.present? && !other.copyrights.blank? %>
            <p>
              <small>
-               <strong><%=Medium.human_attribute_name(:source) %>:</strong> 
+               <strong><%=Medium.human_attribute_name(:source) %>:</strong>
                <%= other.copyrights %>
              </small>
            </p>

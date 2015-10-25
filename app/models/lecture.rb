@@ -17,7 +17,7 @@ class Lecture < ActiveRecord::Base
   validate :proper_on_date
 
   def proper_on_date
-    if on_date.present? and on_date < based_on
+    if on_date.present? && on_date < based_on
       errors.add :on_date, :must_be_after_date, :date => based_on
     end
   end
@@ -32,14 +32,16 @@ class Lecture < ActiveRecord::Base
 
   def discussion(klass)
     forum = Forum.unscoped.find_by(:klass_id => klass.id, :lecture_comments => true)
-
-    LectureDiscussion.where(klass_id: klass.id,
-      forum_id: forum.id, lecture_id: self.id).first_or_initialize
+    if forum.present?
+      LectureDiscussion.where(klass_id: klass.id,
+        forum_id: forum.id, lecture_id: self.id).first_or_initialize
+    end
   end
 
   def contents(published_only, staff_or_enrolled)
     data = []
-    data += self.materials_of_kind([:video, :audio, :document, :other]).to_a
+    data += self.materials_of_kind([:video, :audio, :image, :document, :other]).
+      tagged_with("poster", :exclude => true).to_a
     data += self.questions.where(:include_in_lecture => true).to_a if staff_or_enrolled
 
     if published_only
@@ -148,8 +150,12 @@ class Lecture < ActiveRecord::Base
     where(%(
       exists (
         SELECT * FROM materials
-        WHERE materials.owner_type = 'Lecture' AND materials.owner_id = lectures.id AND
-          materials.kind <> 'image'
+        WHERE materials.owner_type = 'Lecture' AND materials.owner_id = 1 AND
+          not exists (
+            SELECT taggings.taggable_id FROM taggings, tags
+            WHERE taggings.tag_id = tags.id AND tags.name = 'poster' AND
+              taggings.taggable_id = materials.id AND taggings.taggable_type = 'Material'
+          )
       ) OR exists (
         SELECT pages.* FROM pages
         WHERE pages.owner_type = 'Lecture' AND pages.owner_id = lectures.id AND
@@ -218,7 +224,7 @@ class Lecture < ActiveRecord::Base
   def open?(klass)
     today = Time.zone.today
     on_day = (self.on_date - self.based_on).to_i
-    on_day <= (today - klass.begins_on).to_i and (self.for_days.blank? or (klass.begins_on + on_day + self.for_days) > today)
+    on_day <= (today - klass.begins_on).to_i && (self.for_days.blank? || (klass.begins_on + on_day + self.for_days) > today)
   end
 
   def begins_on(klass)
@@ -267,7 +273,7 @@ class Lecture < ActiveRecord::Base
         forum.transaction do
           discussion = LectureDiscussion.where(klass_id: klass.id,
             forum_id: forum.id, lecture_id: lecture.id).first_or_initialize
-          if discussion.new_record? or discussion.topic.blank?
+          if discussion.new_record? || discussion.topic.blank?
             discussion.topic = forum.topics.create(:name => lecture.name, :about => lecture.about,
               :author => lecture.unit.course.originator)
 

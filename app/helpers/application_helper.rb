@@ -38,7 +38,7 @@ module ApplicationHelper
       t(key, scope: 'activerecord.actions')
     end
 
-    if html_options.present? and (confirm = html_options[:confirm]) and confirm.present? and confirm == true
+    if html_options.present? && (confirm = html_options[:confirm]) && confirm.present? && confirm == true
       confirmation = t(action, scope: 'activerecord.confirmations', :name => t("activerecord.models.#{model}.one"))
 
       link = ''

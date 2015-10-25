@@ -11,7 +11,7 @@ module EditorsHelper
   # Markdown Text
 
   def markdown(text, options = {})
-    return text.html_safe if options[:html] and options[:html] == true
+    return text.html_safe if options[:html] && options[:html] == true
 
     renderer = HTMLwithPygments.new(hard_wrap: true, filter_html: true)
     markdown = Redcarpet::Markdown.new(renderer,
@@ -51,7 +51,7 @@ module EditorsHelper
       @req_attributes[:math?] = true
     end
 
-    %(<div class="#{"markdown-output #{options[:class] if options} #{"hidden-til-processed" if options and options[:hidden_til_processed]}"}">
+    %(<div class="#{"markdown-output #{options[:class] if options} #{"hidden-til-processed" if options && options[:hidden_til_processed]}"}">
       #{text}
     </div>).html_safe
     #content_tag :div, text.html_safe, class: "markdown-output #{options[:class] if options} #{"hidden-til-processed" if options and options[:hidden_til_processed]}"
@@ -118,7 +118,7 @@ module EditorsHelper
     output ||= %(<div class="input string field_with_errors">)
     if options[:label]
       label ||= options[:label]
-      unless !label.nil? and !!label == label
+      unless !label.nil? && !!label == label
         output += form.label field
       end
     end

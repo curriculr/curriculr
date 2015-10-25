@@ -1,7 +1,7 @@
 <%
   pills = []
   pills << [ link(:klass, :available_klasses, main_app.learn_klasses_path),
-    (@courses.nil? and (params[:s].nil? or params[:s] == 'available'))]
+    (@courses.nil? && (params[:s].nil? || params[:s] == 'available'))]
   pills << [ link(:klass, :popular_klasses, main_app.learn_klasses_path(:s => :popular)),
     (params[:s] == 'popular')]
   pills << [ link(:klass, :coming_klasses, main_app.learn_klasses_path(:s => :coming)),

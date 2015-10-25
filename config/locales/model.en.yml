@@ -164,7 +164,7 @@ en:
       enroll_again: Enroll in this class again
       enroll_4_free: Enroll in this class - It's free
       drop: <i class="fa fa-sign-out"></i>&nbsp; Drop
-      goto: Go to class
+      goto_klass: Go to class
       preview: Preview
       activate: Activate
       inactivate: Inactivate
@@ -208,7 +208,7 @@ en:
       allow_discussion: Allow discussion
       prev_html: "&laquo Previous"
       next_html: "Next &raquo"
-      about: About
+      about: About us
       home: Home
       watch: Watch
       listen: Listen
@@ -388,6 +388,7 @@ en:
         about: About you
         prefix: Prefix
         public: Public
+        locale: Language
       contact:
         phone: Phone Number
       course:
@@ -676,7 +677,6 @@ en:
       final_score: Final Score
       surveys: Surveys
       more_info_html: More...
-      follow_us_html: Follow us
       question_banks: Question banks
       part: Part
       own_recent_topics: My recent topics
@@ -690,6 +690,7 @@ en:
       about_you: About you
       about_your_course: About your course
       faculty_application: Faculty application
+      goto: Go to
 
     text:
       more: More
@@ -862,3 +863,4 @@ en:
           your request of becoming a faculty user. Once reviewed and approved,
           you will be able to work on your course.
         </div>
+      follow_us_html: <p><small>You can also follow us at</small></p>

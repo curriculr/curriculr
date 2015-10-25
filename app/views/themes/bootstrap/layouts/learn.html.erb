@@ -1,6 +1,6 @@
 <div id="main-container" class="<%= css_container %>">
   <%= render partial: '/side_rails' %>
-  <% if request.path.ends_with?('sign_in') or request.path.ends_with?('sign_up') %>
+  <% if request.path.ends_with?('sign_in') || request.path.ends_with?('sign_up') %>
 	  <div class="row">
 			<div class="<%= css_columns(12) %>">
         <%= yield %>
@@ -9,7 +9,7 @@
   <% else %>
     <%
     students = nil
-    if current_user and current_account.config['allow_user_student_dependents'] and @klass.course.config['allow_user_student_dependents']
+    if current_user && current_account.config['allow_user_student_dependents'] && @klass.course.config['allow_user_student_dependents']
       students = current_user.students.order(:id).to_a
       student_picker = if students.present?
         capture do
@@ -42,7 +42,7 @@
     end
     %>
 
-		<% if @klass and (@klass.enrolled?(current_student) or staff?(current_user, @klass.course)) %>
+		<% if @klass && (@klass.enrolled?(current_student) || staff?(current_user, @klass.course)) %>
       <div class="row">
 				<div class="<%= css_columns(2) %> side-navabar">
 			    <%= render "learn/klasses/ui_main_side" %>

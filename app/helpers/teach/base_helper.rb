@@ -1,38 +1,38 @@
-module Teach::BaseHelper  
+module Teach::BaseHelper
   def question_bank_path(action, kind, assessment = nil, bank=nil)
-    options = {:action => action, :controller => 'questions', 
+    options = {:action => action, :controller => 'questions',
                 :course_id => @course.id, :unit_id => (@unit ? @unit.id : nil),
                 :lecture_id => (@lecture ? @lecture.id : nil), :s => kind }
-    options[:a] = assessment.id if assessment and assessment.is_a?(Assessment)
+    options[:a] = assessment.id if assessment && assessment.is_a?(Assessment)
     options[:b] = bank if bank
     url_for(options)
   end
-  
+
   def ui_course_klass_links(klass)
-		links = [ 
+		links = [
 		  link(:klass, :edit, edit_teach_course_klass_path(@course, klass)),
       nil,
-		  link(:klass, :destroy, teach_course_klass_path(@course, klass), 
+		  link(:klass, :destroy, teach_course_klass_path(@course, klass),
 		    :confirm => true, :method => :delete),
       nil,
       link(:klass, :show, learn_klass_path(klass), as: :student_view)
     ]
-    
+
     if klass.ready_to_approve
-      if current_user and current_user.has_role? :admin
+      if current_user && current_user.has_role?(:admin)
         links << nil
-        links << link(:klass, klass.approved ? :disapprove : :approve, approve_teach_course_klass_path(@course, klass), 
+        links << link(:klass, klass.approved ? :disapprove : :approve, approve_teach_course_klass_path(@course, klass),
           :method => :put)
-        links << link(:klass, :unready, ready_teach_course_klass_path(@course, klass), :method => :put) 
+        links << link(:klass, :unready, ready_teach_course_klass_path(@course, klass), :method => :put)
       end
     else
       links << nil
-      links << link(:klass, :ready, ready_teach_course_klass_path(@course, klass), :method => :put) 
+      links << link(:klass, :ready, ready_teach_course_klass_path(@course, klass), :method => :put)
 
     end
 
     links
-  end 
+  end
 
   def active_course_section(section)
     params[:show] == section

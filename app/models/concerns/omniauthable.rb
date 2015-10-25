@@ -6,7 +6,7 @@ module Omniauthable
 
   module ClassMethods
 	  def find_for_oauth(auth, signed_in_resource = nil)
-      email = auth.info.email 
+      email = auth.info.email
       user = User.scoped.where(:email => email).first if email
 
       unless user
@@ -21,12 +21,12 @@ module Omniauthable
         user.skip_confirmation!
         user.save!
       else
-      	if auth.info.image.present? and (user.provider != auth.provider or user.uid.blank?) 
+      	if auth.info.image.present? && (user.provider != auth.provider || user.uid.blank?) 
 	        user.update(
 	          provider: auth.provider,
 	          uid: auth.uid,
 	          avatar: auth.info.image
-	        ) 
+	        )
 	      end
       end
 

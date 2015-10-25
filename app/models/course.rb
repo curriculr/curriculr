@@ -18,6 +18,7 @@ class Course < ActiveRecord::Base
   has_many :klasses, :dependent => :destroy
   has_many :forums, :dependent => :destroy
   has_many :updates, :dependent => :destroy
+  has_many :grade_distributions, :dependent => :destroy
 
   attr_accessor :config, :settings
 

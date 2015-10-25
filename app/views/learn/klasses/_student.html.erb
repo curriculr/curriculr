@@ -10,7 +10,7 @@
     <% end %>
   </td>
   <td>
-    <% if @klass.private and !enrollment.active %>
+    <% if @klass.private && !enrollment.active %>
       <% if enrollment.accepted_or_declined_at.blank? %>
         <%= content_tag(:span, t('page.text.invited'), :class => css_label(:warning)) %>
       <% else %>
@@ -22,8 +22,8 @@
 	<td><%= l(enrollment.created_at.to_date) %></td>
   <td><%= @klass.final_score(enrollment.student.id)[:score] %></td>
   <td>
-    <%= link(:course, :reports, 
-          learn_klass_student_report_path(enrollment.klass, enrollment.student), 
+    <%= link(:course, :reports,
+          learn_klass_student_report_path(enrollment.klass, enrollment.student),
           :class => css(button: :default, align: :right)) %>
   </td>
 </tr>

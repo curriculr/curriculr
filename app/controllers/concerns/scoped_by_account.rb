@@ -9,7 +9,7 @@ module ScopedByAccount
   def current_account
     subdomain = request.subdomain
 
-    if subdomain.blank? or subdomain == 'www'
+    if subdomain.blank? || subdomain == 'www'
       subdomain = $site['default_account']
     end
 
@@ -17,12 +17,12 @@ module ScopedByAccount
     unless account
       account = Account.find_by(slug: $site['default_account'], :active => true)
     end
-    
+
     #raise ActionController::RoutingError.new(:invalid_or_inactive_account) if account.blank?
     account
   end
 
-  def scope_current_account 
+  def scope_current_account
     Account.current_id = current_account.id
     yield
   ensure

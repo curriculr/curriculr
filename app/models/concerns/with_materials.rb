@@ -13,10 +13,10 @@ module WithMaterials
       self.materials.where("materials.kind = :kind", :kind => kind)
     end
   end
-  
+
   def materials_tagged(tag, kind)
     options = "tags.name = :tag"
-    
+
     if kind
       if kind.is_a?(Array)
         options << " and materials.kind in (:kind)"
@@ -24,13 +24,13 @@ module WithMaterials
         options << " and materials.kind = :kind"
       end
     end
-    
+
     self.materials.joins(:taggings).joins(:tags).where(options, :tag => tag, :kind => kind)
   end
-  
+
   def materials_not_tagged(tag, kind = nil)
     options = "(tags.name is null or tags.name <> :tag)"
-    
+
     if kind
       if kind.is_a?(Array)
         options << " and materials.kind in (:kind)"
@@ -44,10 +44,10 @@ module WithMaterials
       joins("left outer join tags on taggings.tag_id = tags.id").
       where(options, :tag => tag, :kind => kind)
   end
-  
+
   def materials_not_tagged_and_not_kind(tag, kind = nil)
     options = "(tags.name is null or tags.name <> :tag)"
-    
+
     if kind
       if kind.is_a?(Array)
         options << " and materials.kind not in (:kind)"

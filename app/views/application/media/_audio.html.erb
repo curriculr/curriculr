@@ -1,9 +1,9 @@
 <tr id="content_<%= audio.id %>_medium" sortid="content_<%= audio.id %>.medium" class="medium-content">
-  <td> 
+  <td>
     <div class="row">
       <div class="<%= css_columns(9) %>">
         <%= ui_audio audio %>
-        <% if audio.path.present? and !audio.copyrights.blank? %>
+        <% if audio.path.present? && !audio.copyrights.blank? %>
           <br><small><strong><%=Medium.human_attribute_name(:source) %>:</strong> <%= audio.copyrights %></small>
         <% end %>
         <%= audio.name %> (<small><%= timeago_tag(audio.created_at, :nojs => true, :limit => 10.days.ago) %></small>)

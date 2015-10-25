@@ -5,6 +5,7 @@ class CreateProfiles < ActiveRecord::Migration
       t.string :nickname
       t.string :prefix
       t.string :avatar
+      t.string :locale
 			t.text :about
       t.boolean :public, :default => false
 

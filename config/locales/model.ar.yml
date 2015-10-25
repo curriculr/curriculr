@@ -166,7 +166,7 @@ ar:
       enroll_again: سجل في هذا الفصل مجددا
       enroll_4_free: سجل في هذه الفصل - إنه مجاني
       drop: <i class="fa fa-sign-out"></i>&nbsp; اترك الفصل
-      goto: اذهب الى الفصل
+      goto_klass: اذهب الى الفصل
       preview: استعرض
       activate: فعّل
       inactivate: إلغاء التفعيل
@@ -206,7 +206,7 @@ ar:
       follow_us: تابعنا على
       visit_us_at: زورونا على صفحتنا في %{name}
       hangout_with_us: جالسنا
-      disallow_discussion: لا تسمح
+      disallow_discussion: لا تسمح بالمناقشة
       allow_discussion: اسمح بالمناقشة
       prev_html: "&laquo; السابق"
       next_html: "التالي &raquo;"
@@ -381,6 +381,7 @@ ar:
         about: السيرة الذاتية
         prefix: البادئة
         public: عام
+        locale: اللغة
       contact:
         phone: رقم التلفون
       course:
@@ -670,7 +671,6 @@ ar:
       final_score: الدرجة النهائية
       surveys: استبيانات
       more_info_html: المزيد...
-      follow_us_html: تابعنا على
       question_banks: بنك الأسئلة
       part: جزء
       own_recent_topics: آخر مواضيعي
@@ -684,6 +684,7 @@ ar:
       about_you: بياناتك الخاصة
       about_your_course: بيانات مقررك الدراسي
       faculty_application: طلب عضوية هيئة التدريس
+      goto: اذهب إلى
 
     text:
       more: اكثر
@@ -859,3 +860,4 @@ ar:
           إلى هيئة التدريس. بعد أن تتم مراجعة طلبك و الموافقة عليه ستتمكن
           من ذلك المقرر.
         </div>
+      follow_us_html: <p><small>تستطيع متابعتنا و التواصل معنا على صفحاتنا على</small></p>

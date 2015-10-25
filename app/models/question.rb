@@ -1,13 +1,13 @@
 class Question < ActiveRecord::Base
   include Actionable
-  acts_as_taggable_on :tags, :banks 
-  
+  acts_as_taggable_on :tags, :banks
+
   belongs_to :course
   belongs_to :unit
   belongs_to :lecture
-  
+
   attr_accessor :points, :unit_lectures
-  
+
   has_many :options, :dependent => :destroy
   accepts_nested_attributes_for :options, :allow_destroy => true
 
@@ -15,7 +15,7 @@ class Question < ActiveRecord::Base
     case kind
     when 'match', 'sort'
       options.first.option_items.count
-    else 
+    else
       options_count
     end
   end
@@ -37,7 +37,7 @@ class Question < ActiveRecord::Base
         answer[o.id] = o.answer
       end
     end
-    
+
     answer
   end
   def answers # used in questions bank
@@ -48,15 +48,15 @@ class Question < ActiveRecord::Base
       options.map {|o| o.id if o.answer == '1'}
     end
   end
-  
+
 	# Validation Rules
 	validates :question, :kind, :course_id, :bank_list, :presence => true
 	validates :hint, :explanation, :length => {:maximum => 400 }
 	validate :has_valid_options?
-  
+
 	def has_valid_options?
     return if kind.blank?
-    
+
     render_options = Option.render_options[kind.to_sym]
 		extracted_items = []
     q_a_options = []
@@ -66,7 +66,7 @@ class Question < ActiveRecord::Base
     missing_a_option = false
     missing_b_option = false
     is_survey = 'survey'.in?(bank_list)
-		options.each do |o| 
+		options.each do |o|
 			unless o.marked_for_destruction?
         q_a_options << o.option
         q_b_options << o.answer_options
@@ -81,13 +81,13 @@ class Question < ActiveRecord::Base
         missing_b_option = true if render_options[:answer_options] && o.answer_options.blank?
 
         options_count += 1
-			end 
+			end
 		end
 
     err_messages = []
     a_options = q_a_options.map
     # Validate counts
-    if render_options[:count] == 1 
+    if render_options[:count] == 1
       if options_count != 1
         err_messages << I18n.t('errors.models.question.options_not_one', name: I18n.t("page.text.#{render_options[:name]}"))
       end
@@ -109,9 +109,9 @@ class Question < ActiveRecord::Base
 
         unless survey?
           a_count = (q_b_options.select{|o| o.present? && o != '0'}).count
-          if kind.to_s == 'pick_many' and a_count < 2
+          if kind.to_s == 'pick_many' && a_count < 2
             err_messages << I18n.t('errors.models.question.answers_less_than', count: 2)
-          elsif kind.to_s == 'pick_one' and a_count != 1
+          elsif kind.to_s == 'pick_one' && a_count != 1
             err_messages << I18n.t('errors.models.question.answers_not_one')
           end
         end
@@ -147,13 +147,13 @@ class Question < ActiveRecord::Base
       errors.add :options, err_messages.sort.uniq.join(' ')
     end
 	end
- 
+
   def survey?
     'survey'.in?(bank_list)
   end
-  
+
   # call back
-  before_save do 
+  before_save do
     self.options.each_with_index  do |option, ndx|
       case self.kind.to_sym
       when :fill_one, :fill_many
@@ -172,4 +172,3 @@ class Question < ActiveRecord::Base
     QSelector.where(:question => question).destroy_all
   end
 end
-

@@ -1,20 +1,38 @@
 <% cache do %>
   <div class="row">
-    <div class="<%= css_columns(6) %>">
-      <%= form_header :style => :h2 %>
-      <%= form_for @message, :url => miscellaneous_contactus_path, :method => :post do |f| %>
-      
-        <%= form_text f, :name %>
-        <%= form_email f, :email %>
-        <%= form_text f, :subject %>
-        <%= form_text_area f, :content, :size => '60x8' %>
+    <div class="<%= css_columns(8) %>">
+      <br/>
+      <div class="panel panel-default">
+        <ul class="nav nav-tabs success" role="tablist">
+          <li role="presentation" class="active">
+            <a href="#"><strong><%= t('activerecord.actions.contactus') %></strong></a>
+          </li>
+        </ul>
+        <div class="panel-body">
+          <%= form_for @message, :url => miscellaneous_contactus_path, :method => :post do |f| %>
+            <% if current_user %>
+              <%= form_hidden f, :name, value: current_user.name %>
+              <%= form_static f, :name, value: current_user.name %>
 
-        <%= form_submit f, root_path %>
-      <% end %>
-    </div>    
-    <div class="<%= css_columns(6) %>">
+              <%= form_hidden f, :email, value: current_user.email %>
+              <%= form_static f, :email, value: current_user.email %>
+            <% else %>
+              <%= form_text f, :name %>
+              <%= form_email f, :email %>
+            <% end %>
+
+            <%= form_text f, :subject %>
+            <%= form_text_area f, :content, :size => '60x8' %>
+
+            <%= form_submit f, root_path %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="<%= css_columns(4) %>">
+      <br />
       <% help = Page.localized(:help) %>
-      <%= ui_header help.name, :style => :h2 %>
+      <%# ui_header help.name, :style => :h2 %>
       <%= markdown(help.about) %>
     </div>
   </div>

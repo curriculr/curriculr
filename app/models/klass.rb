@@ -18,8 +18,8 @@ class Klass < ActiveRecord::Base
   validate :has_valid_dates
 
 	def has_valid_dates
-    errors.add :begins_on, :before_today if new_record? and begins_on and begins_on < Time.zone.today
-    errors.add :ends_on, :before_begin_date if begins_on and ends_on and begins_on > ends_on
+    errors.add :begins_on, :before_today if new_record? && begins_on && begins_on < Time.zone.today
+    errors.add :ends_on, :before_begin_date if begins_on && ends_on && begins_on > ends_on
 	end
 
   PARTS = %w[lectures pages materials assessments discussions reports]
@@ -107,7 +107,7 @@ class Klass < ActiveRecord::Base
         user.blank? || !user.has_role?(:admin) && !KlassEnrollment.staff?(user, course)
       )
 
-    if can and student.present?
+    if can && student.present?
       e_s = self.enrollments.where(%(
         enrollments.student_id = #{student.id} and
         enrollments.active = TRUE and
@@ -266,13 +266,13 @@ class Klass < ActiveRecord::Base
   end
 
   before_validation do |klass|
-    if klass.slug and klass.slug.include?(":")
+    if klass.slug && klass.slug.include?(":")
       klass.slug = klass.slug.split(':')[1]
     end
   end
 
   before_save do |klass|
-    if klass.slug and !klass.slug.include?(":")
+    if klass.slug && !klass.slug.include?(":")
       klass.slug = %(#{klass.course.slug}:#{klass.slug})
     end
   end

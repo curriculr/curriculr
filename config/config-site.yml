@@ -21,3 +21,15 @@ site:
     language: true
     level: true
     category: true
+
+  file_content_types:
+    pdf: application/pdf
+    mp4: video/mp4
+    mp3: audio/mpeg
+    png: image/png
+    jpg: image/jpeg
+    jpeg: image/jpeg
+    gif: image/gif
+    csv: text/csv
+    txt: text/plain
+    dat: application/octet-stream

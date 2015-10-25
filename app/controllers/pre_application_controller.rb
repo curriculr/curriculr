@@ -37,11 +37,11 @@ class PreApplicationController < ActionController::Base
     model = model.respond_to?(:scopeable?) ? model.scoped : model
     if params[named_id]
       data = model.find(params[named_id]) if params[named_id].present?
-    elsif params[:id] and params[:controller] == controller
+    elsif params[:id] && params[:controller] == controller
       data = model.find(params[:id])
     end
 
-    @req_objects << data if @req_objects and data
+    @req_objects << data if @req_objects && data
     data
   end
 
@@ -58,7 +58,11 @@ class PreApplicationController < ActionController::Base
 
     @req_attributes = {}
 
-    I18n.locale = (current_account.config['locale'] || I18n.default_locale)
+    I18n.locale = (
+      #params[:locale] ||
+      (current_user && current_user.profile.locale) ||
+      current_account.config['locale'] ||
+      I18n.default_locale)
   end
 
   def set_app_menus

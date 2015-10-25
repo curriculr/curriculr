@@ -17,7 +17,7 @@
       <small>
         <%= timeago_tag post.created_at, :nojs => true, :limit => 10.days.ago %>
       </small>
-      <% if current_user and @depth <= 3 and @klass.open? %>
+      <% if current_user && @depth <= 3 && @klass.open? %>
         <a class="reply-to-post pull-right" data-post-id="<%= post.id %>"
                 data-reply-btn="<%= t('activerecord.actions.reply') %>"
                 data-cancel-btn="<%= t('activerecord.actions.cancel') %>">
@@ -29,8 +29,8 @@
         <% role = current_user.has_role?(:admin) ? "admin" : (current_user.has_role?(:faculty) ? "faculty" : "author" ) %>
         <%
           deletable = (
-            @klass.course.config["discussion"]['post_deletion_by'][role] and post.replies.length == 0 and (
-              staff?(current_user, @klass.course) or ( @student.present? and @student.id == post.author.id )
+            @klass.course.config["discussion"]['post_deletion_by'][role] && post.replies.length == 0 && (
+              staff?(current_user, @klass.course) || ( @student.present? && @student.id == post.author.id )
             )
           )
         %>

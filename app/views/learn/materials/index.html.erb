@@ -9,8 +9,8 @@
   </ul>
 <% end %>
 
-<% 
-  enrolled = (@klass.enrolled?(current_student) or staff?(current_user, @klass.course))
+<%
+  enrolled = (@klass.enrolled?(current_student) || staff?(current_user, @klass.course))
   if @unit.present?
     attachments = @unit.materials
   else
@@ -25,5 +25,5 @@
       <%= link_to attachment.medium.name, attachment.at_url, :target => '_new' %>
       <small><%= timeago_tag(attachment.created_at, :nojs => true, :limit => 10.days.ago) %></small>
     </li>
-  <% end %>   
+  <% end %>
 </ul>

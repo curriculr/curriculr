@@ -6,27 +6,27 @@ module Pageable
     helper_method :path_for, :the_path_out
     responders :flash, :http_cache
   end
-  
-  def show    
+
+  def show
     respond_with @page do |format|
       format.html {render 'application/pages/show'}
       format.js {render 'application/pages/show'}
     end
   end
 
-  def localized 
+  def localized
     @page = Page.localized(params[:slug])
-    
+
     respond_with @page do |format|
       format.html {render 'application/pages/show'}
     end
   end
-  
+
   def new
     @page = Page.new
     @page.tag_list.add(params[:t]) if params[:t]
     @req_objects << @page
-    
+
     respond_with @page do |format|
       format.html { render 'application/pages/new' }
     end
@@ -35,7 +35,7 @@ module Pageable
   def create
     @page = new_page(page_params)
     @req_objects << @page
-   
+
     respond_with @page do |format|
       if @page.save
         format.html { redirect_to @req_objects }
@@ -57,12 +57,12 @@ module Pageable
     respond_with @page do |format|
       if @page.update(page_params)
         format.html { redirect_to @req_objects }
-    		format.js   { 
+    		format.js   {
     			@update_class = "page_public_#{@page.id}_link" if params[:opr] == 'public'
           @update_class = "page_publish_#{@page.id}_link" if params[:opr] == 'publish'
-          
-      		render 'application/pages/update' 
-				} 
+
+      		render 'application/pages/update'
+				}
       else
         format.html { render 'application/pages/edit' }
       end
@@ -73,7 +73,7 @@ module Pageable
     @page.destroy
     @req_objects.pop
     respond_with @page do |format|
-      format.html { 
+      format.html {
         if @req_objects.present?
           section = {}
 
@@ -84,7 +84,7 @@ module Pageable
           else
             section[:show] = @course.syllabus.id == @page.id ? 'syllabus' : 'pages'
           end
-          
+
           @req_objects << section
           redirect_to @req_objects
         else
@@ -96,28 +96,28 @@ module Pageable
 
   private
     def set_page
-      @page = Page.scoped.find(params[:id])  
+      @page = Page.scoped.find(params[:id])
 
       @req_objects << @page
     end
-  
+
     def path_for (action, course, unit, lecture, page, params = {})
       options = {
         action: action,
         controller: 'pages',
         id: page.id
       }
-    
+
       url_for options.merge(params)
     end
-  
+
     def new_page(params)
       @page = current_user.blogs.new(page_params)
       @page.blog = true
-    
+
       @page
     end
-  
+
     def the_path_out
       pages_path
     end

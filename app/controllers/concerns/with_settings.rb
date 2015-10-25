@@ -14,7 +14,7 @@ module WithSettings
   	when 'array'
   		value.split(',').map do |e| e.strip end
   	else
-      if value.to_i.to_s == value or value.to_f.to_s == value
+      if value.to_i.to_s == value || value.to_f.to_s == value
         value.to_f
       elsif value.to_bool.to_s == value
         value.to_bool
@@ -28,12 +28,12 @@ module WithSettings
     s = config
     keys = params[:setting].split(':')
     if request.post?
-      if params[:key] and params[:value]
+      if params[:key] && params[:value]
         case params[:op]
         when 'add', 'edit'
           keys.each do |k| s = s[k] end
           s[params[:key]] = get_setting_value(params[:value], params[:type])
-          $redis.set redis_key, config.to_json unless redis_key.nil? || s[params[:key]].nil? 
+          $redis.set redis_key, config.to_json unless redis_key.nil? || s[params[:key]].nil?
         end
       end
     elsif request.delete?

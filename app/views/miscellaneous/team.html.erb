@@ -2,7 +2,7 @@
   <div class="row">
     <div class="<%= css_columns(12) %>">
       <% about = Page.localized(:about) %>
-       
+
       <%= ui_header about.name, :style => :h2 %>
       <%= markdown(about.about) %>
     </div>

@@ -43,7 +43,7 @@ module UiHelper
     when Page
       page = object
       html = ''
-      if page and page.public and page.blog and page.published
+      if page && page.public && page.blog && page.published
         options = { appId: Rails.application.secrets.auth['facebook']['id'], href: page_url(page) }
 
         html = %(<iframe src="//www.facebook.com/plugins/like.php?#{options.to_query}&amp;width&amp;layout=standard&amp;action=like&amp;show_faces=true&amp;share=true&amp;height=80" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:80px;" allowTransparency="true"></iframe>)

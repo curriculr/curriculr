@@ -1,36 +1,36 @@
 <div class="row pricing">
   <div class="<%= css_columns(8) %>">
     <%= ui_header(capture do %>
-      <%= image_tag ui_image_src(student.avatar_url(current_account, :th), '/images/nobody-th.png') %> 
+      <%= image_tag ui_image_src(student.avatar_url(current_account, :th), '/images/nobody-th.png') %>
       <%= student.name %>
     <% end, style: :h3) %>
-    
+
     <ul>
-      <li> 
-        <strong><%= t('config.report.student.klass_begins') %></strong>: 
+      <li>
+        <strong><%= t('config.report.student.klass_begins') %></strong>:
         <%= l(klass.begins_on) %>
       </li>
       <% if klass.ends_on %>
         <li>
-          <strong><%= t('config.report.student.klass_ends') %></strong>: 
+          <strong><%= t('config.report.student.klass_ends') %></strong>:
           <%= l(klass.ends_on) %>
         </li>
       <% end %>
       <li>
-        <strong><%= t('config.report.student.user_since') %></strong>: 
+        <strong><%= t('config.report.student.user_since') %></strong>:
         <%= l(student.user.confirmed_at.to_date) %>
       </li>
       <% unless staff?(student.user, klass.course) %>
         <li>
-          <strong><%= t('config.report.student.since') %></strong>: 
-          <% if student and (enrollment = klass.enrollments(:student_id => student.id).first) %>
+          <strong><%= t('config.report.student.since') %></strong>:
+          <% if student && (enrollment = klass.enrollments(:student_id => student.id).first) %>
             <%= l(enrollment.created_at.to_date) %>
           <% end %>
         </li>
       <% end %>
     </ul>
-  </div> 
-  
+  </div>
+
   <% final = klass.final_score student.id %>
   <div class="<%= css_columns(4) %>">
     <div class="plan ">
@@ -50,7 +50,7 @@
       </ul>
     </div>
   </div>
-</div> 
+</div>
 
 <%= render :partial => 'reports/assessment', :locals => { klass: klass, student: student } %>
 

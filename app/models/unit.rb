@@ -15,7 +15,7 @@ class Unit < ActiveRecord::Base
   validate :proper_on_date
 
   def proper_on_date
-    if on_date.present? and on_date < based_on
+    if on_date.present? && on_date < based_on
       errors.add :on_date, :must_be_after_date, :date => based_on
     end
   end
@@ -82,7 +82,7 @@ class Unit < ActiveRecord::Base
   def open?(klass)
     today = Time.zone.today
     on_day = (self.on_date - self.based_on).to_i
-    on_day <= (today - klass.begins_on).to_i and (self.for_days.blank? or (klass.begins_on + on_day + self.for_days) > today)
+    on_day <= (today - klass.begins_on).to_i && (self.for_days.blank? || (klass.begins_on + on_day + self.for_days) > today)
   end
 
   def begins_on(klass)

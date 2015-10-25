@@ -1,9 +1,9 @@
 module Learn
-  class TopicsController < BaseController  
+  class TopicsController < BaseController
     responders :flash, :http_cache
     def index
     end
-  
+
     def show
       check_access! "discussions"
       @forum = Forum.find(params[:forum_id])
@@ -12,17 +12,17 @@ module Learn
       @topic.hit! if @topic && @klass.open?
       respond_with(@topic)
     end
-  
+
     def new
       @forum = Forum.find(params[:forum_id])
       @topic = Topic.new
     end
-  
+
     def create
       @forum = Forum.find(params[:forum_id])
       @topic = @forum.topics.new(topic_params)
       @topic.author = @student || current_user
-    
+
       respond_with @topic do |format|
         if @topic.save
           format.html { redirect_to learn_klass_forum_path(@klass, @forum) }
@@ -31,16 +31,16 @@ module Learn
         end
       end
     end
-  
+
     def edit
       @forum = Forum.find(params[:forum_id])
       @topic = Topic.find(params[:id])
     end
-  
+
     def update
       @forum = Forum.find(params[:forum_id])
       @topic = Topic.find(params[:id])
-    
+
       respond_with @topic do |format|
         if @topic.update(topic_params)
           format.html { redirect_to learn_klass_forum_topic_path(@klass, @forum, @topic) }
@@ -55,48 +55,48 @@ module Learn
       @topic = Topic.find(params[:id])
       @post = Post.new
       respond_with @topic do |format|
-        format.js { 
+        format.js {
           t_ups = JSON.parse(cookies[:"t_ups_#{current_user.id}"] || "[]")
-          if t_ups.blank? or !t_ups.include?(@topic.id)
+          if t_ups.blank? || !t_ups.include?(@topic.id)
             @topic.increment!(:ups)
             t_ups << @topic.id
           end
-          
+
           cookies[:"t_ups_#{current_user.id}"] = { value: JSON.generate(t_ups), expires: 48.hour.from_now }
           render 'learn/topics/show'
         }
       end
     end
-    
+
     def down
       @forum = Forum.find(params[:forum_id])
       @topic = Topic.find(params[:id])
       @post = Post.new
       respond_with @topic do |format|
-        format.js { 
+        format.js {
           t_downs = JSON.parse(cookies[:"t_downs_#{current_user.id}"] || "[]")
-          if t_downs.blank? or !t_downs.include?(@topic.id)
+          if t_downs.blank? || !t_downs.include?(@topic.id)
             @topic.increment!(:downs)
             t_downs << @topic.id
           end
-          
+
           cookies[:"t_downs_#{current_user.id}"] = { value: JSON.generate(t_downs), expires: 48.hour.from_now }
           render 'learn/topics/show'
         }
       end
     end
-    
+
     def destroy
       @forum = Forum.find(params[:forum_id])
       @topic = Topic.find(params[:id])
-    
+
       respond_with @topic do |format|
         if @topic.destroy
           format.html { redirect_to learn_klass_forums_path(@klass, @forum) }
         end
       end
     end
-  
+
     private
       def topic_params
         params.require(:topic).permit(:name, :about, :points_per_post, :points_per_reply, :anonymous)

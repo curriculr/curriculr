@@ -47,7 +47,7 @@
       <%
       action = ''
       action << staff_or_student_view if staff_or_student_view
-      unless controller_name == 'courses' and action_name.in?(['edit', 'update'])
+      unless controller_name == 'courses' && action_name.in?(['edit', 'update'])
         action << space_tag(2, :class => css_align(:right))
         action << link(:course, :edit, edit_teach_course_path(@course),
           :class => css(button: :primary, align: :right))
@@ -105,7 +105,7 @@
 
         names = [@course.slug]
         links = []
-        if @unit.present? and !@unit.new_record?
+        if @unit && !@unit.new_record?
           names << @unit.name
           if controller_name == 'questions'
             links << { name: @course.slug, href: teach_course_questions_path(@course, :a => params[:a], :b => @bank) }
@@ -115,7 +115,7 @@
           end
         end
 
-        if @lecture.present? and !@lecture.new_record?
+        if @lecture && !@lecture.new_record?
           names << @lecture.name
           if controller_name == 'questions'
             links << { name: @unit.name, href: teach_course_unit_questions_path(@course, @unit, :a => params[:a], :b => @bank) }

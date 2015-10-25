@@ -4,8 +4,11 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+one:
+  user: one(User)
+  name: Instructor To Be
+  about: TBD
+  course:  Introductory stats
+  description:
+    Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum
+    nibh, ut fermentum massa justo sit amet risus.

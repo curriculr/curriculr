@@ -3,7 +3,7 @@ module Themes::Bootstrap::BootstrapHelper
   def css_container(style = nil)
     if style
        "container-#{style}"
-    elsif @current_theme and @current_theme['fluid']
+    elsif @current_theme && @current_theme['fluid']
       "container-fluid"
     else
       "container"
@@ -152,7 +152,7 @@ module Themes::Bootstrap::BootstrapHelper
       object.each do |k, v|
         path << k
         s << "<li><strong>#{k.titleize}</strong>: "
-        if addable_to_levels.include?(depth) and v.kind_of?(Hash)
+        if addable_to_levels.include?(depth) && v.kind_of?(Hash)
           s << link(:setting, :new, '#', :class => 'btn btn-success btn-xs btn-add-setting', :data => {
             form: render(:partial => '/application/settings/setting_form', :locals => {
               object: v, :key => '', :value => '', :title => "Add a setting",
@@ -233,7 +233,7 @@ module Themes::Bootstrap::BootstrapHelper
     content_tag :div, class: "panel panel-#{style}" do
       html = ''
 
-      if header.present? or action.present?
+      if header.present? || action.present?
         html << content_tag(:div, "#{header} #{action}".html_safe, class: "panel-heading")
       end
 
@@ -292,7 +292,7 @@ module Themes::Bootstrap::BootstrapHelper
   def staff_or_student_view(default_action = nil)
     if @course && !@course.id.nil? && staff?(current_user, @course)
       klass = (@klass || @course.klasses.last)
-      if klass and !klass.new_record?
+      if klass && !klass.new_record?
         link :klass, :show, learn_klass_path(klass), as: :student_view, :class => 'btn btn-default pull-right'
       end
     elsif @klass && staff?(current_user, @klass.course)
@@ -831,7 +831,7 @@ module Themes::Bootstrap::BootstrapHelper
       end
 
       confirm = nil
-      if options.present? and options[:data].present?
+      if options.present? && options[:data].present?
         confirm = options[:data][:confirm]
         title = options[:data][:"confirm-title"]
       end

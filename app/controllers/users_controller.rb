@@ -98,7 +98,8 @@ class UsersController < AuthorizedController
       params.require(:user).permit(
         :email, :name, :active, :time_zone,
         :profile_attributes => [
-          :prefix, :avatar, :about, :nickname, :public
+          :prefix, :avatar, :about, :nickname, :public,
+          :locale
         ]
       )
     end

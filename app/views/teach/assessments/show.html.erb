@@ -1,18 +1,18 @@
 <%= ui_header @assessment.name, :subtext => @assessment.kind,
-      :action => ui_button_dropdown(ui_options_button_text, [ 
+      :action => ui_button_dropdown(ui_options_button_text, [
         link(:assessment, :edit, [:edit, @req_objects].flatten),
-    		link(:assessment, @assessment.ready ? :unready : :ready, [@req_objects, 
-          { :opr => :ready, :'assessment[ready]' => !@assessment.ready }].flatten, 
+    		link(:assessment, @assessment.ready ? :unready : :ready, [@req_objects,
+          { :opr => :ready, :'assessment[ready]' => !@assessment.ready }].flatten,
           :method => :put, :remote => true, :id => "assessment_ready_#{@assessment.id}_link"),
         nil,
         link(:assessment, :destroy, @req_objects, :method => :delete, :confirm => true)
       ], class: css_button(:default), align: :right)
 %>
 
-<% if @assessment and !@assessment.new_record? %>
+<% if @assessment && !@assessment.new_record? %>
   <div id="assessment-ready-indicator" class="<%= css_alert(:warning) %>" style=" <%= 'display: none;' if @assessment.ready %>">
-    <%= t('page.text.unready_assessment_html', link: link(:assessment, :ready, [@req_objects, 
-          { :opr => :ready, :'assessment[ready]' => !@assessment.ready }].flatten, 
+    <%= t('page.text.unready_assessment_html', link: link(:assessment, :ready, [@req_objects,
+          { :opr => :ready, :'assessment[ready]' => !@assessment.ready }].flatten,
           :method => :put, :remote => true, :id => "assessment_ready_#{@assessment.id}_link")) %>
   </div>
 <% end %>
@@ -24,8 +24,8 @@
   <div class="<%= css_columns(4) %>">
     <strong><%= Assessment.human_attribute_name(:based_on) %></strong><br>
     <span class="<%= css_text(:muted) %>"><%= l(@assessment.based_on) %></span><br>
-    
-    <% if @assessment.kind == 'survey' and @assessment.event_list.present? %>
+
+    <% if @assessment.kind == 'survey' && @assessment.event_list.present? %>
       <strong><%= Assessment.human_attribute_name(:event_list) %></strong><br>
       <span class="<%= css_text(:muted) %>"><%= t("config.assessment.survey_events.#{@assessment.event_list}") %></span>
     <% end %>
@@ -73,7 +73,7 @@
     <div class="<%= css_columns(4) %>">
       <strong><%= Assessment.human_attribute_name(:penalty) %></strong><br>
       <span class="<%= css_text(:muted) %>"><%= @assessment.penalty %></span><br>
-      
+
       <% if @assessment.lecture && invideo %>
         <strong><%= Assessment.human_attribute_name(:invideo_at) %></strong><br>
         <span class="<%= css_text(:muted) %>"><%= @assessment.invideo_at %></span><br>
@@ -92,18 +92,18 @@
   <div style="display: none;">
     <%= f.grouped_collection_select :lecture_id, @course.units, :lectures, :name, :id, :name, include_blank: true %>
   </div>
-  
+
   <% action = content_tag :div, class: css_align(:right) do %>
     <% if @assessment.kind != 'survey' %>
       <%= link_to_add_q_selectors(t('activerecord.actions.new', :name => QSelector.model_name.human).html_safe, f, :q_selectors) %>
-    
+
       <%= content_tag(:span, "&nbsp;&nbsp;#{t('page.text.or')}&nbsp;&nbsp;".html_safe, class: css_align(:right)) %>
     <% end %>
-    
-    <%= link(:question, :add_question, question_bank_path(:index, :pick, @assessment), 
-          :class => css(button: :success, align: :right)) %>  
+
+    <%= link(:question, :add_question, question_bank_path(:index, :pick, @assessment),
+          :class => css(button: :success, align: :right)) %>
   <% end %>
-  
+
   <% browse_action = link(:assessment, :preview, [:preview, @req_objects].flatten, class: css_button(:default)) %>
   <%= ui_header Question.model_name.human(count: 3) + ' ' + browse_action, style: :h4, action: action %>
 
@@ -115,7 +115,7 @@
     <% end %>
   </div>
   <p><%= content_tag :small, t('page.text.drag_items_to_reorder_html') if @assessment.q_selectors_count > 1 %></p>
-  
+
   <%= form_submit f, assessment_redirect_path, [], :as => :update %>
   </div>
 <% end %>

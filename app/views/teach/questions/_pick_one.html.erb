@@ -9,7 +9,7 @@
     <% end %>
   <% end %>
 
-  <% if (@attempt.blank? or @attempt.state == 2) and q.explanation.present? %>
+  <% if (@attempt.blank? || @attempt.state == 2) && q.explanation.present? %>
     <%= content_tag :div, id: "#{q.id}-explanation", class: "question-explanation hidden" do %>
       <%= markdown("**#{Question.human_attribute_name(:explanation)}**! #{q.explanation}") %>
     <% end %>
@@ -17,7 +17,7 @@
 </div>
 
 <table class="<%= css_table %>">
-  <% 
+  <%
   is_sortable = (controller_name == 'questions' && action_name == 'index' && staff?(current_user, @course))
   %>
   <tbody class="<%= 'sortable' if is_sortable  %>" data-update-url="<%= url_for([:sort_option, :teach, @course, @unit, @lecture, q]) if is_sortable %>">

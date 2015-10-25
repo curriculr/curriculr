@@ -34,6 +34,7 @@ account:
       - png
       - jpg
       - jpeg
+      - gif
     video:
       - mp4
     audio:
@@ -43,4 +44,3 @@ account:
     other:
       - txt
       - csv
-      - dat

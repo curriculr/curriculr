@@ -16,10 +16,12 @@ module Learn
       end
 
       @discussion = @lecture.discussion(@klass)
-      @forum = Forum.unscoped do @discussion.forum end
-      @topic = @discussion.topic
-      @post = Post.new
-      @topic.hit! if @topic && @klass.open?
+      if @discussion
+        @forum = Forum.unscoped do @discussion.forum end
+        @topic = @discussion.topic
+        @post = Post.new
+        @topic.hit! if @topic && @klass.open?
+      end
     end
 
     def index

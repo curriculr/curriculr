@@ -72,7 +72,7 @@ class Ability
 
       can :manage, :all if user.id == 1
 
-      if user.has_role? :admin and account == user.account
+      if user.has_role? :admin && account == user.account
         can :manage, :all
       end
 

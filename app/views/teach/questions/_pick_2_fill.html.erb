@@ -1,12 +1,12 @@
 <div class="panel-body">
   <%= render 'teach/questions/preamble', :q => q, :show_answer => show_answer %>
 
-  <% 
+  <%
   html = markdown(q.question)
   q.options.each do |o|
     items = o.option_items
 
-    html.sub!('...', select_tag("attempt[#{q.id}][#{o.id}]", options_for_select(items.sample(items.count).map {|i| [i, i]}, a ? a[o.id] : nil), 
+    html.sub!('...', select_tag("attempt[#{q.id}][#{o.id}]", options_for_select(items.sample(items.count).map {|i| [i, i]}, a ? a[o.id] : nil),
       :disabled => read_only,
       :include_blank => true, :class => css_form_control))
   end
@@ -21,10 +21,9 @@
     <% end %>
   <% end %>
 
-  <% if (@attempt.blank? or @attempt.state == 2) and q.explanation.present? %>
+  <% if (@attempt.blank? or @attempt.state == 2) && q.explanation.present? %>
     <%= content_tag :div, id: "#{q.id}-explanation", class: "question-explanation hidden" do %>
       <%= markdown("**#{Question.human_attribute_name(:explanation)}**! #{q.explanation}") %>
     <% end %>
   <% end %>
 </div>
-

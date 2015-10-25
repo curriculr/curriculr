@@ -1,10 +1,10 @@
 <div class="panel-body">
   <%= render 'teach/questions/preamble', :q => q, :show_answer => show_answer %>
 
-  <% 
+  <%
   html = markdown(q.question)
   q.options.each do |o|
-    html.sub!('...', text_field_tag("attempt[#{q.id}][#{o.id}]", '', :size => [(q.answer[o.id].length + 3), 60].min, 
+    html.sub!('...', text_field_tag("attempt[#{q.id}][#{o.id}]", '', :size => [(q.answer[o.id].length + 3), 60].min,
       :value => (a ? a[o.id] : nil),
       :readonly => read_only,
       :class => css_form_control))
@@ -13,14 +13,14 @@
 
   <%= html.html_safe %>
   <div id="<%= "answer_#{q.id}"%>" class="question-answer"></div>
-  
+
   <% unless q.hint.blank? %>
     <%= content_tag :div, id: "#{q.id}-hint", class: "question-hint hidden" do %>
       <%= markdown("**#{Question.human_attribute_name(:hint)}**! #{q.hint}") %>
     <% end %>
   <% end %>
 
-  <% if (@attempt.blank? or @attempt.state == 2) and q.explanation.present? %>
+  <% if (@attempt.blank? || @attempt.state == 2) && q.explanation.present? %>
     <%= content_tag :div, id: "#{q.id}-explanation", class: "question-explanation hidden" do %>
       <%= markdown("**#{Question.human_attribute_name(:explanation)}**! #{q.explanation}") %>
     <% end %>

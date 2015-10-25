@@ -36,7 +36,7 @@ module Admin
     end
 
     def update
-      if account_params[:live] and @account.live_since.blank?
+      if account_params[:live] && @account.live_since.blank?
         @account.live_since = Time.zone.now
       end
 

@@ -1,12 +1,18 @@
 <div class="hero-unit">
   <div class="jumbotron">
     <div class="<%= css_container %> text-center">
+      <% if  action_name == 'blogs' %>
       <h1><i class="fa fa-newspaper-o fa-6"></i></h1>
       <h2><%= scoped_t("#{current_account.slug}.site.blog.line1_html") %></h2>
       <p><%= scoped_t("#{current_account.slug}.site.blog.line2_html") %></p>
+      <% else %>
+        <h1><i class="fa fa-book"></i></h1>
+        <h2><%= title %></h2>
+      <% end %>
     </div>
   </div>
 </div>
+
 
 <div id="main-container" class="<%= css_container %>">
   <%= render partial: '/side_rails' %>
@@ -16,7 +22,7 @@
         <%
         action = nil
         subtext = nil
-        if !current_user and @klass and @klass.previewed
+        if !current_user && @klass && @klass.previewed
           action = ui_klass_enrollment_action(@klass, :enroll, true, true)
         end
 

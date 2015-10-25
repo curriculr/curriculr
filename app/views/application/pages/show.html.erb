@@ -1,6 +1,6 @@
-<% 
+<%
 can_be_made_public = false
-if current_user and can? :manage, @page
+if current_user && can?(:manage, @page)
   links = [ link(:page, :edit, path_for(:edit, @course, @unit, @lecture, @page)), nil ]
 
   if @page.owner_type != 'User' || (current_user.has_role?(:admin) || !current_account.config['require_admin_approval_of_blogs'])
@@ -8,19 +8,19 @@ if current_user and can? :manage, @page
   end
 
   if can_be_made_public
-    links << link(:page, @page.public ? :privatize : :publicize, path_for(:update, @course, @unit, @lecture, @page, :opr => :public, 
+    links << link(:page, @page.public ? :privatize : :publicize, path_for(:update, @course, @unit, @lecture, @page, :opr => :public,
       :'page[public]' => !@page.public), :method => :put, :remote => true, :id => "page_public_#{@page.id}_link")
-  end 
+  end
 
 	links << link(:page, @page.published ? :unpublish : :publish, path_for(:update, @course, @unit, @lecture, @page, :opr => :publish,
       :'page[published]' => !@page.published), :method => :put, :remote => true, :id => "page_publish_#{@page.id}_link")
-  
-  if @course.nil? or @page != @course.syllabus
+
+  if @course.nil? || @page != @course.syllabus
     links << nil
-    links << link(:page, :destroy, path_for(:destroy, @course, @unit, @lecture, @page), 
+    links << link(:page, :destroy, path_for(:destroy, @course, @unit, @lecture, @page),
       :method => :delete, :confirm => true)
   end
-  
+
   unless @course
     links << nil
     links << link(:page, :back_to_list, the_path_out)
@@ -28,7 +28,7 @@ if current_user and can? :manage, @page
 end
 %>
 
-<% actions = links.blank? ? nil : ui_button_dropdown(ui_options_button_text, links, 
+<% actions = links.blank? ? nil : ui_button_dropdown(ui_options_button_text, links,
     class: css_button(:default), align: :right) %>
 
 <% if @course %>
@@ -41,16 +41,16 @@ end
   <%= ui_header @page.name, subtext: @page.blog ? @page.by_author : nil, action: actions, style: :h2 %>
 <% end %>
 
-<% if @page and !@page.new_record? %>
+<% if @page && !@page.new_record? %>
   <div id="page-publish-indicator" class="<%= css_alert(:warning) %>" style="<%= 'display: none;' if @page.published %>">
-    <%= t('page.text.unpublished_page_html', 
+    <%= t('page.text.unpublished_page_html',
           link: link(:page, :publish, path_for(:update, @course, @unit, @lecture, @page, :opr => :publish,
                   :'page[published]' => !@page.published), :method => :put)) %>
   </div>
 
   <div id="page-public-indicator" class="<%= css_alert(:warning) %>" style="<%= 'display: none;' if @page.public %>">
     <% if can_be_made_public %>
-      <%= t('page.text.private_page_html', 
+      <%= t('page.text.private_page_html',
             link: link(:page, :publicize, path_for(:update, @course, @unit, @lecture, @page, :opr => :public, :'page[public]' => !@page.public), :method => :put)) %>
     <% else %>
       <%= t('page.text.by_admin_private_page_html') %>
@@ -60,8 +60,7 @@ end
 
 <%= markdown(@page.about, :html => @page.html) %>
 
-<% if !@course and @page.public and @page.published and @page.blog %>
-  <hr>
+<% if !@course || @page.public || @page.published || @page.blog %>
+  <br />
   <%= ui_facebook_link(@page) %>
 <% end %>
-

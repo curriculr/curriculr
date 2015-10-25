@@ -41,12 +41,12 @@
 
   <% if action_name == 'front' %>
     <%= render :template => "layouts/front" %>
-  <% elsif action_name == 'blogs' %>
-    <%= render :template => 'layouts/blog' %>
-  <% elsif @course and !@course.new_record? %>
+  <% elsif @course && !@course.new_record? %>
     <%= render :template => "layouts/teach" %>
   <% elsif @klass %>
     <%= render :template => "layouts/learn" %>
+	<% elsif @page || action_name == 'blogs' %>
+	  <%= render :template => 'layouts/blog' %>
   <% else %>
     <%= render :template => "layouts/default" %>
   <% end %>
