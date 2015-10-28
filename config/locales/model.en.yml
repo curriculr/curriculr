@@ -161,8 +161,6 @@ en:
       submit: Submit
       submit_answer: Submit answer
       enroll: Enroll
-      enroll_again: Enroll in this class again
-      enroll_4_free: Enroll in this class - It's free
       drop: <i class="fa fa-sign-out"></i>&nbsp; Drop
       goto_klass: Go to class
       preview: Preview
@@ -478,6 +476,7 @@ en:
         free: Free
         tuition: Tuition
         availability: Availability
+        price: Price
       enrollment:
         since: Since
         score: Score
@@ -864,3 +863,6 @@ en:
           you will be able to work on your course.
         </div>
       follow_us_html: <p><small>You can also follow us at</small></p>
+      free_to_enroll: This is a free class.
+      free_to_preview: You can open this class and preview some or all of its contents before you enroll.
+      free_to_enroll_again: You previously enrolled in this class. You can enroll in it again.

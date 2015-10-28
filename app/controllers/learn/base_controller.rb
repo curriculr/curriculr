@@ -6,7 +6,7 @@ module Learn
       def load_data
         set_klass
       end
-      
+
       def set_klass
         @klass ||= load_req_object(Klass, 'learn/klasses', :klass_id)
 

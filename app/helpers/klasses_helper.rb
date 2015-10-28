@@ -4,19 +4,34 @@ module KlassesHelper
     align = right ? :right : nil
     if klass.enrolled?(current_student) || klass.previously_enrolled?(current_student)
       #go2class or #go2class_past
-      links << link(:klass, :goto_klass, main_app.learn_klass_path(klass), :class => css(button: :primary, align: align))
+      links << link(:klass, :open, main_app.learn_klass_path(klass), :class => css(button: :primary, align: align))
     elsif klass.can_enroll?(current_user, current_student)
       if (controller_name == 'klasses' && action_name == 'show') ||
          (controller_name == 'lectures' && action_name == 'index') || @lecture
         # Enrollment links
         if klass.dropped?(current_student)
           #enroll again
-          links << link(:enrollment, :enroll, main_app.enroll_learn_klass_path(klass),
-            :class => css(button: :success, align: align), :method => :post, :as => :again)
+          links << (capture do
+            content_tag(:div, t('page.text.free_to_enroll_again')) +
+            link(:enrollment, :enroll, main_app.enroll_learn_klass_path(klass),
+              :class => css(button: [:primary, :lg], align: align))
+          end)
         elsif !klass.private || klass.invited_and_not_yet_accepted?(current_user)
-          #enroll
-          links << link(:enrollment, :enroll, main_app.enroll_learn_klass_path(klass),
-            :class => css(button: :success, align: align), :method => :post, :as => :'4_free')
+          if !in_preview && klass.previewed
+            #preview
+            links << (capture do
+              content_tag(:div, t('page.text.free_to_preview')) +
+              link(:enrollment, :open,  main_app.learn_klass_lectures_path(klass),
+                  :class => css(button: [:primary, :lg], align: align))
+            end)
+          else
+            #enroll
+            links << (capture do
+              (!in_preview ? content_tag(:div, t('page.text.free_to_enroll')) : ''.html_safe) +
+              link(:enrollment, :enroll, main_app.enroll_learn_klass_path(klass),
+                :class => css(button: [:primary, :lg], align: align))
+            end)
+          end
         end
 
         mountable_fragments(:klass_enrollment_actions, klass: klass, action: :enroll, previewed: in_preview, links: links, right: right)
@@ -27,11 +42,11 @@ module KlassesHelper
                       :class => css(button: :danger, align: align), :method => :put)
         end
 
-        if !in_preview && klass.previewed
-          #preview
-          links << link(:enrollment, :preview,  main_app.learn_klass_lectures_path(klass),
-              :class => css(button: :primary, align: align))
-        end
+        # if !in_preview && klass.previewed
+        #   #preview
+        #   links << link(:enrollment, :preview,  main_app.learn_klass_lectures_path(klass),
+        #       :class => css(button: :primary, align: align))
+        # end
       else
         #learn_more
         links << link(:klass, :learn_more, learn_klass_path(klass), :class => css_button(:primary))
@@ -39,7 +54,7 @@ module KlassesHelper
       end
     elsif current_user && staff?(current_user, klass)
       #admin or faculty
-      links << link(:klass, :goto_klass, main_app.teach_course_klass_path(klass.course, klass), :class => css(button: :primary, align: align))
+      links << link(:klass, :open, main_app.teach_course_klass_path(klass.course, klass), :class => css(button: :primary, align: align))
     end
 
     links.join(' ').html_safe

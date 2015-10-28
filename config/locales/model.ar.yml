@@ -163,8 +163,6 @@ ar:
       submit: قدم
       submit_answer: قدم الإجابة
       enroll: سجل في هذا الفصل
-      enroll_again: سجل في هذا الفصل مجددا
-      enroll_4_free: سجل في هذه الفصل - إنه مجاني
       drop: <i class="fa fa-sign-out"></i>&nbsp; اترك الفصل
       goto_klass: اذهب الى الفصل
       preview: استعرض
@@ -471,6 +469,7 @@ ar:
         free: مجاني
         tuition: الرسوم الدراسية
         availability: جاهزية الفصل
+        price: الرسوم الدراسية
       enrollment:
         since: منذ
         score: الدرجة النهائية
@@ -729,7 +728,7 @@ ar:
       if_user_account: إذا كان لديك حساب معنا
       inactive: غير مفعل
       no_instructor_but_originator_html: لم يتم إضافة اي مدرس لهذا المقرر. في هذه الحالة، سيتم سرد المنشئ %{originator}.
-      no_record_found: لا شيئ للعرض
+      no_record_found: لا شيء للعرض
       invited: بدعوة
       declined_invitation: رفض الدعوة
       not_found: لا يوجد
@@ -861,3 +860,6 @@ ar:
           من ذلك المقرر.
         </div>
       follow_us_html: <p><small>تستطيع متابعتنا و التواصل معنا على صفحاتنا على</small></p>
+      free_to_enroll: هذا الفصل مجاني.
+      free_to_preview: تستطيع فتح هذا الفصل و استعراض بعض أو كل محتوياته بدون تسجيل.
+      free_to_enroll_again: كنت قد سجلت سابقا في هذا الفصل ثم انسحبت. تستطيع التسجيل فيه مجددا.

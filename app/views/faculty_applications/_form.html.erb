@@ -38,13 +38,11 @@
       </fieldset>
     </div>
   </div>
-
-  <div class="checkbox">
-    <%= label_tag :agreed do %>
-      <%= check_box_tag :agreed_to_faculty_application %>
-      <%= t('page.text.faculty_agreement') %>
-    <% end %>
-  </div>
-
-  <br /><%= form_submit f, home_path %>
+  <br />
+  <%= label_tag :agreed_to_faculty_application do %>
+    <%= check_box_tag :agreed_to_faculty_application %>
+    <%= t('page.text.faculty_agreement') %>
+  <% end %>
+  <br /><br />
+  <%= form_submit f, home_path %>
 <% end %>

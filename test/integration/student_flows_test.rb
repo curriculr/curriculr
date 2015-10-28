@@ -22,8 +22,8 @@ class StudentFlowsTest < ActionDispatch::IntegrationTest
     visit learn_klasses_path
 
     click_link 'Learn more'
-    click_link 'Enroll in this class - It\'s free'
-    check('agreed')
+    click_link 'Enroll'
+    check('agreed_to_klass_enrollment')
 
     click_button 'Submit'
 

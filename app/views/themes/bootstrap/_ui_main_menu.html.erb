@@ -24,6 +24,27 @@
       :class =>  controller_name == 'pages' && action_name == 'blogs' ? 'active' : nil %>
 <% end) %>
 
+<% locale_in = current_account.config['allow_locale_setting_in'] || {} %>
+<% if locale_in['url_param'] || locale_in['cookie'] || locale_in['session'] %>
+  <% add_item_to_app_menu(:site_top, capture do %>
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        <b class="caret"></b>
+        <%= $site['supported_locales'][I18n.locale.to_s] %>
+      </a>
+      <ul class="dropdown-menu">
+        <% $site['supported_locales'].each do |k,v| %>
+          <% if k == I18n.locale.to_s %>
+            <li class="disabled"><a><%= v %></a></li>
+          <% else %>
+            <li><%= link_to(v, url_for(locale: k)) %></li>
+          <% end %>
+        <% end %>
+      </ul>
+    </li>
+  <% end, :right) %>
+<% end %>
+
 <% unless current_user %>
   <% unless request.path.ends_with?('/sign_in')  || request.path.ends_with?('/sign_up') %>
     <% add_item_to_app_menu(:site_top, capture do %>
@@ -32,7 +53,7 @@
   <% end %>
 <% else %>
   <% add_item_to_app_menu(:site_top, capture do %>
-    <li id="no-line" class="dropdown">
+    <li class="dropdown">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown">
         <b class="caret"></b>
         <%= image_tag ui_image_src(current_user.profile.avatar_url(current_account, :tny), '/images/nobody-tny.png'),

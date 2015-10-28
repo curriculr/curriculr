@@ -181,6 +181,12 @@ module Themes::Bootstrap::BootstrapHelper
       labels << content_tag(:div, Klass.human_attribute_name(:private), :class => :item)
     end
 
+    if !klass.respond_to?(:free?) || klass.free?
+      labels.unshift content_tag(:div, content_tag(:strong, t('page.text.free_class')), :class => :item)
+    elsif klass.respond_to?(:price) && klass.price
+      labels.unshift content_tag(:div, content_tag(:strong, klass.price), :class => :item)
+    end
+
     wrapped ? content_tag(:div, labels.join("\n").html_safe, :class => "ui big horizontal list") : labels
   end
 

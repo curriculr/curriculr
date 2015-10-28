@@ -7,8 +7,8 @@
     <br />
     <%= form_for 'enroll', :url => @url, :method => :post do |f| %>
       <%= hidden_field_tag :klasses, (@klasses.map {|k| k.id.to_s}).join(',') %>
-      <%= label_tag :agreed do %>
-        <%= check_box_tag :agreed %>
+      <%= label_tag :agreed_to_klass_enrollment do %>
+        <%= check_box_tag :agreed_to_klass_enrollment %>
         <%= t('page.text.klass_agreement') %>
       <% end %>
       <br /><br />

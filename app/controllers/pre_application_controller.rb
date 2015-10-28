@@ -4,6 +4,7 @@ class PreApplicationController < ActionController::Base
 
   before_action :set_timezone
   before_action :load_request_data
+  before_action :set_locale
   before_action :set_page_header
   before_action :set_app_menus
 
@@ -34,6 +35,7 @@ class PreApplicationController < ActionController::Base
   end
 
   def load_req_object(model, controller, named_id)
+    data = nil
     model = model.respond_to?(:scopeable?) ? model.scoped : model
     if params[named_id]
       data = model.find(params[named_id]) if params[named_id].present?
@@ -57,11 +59,32 @@ class PreApplicationController < ActionController::Base
     end
 
     @req_attributes = {}
+  end
+
+  def set_locale
+    locale_in = current_account.config['allow_locale_setting_in'] || {}
+    if params[:locale] && !locale_in['url_param']
+      if locale_in['cookie']
+        cookies.signed[:"#{current_account.slug}_locale"] = params[:locale]
+      elsif locale_in['session']
+        session[:"#{current_account.slug}_locale"] = params[:locale]
+      end
+    end
+
+    locale_param = if locale_in['url_param']
+      params[:locale]
+    elsif locale_in['cookie']
+      cookies.signed[:"#{current_account.slug}_locale"]
+    elsif locale_in['session']
+      session[:"#{current_account.slug}_locale"]
+    else
+      nil
+    end
 
     I18n.locale = (
-      #params[:locale] ||
-      (current_user && current_user.profile.locale) ||
-      current_account.config['locale'] ||
+      (locale_param.present? ? locale_param : nil) ||
+      (current_user && (current_user.profile.locale.present? ? current_user.profile.locale : nil)) ||
+      (current_account.config['locale'].present? ? current_account.config['locale'] : nil) ||
       I18n.default_locale)
   end
 

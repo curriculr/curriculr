@@ -33,7 +33,7 @@ module Learn
 
     def enroll
       if current_user
-        if params[:agreed]
+        if request.post? && params[:agreed_to_klass_enrollment]
           if (enrollment = KlassEnrollment.enroll(@klass, current_student))
             ActiveSupport::Notifications.instrument('learn.klass.enrolled', :klass => @klass,
               :account => current_account, :user => current_user, :student => current_student,

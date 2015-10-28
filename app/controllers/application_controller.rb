@@ -74,7 +74,7 @@ class ApplicationController < PreApplicationController
       if current_user
         redirect_to error_401_path
       else
-        store_location_for(:user, request.fullpath)
+        store_location_for(:user, request.fullpath) if request.get?
         redirect_to main_app.new_user_session_path, :flash => {:notice => t('activerecord.messages.must_signin', :path => request.path) }
       end
 		end
@@ -113,7 +113,8 @@ class ApplicationController < PreApplicationController
     end
   end
 
-  # def default_url_options(options = {})
-  #   { locale: I18n.locale }.merge options
-  # end
+  def default_url_options(options = {})
+    locale_in = current_account.config['allow_locale_setting_in'] || {}
+    locale_in['url_param'] ? {locale: I18n.locale}.merge(options) : options
+  end
 end

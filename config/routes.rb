@@ -159,6 +159,7 @@ Rails.application.routes.draw do
       put 'decline', :to => 'klasses#decline', :on => :member
 
     	put 'drop', :to => 'klasses#drop', :on => :member
+      get 'enroll', :to => 'klasses#enroll', :on => :member
       post 'enroll', :to => 'klasses#enroll', :on => :member
       put 'students/:id/current', :to => 'students#current',
         :as => 'current_student'

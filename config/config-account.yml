@@ -1,6 +1,12 @@
 account:
   title: Curriculr
+
   locale: en
+  allow_locale_setting_in:
+    url_param: false
+    cookie: false
+    session: false
+
   time_zone: "Mountain Time (US & Canada)"
   theme:
     name: bootstrap

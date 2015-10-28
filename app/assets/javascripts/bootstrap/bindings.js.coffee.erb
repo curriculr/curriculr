@@ -527,6 +527,19 @@ window.ui_rebind_application_events  = ($) ->
   $("#agreed_to_faculty_application").unbind().on 'change', ->
     force_agreement_to_faculty_application($(this))
 
+  # Klass agreement
+  force_agreement_to_klass_enrollment = (ch) ->
+    if $(ch).is(':checked')
+      $(ch).closest('form').find('button').attr('disabled', false)
+    else
+      $(ch).closest('form').find('button').attr('disabled', true)
+
+  force_agreement_to_klass_enrollment($("#agreed_to_klass_enrollment"))
+
+  $("#agreed_to_klass_enrollment").unbind().on 'change', ->
+    force_agreement_to_klass_enrollment($(this))
+
+
   # Card dimmer - semantic-ui
   $('.ui.card .image').dimmer(on: 'hover')
 
