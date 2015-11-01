@@ -1,14 +1,14 @@
-<div class="row">
-  <div id='featured-klass-list' class="klass-list <%= css_columns(10, 1) %> ">
-    <% klasses = @klasses.limit(10) %>
+<% klasses = @klasses.featured.limit(5).to_a %>
+<% if klasses.present? %>
+  <div class="row">
+    <div id='featured-klass-list' class="klass-list <%= css_columns(10, 1) %> ">
+      <% more = (klasses.count > 3 ? link_to(t('page.titles.more_info_html'), main_app.learn_klasses_path, class: css(:button => :primary, :align => :right)) : nil) %>
 
-    <% if klasses.present? %>
-      <br />
-      <%# ui_header(t('activerecord.actions.recent_klasses')) %>
+      <%= ui_header(t('page.titles.feactured_klasses'), action: more) %>
       <div class="ui three column stackable stretched grid">
-        <%= render :partial => 'learn/klasses/klass', :collection => klasses, :locals => {view: :card} %>
+        <%= render :partial => 'learn/klasses/klass', :collection => klasses[0..3], :locals => {view: :card} %>
       </div>
-    <% end %>
+    </div>
   </div>
-</div>
-<hr />
+  <hr />
+<% end %>

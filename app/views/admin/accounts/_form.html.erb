@@ -8,7 +8,7 @@
         <% else %>
           <%= form_static f, :slug %>
         <% end %>
-        
+
         <%= form_text f, :name %>
         <%= form_markdown f, @account, :about, :size => '60x10' %>
       </fieldset>
@@ -22,18 +22,19 @@
             <%= form_password a, :password_confirmation %>
           <% else %>
             <%= form_static a, :name %>
-            <%= form_static a, :email %>
+            <%= form_hidden a, :name %>
+            <%# form_hidden a, :email %>
           <% end %>
         <% end %>
       </fieldset>
-      <%= form_submit f, current_user.id == 1 ? admin_accounts_path : home_path  %>  
+      <%= form_submit f, current_user.id == 1 ? admin_accounts_path : home_path  %>
     <% end %>
   </div>
   <% unless @account.new_record? %>
     <div class="<%= css_columns(6) %>">
       <%= ui_header t('activerecord.actions.account_settings') %>
 
-      <% 
+      <%
         html = ''
         json_settings_tree(configure_admin_account_path(@account, setting: '_key_'), nil, @account.config, html, [], 1, [])
       %>
@@ -42,6 +43,3 @@
     </div>
   <% end %>
 </div>
-
-
-
