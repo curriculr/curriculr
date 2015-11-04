@@ -19,6 +19,7 @@ en:
       technician: Technician
       assistant: Assistant
       instructor: Instructor
+      moderator: Moderator
 
     report:
       student:

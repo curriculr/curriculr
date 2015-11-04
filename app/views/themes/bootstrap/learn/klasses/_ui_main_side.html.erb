@@ -6,7 +6,7 @@
 <%
 enrolled = (@klass.enrolled?(current_student) || staff?(current_user, @klass.course))
 
-add_item_to_app_menu :klass_side, link_to(t("page.titles.home").html_safe, main_app.learn_klass_path(@klass),
+add_item_to_app_menu :klass_side, link_to(css_icon(:"stack-overflow", 2) + t("activerecord.actions.main"), main_app.learn_klass_path(@klass),
   class:"#{'active' if controller_name == 'klasses' && action_name == 'show'}")
 
 if @klass.course.config['allow_access_to']['syllabus']

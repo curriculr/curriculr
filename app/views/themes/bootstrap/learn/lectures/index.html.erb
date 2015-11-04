@@ -95,7 +95,7 @@
         </div>
 
         <% unless lectures.to_a.empty? %>
-          <% if true %>
+          <% if @klass.course.config['show_lecture_poster'] %>
             <div class="row">
               <div class="<%= css_columns(12) %>">
                 <div class="ui divided items">

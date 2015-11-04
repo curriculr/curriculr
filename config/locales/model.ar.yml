@@ -252,6 +252,7 @@ ar:
       start_new_course: أبدأ مقررا جديدا
       edit_profile: <i class="fa fa-edit"></i> عدل بياناتي الخاصة
       become_a_faculty: انظم إلى هيئة التدريس
+      main: الرئيسة
 
     confirmations:
       destroy: هل انت متأكد من حذف ال%{name}؟
@@ -655,7 +656,6 @@ ar:
       people: أشخاص
       books: كتب
       document: ملف
-      home: <i class="fa fa-home"></i>&nbsp; الرئيسية
       images: صور
       others: أخرى
       videos: فيديوهات

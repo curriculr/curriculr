@@ -251,6 +251,7 @@ en:
       start_new_course: Start a new course
       edit_profile: <i class="fa fa-edit"></i> Edit my profile
       become_a_faculty: Become a faculty
+      main: Main
 
     confirmations:
       destroy: Are you sure you want to delete this %{name}?
@@ -661,7 +662,6 @@ en:
       people: People
       books: Books
       document: Document
-      home: <i class="fa fa-home"></i>&nbsp; Home
       images: Images
       others: Other
       videos: Videos

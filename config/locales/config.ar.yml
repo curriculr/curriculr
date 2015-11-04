@@ -1,5 +1,5 @@
 ar:
-  config:      
+  config:
     role:
       admin: مدير للموقع
       faculty: من هيئة التدريس
@@ -7,35 +7,36 @@ ar:
       team: من فريق العمل
       console: مزود خدمة
       partner: شريك
-    
+
     relationship:
       parent: والد/والدة
       child: ابن/ابنة
       spouse: زوج/زوجة
       relative: قريب/قريبة
       friend: صديق/صديقة
-      
+
     staff:
       technician: فني
       assistant: مساعد
       instructor: مدرس
-      
+      moderator: مشرف
+
     report:
       student:
         since: طالب في الفصل منذ
         user_since: مستخدم في الموقع منذ
         klass_begins: بداية الفصل
         klass_ends: نهاية الفصل
-          
+
       assessment:
         lecture: تمارين و واجبات المحاضرات
         unit: امتحانات الوحدات
         course: امتحانات الفصل النصفية و النهائية
       you: أنت
-      minimum: الأدني  
+      minimum: الأدني
       average: المتوسط
       maximum: الأعلى
-      
+
     activity:
       attempted: محاولة امتحان
       attended: حضور محاضرة
@@ -49,7 +50,7 @@ ar:
       visited: زيارة
       participation: مشاركة في نقاش
       opened: فتح محتوى
-      
+
     assessment:
       show_answer:
         always: دائما
@@ -57,15 +58,15 @@ ar:
         after_deadline: بعد انتهاء موعد التسليم
         after_attempt: بعد المحاولة
         during_attempt: أثناء المحاولة
-            
+
       multiattempt_grading:
         highest: القيمة الأعلى
         average: القيمة المتوسطة
-      
+
       survey_events:
         on_enroll: عند التسجيل في الفصل
         #on_drop: عند الإنسحاب من الفصل
-        
+
     update:
       kind:
         sms: رسائل قصيرة
@@ -73,10 +74,10 @@ ar:
         www: في الموقع
         twitter: في تويتر
         facebook: في الفيسبوك
-        
+
       to:
         students: الطلاب
-        
+
     question:
       kind:
         fill_one: فراغ واحد
@@ -87,18 +88,18 @@ ar:
         match: ربط خيارات
         #underline: ضع خطا على
         sort: ترتيب
-    
+
       group:
         fill: فراغات
         pick: اختيار
         match: ربط الخيارات
         #underline: خط تحت الإجابة
         sort: ترتيب
-        
+
       bank:
         main: الرئيسي
         survey: استبيان
-    
+
     medium:
       kind:
         video: فيديو
@@ -106,7 +107,7 @@ ar:
         audio: سمعي
         document: صفحة أو وثيقة
         other: أخرى
-        
+
       video:
         source:
           - youtube
@@ -119,24 +120,24 @@ ar:
           - www
       document:
         source:
-          - www  
+          - www
       other:
         source:
-          - www 
-  
+          - www
+
     filter:
       language: حسب اللغة
       country: حسب البلد
       level: حسب المستوي
       category: حسب التصنيف
-      
-      
+
+
     level:
       beginner: مبتدئ
       intermediate: متوسط
       advanced: متقدم
       expert: خبير
-        
+
     category:
       arabic: لغة عربية
       english: English

@@ -8,7 +8,7 @@ any_active = (
   controller_name == 'dashboard'
 )
 
-add_item_to_app_menu(:course_side, link_to(css_icon(:home, 2) + t("activerecord.actions.home"), teach_course_path(@course),
+add_item_to_app_menu(:course_side, link_to(css_icon(:"stack-overflow", 2) + t("activerecord.actions.main"), teach_course_path(@course),
       :class => any_active ? nil : 'active'))
 add_item_to_app_menu(:course_side, tag(:hr))
 

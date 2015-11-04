@@ -32,14 +32,17 @@ course:
       author: false
 
   staff:
-    - technician
-    - assistant
     - instructor
+    - assistant
+    - moderator
+    - technician
 
   question_banks:
     - main
     - survey
 
+  show_lecture_poster: false
+  
   allow_user_student_dependents: false
   allow_access_to:
     syllabus: true
