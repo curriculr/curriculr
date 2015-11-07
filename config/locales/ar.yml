@@ -16,7 +16,7 @@ ar:
     - الجمعة
     - السبت
     abbr_month_names:
-    - 
+    -
     - يناير
     - فبراير
     - مارس
@@ -42,7 +42,7 @@ ar:
       long: ! '%B %e, %Y'
       short: ! '%e %b'
     month_names:
-    - 
+    -
     - يناير
     - فبراير
     - مارس
@@ -173,11 +173,11 @@ ar:
       too_short: أقصر من اللازم (الحد الأدنى هو %{count})
       wrong_length: بطول غير مناسب (يجب أن يكون %{count})
       not_enough_questions: الأسئلة الموجودة لا تكفي هذا العدد.
-    
+
     models:
       question:
         options_not_one: يحتاج %{name} واحد.
-        options_less_than: 
+        options_less_than:
           one: يحتاج على الأقل %{count} %{name}.
           other: يحتاج على الأقل %{count} %{name}.
         answers_less_than: يحتاج على الأقل %{count} إجابة.
@@ -210,7 +210,7 @@ ar:
       update:
         attributes:
           kind:
-            no_kind: لا بد للإعلان من نوع.        
+            no_kind: لا بد من تحديد النوع.
           begins_at:
             before_klass_begin_date: تاريخ البداية لا يمكن أن يكون قبل تاريخ بداية الفصل %{date}.
           ends_at:
@@ -222,7 +222,7 @@ ar:
             not_found: لا وجود لمستخدم بالبريد الالكتروني الذي أدخلت.
             invalid: غير ملائم. تأكد من أنه ليس نفس بريد مدرس هذا المقرر.
             already: المدرس ذو البريد الذي أدخلته موجود أصلا.
-            
+
     template:
       body: ! 'يرجى التحقق من الحقول التالية:'
       header:
@@ -232,11 +232,10 @@ ar:
         few: ! 'ليس بالامكان حفظ %{model}: %{count} أخطاء.'
         many: ! 'ليس بالامكان حفظ %{model}: %{count} أخطاء.'
         other: ! 'ليس بالامكان حفظ %{model}: %{count} أخطاء.'
-        
+
   activemodel:
     errors:
       <<: *errors
   activerecord:
     errors:
       <<: *errors
-  

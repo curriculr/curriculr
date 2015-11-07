@@ -1,3 +1,5 @@
-$('#klass-list').html('<%= j render :partial => 'learn/klasses/klass', :collection => @klasses, :locals => {view: :card} %>');
+$('#klass-list').html('<%= j render :partial => 'learn/klasses/klass', :collection => @klasses, :locals => {view: :item} %>');
 $('#paginator').html('<%= j paginate @klasses, :remote => true %>');
 $('#search_klasses_form').find('input:checkbox').prop('disabled', false);
+
+ui_rebind_application_events(jQuery);

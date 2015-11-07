@@ -429,7 +429,7 @@ en:
         level: Level
         from_datetime: From date/time
         to_datetime: To date/time
-        based_on: For a class the starts on
+        based_on: For a class that starts on
         invideo_id: In video
         invideo_at: In video at (in seconds)
         event_list: Starts on event
@@ -509,7 +509,7 @@ en:
         name: Name
         about: Unit Description
         on_date: Appears on
-        based_on: For a class the starts on
+        based_on: For a class that starts on
         for_days: for days
         order: Order
         previewed: Can be previewed without registration?
@@ -517,7 +517,7 @@ en:
         name: Name
         about: About
         on_date: Appears on
-        based_on: For a class the starts on
+        based_on: For a class that starts on
         for_days: for days
         points: Attendance points
         order: Order
@@ -853,6 +853,7 @@ en:
         </div>
       no_info_to_display: No information to display
       first_and_others: "%{first}, ..."
+      by_first_and_others: "by %{first}, ..."
       faculty_agreement:
         I agree to the terms and conditions of open education and to the rules of
         the honor system followed in the classes of this site.

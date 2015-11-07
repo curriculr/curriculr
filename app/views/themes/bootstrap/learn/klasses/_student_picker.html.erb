@@ -1,0 +1,24 @@
+<% if current_user && current_account.config['allow_user_student_dependents'] && @klass.course.config['allow_user_student_dependents'] %>
+  <% if (students = current_user.students.order(:id).to_a) && students.present? %>
+    <div class="btn-group pull-right">
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        <%= image_tag current_student.avatar_url(current_account, :tny), size: '21x21' %>
+        <%= current_student.name %>
+        <span class="caret"></span>
+        <span class="sr-only">Change student</span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
+        <% students.each do |student| %>
+        <li>
+          <%= image_tag student.avatar_url(current_account, :tny), class: "badge" %>
+          <% if student == current_student %>
+            <%= link_to student.name, :disabled => true%>
+          <% else %>
+            <%= link_to student.name, learn_klass_current_student_path(@klass, student), method: :put %>
+          <% end %>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+<% end %>

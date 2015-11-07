@@ -282,15 +282,20 @@ section {
 //student side navbar design
 .side-navabar {
   img {
-    margin-top: 40px;
     border-top-left-radius: $border-radius-base;
     border-top-right-radius: $border-radius-base;
   }
   .nav-and-social-container {
-    border: $primary-border-tyle;
+    padding-top: 10px;
+    
     border-top: 2px solid $brand-primary;
     border-bottom-left-radius: $border-radius-base;
     border-bottom-right-radius: $border-radius-base;
+
+    hr {
+      margin-top: 12px;
+      margin-bottom: 12px;
+    }
 
     ul {
       display: block;

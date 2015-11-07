@@ -851,6 +851,7 @@ ar:
         </div>
       no_info_to_display: لا معلومات للعرض
       first_and_others: "%{first}, ..."
+      by_first_and_others: "لـ %{first}, ..."
       faculty_agreement: أوافق على بنود وشروط التعليم المفتوح المعمول بها في هذا الموقع و على قواعد نظام الأمانة العلمية المتبعة في فصوله الدراسية.
       faculty_application_html:
         <div class="alert alert-info" role="alert">

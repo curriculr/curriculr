@@ -1,14 +1,14 @@
 module Teach
   class LecturesController < BaseController
     responders :flash, :http_cache
-    
+
     def show
       respond_with @lecture do |format|
         format.html{ render template: 'teach/units/index' }
         format.js
       end
     end
-     
+
     def new
       @lecture = @unit.lectures.new(:based_on => @course.revision.begins_on)
       @lecture.on_date = @unit.on_date
@@ -25,7 +25,7 @@ module Teach
 
     def create
       @lecture = @unit.lectures.new(lecture_params)
-   
+
       respond_with @lecture do |format|
         if @lecture.save
           format.html { redirect_to teach_course_unit_path(@course, @unit) }
@@ -34,7 +34,7 @@ module Teach
         end
       end
     end
-    
+
     def update
       respond_with @lecture do |format|
         if @lecture.update(lecture_params)
@@ -47,12 +47,12 @@ module Teach
 
     def destroy
       @lecture.destroy
-      
+
       respond_with @lecture do |format|
         format.html { redirect_to teach_course_unit_path(@course, @unit) }
       end
     end
-  
+
     def discuss
       @lecture.allow_discussion = !@lecture.allow_discussion
       @lecture.save
@@ -69,12 +69,12 @@ module Teach
         format.html { redirect_to teach_course_unit_path(@course, @unit) }
       end
     end
-    
+
     def sort
       params[:lecture].each_with_index do |id, i|
         Lecture.where(:id => id).update_all(order: i + 1)
       end
-      
+
       render nothing: true
     end
 
@@ -92,13 +92,13 @@ module Teach
           Assessment.where(:id => id.first).update_all(order: i + 1)
         end
       end
-      
+
       render nothing: true
     end
-  
-    private    
+
+    private
       def lecture_params
-        params.require(:lecture).permit(:unit_id, :name, :points, :about, :based_on, :on_date, :for_days, :order, :previewed)
+        params.require(:lecture).permit(:unit_id, :name, :points, :about, :based_on, :on_date, :for_days, :order, :previewed, :tag_list)
       end
   end
 end

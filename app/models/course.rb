@@ -63,6 +63,8 @@ class Course < ActiveRecord::Base
       staff
     when :by
       %(#{I18n.t('page.text.by')} #{staff.map(&:name).join(' , ')})
+    when :by_first
+      staff.count > 1 ? I18n.t('page.text.by_first_and_others', :first => staff.first.name) : %(#{I18n.t('page.text.by')} #{staff.first.name})
     end
   end
 

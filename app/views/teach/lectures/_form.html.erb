@@ -4,7 +4,7 @@
   <%= form_hidden f, :unit_id %>
 	<%= form_text f,  :name %>
   <%= form_text_area f, :about, rows: 5, :size => '60x5' %>
-  
+
   <div class="row">
     <div class="<%= css_columns(4) %>">
       <%= form_static f, :based_on %>
@@ -17,7 +17,7 @@
       <%= form_number f, :for_days %>
     </div>
   </div>
-  
+
   <div class="row">
     <div class="<%= css_columns(4) %>">
       <%= form_checkbox f, :previewed %>
@@ -26,6 +26,8 @@
       <%= form_number f, :points %>
     </div>
   </div>
-  
+
+  <%= form_text f, :tag_list %>
+
   <%= form_submit f, teach_course_unit_path(@course, @unit) %>
 <% end %>

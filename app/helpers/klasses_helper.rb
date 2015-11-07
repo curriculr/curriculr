@@ -14,7 +14,7 @@ module KlassesHelper
           links << (capture do
             content_tag(:div, t('page.text.free_to_enroll_again')) +
             link(:enrollment, :enroll, main_app.enroll_learn_klass_path(klass),
-              :class => css(button: [:primary, :lg], align: align))
+              :class => css(button: [:primary, :lg, :block], align: align))
           end)
         elsif !klass.private || klass.invited_and_not_yet_accepted?(current_user)
           if !in_preview && klass.previewed
@@ -22,14 +22,14 @@ module KlassesHelper
             links << (capture do
               content_tag(:div, t('page.text.free_to_preview')) +
               link(:enrollment, :open,  main_app.learn_klass_lectures_path(klass),
-                  :class => css(button: [:primary, :lg], align: align))
+                  :class => css(button: [:primary, :lg, :block], align: align))
             end)
           else
             #enroll
             links << (capture do
               (!in_preview ? content_tag(:div, t('page.text.free_to_enroll')) : ''.html_safe) +
               link(:enrollment, :enroll, main_app.enroll_learn_klass_path(klass),
-                :class => css(button: [:primary, :lg], align: align))
+                :class => css(button: [:primary, :lg, :block], align: align))
             end)
           end
         end
@@ -64,7 +64,23 @@ module KlassesHelper
     if action == :enroll
       klass_actions(klass, previewed, right)
     else
-      link(:klass, :drop, main_app.drop_learn_klass_path(@klass), method: :put, confirm: true)
+      link(:klass, :drop, main_app.drop_learn_klass_path(@klass), method: :put, confirm: true, class: 'item')
+    end
+  end
+
+  def klass_availability(klass)
+    days = (Date.current - klass.begins_on).to_i
+    starts_in = if days == 0
+      t('page.text.today')
+    elsif days < 0
+      t('page.text.in_days', :count =>  -1 * days)
+    elsif days > 0
+      past = klass.ends_on ? (Date.current - klass.ends_on) : nil
+      if past == nil || past <= 0
+        t('page.text.open_for_enrollment')
+      else
+        t('page.text.closed')
+      end
     end
   end
 end

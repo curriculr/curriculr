@@ -14,7 +14,7 @@ class Update < ActiveRecord::Base
   end
   def no_kind?
     if !www && !email
-      errors.add :www, I18n.t('errors.models.update.kind.no_kind')
+      errors.add :www, I18n.t('errors.models.update.attributes.kind.no_kind')
     end
   end
 

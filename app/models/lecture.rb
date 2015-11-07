@@ -2,6 +2,8 @@ class Lecture < ActiveRecord::Base
   include WithMaterials
   include Actionable
 
+  acts_as_taggable_on :tags
+
   belongs_to :unit, :counter_cache => true
 	has_many :assessments, :dependent => :destroy
   has_many :questions, :dependent => :destroy

@@ -2,7 +2,7 @@ en:
   time:
     formats:
       default: "%B %d, %Y %H:%M"
-      
+
   date:
     formats:
       default: "%B %d, %Y"
@@ -34,11 +34,11 @@ en:
       too_short:  Shorted than required. Minimum allowed value is %{count}.
       wrong_length: Wrong length; must be %{count}.
       not_enough_questions: Not enough questions for this.
-  
+
     models:
       question:
         options_not_one: Requires only one %{name}.
-        options_less_than: 
+        options_less_than:
           one: Requires at least %{count} %{name}.
           other: Requires at least %{count} %{name}s.
         answers_less_than: Requires at least %{count} answers.
@@ -70,7 +70,7 @@ en:
       update:
         attributes:
           kind:
-            no_kind: An update must have a type.
+            no_kind: Delivary method is required.
           begins_at:
             before_klass_begin_date: Begin day cannot be before the day the class begins %{date}.
           ends_at:
@@ -91,11 +91,10 @@ en:
         few: ! 'Not able to save %{model}: %{count} errors found.'
         many: ! 'Not able to save %{model}: %{count} errors found.'
         other: ! 'Not able to save %{model}: %{count} errors found.'
-        
+
   activemodel:
     errors:
       <<: *errors
   activerecord:
     errors:
       <<: *errors
-  

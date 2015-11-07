@@ -1,3 +1,43 @@
+<!-- <div class="ui fluid card"> -->
+  <div class="blurring dimmable image">
+    <div class="ui dimmer">
+      <div class="content">
+        <div class="center">
+          <%=
+          if @course.video
+            link_to teach_course_material_path(@course, @course.video), :method => :delete, :confirm => true,
+            class: css_button(:xs, :danger), :title => t('activerecord.actions.remove_promo_video') do
+              content_tag(:i, '', class: 'fa fa-remove') + space_tag(3) + content_tag(:i, '', class: 'fa fa-video-camera')
+            end
+          else
+            link_to new_teach_course_material_path(@course, :s => :video, :t => :promo),
+            class: css_button(:xs, :success), :title => t('activerecord.actions.add_promo_video') do
+              content_tag(:i, '', class: 'fa fa-plus') + space_tag(3) + content_tag(:i, '', class: 'fa fa-video-camera')
+            end
+          end
+          %>
+          <%=
+          if @course.poster
+            link_to teach_course_material_path(@course, @course.poster), :method => :delete, :confirm => true,
+            class: css_button(:xs, :danger), :title => t('activerecord.actions.remove_poster_image') do
+              content_tag(:i, '', class: 'fa fa-remove') + space_tag(3) + content_tag(:i, '', class: 'fa fa-image')
+            end
+          else
+            link_to new_teach_course_material_path(@course, :s => :image, :t => :poster),
+            class: css_button(:xs, :success), :title => t('activerecord.actions.add_poster_image') do
+              content_tag(:i, '', class: 'fa fa-plus') + space_tag(3) + content_tag(:i, '', class: 'fa fa-image')
+            end
+          end
+          %>
+        </div>
+      </div>
+    </div>
+    <%= image_tag ui_image_src(@course.poster ? @course.poster.at_url(:md) : nil, '/images/holder-md.png'),
+          class: "hidden-xs hidden-sm #{css_image(:responsive)}" %>
+  </div>
+<!-- </div> -->
+
+
 <%
 any_active = (
   controller_name == 'units' ||
@@ -8,45 +48,44 @@ any_active = (
   controller_name == 'dashboard'
 )
 
-add_item_to_app_menu(:course_side, link_to(css_icon(:"stack-overflow", 2) + t("activerecord.actions.main"), teach_course_path(@course),
-      :class => any_active ? nil : 'active'))
+add_item_to_app_menu(:course_side, link_to(css_icon(:university, 2) + t("activerecord.actions.main"), teach_course_path(@course),
+      :class => "item #{any_active ? nil : 'active'}"))
 add_item_to_app_menu(:course_side, tag(:hr))
 
-link = (link_to teach_course_units_path(@course), :class => controller_name == 'units' ? 'active' : nil do
+link = (link_to teach_course_units_path(@course), :class => "item #{controller_name == 'units' ? 'active' : nil}" do
   raw Unit.model_name.human(count: 3) + '&nbsp;' + content_tag(:span, @course.units_count, :class => css_badge)
 end)
 add_item_to_app_menu :course_side, link
 
-link = (link_to teach_course_media_path(@course), :class => controller_name == 'media' ? 'active' : nil do
+link = (link_to teach_course_media_path(@course), :class => "item #{controller_name == 'media' ? 'active' : nil}" do
   raw Medium.model_name.human(count: 3) + '&nbsp;' + content_tag(:span, @course.media_count, :class => css_badge)
 end)
 add_item_to_app_menu :course_side, link
 
-link = (link_to teach_course_klasses_path(@course), :class => controller_name.in?([ 'klasses', 'forums', 'updates' ]) ? 'active' : nil do
+link = (link_to teach_course_klasses_path(@course), :class => "item #{controller_name.in?([ 'klasses', 'forums', 'updates' ]) ? 'active' : nil}" do
   raw Klass.model_name.human(count: 3) + '&nbsp;' + content_tag(:span, @course.klasses_count, :class => css_badge)
 end)
 add_item_to_app_menu :course_side, link
 
 add_item_to_app_menu :course_side, link_to(t('page.titles.question_banks'), teach_course_questions_path(@course),
-  :class => controller_name == 'questions' ? 'active' : nil)
+  :class => "item #{controller_name == 'questions' ? 'active' : nil}")
 
 add_item_to_app_menu(:course_side, tag(:hr))
 
 add_item_to_app_menu(:course_side, link_to(css_icon(:cog, 2) + t('activerecord.models.setting', count: 3), settings_teach_course_path(@course),
-  :class => action_name == 'settings' ? 'active' : nil))
+  :class => "item #{action_name == 'settings' ? 'active' : nil}"))
 add_item_to_app_menu(:course_side, link_to(t('activerecord.actions.dashboard').html_safe, teach_course_dashboard_path(@course),
-  :class => controller_name == 'dashboard' ? 'active' : nil))
+  :class => "item #{controller_name == 'dashboard' ? 'active' : nil}"))
 add_item_to_app_menu(:course_side, tag(:hr))
 
-add_item_to_app_menu(:course_side, link(:course, :destroy, teach_course_path(@course), :method => :delete, :confirm => true))
+add_item_to_app_menu(:course_side, link(:course, :destroy, teach_course_path(@course), :method => :delete, :confirm => true, class: 'item'))
 
 mountable_fragments :course_side_menu
 %>
-
 <div class="nav-and-social-container">
-  <ul>
+  <div class="ui link selection list">
     <% app_menu(:course_side)[:_].each do |item| %>
-      <li><%= item %></li>
+      <%= item %>
     <% end %>
-  </ul>
+  </div>
 </div>

@@ -1,49 +1,7 @@
 <div id="main-container" class="<%= css_container %>">
   <%= render partial: '/side_rails' %>
-  <div class="row course-header1">
-    <div class="<%= css_columns(2) %>">
-      <br/>
-      <div class="ui fluid card">
-        <div class="blurring dimmable image">
-          <div class="ui dimmer">
-            <div class="content">
-              <div class="center">
-                <%=
-                if @course.video
-                  link_to teach_course_material_path(@course, @course.video), :method => :delete, :confirm => true,
-                  class: css_button(:xs, :danger), :title => t('activerecord.actions.remove_promo_video') do
-                    content_tag(:i, '', class: 'fa fa-remove') + space_tag(3) + content_tag(:i, '', class: 'fa fa-video-camera')
-                  end
-                else
-                  link_to new_teach_course_material_path(@course, :s => :video, :t => :promo),
-                  class: css_button(:xs, :success), :title => t('activerecord.actions.add_promo_video') do
-                    content_tag(:i, '', class: 'fa fa-plus') + space_tag(3) + content_tag(:i, '', class: 'fa fa-video-camera')
-                  end
-                end
-                %>
-                <%=
-                if @course.poster
-                  link_to teach_course_material_path(@course, @course.poster), :method => :delete, :confirm => true,
-                  class: css_button(:xs, :danger), :title => t('activerecord.actions.remove_poster_image') do
-                    content_tag(:i, '', class: 'fa fa-remove') + space_tag(3) + content_tag(:i, '', class: 'fa fa-image')
-                  end
-                else
-                  link_to new_teach_course_material_path(@course, :s => :image, :t => :poster),
-                  class: css_button(:xs, :success), :title => t('activerecord.actions.add_poster_image') do
-                    content_tag(:i, '', class: 'fa fa-plus') + space_tag(3) + content_tag(:i, '', class: 'fa fa-image')
-                  end
-                end
-                %>
-              </div>
-            </div>
-          </div>
-          <%= image_tag ui_image_src(@course.poster ? @course.poster.at_url(:md) : nil, '/images/holder-md.png') %>
-        </div>
-      </div>
-
-      <%= mountable_fragments :teach_160x200_left_top_banner %>
-    </div>
-    <div class="<%= css_columns(10) %>">
+  <div class="row course-header">
+    <div class="<%= css_columns(@course.video ? 9 : 12) %>">
       <%
       action = ''
       action << staff_or_student_view if staff_or_student_view
@@ -54,29 +12,19 @@
       end
       %>
       <%= ui_header(@page_header, :style => :h2, :action => action) %>
-      <div class="row">
-        <div class="<%= css_columns(7) %>">
-          <%= markdown(@course.about, :class => 'shortenable-text', :hidden_til_processed => true) %>
-
-          <ul class="list-inline">
-            <% if @course.weeks %>
-              <li><%= t("page.text.weeks", count: @course.weeks) %></li>
-            <% end %>
-            <% if @course.workload %>
-              <li><%= t("page.text.workload", count: @course.workload) %></li>
-            <% end %>
-          </ul>
-        </div>
-        <div class="<%= css_columns(5) %>">
-          <%= content_tag :div do %>
-            <%= ui_video(@course.video, @course.poster) %>
-          <% end if @course.video %>
-        </div>
-      </div>
+      <%= markdown(@course.about) %>
     </div>
+    <% if @course.video %>
+      <div class="<%= css_columns(3) %>">
+        <br /><br />
+        <%= content_tag :div do %>
+          <%= ui_video(@course.video, @course.poster) %>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 </div>
-  <hr>
+<hr>
 <div id="course-main-content-container" class="<%= css_container %>">
   <div class="row extra-padded">
 	  <div class="<%= css_columns(2) %> side-navabar">

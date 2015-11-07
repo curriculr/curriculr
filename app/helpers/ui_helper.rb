@@ -16,14 +16,13 @@ module UiHelper
   end
 
   # Social Links
-  def ui_facebook_link(object)
+  def ui_facebook_link(object, text = nil)
     case object
     when Klass
       klass = object
       caption = ""
       if klass
-        l(klass.begins_on)
-        caption << " - #{l(klass.ends_on)}" if klass.ends_on.present?
+        caption << klass_from_and_to_dates(klass)
       end
 
       options = {
@@ -36,9 +35,9 @@ module UiHelper
         :redirect_uri => URI.join(main_app.root_url, main_app.learn_klass_path(klass))
       }
 
-      link_to "https://www.facebook.com/dialog/feed?#{options.to_query}", class: css_button(:facebook) do
-        %(#{content_tag(:i, "", :class => "fa fa-facebook fa-lg")}
-        ).html_safe
+      cls = text.nil? ? css_button(:facebook) : css_button(:facebook, :block, :lg)
+      link_to "https://www.facebook.com/dialog/feed?#{options.to_query}", class: cls do
+        css_icon([:facebook, :lg]) + text
       end
     when Page
       page = object
@@ -55,27 +54,27 @@ module UiHelper
     end
   end
 
-  def ui_twitter_link(klass)
+  def ui_twitter_link(klass, text = nil)
     options = {
       :text => ui_social_message(klass),
       :hashtags => klass.course.name,
       :url => URI.join(main_app.root_url, main_app.learn_klass_path(klass))
     }
 
-    link_to "https://twitter.com/share?#{options.to_query}", class: css_button(:twitter) do
-      %(#{content_tag(:i, "", :class => "fa fa-twitter fa-lg")}
-      ).html_safe
+    cls = text.nil? ? css_button(:twitter) : css_button(:twitter, :block, :lg)
+    link_to "https://twitter.com/share?#{options.to_query}", class: cls do
+      css_icon([:twitter, :lg]) + text
     end
   end
 
-  def ui_google_plus_link(klass)
+  def ui_google_plus_link(klass, text = nil)
     options = {
       :url => URI.join(main_app.root_url, main_app.learn_klass_path(klass))
     }
 
-    link_to "https://plus.google.com/share?#{options.to_query}", class: css_button(:google) do
-      %(#{content_tag(:i, "", :class => "fa fa-google-plus fa-lg")}
-      ).html_safe
+    cls = text.nil? ? css_button(:google) : css_button(:google, :block, :lg)
+    link_to "https://plus.google.com/share?#{options.to_query}", class: cls do
+      css_icon([:"google-plus", :lg]) + text
     end
   end
 
@@ -84,23 +83,25 @@ module UiHelper
       if current_user
         if staff?(current_user, klass.course)
           if klass.open?
-            msg = t('page.text.social_teaching')
+            t('page.text.social_teaching')
           elsif klass.past?
-            msg = t('page.text.social_taught')
+            t('page.text.social_taught')
           else
-            msg = t('page.text.social_will_teach')
+            t('page.text.social_will_teach')
           end
         elsif klass.enrolled?(current_student)
           if klass.open?
-            msg = t('page.text.social_taking')
+            t('page.text.social_taking')
           elsif klass.past?
-            msg = t('page.text.social_took')
+            t('page.text.social_took')
           else
-            msg = t('page.text.social_will_take')
+            t('page.text.social_will_take')
           end
+        else
+          t('page.text.social_interested')
         end
       else
-        msg = t('page.text.social_interested')
+        t('page.text.social_interested')
       end
     end
 end

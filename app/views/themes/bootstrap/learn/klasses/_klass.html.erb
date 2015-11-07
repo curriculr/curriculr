@@ -6,15 +6,27 @@
     link_to(klass.course.name, [main_app, :learn, klass], :class => 'header')
   end
 
-  subhdr = l(klass.begins_on)
-  subhdr << %( - #{l(klass.ends_on)}) if klass.ends_on
+  subhdr = klass_from_and_to_dates(klass)
   labels = [content_tag(:div, subhdr, :class => :item), ui_klass_labels(klass)].flatten
+  labels << content_tag(:div, klass.instructors(:by_first), :class => :item) if view == :item
+
   th = ui_image_src(klass.course.poster ? klass.course.poster.at_url(:sm) : nil, '/images/holder-sm.png')
-  instructor, instructors_count = klass.instructors(:first)
 %>
 
+<% ribbon = capture do %>
+  <% if klass.enrolled?(current_student) %>
+    <a class="ui green left corner label">
+      <i class="fa fa-check fa-lg adjusted-for-ribbon"></i>
+    </a>
+  <% elsif 30.days.ago.to_date <= klass.begins_on %>
+    <a class="ui red left corner label">
+      <i class="fa fa-gift fa-lg adjusted-for-ribbon"></i>
+    </a>
+  <% end %>
+<% end %>
+
 <% if view == :item %>
-  <%= ui_item(th, hdr, labels, markdown(summary(klass.course.about))) %>
+  <%= ui_item(th, hdr, labels, markdown(summary(klass.course.about)), ui_klass_enrollment_action(klass, :enroll, true), ribbon) %>
 <% else %>
   <div class="column">
     <div class="ui fluid card">
@@ -26,15 +38,7 @@
             </div>
           </div>
         </div>
-        <% if klass.enrolled?(current_student) %>
-          <a class="ui green left corner label">
-            <i class="fa fa-check fa-lg adjusted-for-ribbon"></i>
-          </a>
-        <% elsif 30.days.ago.to_date <= klass.begins_on %>
-          <a class="ui red left corner label">
-            <i class="fa fa-gift fa-lg adjusted-for-ribbon"></i>
-          </a>
-        <% end %>
+        <%= ribbon %>
         <img src="<%= th %>">
       </div>
       <div class="content">
@@ -50,6 +54,7 @@
         </div>
       </div>
       <div class="extra content">
+        <% instructor, instructors_count = klass.instructors(:first) %>
         <%= image_tag((instructor.avatar_url(current_account, :th) || instructor.user.profile.avatar_url(current_account, :th) || '/images/nobody-th.png'),
               :size => '21x21', :class => "right floated ui avatar image") %>
         <%= instructors_count > 1 ? t('page.text.first_and_others', :first => instructor.name) : instructor.name %>

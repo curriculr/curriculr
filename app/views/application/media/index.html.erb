@@ -1,37 +1,36 @@
-<% unless @course %>
-  <%= ui_header Medium.model_name.human(count: 3), style: :h2 %>
-<% end %>
-
-<%
-  links = []
-  t('config.medium.kind').each do |k,v|
-    if @course.present?
-      links << link(:medium, k, new_teach_course_medium_path(@course, s: k))
-    else
-      links << link(:medium, k, new_medium_path(s: k))
+<% action = capture do %>
+  <%
+    links = []
+    t('config.medium.kind').each do |k,v|
+      if @course.present?
+        links << link(:medium, k, new_teach_course_medium_path(@course, s: k))
+      else
+        links << link(:medium, k, new_medium_path(s: k))
+      end
     end
-  end
-%>
+  %>
 
-<% unless @material %>
-  <%= content_tag :div, class: css(button: :group, align: :right) do %>
-    <%= ui_button_dropdown(t('activerecord.actions.new_link'), links,
-        class: css_button(:default)) %>
-    <%= link :medium, :upload, @course ? multi_new_teach_course_medium_path(@course) :
-        multi_new_medium_path, class: css(button: :success) %>
-  <% end %>
-<% else %>
-  <%= content_tag :div, class: css(button: :group, align: :right) do %>
-    <% req_objects = @req_objects[0..(@req_objects.count-2)] %>
-    <% if params[:multiple] && req_objects.present? %>
-      <% url = [req_objects, show: (@lecture ? nil : (@unit ? 'documents' : (@course ? 'books' : nil)))].flatten %>
-      <%= link_to t('activerecord.actions.back_to', name: req_objects.last.class.model_name.human), url, class: css_button(:default) %>
+  <% unless @material %>
+    <%= content_tag :div, class: css(button: :group, align: :right) do %>
+      <%= ui_button_dropdown(t('activerecord.actions.new_link'), links,
+          class: css_button(:default)) %>
+      <%= link :medium, :upload, @course ? multi_new_teach_course_medium_path(@course) :
+          multi_new_medium_path, class: css(button: :success) %>
     <% end %>
-    <% url = [:new, req_objects, :material, s: params[:s], t: params[:t], m: true].flatten %>
-    <%= link :medium, :"add_#{params[:s]}", url,
-        class: css(button: :success, align: :right) %>
+  <% else %>
+    <%= content_tag :div, class: css(button: :group, align: :right) do %>
+      <% req_objects = @req_objects[0..(@req_objects.count-2)] %>
+      <% if params[:multiple] && req_objects.present? %>
+        <% url = [req_objects, show: (@lecture ? nil : (@unit ? 'documents' : (@course ? 'books' : nil)))].flatten %>
+        <%= link_to t('activerecord.actions.back_to', name: req_objects.last.class.model_name.human), url, class: css_button(:default) %>
+      <% end %>
+      <% url = [:new, req_objects, :material, s: params[:s], t: params[:t], m: true].flatten %>
+      <%= link :medium, :"add_#{params[:s]}", url,
+          class: css(button: :success, align: :right) %>
+    <% end %>
   <% end %>
 <% end %>
+<%= ui_header Medium.model_name.human(count: 3), style: @course ? :h3 : :h2, action: action %>
 
 <ul class="<%= css_nav(:tabs) %>">
   <% t('config.medium.kind').map do |k, v| %>

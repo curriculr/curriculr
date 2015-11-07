@@ -22,25 +22,24 @@
         <div id="paginator" class="<%= css_align(:left) %>"><%= paginate @klasses, :remote => true %></div>
       </div>
     </div>
-    <div id='klass-list' class="klass-list klass-media-object ui three column stackable stretched grid">
-      <%= render :partial => 'learn/klasses/klass', :collection => @klasses, :locals => {view: :card} %>
+    <div id='klass-list' class="klass-list klass-media-object ui divided items">
+      <%= render :partial => 'learn/klasses/klass', :collection => @klasses, :locals => {view: :item} %>
+
       <% if @klasses.empty? %>
         <%= t('page.text.no_record_found') %>
       <% end %>
     </div>
   </div>
   <div class="<%= css_columns(3) %>">
-    <% unless controller_name == 'payments' %>
-      <%= mountable_fragments :klass_index_actions %>
+    <%= mountable_fragments :klass_index_actions %>
 
-      <%= search_form_for [:learn, @q], class: "search-form form-inline", :remote => true do |f| %>
-        <%# content_tag :strong, t('page.titles.search') %>
-        <%= form_search f, :course_slug_or_course_name_or_course_about_cont,
-              hint: false, label: false, placeholder: true %>
-        <%# form_submit f %>
-      <% end %>
-      <%= render 'learn/klasses/search' %>
+    <%= search_form_for [:learn, @q], class: "search-form form-inline", :remote => true do |f| %>
+      <%# content_tag :strong, t('page.titles.search') %>
+      <%= form_search f, :course_slug_or_course_name_or_course_about_cont,
+            hint: false, label: false, placeholder: true %>
+      <%# form_submit f %>
     <% end %>
+    <%= render 'learn/klasses/search' %>
 
     <%= yield :klasses_sidebar %>
   </div>
