@@ -89,7 +89,7 @@ module Teach
         invitable = true
         invitable &&= @invitation.valid?
         if invitable
-          invitable &&= @klass.private and current_user.email != params[:invitation][:invitee] and staff?(current_user, @course)
+          invitable &&= (@klass.private && current_user.email != params[:invitation][:invitee] && staff?(current_user, @course))
 
           if invitable
             user = User.scoped.find_by(:email => params[:invitation][:invitee])

@@ -3,6 +3,7 @@ class Update < ActiveRecord::Base
   belongs_to :unit
   belongs_to :lecture
   belongs_to :klass
+  belongs_to :user
 
   # Validation Rules
   validates :to, :body, :presence => true
@@ -11,6 +12,10 @@ class Update < ActiveRecord::Base
 
   def www?
      www
+  end
+
+  def email?
+     email
   end
   def no_kind?
     if !www && !email

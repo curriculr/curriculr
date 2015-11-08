@@ -49,7 +49,7 @@ module Teach
         criteria << "lecture_id is null"
       end
 
-      if params[:s] && params[:s] != 'all' 
+      if params[:s] && params[:s] != 'all'
         criteria << "kind like '#{params[:s]}%' "
       end
 
@@ -81,12 +81,21 @@ module Teach
         @course.updates.new(update_params)
       end
 
+      @update.user = current_user
       respond_with @update do |format|
-        if @update.save
-          format.html { redirect_to the_path_out }
-        else
-          format.html { render action: "new" }
-        end
+        format.html {
+          if @update.save
+            redirect_to the_path_out
+          else
+            render action: "new"
+          end
+        }
+        format.js {
+          if @update.body.strip.present?
+            @update.www = true
+            @update.save
+          end
+        }
       end
     end
 

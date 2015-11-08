@@ -5,6 +5,7 @@ class CreateUpdates < ActiveRecord::Migration
       t.belongs_to :unit, index: true
       t.belongs_to :lecture, index: true
       t.belongs_to :klass, index: true
+      t.belongs_to :user, index: true
       t.boolean :www, :default => true
       t.boolean :email, :default => false
       t.boolean :sms, :default => false
@@ -17,7 +18,7 @@ class CreateUpdates < ActiveRecord::Migration
       t.datetime :sent_at
       t.datetime :cancelled_at
       t.integer :generator_id
-      
+
       t.timestamps null: false
     end
 
@@ -25,5 +26,6 @@ class CreateUpdates < ActiveRecord::Migration
     add_foreign_key :updates, :units
     add_foreign_key :updates, :lectures
     add_foreign_key :updates, :klasses
+    add_foreign_key :updates, :users
   end
 end

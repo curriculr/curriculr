@@ -17,6 +17,7 @@
       <small>
         <%= timeago_tag post.created_at, :nojs => true, :limit => 10.days.ago %>
       </small>
+      &nbsp;
       <% if current_user && @depth <= 3 && @klass.open? %>
         <a class="reply-to-post pull-right" data-post-id="<%= post.id %>"
                 data-reply-btn="<%= t('activerecord.actions.reply') %>"
