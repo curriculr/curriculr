@@ -13,13 +13,13 @@
 
 <div id="main-container" class="<%= css_container %>">
   <%= render partial: '/side_rails' %>
-  <%= yield %>
+  <%# yield %>
   <div class="row">
     <div class="<%= css_columns(12) %>">
       <br/>
       <% front = Page.localized(:front) %>
 
-      <%= markdown front.about, :html => front.html if front %>
+      <%= markdown ERB.new(front.about).result(binding), :html => front.html if front %>
 
       <% if front && current_user && current_user.has_role?(:admin) %>
         <%= link(:page, :edit, edit_page_path(front), :class => css(button: [:default, :xs])) %>
