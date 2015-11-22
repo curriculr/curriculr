@@ -54,6 +54,9 @@ module Mediable
 
   def edit
     @medium.is_a_link = @medium.path.blank?
+    if @medium.is_a_link
+      @medium.source = @medium.content_type == "link/youtube" ? 'youtube' : 'www'
+    end
 
     respond_with @medium do |format|
       format.js {render 'application/media/edit'}
@@ -62,9 +65,7 @@ module Mediable
 
   def update
     @medium.is_a_link = @medium.path.blank?
-    if @medium.is_a_link
-      @medium.content_type = "link/#{medium_params[:source]}"
-    end
+    set_kind_and_extension(@medium, medium_params[:url], medium_params[:source])
 
     respond_with @medium do |format|
       if @medium.update(medium_params)
@@ -75,17 +76,28 @@ module Mediable
     end
   end
 
+  def set_kind_and_extension(medium, url, source)
+    if medium.is_a_link
+      ext = File.extname(url)
+      if ext.present?
+        ext = ext[1..-1]
+        medium.kind = medium.kind_from_extension(ext) if ext.present?
+      end
+
+      if source != 'youtube' && ext.present? && $site['file_content_types'][ext].present?
+        medium.content_type = "link/#{$site['file_content_types'][ext]}"
+      else
+        medium.content_type = "link/#{source}"
+      end
+    else
+      ext = medium.path.file.extension
+      medium.kind = medium.kind_from_extension(ext) if ext.present?
+    end
+  end
+
   def create
     @medium = @course ? @course.media.new(medium_params) : Medium.new(medium_params)
-
-    if @medium.is_a_link
-      ext = medium_params[:url].split('.').last
-      if medium_params[:source] != 'youtube' && ext.present? && $site['file_content_types'][ext].present?
-        @medium.content_type = "link/#{$site['file_content_types'][ext]}"
-      else
-        @medium.content_type = "link/#{medium_params[:source]}"
-      end
-    end
+    set_kind_and_extension(@medium, medium_params[:url], medium_params[:source])
 
     respond_with @medium do |format|
       if @medium.save
