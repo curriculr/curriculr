@@ -24,6 +24,9 @@ end
 
 if current_user.has_role? :admin
   section = t('page.titles.administration')
+
+  add_item_to_app_menu(:home_page, link_to(t('page.titles.dashboard'), admin_dashboard_path), section)
+  
   if current_user.id == 1
     add_item_to_app_menu(:home_page, link(:account, :index,  main_app.admin_accounts_path), section)
     if Rails.application.secrets.redis_enabled

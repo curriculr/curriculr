@@ -1,5 +1,3 @@
-<%= render 'admin/dashboard/show' %>
-
 <% klasses = Klass.ready_to_approve.distinct.to_a %>
 <% if klasses.present? %>
   <%= ui_header t('page.titles.ready_to_approve') %>
