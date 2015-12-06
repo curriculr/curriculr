@@ -1,9 +1,14 @@
 <%
+  actionless = ((defined? no_actions) && no_actions)
   img_size = defined?(image_size).blank? ? 240 : image_size
-  hdr = if current_user && staff?(current_user, klass)
-    link_to(klass.course.name, main_app.teach_course_klass_path(klass.course, klass), :class => 'header')
+  hdr = if actionless
+    klass.course.name
   else
-    link_to(klass.course.name, [main_app, :learn, klass], :class => 'header')
+    if current_user && staff?(current_user, klass)
+      link_to(klass.course.name, main_app.teach_course_klass_path(klass.course, klass), :class => 'header')
+    else
+      link_to(klass.course.name, [main_app, :learn, klass], :class => 'header')
+    end
   end
 
   subhdr = klass_from_and_to_dates(klass)
@@ -11,6 +16,7 @@
   labels << content_tag(:div, klass.instructors(:by_first), :class => :item) if view == :item
 
   th = ui_image_src(klass.course.poster ? klass.course.poster.at_url(:sm) : nil, '/images/holder-sm.png')
+  klass_actions = !actionless ? ui_klass_enrollment_action(klass, :enroll, true) : nil 
 %>
 
 <% ribbon = capture do %>
@@ -26,7 +32,7 @@
 <% end %>
 
 <% if view == :item %>
-  <%= ui_item(th, hdr, labels, markdown(summary(klass.course.about)), ui_klass_enrollment_action(klass, :enroll, true), ribbon) %>
+  <%= ui_item(th, hdr, labels, markdown(summary(klass.course.about)), klass_actions, ribbon) %>
 <% else %>
   <div class="column">
     <div class="ui fluid card">
@@ -34,7 +40,7 @@
         <div class="ui dimmer">
           <div class="content">
             <div class="center">
-              <%= ui_klass_enrollment_action(klass, :enroll, true) %>
+              <%= klass_actions %>
             </div>
           </div>
         </div>
