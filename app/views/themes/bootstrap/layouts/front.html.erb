@@ -13,7 +13,7 @@
 
 <div id="main-container" class="<%= css_container %>">
   <div class="row">
-    <div class="<%= css_columns(current_account.config['allow_banner_ads'] ? 10 : 12) %>">
+    <div class="<%= css_columns(12) %>">
       <br/>
       <% front = Page.localized(:front) %>
 
@@ -23,13 +23,5 @@
         <%= link(:page, :edit, edit_page_path(front), :class => css(button: [:default, :xs])) %>
       <% end %>
     </div>
-
-    <% if current_account.config['allow_banner_ads'] %>
-      <div class="<%= css_columns(2) %>">
-        <br />
-        <%= mountable_fragments :site_160x600_left_rail_banner %>
-        <%= mountable_fragments :site_160x600_right_rail_banner %>
-      </div>
-    <% end %>
   </div>
 </div>
