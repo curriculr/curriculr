@@ -9,3 +9,13 @@
 <% if current_account.config['allow_faculty_applications'] %>
   <%= render :partial => 'faculty_applications/index' %>
 <% end %>
+
+<% klasses = Klass.being_worked_on.distinct.to_a %>
+<%= ui_header t('page.titles.being_worked_on') %>
+<% if klasses.present? %>
+  <div class="ui divided items">
+    <%= render :partial => 'learn/klasses/klass', :collection => klasses, :locals => {view: :item} %>
+  </div>
+<% else %>
+    <%= link(:course, :start_new_course, main_app.new_teach_course_path, :class => css_button(:success)) %>
+<% end %>

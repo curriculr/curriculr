@@ -28,8 +28,10 @@
 
   <% Announcement.current(cookies.signed[:hidden_announcement_ids]).each do |announcement| %>
     <%= div_for announcement do %>
-      <%= announcement.message %>
-      <%= link :announcement, :hide, hide_admin_announcement_path(announcement), remote: true %>
+			<% content_tag :div, class: "announcement-message" do %>
+      	<%= raw announcement.message %>
+      	<%= link :announcement, :hide, hide_admin_announcement_path(announcement), remote: true %>
+			<% end %>
     <% end %>
   <% end %>
 
@@ -37,7 +39,9 @@
 
   <%= render "/navbar" %>
 
-	<div class="container"><%= mountable_fragments :site_728x90_center_top_banner %></div>
+	<% if current_account.config['allow_banner_ads'] %>
+		<div class="container"><%= mountable_fragments :site_728x90_center_top_banner %></div>
+	<% end %>
 
   <% if action_name == 'front' %>
     <%= render :template => "layouts/front" %>
@@ -57,7 +61,9 @@
     </div>
   </div>
 
-  <div class="container"><%= mountable_fragments :site_728x90_center_bottom_banner %></div>
+	<% if current_account.config['allow_banner_ads'] %>
+  	<div class="container"><%= mountable_fragments :site_728x90_center_bottom_banner %></div>
+	<% end %>
 
   <%= render "/footer" %>
 

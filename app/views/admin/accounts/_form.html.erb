@@ -10,7 +10,7 @@
         <% end %>
 
         <%= form_text f, :name %>
-        <%= form_markdown f, @account, :about, :size => '60x10' %>
+        <%= form_text_area f, :about, :size => '60x5' %>
       </fieldset>
       <fieldset>
         <legend><%= t('page.titles.administrator') %></legend>
@@ -23,7 +23,7 @@
           <% else %>
             <%= form_static a, :name %>
             <%= form_hidden a, :name %>
-            <%# form_hidden a, :email %>
+            <%= form_hidden a, :email %>
           <% end %>
         <% end %>
       </fieldset>

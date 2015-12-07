@@ -537,7 +537,7 @@ en:
         revoked_at: Revoked on
         created_at: Created in
       announcement:
-        message: Message
+        message: Message (Accepts HTML)
         starts_at: Starts at
         ends_at: Ends at
         suspended: Suspended

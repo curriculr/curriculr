@@ -53,7 +53,7 @@ class AdminFlowsTest < ActionDispatch::IntegrationTest
 
     click_link 'New'
     message = Faker::Lorem.words(5).join(" ")
-    fill_in 'wmd-inputmessage', with: message
+    fill_in 'announcement_message', with: message
     fill_in 'announcement_starts_at', with: Time.zone.today
     fill_in 'announcement_ends_at', with: 20.days.from_now
 
@@ -70,7 +70,7 @@ class AdminFlowsTest < ActionDispatch::IntegrationTest
     find(:xpath, "//a[@href='/admin/announcements/#{announcement.id}/edit']").click
 
     message = Faker::Lorem.words(4).join(" ")
-    fill_in 'wmd-inputmessage', with: message
+    fill_in 'announcement_message', with: message
 
     click_button 'Update'
 

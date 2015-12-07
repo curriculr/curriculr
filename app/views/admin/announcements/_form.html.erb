@@ -1,7 +1,7 @@
 <%= form_header %>
 
 <%= themed_form_for [:admin, @announcement] do |f| %>
-  <%= form_markdown f, @announcement, :message %>
+  <%= form_text_area f, :message, :size => '60x5' %>
 
   <div class="row">
     <div class="<%= css_columns(6) %>">
@@ -19,8 +19,8 @@
       <% end %>
     </div>
   </div>
-  
+
   <%= form_checkbox f, :suspended %>
-  
+
   <%= form_submit f, admin_announcements_path %>
 <% end %>

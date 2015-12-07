@@ -1,4 +1,4 @@
-<% klasses = Klass.being_worked_on.distinct.to_a %>
+<% klasses = Klass.for_instructor(current_user).being_worked_on.distinct.to_a %>
 <%= ui_header t('page.titles.being_worked_on') %>
 <% if klasses.present? %>
   <div class="ui divided items">

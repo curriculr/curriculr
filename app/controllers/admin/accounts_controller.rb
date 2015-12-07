@@ -40,9 +40,9 @@ module Admin
         @account.live_since = Time.zone.now
       end
 
-      @account.update(account_params.reject { |k,v| k.to_s == 'admin_attributes' })
+      @account.update(account_params.reject { |k,v| k.to_s == 'user_attributes' })
       if current_user.id == @account.user_id
-        redirect_to home_path, :notice => t('flash.actions.create.notice', :resource_name => Account.model_name.human)
+        redirect_to home_path, :notice => t('flash.actions.update.notice', :resource_name => Account.model_name.human)
       else
         respond_with(:admin, @account)
       end

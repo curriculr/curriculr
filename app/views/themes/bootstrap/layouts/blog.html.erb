@@ -15,9 +15,8 @@
 
 
 <div id="main-container" class="<%= css_container %>">
-  <%= render partial: '/side_rails' %>
   <div class="row">
-		<div class="<%= css_columns(8, 2) %>">
+		<div class="<%= current_account.config['allow_banner_ads'] ? css_columns(8) : css_columns(8,2) %>">
       <% if @page_header %>
         <%
         action = nil
@@ -33,5 +32,20 @@
 
 			<%= yield %>
 		</div>
+    <% if current_account.config['allow_banner_ads'] %>
+      <br />
+      <div class="<%= css_columns(3,1) %>">
+        <div class="row">
+          <div class="<%= css_columns(6) %>">
+            <%= mountable_fragments :site_160x600_left_rail_banner %>
+          </div>
+          <div class="<%= css_columns(6) %>">
+            <%= mountable_fragments :site_160x600_right_rail_banner %>
+          </div>
+        </div>
+
+        <%= mountable_fragments :site_300x250_right_bottom_banner %>
+      </div>
+    <% end %>
   </div>
 </div>

@@ -87,8 +87,8 @@ ar:
         one: إعدادات الموقع
         other: إعدادات الموقع
       announcement:
-        one: اعلان
-        other: اعلانات
+        one: إخطار الموقع
+        other: إخطارات الموقع
       translation:
         one: ترجمة
         other: ترجمة/لغات
@@ -530,7 +530,7 @@ ar:
         revoked_at: جمِّد في
         created_at: أُنشئ في
       announcement:
-        message: الإعلان
+        message: نص الإخطار (يقبل الـ HTML)
         starts_at: يبدأ في الوقت
         ends_at: ينتهي في الوقت
         suspended: معلق؟

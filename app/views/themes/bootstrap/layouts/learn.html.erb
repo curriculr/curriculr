@@ -1,5 +1,4 @@
 <div id="main-container" class="<%= css_container %>">
-  <%= render partial: '/side_rails' %>
   <% if request.path.ends_with?('sign_in') || request.path.ends_with?('sign_up') %>
 	  <div class="row">
 			<div class="<%= css_columns(12) %>">
@@ -11,7 +10,13 @@
       <div class="row">
 				<div class="<%= css_columns(2) %> side-navabar">
 			    <%= render "learn/klasses/ui_main_side" %>
-          <%= mountable_fragments :learn_160x600_left_bottom_banner %>
+
+          <% if current_account.config['allow_banner_ads'] %>
+            <br />
+            <%= mountable_fragments :site_160x600_left_rail_banner %>
+            <%= mountable_fragments :site_160x600_right_rail_banner %>
+            <%= mountable_fragments :learn_160x600_left_bottom_banner %>
+          <% end %>
 				</div>
 				<div class="<%= css_columns(10) %>">
           <% if @page_header %>

@@ -42,5 +42,19 @@
     <%= render 'learn/klasses/search' %>
 
     <%= yield :klasses_sidebar %>
+
+    <% if current_account.config['allow_banner_ads'] %>
+      <br />
+      <div class="row">
+        <div class="<%= css_columns(6) %>">
+          <%= mountable_fragments :site_160x600_left_rail_banner %>
+        </div>
+        <div class="<%= css_columns(6) %>">
+          <%= mountable_fragments :site_160x600_right_rail_banner %>
+        </div>
+      </div>
+
+      <%= mountable_fragments :site_300x250_right_bottom_banner %>
+    <% end %>
   </div>
 </div>

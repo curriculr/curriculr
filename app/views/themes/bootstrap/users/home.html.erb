@@ -26,7 +26,7 @@ if current_user.has_role? :admin
   section = t('page.titles.administration')
 
   add_item_to_app_menu(:home_page, link_to(t('page.titles.dashboard'), admin_dashboard_path), section)
-  
+
   if current_user.id == 1
     add_item_to_app_menu(:home_page, link(:account, :index,  main_app.admin_accounts_path), section)
     if Rails.application.secrets.redis_enabled
@@ -105,6 +105,17 @@ mountable_fragments :home_page_menu
               class: css_button(:block)) %>
       </div>
     </div>
-    <%= mountable_fragments :site_300x250_right_bottom_banner %>
+    <% if current_account.config['allow_banner_ads'] %>
+      <div class="row">
+        <div class="<%= css_columns(6) %>">
+          <%= mountable_fragments :site_160x600_left_rail_banner %>
+        </div>
+        <div class="<%= css_columns(6) %>">
+          <%= mountable_fragments :site_160x600_right_rail_banner %>
+        </div>
+      </div>
+
+      <%= mountable_fragments :site_300x250_right_bottom_banner %>
+    <% end %>
   </div>
 </div>

@@ -32,6 +32,7 @@ account:
     linkedin:
     github:
 
+  allow_banner_ads: false
   allow_user_student_dependents: false
   allow_faculty_applications: true
   allow_file_uploads: true
