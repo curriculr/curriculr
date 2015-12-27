@@ -29,7 +29,7 @@ module KlassesHelper
             links << (capture do
               (!in_preview ? content_tag(:div, t('page.text.free_to_enroll')) : ''.html_safe) +
               link(:enrollment, :enroll, main_app.enroll_learn_klass_path(klass),
-                :class => css(button: [:primary, :lg, :block], align: align))
+                :class => css(button: [:primary, :lg], align: align))
             end)
           end
         end

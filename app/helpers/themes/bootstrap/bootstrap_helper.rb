@@ -302,11 +302,6 @@ module Themes::Bootstrap::BootstrapHelper
     else
       action = ''
       action << default_action if default_action.present?
-      if @klass && @klass.previewed && !@klass.enrolled?(current_student)  &&
-        (controller_name != 'klasses' || !action_name.in?(['show', 'enroll']))
-        action << content_tag(:span, '&nbsp;'.html_safe, :class => 'pull-right')
-        action << ui_klass_enrollment_action(@klass, :enroll, true, true)
-      end
       action
     end
   end

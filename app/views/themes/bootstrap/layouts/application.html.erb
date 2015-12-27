@@ -30,7 +30,7 @@
     <%= div_for announcement do %>
 			<% content_tag :div, class: "announcement-message" do %>
       	<%= raw announcement.message %>
-      	<%= link :announcement, :hide, hide_admin_announcement_path(announcement), remote: true %>
+      	<%= link :announcement, :hide, main_app.hide_admin_announcement_path(announcement), remote: true %>
 			<% end %>
     <% end %>
   <% end %>

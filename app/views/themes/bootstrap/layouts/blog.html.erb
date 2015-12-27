@@ -13,21 +13,11 @@
   </div>
 </div>
 
-
 <div id="main-container" class="<%= css_container %>">
   <div class="row">
 		<div class="<%= current_account.config['allow_banner_ads'] ? css_columns(8) : css_columns(8,2) %>">
       <% if @page_header %>
-        <%
-        action = nil
-        subtext = nil
-        if !current_user && @klass && @klass.previewed
-          action = ui_klass_enrollment_action(@klass, :enroll, true, true)
-        end
-
-        subtext = klass_from_and_to_dates(@klass) if @klass
-        %>
-        <%= ui_header @page_header, action: action, style: :h2, subtext: subtext %>
+        <%= ui_header @page_header, style: :h2, subtext: @klass ? klass_from_and_to_dates(@klass) : nil %>
       <% end %>
 
 			<%= yield %>
