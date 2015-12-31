@@ -128,26 +128,8 @@ en:
 
     filter:
       language: By language
-      country: By country
       level: By level
       category: By category
-
-    level:
-      beginner: Beginner
-      intermediate: Intermediate
-      advanced: Advanced
-      expert: Expert
-
-    category:
-      arabic: Arabic
-      english: English
-      math: Mathematics
-      humanities: Humanities
-      physics: Physics
-      biology: Biology
-      chemistry: Chemistry
-      computer: Computer
-      statistics: Statistics
 
     auto_generated_pages:
       about: About

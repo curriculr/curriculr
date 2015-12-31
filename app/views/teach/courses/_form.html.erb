@@ -32,12 +32,12 @@
 
   <div class="row">
     <div class="<%= css_columns(6) %>">
-      <%= form_select f, :level_list, t('config.level').invert,
+      <%= form_select f, :level_list, Translator.to_hash(I18n.locale, "#{current_account.slug}.site.level.*").invert,
             {:value => @course.level_list}, {:multiple => true, :class => "chosen-select #{rtl? ? 'chosen-rtl' : ''}",
              :'data-placeholder'=> t('activerecord.placeholders.level_list')} %>
     </div>
     <div class="<%= css_columns(6) %>">
-      <%= form_select f, :category_list, t('config.category').invert,
+      <%= form_select f, :category_list, Translator.to_hash(I18n.locale, "#{current_account.slug}.site.category.*").invert,
             {:value => @course.category_list}, {:multiple => true, :class => "chosen-select #{rtl? ? 'chosen-rtl' : ''}",
              :'data-placeholder'=> t('activerecord.placeholders.category_list')} %>
     </div>

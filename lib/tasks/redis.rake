@@ -1,4 +1,4 @@
-namespace :curriculr do  
+namespace :curriculr do
   namespace :redis do
     #desc "Flush all redis content"
     task :flush => :environment do
@@ -11,24 +11,35 @@ namespace :curriculr do
     end
 
     desc "Restores redis's original configurations and translations."
-    task :reset => :environment do   
+    task :reset => :environment do
       if Rails.application.secrets.redis_enabled
-        Rake::Task["curriculr:redis:clear"].invoke 
+        Rake::Task["curriculr:redis:clear"].invoke
 
-        config = YAML.load_file("#{Rails.root}/config/config-site.yml")
+        # config-site.yml
+        filename = "#{Rails.root}/config/config-site.yml"
+        puts "loading #{filename} ..."
+        config = YAML.load_file(filename)
+
         $redis.set 'config.site', config['site'].to_json
 
-        config = YAML.load_file("#{Rails.root}/config/config-account.yml")
+        # config-account.yml
+        filename = "#{Rails.root}/config/config-account.yml"
+        puts "loading #{filename} ..."
+        config = YAML.load_file(filename)
+
         accounts = Account.all
         accounts.each do |a|
           $redis.set "config.account.a#{a.id}", config['account'].to_json
         end
-      
-        config = YAML.load_file("#{Rails.root}/config/config-course.yml")
+
+        # config-course.yml
+        filename = "#{Rails.root}/config/config-course.yml"
+        puts "loading #{filename} ..."
+        config = YAML.load_file(filename)
         Course.all.each do |c|
           $redis.set "config.course.a#{c.account_id}_c#{c.id}", config['course'].to_json
         end
-      
+
         $site['supported_locales'].each do |locale, name|
           ['account.'].each do |part| # Full array: ['', 'config.', 'account.', 'model.']
             filename = "#{Rails.root}/config/locales/#{part}#{locale}.yml"
@@ -37,12 +48,14 @@ namespace :curriculr do
 
             out_t = {}
             Translator.from_yaml(locale, out_t, yml_t, '')
-          
-            translations = Hash[out_t.map { |k, v| [k.sub('account.site.', 'main.site.'), v] }]
-            I18n.backend.store_translations( locale, translations, :escape => false )
+
+            accounts.each do |a|
+              translations = Hash[out_t.map { |k, v| [k.sub('account.site.', "#{a.slug}.site."), v] }]
+              I18n.backend.store_translations( locale, translations, :escape => false )
+            end
           end
         end
-      
+
         puts 'Redis reset successfully.'
       else
         puts 'Unable to run task; Redis is not enabled.'
@@ -103,7 +116,7 @@ namespace :curriculr do
         filename = "#{Rails.root}/db/backup_redis.yml"
         if File.exists?(filename)
           data = YAML.load_file(filename)
-        
+
           config = data[:config]
           config.each do |k, v|
             $redis.set(k, JSON.parse([v].to_json).first)

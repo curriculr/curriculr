@@ -1,4 +1,4 @@
-module Translator   
+module Translator
   def self.store
     if Rails.application.secrets.redis_enabled
       @store ||= Redis.new(db: Rails.application.config.redis_databases[Rails.env.to_s])
@@ -6,15 +6,15 @@ module Translator
       @store ||= {}
     end
   end
-  
+
   class Backend < I18n::Backend::KeyValue
     include I18n::Backend::Memoize
-    
-    def initialize 
+
+    def initialize
       super(Translator.store)
-    end 
+    end
   end
-  
+
   def self.from_yaml(locale, output, data, key)
     data.each do |k, t|
       if t.kind_of? Hash
@@ -24,18 +24,18 @@ module Translator
       end
     end
   end
-  
+
   def self.to_yaml(locale, keys)
     keys = Translator.store.keys("#{locale}.#{keys}")
     data = {}
     c = nil
-    
+
     if keys.present?
       keys.uniq.compact.sort.each do |k|
         if k.last != '.'
           c = data
           parts = k.split('.')
-        
+
           parts.each_with_index do |p, i|
             if i == parts.count - 1
               c[p] = ActiveSupport::JSON.decode(Translator.store.get(k))
@@ -47,7 +47,7 @@ module Translator
         end
       end
     end
-    
+
     data.to_yaml
   end
 
@@ -55,13 +55,13 @@ module Translator
     keys = Translator.store.keys("#{locale}.#{keys}")
     data = {}
     c = nil
-    
+
     if keys.present?
       keys.uniq.compact.sort.each do |k|
         if k.last != '.'
           c = data
           parts = k.split('.')
-        
+
           parts.each_with_index do |p, i|
             if i == parts.count - 1
               c[p] = ActiveSupport::JSON.decode(Translator.store.get(k))
@@ -73,7 +73,23 @@ module Translator
         end
       end
     end
-    
+
+    data
+  end
+
+  def self.to_hash(locale, keys)
+    keys = Translator.store.keys("#{locale}.#{keys}")
+    data = {}
+
+    if keys.present?
+      keys.uniq.compact.sort.each do |k|
+        if k.last != '.'
+          parts = k.split('.')
+          data[parts.last] = ActiveSupport::JSON.decode(Translator.store.get(k))
+        end
+      end
+    end
+
     data
   end
 end

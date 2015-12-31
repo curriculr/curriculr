@@ -192,7 +192,7 @@ module Themes::Bootstrap::BootstrapHelper
       labels << content_tag(:div, flag_tag(course.country), :class => :item)
     end
 
-    t('config.level').each_with_index do |l, i|
+    Translator.to_hash(I18n.locale, "#{current_account.slug}.site.level.*").each_with_index do |l, i|
       if Course.scoped.tagged_with(l.first, :on => :levels).to_a.include? course
         html = ''
         (1..i).each { html << content_tag(:i, '', class: 'fa fa-circle') } if i > 0

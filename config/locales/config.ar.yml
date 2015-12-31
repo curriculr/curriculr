@@ -127,27 +127,8 @@ ar:
 
     filter:
       language: حسب اللغة
-      country: حسب البلد
       level: حسب المستوي
       category: حسب التصنيف
-
-
-    level:
-      beginner: مبتدئ
-      intermediate: متوسط
-      advanced: متقدم
-      expert: خبير
-
-    category:
-      arabic: لغة عربية
-      english: English
-      math: رياضيات
-      humanities: إنسانيات
-      physics: فيزياء
-      biology: أحياء
-      chemistry: كيمياء
-      computer: كمبيوتر
-      statistics: إحصاء
 
     auto_generated_pages:
       about: من نخن

@@ -75,3 +75,20 @@ ar:
           <small>يرجى عدم الرد على هذه الرسالة. قم بزيارة موقعنا للإطلاع على اتفاقية الخصوصية. إذا كان لديك أي سؤال قم بالتواصل مع خدمة العملاء.</small>
           <br>
           <small>© 2015 www.curriculr.org. جميع الحقوق محفوظة</small>
+
+      level:
+        beginner: مبتدئ
+        intermediate: متوسط
+        advanced: متقدم
+        expert: خبير
+
+      category:
+        arabic: لغة عربية
+        english: English
+        math: رياضيات
+        humanities: إنسانيات
+        physics: فيزياء
+        biology: أحياء
+        chemistry: كيمياء
+        computer: كمبيوتر
+        statistics: إحصاء

@@ -80,3 +80,20 @@ en:
           For any questions contact customer service. </small>
           <br>
           <small>© 2015 www.curriculr.org. All rights reserved.</small>
+
+      level:
+        beginner: Beginner
+        intermediate: Intermediate
+        advanced: Advanced
+        expert: Expert
+
+      category:
+        arabic: Arabic
+        english: English
+        math: Mathematics
+        humanities: Humanities
+        physics: Physics
+        biology: Biology
+        chemistry: Chemistry
+        computer: Computer
+        statistics: Statistics
