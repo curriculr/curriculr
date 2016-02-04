@@ -1,6 +1,6 @@
-<% if @attempt.state == 1 && !@assessment.after_deadline?(@klass) && @assessment.to_datetime.present? && @assessment.hours_to_close(@klass) <= 2 %>
+<% if @attempt.state == 1 && !@assessment.after_deadline?(@klass.begin_date(current_student)) && @assessment.to_datetime.present? && @assessment.hours_to_close(@klass.begin_date(current_student)) <= 2 %>
   <div id="assessment-countdown" class="<%= css_columns(3) %> <%= css_align(:right) %>"
-       data-time="<%= @assessment.closes_at_datetime(@klass).to_i * 1000 %>"></div>
+       data-time="<%= @assessment.closes_at_datetime(@klass.begin_date(current_student)).to_i * 1000 %>"></div>
 <% end %>
 
 <h3><%= @assessment.name %></h3>

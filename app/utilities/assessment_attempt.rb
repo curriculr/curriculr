@@ -140,7 +140,7 @@ class AssessmentAttempt
       points = grade(@attempt.test)
 
       score = @attempt.points > 0 ? points : 0
-      if @assessment.after_deadline?(@klass)
+      if @assessment.after_deadline?(@klass.begin_date(@student))
         score = score * (1.0 - (@assessment.penalty / 100.00));
       end
       @attempt.score = score.round(2)

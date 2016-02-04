@@ -40,11 +40,11 @@ class Ability
             klass.open? && assessment.can_be_taken?(klass, student)
           end
           can :create, Attempt do |attempt|
-            assessment && assessment.open?(klass) && attempt.state == 1
+            assessment && klass.open? && assessment.open?(klass.begin_date(student)) && attempt.state == 1
           end
           can :show_answer, Attempt do |attempt|
             (attempt.state == 1 && attempt.show_answer?) ||
-            (attempt.state == 2 && attempt.assessment.show_answer?(klass))
+            (attempt.state == 2 && attempt.assessment.show_answer?(klass.begin_date(student)))
           end
 
           can :report, Klass

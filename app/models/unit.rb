@@ -41,20 +41,21 @@ class Unit < ActiveRecord::Base
 
 	scope :open, ->(klass, student, include_everything = false) {
     if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
-      date_clause = "(units.on_date - units.based_on) <= (DATE :today - klasses.begins_on) and
+      date_clause = "(units.on_date - units.based_on) <= (DATE :today - DATE :base_date) and
         (units.for_days is null or
-        (klasses.begins_on + (units.on_date - units.based_on) + units.for_days)"
+        (DATE :base_date + (units.on_date - units.based_on) + units.for_days)"
     else
-      date_clause = "(units.on_date - units.based_on) <= (DATE(:today) - klasses.begins_on) and
+      date_clause = "(units.on_date - units.based_on) <= (DATE(:today) - DATE(:base_date)) and
         (units.for_days is null or
-        adddate(klasses.begins_on, (units.on_date - units.based_on) + units.for_days)"
+        adddate(DATE(:base_date), (units.on_date - units.based_on) + units.for_days)"
     end
 
     q = joins(:course => :klasses).where("
       (klasses.ends_on is null or (klasses.ends_on < :today and klasses.lectures_on_closed = TRUE ) or
       (klasses.ends_on > :today and #{date_clause} > :today))) and
       courses.id = :course_id and klasses.id = :klass_id ",
-      :course_id => klass.course.id, :klass_id => klass.id, :today => Time.zone.today)
+      :course_id => klass.course.id, :klass_id => klass.id, :today => Time.zone.today,
+      :base_date => klass.begin_date(student))
 
     unless include_everything || klass.enrolled?(student) || (student && KlassEnrollment.staff?(student.user, klass.course))
       q = q.where('klasses.previewed = TRUE and units.previewed = TRUE')
@@ -79,18 +80,18 @@ class Unit < ActiveRecord::Base
     end
   end
 
-  def open?(klass)
+  def open?(base_date)
     today = Time.zone.today
     on_day = (self.on_date - self.based_on).to_i
-    on_day <= (today - klass.begins_on).to_i && (self.for_days.blank? || (klass.begins_on + on_day + self.for_days) > today)
+    on_day <= (today - base_date).to_i && (self.for_days.blank? || (base_date + on_day + self.for_days) > today)
   end
 
-  def begins_on(klass)
-    (klass.begins_on + (self.on_date - self.based_on).to_i)
+  def begins_on(base_date)
+    (base_date + (self.on_date - self.based_on).to_i)
   end
 
-  def ends_on(klass)
-    self.for_days.present? ? (begins_on(klass) + self.for_days) : nil
+  def ends_on(base_date)
+    self.for_days.present? ? (begins_on(base_date) + self.for_days) : nil
   end
 
   # callbacks

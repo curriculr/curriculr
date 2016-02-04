@@ -86,20 +86,20 @@ class Lecture < ActiveRecord::Base
 
   def pagers(klass, student)
     if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
-      date_clause = "(DATE :begins_on + (lectures.on_date - lectures.based_on) + lectures.for_days)"
+      date_clause = "(DATE :base_date + (lectures.on_date - lectures.based_on) + lectures.for_days)"
     else
-      date_clause = "adddate(DATE(:begins_on), (lectures.on_date - lectures.based_on) + lectures.for_days)"
+      date_clause = "adddate(DATE(:base_date), (lectures.on_date - lectures.based_on) + lectures.for_days)"
     end
 
     lectures = Lecture.joins(:unit => {:course => :klasses}).with_content_4_students.
       order('units.order, lectures.order').
       select('courses.id as course, units.id as unit, lectures.id as lecture, units.order, lectures.order').
       where("courses.id = :course_id and klasses.id = :klass_id and
-             (lectures.on_date - lectures.based_on) <= (DATE(:today) - DATE(:begins_on)) and
+             (lectures.on_date - lectures.based_on) <= (DATE(:today) - DATE(:base_date)) and
              (lectures.for_days is null or #{date_clause} > :today)",
              :course_id => klass.course.id,
              :klass_id => klass.id,
-             :begins_on => klass.begins_on,
+             :base_date => klass.begin_date(student),
              :today => Time.zone.now)
 
     unless klass.enrolled?(student) || (student && KlassEnrollment.staff?(student.user, klass))
@@ -127,11 +127,11 @@ class Lecture < ActiveRecord::Base
 
 	scope :attendance, ->(klass, student) {
     if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
-      unit_date_clause = "(klasses.begins_on + (units.on_date - units.based_on))"
-      lecture_date_clause =  "(klasses.begins_on + (lectures.on_date - lectures.based_on) - 1)"
+      unit_date_clause = "(DATE :base_date + (units.on_date - units.based_on))"
+      lecture_date_clause =  "(DATE :base_date + (lectures.on_date - lectures.based_on) - 1)"
     else
-      unit_date_clause = "adddate(klasses.begins_on, (units.on_date - units.based_on))"
-      lecture_date_clause =  "adddate(klasses.begins_on, (lectures.on_date - lectures.based_on) - 1)"
+      unit_date_clause = "adddate(DATE(:base_date), (units.on_date - units.based_on))"
+      lecture_date_clause =  "adddate(DATE(:base_date), (lectures.on_date - lectures.based_on) - 1)"
     end
 
     joins(:unit => {:course => :klasses}).
@@ -139,7 +139,8 @@ class Lecture < ActiveRecord::Base
              activities.actionable_type = 'Lecture' and activities.actionable_id = lectures.id and
              activities.student_id = #{student.id}").
     where("klasses.id = #{klass.id} and
-      #{unit_date_clause} <= :as_of and #{lecture_date_clause} <= :as_of ", :as_of => Time.zone.today).
+      #{unit_date_clause} <= :as_of and #{lecture_date_clause} <= :as_of ", :as_of => Time.zone.today,
+      :base_date => klass.begin_date(student)).
     group('units.id, lectures.id, activities.id').
     select('units.name as u_name, lectures.name as name').
     select('coalesce(activities.times, 0) as attended').
@@ -195,20 +196,22 @@ class Lecture < ActiveRecord::Base
       q = q.where("
         (klasses.ends_on is null or (klasses.ends_on < :today and klasses.lectures_on_closed = TRUE) or
         (klasses.ends_on > :today and
-        (lectures.on_date - lectures.based_on) <= (DATE(:today) - klasses.begins_on) and
+        (lectures.on_date - lectures.based_on) <= (DATE(:today) - DATE :base_date) and
         (lectures.for_days is null or
-          (klasses.begins_on + (lectures.on_date - lectures.based_on) + lectures.for_days) > :today))) and
+          (DATE :base_date + (lectures.on_date - lectures.based_on) + lectures.for_days) > :today))) and
         courses.id = :course_id and units.id = :unit_id and klasses.id = :klass_id",
-        :course_id => klass.course.id, :unit_id => unit.id, :klass_id => klass.id, :today => Time.zone.now)
+        :course_id => klass.course.id, :unit_id => unit.id, :klass_id => klass.id, :today => Time.zone.now,
+        :base_date => klass.begin_date(student))
     else
       q = q.where("
         (klasses.ends_on is null or (klasses.ends_on < :today and klasses.lectures_on_closed = TRUE) or
         (klasses.ends_on > :today and
-        (lectures.on_date - lectures.based_on) <= (DATE(:today) - klasses.begins_on) and
+        (lectures.on_date - lectures.based_on) <= (DATE(:today) - DATE(:base_date)) and
         (lectures.for_days is null or
-          adddate(klasses.begins_on, (lectures.on_date - lectures.based_on) + lectures.for_days) > :today))) and
+          adddate(DATE(:base_date), (lectures.on_date - lectures.based_on) + lectures.for_days) > :today))) and
         courses.id = :course_id and units.id = :unit_id and klasses.id = :klass_id",
-        :course_id => klass.course.id, :unit_id => unit.id, :klass_id => klass.id, :today => Time.zone.now)
+        :course_id => klass.course.id, :unit_id => unit.id, :klass_id => klass.id, :today => Time.zone.now,
+        :base_date => klass.begin_date(student))
     end
 
     unless include_everything || klass.enrolled?(student) || (student && KlassEnrollment.staff?(student.user, klass))
@@ -223,18 +226,18 @@ class Lecture < ActiveRecord::Base
     )).order("lectures.order").distinct
   }
 
-  def open?(klass)
+  def open?(base_date)
     today = Time.zone.today
     on_day = (self.on_date - self.based_on).to_i
-    on_day <= (today - klass.begins_on).to_i && (self.for_days.blank? || (klass.begins_on + on_day + self.for_days) > today)
+    on_day <= (today - base_date).to_i && (self.for_days.blank? || (base_date + on_day + self.for_days) > today)
   end
 
-  def begins_on(klass)
-    (klass.begins_on + (self.on_date - self.based_on).to_i)
+  def begins_on(base_date)
+    (base_date + (self.on_date - self.based_on).to_i)
   end
 
-  def ends_on(klass)
-    self.for_days.present? ? (begins_on(klass) + self.for_days) : nil
+  def ends_on(base_date)
+    self.for_days.present? ? (begins_on(base_date) + self.for_days) : nil
   end
 
   # callbacks

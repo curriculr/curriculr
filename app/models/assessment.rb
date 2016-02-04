@@ -63,20 +63,20 @@ class Assessment < ActiveRecord::Base
   end
 
 	# Scopes
-  def opens_at_datetime(klass)
+  def opens_at_datetime(base_date)
     from_day = (from_datetime.to_date - based_on).to_i
-    date = klass.begins_on + from_day
+    date = base_date + from_day
     from_datetime.change(:year => date.year, :month => date.month, :day => date.day)
   end
 
-  def closes_at_datetime(klass)
+  def closes_at_datetime(base_date)
     to_day = (to_datetime.to_date - based_on).to_i
-    date = klass.begins_on + to_day
+    date = base_date + to_day
     to_datetime.change(:year => date.year, :month => date.month, :day => date.day)
   end
 
-  def hours_to_close(klass)
-    (closes_at_datetime(klass) - Time.zone.now)/3600.0
+  def hours_to_close(base_date)
+    (closes_at_datetime(base_date) - Time.zone.now)/3600.0
   end
 
   def survey?
@@ -86,22 +86,24 @@ class Assessment < ActiveRecord::Base
   # NOTE: mysql-specific # use
   scope :course_level, -> { where(:unit_id => nil, :lecture_id => nil) }
   scope :unit_level, ->{ where(:lecture_id => nil) }
-	scope :open, ->(klass) {
+	scope :open, ->(klass, student) {
     clause = joins(:q_selectors, :course => :klasses)
     if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
       clause.where(%(
-        :as_of >= (klasses.begins_on + (date(assessments.from_datetime) - assessments.based_on) + assessments.from_datetime::time) and
+        :as_of >= (DATE :base_date + (date(assessments.from_datetime) - assessments.based_on) + assessments.from_datetime::time) and
         ( assessments.to_datetime is null or
-          :as_of < (klasses.begins_on + (date(assessments.to_datetime) - assessments.based_on) + assessments.to_datetime::time)
+          :as_of < (DATE :base_date + (date(assessments.to_datetime) - assessments.based_on) + assessments.to_datetime::time)
         ) and
-        klasses.id = :klass_id ), :klass_id => klass.id, :as_of => Time.zone.now)
+        klasses.id = :klass_id ), :klass_id => klass.id, :as_of => Time.zone.now,
+        :base_date => klass.begin_date(student))
     else
       clause.where("
-        :as_of >= ADDDATE(ADDTIME(klasses.begins_on, IFNULL(TIME(assessments.from_datetime), '00:00:00')), INTERVAL (DATE(assessments.from_datetime) - assessments.based_on) DAY) and
+        :as_of >= ADDDATE(ADDTIME(DATE(:base_date), IFNULL(TIME(assessments.from_datetime), '00:00:00')), INTERVAL (DATE(assessments.from_datetime) - assessments.based_on) DAY) and
         ( assessments.to_datetime is null or
-          :as_of < ADDDATE(ADDTIME(klasses.begins_on, IFNULL(TIME(assessments.to_datetime), '00:00:00')), INTERVAL (DATE(assessments.to_datetime) - assessments.based_on) DAY)
+          :as_of < ADDDATE(ADDTIME(DATE(:base_date), IFNULL(TIME(assessments.to_datetime), '00:00:00')), INTERVAL (DATE(assessments.to_datetime) - assessments.based_on) DAY)
         ) and
-        klasses.id = :klass_id ", :klass_id => klass.id, :as_of => Time.zone.now)
+        klasses.id = :klass_id ", :klass_id => klass.id, :as_of => Time.zone.now,
+        :base_date => klass.begin_date(student))
     end
   }
 
@@ -119,20 +121,22 @@ class Assessment < ActiveRecord::Base
       order('assessments.to_datetime, assessments.from_datetime')
     if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
       clause.where("
-        :as_of >= (klasses.begins_on + (date(assessments.from_datetime) - assessments.based_on) + assessments.from_datetime::time) and
-        klasses.id = :klass_id ", :klass_id => klass.id, :as_of => Time.zone.now)
+        :as_of >= (DATE :base_date + (date(assessments.from_datetime) - assessments.based_on) + assessments.from_datetime::time) and
+        klasses.id = :klass_id ", :klass_id => klass.id, :as_of => Time.zone.now,
+        :base_date => klass.begin_date(student))
     else
       clause.where("
-        :as_of >= ADDDATE(ADDTIME(klasses.begins_on, IFNULL(TIME(assessments.from_datetime), '00:00:00')), INTERVAL (DATE(assessments.from_datetime) - assessments.based_on) DAY) and
-        klasses.id = :klass_id ", :klass_id => klass.id, :as_of => Time.zone.now)
+        :as_of >= ADDDATE(ADDTIME(DATE(:base_date), IFNULL(TIME(assessments.from_datetime), '00:00:00')), INTERVAL (DATE(assessments.from_datetime) - assessments.based_on) DAY) and
+        klasses.id = :klass_id ", :klass_id => klass.id, :as_of => Time.zone.now,
+        :base_date => klass.begin_date(student))
     end
   }
 
-  def show_answer?(klass)
+  def show_answer?(base_date)
     if %w(during_attempt after_attempt always).include?(show_answer)
       return true
     elsif show_answer == 'after_deadline' && to_datetime.present?
-      if closes_at_datetime(klass) < Time.zone.now
+      if closes_at_datetime(base_date) < Time.zone.now
         return true
       end
     end
@@ -144,7 +148,7 @@ class Assessment < ActiveRecord::Base
     klass.open? && (
       self.allowed_attempts.blank? ||
       Attempt.for(klass, student, self).count < self.allowed_attempts ||
-      ( open?(klass) && (attempt = Attempt.for(klass, student, self).last) && attempt.state == 1)
+      ( open?(klass.begin_date(student)) && (attempt = Attempt.for(klass, student, self).last) && attempt.state == 1)
     ) &&
     (self.q_selectors_count > 0 || self.questions_count > 0)
   end
@@ -159,15 +163,15 @@ class Assessment < ActiveRecord::Base
     score.nil? ? 0.0 : Float(score).round(2)
   end
 
-  def after_deadline?(klass)
-    self.after_deadline && self.to_datetime.present? && self.closes_at_datetime(klass) <= Time.zone.now
+  def after_deadline?(base_date)
+    self.after_deadline && self.to_datetime.present? && self.closes_at_datetime(base_date) <= Time.zone.now
   end
 
-  def open?(klass)
-    klass.open? && self.ready && self.opens_at_datetime(klass) <= Time.zone.now && (
+  def open?(base_date)
+    self.ready && self.opens_at_datetime(base_date) <= Time.zone.now && (
       self.to_datetime.blank? ||
-      self.closes_at_datetime(klass) > Time.zone.now ||
-      (self.closes_at_datetime(klass) <= Time.zone.now && self.after_deadline)
+      self.closes_at_datetime(base_date) > Time.zone.now ||
+      (self.closes_at_datetime(base_date) <= Time.zone.now && self.after_deadline)
     )
   end
 end

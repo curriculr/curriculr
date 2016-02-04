@@ -1,25 +1,25 @@
-<% if @assessment.show_answer?(@klass)%>
+<% if @assessment.show_answer?(@klass.begin_date(current_student))%>
   <h3><%= @assessment.name %></h3>
-  
+
   <%# markdown(@assessment.about) %>
 
-  <%= form_tag learn_klass_assessment_attempts_path(@klass, @assessment), 
+  <%= form_tag learn_klass_assessment_attempts_path(@klass, @assessment),
       :method => :post,  :id => 'assessment-attempt-form' do %>
     <%= hidden_field_tag :attempt_id, @attempt.id %>
-  
+
     <% @attempt.questions.each_with_index do |q, ndx| %>
       <% r = @attempt.result(q,ndx) %>
 
 
-      <%= render "teach/questions/question", :question => q, 
+      <%= render "teach/questions/question", :question => q,
             :question_counter => ndx,
-            :answer => @attempt.test[ndx][:t], 
+            :answer => @attempt.test[ndx][:t],
             :show_answer => true,
             :read_only => true,
             :result => @attempt.state == 2 ? r : nil %>
     <% end %>
 
-    <% 
+    <%
       if @assessment.lecture
         url = learn_klass_lecture_path(@klass, @assessment.lecture, :show_assessment => @assessment.id)
       elsif @assessment.unit

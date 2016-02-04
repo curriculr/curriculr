@@ -200,6 +200,14 @@ class Klass < ActiveRecord::Base
     course.by_instructors(mode)
   end
 
+  def begin_date(student)
+    if student && (enrollment = Enrollment.by(self, student))
+      enrollment.created_at.to_date
+    else
+      self.begins_on
+    end
+  end
+
   # NOTE: mysql-specific
   def upcoming_deadlines(in_days = 5, limit=10)
     if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"

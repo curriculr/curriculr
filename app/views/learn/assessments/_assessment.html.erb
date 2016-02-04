@@ -18,9 +18,9 @@
 
     <%= assessment.name %>
     <small>
-      <%= l(assessment.opens_at_datetime(@klass)) %>
+      <%= l(assessment.opens_at_datetime(@klass.begin_date(current_student))) %>
       <% if assessment.to_datetime.present? %>
-        - <%= l(assessment.closes_at_datetime(@klass)) %>
+        - <%= l(assessment.closes_at_datetime(@klass.begin_date(current_student))) %>
       <% end %>
     </small>
   </h4>
@@ -39,7 +39,7 @@
                   <th><%= Assessment.human_attribute_name(:grade) %></th>
                   <th>%</th>
                 <% end %>
-                <% if !attempts.blank? && assessment.show_answer?(@klass) %>
+                <% if !attempts.blank? && assessment.show_answer?(@klass.begin_date(current_student)) %>
                   <th></th>
                 <% end %>
               </tr>
@@ -99,10 +99,10 @@
       </tr>
       <tr>
         <td>
-          <% if assessment.can_be_taken?(@klass, current_student) && assessment.open?(@klass) %>
+          <% if @klass.open? && assessment.can_be_taken?(@klass, current_student) && assessment.open?(@klass.begin_date(current_student)) %>
             <%= link(:attempt, :new_attempt, new_learn_klass_assessment_attempt_path(@klass, assessment),
                   :class => css_button(:primary), confirm: true) %>
-            <% if assessment.after_deadline?(@klass) %>
+            <% if assessment.after_deadline?(@klass.begin_date(current_student)) %>
               <strong class="<%= css_text(:warning) %>">
                 <%= t('page.text.assessment_penalty_msg', :penalty => assessment.penalty) %>
               </strong>

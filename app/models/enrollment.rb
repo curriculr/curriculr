@@ -6,6 +6,13 @@ class Enrollment < ActiveRecord::Base
 
   serialize :data
 
+
+  def self.by(klass, student)
+    return nil unless klass && student
+
+    klass.enrollments.where(:student_id => student.id, :active => true).first
+  end
+
   # Scopes
   scope :for, ->(course, user) {
     joins(:klass).joins(:student).where('klasses.course_id = :course_id and students.user_id = :user_id and enrollments.active = TRUE',

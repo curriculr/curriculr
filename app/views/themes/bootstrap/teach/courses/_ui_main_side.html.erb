@@ -53,7 +53,7 @@ add_item_to_app_menu(:course_side, link_to(css_icon(:university, 2) + t("activer
 add_item_to_app_menu(:course_side, tag(:hr))
 
 link = (link_to teach_course_units_path(@course), :class => "item #{controller_name == 'units' ? 'active' : nil}" do
-  raw Unit.model_name.human(count: 3) + '&nbsp;' + content_tag(:span, @course.units_count, :class => css_badge)
+  raw Lecture.model_name.human(count: 3) + '&nbsp;' + content_tag(:span, @course.units_count, :class => css_badge)
 end)
 add_item_to_app_menu :course_side, link
 

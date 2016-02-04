@@ -102,8 +102,8 @@
                   <% lectures.each_with_index do |lecture, j| %>
                     <%
                     hdr = enrolled_or_staff ? link_to(lecture.name, learn_klass_lecture_path(@klass, lecture)) : lecture.name
-                    subhdr = l(lecture.begins_on(@klass))
-                    ends_on = lecture.ends_on(@klass)
+                    subhdr = l(lecture.begins_on(@klass.begin_date(current_student)))
+                    ends_on = lecture.ends_on(@klass.begin_date(current_student))
                     subhdr << %( - #{l(ends_on)}) if ends_on
                     th = ui_image_src(lecture.poster ? lecture.poster.at_url(:sm) : nil, '/images/holder-sm.png')
                     actions = nil

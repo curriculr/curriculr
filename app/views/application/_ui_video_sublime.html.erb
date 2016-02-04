@@ -29,7 +29,7 @@
   <%
   assessments = []
   if !request.xhr? && @klass && @lecture && video.kind_of?(Material)
-    assessments = @lecture.assessments.open(@klass).where('ready = TRUE and invideo_id = :vid', :vid => video.id).to_a
+    assessments = @lecture.assessments.open(@klass, current_student).where('ready = TRUE and invideo_id = :vid', :vid => video.id).to_a
   end
   %>
   <% unless assessments.blank? %>
