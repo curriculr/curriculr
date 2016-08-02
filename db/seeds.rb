@@ -6,7 +6,7 @@ if (su = User.find_by(id: 1)).blank?
   su.password = Rails.application.secrets.site['su_password']
   su.password_confirmation = Rails.application.secrets.site['su_password']
   su.name = Rails.application.secrets.site['su_name']
-  su.skip_confirmation!
+  su.confirmed_at = Time.zone.now
 
   su.save!
 end

@@ -1,7 +1,7 @@
 module Admin
   class UsersController < BaseController
     responders :flash, :http_cache, :collection
-    
+
     def new
       @user = User.new
       respond_with(@user)
@@ -9,11 +9,12 @@ module Admin
 
     def create
       @user = User.new(user_params)
-      @user.skip_confirmation!
+      @user.confirmed_at = Time.zone.now
+      
       @user.save
       respond_with(@user)
     end
-  
+
     private
       def user_params
         params.require(:user).permit(

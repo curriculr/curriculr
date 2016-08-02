@@ -58,7 +58,7 @@ module ApplicationHelper
   def pnotify_script_tag
     flash_messages = []
     flash.each do |type, message|
-      # Skip empty messages, e.g. for devise messages set to nothing in a locale file.
+      # Skip empty messages.
       next if message.blank? || %w(part data).include?(type.to_s)
 
       flash_messages << %(

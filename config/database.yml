@@ -1,6 +1,6 @@
 <%
   adapter = 'my'
-  if Rails.application.secrets.database['adapter'].present? 
+  if Rails.application.secrets.database['adapter'].present?
     adapter = 'pg' if Rails.application.secrets.database['adapter'].downcase == 'postgresql'
   end
 
@@ -32,5 +32,3 @@ production:
   <<: *default_<%= adapter %>
   database: <%= database %>
   pool: 25
-
-  

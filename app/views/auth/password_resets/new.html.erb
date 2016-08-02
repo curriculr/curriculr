@@ -1,0 +1,11 @@
+<%= form_header %>
+
+<div class="row">
+  <div class="<%= css_columns(6) %>">
+    <%= form_for @user || User.new, url: url_for(controller: 'auth/password_resets', action: 'create'), method: :post do |f| %>
+      <%= form_email f, :email %>
+
+      <%= form_submit f, auth_signin_path %>
+    <% end %>
+  </div>
+</div>

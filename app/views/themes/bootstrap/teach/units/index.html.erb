@@ -12,7 +12,7 @@
 %>
 <div class="panel-group" id="sortable-units-accordion" data-update-url="<%= sort_teach_course_units_path(@course) %>">
   <% units.each_with_index do |unit, i| %>
-    <%= content_tag_for :div, unit, :class => "panel panel-inverse" do %>
+    <%= content_tag :div, unit, id: "unit_#{unit.id}", :class => "panel panel-inverse" do %>
       <div class="panel-heading">
         <h4 class="panel-title">
           <a data-toggle="collapse" class="sort-handle" data-parent="#sortable-units-accordion" href="#collapse-<%= unit.id %>">

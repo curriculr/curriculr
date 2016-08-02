@@ -32,16 +32,15 @@ class Account < ActiveRecord::Base
 
   # Callback
   after_create do |account|
-    account.user.skip_confirmation!
     account.user.update(account: account);
     account.user.add_role :admin
 
     # Create about, mission, privacy, help and agreement pages
-    I18n.t('config.auto_generated_pages').each do |slug, name| 
+    I18n.t('config.auto_generated_pages').each do |slug, name|
       $site['supported_locales'].keys.each do |locale|
         page = Page.create(
-          :name => name, 
-          :about => I18n.t("page.text.under_construction"), 
+          :name => name,
+          :about => I18n.t("page.text.under_construction"),
           :public => true,
           :published => true,
           :owner => account.user,

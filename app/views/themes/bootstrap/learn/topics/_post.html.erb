@@ -42,7 +42,7 @@
         <% end %>
       <% end %>
 
-      <%= content_tag_for :div, post, class: "thumbs-up-and-down pull-right" do %>
+      <%= content_tag :div, post, id: "post_#{post.id}", class: "thumbs-up-and-down pull-right" do %>
         <%= link_to_if @klass.open?, %(#{post.ups} #{content_tag :i, '', class: 'fa fa-thumbs-up text-success'}).html_safe,
               up_learn_klass_forum_topic_post_path(@klass, @forum, @topic, post, :lecture_id => lecture_id),
               class: "thumbs-up", method: :put, remote: true, data: {:'disable-with' => "#{css_animated_icon(:spinner)}"} do %>

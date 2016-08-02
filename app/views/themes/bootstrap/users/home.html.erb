@@ -29,9 +29,9 @@ if current_user.has_role? :admin
 
   if current_user.id == 1
     add_item_to_app_menu(:home_page, link(:account, :index,  main_app.admin_accounts_path), section)
-    if Rails.application.secrets.redis_enabled
-      add_item_to_app_menu(:home_page, link_to(:Sidekiq,  main_app.sidekiq_web_path, target: '_new'), section)
-    end
+    # if Rails.application.secrets.redis_enabled
+    #   add_item_to_app_menu(:home_page, link_to(:Sidekiq, main_app.sidekiq_web_path, target: '_new'), section)
+    # end
   end
 
   add_item_to_app_menu(:home_page, link(:user, :index, main_app.users_path), section)

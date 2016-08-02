@@ -1,0 +1,41 @@
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <br/>
+    <div class="panel panel-default">
+      <ul id="signinOrUpTabs" class="nav nav-tabs success" role="tablist">
+        <li role="presentation" class="active">
+          <a href="#"><strong><%= t('page.text.sign_in') %></strong></a>
+        </li>
+        <li role="presentation">
+          <%= link_to t('page.text.sign_up'), main_app.auth_signup_path %>
+        </li>
+      </ul>
+      <div class="panel-body">
+        <br/>
+        <% external_links = capture do %>
+          <% [:facebook, :google_oauth2].each do |app| %>
+            <% app_secrets = Rails.application.secrets.auth[app.to_s] %>
+            <% if app_secrets && app_secrets['id'].present? && app_secrets['secret'].present? %>
+              <% app_name = app == :google_oauth2 ? :google : app %>
+              <div class="col-md-6">
+              <%= link_to "/auth/#{app}", :class => css_button(app_name, :lg, :block) do %>
+                <i class="fa fa-<%= app_name %> fa-lg"></i>
+                <%= t("activerecord.actions.#{app_name}") %>
+              <% end %>
+              </div>
+            <% end %>
+          <% end %>
+        <% end %>
+
+        <% if external_links.strip.present? %>
+          <%= external_links %>
+          <hr /><br /><br />
+        <% end %>
+
+        <p class="text-center"><strong><%= t('page.text.or') %></strong></p>
+
+        <%= render partial: 'auth/sessions/form' %>
+      </div>
+      </div>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-require File.expand_path('../boot', __FILE__)
+require_relative 'boot'
 
 require 'rails/all'
 
@@ -12,25 +12,14 @@ module Curriculr
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
-    # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
-    # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
-    # config.time_zone = 'Central Time (US & Canada)'
-
-    # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
-    # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
-    config.i18n.default_locale = :en
-
-    # Do not swallow errors in after_commit/after_rollback callbacks.
+    # By Curriculr
     config.active_record.raise_in_transactional_callbacks = true
+    ###config.active_job.queue_adapter = :sidekiq
 
-    # Be sure to have the adapter's gem in your Gemfile and follow
-    # the adapter's specific installation and deployment instructions.
-    config.active_job.queue_adapter = :sidekiq
-    
     # Initialize redis and load application configuration
     config.redis_databases = {
-      "development" => 0, 
-      "test" => 1, 
+      "development" => 0,
+      "test" => 1,
       "production" => 2
     }
 
@@ -40,21 +29,24 @@ module Curriculr
       require "redis_decoy"
       $redis = RedisDecoy.new(db: config.redis_databases[Rails.env.to_s])
     end
-    
+
     if $redis.exists('config.site')
       config.site = JSON.parse($redis.get('config.site'))
     else
       config.site = YAML.load_file("#{Rails.root}/config/config-site.yml")['site']
       $redis.set 'config.site', config.site.to_json
     end
-    
+
     $site = config.site
-    
+
     config.site_engines = {}
-    
+
     config.time_zone = config.site['time_zone']
     config.i18n.default_locale = config.site['locale']
 
     config.exceptions_app = self.routes
+
+    require "current_account"
+    config.middleware.use CurrentAccount, Rails.application.secrets.site['domain']
   end
 end

@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 class InstructorAvatarUploader < CarrierWave::Uploader::Base
-  include CarrierWave::RMagick
+  include CarrierWave::MiniMagick
 
   VERSIONS = { med: 200, sml: 100, th: 48, tny: 21 }
 
@@ -21,15 +21,15 @@ class InstructorAvatarUploader < CarrierWave::Uploader::Base
   version :sml do
     process :resize_to_limit => [VERSIONS[:sml], VERSIONS[:sml]]
   end
-  
+
   version :th do
     process :resize_to_fill => [VERSIONS[:th], VERSIONS[:th]]
   end
-  
+
   version :tny do
     process :resize_to_fill => [VERSIONS[:tny], VERSIONS[:tny]]
   end
-  
+
   # White list of extensions which are allowed to be uploaded.
   def extension_white_list
      %w(jpg jpeg gif png)

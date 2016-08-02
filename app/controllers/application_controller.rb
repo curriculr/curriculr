@@ -10,12 +10,12 @@ class ApplicationController < PreApplicationController
   end
 
   helper_method :require_admin, :mounted?, :staff?,
-    :check_access?, :check_access!, :current_student
+    :check_access?, :check_access!, :current_account,
+    :current_user, :user_signed_in?, :current_student
 
   config.filter_parameters :password, :password_confirmation
 
   before_action :set_theme
-  before_action :configure_devise_params, if: :devise_controller?
 
 	rescue_from CanCan::AccessDenied, :with => :render_401
   rescue_from KlassAccessDeniedError do |e|
@@ -28,12 +28,6 @@ class ApplicationController < PreApplicationController
 	end
 
   private
-
-  def configure_devise_params
-    devise_parameter_sanitizer.for(:sign_up) do |u|
-      u.permit(:name, :email, :password, :password_confirmation)
-    end
-  end
 
   def theme_and_parents(config, themes, theme)
     if config[theme] && config[theme]['parent']
@@ -74,11 +68,25 @@ class ApplicationController < PreApplicationController
       if current_user
         redirect_to error_401_path
       else
-        store_location_for(:user, request.fullpath) if request.get?
-        redirect_to main_app.new_user_session_path, :flash => {:notice => t('activerecord.messages.must_signin', :path => request.path) }
+        ###store_location_for(:user, request.fullpath) if request.get?
+        redirect_to main_app.new_session_path, :flash => {:notice => t('activerecord.messages.must_signin', :path => request.path) }
       end
 		end
 	end
+
+  def current_user
+    @current_user = if cookies.permanent[:auth_token]
+      User.find_by!(remember_token: cookies.permanent[:auth_token])
+    elsif cookies.permanent[:auth_token]
+      User.find_by!(remember_token: cookies[:auth_token])
+    else
+      nil
+    end
+  end
+
+  def user_signed_in?
+    !!current_user
+  end
 
   def current_student
     if user_signed_in?

@@ -8,17 +8,12 @@ ActiveRecord::Migration.maintain_test_schema! if defined?(ActiveRecord::Migratio
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
-
-  # Add more helper methods to be used by all tests here...
-
-  # Devise test helpers
-  #include Devise::TestHelpers
 end
 
-class ActionController::TestCase
+#class ActionController::TestCase
 	# Devise test helpers
-  include Devise::TestHelpers
-end
+  #include Devise::TestHelpers
+#end
 
 class ActionDispatch::IntegrationTest
   # Make the Capybara DSL available in all integration tests

@@ -66,7 +66,7 @@ class FacultyApplicationsController < AuthorizedController
         current_account.slug,
         current_account.config['mailer']['noreply'],
         current_user.email,
-        url_for(:controller => 'devise/sessions', :action => 'new'),
+        url_for(:controller => 'auth/sessions', :action => 'new'),
         true
       ).deliver_later
     end
@@ -82,7 +82,7 @@ class FacultyApplicationsController < AuthorizedController
          current_account.slug,
          current_account.config['mailer']['noreply'],
          current_user.email,
-         url_for(:controller => 'devise/sessions', :action => 'new'),
+         url_for(:controller => 'auth/sessions', :action => 'new'),
          false
        ).deliver_later
      end

@@ -1,14 +1,14 @@
-<% 
-  lectures = unit.lectures.order('lectures.order').to_a 
+<%
+  lectures = unit.lectures.order('lectures.order').to_a
   active_lecture = @lecture ? @lecture : lectures.first
   active_i = lectures.index(active_lecture) || 0
 %>
-              
+
 <div class="row">
   <div class="<%= css_columns(3) %>">
     <div class="list-group sortable " id="sortable-lectures-<%= unit.id %>" data-update-url="<%= sort_teach_course_unit_lectures_path(@course, unit) %>">
       <% lectures.each_with_index do |lecture, i| %>
-        <%= content_tag_for :a, lecture, :class => "list-group-item #{"active" if lecture.id == active_lecture.id }", 
+        <%= content_tag :a, lecture, id: "lecture_#{lecture.id}", :class => "list-group-item #{"active" if lecture.id == active_lecture.id }",
           :href => "#lecture-#{lecture.id}", :'data-toggle' => "tab", :'data-unit' => unit.id,
           :'data-lecture' => lecture.id,
           :'data-update-url' => teach_course_unit_lecture_path(@course, unit, lecture, :i => i, :format => :js) do %>

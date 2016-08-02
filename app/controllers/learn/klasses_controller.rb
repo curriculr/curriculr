@@ -44,7 +44,7 @@ module Learn
               current_account.config['mailer']['noreply'],
               current_user.email,
               [@klass].map {|k| k.id},
-              url_for(:controller => 'devise/sessions', :action => 'new')
+              url_for(:controller => 'auth/sessions', :action => 'new')
             ).deliver_later
 
             redirect_to learn_klass_path(@klass), :flash => {:notice => t('activerecord.messages.successful_enroll')}

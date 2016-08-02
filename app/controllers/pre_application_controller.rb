@@ -1,5 +1,5 @@
 class PreApplicationController < ActionController::Base
-  include ScopedByAccount
+  #include ScopedByAccount
   include WithMountableEngines
 
   before_action :set_timezone
@@ -108,5 +108,9 @@ class PreApplicationController < ActionController::Base
 
   def app_menu(menu)
     @app_menus[menu]
+  end
+
+  def current_account
+    request.env['curriculr.current_account']
   end
 end

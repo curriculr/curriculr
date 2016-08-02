@@ -1,10 +1,20 @@
-require 'sidekiq/web'
+# require 'sidekiq/web'
+#
+# class AdminUserConstraint
+#   def matches?(request)
+#     current_user = if request.cookies.permanent[:auth_token]
+#       User.find_by!(remember_token: request.cookies.permanent[:auth_token])
+#     elsif request.cookies.permanent[:auth_token]
+#       User.find_by!(remember_token: request.cookies[:auth_token])
+#     else
+#       nil
+#     end
+#
+#     current_user.has_role?(:admin)
+#   end
+# end
 
 Rails.application.routes.draw do
-  devise_for :users, :controllers => {
-    :omniauth_callbacks => "omniauth_callbacks"
-  }
-
   # Concerns
   concern :sortable do
     post :sort, :on => :collection
@@ -199,14 +209,25 @@ Rails.application.routes.draw do
 
   post "miscellaneous/contactus"
 
-  authenticate :user, lambda {|u| u.has_role?(:admin)} do
-    mount Sidekiq::Web => '/sidekiq'
-  end
+  #mount Sidekiq::Web => '/sidekiq', constraints: AdminUserConstraint.new
 
   # Top-level pages
   get 'about', :to => "miscellaneous#team", :as => 'about'
   get 'contactus', :to => "miscellaneous#contactus", :as => 'contactus'
   get 'home', :to => 'users#home', :as => :home
+
+  namespace :auth do
+    resources :registrations
+    resources :sessions
+    resources :password_resets
+    
+    get 'signup', to: 'registrations#new'
+    get ':token/confirm', to: 'registrations#confirm', as: :confirm_email
+    get ':token/reconfirm', to: 'registrations#reconfirm', as: :reconfirm_email
+    get 'signin', to: 'sessions#new'
+    get ':provider/callback', to: 'sessions#create'
+    delete 'signout', to: 'sessions#destroy'
+  end
 
   root :to => 'users#front', :via => :get
 

@@ -8,8 +8,10 @@
 /db/schema.rb
 
 # Ignore all logfiles and tempfiles.
-/log/*.log
-/tmp
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
 .DS_Store
 *~
 
@@ -51,3 +53,6 @@ bower.json
 
 # css-flipped stylesheets
 /app/assets/stylesheets/bootstrap/*_rtl.css
+
+# Ignore Byebug command history file.
+.byebug_history

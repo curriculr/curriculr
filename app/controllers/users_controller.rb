@@ -1,7 +1,4 @@
 class UsersController < AuthorizedController
-  #before_action :require_no_user, :only => [:signin, :create_session]
-	#before_action :require_admin_or_no_user, :only => [:new, :create]
-  #before_action :require_user, :only => [:show, :edit, :update, :destroy_session]
   respond_to :html, :js
   before_action :require_admin, :only => [:index, :destroy]
   responders :flash, :http_cache
@@ -96,7 +93,7 @@ class UsersController < AuthorizedController
   private
     def user_params
       params.require(:user).permit(
-        :email, :name, :active, :time_zone,
+        :email, :name, :password, :active, :time_zone,
         :profile_attributes => [
           :prefix, :avatar, :about, :nickname, :public,
           :locale

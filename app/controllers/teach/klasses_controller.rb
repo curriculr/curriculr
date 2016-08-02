@@ -101,7 +101,7 @@ module Teach
         end
 
         if invitable
-          url = url_for :controller => 'devise/sessions', :action => 'new'
+          url = url_for :controller => 'auth/sessions', :action => 'new'
           Mailer.klass_invitation(
             current_account.slug,
             current_account.config['mailer']['noreply'],

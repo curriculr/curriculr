@@ -2,54 +2,44 @@ class CreateUsers < ActiveRecord::Migration
   def change
     create_table :users do |t|
       t.belongs_to :account, index: true
-      ## Database authenticatable
-      t.string :email,              :null => false, :default => ""
-      t.string :encrypted_password, :null => false, :default => ""
+      t.string :provider, null: false, default: 'identity'
+      t.string :name, null: false
+      t.string :email, null: false
+      t.string :password_digest, null: false
+      t.string :uid
+      t.string :avatar
 
-      ## Curriculr's Own
       t.boolean :active, :default => true
       t.integer :pages_count, :default => 0
       t.string :time_zone
 
-      ## Recoverable
-      t.string   :reset_password_token
-      t.datetime :reset_password_sent_at
-
-      ## Rememberable
+      # Remember me
+      t.string :remember_token
       t.datetime :remember_created_at
 
-      ## Trackable
+      # Reset password
+      t.string   :password_reset_token
+      t.datetime :password_reset_sent_at
+
+      # Confirm email
+      t.string   :confirmation_token
+      t.datetime :confirmation_sent_at
+      t.datetime :confirmed_at
+      t.string   :unconfirmed_email
+
+      # Tracked activities
       t.integer  :sign_in_count, :default => 0
       t.datetime :current_sign_in_at
-      t.datetime :last_sign_in_at
       t.string   :current_sign_in_ip
+      t.datetime :last_sign_in_at
       t.string   :last_sign_in_ip
 
-      ## Confirmable
-      t.string   :confirmation_token
-      t.datetime :confirmed_at
-      t.datetime :confirmation_sent_at
-      t.string   :unconfirmed_email # Only if using reconfirmable
-
-      ## Omniauthable-facebook
-      t.string :provider
-      t.string :uid
-      t.string :name
-      t.string :avatar  # URLs to avatars from providers like facebook, twitter, googleplus or gravatar
-
-      ## Lockable
-      # t.integer  :failed_attempts, :default => 0 # Only if lock strategy is :failed_attempts
-      # t.string   :unlock_token # Only if unlock strategy is :email or :both
-      # t.datetime :locked_at
-
-      ## Token authenticatable
-      # t.string :authentication_token
-
-      t.timestamps null: false
+      t.timestamps
     end
 
     add_index :users, [ :email, :account_id ], :unique => true
-    add_index :users, :reset_password_token, :unique => true
+    add_index :users, :remember_token, :unique => true
+    add_index :users, :password_reset_token, :unique => true
     add_index :users, :confirmation_token, :unique => true
     # add_index :users, :unlock_token,         :unique => true
     # add_index :users, :authentication_token, :unique => true

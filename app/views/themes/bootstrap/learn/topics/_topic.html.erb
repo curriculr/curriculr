@@ -6,7 +6,7 @@
       <% unless @lecture %>
         <%# image_tag(@topic.author_avatar(current_account, :tny, "/images/nobody-th.png"), :class => "media-object pull-left") %>
         <div class="media-heading">
-          <%= content_tag_for :div, @topic, class: "thumbs-up-and-down pull-right" do %>
+          <%= content_tag :div, @topic, id: "topic_#{@topic.id}", class: "thumbs-up-and-down pull-right" do %>
             <%= link_to_if @klass.open?, %(#{@topic.ups} #{content_tag :i, '', class: 'fa fa-thumbs-up text-success'}).html_safe,
                   up_learn_klass_forum_topic_path(@klass, @forum, @topic),
                   class: "thumbs-up", method: :put, remote: true, data: {:'disable-with' => "#{css_animated_icon(:spinner)}"} do %>

@@ -1,4 +1,4 @@
-class Mailer < Devise::Mailer
+class Mailer < ActionMailer::Base
   include ApplicationHelper
   layout 'mailer'
 
@@ -35,23 +35,23 @@ class Mailer < Devise::Mailer
 
   def confirmation_instructions(uid, account, token, opts={})
     prepare_msg(account)
-    record = User.find(uid)
+    user = User.find(uid)
 
-    @url = prepare_url(scoped_t("#{account}.site.mailer.links.confirm_account"), url_for(controller: 'devise/confirmations', action: 'show', confirmation_token: token))
+    @url = prepare_url(scoped_t("#{account}.site.mailer.links.confirm_account"), url_for(controller: 'auth/registrations', action: 'confirm', token: token))
 
     @subject = scoped_t("#{account}.site.mailer.confirmation_instructions.subject")
-    @body = scoped_t("#{account}.site.mailer.confirmation_instructions.body_html", :name => record.email, :url => @url)
+    @body = scoped_t("#{account}.site.mailer.confirmation_instructions.body_html", :name => user.email, :url => @url)
     mail(:from => opts[:from], :to => opts[:to], :subject => @subject, template_name: 'basic')
   end
 
-  def reset_password_instructions(uid, account, token, opts={})
+  def password_reset_instructions(uid, account, token, opts={})
     prepare_msg(account)
-    record = User.find(uid)
+    user = User.find(uid)
 
-    @url = prepare_url(scoped_t("#{account}.site.mailer.links.change_password"), url_for(controller: 'devise/passwords', action: 'edit', reset_password_token: token))
+    @url = prepare_url(scoped_t("#{account}.site.mailer.links.change_password"), url_for(controller: 'auth/password_resets', action: 'edit', id: token))
 
     @subject = scoped_t("#{account}.site.mailer.reset_password_instructions.subject")
-    @body = scoped_t("#{account}.site.mailer.reset_password_instructions.body_html", :name => record.email, :url => @url)
+    @body = scoped_t("#{account}.site.mailer.reset_password_instructions.body_html", :name => user.email, :url => @url)
     mail(:from => opts[:from], :to => opts[:to], :subject => @subject, template_name: 'basic')
   end
 
