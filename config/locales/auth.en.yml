@@ -1,0 +1,25 @@
+en:
+  auth:
+    headers:
+      change_password: Change your password
+      reset_password: Reset your password
+      new_password: Create new password
+    registrations:
+      registered: You are successfully registered. Instroctions on how to confirm your account were sent to you email.
+      password_changed: You password has been successfully changed.
+      already_confirmed: This accound is aready confirmed. You may sign in.
+      confirmation_expired: "Confirmation token expired. Click <a href='%{url}'>this</a> for a new confirmation token."
+      confirmed: Account confirmed. You may sign in.
+      confirmation_sent: Confirmation instructions were sent to your email. Click on the sent link to confirm your account.
+    password_resets:
+      sent: Instructions on how to reset your password were sent to your email.
+      expired: Password reset token expired. You need a new token.
+      done: Password is successfully changed. You many sign in.
+    sessions:
+      signed_in: You are now signed in.
+      signed_out: You are now signed out.
+      already_signed_out: You are already signed out.
+      not_confirmed: Account not confirmed yet. Follow the confirmation instructions sent to your email.
+      invalid_email_or_password: Invalid email or password.
+      unable_to_signin: "Unable to sign in via %{provider}."
+      

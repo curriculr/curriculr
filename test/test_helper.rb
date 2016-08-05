@@ -10,16 +10,7 @@ class ActiveSupport::TestCase
   fixtures :all
 end
 
-#class ActionController::TestCase
-	# Devise test helpers
-  #include Devise::TestHelpers
-#end
-
 class ActionDispatch::IntegrationTest
   # Make the Capybara DSL available in all integration tests
   include Capybara::DSL
-  
-  # Devise test helpers
-  include Warden::Test::Helpers
-  Warden.test_mode!
 end

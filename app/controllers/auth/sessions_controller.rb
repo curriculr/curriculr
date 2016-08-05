@@ -11,9 +11,9 @@ module Auth
         if user.persisted?
           cookies[:auth_token] = user.remember_token
           user.update_tracked_fields!(request)
-          redirect_to user, notice: "Logged in!"
+          redirect_to user, notice: t('auth.sessions.signed_in')
         else
-          redirect_to new_user_path, notice: "Failed to signin with #{params[:provider]}!"
+          redirect_to new_user_path, alert: t('auth.sessions.unable_to_signin', provider: params[:provider])
         end
       else
         @user = User.find_by(email: user_params[:email])
@@ -28,13 +28,13 @@ module Auth
 
             @user.update_tracked_fields!(request)
 
-            redirect_to main_app.home_path, notice: "Successfully logged in!"
+            redirect_to main_app.home_path, notice: t('auth.sessions.signed_in')
           else
-            flash.now.alert = "Email not confirmed yet."
+            flash.now.alert = t('auth.sessions.not_confirmed')
             render 'new'
           end
         else
-          flash.now.alert = "Email or password is invalid."
+          flash.now.alert = t('auth.sessions.invalid_email_or_password')
           render 'new'
         end
       end
@@ -42,7 +42,7 @@ module Auth
 
     def destroy
       cookies.delete(:auth_token)
-      redirect_to root_path, notice: "Logged out!"
+      redirect_to root_path, notice: t('auth.sessions.signed_out')
     end
 
     private

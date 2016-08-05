@@ -1,6 +1,6 @@
 //= require jquery
 //= require jquery_ujs
-// require turbolinks
+//= require turbolinks
 //= require chosen-jquery
 //= require pagedown/Markdown.Converter
 //= require pagedown/Markdown.Sanitizer

@@ -8,6 +8,18 @@ module ApplicationHelper
     info: :info
   }
 
+  def logo_path
+    current_account.config['theme']['logo'].present? ? "/images/logo.png" : false
+  end
+
+  def true?(val)
+    !val.nil? && val == true
+  end
+
+  def false?(val)
+    !val.nil? && val == false
+  end
+  
   def title
     title = t("#{current_account.slug}.site.title", :default => current_account.config['title'] || $site['title'])
     title.html_safe if title.present?

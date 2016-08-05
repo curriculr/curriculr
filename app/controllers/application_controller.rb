@@ -69,16 +69,16 @@ class ApplicationController < PreApplicationController
         redirect_to error_401_path
       else
         ###store_location_for(:user, request.fullpath) if request.get?
-        redirect_to main_app.new_session_path, :flash => {:notice => t('activerecord.messages.must_signin', :path => request.path) }
+        redirect_to main_app.auth_signin_path, :flash => {:notice => t('activerecord.messages.must_signin', :path => request.path) }
       end
 		end
 	end
 
   def current_user
     @current_user = if cookies.permanent[:auth_token]
-      User.find_by!(remember_token: cookies.permanent[:auth_token])
+      User.find_by(remember_token: cookies.permanent[:auth_token])
     elsif cookies.permanent[:auth_token]
-      User.find_by!(remember_token: cookies[:auth_token])
+      User.find_by(remember_token: cookies[:auth_token])
     else
       nil
     end

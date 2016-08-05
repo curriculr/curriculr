@@ -4,7 +4,7 @@ super:
   account: main
   name: Super User
   email: super@bar.foo
-  encrypted_password: <%= Devise.bcrypt(User, 'password') %>
+  password_digest: <%= ::BCrypt::Password.create('password').to_s %>
   confirmed_at: <%= Time.zone.now %>
   active: true
   roles: admin
@@ -13,7 +13,7 @@ admin:
   account: secondary
   name: Admin User
   email: admin@bar.foo
-  encrypted_password: <%= Devise.bcrypt(User, 'password') %>
+  password_digest: <%= ::BCrypt::Password.create('password').to_s %>
   confirmed_at: <%= Time.zone.now %>
   active: true
   roles: admin
@@ -22,7 +22,7 @@ professor:
   account: main
   name: Professor User
   email: professor@bar.foo
-  encrypted_password: <%= Devise.bcrypt(User, 'password') %>
+  password_digest: <%= ::BCrypt::Password.create('password').to_s %>
   confirmed_at: <%= Time.zone.now %>
   active: true
   roles: faculty
@@ -31,7 +31,7 @@ assistant:
   account: main
   name: Assisstant User
   email: assistant@bar.foo
-  encrypted_password: <%= Devise.bcrypt(User, 'password') %>
+  password_digest: <%= ::BCrypt::Password.create('password').to_s %>
   confirmed_at: <%= Time.zone.now %>
   active: true
   roles: faculty
@@ -40,7 +40,7 @@ console:
   account: main
   name: Console User
   email: console@bar.foo
-  encrypted_password: <%= Devise.bcrypt(User, 'password') %>
+  password_digest: <%= ::BCrypt::Password.create('password').to_s %>
   confirmed_at: <%= Time.zone.now %>
   active: true
   roles: console
@@ -49,7 +49,7 @@ support:
   account: main
   name: Support User
   email: support@bar.foo
-  encrypted_password: <%= Devise.bcrypt(User, 'password') %>
+  password_digest: <%= ::BCrypt::Password.create('password').to_s %>
   confirmed_at: <%= Time.zone.now %>
   active: true
 
@@ -57,7 +57,7 @@ one:
   account: main
   name: Student One
   email: one@bar.foo
-  encrypted_password: <%= Devise.bcrypt(User, 'password') %>
+  password_digest: <%= ::BCrypt::Password.create('password').to_s %>
   confirmed_at: <%= Time.zone.now %>
   active: true
 
@@ -65,7 +65,7 @@ two:
   account: main
   name: Student Two
   email: two@bar.foo
-  encrypted_password: <%= Devise.bcrypt(User, 'password') %>
+  password_digest: <%= ::BCrypt::Password.create('password').to_s %>
   confirmed_at: <%= Time.zone.now %>
   active: true
 
@@ -73,6 +73,6 @@ three:
   account: main
   name: Student Three
   email: faculty@bar.foo
-  encrypted_password: <%= Devise.bcrypt(User, 'password') %>
+  password_digest: <%= ::BCrypt::Password.create('password').to_s %>
   confirmed_at: <%= Time.zone.now %>
   active: true

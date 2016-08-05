@@ -7,14 +7,35 @@ module Auth
     def create
       @user = User.new(user_params)
 
-
       respond_to do |format|
         if @user.save
           @user.send_confirmation_instructions
-          format.html { redirect_to main_app.auth_signin_path }
+          format.html { redirect_to main_app.auth_signin_path, notice: t('auth.registrations.registered') }
         else
           format.html { render :new }
         end
+      end
+    end
+    
+    def edit
+      @user = current_user
+    end
+    
+    def update
+      @user = current_user
+      
+      if @user.provider == 'identity' && !@user.authenticate(params[:user][:current_password])
+        flash.now.alert = "Incorrect current password."
+        render 'edit'
+      elsif @user.update(user_params)
+        if @user.provider != 'identity' 
+          @user.provider = 'identity' 
+          @user.save
+        end
+        
+        redirect_to home_path, notice: t('auth.registrations.password_changed') 
+      else
+        render 'edit'
       end
     end
 
@@ -23,14 +44,14 @@ module Auth
       user = User.find_by(confirmation_token: params[:token])
       if user
         if user.confirmed?
-          redirect_to main_app.auth_signin_path, notice: "Already confirmed. Just login."
+          redirect_to main_app.auth_signin_path, notice: t('auth.registrations.already_confirmed') 
         else
           if user.confirmation_expired?
-            redirect_to main_app.auth_signin_path, notice: "Confirmation expired. Reconfirmation needed."
+            redirect_to main_app.auth_signin_path, notice: t('auth.registrations.confirmation_expired', url: url_for(controller: 'auth/registrations', action: 'reconfirm'))
           else
             user.confirmed_at = Time.zone.now
             user.save!(validate: false)
-            redirect_to main_app.auth_signin_path, notice: "Successfully confirmed email. You may now login."
+            redirect_to main_app.auth_signin_path, notice: t('auth.registrations.confirmed') 
           end
         end
       else
@@ -42,15 +63,15 @@ module Auth
       user = User.find_by(confirmation_token: params[:token])
       if user
         if user.confirmed?
-          redirect_to main_app.auth_signin_path, notice: "Already confirmed. Just login."
+          redirect_to main_app.auth_signin_path, notice: t('auth.registrations.already_confirmed') 
         else
           if user.confirmation_expired?
-            @user.send_confirmation_instructions(true)
-            redirect_to main_app.auth_signin_path, notice: "Confirmation sent."
+            user.send_confirmation_instructions(true)
+            redirect_to main_app.auth_signin_path, notice: t('auth.registrations.confirmation_sent') 
           else
             user.confirmed_at = Time.zone.now
             user.save!(validate: false)
-            redirect_to main_app.auth_signin_path, notice: "Successfully confirmed email. You may now login."
+            redirect_to main_app.auth_signin_path, notice: t('auth.registrations.confirmed') 
           end
         end
       else

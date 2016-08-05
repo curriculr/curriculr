@@ -39,7 +39,8 @@ module Authenticateable
       self.confirmation_sent_at = Time.zone.now
       self.confirmed_at = nil
 
-      save!
+      self.save!(validate: false)
+      
       Mailer.confirmation_instructions(self.id, self.account.slug, self.confirmation_token, to: self.email).deliver_later
     end
 
