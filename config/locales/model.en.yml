@@ -372,7 +372,7 @@ en:
         role: Role
         active: Active?
         faculty: Faculty?
-        remember_me: Remember me
+        remember_me: Keep me signed in
         time_zone: Time Zone
         guardianship_student: The student I'm legally responsible for
         guardianship_klass: Class

@@ -64,7 +64,7 @@
         <li><%= link_to(css_icon(:home, 1) + t("activerecord.actions.home"), main_app.home_path) %></li>
         <li><%= link :user, :change_password, main_app.edit_auth_registration_path(current_user) %></li>
         <li class="divider"></li>
-        <li><%= link :session, :sign_out, main_app.auth_signout_path, :method => :delete %></li>
+        <li><%= link :session, :sign_out, main_app.auth_signout_path %></li>
       </ul>
     </li>
   <% end, :right) %>

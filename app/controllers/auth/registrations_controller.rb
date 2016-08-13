@@ -1,5 +1,7 @@
 module Auth
   class RegistrationsController < ApplicationController
+    before_action :require_user, only: [:edit, :update]
+    
     def new
       @user = User.new
     end
@@ -25,7 +27,7 @@ module Auth
       @user = current_user
       
       if @user.provider == 'identity' && !@user.authenticate(params[:user][:current_password])
-        flash.now.alert = "Incorrect current password."
+        flash.now.alert = t('auth.registrations.invalid_current_password');
         render 'edit'
       elsif @user.update(user_params)
         if @user.provider != 'identity' 
@@ -40,14 +42,15 @@ module Auth
     end
 
     def confirm
-      # http://localhost:3000/auth/J1NkG6=LgtQFIb4LoX8bghA/confirm
       user = User.find_by(confirmation_token: params[:token])
       if user
         if user.confirmed?
           redirect_to main_app.auth_signin_path, notice: t('auth.registrations.already_confirmed') 
         else
           if user.confirmation_expired?
-            redirect_to main_app.auth_signin_path, notice: t('auth.registrations.confirmation_expired', url: url_for(controller: 'auth/registrations', action: 'reconfirm'))
+            @url = url_for(controller: 'auth/registrations', action: 'reconfirm')
+            flash.now.alert = t('auth.registrations.confirmation_expired')
+            render 'confirm'
           else
             user.confirmed_at = Time.zone.now
             user.save!(validate: false)

@@ -1,7 +1,7 @@
 class PreApplicationController < ActionController::Base
-  #include ScopedByAccount
-  include WithMountableEngines
-
+  include EngineMounted
+  include Localized
+  
   before_action :set_timezone
   before_action :load_request_data
   before_action :set_locale
@@ -16,14 +16,6 @@ class PreApplicationController < ActionController::Base
 
   def set_layout
     request.xhr? ? false : 'application'
-  end
-
-  def after_sign_in_path_for(resource)
-    stored_location_for(:user) || home_path
-  end
-
-  def set_timezone
-    Time.zone = current_user.time_zone if current_user
   end
 
   def set_page_header
@@ -60,56 +52,7 @@ class PreApplicationController < ActionController::Base
 
     @req_attributes = {}
   end
-
-  def set_locale
-    locale_in = current_account.config['allow_locale_setting_in'] || {}
-    if params[:locale] && !locale_in['url_param']
-      if locale_in['cookie']
-        cookies.signed[:"#{current_account.slug}_locale"] = params[:locale]
-      elsif locale_in['session']
-        session[:"#{current_account.slug}_locale"] = params[:locale]
-      end
-    end
-
-    locale_param = if locale_in['url_param']
-      params[:locale]
-    elsif locale_in['cookie']
-      cookies.signed[:"#{current_account.slug}_locale"]
-    elsif locale_in['session']
-      session[:"#{current_account.slug}_locale"]
-    else
-      nil
-    end
-
-    I18n.locale = (
-      (locale_param.present? ? locale_param : nil) ||
-      (current_user && (current_user.profile.locale.present? ? current_user.profile.locale : nil)) ||
-      (current_account.config['locale'].present? ? current_account.config['locale'] : nil) ||
-      I18n.default_locale)
-  end
-
-  def set_app_menus
-    @app_menus = {
-      :site_top     => {:_ => [], :right => []},
-      :site_bottom  => {},
-      :course_side  => {:_ => []},
-      :klass_side   => {:_ => []},
-      :home_page    => {:_ => []}
-    }
-  end
-
-  def add_item_to_app_menu(menu, item, section = :_)
-    unless @app_menus[menu][section]
-      @app_menus[menu][section] = []
-    end
-
-    @app_menus[menu][section] << item if menu && section && item
-  end
-
-  def app_menu(menu)
-    @app_menus[menu]
-  end
-
+  
   def current_account
     request.env['curriculr.current_account']
   end

@@ -1,8 +1,7 @@
 class User < ActiveRecord::Base
   include Scopeable
   include Authenticateable
-
-  rolify
+  include Authorizable
 
   has_one :profile, :dependent => :destroy
   accepts_nested_attributes_for :profile
@@ -14,7 +13,8 @@ class User < ActiveRecord::Base
   has_many :klasses, :through => :enrollments
   has_many :blogs, :class_name => 'Page', :as => :owner
 
-  validates :email, presence: true, format: { with: /\A[^@\s]+@[^@\s]+\z/ }, uniqueness: { :scope => :account_id }
+  validates :name, :email, presence: true
+  validates :email, format: { with: /\A[^@\s]+@[^@\s]+\z/ }, uniqueness: { :scope => :account_id }
 
   def first_name
     parts = name.split(/\s/)

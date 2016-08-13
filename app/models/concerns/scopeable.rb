@@ -3,10 +3,6 @@ module Scopeable
 
   included do
     belongs_to :account
-    
-    # default_scope -> {
-    #   where(account_id: Account.current_id)
-    # }
 
 		scope :scoped, -> { where(account_id: Account.current_id) }
 
@@ -23,12 +19,12 @@ module Scopeable
         model.account_id = Account.current_id if Account.current_id.present?
       end
     end
-  end
 
-  def account
-    @account || (
-      Account.current_id.present? ? Account.find(Account.current_id) : @account
-    )
+    def account
+      @account || (
+        Account.current_id.present? ? Account.find(Account.current_id) : @account
+      )
+    end
   end
 
   module ClassMethods

@@ -6,7 +6,6 @@ module Authenticateable
 
     attr_accessor :remember_me
 
-    validates :name, presence: true
     validates :password, presence: true, confirmation: true, length: { minimum: 8 }
 
     before_create do |user|
@@ -77,8 +76,9 @@ module Authenticateable
           name: auth.extra.raw_info.name,
           uid:auth.uid,
           email: email,
-          password: SecureRandom.hex[0,15],
-          avatar: auth.info.image
+          password: SecureRandom.hex[0,11],
+          avatar: auth.info.image,
+          confirmed_at: Time.zone.now
         )
 
         user.save!

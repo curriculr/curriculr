@@ -226,7 +226,7 @@ Rails.application.routes.draw do
     get ':token/reconfirm', to: 'registrations#reconfirm', as: :reconfirm_email
     get 'signin', to: 'sessions#new'
     get ':provider/callback', to: 'sessions#create'
-    delete 'signout', to: 'sessions#destroy'
+    get 'signout', to: 'sessions#destroy'
   end
 
   root :to => 'users#front', :via => :get

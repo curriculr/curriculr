@@ -1,7 +1,7 @@
 module Auth
   class PasswordResetsController < ApplicationController
     def create
-      user = User.find_by(email: user_params[:email])
+      user = User.scoped.find_by(email: user_params[:email])
       user.send_password_reset_instructions if user
       redirect_to auth_signin_path, :notice => t('auth.password_resets.sent')
     end

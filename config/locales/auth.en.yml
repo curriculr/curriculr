@@ -4,11 +4,15 @@ en:
       change_password: Change your password
       reset_password: Reset your password
       new_password: Create new password
+      reconfirm: Reconfirm Account
+    actions:
+      reconfirm: Reconfirm account
     registrations:
       registered: You are successfully registered. Instroctions on how to confirm your account were sent to you email.
       password_changed: You password has been successfully changed.
+      invalid_current_password: Incorrect current password.
       already_confirmed: This accound is aready confirmed. You may sign in.
-      confirmation_expired: "Confirmation token expired. Click <a href='%{url}'>this</a> for a new confirmation token."
+      confirmation_expired: Confirmation token has expired. You must reconfirm your account before you can sign in.
       confirmed: Account confirmed. You may sign in.
       confirmation_sent: Confirmation instructions were sent to your email. Click on the sent link to confirm your account.
     password_resets:
@@ -22,4 +26,21 @@ en:
       not_confirmed: Account not confirmed yet. Follow the confirmation instructions sent to your email.
       invalid_email_or_password: Invalid email or password.
       unable_to_signin: "Unable to sign in via %{provider}."
+    mailer:
+      links:
+        change_password: Change Password
+        confirm_account: Confirm Account
+      confirmation:
+        subject: Confirming Account Instructions
+        body_html:
+          <p>Welcome %{name}!</p>
+          <p>Thank you for signing up for an account with us. You can confirm your account email through the link below.</p>
+
+      password_reset:
+        subject: Resetting Password Instructions
+        body_html:
+          <p>Hello %{name}!</p>
+          <p>Someone has requested a link to change your password. You can do this through the link below.</p>
+          <p>Your password won't change until you access this link and create a new password.</p>
+          <p>If you didn't request this, please ignore this email.</p>
       

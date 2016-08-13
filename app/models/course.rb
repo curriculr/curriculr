@@ -7,8 +7,6 @@ class Course < ActiveRecord::Base
 
   acts_as_taggable_on :tags, :levels, :categories, :schools
 
-  resourcify
-
   belongs_to :originator, :polymorphic => true
   has_many :instructors, :dependent => :destroy
   has_many :media, :dependent => :destroy

@@ -67,7 +67,7 @@ class UsersController < AuthorizedController
         end
       }
   		format.js   {
-        if @user.save
+        if @user.save(validate: false)
   			  @update_class = "usr_activate_#{@user.id}_link" if params[:opr] == 'activate'
     		  @update_class = "usr_#{params[:opr]}_#{@user.id}_link" if @to_update_role
         end

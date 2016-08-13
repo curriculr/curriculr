@@ -43,6 +43,7 @@ module Learn
     end
 
     def current
+      @current_student = nil if @current_student && @student && @student.id != @current_student.id
       session[:current_student] = @student.id
       redirect_to learn_klass_path(@klass)
     end
