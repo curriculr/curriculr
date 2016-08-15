@@ -95,7 +95,7 @@
 
   <% action = content_tag :div, class: css_align(:right) do %>
     <% if @assessment.kind != 'survey' %>
-      <%= link_to_add_q_selectors(t('activerecord.actions.new', :name => QSelector.model_name.human).html_safe, f, :q_selectors) %>
+      <%= link_to_add_q_selectors(t('helpers.submit.new', :name => QSelector.model_name.human).html_safe, f, :q_selectors) %>
 
       <%= content_tag(:span, "&nbsp;&nbsp;#{t('page.text.or')}&nbsp;&nbsp;".html_safe, class: css_align(:right)) %>
     <% end %>

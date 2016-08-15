@@ -3,19 +3,19 @@
 <%= themed_form_for [:teach, @course || @update.course, @unit || @update.unit, @lecture || @update.lecture, @klass, @update] do |f| %>
   <div class="row">
     <div class="<%= css_columns(4) %>">
-      <%= form_select f, :to, t('config.update.to').invert %>
+      <%= f.select :to, t('config.update.to').invert %>
     </div>
     <div class="<%= css_columns(2) %>">
-      <br/><%= form_checkbox f, :www %>
+      <br/><%= f.check_box :www %>
     </div>
     <div class="<%= css_columns(3) %>">
-      <br/><%= form_checkbox f, :email %>
+      <br/><%= f.check_box :email %>
     </div>
   </div>
   
-  <%= form_text f, :subject %>
-  <%= form_markdown f, @update, :body, :size => '60x5' %>
-  <%= form_checkbox f, :active %>
+  <%= f.text_field :subject %>
+  <%= f.markdown :body, :size => '60x5' %>
+  <%= f.check_box :active %>
   
   <%= form_submit f, the_path_out %>
 <% end %>

@@ -1,28 +1,28 @@
 <%= form_header %>
 
 <%= themed_form_for @req_objects do |f| %>
-  <%= form_text f, :name %>
-  <%= form_hidden f, :tag_list %>
+  <%= f.text_field :name %>
+  <%= f.hidden_field :tag_list %>
   <% if !@page.new_record? && @page.html %>
-    <%= form_hidden f, :about, :value => @page.about %>
-    <%= form_code f, :about, :value => @page.about, :lang => 'html', :field => 'page_about', :label => false %>
+    <%= f.hidden_field :about, :value => @page.about %>
+    <%= f.code :about, :value => @page.about, :lang => 'html', :field => 'page_about', :label => false %>
   <% else %>
-    <%= form_markdown f, @page, :about, hint: true %>
+    <%= f.markdown :about, hint: true %>
   <% end %>
 
   <% if @req_objects.size == 1 %>
     <div class="row">
       <div class="<%= css_columns(6) %>">
-        <%= form_text f, :slug, placeholder: true %>
+        <%= f.text_field :slug, placeholder: true %>
       </div>
       <% if current_user && current_user.has_role?(:admin) %>
         <div class="<%= css_columns(3) %>">
           <br/>
-          <%= form_checkbox f, :blog %>
+          <%= f.check_box :blog %>
         </div>
         <div class="<%= css_columns(3) %>">
           <br/>
-          <%= form_checkbox f, :html %>
+          <%= f.check_box :html %>
         </div>
       <% end %>
     </div>

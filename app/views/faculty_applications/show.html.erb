@@ -1,37 +1,37 @@
-<%= ui_header t('page.titles.faculty_application') %>
+<%= ui_header t('page.title.faculty_application') %>
 
 <%= themed_form_for @faculty_application do |f| %>
   <%= t('page.text.faculty_application_html') %>
   <div class="row">
     <div class="<%= css_columns(6) %>">
       <fieldset>
-        <legend><%= t('page.titles.about_you') %></legend>
-        <%= form_static f, :name %>
-        <%= form_static f, :prefix %>
-        <%= form_static f, :about, :value => markdown(@faculty_application.about) %>
-        <%= form_checkbox f, :update_profile, :disabled => true %>
+        <legend><%= t('page.title.about_you') %></legend>
+        <%= f.static :name %>
+        <%= f.static :prefix %>
+        <%= f.static :about, :value => markdown(@faculty_application.about) %>
+        <%= f.check_box :update_profile, :disabled => true %>
       </fieldset>
     </div>
     <div class="<%= css_columns(6) %>">
       <fieldset>
-        <legend><%= t('page.titles.about_your_course') %></legend>
-        <%= form_static f, :course %>
-        <%= form_static f, :description, :value => markdown(@faculty_application.description) %>
+        <legend><%= t('page.title.about_your_course') %></legend>
+        <%= f.static :course %>
+        <%= f.static :description, :value => markdown(@faculty_application.description) %>
 
         <div class="row">
           <div class="<%= css_columns(6) %>">
-      	    <%= form_static f, :weeks %>
+      	    <%= f.static :weeks %>
           </div>
           <div class="<%= css_columns(6) %>">
-      	    <%= form_static f, :workload %>
+      	    <%= f.static :workload %>
           </div>
         </div>
         <div class="row">
           <div class="<%= css_columns(6) %>">
-            <%= form_static f, :locale, :value => $site['supported_locales'][@faculty_application.locale] %>
+            <%= f.static :locale, :value => $site['supported_locales'][@faculty_application.locale] %>
           </div>
           <div class="<%= css_columns(6) %>">
-            <%= form_static f, :country %>
+            <%= f.static :country %>
           </div>
         </div>
       </fieldset>

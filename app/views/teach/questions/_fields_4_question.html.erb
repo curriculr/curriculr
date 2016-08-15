@@ -5,7 +5,7 @@
   <% if render[:option] %>
     <%= content_tag :div, class: css_columns(cols) do %>
       <% 
-        label = content_tag(:span, t("activerecord.labels.#{@question.kind}_question_#{render[:option][:name]}"))
+        label = content_tag(:span, t("helpers.label.#{@question.kind}_question_#{render[:option][:name]}"))
         unless render[:count] == 1 
           label << ' '
           label << f.hidden_field(:_destroy)
@@ -15,14 +15,14 @@
         label = label.html_safe
       %>
 
-      <% placeholder = t("activerecord.placeholders.#{@question.kind}_question_#{render[:option][:name]}") %>
+      <% placeholder = t("helpers.placeholder.#{@question.kind}_question_#{render[:option][:name]}") %>
       <% if render[:option][:lines] > 1 %>
-        <%= form_text_area f, :option, :placeholder => placeholder, :label => label, rows: render[:option][:lines] %>
+        <%= f.text_area :option, :placeholder => placeholder, :label => label, rows: render[:option][:lines] %>
       <% else %>
         <% if @question.survey? %>
-           <%= form_hidden f, :option, value: "*" %>
+           <%= f.hidden_field :option, value: "*" %>
         <% else %>
-          <%= form_text f, :option, :placeholder => placeholder, :label => label %>
+          <%= f.text_field :option, :placeholder => placeholder, :label => label %>
         <% end %>
       <% end %>
     <% end %>
@@ -32,19 +32,19 @@
     <%= content_tag :div, class: css_columns(12 - cols) do %>
       <% if @question.kind == 'pick_one' || @question.kind == 'pick_many' %>
         <% if @question.survey? %>
-           <%= form_hidden f, :answer_options, value: "0" %>
+           <%= f.hidden_field :answer_options, value: "0" %>
         <% else %>
           <br/>
-          <%= form_checkbox f, :answer_options, 
-                label: t("activerecord.labels.#{@question.kind}_question_#{render[:answer_options][:name]}") %>
+          <%= f.check_box :answer_options, 
+                label: t("helpers.label.#{@question.kind}_question_#{render[:answer_options][:name]}") %>
         <% end %>
       <% else %>
-        <% label = content_tag(:span, t("activerecord.labels.#{@question.kind}_question_#{render[:answer_options][:name]}")) %>
-        <% placeholder = t("activerecord.placeholders.#{@question.kind}_question_#{render[:answer_options][:name]}") %>
+        <% label = content_tag(:span, t("helpers.label.#{@question.kind}_question_#{render[:answer_options][:name]}")) %>
+        <% placeholder = t("helpers.placeholder.#{@question.kind}_question_#{render[:answer_options][:name]}") %>
         <% if render[:answer_options][:lines] > 1 %>
-          <%= form_text_area f, :answer_options, :placeholder => placeholder, :label => label, rows: render[:answer_options][:lines] %>
+          <%= f.text_area :answer_options, :placeholder => placeholder, :label => label, rows: render[:answer_options][:lines] %>
         <% else %>
-          <%= form_text f, :answer_options, :placeholder => placeholder, :label => label %>
+          <%= f.text_field :answer_options, :placeholder => placeholder, :label => label %>
         <% end %>
       <% end %>
     <% end %>

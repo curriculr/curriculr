@@ -1,29 +1,29 @@
 <%= form_header %>
 
 <%= themed_form_for(@user, :html => {:multipart => true}) do |f| %>
-	<%= form_static f, :email %>
-  <%= form_text f, :name %>
-  <%= form_time_zone f, :time_zone, {}, :class => "chosen-select form-control #{rtl? ? 'chosen-rtl' : ''}" %>
+	<%= f.static :email %>
+  <%= f.text_field :name %>
+  <%= f.time_zone_select :time_zone, nil, {}, :class => "chosen-select #{rtl? ? 'chosen-rtl' : ''}" %>
 	<%= f.fields_for :profile do |p| %>
-		<%= form_file p, :avatar %>
+		<%= p.file_field :avatar %>
 
     <div class="row">
       <div class="<%= css_columns(3) %>">
-        <%= form_text p, :nickname %>
+        <%= p.text_field :nickname %>
       </div>
       <div class="<%= css_columns(3) %>">
-        <%= form_text p, :prefix %>
+        <%=  p.text_field :prefix %>
       </div>
 			<div class="<%= css_columns(6) %>">
-        <%= form_select p, :locale, $site['supported_locales'].invert %>
+        <%= p.select :locale, $site['supported_locales'].invert %>
       </div>
     </div>
 
-  	<%# form_checkbox p, :public unless @user.id == 1 %>
-		<%= form_markdown p, @user.profile, :about, { size: "60x5"} %>
+  	<%# p.check_box :public unless @user.id == 1 %>
+		<%= p.markdown :about, { size: "60x5"} %>
   <% end%>
 
-  <%= form_checkbox f, :active if @user.id != 1 && current_user.has_role?(:admin) %>
+  <%= f.check_box :active if @user.id != 1 && current_user.has_role?(:admin) %>
 
   <%= form_submit f, _back_url %>
 <% end %>

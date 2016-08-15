@@ -46,7 +46,15 @@ module Curriculr
 
     config.exceptions_app = self.routes
 
+    # Multitenancy
     require "current_account"
     config.middleware.use CurrentAccount, Rails.application.secrets.site['domain']
+    
+    # Default form builder
+    require 'application_form_builder'
+    config.action_view.default_form_builder = ApplicationFormBuilder
+    config.action_view.field_error_proc = Proc.new do |html_tag, instance|
+      html_tag
+    end
   end
 end

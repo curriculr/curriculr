@@ -37,7 +37,7 @@ module Themes::Bootstrap::UiComponentsHelper
   end
 
   def ui_options_button_text
-    content_tag(:i, '&nbsp;&nbsp;'.html_safe + t('page.titles.actions'), :class => 'fa fa-cog')
+    content_tag(:i, '&nbsp;&nbsp;'.html_safe + t('page.title.actions'), :class => 'fa fa-cog')
   end
 
   def ui_nav_pills(items, options = {})
@@ -235,7 +235,7 @@ module Themes::Bootstrap::UiComponentsHelper
     html << content_tag(:div , body, class: "modal-body")
 
     html << ( content_tag :div, class: "modal-footer" do
-      content_tag(:button, t('activerecord.actions.close'), type: "button", class: "btn btn-default", :'data-dismiss' => "modal") +
+      content_tag(:button, t('helpers.submit.close'), type: "button", class: "btn btn-default", :'data-dismiss' => "modal") +
       content_tag(:button, options[:action], type: "button", class: "btn btn-primary")
     end ) if options[:action].present?
 

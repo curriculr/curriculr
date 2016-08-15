@@ -1,10 +1,10 @@
 <% if @update_class %>     
   <% checkmark = '<i class="fa fa-check"></i>'.html_safe %>
   <% if params[:opr] == 'activate' %>
-    $('#<%= @update_class %>').html('<%= @user.active ?  t("activerecord.actions.inactivate") : t("activerecord.actions.activate") %>')
+    $('#<%= @update_class %>').html('<%= @user.active ?  t("helpers.submit.inactivate") : t("helpers.submit.activate") %>')
     $('#<%= "usr_activate_#{@user.id}_mark" %>').html('<%= @user.active ?  checkmark : '' %>')
   <% elsif @to_update_role %>
-    $('#<%= @update_class %>').html('<%= @user.has_role?(params[:opr]) ? t("activerecord.actions.remove_role", role: t("config.role.#{params[:opr]}")) : t("activerecord.actions.add_role", role: t("config.role.#{params[:opr]}")) %>')
+    $('#<%= @update_class %>').html('<%= @user.has_role?(params[:opr]) ? t("helpers.submit.remove_role", role: t("config.role.#{params[:opr]}")) : t("helpers.submit.add_role", role: t("config.role.#{params[:opr]}")) %>')
     $('#<%= "usr_#{params[:opr]}_#{@user.id}_mark" %>').html('<%= @user.has_role?(params[:opr]) ? checkmark : '' %>')
     $('#<%= "usr_#{@user.id}_roles" %>').html('<%= @user.roles.map(&:name).join(", ") %>')
     <% if params[:opr] == :admin %>

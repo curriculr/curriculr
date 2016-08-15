@@ -3,43 +3,43 @@
 <%= themed_form_for [:teach, @course] do |f| %>
   <div class="row">
     <div class="<%= css_columns(5) %>">
-	    <%= form_text f, :slug, placeholder: true %>
+	    <%= f.text_field :slug, placeholder: true %>
     </div>
     <div class="<%= css_columns(7) %>">
-	    <%= form_text f, :name %>
+	    <%= f.text_field :name %>
     </div>
   </div>
 
-	<%= form_markdown f, @course, :about, :size => '60x5' %>
+	<%= f.markdown :about, :size => '60x5' %>
 
   <div class="row">
     <div class="<%= css_columns(6) %>">
-	    <%= form_number f, :weeks %>
+	    <%= f.number_field :weeks %>
     </div>
     <div class="<%= css_columns(6) %>">
-	    <%= form_number f, :workload %>
+	    <%= f.number_field :workload %>
     </div>
   </div>
   <div class="row">
     <div class="<%= css_columns(6) %>">
-      <%= form_select f, :locale, $site['supported_locales'].invert %>
+      <%= f.select :locale, $site['supported_locales'].invert %>
     </div>
     <div class="<%= css_columns(6) %>">
-      <%= form_country_select f, :country, {:include_blank => true}, :class => "chosen-select #{rtl? ? 'chosen-rtl' : ''}" ,
-            :'data-placeholder'=> t('activerecord.placeholders.country') %>
+      <%= f.country_select :country, nil, {:include_blank => true}, :class => "chosen-select #{rtl? ? 'chosen-rtl' : ''}" ,
+            :'data-placeholder'=> t('helpers.placeholder.country') %>
     </div>
   </div>
 
   <div class="row">
     <div class="<%= css_columns(6) %>">
-      <%= form_select f, :level_list, Translator.to_hash(I18n.locale, "#{current_account.slug}.site.level.*").invert,
+      <%= f.select :level_list, Translator.to_hash(I18n.locale, "#{current_account.slug}.site.level.*").invert,
             {:value => @course.level_list}, {:multiple => true, :class => "chosen-select #{rtl? ? 'chosen-rtl' : ''}",
-             :'data-placeholder'=> t('activerecord.placeholders.level_list')} %>
+             :'data-placeholder'=> t('helpers.placeholder.level_list')} %>
     </div>
     <div class="<%= css_columns(6) %>">
-      <%= form_select f, :category_list, Translator.to_hash(I18n.locale, "#{current_account.slug}.site.category.*").invert,
+      <%= f.select :category_list, Translator.to_hash(I18n.locale, "#{current_account.slug}.site.category.*").invert,
             {:value => @course.category_list}, {:multiple => true, :class => "chosen-select #{rtl? ? 'chosen-rtl' : ''}",
-             :'data-placeholder'=> t('activerecord.placeholders.category_list')} %>
+             :'data-placeholder'=> t('helpers.placeholder.category_list')} %>
     </div>
   </div>
 

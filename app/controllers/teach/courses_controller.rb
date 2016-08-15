@@ -53,7 +53,7 @@ module Teach
           
           GradeDistribution.redistribute(@course, config)
         rescue JSON::ParserError
-          @course.errors.add :settings, I18n.t('activerecord.messages.not_properly_formatted')
+          @course.errors.add :settings, I18n.t('helpers.notice.not_properly_formatted')
           render :action => :settings
           return
         end

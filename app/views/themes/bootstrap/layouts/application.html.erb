@@ -27,7 +27,7 @@
 <body>
 
   <% Announcement.current(cookies.signed[:hidden_announcement_ids]).each do |announcement| %>
-    <%= div_for announcement do %>
+    <%= content_tag :div, id: "announcement_#{announcement.id}" do %>
 			<% content_tag :div, class: "announcement-message" do %>
       	<%= raw announcement.message %>
       	<%= link :announcement, :hide, main_app.hide_admin_announcement_path(announcement), remote: true %>

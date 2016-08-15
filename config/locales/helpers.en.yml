@@ -1,0 +1,260 @@
+en:
+  helpers:
+    submit:
+      go_back: Go back
+      dashboard: <i class="fa fa-tachometer"></i>&nbsp; Dashboard
+      upload: <i class="fa fa-upload"></i> Upload files
+      new_link: <i class="fa fa-plus"></i> External link
+      account_settings: Account settings
+      site_settings: Site settings
+      course_settings: Course settings
+      new_attempt: <i class="fa fa-plus"></i> New attempt
+      copy: Copy
+      course_builder: <i class="fa fa-cogs"></i> Course Builder
+      teach: Teach
+      learn: Learn
+      help: Help
+      learn_more: Learn more
+      open: Open
+      close: Close
+      show: show
+      new: <i class="fa fa-plus"></i> New %{name}
+      create: Create
+      edit: <i class="fa fa-edit"></i> Edit
+      update: Update
+      destroy: <i class="fa fa-remove"></i>&nbsp; Delete
+      cancel: Cancel
+      settings: Settings
+      reports: <i class="fa fa-newspaper-o"></i>&nbsp; Reports
+      try_again: Try again
+      show_answer: Show answer
+      about: About us
+      contactus: Contact us
+      privacy: Privacy
+      terms: Terms of service
+      blogs: Blog
+      sign_up: <i class="fa fa-plus"></i> Create an account
+      sign_in: <i class="fa fa-sign-in"></i> Sign in
+      sign_out: <i class="fa fa-sign-out"></i> Sign out
+      send: Send
+      reply: Reply
+      start: Start
+      invite: <i class="fa fa-envelope-o"></i> Invite
+      hide: Hide
+      save: Save
+      submit: Submit
+      submit_answer: Submit answer
+      enroll: Enroll
+      drop: <i class="fa fa-sign-out"></i>&nbsp; Drop
+      goto_klass: Go to class
+      preview: Preview
+      activate: Activate
+      inactivate: Inactivate
+      online: Go live
+      offline: Stay offline
+      approve: Approve
+      disapprove: Disapprove
+      publish: Publish
+      unpublish: Un-publish
+      privatize: Make private
+      publicize: Make public
+      ready: Mark as ready
+      unready: Mark as not ready
+      revoke: Revoke
+      enact: Enact
+      available_klasses: Available
+      popular_klasses: Popular
+      coming_klasses: Coming
+      taking_klasses: Current
+      enrolled_klasses: Enrolled
+      taken_klasses: Taken
+      recent_klasses: Recent Classes
+      add_promo_video: Add promo video
+      remove_promo_video: Remove promo video
+      add_poster_image: Add poster
+      remove_poster_image: Remove poster
+      syllabus: <i class="fa fa-road"></i>&nbsp; Syllabus
+      add_role: Add role %{role}
+      remove_role: Remove role %{role}
+      stats: Statistics
+      change_password: <i class="fa fa-pencil-square-o"></i> Change password
+      new_password: Forgot your password?
+      facebook: Facebook
+      twitter: Twitter
+      google: Google
+      like_us: Like us
+      follow_us: Follow us
+      visit_us_at: Visit us at %{name}
+      hangout_with_us: Hangout with us
+      disallow_discussion: Disallow discussion
+      allow_discussion: Allow discussion
+      prev_html: "&laquo Previous"
+      next_html: "Next &raquo"
+      about: About us
+      home: Home
+      watch: Watch
+      listen: Listen
+      read: Read
+      assess: Assess
+      select: Select
+      services: Services
+      show_instructor_view: <i class="fa fa-university"></i> Instructor View
+      show_student_view: <i class="fa fa-graduation-cap"></i> Student View
+      attachment: Attachment
+      audio: Audio
+      document: Document
+      exam: Exam
+      final: Final
+      mid-term: "Mid-term"
+      image: Image
+      new_audio: New Audio
+      new_book: New Book
+      new_document: New Document
+      new_video: New Video
+      other: Other
+      problem: Problem sets
+      quiz: Quizzes
+      exercise: Exercises
+      video: Video
+      all: All
+      list: List
+      manage: Manage
+      back_to_assessment: Back to %{name}
+      back_to_list: Back to list
+      back_to: Back to %{name}
+      add_question: Add question
+      resume_lecture: Resume lecture
+      add_video: <i class="fa fa-plus"></i> Add video
+      add_image: <i class="fa fa-plus"></i> Add image
+      add_audio: <i class="fa fa-plus"></i> Add audio
+      add_document: <i class="fa fa-plus"></i> Add document
+      add_other: <i class="fa fa-plus"></i> Add attachment
+      decline: Decline
+      blog_posts: My blog posts
+      static_pages_or_blogs: Static pages/Blog posts
+      start_new_course: Start a new course
+      edit_profile: <i class="fa fa-edit"></i> Edit my profile
+      become_a_faculty: Become a faculty
+      main: Main
+
+    confirmation:
+      destroy: Are you sure you want to delete this %{name}?
+      new: Are you sure you want to proceed with this?
+      drop: By dropping this class, you will not be able to access its lectures, materials, assessments and forums. Are you sure you want to proceed?
+      new_attempt:
+        Submitting this request means that you agree to the rules of
+        the honor system followed by this class, and that you are ready to
+        take this assessment.
+
+    notice:
+      successful_enroll: You are now enrolled in this class.
+      failure_to_enroll: Unable to enroll you in this class.
+      not_allowed_to_enroll: You are not allowed to enroll in this class.
+      must_agree_to_terms: You must agree to the terms of this class first.
+      successful_drop: You have been dropped from this class.
+      failure_to_drop: Unable to drop you from this class.
+      not_enrolled_to_drop: You are not enrolled in this class.
+      must_signin: You must sign in first to access this page.
+      invitation_accepted: Invitation to this class has been accepted.
+      unable_to_accept: Unable to accept the invitation to this class.
+      not_allowed_to_accept_invitation: You are not allowed to accept class invitation.
+      invitation_sent: Invitation to this class has been sent.
+      unable_to_invite: Unable to send invitation. Check invitee email.
+      unable_to_decline: Unable to decline invitation. Try another time.
+      not_properly_formatted: Text is not properly formatted.
+      page_unauthorized_html: Not authorized to access this page.
+      page_not_found_html: The page you tried to access is not found.
+      must_be_admin: You must be an administrator to access this page.
+      
+    pagination:
+      first: "&laquo; First"
+      last: "Last &raquo;"
+      previous: "&lsaquo; Prev"
+      next: "Next &rsaquo;"
+      truncate: "&hellip;"
+      
+    hint:
+      about:
+        Inline Latex Math formulae can only be included between <code>\(</code> and <code>\)</code>;
+        block formulae between <code>\[</code> and <code>\]</code>.
+      fill_one_question:
+      fill_many_question: Make sure that the number of ellipses (...) is the same as the number of blank answers.
+      pick_2_fill_question: Make sure that the number of ellipses (...) is the same as the number of blank option lists.
+      pick_one_question:
+      pick_many_question:
+      match_question:
+      underline_question:
+      sort_question:
+      fill_one_question_answer: The correct answer to the question exactly as it should be entered.
+      fill_many_question_blank_answer: The correct answer to the question exactly as it should be entered to fill in the blank.
+      pick_2_fill_question_blank_options: The options to fill in the blanks from. Correct option at the the top. One option per line.
+      pick_one_question_option: An option to be selected.
+      pick_many_question_option: An option to be selected.
+      match_question_side_1: Side 1 items. One item per line. Empty lines can be used to separate items.
+      match_question_side_2: Side 2 items exactly in the correct order matching Side 1 items. One item per line. Empty lines can be used to separate items.
+      underline_question_items:
+      sort_question_items: The items to be sorted in the correct order. One item per line. Empty lines can be used to separate items.
+
+    label:
+      fill_one_question_answer: Correct answer
+      fill_many_question_blank_answer: Correct answer for blank
+      pick_2_fill_question_blank_options: Options for blank
+      pick_one_question_option: Option
+      pick_one_question_answer?: Correct answer?
+      pick_many_question_option: Option
+      pick_many_question_answer?: Correct answer?
+      match_question_side_1: Side
+      match_question_side_2: Side
+      sort_question_items: Sortable items
+
+    placeholder:
+      name: Name
+      email: Email
+      password: Password
+      password_confirmation: Confirm password
+      url: The video ID for a YouTube video; the full URL for anything else.
+      slug: Appears in URL; only alphanumeric, - and _ are allowed. No spaces.
+      bank_list: Select question bank to add this question to...
+      country: Select a country...
+      level_list: Select applicable levels...
+      category_list: Select applicable categories...
+      question_cont: Type here...
+      name_or_email_cont: Type here...
+      slug_or_name_cont: Type here...
+      slug_or_name_or_about_cont: Type here...
+      course_slug_or_course_name_or_course_about_cont: Type here...
+      user_name_or_user_email_cont: Type here...
+      student_name_or_student_user_name_or_student_user_email_cont: Type here...
+
+      fill_one_question: Type your question here.
+      fill_many_question: Type your question here. Use ellipsis (...) to indicate the place of each blank.
+      pick_2_fill_question: Type your question here. Use ellipsis (...) to indicate the place of each blank.
+      pick_one_question: Type your question here.
+      pick_many_question: Type your question here.
+      match_question: Type your question here.
+      underline_question: Type your question here.
+      sort_question: Type your question here.
+
+      fill_one_question_answer: The correct answer to the question exactly as it should be entered.
+      fill_many_question_blank_answer: The correct answer to the question exactly as it should be entered to fill in the blank.
+      pick_2_fill_question_blank_options: The options to fill in the blanks from. Correct option at the the top. One option per line.
+      pick_one_question_option: An option to be selected.
+      pick_many_question_option: An option to be selected.
+      match_question_side_1: Side 1 items. One item per line. Empty lines can be used to separate items.
+      match_question_side_2: Side 2 items exactly in the correct order matching Side 1 items. One item per line. Empty lines can be used to separate items.
+      underline_question_items:
+      sort_question_items: The items to be sorted in the correct order. One item per line. Empty lines can be used to separate items.
+
+  flash:
+    actions:
+      create:
+        notice: "%{resource_name} was successfully created."
+      update:
+        notice: "%{resource_name} was successfully updated."
+      destroy:
+        notice: "%{resource_name} was successfully deleted."
+        alert: "%{resource_name} could not be deleted."
+      save_attempt:
+        notice: "Your attempt at this assessment has been saved. You can finish it later."
+      submit_attempt:
+        notice: "Your attempt at this assessment has been submitted."

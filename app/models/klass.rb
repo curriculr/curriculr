@@ -291,7 +291,7 @@ class Klass < ActiveRecord::Base
       klass.forums.create(:name => f.name, :about => f.about, graded: f.graded)
     end if forums.present?
 
-    lecture_forum = klass.forums.create(:name => I18n.t('page.titles.lecture_comments'),
+    lecture_forum = klass.forums.create(:name => I18n.t('page.title.lecture_comments'),
       :about => I18n.t("page.text.lecture_comments"), :lecture_comments => true)
 
     Lecture.joins(:unit).where('units.course_id = :course_id', :course_id => klass.course_id).each do |lecture|
@@ -303,7 +303,7 @@ class Klass < ActiveRecord::Base
       end
     end
 
-    graded_discussions_forum = klass.forums.create(:name => I18n.t('page.titles.graded_discussions'),
+    graded_discussions_forum = klass.forums.create(:name => I18n.t('page.title.graded_discussions'),
       :about => I18n.t("page.text.graded_discussions"), :graded => true)
   end
 

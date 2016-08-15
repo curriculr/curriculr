@@ -1,5 +1,5 @@
 <% klasses = Klass.which_are('enrolled', current_user).open.distinct.to_a %>
-<%= ui_header t('page.titles.classes_i_am_taking') %>
+<%= ui_header t('page.title.classes_i_am_taking') %>
 <% if klasses.present? %>
   <div class="ui divided items">
     <%= render :partial => 'learn/klasses/klass', :collection => klasses, :locals => {view: :item} %>
@@ -9,7 +9,7 @@
 <% end %>
 
 <% klasses = Klass.which_are('taken', current_user).distinct.to_a %>
-<%= ui_header t('page.titles.classes_i_took') %>
+<%= ui_header t('page.title.classes_i_took') %>
 <% if klasses.present? %>
   <div class="ui divided items">
     <%= render :partial => 'learn/klasses/klass', :collection => klasses, :locals => {view: :item} %>

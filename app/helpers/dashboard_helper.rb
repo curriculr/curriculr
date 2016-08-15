@@ -119,11 +119,11 @@ module DashboardHelper
     end
 
     data = {
-      t('page.titles.enrollment') => activities['enrolled'],
-      t('page.titles.withdrawal') => activities['dropped'],
-      t('page.titles.attendance') => activities['attended'],
-      t('page.titles.assessment') => activities['finished'],
-      t('page.titles.participation') => activities['started_discussion'] + activities['posted'] + activities['replied']
+      t('page.title.enrollment') => activities['enrolled'],
+      t('page.title.withdrawal') => activities['dropped'],
+      t('page.title.attendance') => activities['attended'],
+      t('page.title.assessment') => activities['finished'],
+      t('page.title.participation') => activities['started_discussion'] + activities['posted'] + activities['replied']
     }
 
     { counts: data.to_a.insert(0, ['label', 'value']), max: data.values.max }
@@ -167,7 +167,7 @@ module DashboardHelper
       [date.strftime('%b %d'), activities[i].values].flatten
     end
 
-    data.insert(0, ['Day', names.map{|n| t("page.titles.#{n}")}].flatten)
+    data.insert(0, ['Day', names.map{|n| t("page.title.#{n}")}].flatten)
   end
 
   def dashboard_klass_activities(klass)
@@ -191,12 +191,12 @@ module DashboardHelper
   def dashboard_admin_activity_counts
     klasses = Klass.scoped.open.active.to_a
     counts = [
-      [ t('page.titles.registration'), User.scoped.count ],
-      [ t('page.titles.confirmation'), User.scoped.where('confirmed_at is not null').count ],
-      [ t('page.titles.enrollment'), Enrollment.where(klass: klasses).count ],
-      [ t('page.titles.withdrawal'), Enrollment.where(klass: klasses).
+      [ t('page.title.registration'), User.scoped.count ],
+      [ t('page.title.confirmation'), User.scoped.where('confirmed_at is not null').count ],
+      [ t('page.title.enrollment'), Enrollment.where(klass: klasses).count ],
+      [ t('page.title.withdrawal'), Enrollment.where(klass: klasses).
           where('active = FALSE and dropped_at is not null').count ],
-      [ t('page.titles.activity'), Activity.where(klass: klasses).count ]
+      [ t('page.title.activity'), Activity.where(klass: klasses).count ]
     ]
     data = [['Label', 'Value']]
 
@@ -224,10 +224,10 @@ module DashboardHelper
     end
 
     data.insert(0, ['Day',
-      t('page.titles.registration'),
-      t('page.titles.confirmation'),
-      t('page.titles.enrollment'),
-      t('page.titles.signing_in')
+      t('page.title.registration'),
+      t('page.title.confirmation'),
+      t('page.title.enrollment'),
+      t('page.title.signing_in')
     ])
   end
 
@@ -240,10 +240,10 @@ module DashboardHelper
     i = -1
     labels = ['Day']
     data = [
-      [t('page.titles.registration')],
-      [t('page.titles.confirmation')],
-      [t('page.titles.enrollment')],
-      [t('page.titles.signing_in')]
+      [t('page.title.registration')],
+      [t('page.title.confirmation')],
+      [t('page.title.enrollment')],
+      [t('page.title.signing_in')]
     ]
 
     (since.to_date..Time.zone.today).each do |date|

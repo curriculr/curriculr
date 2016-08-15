@@ -1,0 +1,278 @@
+ar:
+  page:
+    title:
+      assessment: اختبارات
+      attendance: حضور
+      participation: مشاركة
+      enrollment: تسجيل الفصول
+      withdrawal: انسحاب
+      activity: نشاط
+      signing_in: دخول
+      registration: تسجيل الاستخدام
+      confirmation: تأكيد الاستخدام
+      user_activities: انشطة المستخدمين
+      confirmations_vs_enrollments: تأكيد الاستخدام مقابل تسجيل الفصول
+      daily_activities: الأنشطة اليومية
+      activity_counts: تكرارات الأنشطة
+      dashboard: مؤشرات
+      select_files: اختيار الملفات للرفع
+      sign_in: للدخول
+      discussion: المناقشة
+      outline: <i class="fa fa-list"></i>&nbsp; المحاضرات
+      forums: <i class="fa fa-comments-o"></i>&nbsp; المنتديات
+      pages: <i class="fa fa-globe"></i>&nbsp; الصفحات
+      attachments: <i class="fa fa-paperclip"></i>&nbsp; المرفقات
+      students: <i class="fa fa-users"></i>&nbsp; الطلاب
+      contents: المحتوى
+      readings: مقروءات
+      progress: أداء
+      for_instructors: للمدرسين فقط
+      about: من نخن
+      help: للمساعدة
+      privacy: سرية البيانات
+      services: خدماتنا
+      terms: اتفاقية الاستخدام
+      front: المقدمة
+      mission: المهمة
+      sessions: الدورات
+      administration: إدارة
+      configurations: إعدادات الموقع
+      course_builder: منشئ المقررات
+      help: للمساعدة
+      hold_on: من فضلك انتظر ‫...‬
+      lecture_comments: تعليقات المحاضرة
+      graded_discussions: مناقشات محسوبة
+      general: المنتدى العام
+      assessments: منتدى الامتحانات
+      study_groups: مجموعات المذاكرة
+      translations: ترجمة
+      klass_agreement: اتفاقية الفصل
+      actions: خيارات
+      syllabus: المنهج
+      search: ابحث
+      settings: اعدادات
+      blogs: المقالات
+      team: فريق العمل
+      profile: صفحة المستخدم
+      statistics: احصائيات
+      usage: مدى الاستخدام
+      latest_activities: أحدث المشاركات
+      latest_topics: أحدث الموضوعات
+      hits: زيارات
+      honor_system: نظام الامانة العلمية
+      upcoming_deadlines: مواعيد مقبلة
+      audios: مقاطع صوتية
+      documents: ملفات
+      videos: فيديوهات
+      people: أشخاص
+      books: كتب
+      document: ملف
+      images: صور
+      others: أخرى
+      videos: فيديوهات
+      requests: طلبات
+      guardians: أولياء الأمور
+      basic_info: معلومات أساسية
+      administrator: مشرف
+      settings: اعدادات
+      reply_to_topic: أجب على الموضوع
+      about_class: عن الفصل
+      selected_questions: الأسئلة المختارة
+      final_score: الدرجة النهائية
+      surveys: استبيانات
+      more_info_html: المزيد...
+      question_banks: بنك الأسئلة
+      part: جزء
+      own_recent_topics: آخر مواضيعي
+      own_recent_posts: آخر مشاركاتي
+      ready_to_approve: فصول تنتظر الموافقة
+      being_worked_on: مقررات قيد التجهيز
+      open_classes_i_teach: الفصول المفتوحة التي أُدَرِسها
+      classes_i_am_taking: الفصول التي آخذها
+      classes_i_took: الفصول التي أخذتها
+      get_involved: تعاون معنا
+      about_you: بياناتك الخاصة
+      about_your_course: بيانات مقررك الدراسي
+      faculty_application: طلب عضوية هيئة التدريس
+      goto: اذهب إلى
+      feactured_klasses: فصول دراسية مميزة
+
+    text:
+      more: اكثر
+      less: اقل
+      accepted: قبلت %{at}
+      klass_agreement: أوافق على بنود وشروط التعليم المفتوح المعمول بها في هذا الموقع و على قواعد نظام الأمانة العلمية المتبعة في هذا الفصل.
+      assessment_penalty_msg: ‫انقضى الموعد النهائي لأخذ هذا الاختبار. سوف تعاقب كل محاولة بقدر %{penalty}%.
+      assessments_already_taken: لقد تم اخذ هذا الاختبار سابقا.
+      assessments_count:
+        one: اختبار واحد
+        two: اختباران
+        few: "%{count} اختبارات"
+        many: "%{count} اختبارا"
+        other: "%{count} اختبار"
+      assessments_final_score: الدرجة النهائية
+      assessments_no_attempt_yet: لم تحاول اخذ هذا الاختار بعد‫.‬
+      attempts_count: "المحاولات: %{count}/%{total}"
+      comments_count:
+        zero: تعليقات
+        one: تعليق واحد
+        two: تعليقان
+        few: "%{count} تعليقات"
+        many: "%{count} تعليقا"
+        other: "%{count} تعليق"
+      copyrights: "جميع الحقوق محفوظة %{year}"
+      course_assessments_notice_html:
+      course_books_notice_html:
+      course_klasses_notice_html:
+      course_pages_notice_html:
+      course_pages_read_html:
+      declined: رفض %{at}
+      document_noshow_html: "لتحميل هذا الملف‫.‬ %{link} إذا كان لديك مشكلة في تصفح هذا الملف، انقر"
+      drag_items_to_reorder_html: اسحب العناصر لتغيير الترتيب‫.‬
+      dropped: محذوفة
+      enroll_to_attempt_assessment_html: "لابد ان %{action} قبل محاولتك هذا الاختبار‫.‬"
+      enroll_to_comment_html: لتتمكن من رؤية التعليقات أو إضافة تعليق %{action}
+      enrolled: مسجل فيها
+      grading_msg: تقديم هذا الطلب يعني موافقتك على قواعد نظام الأمانة العلمية المتبع في هذا الفصل، وأنك على استعداد لتقديم هذا الاختبار للتصحيح.
+      guardian_report_intro: هذا الصفحة تسمح لك بعرض تقارير جميع الطلاب التي أنت مسؤول عنهم قانونيا في جميع الفصول التي هم مسجلون فيها. للقيام بذلك، حدد الطالب المهتم به والفصل الدراسي الذي\التي يأخذه او قد اخذه.
+      here: هنا
+      if_no_user_account: إذا لم يكن لديك حساب معنا
+      if_user_account: إذا كان لديك حساب معنا
+      inactive: غير مفعل
+      no_instructor_but_originator_html: لم يتم إضافة اي مدرس لهذا المقرر. في هذه الحالة، سيتم سرد المنشئ %{originator}.
+      no_record_found: لا شيء للعرض
+      invited: بدعوة
+      declined_invitation: رفض الدعوة
+      not_found: لا يوجد
+      or: أو
+      by: لــ
+      "on": "يوم"
+      registration_terms_and_conditions_html: أنشاؤك حسابا معنا يعني موافقتك على %{link}.
+      social_interested: أنا مهتم بهذا الفصل‫.‬
+      social_taking: أنا آخذ هذا الفصل‫.‬
+      social_taught: أنا درست هذا الفصل‫.‬
+      social_teaching: أنا ادرس هذا الفصل‫.‬
+      social_took: أخذت هذا الفصل سابقا‫.‬
+      social_will_take: سأخذ هذا الفصل‫.‬
+      social_will_teach: سأُدَرِس هذا الفصل‫.‬
+      to: إلى
+      unapproved: غير مسموح
+      under_construction: هذه الصفحة مازالت قيد الإنشاء‫.‬
+      unfinished_attempt: بدأت و لما تكمل بعد
+      unlimited: يسمح بمحاولات غير محدودة
+      unpublished: لم ينشر بعد
+      unpublished_page_html: <i class="fa fa-warning"></i> هذه الصفحة لم تنشر بعد. %{link}
+      unpublished_update_html: <i class="fa fa-warning"></i> هذا التحديث لم يرسل أو ينشر بعد. %{link}
+      approved_klass_html: <i class="fa fa-warning"></i> هذا الفصل لما تتم الموافقة عليه بعد. الموافقة على هذا الفصل تجعله في متناول الآخرين. %{link}
+      ready_to_approve_klass_html:
+        <i class="fa fa-warning"></i> هذا الفصل ليس جاهزا للموافقة عليه بعد. يجب أن
+        تؤكد جهوزيته قبل أن يوافق عليه. الفصول الموافق عليها فقط تكون في متناول الآخرين. %{link}
+      by_admin_approved_klass_html: <i class="fa fa-warning"></i> موافقة إدارة الموقع على هذا الفصل مطلوبة لجعله في متناول الآخرين.
+      private_page_html: <i class="fa fa-warning"></i> هذه الصفحة ليست عامة و غير مرئية لغيرك. %{link}
+      by_admin_private_page_html: <i class="fa fa-warning"></i> موافقة إدارة الموقع مطلوبة لجعل هذه الصفحة عامة و تمكين الاخرين من الوصول إليها.
+      unready: غير منشور
+      unready_assessment_html: <i class="fa fa-warning"></i> هذا الاختبار ليس جاهزا بعد. %{link}
+      upcoming_deadlines:
+        zero: سيغلق اختبار %{name} اليوم.
+        one: سيغلق اختبار %{name} غدا.
+        two: سيغلق اختبار %{name} في يومين.
+        few: سيغلق اختبار %{name} في %{count} أيام
+        many: سيغلق اختبار %{name} في %{count} يوما.
+        other:  سيغلق اختبار %{name} في %{count} يوم.
+      weeks:
+        one: يستمر لمدة أسبوع
+        two: يستمر لمدة أسبوعين
+        few: يستمر لمدة %{count} أسابيع
+        other: يستمر لمدة %{count} أسبوعا
+      workload:
+        one:  يوصى بساعة مذاكرة في الأسبوع
+        two:  يوصى بساعتي مذاكرة في الأسبوع
+        few:  يوصى بـ %{count} ساعات مذاكرة في الأسبوع
+        other:  يوصى بـ %{count} ساعة مذاكرة في الأسبوع
+      points:
+        one: علامة واحدة
+        two: علامتان
+        other: "%{count} علامات"
+      course_attendance: للحضور
+      course_assessment: للاختبارات
+      course_final: الاختبارات النهائية
+      course_mid-term: اختبارات نصف الفصل
+      course_participation: للمشاركة
+      lecture_quiz: اختبارات المحاضرة
+      correct: صحيح
+      partially_correct: صحيح جزئيا
+      incorrect: غير صحيح
+      neutral: شكرا لمحاولتك.
+      unit_problem: مسائل الوحدة
+      unit_quiz: اختبارات الوحدة
+      honor_system: يؤخذ هذا الفصل الدراسي عبر الانترنت و لا رقيب على الطالب إلا نفسه و أخلاقه و أمانته العلمية. نشجع الطلاب و ندعوهم لأن يتواصلوا مع بعضهم البعض و مع المحاضرين عبر منتديات هذا الفصل و وسائل التواصل الأخرى المتاحة، و أن ينشؤا مجموعات للدراسة و المذاكرة و تبادل الأفكار. و نطلب منهم أن لا يغشوا أو ينقل أحدهم إجابات شخص آخر، و أن لا يرفعوا إلى المُحاضر إلا ما كان نتاج جهدهم الفكري. كما نعول على أخلاقهم و أمانتهم في أن لا يعيدوا نشر أي مادة علمية من مواد هذا الفصل أو من امتحاناته، حتي لا يفسدوا هذه المواد على من يأخذه من بعدهم.
+      klass_enroll_html: أنت بصدد التسجيل في هذا الفصل الدراسي. لإكمال عملية التسجيل لا بد من موافقتك أولا على <a href="#">شروط و قواعد</a> التعليم المفتوح و التزامك بنظام الامانة العلمية المتبع.
+      free_class: مجاني
+      today: اليوم
+      in_days:
+        one: بعد يوم واحد
+        two: بعد يومين
+        other: بعد %{count} أيام
+      open_for_enrollment: مفتوح للتسجيل
+      closed: مغلق
+      question_bank: "بنك الأسئلة: %{bank}"
+      has_invideo_quiz: هناك فحص يمكن أخذه أثناء هذه المحاضرة.
+      facebook: فيسبوك
+      twitter: تويتر
+      google-plus: جوجل+
+      fill_question: املأ الفراغات التالية
+      pick_2_fill_question: املأ الفراغات التالية من القوائم المعطاة
+      pick_one_question: اختر الإجابة الصحيحة مما يلي
+      pick_many_question: اختر كل الاجابات الصحيحة
+      match_question: اختر من الجانب A ما يقابله في الجانب B
+      underline_question: Underline
+      currency_USD: دولارا
+      lecture_comments: منتدى تعليقات المحاضرة
+      graded_discussions: منتدى المناقشات المحسوبة
+      general: المنتدى العام
+      assessments: منتدى الامتحانات
+      study_groups: منتدى مجموعات المذاكرة
+      settings_change_warning_html:
+        <strong>تحذير !</strong>
+        أي تغيير في الاعدادات ينبغي أن يتم بحذر شديد لضمان أن تظل هذه الاعدادات صحيحة في شكلها و قيمها.
+      include_in_assessment: أضف لـ '%{name}'
+      closed_klass_html: هذا الفصل مغلق. لا يمكن أن تصل إلى التعليقات أو أن تحاول الاختبارات.
+      sign_in_using: بإستخدام %{provider}
+      external_sign_in_using: يمكنك الدخول باستخدام أي من حساباتك الحالية على
+      participation_forums_html: <h2>%{times}</h2><h3><small>منتديات</small></h3>
+      participation_topics_html: <h2>%{times}</h2><h3><small>مواضيع</small></h3>
+      participation_posts_html: <h2>%{times}</h2><h3><small>مشاركات</small></h3>
+      participation_replies_html: <h2>%{times}</h2><h3><small>ردود</small></h3>
+      select_files_or_drop: أو اسحبها إلى أي مكان في هذه الصفحة
+      file_or_external_link: ملف أو وصلة خارجية
+      external_link: وصلة خارجية
+      the_last_information_from_html: أخر رسائل التحديث من %{url}.
+      powered_by_html: مُشغَّل من قِبَل %{logo}
+      file_upload_not_allowed: تحميل الملفات غير مفعل حاليا. %{link}
+      course_forums: أي منتدى في هذه القائمة سيكون تلقائيا جزءا من منتديات أي فصل دراسي قادمة لهذا المقرر.
+      course_updates: هذه التحديثات ستنشر تلقائيا على الصفحات الرئيسية للفصول الدراسية لهذا المقرر عقب فتحها. التحديثات عبر البريد الإلكتروني سترسل تلقائيا للطلاب عقب تسجيلهم في هذه الفصول لأول مرة.
+      unit_updates: هذه التحديثات ستنشر تلقائيا على الصفحات الرئيسية للفصول الدراسية لهذا المقرر عقب توافر هذه الوحدة. عندها أيضا سترسل التحديثات عبر البريد الإلكتروني تلقائيا للطلاب المسجلين.
+      sign_up: لإنشاء حساب جديد
+      sign_in: للدخول
+      course_unit_html:
+        <div class="alert alert-info" role="alert">
+          يقسم المقرر إلى وحدة واحدة أو أكثر. قد تكون الوحدة فصلا من كتاب أو جزءا من موضوع المقرر
+          أو حتى اسبوعا من مقرر يتطلب أخذه عدة أسابيع. كل وحدة تحتوي على محاضرة واحدة أو أكثر.
+          من خلال هذه الصفحة يمكنك أن تضيف إلى أو تدير وحدات هذا المقرر و محاضراتها.
+        </div>
+      no_info_to_display: لا معلومات للعرض
+      first_and_others: "%{first}, ..."
+      by_first_and_others: "لـ %{first}, ..."
+      faculty_agreement: أوافق على بنود وشروط التعليم المفتوح المعمول بها في هذا الموقع و على قواعد نظام الأمانة العلمية المتبعة في فصوله الدراسية.
+      faculty_application_html:
+        <div class="alert alert-info" role="alert">
+          لتتمكن من إنشاء مقرراتك الدراسية و فتح فصولها لمستخدمي الموقع
+          لا بد أولا أن تكون عضوا في هيئة تدريس هذا الموقع. املأ الفراغات
+          التالية عنك و عن المقرر الدراسي الذي ترغب تدريسه لتقديم طلبك الانضمام
+          إلى هيئة التدريس. بعد أن تتم مراجعة طلبك و الموافقة عليه ستتمكن
+          من ذلك المقرر.
+        </div>
+      follow_us_html: <p><small>تستطيع متابعتنا و التواصل معنا على صفحاتنا على</small></p>
+      free_to_enroll: هذا الفصل مجاني.
+      free_to_preview: تستطيع فتح هذا الفصل و استعراض بعض أو كل محتوياته بدون تسجيل.
+      free_to_enroll_again: كنت قد سجلت سابقا في هذا الفصل ثم انسحبت. تستطيع التسجيل فيه مجددا.

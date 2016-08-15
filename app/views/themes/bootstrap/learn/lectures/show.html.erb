@@ -60,13 +60,13 @@
       <div class="<%= css_columns(3) %>">
         <%= pager_html = capture do %>
           <ul class="pager lecture-pager"
-              data-prev="<%= t('activerecord.actions.prev_html').html_safe %>"
-              data-next="<%= t('activerecord.actions.next_html').html_safe %>">
+              data-prev="<%= t('helpers.submit.prev_html').html_safe %>"
+              data-next="<%= t('helpers.submit.next_html').html_safe %>">
             <% pager_links.each_with_index do |link, i| %>
               <%
                 link_class = (i == 0 ? 'previous' : 'next')
                 link_style = (i > 1 ? 'display: none;' : '')
-                link_name = (i == 0 ? t('activerecord.actions.prev_html').html_safe : (i == 1 ? t('activerecord.actions.next_html').html_safe : ''))
+                link_name = (i == 0 ? t('helpers.submit.prev_html').html_safe : (i == 1 ? t('helpers.submit.next_html').html_safe : ''))
               %>
               <li class="lecture-pager-link-pos-<%= i %> lecture-pager-link <%= link_class %>" style="<=% link_style %>">
                 <%= link_to link_name, link[:url], remote: link[:remote], class: css_button(:default) if link[:url] %>
@@ -180,7 +180,7 @@
     <div class="panel-body">
       <div class="row">
         <div class="<%= css_columns(12) %>">
-          <%= ui_header t('page.titles.discussion'), style: :h4 %>
+          <%= ui_header t('page.title.discussion'), style: :h4 %>
           <%= content_tag :div, id: "comments" do %>
             <div class="row">
               <div class="<%= css_columns(12) %> topics" >

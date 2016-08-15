@@ -1,0 +1,274 @@
+en:
+  page:
+    title:
+      assessment: Assessment
+      attendance: Attendance
+      participation: Participation
+      enrollment: Enrollment
+      withdrawal: Withdrawal
+      activity: Activity
+      signing_in: Signing in
+      registration: Registration
+      confirmation: Confirmation
+      user_activities: User activities
+      confirmations_vs_enrollments: Confirmations vs enrollments
+      daily_activities: Daily activities
+      activity_counts: Activity counts
+      dashboard: Dashboard
+      select_files: Select files to upload
+      sign_in: Sign in
+      discussion: Discussion
+      outline: <i class="fa fa-list"></i>&nbsp; Lectures
+      forums: <i class="fa fa-comments-o"></i>&nbsp; Forums
+      pages: <i class="fa fa-globe"></i>&nbsp; Pages
+      attachments: <i class="fa fa-paperclip"></i>&nbsp; Attachments
+      students: <i class="fa fa-users"></i>&nbsp; Students
+      contents: Contents
+      readings: Readings
+      progress: Status
+      for_instructors: For instructors
+      about: About
+      help: Help
+      privacy: Privacy
+      services: Services
+      terms: Terms of service
+      front: Front matter
+      mission: Our mission
+      sessions: Sessions
+      administration: Administration
+      configurations: Configurations
+      course_builder: Course Builder
+      hold_on: Please wait...
+      lecture_comments: Lecture Comments
+      graded_discussions: Graded Discussions
+      general: General Instruction
+      assessments: Assessments
+      study_groups: Study Groups
+      translations: Translations
+      klass_agreement: Class agreement
+      actions: Actions
+      syllabus: Syllabus
+      search: Search
+      settings: Settings
+      blogs: Blogs
+      team: Team
+      profile: User Profile
+      statistics: Statistics
+      usage: Usage
+      latest_activities: Latest activities
+      latest_topics: Latest topics
+      hits: Hits
+      honor_system: Honor System
+      upcoming_deadlines: Upcoming Deadlines
+      audios: Audios
+      documents: Documents
+      videos: Videos
+      people: People
+      books: Books
+      document: Document
+      images: Images
+      others: Other
+      videos: Videos
+      requests: Requests
+      guardians: Guardians
+      basic_info: Basic Information
+      administrator: Administrator
+      settings: Settings
+      reply_to_topic: Reply to topic
+      about_class: About Class
+      selected_questions: Selected question
+      final_score: Final Score
+      surveys: Surveys
+      more_info_html: More...
+      question_banks: Question banks
+      part: Part
+      own_recent_topics: My recent topics
+      own_recent_posts: My recent posts
+      ready_to_approve: Classes pending approval
+      being_worked_on: Courses being worked on
+      open_classes_i_teach: Open classes I teach
+      classes_i_am_taking: Classes I'm taking
+      classes_i_took: Classes I took
+      get_involved: Get involved
+      about_you: About you
+      about_your_course: About your course
+      faculty_application: Faculty application
+      goto: Go to
+      feactured_klasses: Featured classes
+
+    text:
+      more: More
+      less: Less
+      accepted: Accepted %{at}
+      klass_agreement:
+        I agree to the terms and conditions of open education and to the rules of
+        the honor system followed in the classes of this site.
+      assessment_penalty_msg:
+        The deadline to take this assessment has passed. Your attempt will have a penalty %{penalty}%.
+      assessments_already_taken: This assessment is already taken. No more attempts allowed.
+      assessments_count:
+        one: one assessment
+        other: "%{count} assessments"
+      assessments_final_score: Final score
+      assessments_no_attempt_yet: You have not attempted this assessment yet.
+      attempts_count: "%{count}/%{total} attempts"
+      comments_count:
+        one: one comment
+        other: "%{count} comments"
+      copyrights: "%{year} all rights reserved"
+      course_assessments_notice_html:
+      course_books_notice_html:
+      course_klasses_notice_html:
+      course_pages_notice_html:
+      course_pages_read_html:
+      declined: Declined %{at}
+      document_noshow_html: "If you have trouble browsing this document, click %{link} to download this document."
+      drag_items_to_reorder_html: Drag items to reorder.
+      dropped: Dropped
+      enroll_to_attempt_assessment_html: "You must %{action} before you can attempt this assessment."
+      enroll_to_comment_html: "You must %{action} before you can see or add comments."
+      enrolled: Already enrolled in
+      grading_msg:
+        Submitting this request means that you agree to the rules of
+        the honor system followed by this class, and that you are ready for
+        this %{name} assessment to be graded.
+      guardian_report_intro:
+        This page allows you to view the reports of all the students you are
+        legally responsible for in all the classes they are enrolled in. To
+        do so, select both the student you are interested in and the class
+        she/he is taking or has already taken.
+      here: here
+      if_no_user_account: If you don't have an account with us yet
+      if_user_account: If you already have an account with us
+      inactive: Inactive
+      no_instructor_but_originator_html:
+        No instructor has been added to this course. In this case,
+        originator %{originator} will be listed.
+      no_record_found: Nothing to display
+      not_accepted: Not accepted
+      invited: Invited
+      declined_invitation: Declined invitation
+      not_found: Not found
+      or: or
+      by: by
+      "on": "on"
+      registration_terms_and_conditions_html: "By signing up for a new account, you are agreeing to %{link}."
+      social_interested: I am interested in this class.
+      social_taking: I am taking this class.
+      social_taught: I taught this class.
+      social_teaching: I am teaching this class.
+      social_took: I took this class already.
+      social_will_take: I will be taking this class.
+      social_will_teach: I will be teaching this class.
+      to: to
+      unapproved: Not approved
+      under_construction: This page is still under construction
+      unfinished_attempt: Started but not finished
+      unlimited: Unlimited attempts allowed
+      unpublished: Not published yet
+      unpublished_page_html: <i class="fa fa-warning"></i> This page has not been published yet. %{link}
+      unpublished_update_html: <i class="fa fa-warning"></i> This update has not been published/sent yet. %{link}
+      private_page_html: <i class="fa fa-warning"></i> This page has not been made public yet and therefore cannot be seen by anyone other than you. %{link}
+      by_admin_private_page_html: <i class="fa fa-warning"></i> Administrator's approval is required to make this page public so it can be seen by anyone other than you.
+      approved_klass_html: <i class="fa fa-warning"></i> This class has not been approved yet. Approving this class makes it accessible to others. %{link}
+      ready_to_approve_klass_html:
+        <i class="fa fa-warning"></i> This class is not ready to approve yet. You must mark
+        it as ready before it can be approved. Only approved classes are accessible to others. %{link}
+      by_admin_approved_klass_html: <i class="fa fa-warning"></i> Administrator's approval of this class is required. Approving this class makes it accessible to others.
+      unready: Unpublished
+      unready_assessment_html: <i class="fa fa-warning"></i> This assessment has not been marked as ready to release yet. %{link}
+      upcoming_deadlines:
+        one: Assessment %{name} to close in a day.
+        other: Assessment %{name} to close in %{count} days.
+      weeks:
+        one: "Lasts for one weeks"
+        other: "Lasts for %{count} weeks"
+      workload:
+        one: "%{count} hour/week of studying is recommended"
+        other: "%{count} hours/week of studying is recommended"
+      points:
+        one: "%{count} point"
+        other: "%{count} points"
+      course_attendance: Attendance
+      course_final: Finals
+      course_mid-term: Mid-terms
+      course_participation: Participation
+      course_assessment: Assessment
+      lecture_quiz: Lecture quizzes
+      correct: Correct
+      partially_correct: Partially correct
+      incorrect: Incorrect
+      neutral: Thank you for your attempt.
+      unit_problem: Unit problems
+      unit_quiz: Unit quizzes
+      honor_system: "We expect our students and parents to follow the honor system set forth by Curriculr. All class materials, questions, and exams are private to the class and should not be shared with anybody outside of it, as this will impact other students' ability to benefit from this class."
+      klass_enroll_html: You are about to enroll in this class. To proceed, you must agree to the <a href="#">rules and guidelines</a> of online education  and abide by its honor system.
+      free_class: Free
+      today: Today
+      in_days:
+        one: one day
+        other: "%{count} days"
+      open_for_enrollment: Open for enrollment
+      closed: Closed
+      question_bank: "Question bank: %{bank}"
+      has_invideo_quiz: There is a quiz to take during this lecture.
+      facebook: Facebook
+      twitter: Twitter
+      google-plus: Google+
+      fill_question: Fill in the blanks
+      pick_2_fill_question: Fill in the blanks by choosing from the lists
+      pick_one_question: Choose the correct answer
+      pick_many_question: Choose all that apply
+      match_question: Match the items on Side A to their corresponding ones on Side B.
+      underline_question: Underline
+      currency_USD: Dollars
+      lecture_comments: Lecture Comments Forum
+      graded_discussions: Graded Discussions Forum
+      general: General Instruction Forum
+      assessments: Assessments Forum
+      study_groups: Study Groups Forum
+      settings_change_warning_html:
+        <strong>Warning!</strong>
+        Any change to the settings below must be done very carefully.
+      include_in_assessment: Add to '%{name}'
+      closed_klass_html: This class is closed. Cannot see comments or attempt assessments.
+      sign_in_using: Using %{provider}
+      external_sign_in_using: You can also login using any of your existing accounts with
+      participation_forums_html: <h2>%{times}</h2><h3><small>Forums</small></h3>
+      participation_topics_html: <h2>%{times}</h2><h3><small>Topics</small></h3>
+      participation_posts_html: <h2>%{times}</h2><h3><small>Posts</small></h3>
+      participation_replies_html: <h2>%{times}</h2><h3><small>Replies</small></h3>
+      select_files_or_drop: or drop them any where in this page
+      file_or_external_link: file or external link
+      external_link: external link
+      the_last_information_from_html: The last information from %{url}.
+      powered_by_html: <small>Powered by</small> %{logo}
+      file_upload_not_allowed: File upload is turned off. %{link}
+      course_forums: Any forum listed here will automatically be a part of every future class of this course.
+      course_updates: These updates will be automatically posted on the main pages of the open classes of this course. Update emails will be automatically sent to students when they first enroll.
+      unit_updates: These updates will be automatically posted on the main pages of its classes when this unit is made available. Update emails will also be automatically sent to enrolled students.
+      sign_up: To create an account
+      sign_in: To sign in
+      course_unit_html:
+        <div class="alert alert-info" role="alert">
+          A course is divided into one or more units. A unit can correspond to a
+          chapter in a book, a week in multi-week course, or a part of the course main subject. It is
+          made of one or more lectures. This page is where you add and manage units and their lectures.
+        </div>
+      no_info_to_display: No information to display
+      first_and_others: "%{first}, ..."
+      by_first_and_others: "by %{first}, ..."
+      faculty_agreement:
+        I agree to the terms and conditions of open education and to the rules of
+        the honor system followed in the classes of this site.
+      faculty_application_html:
+        <div class="alert alert-info" role="alert">
+          To be able to create your courses and open them to the users of this
+          site, you have to be a faculty user first. Use this form to submit
+          your request of becoming a faculty user. Once reviewed and approved,
+          you will be able to work on your course.
+        </div>
+      follow_us_html: <p><small>You can also follow us at</small></p>
+      free_to_enroll: This is a free class.
+      free_to_preview: You can open this class and preview some or all of its contents before you enroll.
+      free_to_enroll_again: You previously enrolled in this class. You can enroll in it again.

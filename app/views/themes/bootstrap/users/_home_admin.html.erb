@@ -1,6 +1,6 @@
 <% klasses = Klass.ready_to_approve.distinct.to_a %>
 <% if klasses.present? %>
-  <%= ui_header t('page.titles.ready_to_approve') %>
+  <%= ui_header t('page.title.ready_to_approve') %>
   <div class="ui divided items">
     <%= render :partial => 'learn/klasses/klass', :collection => klasses, :locals => {view: :item} %>
   </div>
@@ -11,7 +11,7 @@
 <% end %>
 
 <% klasses = Klass.being_worked_on.distinct.to_a %>
-<%= ui_header t('page.titles.being_worked_on') %>
+<%= ui_header t('page.title.being_worked_on') %>
 <% if klasses.present? %>
   <div class="ui divided items">
     <%= render :partial => 'learn/klasses/klass', :collection => klasses, :locals => {view: :item} %>

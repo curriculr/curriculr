@@ -4,26 +4,26 @@
     <%= themed_form_for [:admin, @account], :show_help => false do |f| %>
       <fieldset>
         <% if current_user.id == 1 %>
-          <%= form_text f, :slug %>
+          <%= f.text_field :slug %>
         <% else %>
-          <%= form_static f, :slug %>
+          <%= f.static :slug %>
         <% end %>
 
-        <%= form_text f, :name %>
-        <%= form_text_area f, :about, :size => '60x5' %>
+        <%= f.text_field :name %>
+        <%= f.text_area :about, :size => '60x5' %>
       </fieldset>
       <fieldset>
-        <legend><%= t('page.titles.administrator') %></legend>
+        <legend><%= t('page.title.administrator') %></legend>
         <%= f.fields_for :user do |a| %>
           <% if @account.new_record? %>
-            <%= form_text a, :name %>
-            <%= form_email a, :email %>
-            <%= form_password a, :password %>
-            <%= form_password a, :password_confirmation %>
+            <%= a.text_field :name %>
+            <%= a.email_field :email %>
+            <%= a.password_field :password %>
+            <%= a.password_field :password_confirmation %>
           <% else %>
-            <%= form_static a, :name %>
-            <%= form_hidden a, :name %>
-            <%= form_hidden a, :email %>
+            <%= a.static :name %>
+            <%= a.hidden_field :name %>
+            <%= a.hidden_field :email %>
           <% end %>
         <% end %>
       </fieldset>
@@ -32,7 +32,7 @@
   </div>
   <% unless @account.new_record? %>
     <div class="<%= css_columns(6) %>">
-      <%= ui_header t('activerecord.actions.account_settings') %>
+      <%= ui_header t('helpers.submit.account_settings') %>
 
       <%
         html = ''

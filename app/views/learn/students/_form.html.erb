@@ -1,11 +1,11 @@
 <%= form_header %>
 
 <%= themed_form_for [:learn, @student] do |f| %>
-  <%= form_hidden f, :user_id, :value => @student.user.id %>
+  <%= f.hidden_field :user_id, :value => @student.user.id %>
 
-  <%= form_text f, :name %>
-  <%= form_select f, :relationship, t('config.relationship').invert %>
-  <%= form_file f, :avatar %>
+  <%= f.text_field :name %>
+  <%= f.select :relationship, t('config.relationship').invert %>
+  <%= f.file_field :avatar %>
 
   <%= form_submit f, learn_students_path %>
 <% end %>

@@ -24,7 +24,7 @@ module Learn
 
     def create
       util = AssessmentAttempt.new(@klass, current_student, @assessment, @attempt, request[:attempt])
-      is_to_save = (params[:commit] == t('activerecord.actions.save'))
+      is_to_save = (params[:commit] == t('helpers.submit.save'))
       util.score(params, is_to_save)
 
       if is_to_save

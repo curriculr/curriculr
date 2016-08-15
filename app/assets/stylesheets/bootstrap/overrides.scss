@@ -1265,3 +1265,31 @@ div.media-heading {
     color: rgba(0, 0, 0, 0.3);
   }
 }
+
+div.field {
+  @extend .form-group;
+  
+  &.required {
+    label:after {
+      content: '*';
+      color: red;
+      padding-left: 2px
+    }
+  }
+  
+  &.with-errors {
+    @extend .has-error;
+  }
+  
+  label {
+    @extend .control-label;
+  }
+  
+  input:not([type='checkbox']):not([type="file"]), textarea, select {
+    @extend .form-control;
+  }
+  
+  span {
+    @extend .help-block;
+  }
+}

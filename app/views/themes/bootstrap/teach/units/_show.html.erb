@@ -31,7 +31,7 @@ updates = unit.updates.to_a
   </li>
   <li class="<%= active_unit_section('documents') %>">
     <a href="#unit-<%= unit.id %>-documents" role="tab" data-toggle="tab" data-unit="<%= unit.id %>">
-      <%= t('page.titles.documents') %>
+      <%= t('page.title.documents') %>
       <%= content_tag :span, documents.count, :class => css_badge %>
     </a>
   </li>
@@ -52,7 +52,7 @@ updates = unit.updates.to_a
   end
   %>
 
-  <%= ui_dropdown t('activerecord.actions.new', name: Assessment.model_name.human), links, 
+  <%= ui_dropdown t('helpers.submit.new', name: Assessment.model_name.human), links, 
         id: "unit-#{unit.id}-assessments-new", class: "unit-#{unit.id}-new-link pull-right", 
         style: active_unit_section('assessments') ? nil : 'display: none;' %>
   <li id="unit-<%= unit.id %>-pages-new" class="unit-<%= unit.id %>-new-link pull-right" style="<%= 'display: none;' unless active_unit_section('pages') %>">  

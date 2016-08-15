@@ -13,10 +13,10 @@
       <div class="panel-body">
         <br/>
         <%= form_for @user, url: url_for(controller: 'auth/registrations', action: 'create'), method: :post do |f| %>
-          <%= form_text f, :name, label: false, placeholder: true %>
-          <%= form_email f, :email, label: false, placeholder: true %>
-          <%= form_password f, :password, label: false, placeholder: true %>
-          <%= form_password f, :password_confirmation, label: false, placeholder: true %>
+          <%= f.text_field :name, label: false, placeholder: true %>
+          <%= f.email_field :email, label: false, placeholder: true %>
+          <%= f.password_field :password, label: false, placeholder: true %>
+          <%= f.password_field :password_confirmation, label: false, placeholder: true %>
 
           <% links = [{ text: t('page.text.registration_terms_and_conditions_html',
                         link: link(:page, :terms, localized_page_path(:terms))) }] %>

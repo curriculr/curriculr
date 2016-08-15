@@ -2,14 +2,14 @@
 <% if @update_class %>     
   <% checkmark = '<i class="fa fa-check"></i>'.html_safe %>
   <% if params[:opr] == 'public' %>
-	$('#<%= @update_class %>').html('<%= @page.public ?  t('activerecord.actions.privatize') : t('activerecord.actions.publicize') %>');
+	$('#<%= @update_class %>').html('<%= @page.public ?  t('helpers.submit.privatize') : t('helpers.submit.publicize') %>');
     <% if @page.public %>
     $('#page-public-indicator').hide();
     <% else %>
     $('#page-public-indicator').show();
     <% end %>
 	<% elsif params[:opr] == 'publish' %>
-    $('#<%= @update_class %>').html('<%= @page.published ?  t('activerecord.actions.unpublish') : t('activerecord.actions.publish') %>');
+    $('#<%= @update_class %>').html('<%= @page.published ?  t('helpers.submit.unpublish') : t('helpers.submit.publish') %>');
     <% if @page.published %>
     $('#page-publish-indicator').hide();
     <% else %>

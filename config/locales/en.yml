@@ -82,6 +82,11 @@ en:
             not_found: No user exists with the email address you entered.
             invalid: Invalid. Make sure this is not the same email as the instructor's.
             already: The instructor with the entered email is already added.
+      user:
+        attributes:
+          password:
+            confirmation: Please confirm password
+            
     template:
       body: ! 'Please verify the correctness of the following fields:'
       header:
@@ -95,6 +100,333 @@ en:
   activemodel:
     errors:
       <<: *errors
+      
+    attributes:
+      message:
+        name: Name
+        email: Email
+        subject: Subject
+        content: Content
+      invitation:
+        course: Course
+        klass: Class
+        invitee: Invitee
+        
   activerecord:
     errors:
       <<: *errors
+
+    models:
+      account:
+        one: Account
+        other: Accounts
+      user:
+        one: User
+        other: Users
+      guardianship:
+        one: Guardianship
+        other: Guardianships
+      profile:
+        one: Profile
+        other: Profiles
+      contact:
+        one: Contact
+        other: Contacts
+      course:
+        one: Course
+        other: Courses
+      instructor:
+        one: Instructor
+        other: Instructors
+      update:
+        one: Class Update
+        other: Class Updates
+      assessment:
+        one: Assessment
+        other: Assessments
+      attempt:
+        one: Attempt
+        other: Attempts
+      question:
+        one: Question
+        other: Questions
+      option:
+        one: Option
+        other: Options
+      q_selector:
+        one: Selector
+        other: Selectors
+      klass:
+        one: Class
+        other: Classes
+      enrollment:
+        one: Enrollment
+        other: Enrollments
+      forum:
+        one: Forum
+        other: Forums
+      topic:
+        one: Topic
+        other: Topics
+      post:
+        one: Post
+        other: Posts
+      medium:
+        one: File
+        other: Files
+      material:
+        one: Material
+        other: Materials
+      unit:
+        one: Unit
+        other: Units
+      lecture:
+        one: Lecture
+        other: Lectures
+      page:
+        one: Page
+        other: Pages
+      access_token:
+        one: Access Token
+        other: Access Tokens
+      configuration:
+        one: Configuration
+        other: Configurations
+      config:
+        one: Configurations
+        other: Configurations
+      announcement:
+        one: Announcement
+        other: Announcements
+      translation:
+        one: Translation
+        other: Translations
+      record:
+        one: Record
+        other: Records
+      setting:
+        one: Setting
+        other: Settings
+      student:
+        one: Student
+        other: Students
+      survey:
+        one: Survey
+        other: Surveys
+      miscellaneou:
+        one: Miscellaneous
+      registration:
+        one: Registration
+      session:
+        one: Session
+      password:
+        one: Password
+      facultyapplication:
+        one: Faculty application
+        other: Faculty applicaions
+
+    attributes:
+      account:
+        slug: Subdomain
+        name: Name
+        about: About
+        active: Active?
+        live: Live?
+        live_since: Live since
+      user:
+        name: Name
+        email: Email
+        password: Password
+        password_confirmation: Confirm Password
+        current_password: Current Password
+        roles: Roles
+        role: Role
+        active: Active?
+        faculty: Faculty?
+        remember_me: Keep me signed in
+        time_zone: Time Zone
+        guardianship_student: The student I'm legally responsible for
+        guardianship_klass: Class
+      guardianship:
+        email: Email
+      profile:
+        name: Name
+        first_name: First Name
+        middle_name: Middle Name
+        last_name: Last Name
+        nickname: Nickname
+        about: About you
+        prefix: Prefix
+        public: Public
+        locale: Language
+      contact:
+        phone: Phone Number
+      course:
+        slug: Slug
+        name: Name
+        about: Course Description
+        weeks: Duration (in weeks)
+        workload: Estimated workload (in hours/week)?
+        locale: Language
+        country: Country
+        level_list: Levels
+        category_list: Categories
+      instructor:
+        email: Email
+        name: Name
+        role: Role
+        avatar: Avatar
+        about: About
+      update:
+        www: In site
+        email: Via email
+        sms: Via SMS
+        to: Audience
+        subject: Subject
+        body: Body
+        status: Status
+        active: Active
+      assessment:
+        name: Name
+        about: About
+        size: Number of questions
+        allowed_attempts: Number of attempts allowed
+        multiattempt_grading: Multi-attempt grading
+        droppable_attempts: Number of droppable attempts
+        show_answer: When to show answers
+        after_deadline: Open after deadline?
+        penalty: Late penalty %
+        kind: Kind
+        level: Level
+        from_datetime: From date/time
+        to_datetime: To date/time
+        based_on: For a class that starts on
+        invideo_id: In video
+        invideo_at: In video at (in seconds)
+        event_list: Starts on event
+        attempt: Attempt
+        at: At
+        when: When
+        questions_count: Question count
+        points: Points
+        grade: Grade
+      question:
+        unit_id: Unit
+        lecture_id: Lecture
+        points: Points
+        question: Question
+        hint: Hint
+        answer: Answer
+        explanation: Explanation
+        kind: Kind
+        options: Options
+        parts: Parts
+        bank_list: Bank(s)
+        include_in_lecture: Include in lecture
+      option:
+        answer: Answer
+        option: Option/Part
+        answer_options: Answer options
+      q_selector:
+        points: Points per question
+        kind: Kind
+        questions_count: Questions count
+        unit_id: Unit
+        lecture_id: Lecture
+        tag: Question bank
+      klass:
+        code: Class code
+        about: Class Description
+        featured: Featured
+        begins_on: Begins on
+        ends_on: Ends on
+        previewed: Can be previewed without registration?
+        allow_enrollment: Allow enrollment?
+        lectures_on_closed: Make lectures available to students after class has ended?
+        private: Private
+        closed: Closed
+        free: Free
+        tuition: Tuition
+        availability: Availability
+        price: Price
+      enrollment:
+        since: Since
+        score: Score
+      forum:
+        name: Name
+        about: Description
+        active: Active?
+        graded: Graded?
+      topic:
+        name: Name
+        about: Description
+        active: Active?
+        anonymous: Anonymous
+        points_per_post: Points per post
+        points_per_reply: Points per reply
+      post:
+        about: Post
+        anonymous: Anonymous
+      medium:
+        kind: Kind
+        name: Name
+        path: Upload file
+        is_a_link: External link(no file to upload)?
+        url: URL
+        source: Source
+      material:
+        kind: Kind
+      unit:
+        name: Name
+        about: Unit Description
+        on_date: Appears on
+        based_on: For a class that starts on
+        for_days: for days
+        order: Order
+        previewed: Can be previewed without registration?
+      lecture:
+        name: Name
+        about: About
+        on_date: Appears on
+        based_on: For a class that starts on
+        for_days: for days
+        points: Attendance points
+        order: Order
+        previewed: Can be previewed without registration?
+      page:
+        name: Name
+        about: Page Description
+        slug: Short name
+        published: Published?
+        public: Public?
+        blog: Blog?
+        html: HTML?
+      access_token:
+        token: Access Code
+        scope: Scope
+        expires_in: Expires on
+        revoked_at: Revoked on
+        created_at: Created in
+      announcement:
+        message: Message (Accepts HTML)
+        starts_at: Starts at
+        ends_at: Ends at
+        suspended: Suspended
+      student:
+        name: Name
+        avatar: Avatar
+        relationship: Relationship to user
+      faculty_application:
+        name: Name
+        about: About you
+        prefix: Prefix
+        update_profile: Update my profile
+        course: Course title
+        description: Course description
+        weeks: Duration (in weeks)
+        workload: Estimated workload (in hours/week)?
+        locale: Language
+        country: Country
+        level_list: Levels
+        category_list: Categories
+        approved: Approved

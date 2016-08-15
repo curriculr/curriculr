@@ -1,15 +1,15 @@
 <%= form_header %>
 
 <%= themed_form_for [:teach, @course, @unit, @lecture, @question] do |f| %>
-  <%= form_hidden f, :course_id %>
-  <%= form_hidden f, :kind %>
+  <%= f.hidden_field :course_id %>
+  <%= f.hidden_field :kind %>
   <% render_options = Option.render_options[@question.kind.to_sym] %>
 
   <div class="row">
     <div class="<%= css_columns(9) %>">
-      <% placeholder = t("activerecord.placeholders.#{@question.kind}_question") %>
-      <% hint = t("activerecord.hints.#{@question.kind}_question", default: '') %>
-      <%= form_markdown f, @question, :question, :size => '60x8', :placeholder => placeholder, :hint => hint %>
+      <% placeholder = t("helpers.placeholder.#{@question.kind}_question") %>
+      <% hint = t(:"helpers.hint.#{@question.kind}_question", default: '') %>
+      <%= f.markdown :question, :size => '60x8', :placeholder => placeholder, :hint => hint %>
       
       <div class="field-container">
         <%= f.fields_for :options do |o| %>
@@ -27,41 +27,41 @@
 
     </div>
     <div class="<%= css_columns(3) %>">
-      <%= form_static f, :kind, :value => t("config.question.kind.#{@question.kind}") %>
+      <%= f.static :kind, :value => t("config.question.kind.#{@question.kind}") %>
 
       <% if @question.new_record? %>
-        <%= form_hidden f, :unit_id %>
-        <%= form_hidden f, :lecture_id %>
+        <%= f.hidden_field :unit_id %>
+        <%= f.hidden_field :lecture_id %>
       <% else %>
         <div style="display: none;">
           <%= f.grouped_collection_select :unit_lectures, @course.units, :lectures, :name, :id, :name, include_blank: true %>
         </div>
-        <%= form_select f, :unit_id, @course.units %>
-        <%= form_select f, :lecture_id, @unit ? @unit.lectures : [] %>
+        <%= f.select :unit_id, @course.units %>
+        <%= f.select :lecture_id, @unit ? @unit.lectures : [] %>
       <% end %>
 
       <% if @question.survey? %>
-        <%= form_hidden f, :bank_list, name: 'question[bank_list][]' %>
-        <%= form_static f, :bank_list, value: t("config.question.bank.#{@question.bank_list}") %>
+        <%= f.hidden_field :bank_list, name: 'question[bank_list][]' %>
+        <%= f.static :bank_list, value: t("config.question.bank.#{@question.bank_list}") %>
       <% else %>
-        <%= form_select f, :bank_list, question_banks(true).invert, 
+        <%= f.select :bank_list, question_banks(true).invert, 
           {:value => @question.bank_list}, {:multiple => true, :class => "chosen-select #{rtl? ? 'chosen-rtl' : ''}", 
-            :'data-placeholder'=> t('activerecord.placeholders.bank_list')} %>
+            :'data-placeholder'=> t('helpers.placeholder.bank_list')} %>
       <% end %>
 
-      <%= form_checkbox f, :include_in_lecture if @lecture %>
+      <%= f.check_box :include_in_lecture if @lecture %>
 
-      <%= form_hidden f, :hint %>
-      <%= form_hidden f, :explanation %>
+      <%= f.hidden_field :hint %>
+      <%= f.hidden_field :explanation %>
       
       <%= content_tag :span, %(#{css_icon(@question.hint.present? ? :edit : :plus)} #{Question.human_attribute_name(:hint)}).html_safe, 
             :class => "ui-modal-field #{css_button(:default)}", 
             :data => {
               :field => 'question_hint', 
               :header => Question.human_attribute_name(:hint), 
-              :body => form_text_area(f, :hint, :label => false).gsub(/\r?\n/, ""), 
-              :btn => t('activerecord.actions.save'),
-              :close => t('activerecord.actions.close')
+              :body => f.text_area(:hint, :label => false).gsub(/\r?\n/, ""), 
+              :btn => t('helpers.submit.save'),
+              :close => t('helpers.submit.close')
             } %>
       
       <%= content_tag :span, %(#{css_icon(@question.explanation.present? ? :edit : :plus)} #{Question.human_attribute_name(:explanation)}).html_safe, 
@@ -69,9 +69,9 @@
             :data => {
               :field => 'question_explanation', 
               :header => Question.human_attribute_name(:explanation), 
-              :body => form_text_area(f, :explanation, :label => false).gsub(/\r?\n/, ""), 
-              :btn => t('activerecord.actions.save'),
-              :close => t('activerecord.actions.close')
+              :body => f.text_area(:explanation, :label => false).gsub(/\r?\n/, ""), 
+              :btn => t('helpers.submit.save'),
+              :close => t('helpers.submit.close')
             } %>
       <br/><br/>
 

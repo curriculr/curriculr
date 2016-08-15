@@ -5,7 +5,7 @@
         <div class="panel-heading">
           <h4 class="panel-title">
             <a data-toggle="collapse" data-parent="#accordion" href="#syllabus">
-              <%= t('page.titles.syllabus') %>
+              <%= t('page.title.syllabus') %>
             </a>
             <%= link(:page, :edit, edit_teach_course_page_path(@course, @course.syllabus),
                   class: css(button: [:xs, :primary], align: :right)) %>
@@ -39,7 +39,7 @@
               <%= Assessment.model_name.human(count: 3) %>
               <%= content_tag :span, assessments.count, :class => css_badge %>
             </a>
-            <%= ui_button_dropdown(t('activerecord.actions.new', name: Assessment.model_name.human), links,
+            <%= ui_button_dropdown(t('helpers.submit.new', name: Assessment.model_name.human), links,
                 class: css_button(:xs, :primary), align: :right) %>
           </h4>
         </div>
@@ -71,7 +71,7 @@
         <div class="panel-heading">
           <h4 class="panel-title">
             <a data-toggle="collapse" data-parent="#accordion" href="#instructors">
-              <%= t('page.titles.people') %>
+              <%= t('page.title.people') %>
               <%= content_tag :span, instructors.count, :class => css_badge %>
             </a>
             <%= link(:instructor, :new, new_teach_course_instructor_path(@course),
@@ -94,7 +94,7 @@
         <div class="panel-heading">
           <h4 class="panel-title">
             <a data-toggle="collapse" data-parent="#accordion" href="#books">
-              <%= t('page.titles.books') %>
+              <%= t('page.title.books') %>
               <%= content_tag :span, books.count, :class => css_badge %>
             </a>
             <%= link(:material, :new_book,
@@ -208,7 +208,7 @@
           <h4 class="panel-title">
             <a data-toggle="collapse" data-parent="#accordion" href="#surveys">
 
-              <%= t('page.titles.surveys') %>
+              <%= t('page.title.surveys') %>
               <%= content_tag :span, assessments.count, :class => css_badge %>
             </a>
             <%= link :survey, :new,  new_teach_course_assessment_path(@course, :t => :survey),

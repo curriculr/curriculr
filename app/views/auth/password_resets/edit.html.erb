@@ -3,9 +3,9 @@
 <div class="row">
   <div class="<%= css_columns(6) %>">
     <%= form_for @user, url: url_for(controller: 'auth/password_resets', action: 'update'), method: :put do |f| %>
-      <%= form_hidden f, :password_reset_token %>
-      <%= form_password f, :password %>
-      <%= form_password f, :password_confirmation %>
+      <%= f.hidden_field :password_reset_token %>
+      <%= f.password_field :password %>
+      <%= f.password_field :password_confirmation %>
 
       <%= form_submit f, auth_signin_path %>
     <% end %>

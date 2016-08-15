@@ -12,7 +12,7 @@
 
   <% unless @material %>
     <%= content_tag :div, class: css(button: :group, align: :right) do %>
-      <%= ui_button_dropdown(t('activerecord.actions.new_link'), links,
+      <%= ui_button_dropdown(t('helpers.submit.new_link'), links,
           class: css_button(:default)) %>
       <%= link :medium, :upload, @course ? multi_new_teach_course_medium_path(@course) :
           multi_new_medium_path, class: css(button: :success) %>
@@ -22,7 +22,7 @@
       <% req_objects = @req_objects[0..(@req_objects.count-2)] %>
       <% if params[:multiple] && req_objects.present? %>
         <% url = [req_objects, show: (@lecture ? nil : (@unit ? 'documents' : (@course ? 'books' : nil)))].flatten %>
-        <%= link_to t('activerecord.actions.back_to', name: req_objects.last.class.model_name.human), url, class: css_button(:default) %>
+        <%= link_to t('helpers.submit.back_to', name: req_objects.last.class.model_name.human), url, class: css_button(:default) %>
       <% end %>
       <% url = [:new, req_objects, :material, s: params[:s], t: params[:t], m: true].flatten %>
       <%= link :medium, :"add_#{params[:s]}", url,
@@ -36,7 +36,7 @@
   <% t('config.medium.kind').map do |k, v| %>
     <% cls = k.to_sym == to_medium_kind(params[:s]) ? 'active' : (@material ? 'disabled' : '')%>
     <li class="<%= cls %>">
-      <%= link_to t("page.titles.#{k.to_s.pluralize(2)}"), @course ? teach_course_media_path(@course, :s => k) : media_path(:s => k) %>
+      <%= link_to t("page.title.#{k.to_s.pluralize(2)}"), @course ? teach_course_media_path(@course, :s => k) : media_path(:s => k) %>
     </li>
   <% end %>
 </ul>
@@ -50,10 +50,10 @@
     <% options = { :m => true, :s => params[:s], :t => params[:t] } if @material %>
     <% url = @course ? teach_course_media_path(@course, options) : media_path %>
     <%= search_form_for @q, :url => url, class: "search-form form-inline #{css_align(:right)}", :remote => true do |f| %>
-      <%# content_tag :strong, t('page.titles.search') %>
+      <%# content_tag :strong, t('page.title.search') %>
       <%= hidden_field_tag(:unit_id, @unit.id) if @unit %>
       <%= hidden_field_tag(:lecture_id, @lecture.id) if @lecture %>
-      <%= form_hidden f, :kind_start, :value => params[:s] %>
+      <%= f.hidden_field :kind_start, :value => params[:s] %>
       <%= form_search f, :slug_or_name_cont, hint: false, label: false, placeholder: true %>
       <%# form_submit f %>
     <% end %>

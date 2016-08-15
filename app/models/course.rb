@@ -104,12 +104,12 @@ class Course < ActiveRecord::Base
 
     forums = self.config['discussion']['forums']
     forums.each do |f|
-      course.forums.create(:name => I18n.t("page.titles.#{f}", default: f), :about => I18n.t("page.text.#{f}", default: I18n.t("page.text.under_construction")))
+      course.forums.create(:name => I18n.t("page.title.#{f}", default: f), :about => I18n.t("page.text.#{f}", default: I18n.t("page.text.under_construction")))
     end if forums.present?
 
     self.klasses.create(:slug => 'sec-01', :begins_on => Time.zone.today, :ends_on => (course.weeks.present? ? (Time.zone.today + (course.weeks * 7)) : nil))
 
-    syllabus = self.pages.create(:name => I18n.t('page.titles.syllabus'),
+    syllabus = self.pages.create(:name => I18n.t('page.title.syllabus'),
       :about => I18n.t('page.text.under_construction'), :published => true)
 
     syllabus.tag_list.add('syllabus')

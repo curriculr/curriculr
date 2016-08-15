@@ -1,13 +1,13 @@
 <% subtext = @assessment && @assessment.kind == 'survey' ? nil : capture do %>
   <% 
-  banks = [ link_to(t("activerecord.actions.all"), teach_course_questions_path(@course, :a => (@assessment ? @assessment.id : nil))) ] 
+  banks = [ link_to(t("helpers.submit.all"), teach_course_questions_path(@course, :a => (@assessment ? @assessment.id : nil))) ] 
   question_banks(params[:a].present?).each do |k, v|
     banks << link_to(v, teach_course_questions_path(@course, :a => (@assessment ? @assessment.id : nil), :b => k))
   end
   %>
 
   <%= ui_dropdown t('page.text.question_bank', 
-        :bank => @bank ? t("config.question.bank.#{@bank}", :default => @bank) :  t("activerecord.actions.all")), 
+        :bank => @bank ? t("config.question.bank.#{@bank}", :default => @bank) :  t("helpers.submit.all")), 
         banks, :wrapper => :div %>
 <% end %>
   
@@ -21,12 +21,12 @@
         teach_course_assessment_path(@course, @assessment)
       end
     
-    action = link_to t("activerecord.actions.back_to_assessment", 
+    action = link_to t("helpers.submit.back_to_assessment", 
       :name => @assessment.kind == 'survey' ? t('activerecord.models.survey.one') : Assessment.model_name.human), the_path_out, 
       :class => css(button: :default, align: :right) 
   %>
   
-  <%= ui_header t('page.titles.question_banks'), style: :h3, action: action, subtext: subtext %>
+  <%= ui_header t('page.title.question_banks'), style: :h3, action: action, subtext: subtext %>
 <% else %>
   <%
     links = []
@@ -36,8 +36,8 @@
           lecture_id: (@lecture ? @lecture.id : nil), :s => k, :b => @bank})
     end
   %>
-  <%= ui_header(t('page.titles.question_banks'), subtext: subtext,
-      action: ui_button_dropdown(t('activerecord.actions.new', name: Question.model_name.human), links, class: css_button(:success), align: :right),
+  <%= ui_header(t('page.title.question_banks'), subtext: subtext,
+      action: ui_button_dropdown(t('helpers.submit.new', name: Question.model_name.human), links, class: css_button(:success), align: :right),
       style: :h3) %>
 
 <% end %>
@@ -76,8 +76,8 @@
   <div class="<%= css_columns(4) %>">
     <% url = question_bank_path(:index, params[:s], @assessment, @bank) %>
     <%= search_form_for @q, :url => url, class: "search-form form-inline #{css_align(:right)}", :remote => true do |f| %>
-      <%# content_tag :strong, t('page.titles.search') %> 
-      <%= form_hidden f, :kind_cont, :value => params[:s] %>
+      <%# content_tag :strong, t('page.title.search') %> 
+      <%= f.hidden_field :kind_cont, :value => params[:s] %>
       <%= form_search f, :question_cont, hint: false, label: false, placeholder: true %>
       <%# form_submit f %>
     <% end %>

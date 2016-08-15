@@ -43,15 +43,15 @@ module ApplicationHelper
     when :index
       t("activerecord.models.#{model}.other")
     when :new, :create, :edit, :update, :destroy
-      t(action, scope: 'activerecord.actions', :name => t("activerecord.models.#{model}.one", :default => ''))
+      t(action, scope: 'helpers.submit', :name => t("activerecord.models.#{model}.one", :default => ''))
     else
       key = (html_options.present? && html_options[:as].present?) ? "#{action}_#{html_options[:as]}" : action
 
-      t(key, scope: 'activerecord.actions')
+      t(key, scope: 'helpers.submit')
     end
 
     if html_options.present? && (confirm = html_options[:confirm]) && confirm.present? && confirm == true
-      confirmation = t(action, scope: 'activerecord.confirmations', :name => t("activerecord.models.#{model}.one"))
+      confirmation = t(action, scope: 'helpers.confirmation', :name => t("activerecord.models.#{model}.one"))
 
       link = ''
 
@@ -61,7 +61,7 @@ module ApplicationHelper
       link = link_to(link_text.html_safe, options, custom_html_options)
 
       return link_to(link_text.html_safe, '#', :class => html_options[:class],
-                :onclick => "ui_modal_confirmation('page', '#{t('page.titles.hold_on')}', '#{confirmation}', '#{j link}', '#{t('activerecord.actions.close')}' )")
+                :onclick => "ui_modal_confirmation('page', '#{t('page.title.hold_on')}', '#{confirmation}', '#{j link}', '#{t('helpers.submit.close')}' )")
     end
 
     link_to(link_text.html_safe, options, html_options)
@@ -168,7 +168,7 @@ module ApplicationHelper
     }
 
     html = ( content_tag :small do
-      t('page.text.document_noshow_html', link: link_to(t('activerecord.actions.open'), url, class: css_button, target: '_new'))
+      t('page.text.document_noshow_html', link: link_to(t('helpers.submit.open'), url, class: css_button, target: '_new'))
     end )
 
     html << content_tag(:iframe, '', src: "#{viewer}?#{params.to_query}", width: "100%", height: "780", style: "border: none;")

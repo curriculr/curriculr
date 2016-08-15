@@ -18,7 +18,7 @@ module Authorized
           redirect_to error_401_path
         else
           ###store_location_for(:user, request.fullpath) if request.get?
-          redirect_to main_app.auth_signin_path, :flash => {:notice => t('activerecord.messages.must_signin', :path => request.path) }
+          redirect_to main_app.auth_signin_path, :flash => {:notice => t('helpers.notice.must_signin', :path => request.path) }
         end
   		end
   	end
@@ -51,7 +51,7 @@ module Authorized
 
     def require_admin
       unless current_user && current_user.has_role?(:admin)
-        redirect_to home_path, :flash => {:notice => t('activerecord.messages.must_be_admin')}
+        redirect_to home_path, :flash => {:notice => t('helpers.notice.must_be_admin')}
         return false
       end
     end

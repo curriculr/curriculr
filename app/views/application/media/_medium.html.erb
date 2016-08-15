@@ -3,9 +3,9 @@
   options[:remote] = true if params[:multiple]
 %>
 <% form = form_for @req_objects, options do |f| %>
-  <%= form_hidden f, :kind, :value => "#{params[:s]}" %>
-  <%= form_hidden f, :tag_list, :value => "#{params[:t]}" %>
-  <%= form_hidden f, :medium_id, :value => "#{medium.id}" %>
+  <%= f.hidden_field :kind, :value => "#{params[:s]}" %>
+  <%= f.hidden_field :tag_list, :value => "#{params[:t]}" %>
+  <%= f.hidden_field :medium_id, :value => "#{medium.id}" %>
   <%= form_submit f, nil, [], :as => :select %>
 <% end if @course && @material %>
 

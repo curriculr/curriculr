@@ -7,7 +7,7 @@
 <%
 enrolled = (@klass.enrolled?(current_student) || staff?(current_user, @klass.course))
 
-add_item_to_app_menu :klass_side, link_to(css_icon(:university, 2) + t("activerecord.actions.main"), main_app.learn_klass_path(@klass),
+add_item_to_app_menu :klass_side, link_to(css_icon(:university, 2) + t("helpers.submit.main"), main_app.learn_klass_path(@klass),
   class:"item #{'active' if controller_name == 'klasses' && action_name == 'show'}")
 
 if @klass.course.config['allow_access_to']['syllabus']
@@ -17,7 +17,7 @@ end
 
 if @klass.course.config['allow_access_to']['lectures']
   if (@klass.open? && ((@klass.allow_enrollment && enrolled) || @klass.previewed)) || (@klass.past? && @klass.lectures_on_closed)
-    add_item_to_app_menu :klass_side, link_to(t("page.titles.outline").html_safe, main_app.learn_klass_lectures_path(@klass),
+    add_item_to_app_menu :klass_side, link_to(t("page.title.outline").html_safe, main_app.learn_klass_lectures_path(@klass),
       class:"item #{'active' if controller_name == 'lectures'}")
   end
 end
@@ -25,7 +25,7 @@ end
 if @klass.course.config['allow_access_to']['forums']
   if @klass.allow_enrollment && enrolled
     if @klass.open? || @klass.past?
-      add_item_to_app_menu :klass_side, link_to(t("page.titles.forums").html_safe, main_app.learn_klass_forums_path(@klass),
+      add_item_to_app_menu :klass_side, link_to(t("page.title.forums").html_safe, main_app.learn_klass_forums_path(@klass),
         class:"item #{'active' if %w(forums topics).include?(controller_name)}")
     end
   end
@@ -64,14 +64,14 @@ end
 pages_links = []
 pages = enrolled ? @klass.course.non_syllabus_pages(true).to_a : @klass.course.non_syllabus_pages(true, true).to_a
 if pages.present?
-  pages_links << link_to(t("page.titles.pages").html_safe, main_app.learn_klass_pages_path(@klass),
+  pages_links << link_to(t("page.title.pages").html_safe, main_app.learn_klass_pages_path(@klass),
     class:"item #{'active' if controller_name == 'pages' && (@page.nil? || @page != @klass.course.syllabus) }")
   divider = true
 end
 
 books = enrolled ? @klass.course.books : []
 if books.present?
-  pages_links << link_to(t('page.titles.attachments').html_safe, main_app.learn_klass_materials_path(@klass),
+  pages_links << link_to(t('page.title.attachments').html_safe, main_app.learn_klass_materials_path(@klass),
     class:"item #{'active' if controller_name == 'materials' }")
 end
 
@@ -86,7 +86,7 @@ if @klass.allow_enrollment && enrolled
   reports_links = []
   if @klass.course.config['allow_access_to']['reports']
     if @klass.open? || @klass.past?
-      reports_links << link_to(t('activerecord.actions.reports').html_safe, main_app.report_learn_klass_path(@klass),
+      reports_links << link_to(t('helpers.submit.reports').html_safe, main_app.report_learn_klass_path(@klass),
         class:"item #{'active' if controller_name == 'klasses' && action_name == 'report' && params[:student_id].blank?}")
     end
   end
@@ -105,16 +105,16 @@ end
 
 if @klass && staff?(current_user, @klass.course)
   add_item_to_app_menu :klass_side, tag(:hr)
-  add_item_to_app_menu :klass_side, content_tag(:div, t('page.titles.for_instructors'), :class => 'item subtitle')
+  add_item_to_app_menu :klass_side, content_tag(:div, t('page.title.for_instructors'), :class => 'item subtitle')
   active = if controller_name == 'klasses' && (action_name == 'students' || (action_name == 'report' && params[:student_id]))
     true
   else
     false
   end
-  add_item_to_app_menu :klass_side, link_to(t('page.titles.students').html_safe, main_app.students_learn_klass_path(@klass),
+  add_item_to_app_menu :klass_side, link_to(t('page.title.students').html_safe, main_app.students_learn_klass_path(@klass),
             class: "item #{'active' if active}")
 
-  add_item_to_app_menu :klass_side, link_to(t('activerecord.actions.dashboard').html_safe, main_app.learn_klass_dashboard_path(@klass),
+  add_item_to_app_menu :klass_side, link_to(t('helpers.submit.dashboard').html_safe, main_app.learn_klass_dashboard_path(@klass),
     class: "item #{controller_name == 'dashboard' ? 'active' : nil}")
 end
 %>

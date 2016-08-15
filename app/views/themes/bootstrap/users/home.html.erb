@@ -10,7 +10,7 @@ end
 
 if current_account.config['allow_faculty_applications']
   if !current_user.has_role?(:admin) && !current_user.has_role?(:faculty)
-    section = t('page.titles.get_involved')
+    section = t('page.title.get_involved')
     faculty_application = FacultyApplication.approved_or_pending(current_user).first
     if faculty_application
       if faculty_application.pending?
@@ -23,9 +23,9 @@ if current_account.config['allow_faculty_applications']
 end
 
 if current_user.has_role? :admin
-  section = t('page.titles.administration')
+  section = t('page.title.administration')
 
-  add_item_to_app_menu(:home_page, link_to(t('page.titles.dashboard'), admin_dashboard_path), section)
+  add_item_to_app_menu(:home_page, link_to(t('page.title.dashboard'), admin_dashboard_path), section)
 
   if current_user.id == 1
     add_item_to_app_menu(:home_page, link(:account, :index,  main_app.admin_accounts_path), section)
@@ -39,7 +39,7 @@ if current_user.has_role? :admin
   add_item_to_app_menu(:home_page, link(:medium, :index, main_app.media_path), section)
   add_item_to_app_menu(:home_page, link(:announcement, :index,  main_app.admin_announcements_path), section)
 
-  section = t('page.titles.settings')
+  section = t('page.title.settings')
   if current_user.id == 1
     add_item_to_app_menu(:home_page, link(:configuration, :site_settings,  main_app.admin_config_edit_path), section)
   end

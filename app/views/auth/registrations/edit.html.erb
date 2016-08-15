@@ -1,10 +1,10 @@
 <%= form_header text: t('auth.headers.change_password') %>
 
 <%= form_for @user, url: url_for(controller: 'auth/registrations', action: 'update'), method: :put do |f| %>
-  <%= form_static f, :email %>
-  <%= form_password f, :current_password if @user.provider == 'identity' %>
-  <%= form_password f, :password %>
-  <%= form_password f, :password_confirmation %>
+  <%= f.static :email %>
+  <%= f.password_field :current_password if @user.provider == 'identity' %>
+  <%= f.password_field :password %>
+  <%= f.password_field :password_confirmation %>
 
   <%= form_submit f, main_app.home_path %>
 <% end %>

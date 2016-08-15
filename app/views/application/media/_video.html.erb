@@ -12,7 +12,7 @@
         <%= content_tag :div, class: css(button: :group, align: :right) do %>
           <% youtube = (video.content_type =~ /link\/youtube/).present? %>
           <% sublime = $site['sublimevideo_site_token'].present? %>
-          <%= link_to(t('activerecord.actions.open'), '#', 
+          <%= link_to(t('helpers.submit.open'), '#', 
                 :class => "#{css_button(:default, :xs)} video-open-link", 
                 data: {id: video.id, url: video.at_url, title: video.name, youtube: youtube, sublime: sublime}) unless @material %>
           <%= render partial: 'application/media/links', locals: { medium: video, form: form, action: action } %>

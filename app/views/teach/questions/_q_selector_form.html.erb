@@ -3,8 +3,8 @@
 <%= themed_form_for [:teach, @course, @assessment.unit, @assessment.lecture, @assessment, q_selector], 
     :method => included ? :delete : :post,
     :remote => true, :html => { id: "q-#{question.id}-selector-form" } do |f| %>
-  <%= form_hidden f, :assessment_id, :value => "#{@assessment.id}" %>
-  <%= form_hidden f, :question_id, :value => "#{question.id}" %>
+  <%= f.hidden_field :assessment_id, :value => "#{@assessment.id}" %>
+  <%= f.hidden_field :question_id, :value => "#{question.id}" %>
 
   <%= label_tag "include-#{question.id}-in-assessment-#{@assessment.id}"  do %>
     <%= check_box_tag "include-#{question.id}-in-assessment-#{@assessment.id}", '1', included,

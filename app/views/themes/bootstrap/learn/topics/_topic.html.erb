@@ -40,12 +40,12 @@
   </div>
 
   <%= tag :br if posts.present? %>
-  <%= content_tag :h4, t('page.titles.reply_to_topic') unless @lecture  %>
+  <%= content_tag :h4, t('page.title.reply_to_topic') unless @lecture  %>
   <%= themed_form_for [:learn, @klass, @forum, @topic, @post], remote: @lecture.present?  do |f| %>
     <%= hidden_field_tag(:tab, tab) if defined? tab %>
     <%= hidden_field_tag(:lecture_id, @lecture.id) if @lecture %>
-  	<%= form_markdown f, @post, :about, :label => false, hint: true %>
-  	<%= form_checkbox f, :anonymous %>
+  	<%= f.markdown :about, :label => false, hint: true %>
+  	<%= f.check_box :anonymous %>
 
     <%= form_submit f %>
   <% end %>

@@ -222,6 +222,10 @@ ar:
             not_found: لا وجود لمستخدم بالبريد الالكتروني الذي أدخلت.
             invalid: غير ملائم. تأكد من أنه ليس نفس بريد مدرس هذا المقرر.
             already: المدرس ذو البريد الذي أدخلته موجود أصلا.
+      user:
+        attributes:
+          password:
+            confirmation: لا بد من إعادة كتابتها.
 
     template:
       body: ! 'يرجى التحقق من الحقول التالية:'
@@ -236,6 +240,334 @@ ar:
   activemodel:
     errors:
       <<: *errors
+      
+    attributes:
+      message:
+        name: الاسم
+        email: البريد الإلكتروني
+        subject: الموضوع
+        content: المحتوى
+      invitation:
+        course: المقرر
+        klass: الفصل
+        invitee: المدعو
+        
   activerecord:
     errors:
       <<: *errors
+
+    models:
+      account:
+        one: حساب
+        other: الحسابات
+      user:
+        one: المستخدم
+        other: المستخدمون
+      guardianship:
+        one:  ولاية أمر
+        other: ولايات أمر
+      profile:
+        one: بياناتي الخاصة
+        other: البيانات الخاصة
+      contact:
+        one: جهة اتصال
+        other: جهات اتصال
+      course:
+        one: مقرر
+        other: مقررات
+      instructor:
+        one: مدرس
+        other: هيئة التدريس
+      update:
+        one: تحديث فصل
+        other: تحديثات فصل
+      assessment:
+        one: اختبار
+        other: اختبارات
+      attempt:
+        one: محاولة
+        other: محاولات
+      question:
+        one: سؤال
+        other: الأسئلة
+      option:
+        one: اختيار
+        other: اختيارات
+      q_selector:
+        one: محدد
+        other: محددات
+      klass:
+        one: فصل دراسي
+        other: فصول دراسية
+      enrollment:
+        one: تسجيل
+        other: تسجيل
+      forum:
+        one: منتدى
+        other: منتديات
+      topic:
+        one: موضوع
+        other: مواضيع
+      post:
+        one: مشاركة
+        other: مشاركات
+      medium:
+        one: ملف
+        other: ملفات
+      material:
+        one: مادة
+        other: مواد
+      unit:
+        one: وحدة
+        other: وحدات
+      lecture:
+        one: محاضرة
+        other: محاضرات
+      page:
+        one: صفحة
+        other: صفحات
+      access_token:
+        one: رمز الدخول
+        other: رموز الدخول
+      configuration:
+        one: إعداد
+        other: إعدادات الموقع
+      configuration:
+        one: إعدادات الموقع
+        other: إعدادات الموقع
+      announcement:
+        one: إخطار الموقع
+        other: إخطارات الموقع
+      translation:
+        one: ترجمة
+        other: ترجمة/لغات
+      record:
+        one: سجل
+        other: تقرير الأداء
+      setting:
+        one: إعداد
+        other: إعدادات
+      student:
+        one: طالب
+        other: طلاب
+      survey:
+        one: استبيان
+        other: استبيانات
+      miscellaneou:
+        one: متفرق
+        other: متفرقات
+      registration:
+        one: حساب
+      session:
+        one: جلسة
+      password:
+        one: كلمة سر
+      facultyapplication:
+        one: طلب عضوية هيئة التدريس
+        other: طلبات عضوية هيئة التدريس
+
+    attributes:
+      account:
+        slug: الرمز
+        name: الاسم
+        about: الوصف
+        active: مفعل؟
+        live: مدشن؟
+        live_since: مدشن منذ
+      user:
+        name: الاسم
+        email: البريد الإلكتروني
+        password: كلمة السر
+        password_confirmation: توكيد كلمة السر
+        current_password: كلمة السر الحالية
+        roles: الأدوار
+        role: الدور
+        active: مفعل؟
+        faculty: مدرس؟
+        remember_me: تذكرني
+        time_zone: النطاق الزمني
+        guardianship_student: الطالب الذي أنا ولي أمره
+        guardianship_klass: الفصل الدراسي
+      guardianship:
+        email: البريد الإلكتروني
+      profile:
+        name: الاسم
+        first_name: الاسم الأول
+        middle_name: الاسم الأوسط
+        last_name: اللقب
+        nickname: الكنية
+        about: السيرة الذاتية
+        prefix: البادئة
+        public: عام
+        locale: اللغة
+      contact:
+        phone: رقم التلفون
+      course:
+        slug: الرمز/الاسم المختصر
+        name: الاسم
+        about: الوصف
+        weeks: مدة الفصل بالأسابيع
+        workload: الجهد المطلوب (بالساعة في الأسبوع)
+        locale: اللغة
+        country: البلد
+        level_list: المستوى
+        category_list: التصنيف
+      instructor:
+        email: البريد الالكتروني
+        name: الاسم
+        role: الدور
+        avatar: الصورة
+        about: الوصف
+      update:
+        www: في الموقع
+        email: عبر البريد الإلكتروني
+        sms: عبر الرسائل القصيرة
+        to: إلى
+        subject: الموضوع
+        body: المحتوى/الرسالة
+        status: الحالة
+        active: مفعل
+      assessment:
+        name: الاسم
+        about: الوصف
+        size: عدد الأسئلة
+        allowed_attempts: عدد المحاولات المسموح بها
+        multiattempt_grading: كيفية التصحيح في حالة المحاولات المتعددة
+        droppable_attempts: عدد المحاولات التي يمكن التغاضي عنها
+        show_answer: إظهار الإجابة
+        after_deadline: هل يظل مفتوحا بعد تاريخ الانتهاء؟
+        penalty: نسبة العقوبة %
+        kind: النوع
+        level: المستوى
+        from_datetime: يبدأ أخذه في الوقت
+        to_datetime: ينتهي أخذه في الوقت
+        based_on: في حالة فصل يبدأ يوم
+        invideo_id: يؤخذ أثناء مشاهدة
+        invideo_at: يؤخذ في الوقت ( بالثواني)
+        event_list: يتم أخذه عند
+        attempt: المحاولة
+        at: عند
+        when: متى
+        questions_count: عدد الأسئلة
+        points: العلامات
+        grade: الدرجة
+      question:
+        unit_id: الوحدة
+        lecture_id: المحاضرة
+        points: العلامات
+        question: السؤال
+        hint: تنويه
+        answer: الإجابة
+        explanation: الشرح
+        kind: النوع
+        options: خيارات السؤال
+        parts: أجزاء السؤال
+        bank_list: بنك الأسئلة
+        include_in_lecture: ضمن محتوى المحاضرة
+      option:
+        answer: الإجابة
+        option: الخيار
+        answer_options: خيارات الإجابة
+      q_selector:
+        points: علامات السؤال الواحد
+        kind: النوع
+        questions_count: عدد الأسئلة
+        unit_id: الوحدة
+        lecture_id: المحاضرة
+        tags: بنك الأسئلة
+      klass:
+        slug: الرمز/الاسم المختصر
+        about: الوصف
+        featured: متميز
+        begins_on: يبدأ يوم
+        ends_on: ينتهي يوم
+        previewed: قابل للاستعراض بلا تسجيل؟
+        allow_enrollment: يمكن التسجيل فيه؟
+        lectures_on_closed: اجعل المحاضرات متوافرة للطلاب المسجلين عقب انتهاء الفصل؟
+        private: خاص
+        closed: مغلق
+        free: مجاني
+        tuition: الرسوم الدراسية
+        availability: جاهزية الفصل
+        price: الرسوم الدراسية
+      enrollment:
+        since: منذ
+        score: الدرجة النهائية
+      forum:
+        name: الاسم
+        about: الوصف
+        active: مفعل؟
+        graded: محسوب؟
+      topic:
+        name: الاسم
+        about: الوصف
+        active: مفعل؟
+        anonymous: مجهول الهوية
+        points_per_post: علامات المشاركة
+        points_per_reply: علامات الإجابة
+      post:
+        about: الوصف
+        anonymous: مجهول الهوية
+      medium:
+        kind: النوع
+        name: العنوان
+        path: ملف التحميل
+        is_a_link: وصلة فقط؛ لا ملف للتحميل؟
+        url: الوصلة
+        source: المصدر
+      material:
+        kind: النوع
+      unit:
+        name: الاسم
+        about: الوصف
+        on_date: يوم الظهور
+        based_on: في حالة فصل يبدأ يوم
+        for_days: لمدة (عدد الأيام)
+        order: الترتيب
+        previewed: قابل للاستعراض بلا تسجيل؟
+      lecture:
+        name: الاسم
+        about: الوصف
+        on_date: يوم الظهور
+        based_on: في حالة فصل يبدأ يوم
+        for_days: لمدة (عدد الأيام)
+        points: علامات الحضور
+        order: الترتيب
+        previewed: قابل للاستعراض بلا تسجيل؟
+      page:
+        name: العنوان
+        about: المحتوى
+        slug: الاسم المختصر
+        published: منشروة؟
+        public: عامة؟
+        blog: مدونة؟
+        html: HTML?
+      access_token:
+        token: الكود
+        scope: مجال التطبيق
+        expires_in: ينتهي بعد
+        revoked_at: جمِّد في
+        created_at: أُنشئ في
+      announcement:
+        message: نص الإخطار (يقبل الـ HTML)
+        starts_at: يبدأ في الوقت
+        ends_at: ينتهي في الوقت
+        suspended: معلق؟
+      student:
+        name: الاسم
+        avatar: الصورة
+        relationship: علاقته بالمستخدم
+      faculty_application:
+        name: الاسم
+        about: السيرة الذاتية
+        prefix: البادئة
+        update_profile: حدث بياناتي الخاصة
+        course: اسم المقرر
+        description: نبذة عن المقرر
+        weeks: مدة الفصل بالأسابيع
+        workload: الجهد المطلوب (بالساعة في الأسبوع)
+        locale: اللغة
+        country: البلد
+        level_list: المستوى
+        category_list: التصنيف
+        approved: موافق عليه

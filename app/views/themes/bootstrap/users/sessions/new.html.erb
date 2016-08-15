@@ -20,7 +20,7 @@
               <div class="col-md-6">
               <%= link_to omniauth_authorize_path(resource_name, app), :class => css_button(app_name, :lg, :block) do %>
                 <i class="fa fa-<%= app_name %> fa-lg"></i>
-                <%= t("activerecord.actions.#{app_name}") %>
+                <%= t("helpers.submit.#{app_name}") %>
               <% end %>
               </div>
             <% end %>

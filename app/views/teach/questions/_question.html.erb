@@ -42,7 +42,7 @@
       <% end %>
     <% end %>
   <% end %>
-  <%= div_for question do %>
+  <%= content_tag :div, id: "question_#{question.id}" do %>
     <%= render "teach/questions/#{question.kind}", :q => question,
       :a => ((defined?(answer)).present? ? answer : question.answer),
       :read_only => ((defined?(read_only)).present?? read_only : !@assessment.blank?),

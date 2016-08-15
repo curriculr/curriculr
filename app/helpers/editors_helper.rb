@@ -115,13 +115,13 @@ module EditorsHelper
   end
 
   def markdown_textarea (form, model, field, options = {})
-    output ||= %(<div class="input string field_with_errors">)
-    if options[:label]
-      label ||= options[:label]
-      unless !label.nil? && !!label == label
-        output += form.label field
-      end
-    end
+    output ||= %(<div class="input">)
+    # if options[:label]
+    #   label ||= options[:label]
+    #   unless !label.nil? && !!label == label
+    #     output += form.label field
+    #   end
+    # end
 
     options[:data] ||= field.to_s
     wmd_id = options[:data] #? options[:data]: ''

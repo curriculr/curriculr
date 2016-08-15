@@ -37,10 +37,10 @@
       <div class="plan-head">
         <% if klass.course.config['allow_access_to']['final_score'] %>
           <h1 class="price"><%= final[:letter] %></h1>
-          <h4 class="description"><%= t('page.titles.final_score') %>: <strong><%= final[:score] %>%</strong></h4>
+          <h4 class="description"><%= t('page.title.final_score') %>: <strong><%= final[:score] %>%</strong></h4>
         <% else %>
           <h1 class="price"><%= css_icon(:lock) %></h1>
-          <h4 class="description"><%= t('page.titles.final_score') %></h4>
+          <h4 class="description"><%= t('page.title.final_score') %></h4>
         <% end %>
       </div>
       <ul class="plan-features">

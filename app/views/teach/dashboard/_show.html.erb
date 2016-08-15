@@ -2,7 +2,7 @@
   <div class="<%= css_columns(3) %>">
     <% data = dashboard_course_activity_counts(@course) %>
     <%= ui_chart 'course_activity_counts', 
-      'PieChart', data[:counts], {legend: 'none', title: t('page.titles.activity_counts')}, 300 %>
+      'PieChart', data[:counts], {legend: 'none', title: t('page.title.activity_counts')}, 300 %>
   </div>
   <div class="<%= css_columns(3) %>">
     <% data = dashboard_course_medium_counts(@course) %>
@@ -23,7 +23,7 @@
 
 <div class="row">
   <div class="<%= css_columns(12) %>">
-    <%# ui_header t('page.titles.daily_activities'), :style => :h3 %>
+    <%# ui_header t('page.title.daily_activities'), :style => :h3 %>
     <%= ui_chart 'course_daily_activities', 
       'LineChart', 
       dashboard_course_activities_by_day(3.weeks.ago, @course),

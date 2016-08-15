@@ -47,15 +47,15 @@ module Learn
               url_for(:controller => 'auth/sessions', :action => 'new')
             ).deliver_later
 
-            redirect_to learn_klass_path(@klass), :flash => {:notice => t('activerecord.messages.successful_enroll')}
+            redirect_to learn_klass_path(@klass), :flash => {:notice => t('helpers.notice.successful_enroll')}
           else
-            redirect_to learn_klass_path(@klass), :flash => {:error => t('activerecord.messages.failure_to_enroll')}
+            redirect_to learn_klass_path(@klass), :flash => {:error => t('helpers.notice.failure_to_enroll')}
           end
         else
           @klasses = [@klass]
           @url = main_app.enroll_learn_klass_path(@klass)
-          #@page_header = t('page.titles.klass_agreement');
-          flash.now[:alert] = t('activerecord.messages.must_agree_to_terms') if params[:klasses]
+          #@page_header = t('page.title.klass_agreement');
+          flash.now[:alert] = t('helpers.notice.must_agree_to_terms') if params[:klasses]
           render 'agreement'
         end
       end
@@ -68,12 +68,12 @@ module Learn
             :enrollment => @enrollment)
 
           if (survey = @klass.course.assessments.tagged_with(:on_drop, :on => :events).first) && survey.can_be_taken?(@klass, current_student)
-            redirect_to new_learn_klass_assessment_attempt_path(@klass, survey), :flash => {:notice => t('activerecord.messages.successful_drop')}
+            redirect_to new_learn_klass_assessment_attempt_path(@klass, survey), :flash => {:notice => t('helpers.notice.successful_drop')}
           else
-            redirect_to learn_klass_path(@klass), :flash => {:notice => t('activerecord.messages.successful_drop')}
+            redirect_to learn_klass_path(@klass), :flash => {:notice => t('helpers.notice.successful_drop')}
           end
         else
-          redirect_to learn_klass_path(@klass), :flash => {:error => t('activerecord.messages.failure_to_drop')}
+          redirect_to learn_klass_path(@klass), :flash => {:error => t('helpers.notice.failure_to_drop')}
         end
       end
     end
@@ -93,7 +93,7 @@ module Learn
           if KlassEnrollment.decline(@enrollment)
             redirect_to learn_klasses_path
           else
-            redirect_to learn_klass_path(@klass), :flash => {:error => t('activerecord.messages.unable_to_decline')}
+            redirect_to learn_klass_path(@klass), :flash => {:error => t('helpers.notice.unable_to_decline')}
           end
         end
       end

@@ -20,9 +20,9 @@
       &nbsp;
       <% if current_user && @depth <= 3 && @klass.open? %>
         <a class="reply-to-post pull-right" data-post-id="<%= post.id %>"
-                data-reply-btn="<%= t('activerecord.actions.reply') %>"
-                data-cancel-btn="<%= t('activerecord.actions.cancel') %>">
-          <i class="fa fa-reply"></i> <%= t('activerecord.actions.reply') %>
+                data-reply-btn="<%= t('helpers.submit.reply') %>"
+                data-cancel-btn="<%= t('helpers.submit.cancel') %>">
+          <i class="fa fa-reply"></i> <%= t('helpers.submit.reply') %>
         </a>
       <% end %>
 
@@ -62,8 +62,8 @@
       <%= themed_form_for [:learn, @klass, @forum, @topic, post, Post.new], remote: @lecture.present?  do |f| %>
         <%= hidden_field_tag(:tab, tab) if defined? tab %>
         <%= hidden_field_tag(:lecture_id, @lecture.id) if @lecture %>
-        <%= form_text_area f, :about, :rows => 2, hint: true %>
-        <%= form_checkbox f, :anonymous %>
+        <%= f.text_area :about, :rows => 2, hint: true %>
+        <%= f.check_box :anonymous %>
 
         <%= form_submit f %>
       <% end %>

@@ -7,7 +7,7 @@
       <% content_for :additional_nav do %>
         <%= ui_panel(capture do %>
           <i class="fa fa-calendar"></i>&nbsp;&nbsp;
-          <%= t('page.titles.upcoming_deadlines') %>
+          <%= t('page.title.upcoming_deadlines') %>
         <% end, nil, capture do %>
           <ul>
             <% deadlines.each do |deadline| %>
@@ -28,7 +28,7 @@
   <!-- Klass Updates -->
   <% if false && @klass.open? && staff?(current_user, @klass) %>
     <%= themed_form_for [:teach, @klass.course, @klass, Update.new], remote: true do |f| %>
-      <%= form_markdown f, @update, :body, :size => '60x3', :label => false, :placeholder => 'New update goes here' %>
+      <%= f.markdown :body, :size => '60x3', :label => false, :placeholder => 'New update goes here' %>
       <%= form_submit f %>
     <% end %>
     <hr />
@@ -45,7 +45,7 @@
     <div class="panel-body">
       <div class="row">
         <div class="<%= css_columns(@klass.course.video ? 8 : 12) %>">
-          <%= content_tag :h4, t('page.titles.about_class') unless updates.empty? %>
+          <%= content_tag :h4, t('page.title.about_class') unless updates.empty? %>
           <%= markdown(@klass.course.about) %>
         </div>
         <% if @klass.course.video %>
@@ -98,9 +98,9 @@
             <%= render 'learn/instructors/index' %>
             <br /></br />
             <div class='text-center social-buttons'>
-              <%= ui_facebook_link(@klass, %(&nbsp;&nbsp;#{t('activerecord.actions.facebook')}).html_safe) %>
-              <%= ui_twitter_link(@klass, %(&nbsp;&nbsp;#{t('activerecord.actions.twitter')}).html_safe) %>
-              <%= ui_google_plus_link(@klass, %(&nbsp;&nbsp;#{t('activerecord.actions.google')}).html_safe) %>
+              <%= ui_facebook_link(@klass, %(&nbsp;&nbsp;#{t('helpers.submit.facebook')}).html_safe) %>
+              <%= ui_twitter_link(@klass, %(&nbsp;&nbsp;#{t('helpers.submit.twitter')}).html_safe) %>
+              <%= ui_google_plus_link(@klass, %(&nbsp;&nbsp;#{t('helpers.submit.google')}).html_safe) %>
             </div>
           </div>
         </div>

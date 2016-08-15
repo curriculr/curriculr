@@ -1,16 +1,16 @@
 <%= form_header %>
 
 <%= themed_form_for [:teach, @course, @instructor] do |f| %>
-  <%= form_hidden f, :course_id, :value => @course.id %>
+  <%= f.hidden_field :course_id, :value => @course.id %>
   
   <% email = @instructor.new_record? ? @instructor.email : @instructor.user.email %>
-	<%= form_email f, :email, :readonly => !%w(new create).include?(action_name), :value => email %>
+	<%= f.email_field :email, :readonly => !%w(new create).include?(action_name), :value => email %>
   
-	<%= form_select f, :role, t('config.staff').invert %>
+	<%= f.select :role, t('config.staff').invert %>
 
-  <%= form_text f, :name %>
-  <%# form_text f, :title %>
-  <%= form_file f, :avatar %>
-  <%= form_markdown f, @instructor, :about %>
+  <%= f.text_field :name %>
+  <%# f.text_field :title %>
+  <%= f.file_field :avatar %>
+  <%= f.markdown :about %>
   <%= form_submit f, teach_course_path(@course, :show => 'people') %>
 <% end %>

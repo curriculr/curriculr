@@ -1,6 +1,6 @@
 <% action = link(:page, :new, new_page_path, class: css(button: :success, align: :right)) %>
 <%
-  title = current_user && current_user.has_role?(:admin) ? t('activerecord.actions.static_pages_or_blogs') : t('activerecord.actions.blog_posts')
+  title = current_user && current_user.has_role?(:admin) ? t('helpers.submit.static_pages_or_blogs') : t('helpers.submit.blog_posts')
 %>
 <%= ui_header title, style: :h2 %>
 
@@ -12,7 +12,7 @@
   </div>
   <div class="<%= css_columns(4) %>">
     <%= search_form_for @q, class: "search-form form-inline #{css_align(:right)}", :remote => true do |f| %>
-      <%# content_tag :strong, t('page.titles.search') %>
+      <%# content_tag :strong, t('page.title.search') %>
       <%= form_search f, :slug_or_name_or_about_cont, hint: false, label: false, placeholder: true %>
       <%# form_submit f %>
     <% end %>

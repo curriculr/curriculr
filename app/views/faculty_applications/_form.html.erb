@@ -5,34 +5,34 @@
   <div class="row">
     <div class="<%= css_columns(6) %>">
       <fieldset>
-        <legend><%= t('page.titles.about_you') %></legend>
-        <%= form_text f, :name %>
-        <%= form_text f, :prefix %>
-        <%= form_text_area f, :about, :size => '60x5' %>
-        <%= form_checkbox f, :update_profile %>
+        <legend><%= t('page.title.about_you') %></legend>
+        <%= f.text_field :name %>
+        <%= f.text_field :prefix %>
+        <%= f.text_area :about, :size => '60x5' %>
+        <%= f.check_box :update_profile %>
       </fieldset>
     </div>
     <div class="<%= css_columns(6) %>">
       <fieldset>
-        <legend><%= t('page.titles.about_your_course') %></legend>
-        <%= form_text f, :course %>
-        <%= form_text_area f, :description, :size => '60x5' %>
+        <legend><%= t('page.title.about_your_course') %></legend>
+        <%= f.text_field :course %>
+        <%= f.text_area :description, :size => '60x5' %>
 
         <div class="row">
           <div class="<%= css_columns(6) %>">
-      	    <%= form_number f, :weeks %>
+      	    <%= f.number_field :weeks %>
           </div>
           <div class="<%= css_columns(6) %>">
-      	    <%= form_number f, :workload %>
+      	    <%= f.number_field :workload %>
           </div>
         </div>
         <div class="row">
           <div class="<%= css_columns(6) %>">
-            <%= form_select f, :locale, $site['supported_locales'].invert %>
+            <%= f.select :locale, $site['supported_locales'].invert %>
           </div>
           <div class="<%= css_columns(6) %>">
-            <%= form_country_select f, :country, {:include_blank => true}, :class => "chosen-select #{rtl? ? 'chosen-rtl' : ''}" ,
-                  :'data-placeholder'=> t('activerecord.placeholders.country') %>
+            <%= f.country_select :country, nil, {:include_blank => true}, :class => "chosen-select #{rtl? ? 'chosen-rtl' : ''}" ,
+                  :'data-placeholder'=> t('helpers.placeholder.country') %>
           </div>
         </div>
       </fieldset>

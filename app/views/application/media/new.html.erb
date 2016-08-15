@@ -1,28 +1,28 @@
 <% if @medium.m.present? %>
-	<%= ui_header t('activerecord.actions.new', :name => t('page.text.file_or_external_link')), 
-				subtext: t("activerecord.actions.#{@medium.kind}"), style: @course ? :h3 : :h2 %>
+	<%= ui_header t('helpers.submit.new', :name => t('page.text.file_or_external_link')), 
+				subtext: t("helpers.submit.#{@medium.kind}"), style: @course ? :h3 : :h2 %>
 <% else %>
-	<%= ui_header t('activerecord.actions.new', :name => t('page.text.external_link')), 
-				subtext: t("activerecord.actions.#{@medium.kind}"), style: @course ? :h3 : :h2 %>
+	<%= ui_header t('helpers.submit.new', :name => t('page.text.external_link')), 
+				subtext: t("helpers.submit.#{@medium.kind}"), style: @course ? :h3 : :h2 %>
 <% end %>
 
 <%= themed_form_for the_form_path, :html => {:multipart => true} do |f| %>	
-	<%# form_static f, :kind, :value => t("config.medium.kind.#{@medium.kind}") %>
-  <%= form_hidden f, :kind %>
-  <%= form_text f, :name  %>
+	<%# f.static :kind, :value => t("config.medium.kind.#{@medium.kind}") %>
+  <%= f.hidden_field :kind %>
+  <%= f.text_field :name  %>
 	<% if @medium.m.present? %>
-  	<%= form_hidden f, :m %>
+  	<%= f.hidden_field :m %>
 
-  	<%= form_checkbox f, :is_a_link, disabled: !@medium.new_record? || !@medium.file_upload_allowed? %>
-  	<%= form_file f, :path if @medium.file_upload_allowed? && @medium.new_record? %>
+  	<%= f.check_box :is_a_link, disabled: !@medium.new_record? || !@medium.file_upload_allowed? %>
+  	<%= f.file_field :path if @medium.file_upload_allowed? && @medium.new_record? %>
   <% else %>
-		<%= form_checkbox f, :is_a_link, disabled: true %>
+		<%= f.check_box :is_a_link, disabled: true %>
   <% end %>
 
-  <%= form_select f, :source, t("config.medium.#{@medium.kind}.source"), 
+  <%= f.select :source, t("config.medium.#{@medium.kind}.source"), 
         value: @medium.source, include_blank: false %>
-  <%= form_text f, :url, :placeholder => true %>
-  <%= form_hidden f, :tag_list %>
+  <%= f.text_field :url, :placeholder => true %>
+  <%= f.hidden_field :tag_list %>
   
   <% 
   	cancel_path = if @medium.m.present? 

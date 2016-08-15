@@ -34,7 +34,7 @@
     <%= mountable_fragments :klass_index_actions %>
 
     <%= search_form_for [:learn, @q], class: "search-form form-inline", :remote => true do |f| %>
-      <%# content_tag :strong, t('page.titles.search') %>
+      <%# content_tag :strong, t('page.title.search') %>
       <%= form_search f, :course_slug_or_course_name_or_course_about_cont,
             hint: false, label: false, placeholder: true %>
       <%# form_submit f %>

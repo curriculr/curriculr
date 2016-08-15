@@ -1,7 +1,7 @@
 <div class="panel panel-default">
   <div class="panel-heading">
-    <%= %(#{t('page.titles.selected_questions')} #{(f.index + 1) unless f.object.new_record?}) %>
-    <%= form_hidden f, :_destroy %>
+    <%= %(#{t('page.title.selected_questions')} #{(f.index + 1) unless f.object.new_record?}) %>
+    <%= f.hidden_field :_destroy %>
     <%= link f.object.question.present? ? :question : :q_selector, :destroy, '#', class: "remove_fields #{css(button: [:danger, :xs], align: :right)}" %>
   </div>
 
@@ -14,34 +14,34 @@
         <div class="row">
           <div class="<%= css_columns(3) %>">
             <%= form_checkbox_collection f, :tags, question_banks(true).stringify_keys, 
-                  :first, :second, {:label => t('page.titles.question_banks')}, :class => 'checkbox' %>
+                  :first, :second, {:label => t('page.title.question_banks')}, :class => 'checkbox' %>
           </div>
           <div class="<%= css_columns(9) %>">
             <div class="row">
               <div class="<%= css_columns(6) %>"> 
-                <%= form_select f, :kind, t('config.question.kind').invert, :value => params[:s], include_blank: true %>
+                <%= f.select :kind, t('config.question.kind').invert, :value => params[:s], include_blank: true %>
               </div>
               <div class="<%= css_columns(6) %>">
-                <%= form_number f, :questions_count %>
+                <%= f.number_field :questions_count %>
               </div>
             </div>
         
             <div class="row">
               <div class="<%= css_columns(6) %>">
                 <% if @unit %>
-                  <%= form_hidden f, :unit_id, value: @unit.id %>
+                  <%= f.hidden_field :unit_id, value: @unit.id %>
                 <% else %>
-                  <%= form_select f, :unit_id, @course.units %>
+                  <%= f.select :unit_id, @course.units %>
                 <% end %>
               </div>
               <div class="<%= css_columns(6) %>">
                 <% if @lecture %>
-                  <%= form_hidden f, :lecture_id, value: @lecture.id %>
+                  <%= f.hidden_field :lecture_id, value: @lecture.id %>
                 <% else %>
                   <% if @unit %>
-                    <%= form_select f, :lecture_id, @unit.lectures %>
+                    <%= f.select :lecture_id, @unit.lectures %>
                   <% else %>
-                    <%= form_select f, :lecture_id, (f.object.unit ? f.object.unit.lectures : []) %>
+                    <%= f.select :lecture_id, (f.object.unit ? f.object.unit.lectures : []) %>
                   <% end %>
                 <% end %>
               </div>
@@ -53,9 +53,9 @@
     
     <% unless @assessment.survey? %>
       <div class="<%= css_columns(12 - cols) %>">
-        <%= @assessment.kind != 'survey' ? form_number(f, :points) : form_static(f, :points)  %>
+        <%= @assessment.kind != 'survey' ? f.number_field(:points) : f.static(:points)  %>
         
-        <%= form_hidden f, :order, class: "order-field" %>
+        <%= f.hidden_field :order, class: "order-field" %>
       </div>
     <% end %>
   </div>

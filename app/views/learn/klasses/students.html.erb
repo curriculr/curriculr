@@ -6,8 +6,8 @@
   </div>
   <div class="<%= css_columns(4) %>">
     <%= search_form_for @q, url: students_learn_klass_path(@klass), class: "search-form form-inline #{css_align(:right)}", :remote => true do |f| %>
-      <%# content_tag :strong, t('page.titles.search') %> 
-      <%= form_search f, :student_name_or_student_user_name_or_student_user_email_cont, 
+      <%# content_tag :strong, t('page.title.search') %> 
+      <%= f.search_field :student_name_or_student_user_name_or_student_user_email_cont, 
             hint: false, label: false, placeholder: true %>
       <%# form_submit f %>
     <% end %>
@@ -25,7 +25,7 @@
 			<th><%= Enrollment.human_attribute_name(:score) %></th>
       <th>
         <% if @klass.private %>
-          <%= link_to(t('activerecord.actions.invite').html_safe, invite_teach_course_klass_path(@klass.course, @klass), 
+          <%= link_to(t('helpers.submit.invite').html_safe, invite_teach_course_klass_path(@klass.course, @klass), 
                 :class => css(button: :success, align: :right)) %>
         <% end %>
       </th>

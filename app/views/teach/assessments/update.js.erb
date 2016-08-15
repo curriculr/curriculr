@@ -1,6 +1,6 @@
 <% if @update_class %>     
   <% if params[:opr] == 'ready' %>
-    $('#<%= @update_class %>').html('<%= @assessment.ready ? t('activerecord.actions.unready') : t('activerecord.actions.ready') %>');
+    $('#<%= @update_class %>').html('<%= @assessment.ready ? t('helpers.submit.unready') : t('helpers.submit.ready') %>');
     <% if @assessment.ready %>
       $('#assessment-ready-indicator').hide();
     <% else %>

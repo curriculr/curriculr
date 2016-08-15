@@ -1,0 +1,252 @@
+ar:
+  helpers:
+    submit:
+      go_back: عد إلى حيث أتيت
+      dashboard: <i class="fa fa-tachometer"></i>&nbsp; مؤشرات
+      upload: <i class="fa fa-upload"></i> ارفع ملفات
+      new_link: <i class="fa fa-plus"></i> أضف وصلة خارجية
+      account_settings: إعدادت الحساب
+      site_settings: إعدادات الموقع
+      course_settings: إعدادات المقرر
+      new_attempt: <i class="fa fa-plus"></i> إبدأ محاولة جديدة
+      copy: انسخ
+      course_builder: <i class="fa fa-cogs"></i> للمدرسين
+      teach: درِّس
+      learn: تعلَّم
+      help: للمساعدة
+      learn_more: اعرف أكثر
+      open: افتح
+      close: اغلق
+      show: اظهر
+      new: <i class="fa fa-plus"></i> أضف %{name}
+      create: إنشاء
+      edit: <i class="fa fa-edit"></i> عدل
+      update: عدل
+      destroy: <i class="fa fa-remove"></i>&nbsp; احذف
+      cancel: ألغ
+      settings: اعدادات
+      reports: <i class="fa fa-newspaper-o"></i>&nbsp; تقرير الأداء
+      try_again: حاول مرة أخرى
+      show_answer: أظهر الجواب
+      about: من نحن
+      contactus: تواصل معنا
+      privacy: سرية البيانات
+      terms: اتفاقية الاستخدام
+      services: خدماتنا
+      blogs: دوِّن
+      sign_up: <i class="fa fa-plus"></i> إنشاء حساب
+      sign_in: <i class="fa fa-sign-in"></i> ادخل
+      sign_out: <i class="fa fa-sign-out"></i> اخرج
+      send: ارسل
+      reply: أجب
+      start: ابدأ
+      invite: <i class="fa fa-envelope-o"></i> أُدع إلى هذا الفصل
+      hide: أخف
+      save: احفظ
+      submit: قدم
+      submit_answer: قدم الإجابة
+      enroll: سجل في هذا الفصل
+      drop: <i class="fa fa-sign-out"></i>&nbsp; اترك الفصل
+      goto_klass: اذهب الى الفصل
+      preview: استعرض
+      activate: فعّل
+      inactivate: إلغاء التفعيل
+      online: مباشر
+      offline: غير مباشر
+      approve: وافق
+      disapprove: غير موافق
+      publish: انشر
+      unpublish: لا تنشر
+      privatize: اجعله خاصا
+      publicize: اجعله عاما
+      ready: أكد جهوزيته
+      unready: اسحب جهوزيته
+      revoke: إبطال
+      enact: أحدث
+      available_klasses: المتوافرة
+      popular_klasses: الشائعة
+      coming_klasses: القادمة
+      taking_klasses: آخذها حاليا
+      enrolled_klasses: سجلت فيها
+      taken_klasses: انتهيت منها
+      recent_klasses: أخذت مؤخرا
+      add_promo_video: اضف فيديو المقدمة
+      remove_promo_video: احذف فيديو المقدمة
+      add_poster_image: أضف ملصقا
+      remove_poster_image: احذف الملصق
+      syllabus: <i class="fa fa-road"></i>&nbsp; المنهج
+      add_role: اضف دور %{role}
+      remove_role: احذف دور %{role}
+      stats: احصائيات
+      change_password: <i class="fa fa-pencil-square-o"></i> غير كلمة السر
+      new_password: هل نسيت كلمة السر؟
+      facebook: فيسبوك
+      twitter: تويتر
+      google: جوجل
+      like_us: أعجب بنا
+      follow_us: تابعنا على
+      visit_us_at: زورونا على صفحتنا في %{name}
+      hangout_with_us: جالسنا
+      disallow_discussion: لا تسمح بالمناقشة
+      allow_discussion: اسمح بالمناقشة
+      prev_html: "&laquo; السابق"
+      next_html: "التالي &raquo;"
+      about: من نحن
+      home: الرئيسية
+      watch: شاهد
+      listen: استمع
+      read: اقرأ
+      assess: اختبارات
+      select: اختر
+      show_instructor_view: <i class="fa fa-university"></i>  عرض المدرس
+      show_student_view: <i class="fa fa-graduation-cap"></i>  عرض الطالب
+      attachment: مرفق
+      audio: مقطع صوتي
+      document: ملف
+      exam: اختبار
+      final: امتحان نهائي
+      mid-term: امتحان نصفي
+      image: صورة
+      new_audio: مقطع صوتي جديد
+      new_book: كتاب جديد
+      new_document: ملف جديد
+      new_video: فيديو جديد
+      other: أخرى
+      problem: المسائل
+      quiz: الفحوصات
+      exercise: التدريبات
+      video: فيديو
+      all: الكل
+      list: للاستعراض
+      manage: للإشراف
+      back_to_assessment: عد إلى ال%{name}
+      back_to_list: عد إلى القائمة
+      back_to: عد إلى %{name}
+      add_question: إضف سؤالا
+      resume_lecture: استأنف المحاضرة
+      add_video: <i class="fa fa-plus"></i> أضف فيديو جديد
+      add_image: <i class="fa fa-plus"></i> أضف صورة
+      add_audio: <i class="fa fa-plus"></i> أضف ملف صوتي
+      add_document: <i class="fa fa-plus"></i> أضف وثيقة
+      add_other: <i class="fa fa-plus"></i> أضف مرفقا
+      decline: ارفض
+      blog_posts: مقالاتي
+      static_pages_or_blogs: الصفحات / المقالات
+      start_new_course: أبدأ مقررا جديدا
+      edit_profile: <i class="fa fa-edit"></i> عدل بياناتي الخاصة
+      become_a_faculty: انظم إلى هيئة التدريس
+      main: الرئيسة
+
+    confirmation:
+      destroy: هل انت متأكد من حذف ال%{name}؟
+      new: هل انت متأكد من المواصلة معنا؟
+      drop: إلغاؤك تسجيلك لهذا الفصل يعني أن لا تصل إلى مواده العلمية و اختباراته و لا تتمكن من المشاركة في منتدياته. هل تريد مواصلة طلبك؟
+      new_attempt: تقديم هذا الطلب يعني أنك توافق على قواعد نظام الشرف المتبوعة في هذا الفصل، وأنك على استعداد لاتخاذ هذا الاختبار.
+
+    notice:
+      successful_enroll: تم التسجيل في هذا الفصل بنجاح‫.‬
+      failure_to_enroll: لا تستطيع التسجيل في هذا الفصل‫.‬
+      not_allowed_to_enroll: التسجيل في هذا الفصل غير متاح لك‫.‬
+      must_agree_to_terms: وافق على اتفاقية استخدام الفصل اولا‫.‬
+      successful_drop: تم الغاء تسجيلك من هذا الفصل بنجاح‫.‬
+      failure_to_drop: لا يمكن الغاء تسجيلك من هذا الفصل‫.‬
+      not_enrolled_to_drop: لست اولا مسجلا في هذا الفصل حتى تلغي التسجيل منه‫.‬
+      must_signin: سجل دخولك اولا كي يمكنك الذهاب الى هذه الصفحة‫.‬
+      invitation_accepted: قبلت الدعوة للتسجيل في هذا الفصل‫.‬
+      unable_to_accept: غير ممكن القبول للتسجيل في هذا الفصل‫.‬
+      not_allowed_to_accept_invitation: لا يمكنك قبول هذه الدعوة للتسجيل في هذا الفصل‫.‬
+      unable_to_invite: لم نتمكن من ارسال الدعوة. تأكد من البريد الإلكتروني للمدعو.
+      unable_to_decline: حدث خطأ ما أثناء تسجيل رفضك لدعوة هذا الفصل. حاول مرة أخرى.
+      invalid_invitation: الدعوة للتسجيل غير صالحة
+      not_properly_formatted: لم يتم تنسيق النص بشكل صحيح‫.‬
+      page_unauthorized_html: الذهاب الى هذه الصفحة غير مسموح لك‫.‬
+      page_not_found_html: الصفحة التي حاولت الذهاب اليها غير موجودة‫.‬
+      must_be_admin: لا بد ان تكون مديرا حتى يمكنك الدخول الى هذه الصفحة‫.‬
+
+    pagination:
+      first: "&raquo; الأولى"
+      last: "الأخيرة &laquo;"
+      previous: "&rsaquo; السابقة"
+      next: "التالية &lsaquo;"
+      truncate: "&hellip;"
+
+    hint:
+      about: لإدخال الصيغ الرياضية اللاتينية ضعها بين <code>\(</code> و <code>\)</code> أو بين <code>\[</code> و <code>\]</code>.
+      fill_one_question:
+      fill_many_question: أدخل السؤال هنا. استخدم النقاط (...) للدلالة على مكان كل فراغ.
+      pick_2_fill_question: أدخل السؤال هنا. استخدم النقاط (...) للدلالة على مكان كل فراغ.
+      pick_one_question:
+      pick_many_question:
+      match_question:
+      sort_question:
+
+      fill_one_question_answer: أدخل الإجابة الصحيحة بالضبط كما ينبغي أن تدخل.
+      fill_many_question_blank_answer: أدخل الإجابة الصحيحة بالضبط كما ينبغي أن تدخل.
+      pick_2_fill_question_blank_options: الخيارات المستخدمة لملء الفراغ. الخيار الصحيح في البداية. خيار واحد لكل سطر. يمكنك الفصل بين الخيارات بسطور فارغة.
+      pick_one_question_option: خيار لاختيار.
+      pick_many_question_option: خيار لاختيار.
+      match_question_side_1: خيارات الجانب 1. خيار واحد لكل سطر. يمكنك الفصل بين الخيارات بسطور فارغة.
+      match_question_side_2: خيارات الجانب 2 بالتريب المطابق لخيارات الجانب 1. خيار واحد لكل سطر. يمكنك الفصل بين الخيارات بسطور فارغة.
+      sort_question_items: الخيارات التي سيجري ترتيبها مرتبة بشكل صحيح. خيار واحد لكل سطر. يمكنك الفصل بين الخيارات بسطور فارغة.
+
+    label:
+      fill_one_question_answer: الإجابة الصحيحة
+      fill_many_question_blank_answer: الإجابة الصحيحة للفراغ
+      pick_2_fill_question_blank_options: خيارات الفراغ
+      pick_one_question_option: الخيار
+      pick_one_question_answer?: إجابة صحيحة؟
+      pick_many_question_option: الخيار
+      pick_many_question_answer?: إجابة صحيحة؟
+      match_question_side_1: الجانب
+      match_question_side_2: الجانب
+      sort_question_items: خيارات الترتيب
+
+    placeholder:
+      name: الاسم
+      email: البريد الإلكتروني
+      password: كلمة السر
+      password_confirmation: توكيد كلمة السر
+      url: أدخل رقم الفيديو في حالة فيديوهات يوتوب أو أدخل العنوان كاملا.
+      slug: جزء من الرابط. احرف و أرقام و - و ـ و بدون فراغات
+      bank_list: اختر بنك الأسئلة الذي تريد اضافة هذا السؤال اليه ‫...‬
+      country: اختر دولة ‫...‬
+      level_list: اختر المستويات المنطبقة ‫...‬
+      category_list: اختر التصنيفات المنطبقة ‫...‬
+      question_cont: للبحث ...
+      name_or_email_cont: للبحث ...
+      slug_or_name_cont: للبحث ...
+      slug_or_name_or_about_cont: للبحث ...
+      course_slug_or_course_name_or_course_about_cont: للبحث ...
+      user_name_or_user_email_cont: للبحث ...
+      student_name_or_student_user_name_or_student_user_email_cont: للبحث ...
+
+      fill_one_question: أدخل السؤال هنا
+      fill_many_question: أدخل السؤال هنا. استخدم النقاط (...) للدلالة على مكان كل فراغ.
+      pick_2_fill_question: أدخل السؤال هنا. استخدم النقاط (...) للدلالة على مكان كل فراغ.
+      pick_one_question: أدخل السؤال هنا
+      pick_many_question: أدخل السؤال هنا
+      match_question: أدخل السؤال هنا
+      sort_question: أدخل السؤال هنا
+
+      fill_one_question_answer: أدخل الإجابة الصحيحة بالضبط كما ينبغي أن تدخل.
+      fill_many_question_blank_answer: أدخل الإجابة الصحيحة بالضبط كما ينبغي أن تدخل.
+      pick_2_fill_question_blank_options: الخيارات المستخدمة لملء الفراغ. الخيار الصحيح في البداية. خيار واحد لكل سطر. يمكنك الفصل بين الخيارات بسطور فارغة.
+      pick_one_question_option: خيار لاختيار.
+      pick_many_question_option: خيار لاختيار.
+      match_question_side_1: خيارات الجانب 1. خيار واحد لكل سطر. يمكنك الفصل بين الخيارات بسطور فارغة.
+      match_question_side_2: خيارات الجانب 2 بالتريب المطابق لخيارات الجانب 1. خيار واحد لكل سطر. يمكنك الفصل بين الخيارات بسطور فارغة.
+      sort_question_items: الخيارات التي سيجري ترتيبها مرتبة بشكل صحيح. خيار واحد لكل سطر. يمكنك الفصل بين الخيارات بسطور فارغة.
+      
+  flash:
+    actions:
+      create:
+        notice: تم إنشاء ال%{resource_name} بنجاح.
+      update:
+        notice: تم تحديت ال%{resource_name} بنجاح.
+      destroy:
+        notice: تم حذف ال%{resource_name} بنجاح.
+        alert: لم يتم حذف ال%{resource_name}.
+      save_attempt:
+        notice: تم بنجاح الاحتفاظ بمحاولتك لهذا الامتحان و يمكنك اتمامها لاحقا.
+      submit_attempt:
+        notice: تم بنجاح قبول محاولتك لهذا الامتحان.

@@ -1,33 +1,33 @@
 <%= form_header %>
 
 <%= themed_form_for [:teach, @course, @unit, @lecture] do |f| %>
-  <%= form_hidden f, :unit_id %>
-	<%= form_text f,  :name %>
-  <%= form_text_area f, :about, rows: 5, :size => '60x5' %>
+  <%= f.hidden_field :unit_id %>
+	<%= f.text_field :name %>
+  <%= f.text_area :about, rows: 5, :size => '60x5' %>
 
   <div class="row">
     <div class="<%= css_columns(4) %>">
-      <%= form_static f, :based_on %>
-      <%= form_hidden f, :based_on %>
+      <%= f.static :based_on %>
+      <%= f.hidden_field :based_on %>
     </div>
     <div class="<%= css_columns(4) %>">
-      <%= form_text f, :on_date, class: 'datepicker' %>
+      <%= f.text_field :on_date, class: 'datepicker' %>
     </div>
     <div class="<%= css_columns(4) %>">
-      <%= form_number f, :for_days %>
+      <%= f.number_field :for_days %>
     </div>
   </div>
 
   <div class="row">
     <div class="<%= css_columns(4) %>">
-      <%= form_checkbox f, :previewed %>
+      <%= f.check_box :previewed %>
     </div>
     <div class="<%= css_columns(4) %>">
-      <%= form_number f, :points %>
+      <%= f.number_field :points %>
     </div>
   </div>
 
-  <%= form_text f, :tag_list %>
+  <%= f.text_field :tag_list %>
 
   <%= form_submit f, teach_course_unit_path(@course, @unit) %>
 <% end %>

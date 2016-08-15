@@ -1,17 +1,17 @@
-<%= ui_header t('page.titles.select_files'), style: @course ? :h3 : :h2 %>
+<%= ui_header t('page.title.select_files'), style: @course ? :h3 : :h2 %>
 
 <% if @medium.file_upload_allowed? %>
 	<%= themed_form_for the_form_path, :html => {
 				:multipart => true, id: 'multi_new_medium', class: 'dropzone', 
 				data: { extensions: @medium.allowed_file_extensions.join('|')}} do |f| %>	
-		<%= form_hidden f, :account_id %>
-		<%= form_hidden f, :course_id %>
-	  <%= form_hidden f, :multi, value: "multi_load" %>
-	  <%= form_files f, :path, name: "medium[path]", label: t('activerecord.actions.select_files'),
+		<%= f.hidden_field :account_id %>
+		<%= f.hidden_field :course_id %>
+	  <%= f.hidden_field :multi, value: "multi_load" %>
+	  <%= form_files f, :path, name: "medium[path]", label: t('helpers.submit.select_files'),
 	  		hint: t('page.text.select_files_or_drop') %> 
 	<% end %>
 
-	<%= link_to t('activerecord.actions.close'), 
+	<%= link_to t('helpers.submit.close'), 
 			  @medium.m.present? ? the_material_path_out(@medium.kind, @medium.m) : the_path_out,
 		 	  class: css(button: :default) %>
 
@@ -24,5 +24,5 @@
 		</div>
 	</script>
 <% else %>
-	<%= ui_alert nil, t('page.text.file_upload_not_allowed', link: link_to(t('activerecord.actions.go_back'), the_path_out)), :info %>
+	<%= ui_alert nil, t('page.text.file_upload_not_allowed', link: link_to(t('helpers.submit.go_back'), the_path_out)), :info %>
 <% end %>

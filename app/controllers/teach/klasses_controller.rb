@@ -111,9 +111,9 @@ module Teach
             url
           ).deliver_later
 
-          redirect_to students_learn_klass_path(@klass), :notice => t('activerecord.messages.invitation_sent')
+          redirect_to students_learn_klass_path(@klass), :notice => t('helpers.notice.invitation_sent')
         else
-          flash.now[:alert] = t('activerecord.messages.unable_to_invite')
+          flash.now[:alert] = t('helpers.notice.unable_to_invite')
           render 'invite'
         end
       end
