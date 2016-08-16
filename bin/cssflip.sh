@@ -1,6 +1,6 @@
 #!/bin/sh 
 # Usage:
-# 	./bin/cssflip.sh theme flavor flavor-english-full-path-file.css
+# 	./bin/cssflip.sh theme flavor path.css
 rm -f app/assets/stylesheets/$1/tmp.*
 
 #curl "http://localhost:3000/assets/$1/$2.css" > "app/assets/stylesheets/$1/tmp.1.css"

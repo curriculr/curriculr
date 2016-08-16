@@ -13,14 +13,13 @@ module Themed
       end
     end
 
-
     def set_theme
       themes = []
       @current_theme = current_account.config['theme'] || $site['theme']
       if @current_theme && @current_theme['name'] && $site['available_themes'][@current_theme['name']]
         theme_and_parents($site['available_themes'], themes, @current_theme['name'])
       else
-        @current_theme = { "name"=>"bootstrap", "fluid"=>false, "flavor"=>"vanilla" }
+        @current_theme = { "name"=>"bootstrap", "fluid"=>false }
         themes << "bootstrap"
       end
 

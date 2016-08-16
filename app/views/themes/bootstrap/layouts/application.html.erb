@@ -7,8 +7,8 @@
   <title>
     <%= @page_header ? "#{title}: #{@page_header}" : $site['title'] %>
   </title>
-  <% flavor = current_account.config['theme']['flavor'] || $site['theme']['flavor'] %>
-  <%= stylesheet_link_tag "bootstrap/#{flavor}#{rtl? ? '_rtl' : ''}", :media => "all" %>
+
+  <%= stylesheet_link_tag "bootstrap/style#{rtl? ? '_rtl' : ''}", :media => "all" %>
 	<%= stylesheet_link_tag "application", :media => "all" %>
   <%= favicon_link_tag '/favicon.ico' %>
 	<%= csrf_meta_tags %>

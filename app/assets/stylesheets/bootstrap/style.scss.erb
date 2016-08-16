@@ -1,0 +1,30 @@
+//= require semantic-ui
+
+<% case ENV['THEME_FLAVOR'] %>
+<% when 'red' %>
+$brand-primary:         #BC2A38 !default;
+$brand-success:         #2FBF69 !default;
+$brand-info:            #2FAEBF !default;
+$brand-warning:         #DEB927 !default;
+$brand-danger:          #333c45 !default;
+<% when 'blue' %>
+$brand-primary:         #2FA8BF !default;
+$brand-success:         #2FBF69 !default;
+$brand-info:            #27C8DE !default;
+$brand-warning:         #DEB927 !default;
+$brand-danger:          #333c45 !default;
+<% when 'green' %>
+$brand-primary:         #0eabb0 !default;
+$brand-success:         #2fbfa7 !default;
+$brand-info:            #61bfdf !default;
+$brand-warning:         #ED8D57 !default;
+$brand-danger:          #ed5770 !default;
+<% else %>
+$brand-primary:         #428bca !default;
+$brand-success:         #5cb85c !default;
+$brand-info:            #5bc0de !default;
+$brand-warning:         #f0ad4e !default;
+$brand-danger:          #d9534f !default;
+<% end %>
+
+@import "overrides";

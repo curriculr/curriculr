@@ -9,13 +9,7 @@ Rails.application.config.assets.version = '1.0'
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 Rails.application.config.assets.precompile += %w( 
-  bootstrap/red.css 
-  bootstrap/green.css 
-  bootstrap/blue.css 
-  bootstrap/vanilla.css 
-  bootstrap/red_rtl.css 
-  bootstrap/green_rtl.css 
-  bootstrap/blue_rtl.css 
-  bootstrap/vanilla_rtl.css 
+  bootstrap/style.css
+  bootstrap/style_rtl.css
   bootstrap/overrides.js
 )
