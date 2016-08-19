@@ -16,9 +16,9 @@
 <%= ui_header Klass.model_name.human(count: 3), style: :h2, :action => ui_nav_pills(pills, :class => css_align(:right)) %>
 
 <div class="row">
-  <div class="<%= css_columns(9) %>">
+  <div class="<%= css_columns(12) %>">
     <div class="row">
-      <div class="<%= css_columns(12) %>">
+      <div class="<%= css_columns(16) %>">
         <div id="paginator" class="<%= css_align(:left) %>"><%= paginate @klasses, :remote => true %></div>
       </div>
     </div>
@@ -30,14 +30,12 @@
       <% end %>
     </div>
   </div>
-  <div class="<%= css_columns(3) %>">
+  <div class="<%= css_columns(4) %>">
     <%= mountable_fragments :klass_index_actions %>
 
     <%= search_form_for [:learn, @q], class: "search-form form-inline", :remote => true do |f| %>
-      <%# content_tag :strong, t('page.title.search') %>
       <%= form_search f, :course_slug_or_course_name_or_course_about_cont,
             hint: false, label: false, placeholder: true %>
-      <%# form_submit f %>
     <% end %>
     <%= render 'learn/klasses/search' %>
 
@@ -46,10 +44,10 @@
     <% if current_account.config['allow_banner_ads'] %>
       <br />
       <div class="row">
-        <div class="<%= css_columns(6) %>">
+        <div class="<%= css_columns(8) %>">
           <%= mountable_fragments :site_160x600_left_rail_banner %>
         </div>
-        <div class="<%= css_columns(6) %>">
+        <div class="<%= css_columns(8) %>">
           <%= mountable_fragments :site_160x600_right_rail_banner %>
         </div>
       </div>

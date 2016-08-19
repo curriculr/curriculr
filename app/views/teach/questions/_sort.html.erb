@@ -16,7 +16,7 @@
   <% end %>
 </div>
 
-<table class="<%= css_table %>">
+<table>
   <tbody class="sortable-question-sort" data-question="<%= q.id %>">
     <%
       if a && a.present?
@@ -28,7 +28,7 @@
     %>
     <% options.each_with_index do |o, i| %>
       <tr class="row" id="question<%= q.id %>_<%= i + 1 %>">
-        <td class="<%= css_columns(12) %>">
+        <td class="<%= css_columns(16) %>">
           <i class="fa fa-arrows"></i>&nbsp;<%= processed_text(o) %>
           <%= hidden_field_tag("attempt[#{q.id}][#{i + 1}]", o) %>
           <div id="<%= "answer_#{q.id}_#{i + 1}"%>" class="question-answer"></div>

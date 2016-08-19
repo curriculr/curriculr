@@ -10,12 +10,12 @@
              {chartArea:{left:40,top:10,width:'80%',height:'90%'}} %>
 
 <div class="row">
-  <div class="<%= css_columns(4) %>">
+  <div class="<%= css_columns(5) %>">
     <% data = dashboard_klass_activity_counts(klass) %>
     <%= ui_chart 'klass_activity_counts', 
       'PieChart', data[:counts], {legend: 'none'}, 300 %>
   </div>
-  <div class="<%= css_columns(8) %>">
+  <div class="<%= css_columns(11) %>">
    <%= ui_chart 'klass_daily_activities', 
      'LineChart', 
      dashboard_klass_activities_by_day(2.weeks.ago, klass),

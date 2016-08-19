@@ -215,7 +215,7 @@ module DashboardHelper
     r_users = _users_by_day(since, false)
     c_users = _users_by_day(since)
     enrollments = _enrollments_by_day(since)
-    signins = _users_by_day(since, true, 'last_sign_in_at')
+    signins = _users_by_day(since, true, 'last_signin_at')
 
     i = -1
     data = (since.to_date..Time.zone.today).map do |date|
@@ -235,7 +235,7 @@ module DashboardHelper
     r_users = _users_by_day(since, false)
     c_users = _users_by_day(since)
     enrollments = _enrollments_by_day(since)
-    signins = _users_by_day(since, true, 'last_sign_in_at')
+    signins = _users_by_day(since, true, 'last_signin_at')
 
     i = -1
     labels = ['Day']

@@ -1,7 +1,7 @@
 <tr id="content_<%= image.id %>_medium" sortid="content_<%= image.id %>.medium" class="medium-content">
   <td>
     <div class="row">
-      <div class="<%= css_columns(8) %>">
+      <div class="<%= css_columns(11) %>">
         <%= image_tag image.at_url, style: "width: 80px; height: 45px;" %>
         <strong><%= image.name %></strong> 
         (<small><%= timeago_tag(image.created_at, :nojs => true, :limit => 10.days.ago) %></small>)
@@ -9,7 +9,7 @@
           <%= css_icon("external-link") %> <small class="text-muted"><%= image.full_url %></small>
         </div>
       </div>
-      <div class="<%= css_columns(4) %>">
+      <div class="<%= css_columns(5) %>">
         <%= content_tag :div, class: css(button: :group, align: :right) do %>
           <%= render partial: 'application/media/links', locals: { medium: image, form: form, action: action } %>
         <% end %>

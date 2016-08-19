@@ -6,5 +6,6 @@
   <%= f.check_box :active %>
   <%= f.check_box :graded %>
   
-  <%= form_submit f, url_for([:teach, @course, @klass, :show => 'forums']) %>
+  <%= f.submit %>
+  <%= f.cancel url_for([:teach, @course, @klass, :show => 'forums']) %>
 <% end %>

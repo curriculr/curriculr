@@ -65,7 +65,7 @@ class Mailer < ActionMailer::Base
     klass = Klass.find(kid)
     prepare_msg(account, klass.course.name)
 
-    @url = prepare_url(scoped_t("#{account}.site.mailer.links.sign_in"), url)
+    @url = prepare_url(scoped_t("#{account}.site.mailer.links.signin"), url)
 
     @klasses = [ klass ]
     @subject = scoped_t("#{account}.site.mailer.klass_invitation.subject")
@@ -79,7 +79,7 @@ class Mailer < ActionMailer::Base
   def klass_enrollment(account, from, to, klasses, url)
     @klasses = Klass.find(klasses)
     prepare_msg(account, @klasses.map{|k| k.course.name}.join(', '))
-    @url = prepare_url(scoped_t("#{account}.site.mailer.links.sign_in"), url)
+    @url = prepare_url(scoped_t("#{account}.site.mailer.links.signin"), url)
 
     @subject = scoped_t("#{account}.site.mailer.klass_enrollment.subject")
     @body = scoped_t("#{account}.site.mailer.klass_enrollment.body_html", :url => @url)
@@ -103,7 +103,7 @@ class Mailer < ActionMailer::Base
   # Faculty application approved or declined
   def faculty_application(account, from, to, url, approved)
     prepare_msg(account, scoped_t("#{account}.site.mailer.faculty_application.subject"))
-    @url = prepare_url(scoped_t("#{account}.site.mailer.links.sign_in"), url)
+    @url = prepare_url(scoped_t("#{account}.site.mailer.links.signin"), url)
 
     @subject = scoped_t("#{account}.site.mailer.faculty_application.subject")
     @body = scoped_t("#{account}.site.mailer.faculty_application.#{approved ? 'approved' : 'declined'}_body_html", :url => @url)

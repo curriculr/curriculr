@@ -6,5 +6,6 @@
   <%= f.password_field :password %>
   <%= f.password_field :password_confirmation %>
 
-  <%= form_submit f, main_app.home_path %>
+  <%= f.submit %>
+  <%= f.cancel main_app.home_path %>
 <% end %>

@@ -30,7 +30,7 @@ ar:
           change_password: غير كلمة السر
           confirm_account: أكد الحساب
           unlock_account: ألغ تجميد الحساب
-          sign_in: ادخل إلى موقعنا
+          signin: ادخل إلى موقعنا
           go_to_class: إذهب الى الفصل
 
         confirmation_instructions:

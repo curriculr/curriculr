@@ -2,7 +2,7 @@
 <% unless faculty_applications.empty? %>
   <%= ui_header t('page.title.pending_faculty_applications') %>
 
-  <table class="<%= css_table %>">
+  <table>
   	<thead>
   		<tr>
   			<th><%= FacultyApplication.human_attribute_name(:name) %></th>

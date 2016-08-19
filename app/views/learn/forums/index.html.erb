@@ -6,8 +6,8 @@
 
 %>
 <div class="row">
-	<div class="<%= css_columns((own_topics.present? || own_posts.present?) ? 7 : 12) %>">
-		<table class="<%= css_table %>">
+	<div class="<%= css_columns((own_topics.present? || own_posts.present?) ? 10 : 16) %>">
+		<table>
 			<thead>
 				<tr>
 					<th><%= Forum.model_name.human %></th>
@@ -33,7 +33,7 @@
 		</table>
 	</div>
 	<% if own_topics.present? || own_posts.present? %>
-		<div class="<%= css_columns(5) %>">
+		<div class="<%= css_columns(6) %>">
 			<div class="well">
 			<% if own_topics.present? %>
 				<h4><%= t('page.title.own_recent_topics') %></h4>
@@ -57,7 +57,7 @@
 	</div>
 </div>
 
-<table class="<%= css_table %>">
+<table>
 	<thead>
 		<tr>
 			<th><%= t('page.title.latest_topics') %></th>
@@ -94,7 +94,7 @@
 	</tbody>
 </table>
 
-<table class="<%= css_table %>">
+<table>
 	<thead>
 		<tr>
 			<th><%= t('page.title.latest_activities') %></th>

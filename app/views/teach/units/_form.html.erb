@@ -6,19 +6,20 @@
   <%= f.markdown :about, :size => '60x5' %>
   
   <div class="row">
-    <div class="<%= css_columns(4) %>">
+    <div class="<%= css_columns(5) %>">
       <%= f.static :based_on %>
       <%= f.hidden_field :based_on %>
     </div>
-    <div class="<%= css_columns(4) %>">
+    <div class="<%= css_columns(5) %>">
       <%= f.text_field :on_date, class: 'datepicker' %>
     </div>
-    <div class="<%= css_columns(4) %>">
+    <div class="<%= css_columns(5) %>">
       <%= f.number_field :for_days %>
     </div>
   </div>
   
   <%= f.check_box :previewed %>
   
-  <%= form_submit f, (@unit.new_record? ? teach_course_path(@course) : teach_course_units_path(@course)) %>
+  <%= f.submit %>
+  <%= f.cancel @unit.new_record? ? teach_course_path(@course) : teach_course_units_path(@course) %>
 <% end %>

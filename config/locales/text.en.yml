@@ -1,6 +1,7 @@
 en:
   page:
     title:
+      teach: Teaching
       assessment: Assessment
       attendance: Attendance
       participation: Participation
@@ -16,7 +17,7 @@ en:
       activity_counts: Activity counts
       dashboard: Dashboard
       select_files: Select files to upload
-      sign_in: Sign in
+      signin: Sign in
       discussion: Discussion
       outline: <i class="fa fa-list"></i>&nbsp; Lectures
       forums: <i class="fa fa-comments-o"></i>&nbsp; Forums
@@ -115,7 +116,7 @@ en:
       comments_count:
         one: one comment
         other: "%{count} comments"
-      copyrights: "%{year} all rights reserved"
+      copyrights: "%{year} all rights reserved."
       course_assessments_notice_html:
       course_books_notice_html:
       course_klasses_notice_html:
@@ -232,8 +233,8 @@ en:
         Any change to the settings below must be done very carefully.
       include_in_assessment: Add to '%{name}'
       closed_klass_html: This class is closed. Cannot see comments or attempt assessments.
-      sign_in_using: Using %{provider}
-      external_sign_in_using: You can also login using any of your existing accounts with
+      signin_using: Using %{provider}
+      external_signin_using: You can also login using any of your existing accounts with
       participation_forums_html: <h2>%{times}</h2><h3><small>Forums</small></h3>
       participation_topics_html: <h2>%{times}</h2><h3><small>Topics</small></h3>
       participation_posts_html: <h2>%{times}</h2><h3><small>Posts</small></h3>
@@ -247,8 +248,8 @@ en:
       course_forums: Any forum listed here will automatically be a part of every future class of this course.
       course_updates: These updates will be automatically posted on the main pages of the open classes of this course. Update emails will be automatically sent to students when they first enroll.
       unit_updates: These updates will be automatically posted on the main pages of its classes when this unit is made available. Update emails will also be automatically sent to enrolled students.
-      sign_up: To create an account
-      sign_in: To sign in
+      signup: To create an account
+      signin: To sign in
       course_unit_html:
         <div class="alert alert-info" role="alert">
           A course is divided into one or more units. A unit can correspond to a

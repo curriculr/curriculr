@@ -4,26 +4,27 @@
   <%= f.text_field :slug, placeholder: true %>
 
   <div class="row">
-    <div class="<%= css_columns(6) %>">
+    <div class="<%= css_columns(8) %>">
       <%= f.date_field :begins_on, :class => 'datepicker' %>
     </div>
-    <div class="<%= css_columns(6) %>">
+    <div class="<%= css_columns(8) %>">
       <%= f.date_field :ends_on, :class => 'datepicker' %>
     </div>
   </div>
 
   <div class="row">
-    <div class="<%= css_columns(6) %>">
+    <div class="<%= css_columns(8) %>">
       <%= f.check_box :private %>
       <%= f.check_box :previewed %>
       <%= f.check_box :featured %>
       <%# f.check_box :allow_enrollment # Not supported yet %>
       <%= f.check_box :lectures_on_closed %>
     </div>
-    <div class="<%= css_columns(6) %>">
+    <div class="<%= css_columns(8) %>">
       <%= mountable_fragments :klass_form, f: f, klass: @klass %>
     </div>
   </div>
 
-  <%= form_submit f, teach_course_klasses_path(@course) %>
+  <%= f.submit %>
+  <%= f.cancel teach_course_klasses_path(@course) %>
 <% end %>

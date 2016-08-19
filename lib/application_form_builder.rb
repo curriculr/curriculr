@@ -14,9 +14,19 @@ class ApplicationFormBuilder < ActionView::Helpers::FormBuilder
   
   def check_box(attribute, options = {}, checked_value = "1", unchecked_value = "0")
     field = label attribute do
-      super(attribute, options, checked_value, unchecked_value) + ' ' + @object.class.human_attribute_name(attribute)
+      super(attribute, cleaned_options(options), checked_value, unchecked_value) + ' ' + @object.class.human_attribute_name(attribute)
     end
     wrap_field(field, attribute, options.merge({label:  false}))
+  end
+  
+  def collection_check_boxes(attribute, collection, value, text, options = {}, html_options = {})
+    options[:label] = @template.content_tag :label, options[:label] if options[:label]
+    
+    field = ( super attribute, collection, value, text, cleaned_options(options), html_options do |b|
+      b.label { b.check_box(checked: b.value.in?(@object.tags)) + ' ' + b.text}
+    end )
+    
+    wrap_field(field, attribute, options)
   end
   
   def radio_button(attribute, tag_value, options = {}) 
@@ -63,6 +73,39 @@ class ApplicationFormBuilder < ActionView::Helpers::FormBuilder
   def country_select(attribute, priority_or_options = {}, options = {iso_codes: true}, html_options = {})
     options[:iso_codes] = true
     wrap_field(super(attribute, nil, options, html_options), attribute, options)
+  end
+  
+  def submit(value = nil, options = {})
+    value = case value
+    when Symbol
+      I18n.t("helpers.submit.#{value}").html_safe
+    when String
+      value
+    else
+      nil
+    end
+    
+    html = ''
+    if options[:data] && options[:data][:confirm]
+      html << %(
+      <div id="form-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-md">
+          <div class="modal-content"></div>
+        </div>
+      </div>
+      )
+      link = button(value, class: options[:class])
+      html << @template.link_to(value, '#', :class => options[:class],
+                :onclick => "ui_modal_confirmation('form', '#{options[:data][:"confirm-title"] || t('page.title.hold_on')}', '#{confirm}', '#{j link}', '#{t('helpers.submit.close')}' )")
+    else
+      html << button(value)
+    end
+    
+    html.html_safe
+  end
+  
+  def cancel(url = nil)
+    @template.link_to(I18n.t("helpers.submit.cancel"), url || @template._back_url, class: "button")
   end
   
   private

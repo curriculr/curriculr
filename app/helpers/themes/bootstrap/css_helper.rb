@@ -10,7 +10,7 @@ module Themes::Bootstrap::CssHelper
     end
   end
 
-  def css_columns(columns = 12, offset = 0)
+  def css_columns(columns = 16, offset = 0)
     if offset > 0
       "col-md-#{columns} col-md-offset-#{offset}"
     else
@@ -26,9 +26,9 @@ module Themes::Bootstrap::CssHelper
     "text-#{type}"
   end
 
-  def css_table(styles=[:hover])
-    "table #{styles.map {|s| "table-#{s}"}.join(' ')}"
-  end
+  # def css_table(styles=[:hover])
+  #   "table #{styles.map {|s| "table-#{s}"}.join(' ')}"
+  # end
 
   def css_button(*styles)
     'group'.in?(styles) ? 'btn-group' : "btn #{styles.map {|s| "btn-#{s}"}.join(' ')}"

@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="<%= css_columns(12) %>">
+  <div class="<%= css_columns(16) %>">
     <strong><%= t('page.text.klass_enroll_html') %></strong>
     <br /><br />
     <h3><%= t('page.title.honor_system') %></h3>
@@ -12,7 +12,8 @@
         <%= t('page.text.klass_agreement') %>
       <% end %>
       <br /><br />
-      <%= form_submit f, _back_url %>
+      <%= f.submit %>
+      <%= f.cancel _back_url %>
     <% end %>
   </div>
 </div>

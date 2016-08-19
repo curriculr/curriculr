@@ -5,12 +5,11 @@
   
   <% email = @instructor.new_record? ? @instructor.email : @instructor.user.email %>
 	<%= f.email_field :email, :readonly => !%w(new create).include?(action_name), :value => email %>
-  
 	<%= f.select :role, t('config.staff').invert %>
-
   <%= f.text_field :name %>
-  <%# f.text_field :title %>
   <%= f.file_field :avatar %>
   <%= f.markdown :about %>
-  <%= form_submit f, teach_course_path(@course, :show => 'people') %>
+  
+  <%= f.submit %>
+  <%= f.cancel teach_course_path(@course, :show => 'people') %>
 <% end %>

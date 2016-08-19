@@ -1,7 +1,7 @@
 <%= form_header %>
 
 <div class="row">
-  <div class="<%= css_columns(6) %>">
+  <div class="<%= css_columns(8) %>">
     <%= form_for(@user, :url => admin_users_path, :method => :post) do |f| %>
 
       <%= f.text_field :name%>
@@ -9,7 +9,8 @@
       <%= f.password_field :password %>
       <%= f.password_field :password_confirmation %>
       
-      <%= form_submit f, users_path  %>
+      <%= f.submit %> 
+      <%= f.cancel users_path  %>
     <% end %>
   </div>
 </div>

@@ -1,0 +1,27 @@
+<% klasses = Klass.for_instructor(current_user).being_worked_on.distinct.to_a %>
+<%= ui_header t('page.title.being_worked_on') %>
+<% if klasses.present? %>
+  <div class="ui divided items">
+    <%= render :partial => 'learn/klasses/klass', :collection => klasses, :locals => {view: :item} %>
+  </div>
+<% else %>
+  <%= t('page.text.no_record_found') %>
+<% end %>
+
+<% klasses = Klass.for_instructor(current_user).ready_to_approve.distinct.to_a %>
+<% if klasses.present? %>
+  <%= ui_header t('page.title.ready_to_approve') %>
+  <div class="ui divided items">
+    <%= render :partial => 'learn/klasses/klass', :collection => klasses, :locals => {view: :item} %>
+  </div>
+<% end %>
+
+<% klasses = Klass.for_instructor(current_user).active.open.distinct.to_a %>
+<%= ui_header t('page.title.open_classes_i_teach') %>
+<% if klasses.present? %>
+  <div class="ui divided items">
+    <%= render :partial => 'learn/klasses/klass', :collection => klasses, :locals => {view: :item} %>
+  </div>
+<% else %>
+    <%= t('page.text.no_record_found') %>
+<% end %>

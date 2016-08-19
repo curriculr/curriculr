@@ -1,20 +1,20 @@
 <div class="row">
-  <div class="<%= css_columns(3) %>">
+  <div class="<%= css_columns(4) %>">
     <% data = dashboard_course_activity_counts(@course) %>
     <%= ui_chart 'course_activity_counts', 
       'PieChart', data[:counts], {legend: 'none', title: t('page.title.activity_counts')}, 300 %>
   </div>
-  <div class="<%= css_columns(3) %>">
+  <div class="<%= css_columns(4) %>">
     <% data = dashboard_course_medium_counts(@course) %>
     <%= ui_chart 'course_medium_counts', 
       'PieChart', data[:counts], {legend: 'none', title: Medium.model_name.human(:count => 3)}, 300 %>
   </div>
-  <div class="<%= css_columns(3) %>">
+  <div class="<%= css_columns(4) %>">
     <% data = dashboard_course_question_counts(@course) %>
     <%= ui_chart 'course_question_counts', 
       'PieChart', data[:counts], {legend: 'none', title: Question.model_name.human(:count => 3)}, 300 %>
   </div>
-  <div class="<%= css_columns(3) %>">
+  <div class="<%= css_columns(4) %>">
     <% data = dashboard_course_assessment_counts(@course) %>
     <%= ui_chart 'course_assessment_counts', 
       'PieChart', data[:counts], {legend: 'none', title: Assessment.model_name.human(:count => 3)}, 300 %>
@@ -22,7 +22,7 @@
 </div>
 
 <div class="row">
-  <div class="<%= css_columns(12) %>">
+  <div class="<%= css_columns(16) %>">
     <%# ui_header t('page.title.daily_activities'), :style => :h3 %>
     <%= ui_chart 'course_daily_activities', 
       'LineChart', 

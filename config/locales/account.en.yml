@@ -30,7 +30,7 @@ en:
           change_password: Change Password
           confirm_account: Confirm Account
           unlock_account: Unlock Account
-          sign_in: Sign in
+          signin: Sign in
           go_to_class: Go to class
 
         confirmation_instructions:

@@ -1,4 +1,5 @@
 class PreApplicationController < ActionController::Base
+  include WithMenus
   include EngineMounted
   include Localized
   
@@ -6,9 +7,6 @@ class PreApplicationController < ActionController::Base
   before_action :load_request_data
   before_action :set_locale
   before_action :set_page_header
-  before_action :set_app_menus
-
-  helper_method :add_item_to_app_menu, :app_menu
 
   layout :set_layout
 

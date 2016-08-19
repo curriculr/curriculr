@@ -4,15 +4,16 @@
 	<%= f.text_field :name %>
   <%= f.markdown :about, hint: true %>
   <%= content_tag :div, :class => "row" do %>
-    <div class="<%= css_columns(6) %>">
+    <div class="<%= css_columns(8) %>">
       <%= f.number_field :points_per_post %>
     </div>
-    <div class="<%= css_columns(6) %>">
+    <div class="<%= css_columns(8) %>">
       <%= f.number_field :points_per_reply %>
     </div>
   <% end if @forum.graded %>
   
   <%= f.check_box :anonymous %>
   
-  <%= form_submit f, learn_klass_forum_path(@klass, @forum) %>
+  <%= f.submit %>
+  <%= f.cancel learn_klass_forum_path(@klass, @forum) %>
 <% end %>

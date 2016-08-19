@@ -1,0 +1,140 @@
+<div class="row">
+  <div class="<%= css_columns(16) %>">
+    <%= markdown(unit.about) %>
+  </div>
+</div>
+
+<%
+assessments = unit.assessments.where(lecture_id: nil).to_a
+documents =  unit.materials_of_kind(:document).to_a 
+updates = unit.updates.to_a
+%>
+<hr>
+<ul class="nav nav-tabs" role="tablist">
+  <li class="<%= active_unit_section('lectures') %>">
+    <a href="#unit-<%= unit.id %>-lectures" role="tab" data-toggle="tab" data-unit="<%= unit.id %>">
+      <%= Lecture.model_name.human(count: 3) %> 
+      <%= content_tag :span, unit.lectures_count, :class => css_badge %>
+    </a>
+  </li>
+  <li class="<%= active_unit_section('assessments') %>">
+    <a href="#unit-<%= unit.id %>-assessments" role="tab" data-toggle="tab" data-unit="<%= unit.id %>">
+      <%= Assessment.model_name.human(count: 3) %> 
+      <%= content_tag :span, assessments.count, :class => css_badge %>
+    </a>
+  </li>
+  <li class="<%= active_unit_section('pages') %>">
+    <a href="#unit-<%= unit.id %>-pages" role="tab" data-toggle="tab" data-unit="<%= unit.id %>">
+      <%= Page.model_name.human(count: 3) %> 
+      <%= content_tag :span, unit.pages_count, :class => css_badge %>
+    </a>
+  </li>
+  <li class="<%= active_unit_section('documents') %>">
+    <a href="#unit-<%= unit.id %>-documents" role="tab" data-toggle="tab" data-unit="<%= unit.id %>">
+      <%= t('page.title.documents') %>
+      <%= content_tag :span, documents.count, :class => css_badge %>
+    </a>
+  </li>
+  <li class="<%= active_unit_section('updates') %>">
+    <a href="#unit-<%= unit.id %>-updates" role="tab" data-toggle="tab" data-unit="<%= unit.id %>">
+      <%= Update.model_name.human(count: 3) %>
+      <%= content_tag :span, updates.count, :class => css_badge %>
+    </a>
+  </li>
+  <li id="unit-<%= unit.id %>-lectures-new" class="unit-<%= unit.id %>-new-link pull-right" style="<%= 'display: none;' unless active_unit_section('lectures') %>">
+    <%= link :lecture, :new, new_teach_course_unit_lecture_path(@course, unit) %>
+  </li>
+  <%
+  links = []
+
+  @course.config["grading"]["distribution"]["assessments"]["unit"].keys.each do |k|
+    links << link_to(k, new_teach_course_unit_assessment_path(@course, unit, :t => k))
+  end
+  %>
+
+  <%= ui_dropdown t('helpers.submit.new', name: Assessment.model_name.human), links, 
+        id: "unit-#{unit.id}-assessments-new", class: "unit-#{unit.id}-new-link pull-right", 
+        style: active_unit_section('assessments') ? nil : 'display: none;' %>
+  <li id="unit-<%= unit.id %>-pages-new" class="unit-<%= unit.id %>-new-link pull-right" style="<%= 'display: none;' unless active_unit_section('pages') %>">  
+    <%= link :page, :new, new_teach_course_unit_page_path(@course, unit) %>
+  </li>
+  <li id="unit-<%= unit.id %>-documents-new" class="unit-<%= unit.id %>-new-link pull-right" style="<%= 'display: none;' unless active_unit_section('documents') %>">
+    <%= link :material, :add_document, new_teach_course_unit_material_path(@course, unit, 
+          :s => :document, :multiple => true) %>
+  </li>
+  <li id="unit-<%= unit.id %>-updates-new" class="unit-<%= unit.id %>-new-link pull-right" style="<%= 'display: none;' unless active_unit_section('updates') %>">
+    <%= link :update, :new, new_teach_course_unit_update_path(@course, unit) %>
+  </li>
+</ul>
+<div class="tab-content">
+  <div class="tab-pane <%= active_unit_section('lectures') %>" id="unit-<%= unit.id %>-lectures">
+    <div class="row">
+      <div class="<%= css_columns(16) %>">
+        <%= render partial: "teach/lectures/index", locals: { unit: unit } %>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane <%= active_unit_section('assessments') %>" id="unit-<%= unit.id %>-assessments">
+    <table>
+      <tbody>
+        <% assessments.each_with_index do |a, i| %>
+          <tr>
+            <td>
+              <h5>
+                <%= link(:assessment, :edit, edit_teach_course_unit_assessment_path(@course, unit, a), 
+                :class => css(button: [:primary, :xs], align: :right)) %>
+                <%= link_to(a.name, teach_course_unit_assessment_path(@course, unit, a)) %> 
+                <small><%= a.kind %></small>
+                <%= content_tag(:span, t('page.text.unready'), :class => css_label(:warning)) unless a.ready %>
+              </h5>
+       
+              <%# markdown a.about %> 
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="tab-pane <%= active_unit_section('pages') %>" id="unit-<%= unit.id %>-pages">
+    <table>
+      <tbody>
+        <% unit.pages.each_with_index do |page, i| %>
+        <tr>
+          <td>
+            <h5>
+              <%= link_to page.name, teach_course_unit_page_path(@course, unit, page) %> 
+              <small><%= l(page.created_at.to_date) %></small>
+              <%= content_tag(:span, t('page.text.unpublished'), :class => css_label(:warning)) unless page.published %>
+            </h5>
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="tab-pane <%= active_unit_section('documents') %>" id="unit-<%= unit.id %>-documents">
+    <table>
+      <tbody>
+        <% documents.each_with_index do |document, i| %>
+          <%= render partial: "application/media/medium", 
+                locals: {medium: document.medium, medium_counter: i, 
+                action: link(:material, :destroy, 
+                teach_course_unit_material_path(@course, unit, document), 
+                :method => :delete, :class => css_button(:danger, :xs), 
+                confirm: true) 
+          } %>
+        <% end %>   
+      </tbody>
+    </table>
+  </div>
+  <div class="tab-pane <%= active_unit_section('updates') %>" id="unit-<%= unit.id %>-updates">
+    <div class="panel-body">
+      <div class="row">
+        <div class="<%= css_columns(16) %>">
+          <%= t('page.text.unit_updates') %>
+        </div>
+      </div>
+    </div>
+    <%= render partial: 'teach/updates/index', locals: { updates: updates } %> 
+  </div>
+</div>

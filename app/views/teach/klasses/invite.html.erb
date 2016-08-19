@@ -5,6 +5,7 @@
   <%= f.static :klass, value: @klass.name %>
   <%= f.email_field :invitee %>
 
-  <%= form_submit f, home_path %>
+  <%= f.submit %>
+  <%= f.cancel home_path %>
 <% end %>
 

@@ -3,7 +3,7 @@
 <%= themed_form_for @faculty_application do |f| %>
   <%= t('page.text.faculty_application_html') %>
   <div class="row">
-    <div class="<%= css_columns(6) %>">
+    <div class="<%= css_columns(8) %>">
       <fieldset>
         <legend><%= t('page.title.about_you') %></legend>
         <%= f.text_field :name %>
@@ -12,25 +12,25 @@
         <%= f.check_box :update_profile %>
       </fieldset>
     </div>
-    <div class="<%= css_columns(6) %>">
+    <div class="<%= css_columns(8) %>">
       <fieldset>
         <legend><%= t('page.title.about_your_course') %></legend>
         <%= f.text_field :course %>
         <%= f.text_area :description, :size => '60x5' %>
 
         <div class="row">
-          <div class="<%= css_columns(6) %>">
+          <div class="<%= css_columns(8) %>">
       	    <%= f.number_field :weeks %>
           </div>
-          <div class="<%= css_columns(6) %>">
+          <div class="<%= css_columns(8) %>">
       	    <%= f.number_field :workload %>
           </div>
         </div>
         <div class="row">
-          <div class="<%= css_columns(6) %>">
+          <div class="<%= css_columns(8) %>">
             <%= f.select :locale, $site['supported_locales'].invert %>
           </div>
-          <div class="<%= css_columns(6) %>">
+          <div class="<%= css_columns(8) %>">
             <%= f.country_select :country, nil, {:include_blank => true}, :class => "chosen-select #{rtl? ? 'chosen-rtl' : ''}" ,
                   :'data-placeholder'=> t('helpers.placeholder.country') %>
           </div>
@@ -44,5 +44,6 @@
     <%= t('page.text.faculty_agreement') %>
   <% end %>
   <br /><br />
-  <%= form_submit f, home_path %>
+  <%= f.submit %>
+  <%= f.cancel home_path %>
 <% end %>

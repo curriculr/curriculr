@@ -28,11 +28,11 @@ class CreateUsers < ActiveRecord::Migration
       t.string   :unconfirmed_email
 
       # Tracked activities
-      t.integer  :sign_in_count, :default => 0
-      t.datetime :current_sign_in_at
-      t.string   :current_sign_in_ip
-      t.datetime :last_sign_in_at
-      t.string   :last_sign_in_ip
+      t.integer  :signin_count, :default => 0
+      t.datetime :current_signin_at
+      t.string   :current_signin_ip
+      t.datetime :last_signin_at
+      t.string   :last_signin_ip
 
       t.timestamps
     end

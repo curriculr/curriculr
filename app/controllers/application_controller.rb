@@ -3,7 +3,7 @@ class KlassAccessDeniedError < StandardError; end
 class ApplicationController < PreApplicationController
   protect_from_forgery with: :exception
 
-  helper EditorsHelper, UiHelper, CoursesHelper, KlassesHelper, DashboardHelper
+  helper EditorsHelper, UiHelper, UsersHelper, CoursesHelper, KlassesHelper, DashboardHelper
 
   Rails.application.config.site_engines.each do |name, config|
     helper config[:helper] if config[:helper].present?

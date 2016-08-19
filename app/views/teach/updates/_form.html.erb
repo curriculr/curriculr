@@ -2,13 +2,13 @@
 
 <%= themed_form_for [:teach, @course || @update.course, @unit || @update.unit, @lecture || @update.lecture, @klass, @update] do |f| %>
   <div class="row">
-    <div class="<%= css_columns(4) %>">
+    <div class="<%= css_columns(5) %>">
       <%= f.select :to, t('config.update.to').invert %>
     </div>
-    <div class="<%= css_columns(2) %>">
+    <div class="<%= css_columns(3) %>">
       <br/><%= f.check_box :www %>
     </div>
-    <div class="<%= css_columns(3) %>">
+    <div class="<%= css_columns(4) %>">
       <br/><%= f.check_box :email %>
     </div>
   </div>
@@ -17,5 +17,6 @@
   <%= f.markdown :body, :size => '60x5' %>
   <%= f.check_box :active %>
   
-  <%= form_submit f, the_path_out %>
+  <%= f.submit %>
+  <%= f.cancel the_path_out %>
 <% end %>

@@ -4,7 +4,8 @@
   <%= f.hidden_field :settings, :value => @settings %>
   <%= f.code :settings, :value => @settings, :lang => 'json', :field => 'site_settings', :label => false %>
   
-  <%= form_submit f, home_path %>
+  <%= f.submit %>
+  <%= f.cancel home_path %>
 <% end %>
 
 <% 

@@ -34,8 +34,8 @@ ar:
       terms: اتفاقية الاستخدام
       services: خدماتنا
       blogs: دوِّن
-      sign_up: <i class="fa fa-plus"></i> إنشاء حساب
-      sign_in: <i class="fa fa-sign-in"></i> ادخل
+      signup: <i class="fa fa-plus"></i> إنشاء حساب
+      signin: <i class="fa fa-sign-in"></i> ادخل
       sign_out: <i class="fa fa-sign-out"></i> اخرج
       send: ارسل
       reply: أجب
@@ -78,7 +78,7 @@ ar:
       add_role: اضف دور %{role}
       remove_role: احذف دور %{role}
       stats: احصائيات
-      change_password: <i class="fa fa-pencil-square-o"></i> غير كلمة السر
+      change_password: غير كلمة السر
       new_password: هل نسيت كلمة السر؟
       facebook: فيسبوك
       twitter: تويتر
@@ -133,7 +133,7 @@ ar:
       blog_posts: مقالاتي
       static_pages_or_blogs: الصفحات / المقالات
       start_new_course: أبدأ مقررا جديدا
-      edit_profile: <i class="fa fa-edit"></i> عدل بياناتي الخاصة
+      edit_profile: عدل بياناتي الخاصة
       become_a_faculty: انظم إلى هيئة التدريس
       main: الرئيسة
 

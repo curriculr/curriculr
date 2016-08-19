@@ -8,6 +8,7 @@ $main-text-color: #4d4d4d;
 $light-gray: #dfe2e6;
 $lighter-gray: #f7f8fa;
 
+$grid-columns: 16;
 $grid-gutter-width: 20px;
 
 $headings-small-color: darken($light-gray, 25%);
@@ -707,6 +708,16 @@ ul.breadcrumb {
 }
 
 // footer
+footer{
+  .navbar{
+    padding-top: 10px;
+  }
+  .navbar-inverse{
+    color: $plain-white;
+  }
+}
+/*
+// footer
 .footer {
   background: lighten($mystical-dark, 5%);
   padding: 80px 0;
@@ -760,7 +771,7 @@ ul.breadcrumb {
     }
   }
 }
-
+*/
 //table styling
 .table td {
   vertical-align: middle !important;
@@ -954,6 +965,7 @@ ul.breadcrumb {
 $rtl: false;
 body {
   padding-top: 50px;
+  padding-bottom: 75px;
   a:hover {
     text-decoration: none;
   }
@@ -1266,6 +1278,7 @@ div.media-heading {
   }
 }
 
+// Semantic use of bootstrap
 div.field {
   @extend .form-group;
   
@@ -1283,6 +1296,7 @@ div.field {
   
   label {
     @extend .control-label;
+    display: block;
   }
   
   input:not([type='checkbox']):not([type="file"]), textarea, select {
@@ -1292,4 +1306,20 @@ div.field {
   span {
     @extend .help-block;
   }
+}
+
+button[type='submit']{
+  @extend .btn;
+  @extend .btn-primary;
+}
+
+a.button {
+  @extend .btn;
+  @extend .btn-default;
+}
+
+table {
+  @extend .table;
+  @extend .table-condensed;
+  @extend .table-hover;
 }

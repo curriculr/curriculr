@@ -1,7 +1,7 @@
 <%= ui_header "#{@account.slug}: #{@account.name}" %>
 
 <div class="row">
-  <div class="<%= css_columns(5) %>">
+  <div class="<%= css_columns(6) %>">
     <h4><%= t('page.title.basic_info') %></h4>
     <span class="<%= css_text(:muted) %>">
     <%= markdown(@account.about) %>
@@ -26,7 +26,7 @@
     <%= link :account, :edit, edit_admin_account_path(@account), :class => css_button(:primary) %>
     <%= link :account, :cancel, admin_accounts_path, :class => css_button(:default) %>
   </div>
-  <div class="<%= css_columns(7) %>">
+  <div class="<%= css_columns(10) %>">
     <h4><%= t('page.title.settings') %></h4>
     <%= highlighted_code @account.settings, 'json' %>
   </div>

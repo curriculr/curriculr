@@ -14,7 +14,7 @@
 
 <% topics = @forum.topics.page(params[:page]).per(10) %>
 <div id="paginator"><%= paginate topics %></div>
-<table class="<%= css_table %>">
+<table>
 	<thead>
 		<tr>
 			<th><%= Topic.model_name.human(count: 3) %></th>

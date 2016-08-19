@@ -1,7 +1,7 @@
 <tr id="content_<%= audio.id %>_medium" sortid="content_<%= audio.id %>.medium" class="medium-content">
   <td>
     <div class="row">
-      <div class="<%= css_columns(9) %>">
+      <div class="<%= css_columns(12) %>">
         <%= ui_audio audio %>
         <% if audio.path.present? && !audio.copyrights.blank? %>
           <br><small><strong><%=Medium.human_attribute_name(:source) %>:</strong> <%= audio.copyrights %></small>
@@ -11,7 +11,7 @@
           <%= css_icon("external-link") %> <small class="text-muted"><%= audio.full_url %></small>
         </div>
       </div>
-      <div class="<%= css_columns(3) %>">
+      <div class="<%= css_columns(4) %>">
         <%= content_tag :div, class: css(button: :group, align: :right) do %>
           <%= render partial: 'application/media/links', locals: { medium: audio, form: form, action: action } %>
         <% end %>

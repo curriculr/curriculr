@@ -70,16 +70,14 @@
 </ul>
 <br>
 <div class="row">
-  <div class="<%= css_columns(8) %>">
+  <div class="<%= css_columns(11) %>">
     <div id="paginator" class="<%= css_align(:left) %>"><%= paginate @questions, :remote => true %></div>
   </div>
-  <div class="<%= css_columns(4) %>">
+  <div class="<%= css_columns(5) %>">
     <% url = question_bank_path(:index, params[:s], @assessment, @bank) %>
     <%= search_form_for @q, :url => url, class: "search-form form-inline #{css_align(:right)}", :remote => true do |f| %>
-      <%# content_tag :strong, t('page.title.search') %> 
       <%= f.hidden_field :kind_cont, :value => params[:s] %>
       <%= form_search f, :question_cont, hint: false, label: false, placeholder: true %>
-      <%# form_submit f %>
     <% end %>
   </div>
 </div>

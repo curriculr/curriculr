@@ -1,0 +1,44 @@
+<ul class="nav nav-tabs" role="tablist">
+  <li class="<%= active_klass_section('about') %>">
+    <a href="#klass-<%= klass.id %>-home" role="tab" data-toggle="tab" data-klass="<%= klass.id %>">
+      <%= t('helpers.submit.about')%>
+    </a>
+  </li>
+  <li class="<%= active_klass_section('updates') %>">
+    <a href="#klass-<%= klass.id %>-updates" role="tab" data-toggle="tab" data-klass="<%= klass.id %>">
+      <%= Update.model_name.human(count: 3) %>
+    </a>
+  </li>
+  <li class="<%= active_klass_section('forums') %>">
+    <a href="#klass-<%= klass.id %>-forums" role="tab" data-toggle="tab" data-klass="<%= klass.id %>">
+      <%= Forum.model_name.human(count: 3) %>
+    </a>
+  </li>
+  <li id="klass-<%= klass.id %>-updates-new" class="klass-<%= klass.id %>-new-link pull-right" style="<%= 'display: none;' unless params[:show] == 'updates' %>">  
+    <%= link :update, :new, new_teach_course_klass_update_path(@course, klass) %>
+  </li>
+  <li id="klass-<%= klass.id %>-forums-new" class="klass-<%= klass.id %>-new-link pull-right" style="<%= 'display: none;' unless params[:show] == 'forums' %>">
+    <%= link :forum, :new, new_teach_course_klass_forum_path(@course, klass) %>
+  </li>
+</ul>
+
+<div class="tab-content">
+  <div class="tab-pane <%= active_klass_section('about') %>" id="klass-<%= klass.id %>-home"> 
+    <div class="row">
+      <div class="<%= css_columns(16) %>">  
+        <%= themed_form_for [:teach, @course, klass] do |f| %>
+        	<%= f.check_box :private, :disabled => true %>
+          <%= f.check_box :previewed,  :disabled => true  %>
+          <%= f.check_box :allow_enrollment,  :disabled => true  %>
+          <%= f.check_box :lectures_on_closed, :disabled => true %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane <%= active_klass_section('updates') %>" id="klass-<%= klass.id %>-updates">
+    <%= render partial: 'teach/updates/index', locals: { updates: klass.updates } %>
+  </div>
+  <div class="tab-pane <%= active_klass_section('forums') %>" id="klass-<%= klass.id %>-forums">    
+    <%= render partial: 'teach/forums/index', locals: { forums: klass.forums } %> 
+  </div>
+</div>

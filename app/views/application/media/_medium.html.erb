@@ -6,7 +6,8 @@
   <%= f.hidden_field :kind, :value => "#{params[:s]}" %>
   <%= f.hidden_field :tag_list, :value => "#{params[:t]}" %>
   <%= f.hidden_field :medium_id, :value => "#{medium.id}" %>
-  <%= form_submit f, nil, [], :as => :select %>
+  
+  <%= f.submit :select %>
 <% end if @course && @material %>
 
 <%=

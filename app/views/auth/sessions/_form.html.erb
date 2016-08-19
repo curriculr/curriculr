@@ -1,10 +1,9 @@
 <%= form_for @user || User.new, url: url_for(controller: 'auth/sessions', action: 'create'), method: :post do |f| %>
+
   <%= f.email_field :email, label: false, placeholder: true %>
   <%= f.password_field :password, label: false, placeholder: true %>
-
   <%= f.check_box :remember_me %>
-
   <% links = [{text: t('helpers.submit.new_password'), path: new_auth_password_reset_path}] %>
 
-  <%= form_submit f, false, links %>
+  <%= f.submit :signin %> <%= link_to  t('helpers.submit.new_password'), new_auth_password_reset_path %>
 <% end %>

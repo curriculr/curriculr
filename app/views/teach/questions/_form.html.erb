@@ -6,7 +6,7 @@
   <% render_options = Option.render_options[@question.kind.to_sym] %>
 
   <div class="row">
-    <div class="<%= css_columns(9) %>">
+    <div class="<%= css_columns(12) %>">
       <% placeholder = t("helpers.placeholder.#{@question.kind}_question") %>
       <% hint = t(:"helpers.hint.#{@question.kind}_question", default: '') %>
       <%= f.markdown :question, :size => '60x8', :placeholder => placeholder, :hint => hint %>
@@ -26,7 +26,7 @@
       </div>
 
     </div>
-    <div class="<%= css_columns(3) %>">
+    <div class="<%= css_columns(4) %>">
       <%= f.static :kind, :value => t("config.question.kind.#{@question.kind}") %>
 
       <% if @question.new_record? %>
@@ -82,5 +82,6 @@
     </div>
   </div>
   
-  <%= form_submit f, question_bank_path(:index, @question.kind.split('_').first) %>
+  <%= f.submit %>
+  <%= f.cancel question_bank_path(:index, @question.kind.split('_').first) %>
 <% end %>

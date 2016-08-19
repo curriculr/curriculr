@@ -20,7 +20,7 @@
   <%= link :access_token, :create, user_access_tokens_path(@user), :method => :post,
         :class => css(button: :success, align: :right) if access_tokens.blank? %>
 
-  <table class="<%= css_table %>">
+  <table>
   	<thead>
   		<tr>
   			<th><%= AccessToken.human_attribute_name(:token) %></th>

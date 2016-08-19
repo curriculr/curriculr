@@ -6,28 +6,29 @@
   <%= f.text_area :about, rows: 5, :size => '60x5' %>
 
   <div class="row">
-    <div class="<%= css_columns(4) %>">
+    <div class="<%= css_columns(5) %>">
       <%= f.static :based_on %>
       <%= f.hidden_field :based_on %>
     </div>
-    <div class="<%= css_columns(4) %>">
+    <div class="<%= css_columns(5) %>">
       <%= f.text_field :on_date, class: 'datepicker' %>
     </div>
-    <div class="<%= css_columns(4) %>">
+    <div class="<%= css_columns(5) %>">
       <%= f.number_field :for_days %>
     </div>
   </div>
 
   <div class="row">
-    <div class="<%= css_columns(4) %>">
+    <div class="<%= css_columns(5) %>">
       <%= f.check_box :previewed %>
     </div>
-    <div class="<%= css_columns(4) %>">
+    <div class="<%= css_columns(5) %>">
       <%= f.number_field :points %>
     </div>
   </div>
 
   <%= f.text_field :tag_list %>
 
-  <%= form_submit f, teach_course_unit_path(@course, @unit) %>
+  <%= f.submit %>
+  <%= f.cancel teach_course_unit_path(@course, @unit) %>
 <% end %>

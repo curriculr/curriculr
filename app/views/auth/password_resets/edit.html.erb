@@ -1,13 +1,14 @@
 <%= form_header text: t('auth.headers.new_password') %>
 
 <div class="row">
-  <div class="<%= css_columns(6) %>">
+  <div class="<%= css_columns(8) %>">
     <%= form_for @user, url: url_for(controller: 'auth/password_resets', action: 'update'), method: :put do |f| %>
       <%= f.hidden_field :password_reset_token %>
       <%= f.password_field :password %>
       <%= f.password_field :password_confirmation %>
 
-      <%= form_submit f, auth_signin_path %>
+      <%= f.submit :reset %>
+      <%= f.cancel auth_signin_path %>
     <% end %>
   </div>
 </div>

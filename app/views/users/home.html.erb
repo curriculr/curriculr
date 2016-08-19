@@ -1,0 +1,8 @@
+<% if current_user.has_role?(:admin) %>
+  <%= render 'home_admin' %>
+<% elsif current_user.has_role?(:faculty) %>
+  <%= render 'home_faculty' %>
+<% else %>
+  <%= render 'home' %>
+<% end %>
+

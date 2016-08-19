@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="col-md-8 col-md-offset-4">
+    <br/>
+    <div class="panel panel-default">
+      <ul id="signinOrUpTabs" class="nav nav-tabs" role="tablist">
+        <li role="presentation">
+          <%= link_to t('page.text.signin'), main_app.auth_signin_path %>
+        </li>
+        <li role="presentation" class="active">
+          <a href="#"><strong><%= t('page.text.signup') %></strong></a>
+        </li>
+      </ul>
+      <div class="panel-body">
+        <br/>
+        <%= form_for @user, url: url_for(controller: 'auth/registrations', action: 'create'), method: :post do |f| %>
+        
+          <%= f.text_field :name, label: false, placeholder: true %>
+          <%= f.email_field :email, label: false, placeholder: true %>
+          <%= f.password_field :password, label: false, placeholder: true %>
+          <%= f.password_field :password_confirmation, label: false, placeholder: true %>
+
+          <%= f.submit :signup %> 
+          <%= t('page.text.registration_terms_and_conditions_html', link: link(:page, :terms, localized_page_path(:terms))) %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

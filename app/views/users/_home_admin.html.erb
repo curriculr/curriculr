@@ -1,0 +1,21 @@
+<% klasses = Klass.ready_to_approve.distinct.to_a %>
+<% if klasses.present? %>
+  <%= ui_header t('page.title.ready_to_approve') %>
+  <div class="ui divided items">
+    <%= render :partial => 'learn/klasses/klass', :collection => klasses, :locals => {view: :item} %>
+  </div>
+<% end %>
+
+<% if current_account.config['allow_faculty_applications'] %>
+  <%= render :partial => 'faculty_applications/index' %>
+<% end %>
+
+<% klasses = Klass.being_worked_on.distinct.to_a %>
+<%= ui_header t('page.title.being_worked_on') %>
+<% if klasses.present? %>
+  <div class="ui divided items">
+    <%= render :partial => 'learn/klasses/klass', :collection => klasses, :locals => {view: :item} %>
+  </div>
+<% else %>
+    <%= t('page.text.no_record_found') %>
+<% end %>

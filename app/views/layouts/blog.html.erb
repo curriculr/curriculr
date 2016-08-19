@@ -1,0 +1,41 @@
+<div class="hero-unit">
+  <div class="jumbotron">
+    <div class="<%= css_container %> text-center">
+      <% if  action_name == 'blogs' %>
+      <h1><i class="fa fa-newspaper-o fa-6"></i></h1>
+      <h2><%= scoped_t("#{current_account.slug}.site.blog.line1_html") %></h2>
+      <p><%= scoped_t("#{current_account.slug}.site.blog.line2_html") %></p>
+      <% else %>
+        <h1><i class="fa fa-book"></i></h1>
+        <h2><%= title %></h2>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div id="main-container" class="<%= css_container %>">
+  <div class="row">
+		<div class="<%= current_account.config['allow_banner_ads'] ? css_columns(10) : css_columns(10,3) %>">
+      <% if @page_header %>
+        <%= ui_header @page_header, style: :h2, subtext: @klass ? klass_from_and_to_dates(@klass) : nil %>
+      <% end %>
+
+			<%= yield %>
+		</div>
+    <% if current_account.config['allow_banner_ads'] %>
+      <br />
+      <div class="<%= css_columns(6,1) %>">
+        <div class="row">
+          <div class="<%= css_columns(8) %>">
+            <%= mountable_fragments :site_160x600_left_rail_banner %>
+          </div>
+          <div class="<%= css_columns(8) %>">
+            <%= mountable_fragments :site_160x600_right_rail_banner %>
+          </div>
+        </div>
+
+        <%= mountable_fragments :site_300x250_right_bottom_banner %>
+      </div>
+    <% end %>
+  </div>
+</div>

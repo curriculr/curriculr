@@ -3,14 +3,12 @@
     :class => css(button: :success, align: :right)) %>
 
 <div class="row">
-  <div class="<%= css_columns(8) %>">
+  <div class="<%= css_columns(11) %>">
     <div id="paginator" class="<%= css_align(:left) %>"><%= paginate @courses, :remote => true %></div>
   </div>
-  <div class="<%= css_columns(4) %>">
+  <div class="<%= css_columns(5) %>">
     <%= search_form_for [:teach, @q], class: "search-form form-inline #{css_align(:right)}", :remote => true do |f| %>
-      <%# content_tag :strong, t('page.title.search') %> 
       <%= form_search f, :slug_or_name_or_about_cont, hint: false, label: false, placeholder: true %>
-      <%# form_submit f %>
     <% end %>
   </div>
 </div>

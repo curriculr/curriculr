@@ -13,11 +13,11 @@
 
   options = {
     :id => video_id,
-    :class => assessments.blank? ? 'mediaelementjs' : 'mediaelementjs_with_invideo_quiz',
+    :class => (assessments.blank? ? 'mediaelementjs' : 'mediaelementjs_with_invideo_quiz') + " embed-responsive",
     :poster => poster.present? ? poster.at_url : nil,
     :width => '100%',
     :height => '100%',
-    :stype => 'width: 100%; height: 100%;',
+    :style => 'width: 100%; height: 100%;',
     :title => medium.name,
     :"data-uid" => video_id,
     :"data-autoresize" => 'fit',

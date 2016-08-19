@@ -38,13 +38,13 @@ class MailerTest < ActionMailer::TestCase
 
   test "klass_invitation" do
     assert_difference 'ActionMailer::Base.deliveries.size', +1 do
-      Mailer.klass_invitation(@account.slug, @from, @to, @klass_3.id, Faker::Lorem.words(2).join(' '), 'http://localhost/sign_in').deliver_now
+      Mailer.klass_invitation(@account.slug, @from, @to, @klass_3.id, Faker::Lorem.words(2).join(' '), 'http://localhost/auth/signin').deliver_now
     end
   end
 
   test "klass_enrollment" do
     assert_difference 'ActionMailer::Base.deliveries.size', +1 do
-      Mailer.klass_enrollment(@account.slug, @from, @to, [@klass_1.id, @klass_2.id, @klass_3.id], 'http://localhost/sign_in').deliver_now
+      Mailer.klass_enrollment(@account.slug, @from, @to, [@klass_1.id, @klass_2.id, @klass_3.id], 'http://localhost/auth/signin').deliver_now
     end
   end
 

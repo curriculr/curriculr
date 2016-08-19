@@ -12,6 +12,53 @@ module ApplicationHelper
     current_account.config['theme']['logo'].present? ? "/images/logo.png" : false
   end
 
+  def footer_menu
+    add_to_app_menu :bottom, [
+      "© #{t('page.text.copyrights', :year => Time.zone.now.year)}",
+      link('miscellaneous', :about, main_app.localized_page_path(:about)),
+      link('miscellaneous', :contactus, main_app.contactus_path),
+      link(:page, :terms, main_app.localized_page_path(:terms)) ]
+      
+      mountable_fragments :footer_menu
+  end
+  
+  def main_menu
+    if current_user
+      add_to_app_menu :top, link: link_to(css_icon([:home, :lg]), main_app.home_path), active: action_name =='home' && controller_name == 'users'
+    end
+    
+    add_to_app_menu :top, link: link(:klass, :learn, main_app.learn_klasses_path), active: @course.blank? && (controller_name == 'klasses' || @klass.present?)
+
+    if current_user && (current_user.has_role?(:admin) || current_user.has_role?(:faculty))
+      add_to_app_menu :top, link: link(:course, :teach, main_app.teach_courses_path), active: controller_name == 'courses' || @course.present?
+    end
+
+    add_to_app_menu :top, link: link(:page, :blogs, main_app.blogs_path), active: controller_name == 'pages' && action_name == 'blogs'
+    
+    locale_in = current_account.config['allow_locale_setting_in'] || {}
+    if locale_in['url_param'] || locale_in['cookie'] || locale_in['session']
+      add_to_app_menu :top, $site['supported_locales'][I18n.locale.to_s], :locale
+      
+      $site['supported_locales'].each do |k,v|
+        if k == I18n.locale.to_s
+          add_to_app_menu :top, {link: v, active: false}, :locale
+        else
+          add_to_app_menu :top, {link: link_to(v, url_for(locale: k))}, :locale
+        end
+      end
+    end
+
+    unless current_user
+      unless request.path.ends_with?('/signin')  || request.path.ends_with?('/signup')
+        add_to_app_menu :top, link(:user, :signin, main_app.auth_signin_path), :right
+      end
+    else
+      add_to_app_menu :top, link(:session, :sign_out, main_app.auth_signout_path), :right
+    end
+    
+    mountable_fragments :main_menu
+  end
+  
   def true?(val)
     !val.nil? && val == true
   end

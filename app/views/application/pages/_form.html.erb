@@ -12,15 +12,15 @@
 
   <% if @req_objects.size == 1 %>
     <div class="row">
-      <div class="<%= css_columns(6) %>">
+      <div class="<%= css_columns(8) %>">
         <%= f.text_field :slug, placeholder: true %>
       </div>
       <% if current_user && current_user.has_role?(:admin) %>
-        <div class="<%= css_columns(3) %>">
+        <div class="<%= css_columns(4) %>">
           <br/>
           <%= f.check_box :blog %>
         </div>
-        <div class="<%= css_columns(3) %>">
+        <div class="<%= css_columns(4) %>">
           <br/>
           <%= f.check_box :html %>
         </div>
@@ -28,5 +28,6 @@
     </div>
   <% end %>
 
-  <%= form_submit f, the_path_out %>
+  <%= f.submit %>
+  <%= f.cancel the_path_out %>
 <% end %>

@@ -1,20 +1,20 @@
 <td>
 <%= themed_form_for the_form_path, remote: true do |f| %>	
 	<div class="row">
-    <div class="<%= css_columns(8) %>">
+    <div class="<%= css_columns(11) %>">
     	<%= f.text_field :name  %>
   		<%= f.hidden_field :is_a_link  %>
   		<% if @medium.is_a_link %>
   			<%= f.text_field :url %>
   		<% end %>
     </div>
-    <div class="<%= css_columns(4) %>">
+    <div class="<%= css_columns(5) %>">
     	<% if @medium.is_a_link %>
   			<%= f.select(:source, t("config.medium.#{@medium.kind}.source"), value: @medium.source, include_blank: false) %>
   		<% end %>
 			<br />
-  		<%= form_submit f, @medium.course ? teach_course_medium_path(@medium.course, @medium) : 
-  					medium_path(@medium), [], remote: true %>
+  		<%= f.submit remote: true %> 
+      <%= f.cancel @medium.course ? teach_course_medium_path(@medium.course, @medium) :  medium_path(@medium) %>
     </div>
    </div>
 <% end %>

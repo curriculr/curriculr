@@ -1,0 +1,25 @@
+<%= ui_header css_icon('comments', 2) + t('page.text.course_participation'), style: :h4 %>
+<%
+  forum_count = Forum.participated_on(klass.id, student.id).count
+  participation = {'forums' => [forum_count, forum_count], 'topics' => [0, 0], 'posts' => [0, 0], 'replies' => [0, 0]}
+  items = Activity.aggregated_for_one(['started_discussion', 'posted', 'replied'], klass.id, student.id).
+    joins("inner join forums on forums.id = actionable_id and actionable_type = 'Forum' and forums.lecture_comments = FALSE")
+
+  items.each do |item|
+    case item.action
+    when 'started_discussion'
+      participation['topics'] = [item.count, item.times]
+    when 'posted'
+      participation['posts'] = [item.count, item.times]
+    when 'replied'
+      participation['replies'] = [item.count, item.times]
+    end
+  end
+%>
+<div class="row">
+  <% participation.each do |k, v| %>
+    <div class="<%= css_columns(4) %> text-center">
+      <%= t("page.text.participation_#{k}_html", count: v[0], times: v[1]) %>
+    </div>
+  <% end %>
+</div>

@@ -1,6 +1,7 @@
 ar:
   page:
     title:
+      teach: تدريس
       assessment: اختبارات
       attendance: حضور
       participation: مشاركة
@@ -16,7 +17,7 @@ ar:
       activity_counts: تكرارات الأنشطة
       dashboard: مؤشرات
       select_files: اختيار الملفات للرفع
-      sign_in: للدخول
+      signin: للدخول
       discussion: المناقشة
       outline: <i class="fa fa-list"></i>&nbsp; المحاضرات
       forums: <i class="fa fa-comments-o"></i>&nbsp; المنتديات
@@ -120,7 +121,7 @@ ar:
         few: "%{count} تعليقات"
         many: "%{count} تعليقا"
         other: "%{count} تعليق"
-      copyrights: "جميع الحقوق محفوظة %{year}"
+      copyrights: "جميع الحقوق محفوظة %{year}."
       course_assessments_notice_html:
       course_books_notice_html:
       course_klasses_notice_html:
@@ -237,8 +238,8 @@ ar:
         أي تغيير في الاعدادات ينبغي أن يتم بحذر شديد لضمان أن تظل هذه الاعدادات صحيحة في شكلها و قيمها.
       include_in_assessment: أضف لـ '%{name}'
       closed_klass_html: هذا الفصل مغلق. لا يمكن أن تصل إلى التعليقات أو أن تحاول الاختبارات.
-      sign_in_using: بإستخدام %{provider}
-      external_sign_in_using: يمكنك الدخول باستخدام أي من حساباتك الحالية على
+      signin_using: بإستخدام %{provider}
+      external_signin_using: يمكنك الدخول باستخدام أي من حساباتك الحالية على
       participation_forums_html: <h2>%{times}</h2><h3><small>منتديات</small></h3>
       participation_topics_html: <h2>%{times}</h2><h3><small>مواضيع</small></h3>
       participation_posts_html: <h2>%{times}</h2><h3><small>مشاركات</small></h3>
@@ -252,8 +253,8 @@ ar:
       course_forums: أي منتدى في هذه القائمة سيكون تلقائيا جزءا من منتديات أي فصل دراسي قادمة لهذا المقرر.
       course_updates: هذه التحديثات ستنشر تلقائيا على الصفحات الرئيسية للفصول الدراسية لهذا المقرر عقب فتحها. التحديثات عبر البريد الإلكتروني سترسل تلقائيا للطلاب عقب تسجيلهم في هذه الفصول لأول مرة.
       unit_updates: هذه التحديثات ستنشر تلقائيا على الصفحات الرئيسية للفصول الدراسية لهذا المقرر عقب توافر هذه الوحدة. عندها أيضا سترسل التحديثات عبر البريد الإلكتروني تلقائيا للطلاب المسجلين.
-      sign_up: لإنشاء حساب جديد
-      sign_in: للدخول
+      signup: لإنشاء حساب جديد
+      signin: للدخول
       course_unit_html:
         <div class="alert alert-info" role="alert">
           يقسم المقرر إلى وحدة واحدة أو أكثر. قد تكون الوحدة فصلا من كتاب أو جزءا من موضوع المقرر

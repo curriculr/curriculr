@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="<%= css_columns(@account.new_record? ? 12 : 6) %>">
+  <div class="<%= css_columns(@account.new_record? ? 16 : 8) %>">
     <%= form_header %>
     <%= themed_form_for [:admin, @account], :show_help => false do |f| %>
       <fieldset>
@@ -27,11 +27,12 @@
           <% end %>
         <% end %>
       </fieldset>
-      <%= form_submit f, current_user.id == 1 ? admin_accounts_path : home_path  %>
+      <%= f.submit %>
+      <%= f.cancel current_user.id == 1 ? admin_accounts_path : home_path  %>
     <% end %>
   </div>
   <% unless @account.new_record? %>
-    <div class="<%= css_columns(6) %>">
+    <div class="<%= css_columns(8) %>">
       <%= ui_header t('helpers.submit.account_settings') %>
 
       <%

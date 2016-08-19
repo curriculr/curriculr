@@ -1,19 +1,17 @@
 <%= ui_header User.model_name.human(count: 3), style: :h2 %>
 
 <div class="row">
-  <div class="<%= css_columns(8) %>">
+  <div class="<%= css_columns(11) %>">
     <div id="paginator" class="<%= css_align(:left) %>"><%= paginate @users, :remote => true %></div>
   </div>
-  <div class="<%= css_columns(4) %>">
+  <div class="<%= css_columns(5) %>">
     <%= search_form_for @q, class: "search-form form-inline #{css_align(:right)}", :remote => true do |f| %>
-      <%# content_tag :strong, t('page.title.search') %> 
       <%= form_search f, :name_or_email_cont, hint: false, label: false, placeholder: true %>
-      <%# form_submit f %>
     <% end %>
   </div>
 </div>
 
-<table class="<%= css_table %>">
+<table>
 	<thead>
 		<tr>
 			<th><%= Profile.human_attribute_name(:name) %></th>

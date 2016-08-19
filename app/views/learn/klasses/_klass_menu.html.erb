@@ -1,0 +1,19 @@
+<%= link_to main_app.learn_klass_path(@klass) do %>
+  <%= image_tag ui_image_src(@klass.course.poster ? @klass.course.poster.at_url(:md) : nil, '/images/holder-md.png'),
+        class: "hidden-xs hidden-sm #{css_image(:responsive)}" %>
+<% end %>
+
+<% klass_menu %>
+
+<div class="nav-and-social-container">
+  <div class="ui link selection list">
+    <% app_menu(:klass).each do |item| %>
+      <%= item %>
+    <% end %>
+  </div>
+  <div class='text-center social-buttons'>
+    <%= ui_facebook_link(@klass) %>
+    <%= ui_twitter_link(@klass) %>
+    <%= ui_google_plus_link(@klass) %>
+  </div>
+</div>

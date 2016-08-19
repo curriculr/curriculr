@@ -8,13 +8,13 @@
 		<%= p.file_field :avatar %>
 
     <div class="row">
-      <div class="<%= css_columns(3) %>">
+      <div class="<%= css_columns(4) %>">
         <%= p.text_field :nickname %>
       </div>
-      <div class="<%= css_columns(3) %>">
+      <div class="<%= css_columns(4) %>">
         <%=  p.text_field :prefix %>
       </div>
-			<div class="<%= css_columns(6) %>">
+			<div class="<%= css_columns(8) %>">
         <%= p.select :locale, $site['supported_locales'].invert %>
       </div>
     </div>
@@ -25,5 +25,6 @@
 
   <%= f.check_box :active if @user.id != 1 && current_user.has_role?(:admin) %>
 
-  <%= form_submit f, _back_url %>
+  <%= f.submit %>
+  <%= f.cancel  _back_url %>
 <% end %>

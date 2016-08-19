@@ -1,6 +1,6 @@
 <% cache do %>
   <div class="row">
-    <div class="<%= css_columns(8) %>">
+    <div class="<%= css_columns(11) %>">
       <br/>
       <div class="panel panel-default">
         <ul class="nav nav-tabs success" role="tablist">
@@ -24,12 +24,13 @@
             <%= f.text_field :subject %>
             <%= f.text_area :content, :size => '60x8' %>
 
-            <%= form_submit f, root_path %>
+            <%= f.submit :send %>
+            <%= f.cancel root_path %>
           <% end %>
         </div>
       </div>
     </div>
-    <div class="<%= css_columns(4) %>">
+    <div class="<%= css_columns(5) %>">
       <br />
       <% help = Page.localized(:help) %>
       <%# ui_header help.name, :style => :h2 %>
