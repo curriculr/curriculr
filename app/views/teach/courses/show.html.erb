@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="<%= css_columns(16) %>">
+  <div class="<%= css_columns(24) %>">
     <%= markdown(@course.about) %>
     <% if @course.video %>
       <%= content_tag :div do %>
@@ -21,7 +21,7 @@
         <div id="syllabus" class="panel-collapse collapse <%= 'in' if active_course_section('syllabus') %>">
           <div class="panel-body">
             <div class="row">
-              <div class="<%= css_columns(16) %>">
+              <div class="<%= css_columns(24) %>">
                 <%= markdown(@course.syllabus.about) %>
               </div>
             </div>
@@ -88,7 +88,7 @@
         <div id="instructors" class="panel-collapse collapse <%= 'in' if active_course_section('people') %>">
           <div class="panel-body">
             <div class="row">
-              <div class="<%= css_columns(16) %>">
+              <div class="<%= css_columns(24) %>">
                 <%= render partial: "teach/instructors/index", locals: { instructors: instructors }  %>
               </div>
             </div>
@@ -174,7 +174,7 @@
        <div id="forums" class="panel-collapse collapse <%= 'in' if active_course_section('forums') %>">
          <div class="panel-body">
           <div class="row">
-            <div class="<%= css_columns(16) %>">
+            <div class="<%= css_columns(24) %>">
               <%= t('page.text.course_forums') %>
             </div>
           </div>
@@ -198,7 +198,7 @@
        <div id="updates" class="panel-collapse collapse <%= 'in' if active_course_section('updates') %>">
          <div class="panel-body">
           <div class="row">
-            <div class="<%= css_columns(16) %>">
+            <div class="<%= css_columns(24) %>">
               <%= t('page.text.course_updates') %>
             </div>
           </div>

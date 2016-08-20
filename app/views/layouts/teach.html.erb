@@ -1,6 +1,6 @@
 <div id="main-container" class="<%= css_container %>">
   <div class="row extra-padded">
-	  <div class="<%= css_columns(3) %> side-navabar">
+	  <div class="<%= css_columns(5) %> side-navabar">
       <%= render "teach/courses/course_menu" %>
 
       <% if current_account.config['allow_banner_ads'] %>
@@ -11,7 +11,7 @@
         <%= mountable_fragments :teach_160x600_left_bottom_banner %>
       <% end %>
     </div>
-    <div id="course-main-content" class="<%= css_columns(13) %>">
+    <div id="course-main-content" class="<%= css_columns(19) %>">
       <%
       action = ''
       action << staff_or_student_view if staff_or_student_view

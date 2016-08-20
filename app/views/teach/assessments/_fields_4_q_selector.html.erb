@@ -5,36 +5,36 @@
     <%= link f.object.question.present? ? :question : :q_selector, :destroy, '#', class: "remove_fields #{css(button: [:danger, :xs], align: :right)}" %>
   </div>
 
-  <% cols = @assessment.survey? ? 16 : 12 %>
+  <% cols = @assessment.survey? ? 24 : 16 %>
   <div class="panel-body">
     <div class="<%= css_columns(cols) %>"> 
       <% if f.object.question %>
         <%= render partial: "teach/questions/question", locals: {question: f.object.question, show_answer: false } %>
       <% else %>
         <div class="row">
-          <div class="<%= css_columns(4) %>">
+          <div class="<%= css_columns(6) %>">
             <%= f.collection_check_boxes :tags, question_banks(true).stringify_keys, 
                   :first, :second, {:label => t('page.title.question_banks')} %>
           </div>
-          <div class="<%= css_columns(12) %>">
+          <div class="<%= css_columns(18) %>">
             <div class="row">
-              <div class="<%= css_columns(8) %>"> 
+              <div class="<%= css_columns(12) %>"> 
                 <%= f.select :kind, t('config.question.kind').invert, :value => params[:s], include_blank: true %>
               </div>
-              <div class="<%= css_columns(8) %>">
+              <div class="<%= css_columns(12) %>">
                 <%= f.number_field :questions_count %>
               </div>
             </div>
         
             <div class="row">
-              <div class="<%= css_columns(8) %>">
+              <div class="<%= css_columns(12) %>">
                 <% if @unit %>
                   <%= f.hidden_field :unit_id, value: @unit.id %>
                 <% else %>
                   <%= f.select :unit_id, @course.units %>
                 <% end %>
               </div>
-              <div class="<%= css_columns(8) %>">
+              <div class="<%= css_columns(12) %>">
                 <% if @lecture %>
                   <%= f.hidden_field :lecture_id, value: @lecture.id %>
                 <% else %>
@@ -52,7 +52,7 @@
     </div>
     
     <% unless @assessment.survey? %>
-      <div class="<%= css_columns(16 - cols) %>">
+      <div class="<%= css_columns(24 - cols) %>">
         <%= @assessment.kind != 'survey' ? f.number_field(:points) : f.static(:points)  %>
         
         <%= f.hidden_field :order, class: "order-field" %>

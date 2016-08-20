@@ -1,7 +1,7 @@
 <%= form_header text: t('auth.headers.reset_password') %>
 
 <div class="row">
-  <div class="<%= css_columns(8) %>">
+  <div class="<%= css_columns(12) %>">
     <%= form_for @user || User.new, url: url_for(controller: 'auth/password_resets', action: 'create'), method: :post do |f| %>
       <%= f.email_field :email %>
 

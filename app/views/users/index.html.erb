@@ -1,15 +1,11 @@
-<%= ui_header User.model_name.human(count: 3), style: :h2 %>
+<%= 
+search = search_form_for @q, class: "search-form form-inline #{css_align(:right)}", :remote => true do |f|
+  form_search f, :name_or_email_cont, hint: false, label: false, placeholder: true
+end
 
-<div class="row">
-  <div class="<%= css_columns(11) %>">
-    <div id="paginator" class="<%= css_align(:left) %>"><%= paginate @users, :remote => true %></div>
-  </div>
-  <div class="<%= css_columns(5) %>">
-    <%= search_form_for @q, class: "search-form form-inline #{css_align(:right)}", :remote => true do |f| %>
-      <%= form_search f, :name_or_email_cont, hint: false, label: false, placeholder: true %>
-    <% end %>
-  </div>
-</div>
+ui_header User.model_name.human(count: 3), style: :h2, action: search %>
+
+<div id="paginator" class="<%= css_align(:left) %>"><%= paginate @users, :remote => true %></div>
 
 <table>
 	<thead>

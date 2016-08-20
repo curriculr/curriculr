@@ -1,18 +1,11 @@
-<div class="row">
-  <div class="<%= css_columns(11) %>">
-    <div id="paginator" class="<%= css_align(:left) %>">
-      <%= paginate @enrollments, :remote => true %>
-    </div>
-  </div>
-  <div class="<%= css_columns(5) %>">
-    <%= search_form_for @q, url: students_learn_klass_path(@klass), class: "search-form form-inline #{css_align(:right)}", :remote => true do |f| %>
-      <%= f.search_field :student_name_or_student_user_name_or_student_user_email_cont, 
-            hint: false, label: false, placeholder: true %>
-    <% end %>
-    <br>
-    <br>
-  </div>
-</div>
+<%=
+search = search_form_for @q, url: students_learn_klass_path(@klass), class: "search-form form-inline #{css_align(:right)}", remote: true do |f|
+   form_search f, :student_name_or_student_user_name_or_student_user_email_cont, hint: false, label: false, placeholder: true 
+end
+
+ui_header t('page.title.students'), style: :h3, action: search %>
+
+<div id="paginator" class="<%= css_align(:left) %>"><%= paginate @enrollments, :remote => true %></div>
 
 <table>
 	<thead>

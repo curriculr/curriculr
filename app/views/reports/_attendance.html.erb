@@ -9,7 +9,7 @@
       <div class="row">
     <% end %>
     
-    <div class="<%= css_columns(5) %>">
+    <div class="<%= css_columns(9) %>">
       <p><strong><%= u %></strong></p>
       <ul class="report-lists">
         <% lectures = attendance.select{|a| u == a.u_name}.map{|a| [a.name, a.attended]}.uniq %>

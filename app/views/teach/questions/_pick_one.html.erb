@@ -23,12 +23,12 @@
   <tbody class="<%= 'sortable' if is_sortable  %>" data-update-url="<%= url_for([:sort_option, :teach, @course, @unit, @lecture, q]) if is_sortable %>">
     <% q.options.each_with_index do |o, i| %>
       <tr class="row" id="option_<%= o.id %>">
-        <td class="<%= css_columns(14) %>">
+        <td class="<%= css_columns(21) %>">
           <%= label_tag "attempt[#{q.id}]_#{o.option}", class: "radio" do %>
             <%= processed_text(o.option) %>
           <% end %>
         </td>
-        <td class="<%= css_columns(2) %>">
+        <td class="<%= css_columns(3) %>">
           <%= radio_button_tag "attempt[#{q.id}]", o.option, (a && a[o.id] == '1'), :disabled => read_only %>
           <div id="<%= "answer_#{q.id}_#{o.id}"%>" style="display: inline;" class="question-answer"></div>
         </td>

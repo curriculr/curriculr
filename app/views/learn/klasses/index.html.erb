@@ -1,24 +1,28 @@
-<%
-  pills = []
-  pills << [ link(:klass, :available_klasses, main_app.learn_klasses_path),
-    (@courses.nil? && (params[:s].nil? || params[:s] == 'available'))]
-  pills << [ link(:klass, :popular_klasses, main_app.learn_klasses_path(:s => :popular)),
-    (params[:s] == 'popular')]
-  pills << [ link(:klass, :coming_klasses, main_app.learn_klasses_path(:s => :coming)),
-    (params[:s] == 'coming')]
-  if current_user
-    pills << [ link(:klass, :enrolled_klasses, main_app.learn_klasses_path(:s => :enrolled)),
-      (params[:s] == 'enrolled')]
-    pills << [ link(:klass, :taken_klasses, main_app.learn_klasses_path(:s => :taken)),
-      (params[:s] == 'taken')]
-  end
-%>
-<%= ui_header Klass.model_name.human(count: 3), style: :h2, :action => ui_nav_pills(pills, :class => css_align(:right)) %>
+<%=
+# pills = []
+# pills << [ link(:klass, :available_klasses, main_app.learn_klasses_path),
+#   (@courses.nil? && (params[:s].nil? || params[:s] == 'available'))]
+# pills << [ link(:klass, :popular_klasses, main_app.learn_klasses_path(:s => :popular)),
+#   (params[:s] == 'popular')]
+# pills << [ link(:klass, :coming_klasses, main_app.learn_klasses_path(:s => :coming)),
+#   (params[:s] == 'coming')]
+# if current_user
+#   pills << [ link(:klass, :enrolled_klasses, main_app.learn_klasses_path(:s => :enrolled)),
+#     (params[:s] == 'enrolled')]
+#   pills << [ link(:klass, :taken_klasses, main_app.learn_klasses_path(:s => :taken)),
+#     (params[:s] == 'taken')]
+# end
+#
+search = search_form_for [:learn, @q], class: "search-form form-inline #{css_align(:right)}", :remote => true do |f| 
+  form_search f, :course_slug_or_course_name_or_course_about_cont, hint: false, label: false, placeholder: true 
+end
 
+ui_header Klass.model_name.human(count: 3), style: :h2, action: search %>
+<%# ui_nav_pills(pills, :class => css_align(:right)) %>
 <div class="row">
-  <div class="<%= css_columns(12) %>">
+  <div class="<%= css_columns(18) %>">
     <div class="row">
-      <div class="<%= css_columns(16) %>">
+      <div class="<%= css_columns(24) %>">
         <div id="paginator" class="<%= css_align(:left) %>"><%= paginate @klasses, :remote => true %></div>
       </div>
     </div>
@@ -30,13 +34,9 @@
       <% end %>
     </div>
   </div>
-  <div class="<%= css_columns(4) %>">
+  <div class="<%= css_columns(6) %>">
     <%= mountable_fragments :klass_index_actions %>
 
-    <%= search_form_for [:learn, @q], class: "search-form form-inline", :remote => true do |f| %>
-      <%= form_search f, :course_slug_or_course_name_or_course_about_cont,
-            hint: false, label: false, placeholder: true %>
-    <% end %>
     <%= render 'learn/klasses/search' %>
 
     <%= yield :klasses_sidebar %>
@@ -44,10 +44,10 @@
     <% if current_account.config['allow_banner_ads'] %>
       <br />
       <div class="row">
-        <div class="<%= css_columns(8) %>">
+        <div class="<%= css_columns(12) %>">
           <%= mountable_fragments :site_160x600_left_rail_banner %>
         </div>
-        <div class="<%= css_columns(8) %>">
+        <div class="<%= css_columns(12) %>">
           <%= mountable_fragments :site_160x600_right_rail_banner %>
         </div>
       </div>

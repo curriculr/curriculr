@@ -44,12 +44,12 @@
   <div class="panel panel-default">
     <div class="panel-body">
       <div class="row">
-        <div class="<%= css_columns(@klass.course.video ? 11 : 16) %>">
+        <div class="<%= css_columns(@klass.course.video ? 15 : 24) %>">
           <%= content_tag :h4, t('page.title.about_class') unless updates.empty? %>
           <%= markdown(@klass.course.about) %>
         </div>
         <% if @klass.course.video %>
-          <div class="<%= css_columns(5) %>">
+          <div class="<%= css_columns(9) %>">
             <%= content_tag :div do %>
               <%= ui_video(@klass.course.video, @klass.course.poster) %>
             <% end %>
@@ -60,12 +60,12 @@
   </div>
 <% else # not enrolled %>
   <div class="row">
-    <div class="<%= css_columns(11) %>">
+    <div class="<%= css_columns(15) %>">
       <%= ui_header @klass.course.name, style: :h2, :action => staff_or_student_view(render(:partial => 'learn/klasses/student_picker')) %>
 
       <%= markdown @klass.course.syllabus.about %>
     </div>
-    <div class="<%= css_columns(5) %>">
+    <div class="<%= css_columns(9) %>">
       <div class="ui fluid card">
         <div class="image">
           <% if @klass.course.video %>
@@ -108,10 +108,10 @@
 
       <% if current_account.config['allow_banner_ads'] %>
         <div class="row">
-          <div class="<%= css_columns(8) %>">
+          <div class="<%= css_columns(12) %>">
             <%= mountable_fragments :site_160x600_left_rail_banner %>
           </div>
-          <div class="<%= css_columns(8) %>">
+          <div class="<%= css_columns(12) %>">
             <%= mountable_fragments :site_160x600_right_rail_banner %>
           </div>
         </div>

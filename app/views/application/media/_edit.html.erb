@@ -1,14 +1,14 @@
 <td>
 <%= themed_form_for the_form_path, remote: true do |f| %>	
 	<div class="row">
-    <div class="<%= css_columns(11) %>">
+    <div class="<%= css_columns(15) %>">
     	<%= f.text_field :name  %>
   		<%= f.hidden_field :is_a_link  %>
   		<% if @medium.is_a_link %>
   			<%= f.text_field :url %>
   		<% end %>
     </div>
-    <div class="<%= css_columns(5) %>">
+    <div class="<%= css_columns(9) %>">
     	<% if @medium.is_a_link %>
   			<%= f.select(:source, t("config.medium.#{@medium.kind}.source"), value: @medium.source, include_blank: false) %>
   		<% end %>

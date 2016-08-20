@@ -1,5 +1,5 @@
 <% render = Option.render_options[@question.kind.to_sym] %>
-<% cols = @question.kind.in?(%w(pick_one pick_many)) ? (@question.survey? ? 16 : 12) : 16/render[:cols] %>
+<% cols = @question.kind.in?(%w(pick_one pick_many)) ? (@question.survey? ? 24 : 16) : 24/render[:cols] %>
 
 <div class="row">
   <% if render[:option] %>
@@ -29,7 +29,7 @@
   <% end %>
 
   <% if render[:answer_options] %>
-    <%= content_tag :div, class: css_columns(16 - cols) do %>
+    <%= content_tag :div, class: css_columns(24 - cols) do %>
       <% if @question.kind == 'pick_one' || @question.kind == 'pick_many' %>
         <% if @question.survey? %>
            <%= f.hidden_field :answer_options, value: "0" %>

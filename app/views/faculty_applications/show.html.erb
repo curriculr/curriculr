@@ -3,7 +3,7 @@
 <%= themed_form_for @faculty_application do |f| %>
   <%= t('page.text.faculty_application_html') %>
   <div class="row">
-    <div class="<%= css_columns(8) %>">
+    <div class="<%= css_columns(12) %>">
       <fieldset>
         <legend><%= t('page.title.about_you') %></legend>
         <%= f.static :name %>
@@ -12,25 +12,25 @@
         <%= f.check_box :update_profile, :disabled => true %>
       </fieldset>
     </div>
-    <div class="<%= css_columns(8) %>">
+    <div class="<%= css_columns(12) %>">
       <fieldset>
         <legend><%= t('page.title.about_your_course') %></legend>
         <%= f.static :course %>
         <%= f.static :description, :value => markdown(@faculty_application.description) %>
 
         <div class="row">
-          <div class="<%= css_columns(8) %>">
+          <div class="<%= css_columns(12) %>">
       	    <%= f.static :weeks %>
           </div>
-          <div class="<%= css_columns(8) %>">
+          <div class="<%= css_columns(12) %>">
       	    <%= f.static :workload %>
           </div>
         </div>
         <div class="row">
-          <div class="<%= css_columns(8) %>">
+          <div class="<%= css_columns(12) %>">
             <%= f.static :locale, :value => $site['supported_locales'][@faculty_application.locale] %>
           </div>
-          <div class="<%= css_columns(8) %>">
+          <div class="<%= css_columns(12) %>">
             <%= f.static :country %>
           </div>
         </div>

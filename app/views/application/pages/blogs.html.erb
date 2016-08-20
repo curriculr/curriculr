@@ -1,6 +1,6 @@
 <% if @blogs.present? %>
   <div class="row">
-    <div id="blog-body" class="<%= css_columns(16) %>">
+    <div id="blog-body" class="<%= css_columns(24) %>">
       <%= render :partial => 'application/pages/blog', :collection => @blogs %>
     </div>
   </div>
@@ -9,7 +9,7 @@
 <% end %>
 
 <div class="row">
-  <div class="<%= css_columns(16) %>">
+  <div class="<%= css_columns(24) %>">
     <div id="paginator" class="text-center"><%= paginate @blogs %></div>
   </div>
 </div>

@@ -1,7 +1,7 @@
 <%= form_header %>
 
 <div class="row">
-  <div class="<%= css_columns(8) %>">
+  <div class="<%= css_columns(12) %>">
     <%= form_for(@user, :url => admin_users_path, :method => :post) do |f| %>
 
       <%= f.text_field :name%>

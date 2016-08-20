@@ -1,5 +1,5 @@
 <div class="row pricing">
-  <div class="<%= css_columns(11) %>">
+  <div class="<%= css_columns(15) %>">
     <%= ui_header(capture do %>
       <%= image_tag ui_image_src(student.avatar_url(current_account, :th), '/images/nobody-th.png') %>
       <%= student.name %>
@@ -32,7 +32,7 @@
   </div>
 
   <% final = klass.final_score student.id %>
-  <div class="<%= css_columns(5) %>">
+  <div class="<%= css_columns(9) %>">
     <div class="plan ">
       <div class="plan-head">
         <% if klass.course.config['allow_access_to']['final_score'] %>

@@ -10,7 +10,7 @@ module Themes::Bootstrap::CssHelper
     end
   end
 
-  def css_columns(columns = 16, offset = 0)
+  def css_columns(columns = 24, offset = 0)
     if offset > 0
       "col-md-#{columns} col-md-offset-#{offset}"
     else

@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-8 col-md-offset-4">
+  <div class="<%= css_columns(12,6) %>">
     <br/>
     <div class="panel panel-default">
       <ul id="signinOrUpTabs" class="nav nav-tabs success" role="tablist">
@@ -17,7 +17,7 @@
             <% app_secrets = Rails.application.secrets.auth[app.to_s] %>
             <% if app_secrets && app_secrets['id'].present? && app_secrets['secret'].present? %>
               <% app_name = app == :google_oauth2 ? :google : app %>
-              <div class="col-md-8">
+              <div class="<%= css_columns(12) %>">
               <%= link_to "/auth/#{app}", :class => css_button(app_name, :lg, :block) do %>
                 <i class="fa fa-<%= app_name %> fa-lg"></i>
                 <%= t("helpers.submit.#{app_name}") %>

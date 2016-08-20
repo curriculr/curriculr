@@ -1,16 +1,16 @@
 <div id="main-container" class="<%= css_container %>">
   <% if request.path.ends_with?('signin') or request.path.ends_with?('signup') %>
 	  <div class="row">
-			<div class="<%= css_columns(16) %>">
+			<div class="<%= css_columns(24) %>">
         <%= yield %>
       </div>
     </div>
   <% elsif @current_user %>
     <div class="row">
-			<div class="<%= css_columns(3) %>">
+			<div class="<%= css_columns(5) %>">
         <%= render "users/user_menu" %>
       </div>
-  		<div class="<%= css_columns(13) %>">
+  		<div class="<%= css_columns(19) %>">
         <%= yield %>
       </div>
     </div>
@@ -18,7 +18,7 @@
       <%= yield %>
   <% else %>
     <div class="row">
-			<div class="<%= css_columns(current_account.config['allow_banner_ads'] ? 13 : 16) %>">
+			<div class="<%= css_columns(current_account.config['allow_banner_ads'] ? 19 : 24) %>">
         <% if @page_header %>
           <%= ui_header @page_header, style: :h2, subtext: @klass ? klass_from_and_to_dates(@klass) : nil %>
         <% end %>
@@ -26,7 +26,7 @@
 				<%= yield %>
 			</div>
       <% if current_account.config['allow_banner_ads'] %>
-        <div class="<%= css_columns(3) %>">
+        <div class="<%= css_columns(5) %>">
           <br />
           <%= mountable_fragments :site_160x600_left_rail_banner %>
           <%= mountable_fragments :site_160x600_right_rail_banner %>

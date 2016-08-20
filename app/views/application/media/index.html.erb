@@ -32,6 +32,16 @@
 <% end %>
 <%= ui_header Medium.model_name.human(count: 3), style: @course ? :h3 : :h2, action: action %>
 
+<% options = {} %>
+<% options = { :m => true, :s => params[:s], :t => params[:t] } if @material %>
+<% url = @course ? teach_course_media_path(@course, options) : media_path %>
+<%= search_form_for @q, :url => url, class: "search-form form-inline #{css_align(:right)}", :remote => true do |f| %>
+  <%= hidden_field_tag(:unit_id, @unit.id) if @unit %>
+  <%= hidden_field_tag(:lecture_id, @lecture.id) if @lecture %>
+  <%= f.hidden_field :kind_start, :value => params[:s] %>
+  <%= form_search f, :slug_or_name_cont, hint: false, label: false, placeholder: true %>
+<% end %>
+
 <ul class="<%= css_nav(:tabs) %>">
   <% t('config.medium.kind').map do |k, v| %>
     <% cls = k.to_sym == to_medium_kind(params[:s]) ? 'active' : (@material ? 'disabled' : '')%>
@@ -40,24 +50,9 @@
     </li>
   <% end %>
 </ul>
-<br>
-<div class="row">
-  <div class="<%= css_columns(11) %>">
-    <div id="paginator" class="<%= css_align(:left) %>"><%= paginate @media, :remote => true %></div>
-  </div>
-  <div class="<%= css_columns(5) %>">
-    <% options = {} %>
-    <% options = { :m => true, :s => params[:s], :t => params[:t] } if @material %>
-    <% url = @course ? teach_course_media_path(@course, options) : media_path %>
-    <%= search_form_for @q, :url => url, class: "search-form form-inline #{css_align(:right)}", :remote => true do |f| %>
-      <%= hidden_field_tag(:unit_id, @unit.id) if @unit %>
-      <%= hidden_field_tag(:lecture_id, @lecture.id) if @lecture %>
-      <%= f.hidden_field :kind_start, :value => params[:s] %>
-      <%= form_search f, :slug_or_name_cont, hint: false, label: false, placeholder: true %>
-    <% end %>
-  </div>
-</div>
-<br>
+
+<div id="paginator" class="<%= css_align(:left) %>"><%= paginate @media, :remote => true %></div>
+
 <table>
 	<tbody id="all-media">
     <%= render :partial => "application/media/medium", :collection => @media, :as => :medium %>

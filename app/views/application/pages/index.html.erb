@@ -1,21 +1,13 @@
-<% action = link(:page, :new, new_page_path, class: css(button: :success, align: :right)) %>
-<%
-  title = current_user && current_user.has_role?(:admin) ? t('helpers.submit.static_pages_or_blogs') : t('helpers.submit.blog_posts')
-%>
-<%= ui_header title, style: :h2 %>
+<%=
+action = link(:page, :new, new_page_path, class: css(button: :success, align: :right))
+title = current_user && current_user.has_role?(:admin) ? t('helpers.submit.static_pages_or_blogs') : t('helpers.submit.blog_posts')
+search = search_form_for @q, class: "search-form form-inline #{css_align(:right)}", :remote => true do |f|
+  form_search f, :slug_or_name_or_about_cont, hint: false, label: false, placeholder: true 
+end 
 
-<div class="row">
-  <div class="<%= css_columns(11) %>">
-    <div id="paginator" class="<%= css_align(:left) %>">
-      <%= paginate @pages, :param_name => 'p', :remote => true %>
-    </div>
-  </div>
-  <div class="<%= css_columns(5) %>">
-    <%= search_form_for @q, class: "search-form form-inline #{css_align(:right)}", :remote => true do |f| %>
-      <%= form_search f, :slug_or_name_or_about_cont, hint: false, label: false, placeholder: true %>
-    <% end %>
-  </div>
-</div>
+ui_header title, style: :h2, action: search %>
+
+<div id="paginator" class="<%= css_align(:left) %>"><%= paginate @pages, :param_name => 'p', :remote => true %></div>
 
 <table>
 	<thead>

@@ -21,7 +21,7 @@
 
 <br>
 <div class="row">
-  <div class="<%= css_columns(5) %>">
+  <div class="<%= css_columns(9) %>">
     <strong><%= Assessment.human_attribute_name(:based_on) %></strong><br>
     <span class="<%= css_text(:muted) %>"><%= l(@assessment.based_on) %></span><br>
 
@@ -30,11 +30,11 @@
       <span class="<%= css_text(:muted) %>"><%= t("config.assessment.survey_events.#{@assessment.event_list}") %></span>
     <% end %>
   </div>
-  <div class="<%= css_columns(5) %>">
+  <div class="<%= css_columns(9) %>">
     <strong><%= Assessment.human_attribute_name(:from_datetime) %></strong><br>
     <span class="<%= css_text(:muted) %>"><%= l(@assessment.from_datetime) %></span>
   </div>
-  <div class="<%= css_columns(5) %>">
+  <div class="<%= css_columns(9) %>">
     <strong><%= Assessment.human_attribute_name(:to_datetime) %></strong><br>
     <span class="<%= css_text(:muted) %>"><%= l(@assessment.to_datetime) if @assessment.to_datetime.present? %></span>
   </div>
@@ -42,23 +42,23 @@
 
 <% if @assessment.kind != 'survey' %>
   <div class="row">
-    <div class="<%= css_columns(5) %>">
+    <div class="<%= css_columns(9) %>">
       <strong><%= Assessment.human_attribute_name(:allowed_attempts) %></strong><br>
       <span class="<%= css_text(:muted) %>"><%= @assessment.allowed_attempts || t('page.text.unlimited') %></span><br>
     </div>
-    <div class="<%= css_columns(5) %>">
+    <div class="<%= css_columns(9) %>">
       <strong><%= Assessment.human_attribute_name(:multiattempt_grading) %></strong>
       <span class="<%= css_text(:muted) %>">
         <%= t("config.assessment.multiattempt_grading.#{@assessment.multiattempt_grading}") %>
       </span>
     </div>
-    <div class="<%= css_columns(5) %>">
+    <div class="<%= css_columns(9) %>">
       <strong><%= Assessment.human_attribute_name(:droppable_attempts) %></strong><br>
       <span class="<%= css_text(:muted) %>"><%= @assessment.droppable_attempts %></span>
     </div>
   </div>
   <div class="row">
-    <div class="<%= css_columns(5) %>">
+    <div class="<%= css_columns(9) %>">
       <strong><%= Assessment.human_attribute_name(:after_deadline) %></strong><br>
       <span class="<%= css_text(:muted) %>">
         <% if @assessment.after_deadline %>
@@ -70,7 +70,7 @@
         <span class="<%= css_text(:muted) %>"><%= invideo.medium.name %></span><br>
       <% end %>
     </div>
-    <div class="<%= css_columns(5) %>">
+    <div class="<%= css_columns(9) %>">
       <strong><%= Assessment.human_attribute_name(:penalty) %></strong><br>
       <span class="<%= css_text(:muted) %>"><%= @assessment.penalty %></span><br>
 
@@ -79,7 +79,7 @@
         <span class="<%= css_text(:muted) %>"><%= @assessment.invideo_at %></span><br>
       <% end %>
     </div>
-    <div class="<%= css_columns(5) %>">
+    <div class="<%= css_columns(9) %>">
       <strong><%= Assessment.human_attribute_name(:show_answer) %></strong><br>
       <span class="<%= css_text(:muted) %>">
         <%= t("config.assessment.show_answer.#{@assessment.show_answer}") %></span>

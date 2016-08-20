@@ -6,7 +6,7 @@
 
 %>
 <div class="row">
-	<div class="<%= css_columns((own_topics.present? || own_posts.present?) ? 10 : 16) %>">
+	<div class="<%= css_columns((own_topics.present? || own_posts.present?) ? 15 : 24) %>">
 		<table>
 			<thead>
 				<tr>
@@ -33,7 +33,7 @@
 		</table>
 	</div>
 	<% if own_topics.present? || own_posts.present? %>
-		<div class="<%= css_columns(6) %>">
+		<div class="<%= css_columns(9) %>">
 			<div class="well">
 			<% if own_topics.present? %>
 				<h4><%= t('page.title.own_recent_topics') %></h4>

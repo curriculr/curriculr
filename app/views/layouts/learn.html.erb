@@ -1,14 +1,14 @@
 <div id="main-container" class="<%= css_container %>">
   <% if request.path.ends_with?('signin') || request.path.ends_with?('signup') %>
 	  <div class="row">
-			<div class="<%= css_columns(16) %>">
+			<div class="<%= css_columns(24) %>">
         <%= yield %>
       </div>
     </div>
   <% else %>
 		<% if @klass && (@klass.enrolled?(current_student) || staff?(current_user, @klass.course)) %>
       <div class="row extra-padded">
-				<div class="<%= css_columns(3) %> side-navabar">
+				<div class="<%= css_columns(5) %> side-navabar">
 			    <%= render "learn/klasses/klass_menu" %>
 
           <% if current_account.config['allow_banner_ads'] %>
@@ -18,7 +18,7 @@
             <%= mountable_fragments :learn_160x600_left_bottom_banner %>
           <% end %>
 				</div>
-				<div class="<%= css_columns(13) %>">
+				<div class="<%= css_columns(19) %>">
           <% if @page_header %>
             <% hdr = @page_header %>
 
@@ -41,7 +41,7 @@
       </div>
 		<% else %>
       <div class="row">
-				<div class="<%= css_columns(16) %>">
+				<div class="<%= css_columns(24) %>">
           <% if @page_header && (controller_name != 'klasses' || action_name != 'show') %>
             <%= ui_header @page_header, style: :h2, subtext: klass_from_and_to_dates(@klass), :action => staff_or_student_view(render(:partial => 'learn/klasses/student_picker')) %>
           <% end %>

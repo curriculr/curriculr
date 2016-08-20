@@ -18,7 +18,7 @@
 %>
 <div class="row">
   <% participation.each do |k, v| %>
-    <div class="<%= css_columns(4) %> text-center">
+    <div class="<%= css_columns(6) %> text-center">
       <%= t("page.text.participation_#{k}_html", count: v[0], times: v[1]) %>
     </div>
   <% end %>

@@ -7,11 +7,11 @@
       <thead>
         <tr>
           <th><%= Assessment.human_attribute_name(:name) %></th>
-          <th class="<%= css_columns(2) %>"><%= Assessment.human_attribute_name(:level) %></th>
-          <th class="<%= css_columns(2) %>"><%= Assessment.human_attribute_name(:kind) %></th>
-          <th class="<%= css_columns(2) %>"><%= t('config.report.minimum') %></th>
-          <th class="<%= css_columns(2) %>"><%= t('config.report.average') %></th>
-          <th class="<%= css_columns(2) %>"><%= t('config.report.maximum') %></th>
+          <th class="<%= css_columns(3) %>"><%= Assessment.human_attribute_name(:level) %></th>
+          <th class="<%= css_columns(3) %>"><%= Assessment.human_attribute_name(:kind) %></th>
+          <th class="<%= css_columns(3) %>"><%= t('config.report.minimum') %></th>
+          <th class="<%= css_columns(3) %>"><%= t('config.report.average') %></th>
+          <th class="<%= css_columns(3) %>"><%= t('config.report.maximum') %></th>
         </tr>
       </thead>
       <% assessments.each_with_index do |a, i| %>

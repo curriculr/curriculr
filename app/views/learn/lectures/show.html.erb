@@ -33,7 +33,7 @@
 <div class="panel panel-inverse">
   <div class="panel-heading">
     <div class="row">
-      <div class="<%= css_columns(12) %>">
+      <div class="<%= css_columns(18) %>">
         <h4 class="panel-title">
           <%
             nav_links = []
@@ -57,7 +57,7 @@
           <%= @lecture.name %>
         </h4>
       </div>
-      <div class="<%= css_columns(4) %>">
+      <div class="<%= css_columns(6) %>">
         <%= pager_html = capture do %>
           <ul class="pager lecture-pager"
               data-prev="<%= t('helpers.submit.prev_html').html_safe %>"
@@ -147,14 +147,14 @@
           %>
         <% elsif item.kind_of?(Page) %>
           <div class="row">
-            <div class="<%= css_columns(16) %>">
+            <div class="<%= css_columns(24) %>">
               <%= ui_header(item.name, style: :h4) %>
               <%= markdown(item.about, :html => item.html) %>
             </div>
           </div>
         <% elsif item.kind_of?(Question) %>
           <div class="row">
-            <div class="<%= css_columns(16) %>">
+            <div class="<%= css_columns(24) %>">
               <%
                 activity = item.activity('attempted', @klass, current_student)
                 answer = activity ? activity.data : nil
@@ -165,7 +165,7 @@
           </div>
         <% elsif item.kind_of?(Assessment) %>
           <div class="row">
-            <div class="<%= css_columns(16) %>">
+            <div class="<%= css_columns(24) %>">
               <%= render partial: "learn/assessments/assessment", locals: { assessment: item } %>
             </div>
           </div>
@@ -179,11 +179,11 @@
   <% if @lecture.allow_discussion && @topic %>
     <div class="panel-body">
       <div class="row">
-        <div class="<%= css_columns(16) %>">
+        <div class="<%= css_columns(24) %>">
           <%= ui_header t('page.title.discussion'), style: :h4 %>
           <%= content_tag :div, id: "comments" do %>
             <div class="row">
-              <div class="<%= css_columns(16) %> topics" >
+              <div class="<%= css_columns(24) %> topics" >
                 <%= render 'learn/topics/topic' %>
               </div>
             </div>

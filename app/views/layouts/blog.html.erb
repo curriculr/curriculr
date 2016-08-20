@@ -15,7 +15,7 @@
 
 <div id="main-container" class="<%= css_container %>">
   <div class="row">
-		<div class="<%= current_account.config['allow_banner_ads'] ? css_columns(10) : css_columns(10,3) %>">
+		<div class="<%= current_account.config['allow_banner_ads'] ? css_columns(15) : css_columns(15,3) %>">
       <% if @page_header %>
         <%= ui_header @page_header, style: :h2, subtext: @klass ? klass_from_and_to_dates(@klass) : nil %>
       <% end %>
@@ -24,12 +24,12 @@
 		</div>
     <% if current_account.config['allow_banner_ads'] %>
       <br />
-      <div class="<%= css_columns(6,1) %>">
+      <div class="<%= css_columns(9,1) %>">
         <div class="row">
-          <div class="<%= css_columns(8) %>">
+          <div class="<%= css_columns(12) %>">
             <%= mountable_fragments :site_160x600_left_rail_banner %>
           </div>
-          <div class="<%= css_columns(8) %>">
+          <div class="<%= css_columns(12) %>">
             <%= mountable_fragments :site_160x600_right_rail_banner %>
           </div>
         </div>

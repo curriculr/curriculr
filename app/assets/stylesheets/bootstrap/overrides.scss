@@ -8,7 +8,7 @@ $main-text-color: #4d4d4d;
 $light-gray: #dfe2e6;
 $lighter-gray: #f7f8fa;
 
-$grid-columns: 16;
+$grid-columns: 24;
 $grid-gutter-width: 20px;
 
 $headings-small-color: darken($light-gray, 25%);
@@ -1279,6 +1279,10 @@ div.media-heading {
 }
 
 // Semantic use of bootstrap
+.inline {
+  display: inline;
+}
+
 div.field {
   @extend .form-group;
   

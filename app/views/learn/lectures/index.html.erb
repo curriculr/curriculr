@@ -89,7 +89,7 @@
         <% end %>
 
         <div class="row">
-          <div class="<%= css_columns(16) %>">
+          <div class="<%= css_columns(24) %>">
             <%= unit.about %>
           </div>
         </div>
@@ -97,7 +97,7 @@
         <% unless lectures.to_a.empty? %>
           <% if @klass.course.config['show_lecture_poster'] %>
             <div class="row">
-              <div class="<%= css_columns(16) %>">
+              <div class="<%= css_columns(24) %>">
                 <div class="ui divided items">
                   <% lectures.each_with_index do |lecture, j| %>
                     <%

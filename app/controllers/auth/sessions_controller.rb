@@ -12,7 +12,7 @@ module Auth
         if user.persisted?
           cookies.signed[:auth_token] = user.remember_token
           user.update_tracked_fields!(request)
-          redirect_to user, notice: t('auth.sessions.signed_in')
+          redirect_to main_app.home_path, notice: t('auth.sessions.signed_in')
         else
           redirect_to main_app.auth_signup_path, alert: t('auth.sessions.unable_to_signin', provider: params[:provider])
         end

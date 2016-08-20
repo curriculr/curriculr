@@ -10,15 +10,15 @@
   
   <% if @assessment.kind != 'survey' %>
     <div class="row">
-      <div class="<%= css_columns(5) %>">
+      <div class="<%= css_columns(9) %>">
         <%= f.select :kind, kinds, 
               :value => params[:s], :include_blank => true %>
       </div>
-      <div class="<%= css_columns(5) %>">
+      <div class="<%= css_columns(9) %>">
         <br/>
         <%= f.check_box :after_deadline %>
       </div>
-      <div class="<%= css_columns(5) %>">
+      <div class="<%= css_columns(9) %>">
         <%= f.number_field :penalty %> 
       </div>
     </div>
@@ -28,18 +28,18 @@
   <%# f.markdown :about, :size => '60x5' %>
   
   <div class="row">
-    <div class="<%= css_columns(5) %>">
+    <div class="<%= css_columns(9) %>">
       <%= f.static :based_on %>
       <%= f.hidden_field :based_on %>
     </div>
-    <div class="<%= css_columns(5) %>">
+    <div class="<%= css_columns(9) %>">
       <% if @assessment.from_datetime.kind_of?(Time) %>
         <%= f.text_field :from_datetime, class: 'datetimepicker', value: @assessment.from_datetime.strftime("%Y-%m-%d %H:%M") %>
       <% else %>
         <%= f.text_field :from_datetime, class: 'datetimepicker' %>
       <% end %>
     </div>
-    <div class="<%= css_columns(5) %>">
+    <div class="<%= css_columns(9) %>">
       <% if @assessment.to_datetime.kind_of?(Time) %>
         <%= f.text_field :to_datetime, class: 'datetimepicker', value: @assessment.to_datetime.strftime("%Y-%m-%d %H:%M") %>
       <% else %>
@@ -50,26 +50,26 @@
   
   <% if @assessment.kind != 'survey' %>
     <div class="row">
-      <div class="<%= css_columns(5) %>">
+      <div class="<%= css_columns(9) %>">
         <%= f.number_field :allowed_attempts %>
       </div>
-      <div class="<%= css_columns(5) %>">
+      <div class="<%= css_columns(9) %>">
         <%= f.select :multiattempt_grading, t('config.assessment.multiattempt_grading').invert, :include_blank => false %>
       </div>
-      <div class="<%= css_columns(5) %>">
+      <div class="<%= css_columns(9) %>">
         <%# f.number_field :droppable_attempts %>
       </div>
     </div>
   
     <div class="row">
-      <div class="<%= css_columns(5) %>">
+      <div class="<%= css_columns(9) %>">
         <%= f.select :show_answer, t('config.assessment.show_answer').invert, :include_blank => false %>
       </div>
       <% if @lecture && (videos = Hash[@lecture.materials_of_kind(:video).to_a.map {|v| [ v.medium.name, v.id ]}]) %>
-        <div class="<%= css_columns(5) %>">
+        <div class="<%= css_columns(9) %>">
           <%= f.select :invideo_id, videos %>
         </div>
-        <div class="<%= css_columns(5) %>">
+        <div class="<%= css_columns(9) %>">
           <%= f.number_field :invideo_at %>
         </div>
       <% end %>

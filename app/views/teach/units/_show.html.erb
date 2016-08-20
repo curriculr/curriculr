@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="<%= css_columns(16) %>">
+  <div class="<%= css_columns(24) %>">
     <%= markdown(unit.about) %>
   </div>
 </div>
@@ -69,7 +69,7 @@ updates = unit.updates.to_a
 <div class="tab-content">
   <div class="tab-pane <%= active_unit_section('lectures') %>" id="unit-<%= unit.id %>-lectures">
     <div class="row">
-      <div class="<%= css_columns(16) %>">
+      <div class="<%= css_columns(24) %>">
         <%= render partial: "teach/lectures/index", locals: { unit: unit } %>
       </div>
     </div>
@@ -130,7 +130,7 @@ updates = unit.updates.to_a
   <div class="tab-pane <%= active_unit_section('updates') %>" id="unit-<%= unit.id %>-updates">
     <div class="panel-body">
       <div class="row">
-        <div class="<%= css_columns(16) %>">
+        <div class="<%= css_columns(24) %>">
           <%= t('page.text.unit_updates') %>
         </div>
       </div>
