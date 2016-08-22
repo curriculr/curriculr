@@ -14,7 +14,7 @@
   else
     subhtml = ''
     if @page
-      subhtml << ui_header(@page.name, style: :h4)
+      subhtml << ui_header(@page.name, style: :h3)
       subhtml << markdown(@page.about, :html => @page.html)
     elsif @question && @question.lecture
       subhtml << ( render partial: "learn/questions/show", locals: {

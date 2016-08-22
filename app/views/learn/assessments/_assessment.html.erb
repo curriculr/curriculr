@@ -14,8 +14,7 @@
   %>
 
   <div class="<%= css_align(:right) %>"><%= attempt_note %></div>
-  <h4>
-
+  <h3>
     <%= assessment.name %>
     <small>
       <%= l(assessment.opens_at_datetime(@klass.begin_date(current_student))) %>
@@ -23,7 +22,7 @@
         - <%= l(assessment.closes_at_datetime(@klass.begin_date(current_student))) %>
       <% end %>
     </small>
-  </h4>
+  </h3>
   <table>
     <tbody>
       <tr>

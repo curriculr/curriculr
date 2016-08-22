@@ -1,4 +1,4 @@
-<%= ui_header t('page.title.select_files'), style: @course ? :h3 : :h2 %>
+<%= ui_header t('page.title.select_files'), style: @course ? :h2 : nil %>
 
 <% if @medium.file_upload_allowed? %>
 	<%= themed_form_for the_form_path, :html => {

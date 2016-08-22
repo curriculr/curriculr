@@ -1,4 +1,4 @@
-<%= ui_header css_icon('comments', 2) + t('page.text.course_participation'), style: :h4 %>
+<%= ui_header css_icon('comments', 2) + t('page.text.course_participation'), style: :h3 %>
 <%
   forum_count = Forum.participated_on(klass.id, student.id).count
   participation = {'forums' => [forum_count, forum_count], 'topics' => [0, 0], 'posts' => [0, 0], 'replies' => [0, 0]}

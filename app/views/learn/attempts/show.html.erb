@@ -3,7 +3,7 @@
        data-time="<%= @assessment.closes_at_datetime(@klass.begin_date(current_student)).to_i * 1000 %>"></div>
 <% end %>
 
-<h3><%= @assessment.name %></h3>
+<h2><%= @assessment.name %></h2>
 
 <%# markdown(@assessment.about) %>
 

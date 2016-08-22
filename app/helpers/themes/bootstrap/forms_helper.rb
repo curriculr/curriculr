@@ -20,15 +20,7 @@ module Themes::Bootstrap::FormsHelper
       header = t(key, scope: 'helpers.submit', name: name )
     end
     
-    options[:wrapper] = true if options[:wrapper].nil?
-    style = (options[:style] || :h3)
-    unless options[:wrapper]
-      content_tag style, header.html_safe
-    else
-      content_tag :div, class: "page-header" do
-        content_tag style, header.html_safe
-      end
-    end
+    content_tag (options[:style] || :h1), header.html_safe
   end
 
   def form_input_wrapper(form, field, input, label = true, hint = false)

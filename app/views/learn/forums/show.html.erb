@@ -3,7 +3,7 @@
   <li class="active"><%= @forum.name %></li>
 </ul>
 
-<%= content_tag :h3, @forum.name %>
+<%= content_tag :h2, @forum.name %>
 
 <%= markdown @forum.about %>
 
@@ -28,13 +28,13 @@
 		<% topics.each do |topic| %>
 		<tr>
 			<td>
-				<h4>
+				<h3>
           <%= link_to topic.name, learn_klass_forum_topic_path(@klass, @forum, topic) %>
           <br>
           <small>
             <%= timeago_tag topic.created_at, :nojs => true, :limit => 10.days.ago %>
           </small>
-        </h4>
+        </h3>
 			</td>
 			<td><%= topic.posts_count %></td>
       <td><%= topic.ups %></td>

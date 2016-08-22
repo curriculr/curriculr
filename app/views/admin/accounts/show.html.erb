@@ -2,7 +2,7 @@
 
 <div class="row">
   <div class="<%= css_columns(9) %>">
-    <h4><%= t('page.title.basic_info') %></h4>
+    <h3><%= t('page.title.basic_info') %></h3>
     <span class="<%= css_text(:muted) %>">
     <%= markdown(@account.about) %>
     </span>
@@ -12,7 +12,7 @@
       <%= f.check_box :live,  :disabled => true  %>
     <% end %>
 
-    <h4><%= t('page.title.administrator') %></h4>
+    <h3><%= t('page.title.administrator') %></h3>
     <strong><%= User.human_attribute_name(:name) %></strong><br>
     <span class="<%= css_text(:muted) %>">
       <%=  @account.user.name %>
@@ -27,7 +27,7 @@
     <%= link :account, :cancel, admin_accounts_path, :class => css_button(:default) %>
   </div>
   <div class="<%= css_columns(15) %>">
-    <h4><%= t('page.title.settings') %></h4>
+    <h3><%= t('page.title.settings') %></h3>
     <%= highlighted_code @account.settings, 'json' %>
   </div>
 </div>

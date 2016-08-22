@@ -1,7 +1,15 @@
 en:
   page:
     title:
-      teach: Teaching
+      teaching: Teaching
+      learning: Learning
+      available_klasses: Available classes
+      popular_klasses: Popular classes
+      coming_klasses: Coming classes
+      taking_klasses: Current classes
+      enrolled_klasses: Enrolled classes
+      taken_klasses: Taken classes
+      recent_klasses: Recent Classes
       assessment: Assessment
       attendance: Attendance
       participation: Participation

@@ -1,24 +1,9 @@
 <%=
-# pills = []
-# pills << [ link(:klass, :available_klasses, main_app.learn_klasses_path),
-#   (@courses.nil? && (params[:s].nil? || params[:s] == 'available'))]
-# pills << [ link(:klass, :popular_klasses, main_app.learn_klasses_path(:s => :popular)),
-#   (params[:s] == 'popular')]
-# pills << [ link(:klass, :coming_klasses, main_app.learn_klasses_path(:s => :coming)),
-#   (params[:s] == 'coming')]
-# if current_user
-#   pills << [ link(:klass, :enrolled_klasses, main_app.learn_klasses_path(:s => :enrolled)),
-#     (params[:s] == 'enrolled')]
-#   pills << [ link(:klass, :taken_klasses, main_app.learn_klasses_path(:s => :taken)),
-#     (params[:s] == 'taken')]
-# end
-#
 search = search_form_for [:learn, @q], class: "search-form form-inline #{css_align(:right)}", :remote => true do |f| 
   form_search f, :course_slug_or_course_name_or_course_about_cont, hint: false, label: false, placeholder: true 
 end
 
-ui_header Klass.model_name.human(count: 3), style: :h2, action: search %>
-<%# ui_nav_pills(pills, :class => css_align(:right)) %>
+ui_header t("page.title.#{params[:s] || 'available'}_klasses"), action: search %>
 <div class="row">
   <div class="<%= css_columns(18) %>">
     <div class="row">

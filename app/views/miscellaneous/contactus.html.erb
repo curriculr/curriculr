@@ -33,7 +33,7 @@
     <div class="<%= css_columns(9) %>">
       <br />
       <% help = Page.localized(:help) %>
-      <%# ui_header help.name, :style => :h2 %>
+      <%# ui_header help.name %>
       <%= markdown(help.about) %>
     </div>
   </div>

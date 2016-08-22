@@ -14,7 +14,7 @@
   <% units.each_with_index do |unit, i| %>
     <%= content_tag :div, unit, id: "unit_#{unit.id}", :class => "panel panel-inverse" do %>
       <div class="panel-heading">
-        <h4 class="panel-title">
+        <h3 class="panel-title">
           <a data-toggle="collapse" class="sort-handle" data-parent="#sortable-units-accordion" href="#collapse-<%= unit.id %>">
             <%= unit.name %>
           </a>
@@ -24,7 +24,7 @@
                 nil,
                 link(:unit, :destroy, teach_course_unit_path(@course, unit), :method => :delete, confirm: true)
               ], class: css_button(:xs, :default), align: :right) %>
-        </h4>
+        </h3>
       </div>
       <% active = (active_unit_id.present? && unit.id == active_unit_id) || (active_unit_id.blank? && i == 0) %>
       <%= content_tag :div, :id => "collapse-#{unit.id}", :class => "panel-collapse unit collapse #{'in' if active}",

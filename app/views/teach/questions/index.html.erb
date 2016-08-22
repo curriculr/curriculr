@@ -40,7 +40,7 @@ if @q_selector
     :class => css(button: :default, align: :right) 
   
   
-  ui_header t('page.title.question_banks'), style: :h3, action: action, subtext: subtext
+  ui_header t('page.title.question_banks'), style: :h2, action: action, subtext: subtext
 else 
   links = []
   question_kinds(@bank == 'survey').each do |k,v|
@@ -51,7 +51,7 @@ else
 
   ui_header(t('page.title.question_banks'), subtext: subtext + '&nbsp;&nbsp;&nbsp;'.html_safe + units_and_lectures,
       action: ui_button_dropdown(t('helpers.submit.new', name: Question.model_name.human), links, class: css_button(:success), align: :right),
-      style: :h3) 
+      style: :h2) 
 end %>
 
 <% url = question_bank_path(:index, params[:s], @assessment, @bank) %>

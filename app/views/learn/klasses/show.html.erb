@@ -41,11 +41,11 @@
   <br />
 
   <!-- about class -->
-  <div class="panel panel-default">
+  <!-- <div class="panel panel-default">
     <div class="panel-body">
       <div class="row">
         <div class="<%= css_columns(@klass.course.video ? 15 : 24) %>">
-          <%= content_tag :h4, t('page.title.about_class') unless updates.empty? %>
+          <%= content_tag :h3, t('page.title.about_class') unless updates.empty? %>
           <%= markdown(@klass.course.about) %>
         </div>
         <% if @klass.course.video %>
@@ -57,11 +57,11 @@
         <% end %>
       </div>
     </div>
-  </div>
+  </div> -->
 <% else # not enrolled %>
-  <div class="row">
+  <div class="row extra-padded">
     <div class="<%= css_columns(15) %>">
-      <%= ui_header @klass.course.name, style: :h2, :action => staff_or_student_view(render(:partial => 'learn/klasses/student_picker')) %>
+      <%= ui_header @klass.course.name, :action => staff_or_student_view(render(:partial => 'learn/klasses/student_picker')) %>
 
       <%= markdown @klass.course.syllabus.about %>
     </div>

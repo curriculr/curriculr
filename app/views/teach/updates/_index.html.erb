@@ -13,7 +13,7 @@
           %>
           <%= ui_button_dropdown ui_options_button_text, links, class: css_button(:default), align: :right %>
 
-          <h4>
+          <h3>
             <%= update.subject %> &nbsp;
             <%= content_tag :span, t('page.text.inactive'), :class => "badge" unless update.active %>
             &nbsp;
@@ -33,7 +33,7 @@
             <%= t('page.text.to') %> <%= t('config.update.to.' + update.to) %>
             <%= "#{I18n.t('page.text.on')} #{I18n.l(update.created_at.to_date)})" if klass %>
             </small>
-  				</h4>
+  				</h3>
 
           <% if update.active && klass && klass.approved && klass.open? && update.sent_at.blank? %>
             <div class="<%= css_alert(:warning) %>">

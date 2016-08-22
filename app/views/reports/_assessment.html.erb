@@ -1,4 +1,4 @@
-<%= ui_header css_icon('flask', 2) + t('page.text.course_assessment'), style: :h4 %>
+<%= ui_header css_icon('flask', 2) + t('page.text.course_assessment'), style: :h3 %>
 
 <% assessments = Assessment.report(klass, student).all %>
 <% if assessments.present? %>
@@ -18,10 +18,10 @@
         <% level = (a.lname.present? ? Lecture : (a.uname.present? ? Unit : Course)).model_name.human %>
         <tr>
           <td>
-            <h5><%= a.name %>
+            <h4><%= a.name %>
               <%= content_tag :small, %(<br/><strong>#{Unit.model_name.human}:</strong> #{a.uname}).html_safe if a.uname.present? %>
               <%= content_tag :small, %(<br/><strong>#{Lecture.model_name.human}:</strong> #{a.lname}).html_safe if a.lname.present? %>
-            </h5>
+            </h4>
           </td>
           <td><%= level %></td>
           <td><%= a.kind %></td>

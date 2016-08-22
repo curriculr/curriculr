@@ -1,7 +1,15 @@
 ar:
   page:
     title:
-      teach: تدريس
+      teaching: تدريس
+      learning: تًعًلُّم
+      available_klasses: الفصول المتوافرة
+      popular_klasses: الفصول الشائعة
+      coming_klasses: الفصول القادمة
+      taking_klasses: فصول آخذها حاليا
+      enrolled_klasses: فصول سجلت فيها
+      taken_klasses: فصول انتهيت منها
+      recent_klasses: فصول أخذت مؤخرا
       assessment: اختبارات
       attendance: حضور
       participation: مشاركة

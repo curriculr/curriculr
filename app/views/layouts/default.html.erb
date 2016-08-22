@@ -6,7 +6,7 @@
       </div>
     </div>
   <% elsif @current_user %>
-    <div class="row">
+    <div class="row extra-padded">
 			<div class="<%= css_columns(5) %>">
         <%= render "users/user_menu" %>
       </div>
@@ -15,12 +15,16 @@
       </div>
     </div>
   <% elsif request.path == main_app.learn_klasses_path %>
-      <%= yield %>
+    <div class="row extra-padded">
+  		<div class="<%= css_columns(24) %>">
+        <%= yield %>
+      </div>
+    </div>
   <% else %>
     <div class="row">
 			<div class="<%= css_columns(current_account.config['allow_banner_ads'] ? 19 : 24) %>">
         <% if @page_header %>
-          <%= ui_header @page_header, style: :h2, subtext: @klass ? klass_from_and_to_dates(@klass) : nil %>
+          <%= ui_header @page_header, subtext: @klass ? klass_from_and_to_dates(@klass) : nil %>
         <% end %>
 
 				<%= yield %>

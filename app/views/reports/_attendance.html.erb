@@ -1,4 +1,4 @@
-<%= ui_header css_icon('list', 2) + t('page.text.course_attendance'), style: :h4 %>
+<%= ui_header css_icon('list', 2) + t('page.text.course_attendance'), style: :h3 %>
 
 <% attendance = Lecture.attendance(klass, student).all %>
 <% unless attendance.blank? %>

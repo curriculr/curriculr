@@ -62,13 +62,6 @@ en:
       unready: Mark as not ready
       revoke: Revoke
       enact: Enact
-      available_klasses: Available
-      popular_klasses: Popular
-      coming_klasses: Coming
-      taking_klasses: Current
-      enrolled_klasses: Enrolled
-      taken_klasses: Taken
-      recent_klasses: Recent Classes
       add_promo_video: Add promo video
       remove_promo_video: Remove promo video
       add_poster_image: Add poster

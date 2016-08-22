@@ -1,7 +1,7 @@
 <% search = search_form_for [:admin, @q], class: "search-form form-inline #{css_align(:right)}", :remote => true do |f| %>
   <%= form_search f, :slug_or_name_cont, hint: false, label: false, placeholder: true %>
 <% end %>
-<%= ui_header Account.model_name.human(count: 3), style: :h2, action: search %>
+<%= ui_header Account.model_name.human(count: 3), action: search %>
 
 <div id="paginator" class="<%= css_align(:left) %>"><%= paginate @accounts, :remote => true %></div>
 

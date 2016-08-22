@@ -18,7 +18,7 @@
 				<% (forums = @klass.forums.where(:lecture_comments => false).to_a).each do |forum| %>
 				<tr>
 					<td>
-						<h4><%= link_to forum.name, learn_klass_forum_path(@klass, forum) %></h4>
+						<h3><%= link_to forum.name, learn_klass_forum_path(@klass, forum) %></h3>
 						<%= markdown forum.about %>
 					</td>
 					<td><%= forum.topics_count %></td>
@@ -36,7 +36,7 @@
 		<div class="<%= css_columns(9) %>">
 			<div class="well">
 			<% if own_topics.present? %>
-				<h4><%= t('page.title.own_recent_topics') %></h4>
+				<h3><%= t('page.title.own_recent_topics') %></h3>
 				<ul class="list-unstyled">
 					<% own_topics.each do |topic| %>
 						<li><%= css_icon('comments', 2) %><%= link_to topic.name, learn_klass_forum_topic_path(@klass, topic.forum, topic) %></li>
@@ -45,7 +45,7 @@
 			<% end %>
 
 			<% if own_posts.present? %>
-				<h4><%= t('page.title.own_recent_posts') %></h4>
+				<h3><%= t('page.title.own_recent_posts') %></h3>
 				<ul class="list-unstyled">
 					<% own_posts.each do |post| %>
 						<li><%= css_icon('comment', 2) %><%= link_to summary(post.about, 20), learn_klass_forum_topic_path(@klass, post.forum, post.topic) %></li>
@@ -72,13 +72,13 @@
     <% topics.each do |topic| %>
 		<tr>
 			<td>
-				<h4>
+				<h3>
           <%= link_to topic.name, learn_klass_forum_topic_path(@klass, topic.forum, topic) %>
           <br>
           <small>
             <%= timeago_tag topic.created_at, :nojs => true, :limit => 10.days.ago %>
           </small>
-        </h4>
+        </h3>
 			</td>
 			<td><%= topic.posts_count %></td>
 			<td><%= topic.hits %></td>

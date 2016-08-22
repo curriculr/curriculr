@@ -33,7 +33,7 @@
               end
             %>
 
-            <%= ui_header hdr, :style => :h2, :subtext => subtext.html_safe, :action => staff_or_student_view(render(:partial => 'learn/klasses/student_picker')) %>
+            <%= ui_header hdr, :subtext => subtext.html_safe, :action => staff_or_student_view(render(:partial => 'learn/klasses/student_picker')) %>
           <% end %>
 
 					<%= yield %>
@@ -43,7 +43,7 @@
       <div class="row">
 				<div class="<%= css_columns(24) %>">
           <% if @page_header && (controller_name != 'klasses' || action_name != 'show') %>
-            <%= ui_header @page_header, style: :h2, subtext: klass_from_and_to_dates(@klass), :action => staff_or_student_view(render(:partial => 'learn/klasses/student_picker')) %>
+            <%= ui_header @page_header, subtext: klass_from_and_to_dates(@klass), :action => staff_or_student_view(render(:partial => 'learn/klasses/student_picker')) %>
           <% end %>
 
 					<%= yield %>

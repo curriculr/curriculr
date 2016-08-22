@@ -49,7 +49,7 @@
     <%= render :template => "layouts/teach" %>
   <% elsif @klass %>
     <%= render :template => "layouts/learn" %>
-	<% elsif @page || action_name == 'blogs' %>
+	<% elsif controller_name == 'pages' && action_name == 'blogs' %>
 	  <%= render :template => 'layouts/blog' %>
   <% else %>
     <%= render :template => "layouts/default" %>

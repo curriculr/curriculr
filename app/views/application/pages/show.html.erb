@@ -33,12 +33,9 @@ end
 
 <% if @course %>
   <%= actions %>
-  <h3>
-    <%= @page.name %><br/>
-    <small><%= @page.by_author %></small>
-  </h3>
+  <h2><%= @page.name %><br/><small><%= @page.by_author %></small></h2>
 <% else %>
-  <%= ui_header @page.name, subtext: @page.blog ? @page.by_author : nil, action: actions, style: :h2 %>
+  <%= ui_header @page.name, subtext: @page.blog ? @page.by_author : nil, action: actions %>
 <% end %>
 
 <% if @page && !@page.new_record? %>

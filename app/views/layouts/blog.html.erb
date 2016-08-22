@@ -2,9 +2,9 @@
   <div class="jumbotron">
     <div class="<%= css_container %> text-center">
       <% if  action_name == 'blogs' %>
-      <h1><i class="fa fa-newspaper-o fa-6"></i></h1>
-      <h2><%= scoped_t("#{current_account.slug}.site.blog.line1_html") %></h2>
-      <p><%= scoped_t("#{current_account.slug}.site.blog.line2_html") %></p>
+        <h1><i class="fa fa-newspaper-o fa-6"></i></h1>
+        <h2><%= scoped_t("#{current_account.slug}.site.blog.line1_html") %></h2>
+        <p><%= scoped_t("#{current_account.slug}.site.blog.line2_html") %></p>
       <% else %>
         <h1><i class="fa fa-book"></i></h1>
         <h2><%= title %></h2>
@@ -15,9 +15,9 @@
 
 <div id="main-container" class="<%= css_container %>">
   <div class="row">
-		<div class="<%= current_account.config['allow_banner_ads'] ? css_columns(15) : css_columns(15,3) %>">
+		<div class="<%= current_account.config['allow_banner_ads'] ? css_columns(14) : css_columns(14,5) %>">
       <% if @page_header %>
-        <%= ui_header @page_header, style: :h2, subtext: @klass ? klass_from_and_to_dates(@klass) : nil %>
+        <%= ui_header @page_header, subtext: @klass ? klass_from_and_to_dates(@klass) : nil %>
       <% end %>
 
 			<%= yield %>

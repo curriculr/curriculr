@@ -74,20 +74,20 @@
         <% when Question %>
           <tr id="content_<%= item.id %>_question" sortid="content_<%= item.id %>.question">
             <td>
-              <h5>
+              <h4>
                 <%= link(:question, :edit,
                     edit_teach_course_unit_lecture_question_path(@course, unit, lecture, item),
                     :class => css(button: [:success, :xs], align: :right)) %>
                 <i class="fa fa-question"></i>&nbsp;
                 <br/><br/>
                 <%= render partial: "teach/questions/question", locals: { question: item, show_answer: false } %>
-              </h5>
+              </h4>
             </td>
           </tr>
         <% when Page %>
           <tr id="content_<%= item.id %>_page" sortid="content_<%= item.id %>.page">
             <td>
-              <h5>
+              <h4>
                 <%= link(:page, :edit,
                     edit_teach_course_unit_lecture_page_path(@course, unit, lecture, item),
                     :class => css(button: [:success, :xs], align: :right)) %>
@@ -95,13 +95,13 @@
                 <%= link_to item.name, teach_course_unit_lecture_page_path(@course, unit, lecture, item) %>
                 <small><%= l(item.created_at.to_date) %></small>
                 <%= content_tag(:span, t('page.text.unpublished'), :class => css_label(:warning)) unless item.published %>
-              </h5>
+              </h4>
             </td>
           </tr>
         <% when Assessment %>
           <tr id="content_<%= item.id %>_assessment" sortid="content_<%= item.id %>.assessment">
             <td>
-              <h5>
+              <h4>
                 <%= link(:assessment, :edit,
                     edit_teach_course_unit_lecture_assessment_path(@course, unit, lecture, item),
                     :class => css(button: [:success, :xs], align: :right)) %>
@@ -109,7 +109,7 @@
                 <%= link_to(item.name, teach_course_unit_lecture_assessment_path(@course, unit, lecture, item)) %>
                 <small><%= item.kind %></small>
                 <%= content_tag(:span, t('page.text.unready'), :class => css_label(:warning)) unless item.ready %>
-              </h5>
+              </h4>
 
               <%# markdown a.about %>
             </td>

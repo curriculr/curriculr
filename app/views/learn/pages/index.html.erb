@@ -20,7 +20,7 @@
 <% unless pages.blank? %>
   <% pages.each_with_index do |page,i| %>
     <%= content_tag :hr, '' if i > 0 %>
-    <h3><%= page.name %> <br/><small><%= l(page.created_at.to_date) %></small></h3>
+    <h2><%= page.name %> <br/><small><%= l(page.created_at.to_date) %></small></h2>
     
     <%= markdown(page.about, :html => page.html, :class => 'shortenable-text', :hidden_til_processed => true) %>
   <% end %>

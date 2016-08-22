@@ -9,7 +9,7 @@
   <% @course.klasses.order('begins_on desc').each_with_index do |klass, i|  %>
     <%= content_tag :div, klass, id: "klass_#{klass.id}", :class => "panel panel-inverse" do %>
       <div class="panel-heading">
-        <h4 class="panel-title">
+        <h3 class="panel-title">
           <a data-toggle="collapse" data-parent="#accordion" href="#collapse-<%= klass.id %>">
               <%= klass.name %>
               <%= content_tag(:span, Klass.human_attribute_name(:private), :class => css_label(:danger)) if klass.private %>
@@ -17,7 +17,7 @@
 
           <%= ui_button_dropdown(ui_options_button_text, ui_course_klass_links(klass),
                 class: css_button(:xs, :default), align: :right) %>
-        </h4>
+        </h3>
       </div>
 
       <% active = (active_klass_id.present? && klass.id == active_klass_id) || (active_klass_id.blank? && i == 0) %>

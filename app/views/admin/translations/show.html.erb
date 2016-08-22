@@ -1,4 +1,4 @@
-<%= ui_header(t('page.title.translations') , :style => :h3, :action => capture do %>
+<%= ui_header(t('page.title.translations'), action: capture do %>
   <ul class="<%= css_nav(:pills) %> <%= css_align(:right) %>">
     <% $site['supported_locales'].each do |locale, name| %>
       <%= content_tag :li, link_to(name, edit_admin_translation_path(locale)), 

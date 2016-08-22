@@ -95,9 +95,9 @@ module Themes::Bootstrap::UiComponentsHelper
   end
 
   def ui_header(text, options = {})
-    options[:style] ||= :h3
+    options[:style] ||= :h1
 
-    content_tag :div, class: "page-header" do
+    #content_tag :div, class: "ui header" do
       html = ''
       html << options[:action] if options[:action].present?
       html << ( content_tag options[:style] do
@@ -113,7 +113,7 @@ module Themes::Bootstrap::UiComponentsHelper
       end )
 
       html.html_safe
-    end
+    #end
   end
 
   def staff_or_student_view(default_action = nil)

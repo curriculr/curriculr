@@ -34,7 +34,7 @@
   <div class="panel-heading">
     <div class="row">
       <div class="<%= css_columns(18) %>">
-        <h4 class="panel-title">
+        <h3 class="panel-title">
           <%
             nav_links = []
             unit_pagers = @lecture.unit.pagers(@klass, current_student)
@@ -55,7 +55,7 @@
           %>
           <%= ui_button_dropdown content_tag(:i, '', class: "fa fa-list"), nav_links , class: css_button(:default, :xs) %>&nbsp;
           <%= @lecture.name %>
-        </h4>
+        </h3>
       </div>
       <div class="<%= css_columns(6) %>">
         <%= pager_html = capture do %>
@@ -148,7 +148,7 @@
         <% elsif item.kind_of?(Page) %>
           <div class="row">
             <div class="<%= css_columns(24) %>">
-              <%= ui_header(item.name, style: :h4) %>
+              <%= ui_header(item.name, style: :h3) %>
               <%= markdown(item.about, :html => item.html) %>
             </div>
           </div>
@@ -180,7 +180,7 @@
     <div class="panel-body">
       <div class="row">
         <div class="<%= css_columns(24) %>">
-          <%= ui_header t('page.title.discussion'), style: :h4 %>
+          <%= ui_header t('page.title.discussion'), style: :h3 %>
           <%= content_tag :div, id: "comments" do %>
             <div class="row">
               <div class="<%= css_columns(24) %> topics" >

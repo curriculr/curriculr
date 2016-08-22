@@ -30,7 +30,7 @@
     <% end %>
   <% end %>
 <% end %>
-<%= ui_header Medium.model_name.human(count: 3), style: @course ? :h3 : :h2, action: action %>
+<%= ui_header Medium.model_name.human(count: 3), style: @course ? :h2 : nil, action: action %>
 
 <% options = {} %>
 <% options = { :m => true, :s => params[:s], :t => params[:t] } if @material %>

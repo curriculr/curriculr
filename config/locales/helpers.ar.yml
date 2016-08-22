@@ -63,13 +63,6 @@ ar:
       unready: اسحب جهوزيته
       revoke: إبطال
       enact: أحدث
-      available_klasses: المتوافرة
-      popular_klasses: الشائعة
-      coming_klasses: القادمة
-      taking_klasses: آخذها حاليا
-      enrolled_klasses: سجلت فيها
-      taken_klasses: انتهيت منها
-      recent_klasses: أخذت مؤخرا
       add_promo_video: اضف فيديو المقدمة
       remove_promo_video: احذف فيديو المقدمة
       add_poster_image: أضف ملصقا

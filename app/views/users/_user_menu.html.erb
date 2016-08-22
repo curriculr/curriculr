@@ -1,34 +1,24 @@
 <% user_menu %>
 
-
-<div class="header">
-  <img src="<%= current_user.profile.avatar_url(current_account, :med).to_s %>">
-  <%= current_user.name %>
-  <div class="subtext">
-    <%= current_user.email %>
+<div class="nav-and-social-container">
+  <div class="header">
+    <%= image_tag ui_image_src(current_user.profile.avatar_url(current_account, :tny), '/images/nobody-tny.png'), :size => "25x25" %>
+    <strong><%= current_user.name %></strong>
   </div>
-</div>
-<div class="description">
-  <% if current_user.profile.about.present? %>
-    <%= markdown(summary(current_user.profile.about, 100)) || 's' %>
-  <% else %>
-    <%= t('page.text.no_info_to_display') %>
-  <% end %>
-</div>
-<ul class="list-unstyled">
-  <% app_menu(:user).each do |item| %>
-    <li><%= item %></li>
-  <% end %>
-</ul>
-
-<ul class="list-unstyled">
-  <% app_menus(:user).reject {|k,v| k == :_}.each do |section, menu| %>
-    <li><strong><%= t("page.title.#{section}") %></strong></li>
-    <% menu.each do |item| %>
-      <li><%= item %></li>
+  <div class="ui link selection list">
+    <% app_menu(:user).each do |item| %>
+      <%= content_tag :div, item[:link], class: item[:active] ? 'item active' : 'item' %>
     <% end %>
+  </div>
+  <% app_menus(:user).reject {|k,v| k == :_}.each do |section, menu| %>
+    <div class="header"><strong><%= t("page.title.#{section}") %></strong></div>
+    <div class="ui link selection list">
+      <% menu.each do |item| %>
+        <%= content_tag :div, item[:link], class: item[:active] ? 'item active' : 'item' %>
+      <% end %>
+    </div>
   <% end %>
-</ul>
+</div>
 
 <% if current_account.config['allow_banner_ads'] %>
   <div class="row">

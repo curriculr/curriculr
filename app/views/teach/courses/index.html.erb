@@ -3,7 +3,7 @@ search = search_form_for [:teach, @q], class: "search-form form-inline #{css_ali
   form_search f, :slug_or_name_or_about_cont, hint: false, label: false, placeholder: true 
 end
 
-ui_header Course.model_name.human(count: 3), style: :h2, action: search %>
+ui_header Course.model_name.human(count: 3), action: search %>
 
 <div id="paginator" class="<%= css_align(:left) %>"><%= paginate @courses, :remote => true %></div>
 

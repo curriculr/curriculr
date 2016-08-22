@@ -80,13 +80,13 @@ updates = unit.updates.to_a
         <% assessments.each_with_index do |a, i| %>
           <tr>
             <td>
-              <h5>
+              <h4>
                 <%= link(:assessment, :edit, edit_teach_course_unit_assessment_path(@course, unit, a), 
                 :class => css(button: [:primary, :xs], align: :right)) %>
                 <%= link_to(a.name, teach_course_unit_assessment_path(@course, unit, a)) %> 
                 <small><%= a.kind %></small>
                 <%= content_tag(:span, t('page.text.unready'), :class => css_label(:warning)) unless a.ready %>
-              </h5>
+              </h4>
        
               <%# markdown a.about %> 
             </td>
@@ -101,11 +101,11 @@ updates = unit.updates.to_a
         <% unit.pages.each_with_index do |page, i| %>
         <tr>
           <td>
-            <h5>
+            <h4>
               <%= link_to page.name, teach_course_unit_page_path(@course, unit, page) %> 
               <small><%= l(page.created_at.to_date) %></small>
               <%= content_tag(:span, t('page.text.unpublished'), :class => css_label(:warning)) unless page.published %>
-            </h5>
+            </h4>
           </td>
         </tr>
         <% end %>

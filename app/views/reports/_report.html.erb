@@ -3,7 +3,7 @@
     <%= ui_header(capture do %>
       <%= image_tag ui_image_src(student.avatar_url(current_account, :th), '/images/nobody-th.png') %>
       <%= student.name %>
-    <% end, style: :h3) %>
+    <% end, style: :h2) %>
 
     <ul>
       <li>
@@ -37,10 +37,10 @@
       <div class="plan-head">
         <% if klass.course.config['allow_access_to']['final_score'] %>
           <h1 class="price"><%= final[:letter] %></h1>
-          <h4 class="description"><%= t('page.title.final_score') %>: <strong><%= final[:score] %>%</strong></h4>
+          <h3 class="description"><%= t('page.title.final_score') %>: <strong><%= final[:score] %>%</strong></h3>
         <% else %>
           <h1 class="price"><%= css_icon(:lock) %></h1>
-          <h4 class="description"><%= t('page.title.final_score') %></h4>
+          <h3 class="description"><%= t('page.title.final_score') %></h3>
         <% end %>
       </div>
       <ul class="plan-features">

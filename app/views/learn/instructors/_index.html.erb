@@ -1,4 +1,4 @@
-<h4><%= Instructor.model_name.human(count: 3) %></h4>
+<h3><%= Instructor.model_name.human(count: 3) %></h3>
 <% instructors = @klass.instructors %>
 
 <%= render :partial => 'learn/instructors/show', :collection => instructors, :as => :instructor %>

@@ -1,9 +1,9 @@
 <% if @medium.m.present? %>
 	<%= ui_header t('helpers.submit.new', :name => t('page.text.file_or_external_link')), 
-				subtext: t("helpers.submit.#{@medium.kind}"), style: @course ? :h3 : :h2 %>
+				subtext: t("helpers.submit.#{@medium.kind}"), style: @course ? :h2 : nil %>
 <% else %>
 	<%= ui_header t('helpers.submit.new', :name => t('page.text.external_link')), 
-				subtext: t("helpers.submit.#{@medium.kind}"), style: @course ? :h3 : :h2 %>
+				subtext: t("helpers.submit.#{@medium.kind}"), style: @course ? :h2 : nil %>
 <% end %>
 
 <%= themed_form_for the_form_path, :html => {:multipart => true} do |f| %>	

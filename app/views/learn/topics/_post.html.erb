@@ -13,7 +13,7 @@
     <div>
       <%= markdown(post.about) %>
     </div>
-    <h6>
+    <h5>
       <small>
         <%= timeago_tag post.created_at, :nojs => true, :limit => 10.days.ago %>
       </small>
@@ -55,7 +55,7 @@
           <%= post.downs %> <i class="fa fa-thumbs-down text-danger"></i>
         <% end %>
       <% end %>
-    </h6>
+    </h5>
 
     <% if @depth <= 3 %>
     <div id='reply-to-post-<%= post.id %>' class="hidden">

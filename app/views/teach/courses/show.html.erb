@@ -10,13 +10,13 @@
     <div class="panel-group" id="accordion">
       <div class="panel panel-inverse">
         <div class="panel-heading">
-          <h4 class="panel-title">
+          <h3 class="panel-title">
             <a data-toggle="collapse" data-parent="#accordion" href="#syllabus">
               <%= t('page.title.syllabus') %>
             </a>
             <%= link(:page, :edit, edit_teach_course_page_path(@course, @course.syllabus),
                   class: css(button: [:xs, :primary], align: :right)) %>
-          </h4>
+          </h3>
         </div>
         <div id="syllabus" class="panel-collapse collapse <%= 'in' if active_course_section('syllabus') %>">
           <div class="panel-body">
@@ -40,7 +40,7 @@
       %>
       <div class="panel panel-inverse">
         <div class="panel-heading">
-          <h4 class="panel-title">
+          <h3 class="panel-title">
             <a data-toggle="collapse" data-parent="#accordion" href="#assessments">
 
               <%= Assessment.model_name.human(count: 3) %>
@@ -48,7 +48,7 @@
             </a>
             <%= ui_button_dropdown(t('helpers.submit.new', name: Assessment.model_name.human), links,
                 class: css_button(:xs, :primary), align: :right) %>
-          </h4>
+          </h3>
         </div>
         <div id="assessments" class="panel-collapse collapse <%= 'in' if active_course_section('assessments') %>">
           <div class="panel-body"></div>
@@ -57,13 +57,13 @@
               <% assessments.each_with_index do |a, i| %>
               <tr>
                 <td>
-                  <h5>
+                  <h4>
                     <%= link(:assessment, :edit, edit_teach_course_assessment_path(@course, a),
                         :class => css(button: :success, align: :right)) %>
                     <%= link_to(a.name, teach_course_assessment_path(@course, a)) %>
                     <small><%= a.kind %></small>
                     <%= content_tag(:span, t('page.text.unready'), :class => css_label(:warning)) unless a.ready %>
-                  </h5>
+                  </h4>
                   <%# markdown a.about %>
                 </td>
               </tr>
@@ -76,14 +76,14 @@
       <% instructors = @course.instructors.order(:order).to_a %>
       <div class="panel panel-inverse">
         <div class="panel-heading">
-          <h4 class="panel-title">
+          <h3 class="panel-title">
             <a data-toggle="collapse" data-parent="#accordion" href="#instructors">
               <%= t('page.title.people') %>
               <%= content_tag :span, instructors.count, :class => css_badge %>
             </a>
             <%= link(:instructor, :new, new_teach_course_instructor_path(@course),
                   :class => css(button: [:xs, :primary], align: :right)) %>
-          </h4>
+          </h3>
         </div>
         <div id="instructors" class="panel-collapse collapse <%= 'in' if active_course_section('people') %>">
           <div class="panel-body">
@@ -99,7 +99,7 @@
       <% books = @course.books.to_a %>
       <div class="panel panel-inverse">
         <div class="panel-heading">
-          <h4 class="panel-title">
+          <h3 class="panel-title">
             <a data-toggle="collapse" data-parent="#accordion" href="#books">
               <%= t('page.title.books') %>
               <%= content_tag :span, books.count, :class => css_badge %>
@@ -107,7 +107,7 @@
             <%= link(:material, :new_book,
                 new_teach_course_material_path(@course, :s => :document,
                 :t => :books, :multiple => true), :class => css(button: [:xs, :primary], align: :right)) %>
-          </h4>
+          </h3>
         </div>
         <div id="books" class="panel-collapse collapse <%= 'in' if active_course_section('books') %>">
           <div class="panel-body"></div>
@@ -130,14 +130,14 @@
       <% pages = @course.non_syllabus_pages.to_a %>
       <div class="panel panel-inverse">
        <div class="panel-heading">
-         <h4 class="panel-title">
+         <h3 class="panel-title">
            <a data-toggle="collapse" data-parent="#accordion" href="#pages">
              <%= Page.model_name.human(count: 3) %>
              <%= content_tag :span, pages.count, :class => css_badge %>
            </a>
            <%= link(:page, :new,
                new_teach_course_page_path(@course), :class => css(button: [:xs, :primary], align: :right)) %>
-         </h4>
+         </h3>
        </div>
        <div id="pages" class="panel-collapse collapse <%= 'in' if active_course_section('pages') %>">
          <div class="panel-body"></div>
@@ -146,11 +146,11 @@
              <% pages.each_with_index do |page, i| %>
                <tr>
                  <td>
-                   <h5>
+                   <h4>
                      <%= link_to page.name, teach_course_page_path(@course, page) %>
                      <small><%= l(page.created_at.to_date) %></small>
                      <%= content_tag(:span, t('page.text.unpublished'), :class => css_label(:warning)) unless page.published %>
-                   </h5>
+                   </h4>
                  </td>
                </tr>
              <% end %>
@@ -162,14 +162,14 @@
       <% forums = @course.forums.to_a %>
       <div class="panel panel-inverse">
        <div class="panel-heading">
-         <h4 class="panel-title">
+         <h3 class="panel-title">
            <a data-toggle="collapse" data-parent="#accordion" href="#forums">
              <%= Forum.model_name.human(count: 3) %>
              <%= content_tag :span, forums.count, :class => css_badge %>
            </a>
            <%= link(:forum, :new,
                new_teach_course_forum_path(@course), :class => css(button: [:xs, :primary], align: :right)) %>
-         </h4>
+         </h3>
        </div>
        <div id="forums" class="panel-collapse collapse <%= 'in' if active_course_section('forums') %>">
          <div class="panel-body">
@@ -186,14 +186,14 @@
       <% updates = @course.updates.to_a %>
       <div class="panel panel-inverse">
        <div class="panel-heading">
-         <h4 class="panel-title">
+         <h3 class="panel-title">
            <a data-toggle="collapse" data-parent="#accordion" href="#updates">
              <%= Update.model_name.human(count: 3) %>
              <%= content_tag :span, updates.count, :class => css_badge %>
            </a>
            <%= link(:update, :new,
                new_teach_course_update_path(@course), :class => css(button: [:xs, :primary], align: :right)) %>
-         </h4>
+         </h3>
        </div>
        <div id="updates" class="panel-collapse collapse <%= 'in' if active_course_section('updates') %>">
          <div class="panel-body">
@@ -212,7 +212,7 @@
       %>
       <div class="panel panel-inverse">
         <div class="panel-heading">
-          <h4 class="panel-title">
+          <h3 class="panel-title">
             <a data-toggle="collapse" data-parent="#accordion" href="#surveys">
 
               <%= t('page.title.surveys') %>
@@ -220,7 +220,7 @@
             </a>
             <%= link :survey, :new,  new_teach_course_assessment_path(@course, :t => :survey),
                   :class => css(button: [:xs, :primary], align: :right) %>
-          </h4>
+          </h3>
         </div>
         <div id="surveys" class="panel-collapse collapse <%= 'in' if active_course_section('surveys') %>">
           <div class="panel-body"></div>
@@ -229,13 +229,13 @@
               <% assessments.each_with_index do |a, i| %>
               <tr>
                 <td>
-                  <h5>
+                  <h4>
                     <%= link(:survey, :edit, edit_teach_course_assessment_path(@course, a),
                         :class => css(button: :success, align: :right)) %>
                     <%= link_to(a.name, teach_course_assessment_path(@course, a)) %>
                     <small><%= a.kind %></small>
                     <%= content_tag(:span, t('page.text.unready'), :class => css_label(:warning)) unless a.ready %>
-                  </h5>
+                  </h4>
                   <%# markdown a.about %>
                 </td>
               </tr>

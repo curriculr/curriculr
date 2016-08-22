@@ -21,7 +21,7 @@
           :class => css(button: :primary, align: :right))
       end
       %>
-      <%= ui_header(@page_header, style: :h2, subtext:  @course.by_instructors,  action: action) %>
+      <%= ui_header(@page_header, subtext:  @course.by_instructors,  action: action) %>
       <%
         show = nil
         show_map = {}

@@ -23,7 +23,7 @@
   %>
   <div class="panel panel-inverse klass-lecture">
     <div class="panel-heading">
-      <h4 class="panel-title">
+      <h3 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#unit-<%= unit.id %>">
           <%= unit.name %>
         </a>
@@ -53,7 +53,7 @@
         <% else %>
           <% ui_klass_enrollment_action(@klass, :enroll, true)  %>
         <% end %>
-      </h4>
+      </h3>
     </div>
 
     <div id="unit-<%= unit.id %>" class="panel-collapse collapse <%= 'in' if expanded %>">

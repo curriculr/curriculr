@@ -40,7 +40,7 @@
   </div>
 
   <%= tag :br if posts.present? %>
-  <%= content_tag :h4, t('page.title.reply_to_topic') unless @lecture  %>
+  <%= content_tag :h3, t('page.title.reply_to_topic') unless @lecture  %>
   <%= themed_form_for [:learn, @klass, @forum, @topic, @post], remote: @lecture.present?  do |f| %>
     <%= hidden_field_tag(:tab, tab) if defined? tab %>
     <%= hidden_field_tag(:lecture_id, @lecture.id) if @lecture %>
