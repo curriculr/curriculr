@@ -1,24 +1,37 @@
 <% main_menu %>
-<ul class="nav navbar-nav navbar-right">
-  <% app_menu(:top).each do |item| %>
-    <%= content_tag :li, item[:link], class: item[:active] ? 'active' : nil %>
-  <% end %>
+
+<div class="ui secondary <%= "inverted " if front %>pointing menu">
+  <div class="header item">
+		<%= link_to current_user ? main_app.home_path : main_app.root_path, :class => "logo" do %>
+      <% if logo_path %>
+        <%= image_tag logo_path(front) %>
+      <% else %>
+        <strong><%= current_account.config['title'] %></strong>
+      <% end %>
+    <% end %>
+  </div>
   
-  <% if app_menu(:top, :locale) %>
-    <li class="dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-        <b class="caret"></b>
-        <%= app_menu(:top, :locale)[0] %>
-      </a>
-      <ul class="dropdown-menu">
-        <% app_menu(:top, :locale).from(1).each do |item| %>
-          <%= content_tag :li, item[:link], class: item[:active] == false ? 'disabled' : nil %>
-        <% end %>
-      </ul>
-    </li>
-  <% end %>
+  <div class="right item">
+    <% app_menu(:top).each do |item| %>
+      <%= link_to item[:link], item[:to], class: "#{item[:active] ? 'active ' : nil} item" %>
+    <% end %>
   
-  <% app_menu(:top, :right).each do |item| %>
-    <%= content_tag :li, item %>
-  <% end %>
-</ul>
+    <% if app_menu(:top, :locale) %>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+          <b class="caret"></b>
+          <%= app_menu(:top, :locale)[0] %>
+        </a>
+        <ul class="dropdown-menu">
+          <% app_menu(:top, :locale).from(1).each do |item| %>
+            <%= content_tag :li, item[:link], class: item[:active] == false ? 'disabled' : nil %>
+          <% end %>
+        </ul>
+      </li>
+    <% end %>
+  
+    <% app_menu(:top, :right).each do |item| %>
+      <%= link_to item[:link], item[:to], class: "ui #{"inverted " if front}button" %>
+    <% end %>
+  </div>
+</div>

@@ -1,4 +1,4 @@
-<div class="panel-body">
+<div class="ui input">
   <%= render 'teach/questions/preamble', :q => q, :show_answer => show_answer %>
 
   <%
@@ -6,8 +6,7 @@
   q.options.each do |o|
     html.sub!('...', text_field_tag("attempt[#{q.id}][#{o.id}]", '', :size => [(q.answer[o.id].length + 3), 60].min,
       :value => (a ? a[o.id] : nil),
-      :readonly => read_only,
-      :class => css_form_control))
+      :readonly => read_only))
   end
   %>
 

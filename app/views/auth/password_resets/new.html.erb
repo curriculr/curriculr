@@ -1,12 +1,6 @@
-<%= form_header text: t('auth.headers.reset_password') %>
+<%= form_for @user || User.new, url: url_for(controller: 'auth/password_resets', action: 'create'), method: :post, header: t('auth.headers.reset_password') do |f| %>
+  <%= f.email_field :email %>
 
-<div class="row">
-  <div class="<%= css_columns(12) %>">
-    <%= form_for @user || User.new, url: url_for(controller: 'auth/password_resets', action: 'create'), method: :post do |f| %>
-      <%= f.email_field :email %>
-
-      <%= f.submit :submit %>
-      <%= f.cancel auth_signin_path %>
-    <% end %>
-  </div>
-</div>
+  <%= f.submit :submit %>
+  <%= f.cancel auth_signin_path %>
+<% end %>

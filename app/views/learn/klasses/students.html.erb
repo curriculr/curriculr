@@ -1,13 +1,13 @@
 <%=
-search = search_form_for @q, url: students_learn_klass_path(@klass), class: "search-form form-inline #{css_align(:right)}", remote: true do |f|
-   form_search f, :student_name_or_student_user_name_or_student_user_email_cont, hint: false, label: false, placeholder: true 
+search = search_form_for @q, url: students_learn_klass_path(@klass), class: "search-form", method: :get, remote: true, wrapper: false, header: false do |f|
+   f.search_field :student_name_or_student_user_name_or_student_user_email_cont, hint: false, label: false, placeholder: true 
 end
 
 ui_header t('page.title.students'), style: :h2, action: search %>
 
-<div id="paginator" class="<%= css_align(:left) %>"><%= paginate @enrollments, :remote => true %></div>
+<div id="paginator"><%= paginate @enrollments, :remote => true %></div>
 
-<table>
+<table class="ui striped selectable small table">
 	<thead>
 		<tr>
 			<th>#</th>
@@ -16,8 +16,7 @@ ui_header t('page.title.students'), style: :h2, action: search %>
 			<th><%= Enrollment.human_attribute_name(:score) %></th>
       <th>
         <% if @klass.private %>
-          <%= link_to(t('helpers.submit.invite').html_safe, invite_teach_course_klass_path(@klass.course, @klass), 
-                :class => css(button: :success, align: :right)) %>
+          <%= link_to(t('helpers.submit.invite').html_safe, invite_teach_course_klass_path(@klass.course, @klass), :class => 'ui button') %>
         <% end %>
       </th>
 		</tr>

@@ -1,6 +1,6 @@
-<%= form_header %>
 
-<%= themed_form_for [:teach, @course, @instructor] do |f| %>
+
+<%= form_for [:teach, @course, @instructor] do |f| %>
   <%= f.hidden_field :course_id, :value => @course.id %>
   
   <% email = @instructor.new_record? ? @instructor.email : @instructor.user.email %>

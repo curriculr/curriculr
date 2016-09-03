@@ -6,8 +6,8 @@
     remote:        data-remote
     paginator:     the paginator that renders the pagination tags inside
 -%>
-<%= paginator.render do -%>
-  <ul class="pagination pull-right">
+<%= paginator.render do %>
+  <div class="ui center aligned pagination menu">
     <%= first_page_tag unless current_page.first? %>
     <%= prev_page_tag unless current_page.first? %>
     <% each_page do |page| -%>
@@ -19,5 +19,5 @@
     <% end -%>
     <%= next_page_tag unless current_page.last? %>
     <%= last_page_tag unless current_page.last? %>
-  </ul>
+  </div>
 <% end -%>

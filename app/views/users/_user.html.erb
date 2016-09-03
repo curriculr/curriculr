@@ -13,26 +13,27 @@
       roles_all = t('config.role').keys.sort
       roles_cur = user.roles.map {|r| r.name }.uniq.sort
 			links = []
-			links << link(:profile, :edit, edit_user_path(user))
-			links << link(:user, :confirm, confirm_user_path(user), method: :put) unless user.confirmed?
+			links << link(:profile, :edit, edit_user_path(user), class: 'item')
+			links << link(:user, :confirm, confirm_user_path(user), method: :put, class: 'item') unless user.confirmed?
 			unless user == current_account.user
 				links << nil
         (roles_all - roles_cur).each do |r|
   				links << link_to(t('helpers.submit.add_role', role: t("config.role.#{r}")),
   					user_path(user.id, :opr => r), :method => :put,
-  					:remote => true, :id => "usr_#{r}_#{user.id}_link")
+  					:remote => true, :id => "usr_#{r}_#{user.id}_link", class: 'item')
         end
 
         roles_cur.each do |r|
   				links << link_to(t('helpers.submit.remove_role', role: t("config.role.#{r}")),
   					user_path(user.id, :opr => r), :method => :put,
-  					:remote => true, :id => "usr_#{r}_#{user.id}_link") if roles_all.include?(r)
+  					:remote => true, :id => "usr_#{r}_#{user.id}_link", class: 'item') if roles_all.include?(r)
         end
 
         links << nil
-				links << link(:user, :destroy, user, :method => :delete, confirm: true, :id => "usr_delete_#{user.id}_link")
+				links << link(:user, :destroy, user, :method => :delete, confirm: true, :id => "usr_delete_#{user.id}_link", class: 'item')
 			end
 		%>
-		<%= ui_button_dropdown ui_options_button_text, links, class: css_button(:default), align: :right %>
+    
+		<%= ui_dropdown_button t('page.title.actions'), links, class: "ui dropdown button" %>
 	</td>
 </tr>

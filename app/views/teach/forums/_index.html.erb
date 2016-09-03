@@ -1,4 +1,4 @@
-<table>
+<table class="ui basic striped selectable small table">
 	<thead>
 		<tr>
 			<th>#</th>
@@ -14,19 +14,17 @@
 		<tr>
 			<td><%= ndx + 1 %></td>
 			<td>
-				<h3><%= forum.name %></h3>
+				<strong><%= forum.name %></strong>
 				<%= markdown(forum.about) %>
 			</td>
-			<td><%if forum.active %> <i class="fa fa-check"></i><% end %></td>
-      <td><%if forum.graded %> <i class="fa fa-check"></i><% end %></td>
+			<td><%= ui_icon(:check) if forum. active %></td>
+      <td><%= ui_icon(:check) if forum.graded %></td>
 			<td><%= forum.topics_count %></td>
 			<td>
-				<%= ui_button_dropdown(ui_options_button_text, [
-					    link(:forum, :edit, forum.klass ? edit_teach_course_klass_forum_path(@course, forum.klass, forum) : edit_teach_course_forum_path(@course, forum)),
-					    nil,
+				<%= ui_buttons([
+					    link(:forum, :edit, forum.klass ? edit_teach_course_klass_forum_path(@course, forum.klass, forum) : edit_teach_course_forum_path(@course, forum), class: "ui positive button"),
 					    link(:forum, :destroy, forum.klass ? teach_course_klass_forum_path(@course, forum.klass, forum) : teach_course_forum_path(@course, forum), 
-						    method: :delete, confirm: true)
-				    ], class: css_button(:default), align: :right) %>         
+						    method: :delete, confirm: true, class: "ui negative button")]) %>         
 			</td>
 		</tr>
     <% end %>

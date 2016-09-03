@@ -1,4 +1,4 @@
-<%= form_for @user || User.new, url: url_for(controller: 'auth/sessions', action: 'create'), method: :post do |f| %>
+<%= form_for @user || User.new, url: url_for(controller: 'auth/sessions', action: 'create'), method: :post, wrapper: false do |f| %>
 
   <%= f.email_field :email, label: false, placeholder: true %>
   <%= f.password_field :password, label: false, placeholder: true %>

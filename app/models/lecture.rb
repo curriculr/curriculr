@@ -9,6 +9,7 @@ class Lecture < ActiveRecord::Base
   has_many :questions, :dependent => :destroy
   has_many :pages, :dependent => :destroy, :as => :owner
   has_many :updates, :dependent => :destroy
+  has_many :lecture_discussions, :dependent => :destroy
 
 	# Validation Rules
 	validates :name, :presence => true, :length => {:maximum => 100 }
@@ -259,15 +260,15 @@ class Lecture < ActiveRecord::Base
     end
   end
 
-  after_destroy do |lecture|
-    discussions = LectureDiscussion.where(lecture_id: lecture.id)
-    discussions.transaction do
-      discussions.each do |discussion|
-        discussion.topic.destroy
-        discussion.destroy
-      end
-    end
-  end
+  # before_destroy do |lecture|
+  #   discussions = LectureDiscussion.where(lecture_id: lecture.id)
+  #   #discussions.transaction do
+  #     discussions.each do |discussion|
+  #       discussion.topic.destroy
+  #       discussion.destroy
+  #     end
+  #     #end
+  # end
 
   def self.generate_discussion_topics(klasses)
     klasses.each do |klass|

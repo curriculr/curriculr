@@ -8,5 +8,5 @@
 	<td><% if page.published %><i class="fa fa-check"></i><% end %></td>
 	<td><% if page.public %><i class="fa fa-check"></i><% end %></td>
   <td><% if page.blog %><i class="fa fa-check"></i><% end %></td>
-  <td><%= link(:page, :edit, edit_page_path(page), :class => css(button: :default, align: :right)) %></td>
+  <td><%= link(:page, :edit, edit_page_path(page), :class => "ui button") %></td>
 </tr>

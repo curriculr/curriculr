@@ -1,7 +1,7 @@
 <%= ui_header Student.model_name.human(count: 3), action: link(:student, :new, new_learn_student_path, 
-    :class => css(button: :success, align: :right)) %>
+    :class => "ui positive button") %>
 
-<table>
+<table class="ui striped selectable small table">
 	<thead>
 		<tr>
 			<th><%= Student.human_attribute_name(:avatar) %></th>
@@ -17,13 +17,9 @@
       <td><%= student.name %></td>
       <td><%= t("config.relationship.#{student.relationship}") %></td>
       <td>
-    		<%
-    			links = []
-    			links << link(:student, :edit, edit_learn_student_path(student))
-          links << nil  
-    			links << link(:student, :destroy, [:learn, student], :method => :delete, confirm: true)
-    		%>
-    		<%= ui_button_dropdown ui_options_button_text, links, class: css_button(:default), align: :right %>
+    		<%= ui_buttons [
+          link(:student, :edit, edit_learn_student_path(student), class: "ui positive button"),
+          link(:student, :destroy, [:learn, student], :method => :delete, confirm: true, class: "ui negative button")] %>
       </td>
     </tr>
     <% end %>

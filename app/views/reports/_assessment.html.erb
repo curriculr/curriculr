@@ -2,7 +2,7 @@
 
 <% assessments = Assessment.report(klass, student).all %>
 <% if assessments.present? %>
-  <table>
+  <table class="ui striped selectable small table">
     <tbody>
       <thead>
         <tr>

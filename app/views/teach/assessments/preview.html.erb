@@ -1,5 +1,5 @@
 <%= ui_header @assessment.name, :subtext => @assessment.kind,
-      :action => link_to(t('helpers.submit.back_to_assessment', :name => @assessment.kind == 'survey' ? t('activerecord.models.survey.one') : Assessment.model_name.human), @req_objects, :class => css(button: :default, align: :right)) %>
+      :action => link_to(t('helpers.submit.back_to_assessment', :name => @assessment.kind == 'survey' ? t('activerecord.models.survey.one') : Assessment.model_name.human), @req_objects, :class => "ui button") %>
 
 <br>
 

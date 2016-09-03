@@ -1,29 +1,19 @@
-<tr id="content_<%= document.id %>_medium" sortid="content_<%= document.id %>.medium" class="medium-content">
-  <td>
-    <div class="row">
-      <div class="<%= css_columns(15) %>">
-        <i class="fa fa-file-pdf-o"></i>&nbsp; <%= document.name %>
-        (<small><%= timeago_tag(document.created_at, :nojs => true, :limit => 10.days.ago) %></small>)
-        <div class="medium-url" style="display: none;">
-          <%= css_icon("external-link") %> <small class="text-muted"><%= document.full_url %></small>
-        </div>
-      </div>
-      <div class="<%= css_columns(9) %>">
-        <%= content_tag :div, class: css(button: :group, align: :right) do %>
-          <%= link :medium, :open, document.at_url, :class => css_button(:default, :xs), :target => '_new' unless @material %>
-
-          <%= render partial: 'application/media/links', locals: { medium: document, form: form, action: action } %>
-        <% end %>
-
-        <% if document.path.present? && !document.copyrights.blank? %> 
-          <p>
-            <small>
-              <strong><%=Medium.human_attribute_name(:source) %>:</strong>
-              <%= document.copyrights %>
-            </small>
-          </p>
-        <% end %>
-      </div>
+<div class="item" id="content_<%= document.id %>_medium" sortid="content_<%= document.id %>.medium">
+  <div class="content">
+    <div class="header"><%= ui_icon('file pdf outline icon') + ' ' + document.name %></div>
+    <div class="meta"><%= timeago_tag(document.created_at, :nojs => true, :limit => 10.days.ago) %></div>
+    <div class="description">
+      <%= document.full_url %>
+      
+      <% if document.path.present? && !document.copyrights.blank? %> 
+        <p><small><strong><%=Medium.human_attribute_name(:source) %>:</strong><%= document.copyrights %></small></p>
+      <% end %>
     </div>
-  </td>
-</tr>
+    <div class="extra">
+      <%= content_tag :div, class: 'ui buttons' do %>
+        <%= link :medium, :open, document.at_url, :class => "ui button", :target => '_new' unless @material %>
+        <%= render partial: 'application/media/links', locals: { medium: document, form: form, action: action } %>
+      <% end %>
+    </div>
+  </div>
+</div>

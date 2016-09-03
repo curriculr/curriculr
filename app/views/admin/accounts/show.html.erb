@@ -1,34 +1,34 @@
 <%= ui_header "#{@account.slug}: #{@account.name}" %>
 
-<div class="row">
-  <div class="<%= css_columns(9) %>">
-    <h3><%= t('page.title.basic_info') %></h3>
-    <span class="<%= css_text(:muted) %>">
-    <%= markdown(@account.about) %>
-    </span>
+<% form = capture do %>
+  <h3><%= t('page.title.basic_info') %></h3>
+  <span>
+  <%= markdown(@account.about) %>
+  </span>
 
-    <%= themed_form_for [:admin, @account] do |f| %>
-      <%= f.check_box :active, :disabled => true %>
-      <%= f.check_box :live,  :disabled => true  %>
-    <% end %>
+  <%= form_for [:admin, @account] do |f| %>
+    <%= f.check_box :active, :disabled => true %>
+    <%= f.check_box :live,  :disabled => true  %>
+  <% end %>
 
-    <h3><%= t('page.title.administrator') %></h3>
-    <strong><%= User.human_attribute_name(:name) %></strong><br>
-    <span class="<%= css_text(:muted) %>">
-      <%=  @account.user.name %>
-    </span><br>
+  <h3><%= t('page.title.administrator') %></h3>
+  <strong><%= User.human_attribute_name(:name) %></strong><br>
+  <span>
+    <%=  @account.user.name %>
+  </span><br>
 
-    <strong><%= User.human_attribute_name(:email) %></strong><br>
-    <span class="<%= css_text(:muted) %>">
-      <%=  @account.user.email %>
-    </span>
-    <br><br>
-    <%= link :account, :edit, edit_admin_account_path(@account), :class => css_button(:primary) %>
-    <%= link :account, :cancel, admin_accounts_path, :class => css_button(:default) %>
-  </div>
-  <div class="<%= css_columns(15) %>">
-    <h3><%= t('page.title.settings') %></h3>
-    <%= highlighted_code @account.settings, 'json' %>
-  </div>
-</div>
+  <strong><%= User.human_attribute_name(:email) %></strong><br>
+  <span>
+    <%=  @account.user.email %>
+  </span>
+  <br><br>
+  <%= link :account, :edit, edit_admin_account_path(@account), :class => "ui primary button" %>
+  <%= link :account, :cancel, admin_accounts_path, :class => "ui button" %>
+<% end %>
+<% settings = capture do %>
+  <h3><%= t('page.title.settings') %></h3>
+  <%= highlighted_code @account.settings, 'json' %>
+<% end%>
+
+<%= ui_side_by_side form, settings, "six by ten" %>
 

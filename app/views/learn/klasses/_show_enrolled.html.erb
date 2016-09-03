@@ -1,0 +1,57 @@
+<% if @klass.open? && @klass.allow_enrollment %>
+  <% deadlines = @klass.upcoming_deadlines %>
+  <% unless deadlines.to_a.empty? %>
+    <% content_for :additional_nav do %>
+      <%= ui_panel(capture do %>
+        <i class="fa fa-calendar"></i>&nbsp;&nbsp;
+        <%= t('page.title.upcoming_deadlines') %>
+      <% end, nil, capture do %>
+        <ul>
+          <% deadlines.each do |deadline| %>
+            <li>
+              <%= t("page.text.upcoming_deadlines", :name => deadline.name,
+                    :count => (deadline.closes_at.to_date - Time.zone.today).to_i)
+              %>
+            </li>
+        	<% end %>
+        </ul>
+        <% end, nil, :primary) %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<%= yield :additional_nav %>
+
+<!-- Klass Updates -->
+<% if false && @klass.open? && staff?(current_user, @klass) %>
+  <%= form_for [:teach, @klass.course, @klass, Update.new], remote: true do |f| %>
+    <%= f.markdown :body, :size => '60x3', :label => false, :placeholder => 'New update goes here' %>
+    <%= f.submit %>
+  <% end %>
+  <hr />
+<% end %>
+
+<% updates = Update.sent(@klass, :www => true) %>
+<div id="klass-updates">
+  <%= render partial: 'learn/klasses/update', collection: updates %>
+</div>
+<br />
+
+<!-- about class -->
+<!-- <div class="panel panel-default">
+  <div class="panel-body">
+    <div class="row">
+      <div class="<%= css_columns(@klass.course.video ? 15 : 24) %>">
+        <%= content_tag :h3, t('page.title.about_class') unless updates.empty? %>
+        <%= markdown(@klass.course.about) %>
+      </div>
+      <% if @klass.course.video %>
+        <div class="<%= css_columns(9) %>">
+          <%= content_tag :div do %>
+            <%= ui_video(@klass.course.video, @klass.course.poster) %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div> -->

@@ -1,30 +1,18 @@
-<%= form_header %>
-
-<%= themed_form_for [:teach, @course, @unit, @lecture] do |f| %>
+<%= form_for [:teach, @course, @unit, @lecture] do |f| %>
   <%= f.hidden_field :unit_id %>
 	<%= f.text_field :name %>
   <%= f.text_area :about, rows: 5, :size => '60x5' %>
 
-  <div class="row">
-    <div class="<%= css_columns(9) %>">
-      <%= f.static :based_on %>
-      <%= f.hidden_field :based_on %>
-    </div>
-    <div class="<%= css_columns(9) %>">
-      <%= f.text_field :on_date, class: 'datepicker' %>
-    </div>
-    <div class="<%= css_columns(9) %>">
-      <%= f.number_field :for_days %>
-    </div>
+  <div class="three fields">
+    <%= f.static :based_on %>
+    <%= f.hidden_field :based_on %>
+    <%= f.text_field :on_date, class: 'datepicker' %>
+    <%= f.number_field :for_days %>
   </div>
 
-  <div class="row">
-    <div class="<%= css_columns(9) %>">
-      <%= f.check_box :previewed %>
-    </div>
-    <div class="<%= css_columns(9) %>">
-      <%= f.number_field :points %>
-    </div>
+  <div class="three fields">
+    <%= f.check_box :previewed %>
+    <%= f.number_field :points %>
   </div>
 
   <%= f.text_field :tag_list %>

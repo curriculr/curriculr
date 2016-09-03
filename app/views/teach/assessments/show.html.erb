@@ -1,16 +1,16 @@
 <%= ui_header @assessment.name, :subtext => @assessment.kind,
-      :action => ui_button_dropdown(ui_options_button_text, [
-        link(:assessment, :edit, [:edit, @req_objects].flatten),
+      :action => ui_buttons([
+        link(:assessment, :edit, [:edit, @req_objects].flatten, class: 'ui positive button'),
     		link(:assessment, @assessment.ready ? :unready : :ready, [@req_objects,
-          { :opr => :ready, :'assessment[ready]' => !@assessment.ready }].flatten,
-          :method => :put, :remote => true, :id => "assessment_ready_#{@assessment.id}_link"),
+          { :opr => :ready, :'assessment[ready]' => !@assessment.ready }].flatten, :method => :put, 
+          :id => "assessment_ready_#{@assessment.id}_link", class: 'ui positive basic button'),
         nil,
-        link(:assessment, :destroy, @req_objects, :method => :delete, :confirm => true)
-      ], class: css_button(:default), align: :right)
+        link(:assessment, :destroy, @req_objects, method: :delete, confirm: true, class: 'ui negative button')
+      ])
 %>
 
 <% if @assessment && !@assessment.new_record? %>
-  <div id="assessment-ready-indicator" class="<%= css_alert(:warning) %>" style=" <%= 'display: none;' if @assessment.ready %>">
+  <div id="assessment-ready-indicator" class="ui warning message" style=" <%= 'display: none;' if @assessment.ready %>">
     <%= t('page.text.unready_assessment_html', link: link(:assessment, :ready, [@req_objects,
           { :opr => :ready, :'assessment[ready]' => !@assessment.ready }].flatten,
           :method => :put, :remote => true, :id => "assessment_ready_#{@assessment.id}_link")) %>
@@ -23,20 +23,20 @@
 <div class="row">
   <div class="<%= css_columns(9) %>">
     <strong><%= Assessment.human_attribute_name(:based_on) %></strong><br>
-    <span class="<%= css_text(:muted) %>"><%= l(@assessment.based_on) %></span><br>
+    <span><%= l(@assessment.based_on) %></span><br>
 
     <% if @assessment.kind == 'survey' && @assessment.event_list.present? %>
       <strong><%= Assessment.human_attribute_name(:event_list) %></strong><br>
-      <span class="<%= css_text(:muted) %>"><%= t("config.assessment.survey_events.#{@assessment.event_list}") %></span>
+      <span><%= t("config.assessment.survey_events.#{@assessment.event_list}") %></span>
     <% end %>
   </div>
   <div class="<%= css_columns(9) %>">
     <strong><%= Assessment.human_attribute_name(:from_datetime) %></strong><br>
-    <span class="<%= css_text(:muted) %>"><%= l(@assessment.from_datetime) %></span>
+    <span><%= l(@assessment.from_datetime) %></span>
   </div>
   <div class="<%= css_columns(9) %>">
     <strong><%= Assessment.human_attribute_name(:to_datetime) %></strong><br>
-    <span class="<%= css_text(:muted) %>"><%= l(@assessment.to_datetime) if @assessment.to_datetime.present? %></span>
+    <span><%= l(@assessment.to_datetime) if @assessment.to_datetime.present? %></span>
   </div>
 </div>
 
@@ -44,51 +44,51 @@
   <div class="row">
     <div class="<%= css_columns(9) %>">
       <strong><%= Assessment.human_attribute_name(:allowed_attempts) %></strong><br>
-      <span class="<%= css_text(:muted) %>"><%= @assessment.allowed_attempts || t('page.text.unlimited') %></span><br>
+      <span><%= @assessment.allowed_attempts || t('page.text.unlimited') %></span><br>
     </div>
     <div class="<%= css_columns(9) %>">
       <strong><%= Assessment.human_attribute_name(:multiattempt_grading) %></strong>
-      <span class="<%= css_text(:muted) %>">
+      <span>
         <%= t("config.assessment.multiattempt_grading.#{@assessment.multiattempt_grading}") %>
       </span>
     </div>
     <div class="<%= css_columns(9) %>">
       <strong><%= Assessment.human_attribute_name(:droppable_attempts) %></strong><br>
-      <span class="<%= css_text(:muted) %>"><%= @assessment.droppable_attempts %></span>
+      <span><%= @assessment.droppable_attempts %></span>
     </div>
   </div>
   <div class="row">
     <div class="<%= css_columns(9) %>">
       <strong><%= Assessment.human_attribute_name(:after_deadline) %></strong><br>
-      <span class="<%= css_text(:muted) %>">
+      <span>
         <% if @assessment.after_deadline %>
           <i class="fa fa-check"></i>
         <% end %>
       </span><br>
       <% if @assessment.lecture && @assessment.invideo_id && (invideo = Material.find_by(id: @assessment.invideo_id)) %>
         <strong><%= Assessment.human_attribute_name(:invideo_id) %></strong><br>
-        <span class="<%= css_text(:muted) %>"><%= invideo.medium.name %></span><br>
+        <span><%= invideo.medium.name %></span><br>
       <% end %>
     </div>
     <div class="<%= css_columns(9) %>">
       <strong><%= Assessment.human_attribute_name(:penalty) %></strong><br>
-      <span class="<%= css_text(:muted) %>"><%= @assessment.penalty %></span><br>
+      <span><%= @assessment.penalty %></span><br>
 
       <% if @assessment.lecture && invideo %>
         <strong><%= Assessment.human_attribute_name(:invideo_at) %></strong><br>
-        <span class="<%= css_text(:muted) %>"><%= @assessment.invideo_at %></span><br>
+        <span><%= @assessment.invideo_at %></span><br>
       <% end %>
     </div>
     <div class="<%= css_columns(9) %>">
       <strong><%= Assessment.human_attribute_name(:show_answer) %></strong><br>
-      <span class="<%= css_text(:muted) %>">
+      <span>
         <%= t("config.assessment.show_answer.#{@assessment.show_answer}") %></span>
     </div>
   </div>
 <% end %>
 <br/>
 
-<%= themed_form_for [:teach, @course, @unit, @lecture, @assessment] do |f| %>
+<%= form_for [:teach, @course, @unit, @lecture, @assessment] do |f| %>
   <div style="display: none;">
     <%= f.grouped_collection_select :lecture_id, @course.units, :lectures, :name, :id, :name, include_blank: true %>
   </div>
@@ -101,10 +101,10 @@
     <% end %>
 
     <%= link(:question, :add_question, question_bank_path(:index, :pick, @assessment),
-          :class => css(button: :success, align: :right)) %>
+          :class => "ui positive button") %>
   <% end %>
 
-  <% browse_action = link(:assessment, :preview, [:preview, @req_objects].flatten, class: css_button(:default)) %>
+  <% browse_action = link(:assessment, :preview, [:preview, @req_objects].flatten, class: "ui button") %>
   <%= ui_header Question.model_name.human(count: 3) + ' ' + browse_action, style: :h3, action: action %>
 
   <div class="field-container sortable-selector sortable" data-update-url="<%= url_for([:sort_q_selector, :teach, @course, @unit, @lecture, @assessment]) %>">

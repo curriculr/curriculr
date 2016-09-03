@@ -8,7 +8,7 @@ module Teach::QuestionsHelper
       end
     end
     
-    link_to(name, '#', class: "add_fields #{css(button: :success)}", data: {id: id, fields: fields.gsub("\n", "")})
+    link_to(name, '#', class: "add_fields ui primary button", data: {id: id, fields: fields.gsub("\n", "")})
   end
 
   def question_kinds(survey = false)

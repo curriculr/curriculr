@@ -1,19 +1,27 @@
-<%= link_to main_app.learn_klass_path(@klass) do %>
-  <%= image_tag ui_image_src(@klass.course.poster ? @klass.course.poster.at_url(:md) : nil, '/images/holder-md.png'),
-        class: "hidden-xs hidden-sm #{css_image(:responsive)}" %>
-<% end %>
-
 <% klass_menu %>
 
-<div class="nav-and-social-container">
-  <div class="ui link selection list">
-    <% app_menu(:klass).each do |item| %>
-      <%= item %>
-    <% end %>
-  </div>
-  <div class='text-center social-buttons'>
-    <%= ui_facebook_link(@klass) %>
-    <%= ui_twitter_link(@klass) %>
-    <%= ui_google_plus_link(@klass) %>
+<div class="ui fluid card">
+  <div class="image">
+    <%= image_tag(@klass.course.poster&.at_url(:md) || '/images/holder-md.png') %>
   </div>
 </div>
+
+<div class="ui fluid vertical secondary menu">
+  <% app_menus(:klass).each do |section, menu| %>
+    <div class="item">
+      <% unless section == :_ %><div class="header"><%= t("page.title.#{section}") %></div><% end %>
+      <div class="menu">
+        <% menu.each do |item| %>
+          <%= link_to item[:link], item[:to], class: item[:active] ? 'item active' : 'item' %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<div class='ui three buttons'>
+  <%= ui_facebook_link(@klass) %>
+  <%= ui_twitter_link(@klass) %>
+  <%= ui_google_plus_link(@klass) %>
+</div>
+

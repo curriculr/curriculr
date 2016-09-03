@@ -1,32 +1,38 @@
-# Support modal confirmation of actions
-ui_modal_confirmation = (kind, hdr, body, link, close) ->
-  html = """
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-      <h4 class="modal-title" id="page-model-label">#{hdr}</h4>
-    </div>
-    <div class="modal-body">
-      <p>#{body}</p>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-default" data-dismiss="modal">#{close}</button>
-      #{link}
-    </div>
-  """
-  $("##{kind}-modal .modal-dialog .modal-content").html(html)
-  $("##{kind}-modal").modal()
-
-window.ui_modal_confirmation = ui_modal_confirmation
-
 window.ui_rebind_application_events  = ($) ->
-  # $(window).scroll ->
-  #   if $(".navbar").offset().top > 25
-  #     $(".navbar-fixed-top").addClass("top-nav-collapse")
-  #   else
-  #     $(".navbar-fixed-top").removeClass("top-nav-collapse")
+  $('.ui.dropdown').dropdown()
+  $('.ui.dynamic.menu .item').tab()
+  $('.course.units .ui.sidebar').sidebar(
+    context: $('.course.units > .bottom.segment')
+  ).sidebar('attach events', '.course.units > .menu > .item')
+  $('.course.klasses .ui.sidebar').sidebar(
+    context: $('.course.klasses > .bottom.segment')
+  ).sidebar('attach events', '.course.klasses > .menu > .item')
+  # $('.course.questions .ui.sidebar').sidebar(
+  #   context: $('.course.questions > .bottom.segment')
+  # ).sidebar('attach events', '.course.questions > .menu > .item')
+  # Settings
+  $('.add-in-modal, .edit-in-modal').unbind().on 'click', ->
+    html = $(this).data('form')
+    $(html).modal('show')
+    
+  $('.confirm-first').unbind().on 'click', ->
+    $(""" 
+      <div class="ui modal">
+        <div class="header">#{$(this).data('header')}</div>
+        <div class="content">#{$(this).data('content')}</div>
+        <div class="actions">
+          #{$(this).data('action')}
+          <div class="ui button cancel">#{$(this).data('cancel')}</div>
+        </div>
+      </div>""").modal('show')
 
   # mediaelementjs
-  $('video.mediaelementjs, audio.mediaelementjs').mediaelementplayer()
+  # $('video.mediaelementjs, audio.mediaelementjs').mediaelementplayer()
+
+  $('audio.mediaelementjs').mediaelementplayer()
+  video_el = $('video.mediaelementjs')
+  video_el.attr('width', video_el.parent().width()).attr('height', video_el.parent().width() * 9 / 16).mediaelementplayer()
+
 
   player = null
   $('video.mediaelementjs_with_invideo_quiz').mediaelementplayer(
@@ -64,8 +70,8 @@ window.ui_rebind_application_events  = ($) ->
 
   $('.hidden-til-processed').show()
 
-  $('.chosen-select').chosen
-    allow_single_deselect: true
+  # $('.chosen-select').chosen
+  #   allow_single_deselect: true
 
   $('.video-open-link').unbind().on 'click', (e) ->
     vid = "sv_m_#{$(this).data('id')}"
@@ -107,41 +113,23 @@ window.ui_rebind_application_events  = ($) ->
                  height="320">
           </video>
         """
-    html = """
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="page-model-label">#{$(this).data('title')}</h4>
+    $("""
+      <div class="ui modal">
+        <div class="header">#{$(this).data('title')}</div>
+        <div class="content">
+          #{video}
+        </div>
+        <div class="actions">
+          <div class="ui cancel button">Close</div>
+        </div>
       </div>
-      <div class="modal-body">
-        #{video}
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    """
-
-    $('#page-modal .modal-dialog .modal-content').html(html)
-    $("#page-modal").modal()
+    """).modal('show')
 
     if $(this).data('sublime')
       sublime.load()
       sublime.prepare(vid)
     else
-      player = new MediaElementPlayer "##{vid}", success: (mediaelement, node) ->
-
-    $('#page-modal').on 'hide.bs.modal', (e) ->
-      $('#page-modal .modal-dialog .modal-content').html('')
-
-    e.preventDefault()
-
-  # Settings
-  $('.btn-add-setting, .btn-edit-setting, .btn-delete-setting').unbind().on 'click', ->
-    html = $(this).data('form')
-    $('#page-modal .modal-dialog .modal-content').html(html)
-    $("#page-modal").modal()
-
-    $('#page-modal').on 'hide.bs.modal', (e) ->
-      $('#page-modal .modal-dialog .modal-content').html('')
+      player = new MediaElementPlayer "##{vid}"#, success: (mediaelement, node) ->
 
     e.preventDefault()
 
@@ -324,23 +312,18 @@ window.ui_rebind_application_events  = ($) ->
     btn = $(this).data 'btn'
     close = $(this).data 'close'
     value = $("##{id}").val()
-    html = """
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h3 class="modal-title" id="page-model-label">#{header}</h3>
+    $("""
+      <div class="ui small modal">
+        <div class="header">#{header}</div>
+        <div class="content">
+          #{body}
+        </div>
+        <div class="actions">
+          <a href="#" class="ui primary ok button" onclick="alert('#{id}--' + $('##{id}-#{id}').val());$('##{id}').val($('##{id}-#{id}').val());">#{btn}</a>
+          <div class="ui cancel button">#{close}</div>
+        </div>
       </div>
-      <div class="modal-body">
-        #{body}
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">#{close}</button>
-        <a href="#" class="btn btn-primary" data-dismiss="modal" onclick="$('##{id}').val($('##{id}-#{id}').val());">#{btn}</a>
-      </div>
-    """
-    $('#page-modal .modal-dialog .modal-content').html(html)
-    $("##{id}-#{id}").val(value)
-
-    $("#page-modal").modal()
+    """).modal('show')
 
     return false
 
@@ -351,9 +334,8 @@ window.ui_rebind_application_events  = ($) ->
       $(this).data('active', '1')
 
   # Sortables
-  $('#sortable-units-accordion').sortable(
+  $('#sortable-units').sortable(
     axis: 'y'
-    handle: '.sort-handle'
     update: ->
       $.post($(this).data('update-url'), $(this).sortable('serialize'))
   )
@@ -467,12 +449,12 @@ window.ui_rebind_application_events  = ($) ->
         progress = parseInt(data.loaded / data.total * 100, 10)
         data.context.find('.progress-bar').css('width', progress + '%')
 
-  $('tr.medium-content').hover(
-    (e) ->
-      $(this).find('.medium-url').show()
-    (e) ->
-      $(this).find('.medium-url').hide()
-  )
+  # $('tr.medium-content').hover(
+  #   (e) ->
+  #     $(this).find('.medium-url').show()
+  #   (e) ->
+  #     $(this).find('.medium-url').hide()
+  # )
 
   display_sketchpad = (container, id, bg) ->
     html = """

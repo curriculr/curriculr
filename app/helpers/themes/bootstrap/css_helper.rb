@@ -22,29 +22,29 @@ module Themes::Bootstrap::CssHelper
     "pull-#{direction}"
   end
 
-  def css_text(type)
-    "text-#{type}"
-  end
+  # def css_text(type)
+  #   "text-#{type}"
+  # end
 
   # def css_table(styles=[:hover])
   #   "table #{styles.map {|s| "table-#{s}"}.join(' ')}"
   # end
 
-  def css_button(*styles)
-    'group'.in?(styles) ? 'btn-group' : "btn #{styles.map {|s| "btn-#{s}"}.join(' ')}"
-  end
+  # def css_button(*styles)
+  #   'group'.in?(styles) ? 'btn-group' : "ui #{styles.map {|s| s}.join(' ')} button"
+  # end
 
-  def css_alert(style)
-    "alert alert-#{style}"
-  end
+  # def css_alert(style)
+  #   "alert alert-#{style}"
+  # end
 
-  def css_form(type)
-    "form-#{type}"
-  end
+  # def css_form(type)
+  #   "form-#{type}"
+  # end
 
-  def css_badge
-    "badge"
-  end
+  # def css_badge
+  #   "badge"
+  # end
 
   def css_label(style)
     "label label-#{style}"
@@ -54,19 +54,23 @@ module Themes::Bootstrap::CssHelper
     "nav nav-#{style}"
   end
 
-  def css_breadcrumb
-    "breadcrumb"
-  end
+  # def css_breadcrumb
+  #   "breadcrumb"
+  # end
 
-  def css_image(*styles)
-    "img #{styles.map {|s| "img-#{s}"}.join(' ')}"
-  end
+  # def css_image(*styles)
+  #   "img #{styles.map {|s| "img-#{s}"}.join(' ')}"
+  # end
 
   def css_icon(name, spaces = 0)
     cls = name.kind_of?(Array) ? name.map{|n| "fa-#{n}"}.join(' ') : "fa-#{name}"
     content_tag :i, ('&nbsp;' * spaces).html_safe, class: "fa #{cls}"
   end
 
+  def ui_icon(name)
+    content_tag :i, '', class: "#{name} icon"
+  end
+  
   def css_animated_icon(name, spin = true)
     content_tag :i, '', class: "fa fa-#{name} fa-#{spin ? "spin" : "pulse"}"
   end

@@ -1,4 +1,4 @@
-<%= themed_form_for [:teach, question.course, question.unit, question.lecture, question],  
+<%= form_for [:teach, question.course, question.unit, question.lecture, question],  
       url: include_in_lecture_teach_course_unit_lecture_question_path(question.course, question.unit, question.lecture, question),
       method: :post, remote: true do |f| %>
   <%= label_tag "include_#{question.id}_in_lecture"  do %>

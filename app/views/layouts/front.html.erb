@@ -1,27 +1,25 @@
-<% unless current_user %>
-  <div class="hero-unit">
-    <div class="jumbotron">
-      <div class="<%= css_container %> text-center">
-        <h1><i class="fa fa-leaf"></i></h1>
-        <h2><%= scoped_t("#{current_account.slug}.site.slogan.line1_html") %></h2>
-        <h2><%= scoped_t("#{current_account.slug}.site.slogan.line2_html") %></h2>
-        <h3><%= scoped_t("#{current_account.slug}.site.slogan.line3_html") %></h3>
-      </div>
-    </div>
+<!-- Menu and jumbotron -->
+<div class="ui inverted vertical jumbotron center aligned segment">
+  <div class="ui container">
+    <%= render "/main_menu", front: true %>
   </div>
-<% end %>
-
-<div id="main-container" class="<%= css_container %>">
-  <div class="row">
-    <div class="<%= css_columns(24) %>">
-      <br/>
-      <% front = Page.localized(:front) %>
-
-      <%= markdown ERB.new(front.about).result(binding), :html => front.html if front %>
-
-      <% if front && current_user && current_user.has_role?(:admin) %>
-        <%= link(:page, :edit, edit_page_path(front), :class => css(button: [:default, :xs])) %>
-      <% end %>
-    </div>
+  <div class="ui text container">
+    <h1 class="ui inverted header">
+      <%= ui_icon :leaf %>
+    </h1>
+    <h1><%= scoped_t("#{current_account.slug}.site.slogan.line1_html") %></h1>
+    <h2><%= scoped_t("#{current_account.slug}.site.slogan.line2_html") %></h2>
+    <h3><%= scoped_t("#{current_account.slug}.site.slogan.line3_html") %></h3>
+    <h3></h3>
   </div>
+</div>
+
+<div id="main-container" class="ui container">
+  <% front = Page.localized(:front) %>
+
+  <%= markdown ERB.new(front.about).result(binding), :html => front.html if front %>
+
+  <% if front && current_user && current_user.has_role?(:admin) %>
+    <%= link(:page, :edit, edit_page_path(front), :class => "ui positive button") %>
+  <% end %>
 </div>

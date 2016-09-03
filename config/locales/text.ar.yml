@@ -27,11 +27,11 @@ ar:
       select_files: اختيار الملفات للرفع
       signin: للدخول
       discussion: المناقشة
-      outline: <i class="fa fa-list"></i>&nbsp; المحاضرات
-      forums: <i class="fa fa-comments-o"></i>&nbsp; المنتديات
-      pages: <i class="fa fa-globe"></i>&nbsp; الصفحات
-      attachments: <i class="fa fa-paperclip"></i>&nbsp; المرفقات
-      students: <i class="fa fa-users"></i>&nbsp; الطلاب
+      outline:  المحاضرات
+      forums:  المنتديات
+      pages:  الصفحات
+      attachments:  المرفقات
+      students:  الطلاب
       contents: المحتوى
       readings: مقروءات
       progress: أداء
@@ -107,6 +107,7 @@ ar:
       feactured_klasses: فصول دراسية مميزة
 
     text:
+      new: أضف
       more: اكثر
       less: اقل
       accepted: قبلت %{at}
@@ -170,17 +171,17 @@ ar:
       unfinished_attempt: بدأت و لما تكمل بعد
       unlimited: يسمح بمحاولات غير محدودة
       unpublished: لم ينشر بعد
-      unpublished_page_html: <i class="fa fa-warning"></i> هذه الصفحة لم تنشر بعد. %{link}
-      unpublished_update_html: <i class="fa fa-warning"></i> هذا التحديث لم يرسل أو ينشر بعد. %{link}
-      approved_klass_html: <i class="fa fa-warning"></i> هذا الفصل لما تتم الموافقة عليه بعد. الموافقة على هذا الفصل تجعله في متناول الآخرين. %{link}
+      unpublished_page_html:  هذه الصفحة لم تنشر بعد. %{link}
+      unpublished_update_html:  هذا التحديث لم يرسل أو ينشر بعد. %{link}
+      approved_klass_html:  هذا الفصل لما تتم الموافقة عليه بعد. الموافقة على هذا الفصل تجعله في متناول الآخرين. %{link}
       ready_to_approve_klass_html:
-        <i class="fa fa-warning"></i> هذا الفصل ليس جاهزا للموافقة عليه بعد. يجب أن
+         هذا الفصل ليس جاهزا للموافقة عليه بعد. يجب أن
         تؤكد جهوزيته قبل أن يوافق عليه. الفصول الموافق عليها فقط تكون في متناول الآخرين. %{link}
-      by_admin_approved_klass_html: <i class="fa fa-warning"></i> موافقة إدارة الموقع على هذا الفصل مطلوبة لجعله في متناول الآخرين.
-      private_page_html: <i class="fa fa-warning"></i> هذه الصفحة ليست عامة و غير مرئية لغيرك. %{link}
-      by_admin_private_page_html: <i class="fa fa-warning"></i> موافقة إدارة الموقع مطلوبة لجعل هذه الصفحة عامة و تمكين الاخرين من الوصول إليها.
+      by_admin_approved_klass_html:  موافقة إدارة الموقع على هذا الفصل مطلوبة لجعله في متناول الآخرين.
+      private_page_html:  هذه الصفحة ليست عامة و غير مرئية لغيرك. %{link}
+      by_admin_private_page_html:  موافقة إدارة الموقع مطلوبة لجعل هذه الصفحة عامة و تمكين الاخرين من الوصول إليها.
       unready: غير منشور
-      unready_assessment_html: <i class="fa fa-warning"></i> هذا الاختبار ليس جاهزا بعد. %{link}
+      unready_assessment_html:  هذا الاختبار ليس جاهزا بعد. %{link}
       upcoming_deadlines:
         zero: سيغلق اختبار %{name} اليوم.
         one: سيغلق اختبار %{name} غدا.
@@ -264,23 +265,19 @@ ar:
       signup: لإنشاء حساب جديد
       signin: للدخول
       course_unit_html:
-        <div class="alert alert-info" role="alert">
-          يقسم المقرر إلى وحدة واحدة أو أكثر. قد تكون الوحدة فصلا من كتاب أو جزءا من موضوع المقرر
-          أو حتى اسبوعا من مقرر يتطلب أخذه عدة أسابيع. كل وحدة تحتوي على محاضرة واحدة أو أكثر.
-          من خلال هذه الصفحة يمكنك أن تضيف إلى أو تدير وحدات هذا المقرر و محاضراتها.
-        </div>
+        يقسم المقرر إلى وحدة واحدة أو أكثر. قد تكون الوحدة فصلا من كتاب أو جزءا من موضوع المقرر
+        أو حتى اسبوعا من مقرر يتطلب أخذه عدة أسابيع. كل وحدة تحتوي على محاضرة واحدة أو أكثر.
+        من خلال هذه الصفحة يمكنك أن تضيف إلى أو تدير وحدات هذا المقرر و محاضراتها.
       no_info_to_display: لا معلومات للعرض
       first_and_others: "%{first}, ..."
       by_first_and_others: "لـ %{first}, ..."
       faculty_agreement: أوافق على بنود وشروط التعليم المفتوح المعمول بها في هذا الموقع و على قواعد نظام الأمانة العلمية المتبعة في فصوله الدراسية.
       faculty_application_html:
-        <div class="alert alert-info" role="alert">
-          لتتمكن من إنشاء مقرراتك الدراسية و فتح فصولها لمستخدمي الموقع
-          لا بد أولا أن تكون عضوا في هيئة تدريس هذا الموقع. املأ الفراغات
-          التالية عنك و عن المقرر الدراسي الذي ترغب تدريسه لتقديم طلبك الانضمام
-          إلى هيئة التدريس. بعد أن تتم مراجعة طلبك و الموافقة عليه ستتمكن
-          من ذلك المقرر.
-        </div>
+        لتتمكن من إنشاء مقرراتك الدراسية و فتح فصولها لمستخدمي الموقع
+        لا بد أولا أن تكون عضوا في هيئة تدريس هذا الموقع. املأ الفراغات
+        التالية عنك و عن المقرر الدراسي الذي ترغب تدريسه لتقديم طلبك الانضمام
+        إلى هيئة التدريس. بعد أن تتم مراجعة طلبك و الموافقة عليه ستتمكن
+        من ذلك المقرر.
       follow_us_html: <p><small>تستطيع متابعتنا و التواصل معنا على صفحاتنا على</small></p>
       free_to_enroll: هذا الفصل مجاني.
       free_to_preview: تستطيع فتح هذا الفصل و استعراض بعض أو كل محتوياته بدون تسجيل.

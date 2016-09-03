@@ -1,122 +1,121 @@
-<% if lecture && lecture.poster %>
-  <%= ui_media(lecture.poster.at_url(:sm), "", markdown(lecture.about),
-      :img_options => { style: "max-width: 120px;" }) %>
-<% end %>
-
 <%
   links = []
   data = lecture ? lecture.contents(false, true) : []
 
   %w(video audio image document other).each do |kind|
     links << link(:material, kind,
-      new_teach_course_unit_lecture_material_path(@course, unit, lecture, :s => kind, :multiple => true))
+      new_teach_course_unit_lecture_material_path(@course, unit, lecture, :s => kind, :multiple => true), class: 'item')
   end
 
-  links << nil
-  links << link_to(Page.model_name.human, new_teach_course_unit_lecture_page_path(@course, unit, lecture))
-  links << link_to(Question.model_name.human, teach_course_unit_lecture_questions_path(@course, unit, lecture))
-  links << nil
+  links << content_tag(:div, '', class: 'divider')
+  links << link_to(Page.model_name.human, new_teach_course_unit_lecture_page_path(@course, unit, lecture), class: 'item')
+  links << link_to(Question.model_name.human, teach_course_unit_lecture_questions_path(@course, unit, lecture), class: 'item')
+  links << content_tag(:div, '', class: 'divider')
 
   @course.config["grading"]["distribution"]["assessments"]["lecture"].keys.each do |k|
-    links << link_to(k, new_teach_course_unit_lecture_assessment_path(@course, unit, lecture, :t => k))
+    links << link_to(k, new_teach_course_unit_lecture_assessment_path(@course, unit, lecture, :t => k), class: 'item')
   end
 
   if lecture.poster
     poster_link = link(:material, :remove_poster_image,
         teach_course_unit_lecture_material_path(@course, unit, lecture, lecture.poster),
-        :method => :delete, confirm: true)
+        :method => :delete, confirm: true, class: "ui negative basic button")
   else
-    poster_link = link :material, :add_poster_image,
-        new_teach_course_unit_lecture_material_path(@course, unit, lecture, :s => :image, :t => :poster)
+    poster_link = link(:material, :add_poster_image,
+        new_teach_course_unit_lecture_material_path(@course, unit, lecture, :s => :image, :t => :poster), class: "ui positive basic button")
   end
 %>
 
-<div class="tab-content">
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="#">
-          <i class="fa fa-list"></i> <%= t('page.title.contents') %>
-        </a>
+<% buttons = ui_buttons [ui_dropdown_button(t("page.text.new"), links),
+  link(:lecture, :edit, edit_teach_course_unit_lecture_path(@course, unit, lecture), class: "ui positive button"),
+  poster_link,
+  nil,
+  link(:lecture, (lecture.allow_discussion ? :disallow_discussion : :allow_discussion),
+    discuss_teach_course_unit_lecture_path(@course, unit, lecture), :method => :put, class: "ui positive basic button"),
+  nil,
+  link(:lecture, :destroy, teach_course_unit_lecture_path(@course, unit, lecture),
+    :method => :delete, confirm: true, class: "ui negative button")] %>
+
+<% if lecture && lecture.poster %>
+  <div class="ui divided items">
+    <div class="item">
+      <div class="ui tiny image">
+        <%= image_tag lecture.poster.at_url(:sm) %>
       </div>
-      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-        <ul class="nav navbar-nav navbar-right">
-          <%= ui_dropdown ui_options_button_text, [
-            link(:lecture, :edit, edit_teach_course_unit_lecture_path(@course, unit, lecture)),
-            poster_link,
-            nil,
-            link(:lecture, (lecture.allow_discussion ? :disallow_discussion : :allow_discussion),
-              discuss_teach_course_unit_lecture_path(@course, unit, lecture), :method => :put),
-            nil,
-            link(:lecture, :destroy, teach_course_unit_lecture_path(@course, unit, lecture),
-              :method => :delete, confirm: true)
-          ], :class => css( align: :right) %>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <%= ui_dropdown t('helpers.submit.new', name: ''), links, class: css(align: :right) %>
-        </ul>
+      <div class="content">
+        <div class="description">
+          <%= markdown(lecture.about) %>
+        </div>
+      </div>
+      <div class="extra">
+        <%= buttons %>
       </div>
     </div>
-  </nav>
+  </div>
+<% else %>
+  <%= ui_header lecture.name, style: :h3, action: buttons %>
+  <%= markdown(lecture.about) %>
+<% end %>
 
-  <table>
-    <tbody class="sortable" data-update-url="<%= content_sort_teach_course_unit_lecture_path(@course, unit, lecture) %>">
-      <% data.each_with_index do |item| %>
-        <% case item %>
-        <% when Material %>
-          <%= render partial: "application/media/medium",
-                locals: {medium: item.medium, medium_counter: false,
-                  action: link(:material, :destroy,
-                    teach_course_unit_lecture_material_path(@course, unit, lecture, item),
-                    :method => :delete, :class => css_button(:danger, :xs),
-                    confirm: true)
-                } %>
-        <% when Question %>
-          <tr id="content_<%= item.id %>_question" sortid="content_<%= item.id %>.question">
-            <td>
-              <h4>
-                <%= link(:question, :edit,
-                    edit_teach_course_unit_lecture_question_path(@course, unit, lecture, item),
-                    :class => css(button: [:success, :xs], align: :right)) %>
-                <i class="fa fa-question"></i>&nbsp;
-                <br/><br/>
-                <%= render partial: "teach/questions/question", locals: { question: item, show_answer: false } %>
-              </h4>
-            </td>
-          </tr>
-        <% when Page %>
-          <tr id="content_<%= item.id %>_page" sortid="content_<%= item.id %>.page">
-            <td>
-              <h4>
-                <%= link(:page, :edit,
-                    edit_teach_course_unit_lecture_page_path(@course, unit, lecture, item),
-                    :class => css(button: [:success, :xs], align: :right)) %>
-                <i class="fa fa-globe"></i>&nbsp;
-                <%= link_to item.name, teach_course_unit_lecture_page_path(@course, unit, lecture, item) %>
-                <small><%= l(item.created_at.to_date) %></small>
-                <%= content_tag(:span, t('page.text.unpublished'), :class => css_label(:warning)) unless item.published %>
-              </h4>
-            </td>
-          </tr>
-        <% when Assessment %>
-          <tr id="content_<%= item.id %>_assessment" sortid="content_<%= item.id %>.assessment">
-            <td>
-              <h4>
-                <%= link(:assessment, :edit,
-                    edit_teach_course_unit_lecture_assessment_path(@course, unit, lecture, item),
-                    :class => css(button: [:success, :xs], align: :right)) %>
-                <i class="fa fa-flask"></i>&nbsp;
-                <%= link_to(item.name, teach_course_unit_lecture_assessment_path(@course, unit, lecture, item)) %>
-                <small><%= item.kind %></small>
-                <%= content_tag(:span, t('page.text.unready'), :class => css_label(:warning)) unless item.ready %>
-              </h4>
+<table class="ui striped selectable small table">
+  <tbody class="sortable" data-update-url="<%= content_sort_teach_course_unit_lecture_path(@course, unit, lecture) %>">
+    <% data.each_with_index do |item| %>
+      <% case item %>
+      <% when Material %>
+        <%= render partial: "application/media/medium",
+              locals: {medium: item.medium, medium_counter: false,
+                action: link(:material, :destroy,
+                  teach_course_unit_lecture_material_path(@course, unit, lecture, item),
+                  :method => :delete, :class => "ui negative button",
+                  confirm: true)
+              } %>
+      <% when Question %>
+        <tr id="content_<%= item.id %>_question" sortid="content_<%= item.id %>.question">
+          <td>
+            <h4>
+              <%= link(:question, :edit,
+                  edit_teach_course_unit_lecture_question_path(@course, unit, lecture, item),
+                  :class => "ui positive button") %>
+              <i class="fa fa-question"></i>&nbsp;
+              <br/><br/>
+              <%= render partial: "teach/questions/question", locals: { question: item, show_answer: false } %>
+            </h4>
+          </td>
+        </tr>
+      <% when Page %>
+        <tr id="content_<%= item.id %>_page" sortid="content_<%= item.id %>.page">
+          <td>
+            <h4>
+              <%= link(:page, :edit,
+                  edit_teach_course_unit_lecture_page_path(@course, unit, lecture, item),
+                  :class => "ui positive button") %>
+              <i class="fa fa-globe"></i>&nbsp;
+              <%= link_to item.name, teach_course_unit_lecture_page_path(@course, unit, lecture, item) %>
+              <small><%= l(item.created_at.to_date) %></small>
+              <%= content_tag(:span, t('page.text.unpublished'), :class => css_label(:warning)) unless item.published %>
+            </h4>
+          </td>
+        </tr>
+      <% when Assessment %>
+        <tr id="content_<%= item.id %>_assessment" sortid="content_<%= item.id %>.assessment">
+          <td>
+            <h4>
+              <%= link(:assessment, :edit,
+                  edit_teach_course_unit_lecture_assessment_path(@course, unit, lecture, item),
+                  :class => "ui positive button") %>
+              <i class="fa fa-flask"></i>&nbsp;
+              <%= link_to(item.name, teach_course_unit_lecture_assessment_path(@course, unit, lecture, item)) %>
+              <small><%= item.kind %></small>
+              <%= content_tag(:span, t('page.text.unready'), :class => css_label(:warning)) unless item.ready %>
+            </h4>
 
-              <%# markdown a.about %>
-            </td>
-          </tr>
-        <% end %>
+            <%# markdown a.about %>
+          </td>
+        </tr>
       <% end %>
-    </tbody>
-  </table>
-  <%= content_tag :small, t('page.text.drag_items_to_reorder_html') if data.count > 1 %>
-</div>
+    <% end %>
+  </tbody>
+</table>
+
+<%= content_tag :small, t('page.text.drag_items_to_reorder_html') if data.count > 1 %>
+

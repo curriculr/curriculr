@@ -41,20 +41,20 @@
         <% if qcount > 1 %>
           <% if ndx > 0 %>
             <%= link_to t('helpers.submit.prev_html'), "#", :data => "attempt-question-#{ndx - 1}",
-                  :class => "#{css_button(:default)} attempt-prev-question-btn" %>
+                  :class => "#{"ui button"} attempt-prev-question-btn" %>
           <% end %>
           <% if ndx < qcount - 1 %>
             <%= link_to t('helpers.submit.next_html'), "#", :data => "attempt-question-#{ndx + 1}",
-                  :class => "#{css_button(:default)} attempt-next-question-btn" %>
+                  :class => "#{"ui button"} attempt-next-question-btn" %>
           <% end %>
         <% end %>
 
         <% if !@attempt.new_record? && @attempt.state == 1%>
-          <%= submit_tag t('helpers.submit.submit'), :class => css_button(:primary),
+          <%= submit_tag t('helpers.submit.submit'), :class => "ui primary button",
                 :value => t('helpers.submit.submit') if ndx == qcount - 1 %>
         <% else %>
           <%= link_to(t('helpers.submit.resume_lecture'), "#",
-                :class => "#{css_button(:default)} attempt-close-btn") %>
+                :class => "#{"ui button"} attempt-close-btn") %>
         <% end %>
       </div>
     </div>

@@ -23,11 +23,11 @@
       <% end %>
     </small>
   </h3>
-  <table>
+  <table class="ui striped selectable small table">
     <tbody>
       <tr>
         <td>
-          <table>
+          <table class="ui striped selectable small table">
             <thead>
               <tr>
                 <th><%= Assessment.human_attribute_name(:attempt) %></th>
@@ -67,7 +67,7 @@
                   <td>
                     <%= link :attempt, :show_answer,
                           show_answer_learn_klass_assessment_attempt_path(@klass, assessment, at),
-                          :method => :post, :class => css_button(:info) %>
+                          :method => :post, :class => "ui button" %>
                   </td>
                 <% end %>
               </tr>
@@ -100,11 +100,11 @@
         <td>
           <% if @klass.open? && assessment.can_be_taken?(@klass, current_student) && assessment.open?(@klass.begin_date(current_student)) %>
             <%= link(:attempt, :new_attempt, new_learn_klass_assessment_attempt_path(@klass, assessment),
-                  :class => css_button(:primary), confirm: true) %>
+                  :class => "ui primary button", confirm: true) %>
             <% if assessment.after_deadline?(@klass.begin_date(current_student)) %>
-              <strong class="<%= css_text(:warning) %>">
+              <div class="ui warning message">
                 <%= t('page.text.assessment_penalty_msg', :penalty => assessment.penalty) %>
-              </strong>
+              </div>
             <% end %>
           <% end %>
         </td>

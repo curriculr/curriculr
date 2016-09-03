@@ -1,7 +1,7 @@
 <%= ui_header t('page.title.select_files'), style: @course ? :h2 : nil %>
 
 <% if @medium.file_upload_allowed? %>
-	<%= themed_form_for the_form_path, :html => {
+	<%= form_for the_form_path, :html => {
 				:multipart => true, id: 'multi_new_medium', class: 'dropzone', 
 				data: { extensions: @medium.allowed_file_extensions.join('|')}} do |f| %>	
 		<%= f.hidden_field :account_id %>

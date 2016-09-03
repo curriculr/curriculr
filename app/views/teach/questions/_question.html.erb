@@ -5,62 +5,66 @@
 
     css_bg = case result
     when :correct
-      'panel-success'
+      'green'
     when :partially_correct
-      'panel-warning'
+      'yellow'
     when :incorrect
-      'panel-danger'
+      'red'
     else
       ''
     end
   end
-%>
-<div class="panel panel-default question question-<%= question.kind %> <%= css_bg %>">
-  <%
+
   has_header = if @assessment
     defined?(question_counter).present? && (@assessment.kind != 'survey' || @assessment.questions_count > 1)
   else
     defined?(question_counter).present?
   end
-  %>
-  <% if has_header %>
-    <%= content_tag :div, class: "panel-heading" do %>
-      <%= %(#{Question.model_name.human} #{question_counter + 1}) %>
-      <%= "(#{r})" if r.present? %>
+%>
 
-      <% if question.points.present? && question.points > 0 %>
-        <%= content_tag :span, t('page.text.points', :count => question.points), :class => css_align(:right) %>
-      <% end %>
+<div class="card">
+  <div class="content">
+    <% if has_header %>
+      <%= content_tag :div, class: "header" do %>
+        <%= %(#{Question.model_name.human} #{question_counter + 1}) %>
+        <%= "(#{r})" if r.present? %>
 
-      <% unless @q_selector || @assessment || defined? no_options %>
-        <%= ui_button_dropdown(ui_options_button_text, [
-              link(:question, :edit, [:edit, :teach, @course, @unit, @lecture, question]),
-              nil,
-              link(:question, :destroy, [:teach, @course, @unit, @lecture, question],
-                method: :delete, confirm: true)
-            ], class: css_button(:xs, :default), :align => :right) %>
+        <% if question.points.present? && question.points > 0 %>
+          <%= content_tag :span, t('page.text.points', :count => question.points), :class => css_align(:right) %>
+        <% end %>
+
+        <% unless @q_selector || @assessment || defined? no_options %>
+          <%= ui_buttons([
+                link(:question, :edit, [:edit, :teach, @course, @unit, @lecture, question], class: "ui positive button"),
+                link(:question, :destroy, [:teach, @course, @unit, @lecture, question],
+                  method: :delete, confirm: true, class: "ui negative button")
+              ]) %>
+        <% end %>
       <% end %>
     <% end %>
-  <% end %>
-  <%= content_tag :div, id: "question_#{question.id}" do %>
-    <%= render "teach/questions/#{question.kind}", :q => question,
-      :a => ((defined?(answer)).present? ? answer : question.answer),
-      :read_only => ((defined?(read_only)).present?? read_only : !@assessment.blank?),
-      :show_answer => show_answer %>
-  <% end %>
-
+    <div class="description">
+      <%= content_tag :div, id: "question_#{question.id}" do %>
+        <%= render "teach/questions/#{question.kind}", :q => question,
+          :a => ((defined?(answer)).present? ? answer : question.answer),
+          :read_only => ((defined?(read_only)).present?? read_only : !@assessment.blank?),
+          :show_answer => show_answer %>
+      <% end %>
+    </div>
+  </div>
   <% if defined? question_counter && (@q_selector || question.unit.present?) %>
-    <div class="panel-footer">
-      <% if @q_selector # During selecting questions to add to assessment %>
+    <% if @q_selector # During selecting questions to add to assessment %>
+      <% content_tag :div, class: 'extra content' do %>
         <%= render partial: 'q_selector_form', locals: {
               q_selector: @assessment.q_selectors.where(question_id: question.id).first || QSelector.new,
               question: question
             } %>
-      <% else %>
-        <% if @course && question.lecture.present? && staff?(current_user, @course) %>
+      <% end%>
+    <% else %>
+      <% if @course && question.lecture.present? && staff?(current_user, @course) %>
+        <% content_tag :div, class: 'extra content' do %>
           <%= render partial: 'teach/questions/include_in_lecture_form', locals: { question: question } %>
         <% end %>
-      <% end %>
-    </div>
+      <% end%>
+    <% end %>
   <% end %>
 </div>

@@ -13,26 +13,21 @@ end
 <% footer_menu %>
 
 <footer>
-  <nav class="navbar navbar-inverse navbar-fixed-bottom">
-    <div class="container">
-      <div class="row">
-        <div class="<%= css_columns(15) %>">
-          <ul class="list-inline">
-            <% app_menu(:bottom).each do |item| %>
-              <li><%= item %></li>
-            <% end %>
-          </ul>
-        </div>
-        <div class="<%= css_columns(9) %>">
-          <div class="row text-right">
-            <% if current_account.config['title'] !~ /Curriculr/i %>
-              <%= t('page.text.powered_by_html', logo: link_to(
-                    image_tag("/images/curriculr-white.png"), 'http://www.curriculr.org', target: '_new'
-                  )) %>
-            <% end %>
-          </div>
-        </div>
+  <div class="ui bottom <%= 'inverted' if action_name != 'front' %> menu">
+    <% app_menu(:bottom).each_with_index do |item, i| %>
+      <% if i == 0 %>
+        <div class="heasder item"><%= item %></div>
+      <% else %>
+        <%= link_to item[:link], item[:to], class: 'item' %>
+      <% end %>
+    <% end %>
+
+    <% if true || current_account.config['title'] !~ /Curriculr/i %>
+      <div class="right item">
+        <%= t('page.text.powered_by_html', logo: link_to(
+              image_tag("/images/curriculr#{'-inverted' if action_name != 'front'}.png"), 'http://www.curriculr.org', target: '_new'
+            )) %>
       </div>
-    </div>
-  </nav>
+    <% end %>
+  </div>
 </footer>

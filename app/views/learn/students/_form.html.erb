@@ -1,6 +1,6 @@
-<%= form_header %>
 
-<%= themed_form_for [:learn, @student] do |f| %>
+
+<%= form_for [:learn, @student] do |f| %>
   <%= f.hidden_field :user_id, :value => @student.user.id %>
 
   <%= f.text_field :name %>

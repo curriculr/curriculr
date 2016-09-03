@@ -1,45 +1,32 @@
-<%= link(:klass, :new, new_teach_course_klass_path(@course),
-      :class => css(button: :success, align: :right)) %>
-<br>
-<br>
-
 <% active_klass_id = @klass ? @klass.id : nil %>
 
-<div class="panel-group" id="accordion">
-  <% @course.klasses.order('begins_on desc').each_with_index do |klass, i|  %>
-    <%= content_tag :div, klass, id: "klass_#{klass.id}", :class => "panel panel-inverse" do %>
-      <div class="panel-heading">
-        <h3 class="panel-title">
-          <a data-toggle="collapse" data-parent="#accordion" href="#collapse-<%= klass.id %>">
-              <%= klass.name %>
-              <%= content_tag(:span, Klass.human_attribute_name(:private), :class => css_label(:danger)) if klass.private %>
-        </a>
-
-          <%= ui_button_dropdown(ui_options_button_text, ui_course_klass_links(klass),
-                class: css_button(:xs, :default), align: :right) %>
-        </h3>
+<%= content_tag :div, class: "course klasses" do %>
+  <div class="ui top attached klass menu">
+    <a class="item">
+      <i class="sidebar icon"></i>
+      <%= Klass.model_name.human(count: 3) %>
+      <%= content_tag(:span, Klass.human_attribute_name(:private), :class => css_label(:danger)) if @klass&.private %>
+    </a>
+    <div class="right menu">
+      <div class="item">
+        <%= link(:klass, :new, new_teach_course_klass_path(@course), :class => 'ui primary button') %>
       </div>
-
-      <% active = (active_klass_id.present? && klass.id == active_klass_id) || (active_klass_id.blank? && i == 0) %>
-      <div id="collapse-<%= klass.id %>" class="panel-collapse klass collapse <%= 'in' if active %>">
-        <div class="panel-body">
-          <div id="klass-approve-indicator" class="<%= css_alert(:warning) %> <%= 'hidden' if klass.ready_to_approve && klass.approved %>">
-            <% if klass.ready_to_approve %>
-              <% if !current_account.config['require_admin_approval_of_classes'] || current_user.has_role?(:admin) %>
-                <%= t('page.text.approved_klass_html',
-                      link: link(:klass, klass.approved ? :disapprove : :approve, approve_teach_course_klass_path(@course, klass), :method => :put)) %>
-              <% else %>
-                <%= t('page.text.by_admin_approved_klass_html') %>
-              <% end %>
-            <% else %>
-              <%= t('page.text.ready_to_approve_klass_html',
-                      link: link(:klass, klass.ready_to_approve ? :unready : :ready, ready_teach_course_klass_path(@course, klass), :method => :put)) %>
-            <% end %>
-
-          </div>
-          <%= render partial: 'teach/klasses/show', locals: { klass: klass } %>
-        </div>
-      </div>
-    <% end %>
-  <% end %>
-</div>
+    </div>
+  </div>
+  <div class="ui bottom attached segment pushable">
+    <div class="ui left inline vertical sidebar dynamic menu">
+      <% @course.klasses.order('begins_on desc').each_with_index do |klass, i| %>
+        <%= content_tag :a, id: "klass_#{klass.id}", data: {tab: "klass_#{klass.id}"}, class: "#{'active ' if (klass.id == active_klass_id || i == 0)}item" do %>
+          <%= klass.name %>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="pusher">
+      <% @course.klasses.order('begins_on desc').each_with_index do |klass, i| %>
+        <%= content_tag :div, data: {tab: "klass_#{klass.id}"}, class: "ui #{'active ' if (klass.id == active_klass_id || i == 0)}basic tab segment" do %>
+          <%= render :partial => 'teach/klasses/show', :locals => { klass: klass} %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

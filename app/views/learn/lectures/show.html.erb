@@ -53,7 +53,7 @@
               nav_links << link_to(unit_pagers[1].name, learn_klass_lectures_path(@klass, unit: unit_pagers[1].id))
             end
           %>
-          <%= ui_button_dropdown content_tag(:i, '', class: "fa fa-list"), nav_links , class: css_button(:default, :xs) %>&nbsp;
+          <%= ui_button_dropdown content_tag(:i, '', class: "fa fa-list"), nav_links , class: "ui button" %>&nbsp;
           <%= @lecture.name %>
         </h3>
       </div>
@@ -69,7 +69,7 @@
                 link_name = (i == 0 ? t('helpers.submit.prev_html').html_safe : (i == 1 ? t('helpers.submit.next_html').html_safe : ''))
               %>
               <li class="lecture-pager-link-pos-<%= i %> lecture-pager-link <%= link_class %>" style="<=% link_style %>">
-                <%= link_to link_name, link[:url], remote: link[:remote], class: css_button(:default) if link[:url] %>
+                <%= link_to link_name, link[:url], remote: link[:remote], class: "ui button" if link[:url] %>
               </li>
             <% end %>
           </ul>

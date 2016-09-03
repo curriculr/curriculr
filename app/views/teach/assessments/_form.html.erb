@@ -1,77 +1,48 @@
-<%= form_header :name => @assessment.kind %>
-
 <% kinds = @course.config["grading"]["distribution"]["assessments"][@lecture ? "lecture" : (@unit ? "unit" : "course")].keys %>
 
-<%= themed_form_for [:teach,@course, @unit, @lecture, @assessment] do |f| %>
+<%= form_for [:teach,@course, @unit, @lecture, @assessment] do |f| %>
   <%= f.hidden_field :course_id %>
   <%= f.hidden_field :unit_id %>
   <%= f.hidden_field :lecture_id %>
   <%= f.hidden_field :kind, :value => :survey if @assessment.kind == 'survey' %>
   
   <% if @assessment.kind != 'survey' %>
-    <div class="row">
-      <div class="<%= css_columns(9) %>">
-        <%= f.select :kind, kinds, 
-              :value => params[:s], :include_blank => true %>
-      </div>
-      <div class="<%= css_columns(9) %>">
-        <br/>
-        <%= f.check_box :after_deadline %>
-      </div>
-      <div class="<%= css_columns(9) %>">
-        <%= f.number_field :penalty %> 
-      </div>
+    <div class="three fields">
+      <%= f.select :kind, kinds, :value => params[:s], :include_blank => true %>
+      <%= f.check_box :after_deadline %>
+      <%= f.number_field :penalty %> 
     </div>
   <% end %>
   
   <%= f.text_field :name %>      
   <%# f.markdown :about, :size => '60x5' %>
   
-  <div class="row">
-    <div class="<%= css_columns(9) %>">
-      <%= f.static :based_on %>
-      <%= f.hidden_field :based_on %>
-    </div>
-    <div class="<%= css_columns(9) %>">
-      <% if @assessment.from_datetime.kind_of?(Time) %>
-        <%= f.text_field :from_datetime, class: 'datetimepicker', value: @assessment.from_datetime.strftime("%Y-%m-%d %H:%M") %>
-      <% else %>
-        <%= f.text_field :from_datetime, class: 'datetimepicker' %>
-      <% end %>
-    </div>
-    <div class="<%= css_columns(9) %>">
-      <% if @assessment.to_datetime.kind_of?(Time) %>
-        <%= f.text_field :to_datetime, class: 'datetimepicker', value: @assessment.to_datetime.strftime("%Y-%m-%d %H:%M") %>
-      <% else %>
-        <%= f.text_field :to_datetime, class: 'datetimepicker' %>
-      <% end %>
-    </div>
+  <div class="three fields">
+    <%= f.static :based_on %>
+    <%= f.hidden_field :based_on %>
+    <% if @assessment.from_datetime.kind_of?(Time) %>
+      <%= f.text_field :from_datetime, class: 'datetimepicker', value: @assessment.from_datetime.strftime("%Y-%m-%d %H:%M") %>
+    <% else %>
+      <%= f.text_field :from_datetime, class: 'datetimepicker' %>
+    <% end %>
+    <% if @assessment.to_datetime.kind_of?(Time) %>
+      <%= f.text_field :to_datetime, class: 'datetimepicker', value: @assessment.to_datetime.strftime("%Y-%m-%d %H:%M") %>
+    <% else %>
+      <%= f.text_field :to_datetime, class: 'datetimepicker' %>
+    <% end %>
   </div>
   
   <% if @assessment.kind != 'survey' %>
-    <div class="row">
-      <div class="<%= css_columns(9) %>">
-        <%= f.number_field :allowed_attempts %>
-      </div>
-      <div class="<%= css_columns(9) %>">
-        <%= f.select :multiattempt_grading, t('config.assessment.multiattempt_grading').invert, :include_blank => false %>
-      </div>
-      <div class="<%= css_columns(9) %>">
-        <%# f.number_field :droppable_attempts %>
-      </div>
+    <div class="three fields">
+      <%= f.number_field :allowed_attempts %>
+      <%= f.select :multiattempt_grading, t('config.assessment.multiattempt_grading').invert, :include_blank => false %>
+      <%# f.number_field :droppable_attempts %>
     </div>
-  
-    <div class="row">
-      <div class="<%= css_columns(9) %>">
-        <%= f.select :show_answer, t('config.assessment.show_answer').invert, :include_blank => false %>
-      </div>
+    <div class="three fields">
+      <%= f.select :show_answer, t('config.assessment.show_answer').invert, :include_blank => false %>
       <% if @lecture && (videos = Hash[@lecture.materials_of_kind(:video).to_a.map {|v| [ v.medium.name, v.id ]}]) %>
-        <div class="<%= css_columns(9) %>">
-          <%= f.select :invideo_id, videos %>
-        </div>
-        <div class="<%= css_columns(9) %>">
-          <%= f.number_field :invideo_at %>
-        </div>
+        <%= f.select :invideo_id, videos %>
+        <%= f.number_field :invideo_at %>
       <% end %>
     </div>
   <% end %>

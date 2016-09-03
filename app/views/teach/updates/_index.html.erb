@@ -1,51 +1,34 @@
-<table>
-	<tbody>
-    <% if updates.any? %>
-  		<% updates.each_with_index do |update, ndx| %>
-  		<tr>
-  			<td>
-          <%
-            klass = update.klass
-            links = []
-            links << link(:update, :edit, klass ? edit_teach_course_klass_update_path(@course, klass, update) : [:edit, :teach, @course, @unit, update])
-            links << nil
-            links << link(:update, :destroy, klass ? teach_course_klass_update_path(@course, klass, update) : [:teach, @course, @unit, update], method: :delete, confirm: true)
-          %>
-          <%= ui_button_dropdown ui_options_button_text, links, class: css_button(:default), align: :right %>
-
-          <h3>
-            <%= update.subject %> &nbsp;
-            <%= content_tag :span, t('page.text.inactive'), :class => "badge" unless update.active %>
-            &nbsp;
-            <%= content_tag :span do %>
-              <%= content_tag :i, '', :class => 'fa fa-globe', :title => t("config.update.kind.www") %>
-            <% end if update.www %>
-            &nbsp;
-            <%= content_tag :span do %>
-              <%= content_tag :i, '', :class => 'fa fa-envelope', :title => t("config.update.kind.email") %>
-            <% end if update.email %>
-            &nbsp;
-            <%= content_tag :span do %>
-              <%= content_tag :i, '', :class => 'fa fa-comment', :title => t("config.update.kind.sms") %>
-            <% end if update.sms %>
-            <br>
-            <small>
-            <%= t('page.text.to') %> <%= t('config.update.to.' + update.to) %>
-            <%= "#{I18n.t('page.text.on')} #{I18n.l(update.created_at.to_date)})" if klass %>
-            </small>
-  				</h3>
-
+<div class="ui divided items">
+	<% updates.each_with_index do |update, ndx| %>
+    <% klass = update.klass %>
+		<div class="item">
+      <div class="content">
+        <div class="header"><%= update.subject %></div>
+        <div class="meta">
+          <div class="ui horizontal list">
+            <%= content_tag :div, class: 'item' do %><%= t('page.text.to').capitalize %> <%= t('config.update.to.' + update.to) %><% end %>
+            <%= content_tag :div, class: 'item' do %><%= "#{I18n.t('page.text.on')} #{I18n.l(update.created_at.to_date)})" %><% end if klass %>
+            <%= content_tag :div, t('page.text.inactive'), :class => "item" unless update.active %>
+            <%= content_tag :div, class: 'item' do %><%= ui_icon(:globe) %><%= t("config.update.kind.www") %><% end if update.www %>
+            <%= content_tag :div, class: 'item' do %><%= ui_icon(:envelope) %><%= t("config.update.kind.email") %><% end if update.email %>
+            <%= content_tag :div, class: 'item' do %><%= ui_icon(:comment) %><%= t("config.update.kind.sms") %><% end if update.sms %>
+          </div>
+        </div>
+        <div class="description">
           <% if update.active && klass && klass.approved && klass.open? && update.sent_at.blank? %>
-            <div class="<%= css_alert(:warning) %>">
+            <div class="ui warning message">
               <%= t('page.text.unpublished_update_html', link: link(:update, :send, make_teach_course_klass_update_path(@course, klass, update), method: :put)) %>
             </div>
           <% end %>
-  				<%= markdown update.body, :class => 'shortenable-text' %>
-  			</td>
-  		</tr>
-		  <% end %>
-    <% else %>
-		  <tr><td><%= t('page.text.no_record_found') %></td></tr>
-    <% end %>
-	</tbody>
-</table>
+          <%= markdown update.body, :class => 'shortenable-text' %>
+        </div>
+        <div class="extra">
+          <%= ui_buttons([
+                link(:update, :edit, klass ? edit_teach_course_klass_update_path(@course, klass, update) : [:edit, :teach, @course, @unit, update], class: "ui positive button"),
+                link(:update, :destroy, klass ? teach_course_klass_update_path(@course, klass, update) : [:teach, @course, @unit, update], method: :delete, confirm: true, class: "ui negative button")
+                ]) %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -2,15 +2,15 @@ en:
   helpers:
     submit:
       go_back: Go back
-      dashboard: <i class="fa fa-tachometer"></i>&nbsp; Dashboard
-      upload: <i class="fa fa-upload"></i> Upload files
-      new_link: <i class="fa fa-plus"></i> External link
+      dashboard:  Dashboard
+      upload:  Upload files
+      new_link:  External link
       account_settings: Account settings
       site_settings: Site settings
       course_settings: Course settings
-      new_attempt: <i class="fa fa-plus"></i> New attempt
+      new_attempt:  New attempt
       copy: Copy
-      course_builder: <i class="fa fa-cogs"></i> Course Builder
+      course_builder:  Course Builder
       teach: Teach
       learn: Learn
       help: Help
@@ -18,14 +18,14 @@ en:
       open: Open
       close: Close
       show: show
-      new: <i class="fa fa-plus"></i> New %{name}
+      new:  New %{name}
       create: Create
-      edit: <i class="fa fa-edit"></i> Edit
+      edit:  Edit
       update: Update
-      destroy: <i class="fa fa-remove"></i>&nbsp; Delete
+      destroy:  Delete
       cancel: Cancel
       settings: Settings
-      reports: <i class="fa fa-newspaper-o"></i>&nbsp; Reports
+      reports:  Reports
       try_again: Try again
       show_answer: Show answer
       about: About us
@@ -33,19 +33,19 @@ en:
       privacy: Privacy
       terms: Terms of service
       blogs: Blog
-      signup: <i class="fa fa-plus"></i> Create an account
-      signin: <i class="fa fa-sign-in"></i> Sign in
-      sign_out: <i class="fa fa-sign-out"></i> Sign out
+      signup: Create an account
+      signin: Sign in
+      sign_out: Sign out
       send: Send
       reply: Reply
       start: Start
-      invite: <i class="fa fa-envelope-o"></i> Invite
+      invite:  Invite
       hide: Hide
       save: Save
       submit: Submit
       submit_answer: Submit answer
       enroll: Enroll
-      drop: <i class="fa fa-sign-out"></i>&nbsp; Drop
+      drop:  Drop
       goto_klass: Go to class
       preview: Preview
       activate: Activate
@@ -66,7 +66,7 @@ en:
       remove_promo_video: Remove promo video
       add_poster_image: Add poster
       remove_poster_image: Remove poster
-      syllabus: <i class="fa fa-road"></i>&nbsp; Syllabus
+      syllabus:  Syllabus
       add_role: Add role %{role}
       remove_role: Remove role %{role}
       stats: Statistics
@@ -91,8 +91,8 @@ en:
       assess: Assess
       select: Select
       services: Services
-      show_instructor_view: <i class="fa fa-university"></i> Instructor View
-      show_student_view: <i class="fa fa-graduation-cap"></i> Student View
+      show_instructor_view:  Instructor View
+      show_student_view:  Student View
       attachment: Attachment
       audio: Audio
       document: Document
@@ -117,11 +117,11 @@ en:
       back_to: Back to %{name}
       add_question: Add question
       resume_lecture: Resume lecture
-      add_video: <i class="fa fa-plus"></i> Add video
-      add_image: <i class="fa fa-plus"></i> Add image
-      add_audio: <i class="fa fa-plus"></i> Add audio
-      add_document: <i class="fa fa-plus"></i> Add document
-      add_other: <i class="fa fa-plus"></i> Add attachment
+      add_video:  Add video
+      add_image:  Add image
+      add_audio:  Add audio
+      add_document:  Add document
+      add_other:  Add attachment
       decline: Decline
       blog_posts: My blog posts
       static_pages_or_blogs: Static pages/Blog posts

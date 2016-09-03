@@ -1,41 +1,29 @@
-<div class="row">
-  <div class="<%= css_columns(12,6) %>">
-    <br/>
-    <div class="panel panel-default">
-      <ul id="signinOrUpTabs" class="nav nav-tabs success" role="tablist">
-        <li role="presentation" class="active">
-          <a href="#"><strong><%= t('page.text.signin') %></strong></a>
-        </li>
-        <li role="presentation">
-          <%= link_to t('page.text.signup'), main_app.auth_signup_path %>
-        </li>
-      </ul>
-      <div class="panel-body">
-        <br/>
-        <% external_links = capture do %>
-          <% [:facebook, :google_oauth2].each do |app| %>
-            <% app_secrets = Rails.application.secrets.auth[app.to_s] %>
-            <% if app_secrets && app_secrets['id'].present? && app_secrets['secret'].present? %>
-              <% app_name = app == :google_oauth2 ? :google : app %>
-              <div class="<%= css_columns(12) %>">
-              <%= link_to "/auth/#{app}", :class => css_button(app_name, :lg, :block) do %>
-                <i class="fa fa-<%= app_name %> fa-lg"></i>
-                <%= t("helpers.submit.#{app_name}") %>
-              <% end %>
-              </div>
+<div class="ui middle aligned very relaxed stackable grid">
+  <div class="six wide column">
+    <div class="ui large two buttons">
+      <%= capture do %>
+        <% [:facebook, :google_oauth2].each_with_index do |app, i| %>
+          <%= content_tag :div, '', class: 'or' if i > 0 %>
+          <% app_secrets = Rails.application.secrets.auth[app.to_s] %>
+          <% if app_secrets && app_secrets['id'].present? && app_secrets['secret'].present? %>
+            <% app_name = app == :google_oauth2 ? :"google" : app %>
+
+            <%= link_to "/auth/#{app}", class: "ui #{app_name}#{' plus' if i == 1} button" do %>
+              <%= ui_icon app_name %>
+              <%= t("helpers.submit.#{app_name}") %>
             <% end %>
           <% end %>
         <% end %>
+      <% end %>
+    </div>
+  </div>
+  <div class="ui vertical divider"><%= t('page.text.or') %></div>
+  <div class="seven wide column">
+    <%= render partial: 'auth/sessions/form' %>
 
-        <% if external_links.strip.present? %>
-          <%= external_links %>
-          <hr /><br /><br />
-        <% end %>
-
-        <p class="text-center"><strong><%= t('page.text.or') %></strong></p>
-
-        <%= render partial: 'auth/sessions/form' %>
-      </div>
-      </div>
+    <div class="ui horizontal divider"><%= t('page.text.or') %></div>
+    <%= link_to main_app.auth_signup_path, class: "ui big green labeled icon button" do %>
+      <%= ui_icon('add user') + t('helpers.submit.signup') %>
+    <% end %>
   </div>
 </div>

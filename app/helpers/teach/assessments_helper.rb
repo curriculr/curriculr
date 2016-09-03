@@ -21,7 +21,7 @@ module Teach::AssessmentsHelper
       end
     end
     
-    link_to(name, '#', class: "add_fields #{css(button: :success, align: :right)}", 
+    link_to(name, '#', class: "add_fields ui positive button", 
       data: {id: id, fields: fields.gsub("\n", "")})
   end
 end

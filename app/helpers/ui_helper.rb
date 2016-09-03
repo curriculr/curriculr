@@ -1,4 +1,4 @@
-module UiHelper
+module UiHelper  
   def space_tag(count = 1, options = {})
     if options.present?
       content_tag :i, (%(&nbsp;) * count).html_safe, options
@@ -28,16 +28,15 @@ module UiHelper
       options = {
         :app_id => Rails.application.secrets.auth['facebook']['id'],
         :link => URI.join(main_app.root_url, main_app.learn_klass_path(klass)),
-        :picture => URI.join(main_app.root_url, ui_image_src(klass.course.poster ? klass.course.poster.at_url(:md) : nil, '/images/holder-md.png')),
+        :picture => URI.join(main_app.root_url, (klass.course.poster&.at_url(:md) || '/images/holder-md.png')),
         :name => klass.course.name,
         :caption => caption,
         :description => ui_social_message(klass),
         :redirect_uri => URI.join(main_app.root_url, main_app.learn_klass_path(klass))
       }
 
-      cls = text.nil? ? css_button(:facebook) : css_button(:facebook, :block, :lg)
-      link_to "https://www.facebook.com/dialog/feed?#{options.to_query}", class: cls do
-        css_icon([:facebook, :lg]) + text
+      link_to "https://www.facebook.com/dialog/feed?#{options.to_query}", class: 'ui facebook button' do
+        ui_icon(:facebook) + ' ' + text
       end
     when Page
       page = object
@@ -61,9 +60,8 @@ module UiHelper
       :url => URI.join(main_app.root_url, main_app.learn_klass_path(klass))
     }
 
-    cls = text.nil? ? css_button(:twitter) : css_button(:twitter, :block, :lg)
-    link_to "https://twitter.com/share?#{options.to_query}", class: cls do
-      css_icon([:twitter, :lg]) + text
+    link_to "https://twitter.com/share?#{options.to_query}", class: 'ui twitter button' do
+      ui_icon(:twitter) + ' ' + text
     end
   end
 
@@ -72,9 +70,8 @@ module UiHelper
       :url => URI.join(main_app.root_url, main_app.learn_klass_path(klass))
     }
 
-    cls = text.nil? ? css_button(:google) : css_button(:google, :block, :lg)
-    link_to "https://plus.google.com/share?#{options.to_query}", class: cls do
-      css_icon([:"google-plus", :lg]) + text
+    link_to "https://plus.google.com/share?#{options.to_query}", class: 'ui google plus button' do
+      ui_icon("google plus") + ' ' + text
     end
   end
 

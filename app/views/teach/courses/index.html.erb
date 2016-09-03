@@ -1,13 +1,13 @@
 <%= 
-search = search_form_for [:teach, @q], class: "search-form form-inline #{css_align(:right)}", :remote => true do |f| 
-  form_search f, :slug_or_name_or_about_cont, hint: false, label: false, placeholder: true 
+search = search_form_for [:teach, @q], class: "search-form", method: :get, remote: true, wrapper: false, header: false do |f| 
+  f.search_field :slug_or_name_or_about_cont, hint: false, label: false, placeholder: true 
 end
 
 ui_header Course.model_name.human(count: 3), action: search %>
 
-<div id="paginator" class="<%= css_align(:left) %>"><%= paginate @courses, :remote => true %></div>
+<div id="paginator"><%= paginate @courses, :remote => true %></div>
 
-<div id="all-courses" class="ui three column stackable stretched grid">
+<div id="all-courses" class="ui cards">
   <%= render :partial => 'teach/courses/course', :collection => @courses %>
   <% if @courses.empty? %>
     <%= t('page.text.no_record_found') %>

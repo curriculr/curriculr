@@ -1,4 +1,4 @@
-<div class="panel-body">
+<div class="field">
   <%= render 'teach/questions/preamble', :q => q, :show_answer => show_answer %>
 
   <%
@@ -8,7 +8,7 @@
 
     html.sub!('...', select_tag("attempt[#{q.id}][#{o.id}]", options_for_select(items.sample(items.count).map {|i| [i, i]}, a ? a[o.id] : nil),
       :disabled => read_only,
-      :include_blank => true, :class => css_form_control))
+      :include_blank => true, :class => 'ui dropdown'))
   end
   %>
 

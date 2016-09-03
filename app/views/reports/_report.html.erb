@@ -1,7 +1,7 @@
 <div class="row pricing">
   <div class="<%= css_columns(15) %>">
     <%= ui_header(capture do %>
-      <%= image_tag ui_image_src(student.avatar_url(current_account, :th), '/images/nobody-th.png') %>
+      <%= image_tag(student.avatar_url(current_account, :th) || '/images/nobody-th.png') %>
       <%= student.name %>
     <% end, style: :h2) %>
 

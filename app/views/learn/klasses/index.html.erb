@@ -1,43 +1,32 @@
-<%=
-search = search_form_for [:learn, @q], class: "search-form form-inline #{css_align(:right)}", :remote => true do |f| 
-  form_search f, :course_slug_or_course_name_or_course_about_cont, hint: false, label: false, placeholder: true 
-end
-
-ui_header t("page.title.#{params[:s] || 'available'}_klasses"), action: search %>
-<div class="row">
-  <div class="<%= css_columns(18) %>">
-    <div class="row">
-      <div class="<%= css_columns(24) %>">
-        <div id="paginator" class="<%= css_align(:left) %>"><%= paginate @klasses, :remote => true %></div>
-      </div>
-    </div>
-    <div id='klass-list' class="klass-list klass-media-object ui divided items">
-      <%= render :partial => 'learn/klasses/klass', :collection => @klasses, :locals => {view: :item} %>
-
-      <% if @klasses.empty? %>
-        <%= t('page.text.no_record_found') %>
-      <% end %>
+<% content_for :search_klasses do %>
+  <%= search_form_for [:learn, @q], class: "search-form", method: 'get', remote: true, wrapper: false, header: false do |f| %>
+  <div class="ui search">
+    <div class="ui icon input">
+      <%= f.search_field :course_slug_or_course_name_or_course_about_cont, hint: false, label: false, placeholder: true %>
+      <%= ui_icon :search %>
     </div>
   </div>
-  <div class="<%= css_columns(6) %>">
-    <%= mountable_fragments :klass_index_actions %>
+  <% end %>
+<% end %>
 
-    <%= render 'learn/klasses/search' %>
+<% content_for :list_klasses do %>
+  <div id="paginator"><%= paginate @klasses, :remote => true %></div>
 
-    <%= yield :klasses_sidebar %>
+  <div id='klass-list' class="klass-list klass-media-object ui divided items">
+    <%= render :partial => 'learn/klasses/klass_item', :collection => @klasses, :as => :klass %>
 
-    <% if current_account.config['allow_banner_ads'] %>
-      <br />
-      <div class="row">
-        <div class="<%= css_columns(12) %>">
-          <%= mountable_fragments :site_160x600_left_rail_banner %>
-        </div>
-        <div class="<%= css_columns(12) %>">
-          <%= mountable_fragments :site_160x600_right_rail_banner %>
-        </div>
-      </div>
-
-      <%= mountable_fragments :site_300x250_right_bottom_banner %>
+    <% if @klasses.empty? %>
+      <%= t('page.text.no_record_found') %>
     <% end %>
   </div>
-</div>
+<% end %>
+
+<%= ui_header t("page.title.#{params[:s] || 'available'}_klasses") %>
+<% if current_user %>
+  <%= ui_side_by_side(yield(:list_klasses), content_tag(:div, yield(:search_klasses) + render('learn/klasses/search'), class: "ui segment")) %>
+<% else %>
+  <%= yield :list_klasses %>
+<% end %>
+
+
+

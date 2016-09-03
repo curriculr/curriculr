@@ -1,10 +1,14 @@
-<% avatar = (instructor.avatar_url(current_account, :th) ||
-     instructor.user.profile.avatar_url(current_account, :th) ||
-     '/images/nobody-th.png') %>
-<%= ui_media(avatar, capture do %>
-      <%= instructor.name || instructor.user.name %>
-      <% title = instructor.title.blank? ? nil : instructor.title %>
-      <br/><small><%= title || t("config.staff.#{instructor.role}") %></small>
-<% end, nil) %>
-
-<%= markdown(instructor.about || instructor.user.profile.about || '', :class => 'shortenable-text') %>
+<div class="item">
+  <a class="ui tiny image">
+    <%= image_tag (instructor.avatar_url(current_account, :th) || instructor.user.profile.avatar_url(current_account, :th) || '/images/nobody-th.png') %>
+  </a>
+  <div class="content">
+    <a class="header"><%= instructor.name || instructor.user.name %></a>
+    <div class="meta">
+      <span><%= instructor.title || t("config.staff.#{instructor.role}") %> </span>
+    </div>
+    <div class="description"> 
+      <%= markdown(instructor.about || instructor.user.profile.about || '', :class => 'shortenable-text') %>  
+    </div>
+  </div>
+</div>

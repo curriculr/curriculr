@@ -47,7 +47,7 @@
               end
             %>
 
-            <%= ui_button_dropdown t('page.title.attachments'), attachment_links , class: css_button(:default, :xs), align: :right %>
+            <%= ui_button_dropdown t('page.title.attachments'), attachment_links , class: "ui button", align: :right %>
           <% end %>
 
         <% else %>
@@ -105,11 +105,11 @@
                     subhdr = l(lecture.begins_on(@klass.begin_date(current_student)))
                     ends_on = lecture.ends_on(@klass.begin_date(current_student))
                     subhdr << %( - #{l(ends_on)}) if ends_on
-                    th = ui_image_src(lecture.poster ? lecture.poster.at_url(:sm) : nil, '/images/holder-sm.png')
+                    th = (lecture.poster&.at_url(:sm) || '/images/holder-sm.png')
                     actions = nil
                     unless enrolled_or_staff
                       actions = if @klass.previewed && lecture.previewed
-                        link(:lecture, :open, learn_klass_lecture_path(@klass, lecture), class: css_button(:primary))
+                        link(:lecture, :open, learn_klass_lecture_path(@klass, lecture), class: "ui button")
                       else
                         ui_klass_enrollment_action @klass, :enroll, true
                       end
@@ -133,7 +133,7 @@
               </div>
             </div>
           <% else %>
-            <table>
+            <table class="ui striped selectable small table">
               <tbody>
                 <% lectures.each_with_index do |lecture, j| %>
                   <tr>

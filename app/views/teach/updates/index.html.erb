@@ -1,6 +1,6 @@
 <%= link(:update, :new, {action: :new, controller: 'updates',
       course_id: @course.id, unit_id: (@unit ? @unit.id : nil),
-      lecture_id: (@lecture ? @lecture.id : nil)}, :class => css_button(success)) %>
+      lecture_id: (@lecture ? @lecture.id : nil)}, :class => "ui primary button") %>
 
 <% if @lecture %>
 
@@ -11,7 +11,7 @@
     links << link_to(lecture.name, course_unit_lecture_updates_path(@course, @unit, lecture))
   end
   %>
-  <%= ui_button_dropdown Lecture.model_name.human(count: 3), links, class: css_button(:default), align: :right if links.length > 1 %>
+  <%= ui_dropdown_button Lecture.model_name.human(count: 3), links, class: "ui dropdown button" if links.length > 1 %>
 <% else %>
   <%
     links = []
@@ -19,11 +19,11 @@
       links << link_to(unit.name, course_unit_updates_path(@course, unit))
     end
   %>
-  <%= ui_button_dropdown Unit.model_name.human(count: 3), links, class: css_button(:default), align: :right if links.length > 1  %>
+  <%= ui_dropdown_button Unit.model_name.human(count: 3), links, class: "ui dropdown button" if links.length > 1  %>
 <% end %>
 
 <h2><a id='<%= "sec_updates" %>'></a><%= Update.model_name.human(count: 3) %></h2>
-<table>
+<table class="ui striped selectable small table">
 	<thead>
 		<tr>
 			<th>#</th>
@@ -66,11 +66,8 @@
               paths = [edit_course_update_path(@course, update), course_update_path(@course, update)]
             end
           %>
-  				<%= ui_button_dropdown(ui_options_button_text, [
-  							link(:update, :edit, paths[0]),
-  							nil,
-  							link(:update, :destroy, paths[1], method: :delete, confirm: true)
-  				], class: css_button(:default), align: :right) %>
+  				<%= ui_buttons [link(:update, :edit, paths[0], class: "ui positive button"),
+  							link(:update, :destroy, paths[1], method: :delete, confirm: true, class: "ui negative button")] %>
   			</td>
   		</tr>
 		  <% end %>

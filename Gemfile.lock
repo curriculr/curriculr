@@ -51,9 +51,6 @@ GEM
     autoprefixer-rails (6.4.0.2)
       execjs
     bcrypt (3.1.11)
-    bootstrap-sass (3.3.7)
-      autoprefixer-rails (>= 5.2.1)
-      sass (>= 3.3.4)
     builder (3.2.2)
     byebug (9.0.5)
     cancancan (1.15.0)
@@ -72,10 +69,6 @@ GEM
       mimemagic (>= 0.3.0)
     childprocess (0.5.9)
       ffi (~> 1.0, >= 1.0.11)
-    chosen-rails (1.5.2)
-      coffee-rails (>= 3.2)
-      railties (>= 3.0)
-      sass-rails (>= 3.2)
     chronic (0.10.2)
     coffee-rails (4.2.1)
       coffee-script (>= 2.2.0)
@@ -84,6 +77,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.10.0)
+    commonjs (0.2.7)
     concurrent-ruby (1.0.2)
     connection_pool (2.2.0)
     countries (1.2.5)
@@ -230,8 +224,6 @@ GEM
     fog-xml (0.1.2)
       fog-core
       nokogiri (~> 1.5, >= 1.5.11)
-    font-awesome-rails (4.6.3.1)
-      railties (>= 3.2, < 5.1)
     formatador (0.2.5)
     friendly_id (5.1.0)
       activerecord (>= 4.0.0)
@@ -264,6 +256,15 @@ GEM
       activesupport (>= 3.0.0)
     launchy (2.4.3)
       addressable (~> 2.3)
+    less (2.6.0)
+      commonjs (~> 0.2.7)
+    less-rails (2.7.1)
+      actionpack (>= 4.0)
+      less (~> 2.6.0)
+      sprockets (> 2, < 4)
+      tilt
+    less-rails-semantic_ui (2.2.3.0)
+      less-rails (>= 2.6.0, < 2.8.0)
     libv8 (3.16.14.15)
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
@@ -272,7 +273,7 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.4)
       mime-types (>= 1.16, < 4)
-    mediaelement_rails (0.8.2)
+    mediaelement_rails (0.8.0)
       jquery-rails (>= 1.0)
       railties (>= 3.1)
     method_source (0.8.2)
@@ -444,20 +445,18 @@ PLATFORMS
 
 DEPENDENCIES
   acts-as-taggable-on!
+  autoprefixer-rails
   bcrypt
-  bootstrap-sass
   byebug
   cancancan
   capybara
   carrierwave
-  chosen-rails
   coffee-rails (~> 4.2)
   countries
   country_select
   execjs
   faker
   fog
-  font-awesome-rails
   friendly_id
   jbuilder (~> 2.5)
   jquery-fileupload-rails
@@ -466,8 +465,9 @@ DEPENDENCIES
   jquery-ui-rails
   kaminari
   launchy
+  less-rails-semantic_ui
   listen (~> 3.0.5)
-  mediaelement_rails
+  mediaelement_rails (= 0.8.0)
   mini_magick
   nokogiri
   omniauth

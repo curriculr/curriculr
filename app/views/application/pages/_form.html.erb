@@ -1,6 +1,6 @@
-<%= form_header %>
 
-<%= themed_form_for @req_objects do |f| %>
+
+<%= form_for @req_objects do |f| %>
   <%= f.text_field :name %>
   <%= f.hidden_field :tag_list %>
   <% if !@page.new_record? && @page.html %>

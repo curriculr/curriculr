@@ -1,4 +1,4 @@
-<div class="panel-body">
+<div class="field">
   <%= render 'teach/questions/preamble', :q => q, :show_answer => show_answer %>
 
   <strong><%= markdown(q.question) %></strong>
@@ -16,7 +16,7 @@
   <% end %>
 </div>
 
-<table>
+<table class="ui striped selectable small table">
   <thead>
     <tr class="row">
       <th class="<%= css_columns(15) %>">
@@ -38,7 +38,7 @@
           <%= select_tag("attempt[#{q.id}][#{i + 1}]",
                 options_for_select(options.sample(options.length), a ? a[i + 1] : nil),
                 :disabled => read_only,
-                :include_blank => true, :class => css_form_control) %>
+                :include_blank => true, :class => 'ui dropdown') %>
           <div id="<%= "answer_#{q.id}_#{i + 1}"%>" class="question-answer"></div>
         </td>
       </tr>

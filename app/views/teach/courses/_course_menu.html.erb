@@ -1,45 +1,53 @@
-<div class="blurring dimmable image">
-  <div class="ui dimmer">
-    <div class="content">
-      <div class="center">
-        <%=
-        if @course.video
-          link_to teach_course_material_path(@course, @course.video), :method => :delete, :confirm => true,
-          class: css_button(:xs, :danger), :title => t('helpers.submit.remove_promo_video') do
-            content_tag(:i, '', class: 'fa fa-remove') + space_tag(3) + content_tag(:i, '', class: 'fa fa-video-camera')
+<% course_menu %>
+
+<div class="ui fluid card">
+  <div class="blurring dimmable image">
+    <div class="ui dimmer">
+      <div class="content">
+        <div class="center">
+          <%=
+          if @course.video
+            link_to teach_course_material_path(@course, @course.video), :method => :delete, :confirm => true,
+            class: 'ui mini negative button', :title => t('helpers.submit.remove_promo_video') do
+              ui_icon(:remove) + ui_icon(:video)
+            end
+          else
+            link_to new_teach_course_material_path(@course, :s => :video, :t => :promo),
+            class: 'ui mini positive button', :title => t('helpers.submit.add_promo_video') do
+              ui_icon(:add) + ui_icon(:video)
+            end
           end
-        else
-          link_to new_teach_course_material_path(@course, :s => :video, :t => :promo),
-          class: css_button(:xs, :success), :title => t('helpers.submit.add_promo_video') do
-            content_tag(:i, '', class: 'fa fa-plus') + space_tag(3) + content_tag(:i, '', class: 'fa fa-video-camera')
+          %>
+          <%=
+          if @course.poster
+            link_to teach_course_material_path(@course, @course.poster), :method => :delete, :confirm => true,
+            class: 'ui mini negative button', :title => t('helpers.submit.remove_poster_image') do
+              ui_icon(:remove) + ui_icon(:image)
+            end
+          else
+            link_to new_teach_course_material_path(@course, :s => :image, :t => :poster),
+            class: 'ui mini positive button', :title => t('helpers.submit.add_poster_image') do
+              ui_icon(:add) + ui_icon(:image)
+            end
           end
-        end
-        %>
-        <%=
-        if @course.poster
-          link_to teach_course_material_path(@course, @course.poster), :method => :delete, :confirm => true,
-          class: css_button(:xs, :danger), :title => t('helpers.submit.remove_poster_image') do
-            content_tag(:i, '', class: 'fa fa-remove') + space_tag(3) + content_tag(:i, '', class: 'fa fa-image')
-          end
-        else
-          link_to new_teach_course_material_path(@course, :s => :image, :t => :poster),
-          class: css_button(:xs, :success), :title => t('helpers.submit.add_poster_image') do
-            content_tag(:i, '', class: 'fa fa-plus') + space_tag(3) + content_tag(:i, '', class: 'fa fa-image')
-          end
-        end
-        %>
+          %>
+        </div>
       </div>
     </div>
+    <%= image_tag(@course.poster&.at_url(:md) || '/images/holder-md.png') %>
   </div>
-  <%= image_tag ui_image_src(@course.poster ? @course.poster.at_url(:md) : nil, '/images/holder-md.png'),
-        class: "hidden-xs hidden-sm #{css_image(:responsive)}" %>
 </div>
 
-<% course_menu %>
-<div class="nav-and-social-container">
-  <div class="ui link selection list">
-    <% app_menu(:course).each do |item| %>
-      <%= item == :_ ? tag(:hr) : item %>
-    <% end %>
-  </div>
+<div class="ui fluid vertical secondary menu">
+  <% app_menus(:course).each do |section, menu| %>
+    <div class="item">
+      <% unless section == :_ %><div class="header"><%= t("page.title.#{section}") %></div><% end %>
+      <div class="menu">
+        <% menu.each do |item| %>
+          <%= link_to item[:link], item[:to], class: item[:active] ? 'item active' : 'item' %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 </div>
+

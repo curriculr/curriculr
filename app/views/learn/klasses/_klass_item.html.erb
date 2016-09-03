@@ -1,0 +1,24 @@
+<div class="item">
+  <div class="image">
+    <% if klass.enrolled?(current_student) %>
+      <a class="ui left corner label"><%= ui_icon('add to calendar') %></a>
+    <% elsif 30.days.ago.to_date <= klass.begins_on %>
+      <a class="ui left corner label"><%= ui_icon('checked calendar') %></a>
+    <% end %>
+    <%= image_tag(klass.course.poster&.at_url(:sm) || '/images/holder-sm.png') %></div>
+  <div class="content">
+      <%= link_to klass.course.name, staff?(current_user, klass) ? main_app.teach_course_klass_path(klass.course, klass) : [main_app, :learn, klass], class: 'header' %>
+    <div class="meta">
+      <div class="ui horizontal bulleted list">
+        <div class="item"><%= klass_from_and_to_dates(klass) %></div>
+        <div class="item"><%= klass.instructors(:by_first) %></div>
+      </div>
+    </div>
+    <div class="description">
+      <%= markdown(summary(klass.course.about)) %>
+    </div>
+    <div class="extra">
+      <%= ui_klass_enrollment_action(klass, :enroll, true) %>
+    </div>
+  </div>
+</div>

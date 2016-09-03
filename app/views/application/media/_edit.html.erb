@@ -1,5 +1,5 @@
 <td>
-<%= themed_form_for the_form_path, remote: true do |f| %>	
+<%= form_for the_form_path, remote: true do |f| %>	
 	<div class="row">
     <div class="<%= css_columns(15) %>">
     	<%= f.text_field :name  %>

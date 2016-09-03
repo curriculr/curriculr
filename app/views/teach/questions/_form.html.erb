@@ -1,6 +1,6 @@
-<%= form_header %>
 
-<%= themed_form_for [:teach, @course, @unit, @lecture, @question] do |f| %>
+
+<%= form_for [:teach, @course, @unit, @lecture, @question] do |f| %>
   <%= f.hidden_field :course_id %>
   <%= f.hidden_field :kind %>
   <% render_options = Option.render_options[@question.kind.to_sym] %>
@@ -36,8 +36,8 @@
         <div style="display: none;">
           <%= f.grouped_collection_select :unit_lectures, @course.units, :lectures, :name, :id, :name, include_blank: true %>
         </div>
-        <%= f.select :unit_id, @course.units %>
-        <%= f.select :lecture_id, @unit ? @unit.lectures : [] %>
+        <%= f.select :unit_id, @course.units, include_blank: true %>
+        <%= f.select :lecture_id, @unit ? @unit.lectures : [], include_blank: true %>
       <% end %>
 
       <% if @question.survey? %>
@@ -55,7 +55,7 @@
       <%= f.hidden_field :explanation %>
       
       <%= content_tag :span, %(#{css_icon(@question.hint.present? ? :edit : :plus)} #{Question.human_attribute_name(:hint)}).html_safe, 
-            :class => "ui-modal-field #{css_button(:default)}", 
+            :class => "ui-modal-field #{"ui button"}", 
             :data => {
               :field => 'question_hint', 
               :header => Question.human_attribute_name(:hint), 
@@ -65,7 +65,7 @@
             } %>
       
       <%= content_tag :span, %(#{css_icon(@question.explanation.present? ? :edit : :plus)} #{Question.human_attribute_name(:explanation)}).html_safe, 
-            :class => "ui-modal-field #{css_button(:default)}", 
+            :class => "ui-modal-field #{"ui button"}", 
             :data => {
               :field => 'question_explanation', 
               :header => Question.human_attribute_name(:explanation), 

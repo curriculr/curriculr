@@ -1,6 +1,6 @@
 <%= ui_header t('page.title.faculty_application') %>
 
-<%= themed_form_for @faculty_application do |f| %>
+<%= form_for @faculty_application do |f| %>
   <%= t('page.text.faculty_application_html') %>
   <div class="row">
     <div class="<%= css_columns(12) %>">
@@ -39,8 +39,8 @@
   </div>
 
   <%= link :faculty_application, :approve, approve_faculty_application_path(@faculty_application),
-        :method => :put, :class => css_button(:success) %>
+        :method => :put, :class => "ui positive button" %>
   <%= link :faculty_application, :decline, decline_faculty_application_path(@faculty_application),
-        :method => :put, :class => css_button(:danger) %>
-  <%= link :faculty_application, :cancel, home_path, :class => css_button(:default) %>
+        :method => :put, :class => "ui negative button" %>
+  <%= link :faculty_application, :cancel, home_path, :class => "ui button" %>
 <% end %>

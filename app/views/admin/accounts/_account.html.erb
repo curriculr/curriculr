@@ -13,21 +13,17 @@
     </small>
   </td>
   <td>
+    <% links = [] %>
     <% if account.slug == $site['default_account'] %>
-      <%= link(:account, :edit, edit_admin_account_path(account), 
-            :class => css(button: :default, align: :right)) %>
+      <% links << link(:account, :edit, edit_admin_account_path(account), class: "ui positive button") %>
     <% else %>
-      <%= ui_button_dropdown ui_options_button_text, [
-            link(:account, :edit, edit_admin_account_path(account)),
-            link(:account, account.active ? :inactivate : :activate, 
-              admin_account_path(account, :'account[active]' => !account.active), 
-              :method => :put),
-            link(:account, account.live ? :offline : :online, 
-              admin_account_path(account, :'account[live]' => !account.live), 
-              :method => :put),
-            nil,
-            link(:account, :destroy, [:admin, account], :method => :delete, confirm: true)
-          ], class: css_button(:default), align: :right %> 
+      <%
+        links << link(:account, :edit, edit_admin_account_path(account), class: "ui positive button")
+        links << link(:account, account.active ? :inactivate : :activate, admin_account_path(account, :'account[active]' => !account.active), :method => :put, class: "ui positive basic button")
+        links << link(:account, account.live ? :offline : :online, admin_account_path(account, :'account[live]' => !account.live), :method => :put, class: "ui positive basic button")
+        links << link(:account, :destroy, [:admin, account], :method => :delete, confirm: true, class: "ui negative button")
+     %> 
     <% end %>
+    <%= ui_buttons links %>
   </td>
 </tr>

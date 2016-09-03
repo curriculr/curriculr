@@ -2,7 +2,7 @@
 <% if klasses.present? %>
   <%= ui_header t('page.title.ready_to_approve') %>
   <div class="ui divided items">
-    <%= render :partial => 'learn/klasses/klass', :collection => klasses, :locals => {view: :item} %>
+    <%= render :partial => 'learn/klasses/klass_item', :collection => klasses, :as => :klass %>
   </div>
 <% end %>
 
@@ -14,7 +14,7 @@
 <%= ui_header t('page.title.being_worked_on') %>
 <% if klasses.present? %>
   <div class="ui divided items">
-    <%= render :partial => 'learn/klasses/klass', :collection => klasses, :locals => {view: :item} %>
+    <%= render :partial => 'learn/klasses/klass_item', :collection => klasses, :as => :klass %>
   </div>
 <% else %>
     <%= t('page.text.no_record_found') %>

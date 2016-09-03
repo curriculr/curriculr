@@ -1,7 +1,7 @@
 //= require jquery
 //= require jquery_ujs
 // require turbolinks
-//= require chosen-jquery
+// require chosen-jquery
 //= require pagedown/Markdown.Converter
 //= require pagedown/Markdown.Sanitizer
 //= require pagedown/Markdown.Editor
@@ -19,6 +19,8 @@
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
 //= require sketch
+//
+//= require semantic_ui/semantic_ui
 //
 // Application's Own Scripts
 //= require app-text

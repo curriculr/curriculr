@@ -4,22 +4,14 @@ ar:
       title: curriculr
       slogan:
         line1_html: تعليم تفاعلي مفتوح
-        line2_html:
-          <ul class="list-inline">
-            <li>مجاني</li>
-            <li class="divider">|</li>
-            <li>مفتوح</li>
-            <li class="divider">|</li>
-            <li>بسيط</li>
-            <li class="divider">|</li>
-            <li>ذو مقدرة عالية</li>
+        line2_html: مجاني &nbsp;&nbsp;|&nbsp;&nbsp; مفتوح &nbsp;&nbsp;|&nbsp;&nbsp; بسيط &nbsp;&nbsp;|&nbsp;&nbsp; ذو مقدرة عالية
           </ul>
         line3_html:
-          <a href="https://github.com/aalgahmi/curriculr" class="btn btn-default btn-lg">
-            <i class="fa fa-github"></i> استعرض على Github
+          <a href="https://github.com/aalgahmi/curriculr" class="ui huge primary button">
+            <i class="github icon"></i> استعرض على Github
           </a>
-          <a href="https://github.com/aalgahmi/curriculr/zipball/master" class="btn btn-default btn-lg">
-            <i class="fa fa-download"></i> حمل بصيغة Zip
+          <a href="https://github.com/aalgahmi/curriculr/zipball/master" class="ui huge button">
+            <i class="download icon"></i> حمل بصيغة Zip
           </a>
       blog:
         line1_html: المدونة الرئيسية

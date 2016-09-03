@@ -3,8 +3,10 @@
 %>
 
 <% if html %>
-  $('#page-modal .modal-dialog .modal-content').html("<%= j html %>");
-  $("#page-modal").modal();
+  $('<div class="ui small modal">' + 
+    '  <div class="content"><%= j html %></div>' +
+    '    <div class="actions"><div class="ui cancel button">Close</div></div>' +
+    '</div>').modal('show');
 <% end %>
 
 ui_rebind_application_events(jQuery);

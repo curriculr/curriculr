@@ -3,13 +3,13 @@
   $('<%= "#kls-enroll-#{@klass.id}" %>').attr('disabled', true);
   $('<%= "#kls-enroll-#{@klass.id}" %>').click(function () {return false;});
   $('<%= "#kls-preview-#{@klass.id}" %>').html('<%= t("helpers.submit.open") %>');
-  $('<%= "#kls-preview-#{@klass.id}" %>').addClass("<%= css_button(:success) %>");
+  $('<%= "#kls-preview-#{@klass.id}" %>').addClass("<%= "ui positive button" %>");
 <% elsif @opr == :drop %>
   $('<%= "#kls-drop-#{@klass.id}" %>').html('<%= t(:dropped) %>');
   $('<%= "#kls-drop-#{@klass.id}" %>').attr('disabled', true);
   $('<%= "#kls-drop-#{@klass.id}" %>').click(function () {return false;});
   $('<%= "#kls-open-#{@klass.id}" %>').html('<%= t("helpers.submit.preview") %>');
-  $('<%= "#kls-open-#{@klass.id}" %>').removeClass("<%= css_button(:success) %>");
+  $('<%= "#kls-open-#{@klass.id}" %>').removeClass("<%= "ui positive button" %>");
 <% end %>
 
 ui_rebind_application_events(jQuery);

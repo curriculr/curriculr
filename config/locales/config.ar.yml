@@ -90,6 +90,7 @@ ar:
         sort: ترتيب
 
       group:
+        all: الكل
         fill: فراغات
         pick: اختيار
         match: ربط الخيارات

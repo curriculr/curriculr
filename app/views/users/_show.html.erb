@@ -1,6 +1,5 @@
 <%= content_tag :h3 do %>
-  <%= link(:profile, :edit, main_app.edit_user_path(user), 
-	class: css(button: [:success, :xs], align: :right)) %>
+  <%= link(:profile, :edit, main_app.edit_user_path(user), class: "ui positive button") %>
 	<%= "#{user.profile.prefix} #{user.name}" %> 
   <small><%= user.profile.nickname %></small>
 <% end %>

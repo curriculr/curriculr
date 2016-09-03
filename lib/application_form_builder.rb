@@ -1,4 +1,4 @@
-class ApplicationFormBuilder < ActionView::Helpers::FormBuilder
+class ApplicationFormBuilder < ActionView::Helpers::FormBuilder  
   [ :text_field, :password_field, :text_area, :file_field, :color_field, 
     :search_field, :phone_field, :telephone_field, :date_field, 
     :time_field, :datetime_field, :month_field, :week_field, :url_field, 
@@ -12,10 +12,15 @@ class ApplicationFormBuilder < ActionView::Helpers::FormBuilder
     end
   end
   
+  def static(attribute, options = {})
+    wrap_field(@template.content_tag(:p, options[:value] || @object[attribute], class: "static"), attribute, options)
+  end
+  
   def check_box(attribute, options = {}, checked_value = "1", unchecked_value = "0")
-    field = label attribute do
-      super(attribute, cleaned_options(options), checked_value, unchecked_value) + ' ' + @object.class.human_attribute_name(attribute)
+    field = @template.content_tag :div, class: 'ui checkbox' do
+      super(attribute, cleaned_options(options), checked_value, unchecked_value) + label(attribute) 
     end
+    
     wrap_field(field, attribute, options.merge({label:  false}))
   end
   
@@ -34,15 +39,17 @@ class ApplicationFormBuilder < ActionView::Helpers::FormBuilder
   end
     
   def select(attribute, choices = nil, options = {}, html_options = {})
-     wrap_field(super(attribute, choices, options, html_options), attribute, html_options)
+    html_options[:class] = 'ui dropdown'
+    wrap_field(super(attribute, choices, options, html_options), attribute, html_options)
   end
   
-  def static(attribute, options = {})
-    wrap_field(@template.content_tag(:p, options[:value] || @object[attribute], class: "static"), attribute, options)
-  end
-  
-  def time_zone_select(attribute, priority_zones = nil, options = {}, html_options = {})
+  def time_zone_select(attribute, priority_zones = nil, options = {}, html_options = {class: 'ui dropdown'})
     wrap_field(super(attribute, priority_zones, options, html_options), attribute, html_options)
+  end
+  
+  def country_select(attribute, priority_or_options = {}, options = {iso_codes: true}, html_options = {class: 'ui dropdown'})
+    options[:iso_codes] = true
+    wrap_field(super(attribute, nil, options, html_options), attribute, options)
   end
   
   def markdown(attribute, options = {})    
@@ -70,12 +77,8 @@ class ApplicationFormBuilder < ActionView::Helpers::FormBuilder
     wrap_field(field, attribute, options)
   end
   
-  def country_select(attribute, priority_or_options = {}, options = {iso_codes: true}, html_options = {})
-    options[:iso_codes] = true
-    wrap_field(super(attribute, nil, options, html_options), attribute, options)
-  end
-  
   def submit(value = nil, options = {})
+    css_class = 'ui primary button'
     value = case value
     when Symbol
       I18n.t("helpers.submit.#{value}").html_safe
@@ -86,19 +89,11 @@ class ApplicationFormBuilder < ActionView::Helpers::FormBuilder
     end
     
     html = ''
-    if options[:data] && options[:data][:confirm]
-      html << %(
-      <div id="form-modal" class="modal fade" role="dialog">
-        <div class="modal-dialog modal-md">
-          <div class="modal-content"></div>
-        </div>
-      </div>
-      )
-      link = button(value, class: options[:class])
-      html << @template.link_to(value, '#', :class => options[:class],
-                :onclick => "ui_modal_confirmation('form', '#{options[:data][:"confirm-title"] || t('page.title.hold_on')}', '#{confirm}', '#{j link}', '#{t('helpers.submit.close')}' )")
+    if options[:data] && options[:data][:confirm].is_a?(TrueClass)
+      link = button(value, class: css_class)
+      html << @template.content_for(:div, value, class: %(ui confirm-first primary button), data: {header: data[:header], content: data[:content], action: link, cancel: I18n.t('helpers.submit.close')})
     else
-      html << button(value)
+      html << button(value, class: css_class)
     end
     
     html.html_safe
@@ -113,16 +108,25 @@ class ApplicationFormBuilder < ActionView::Helpers::FormBuilder
       options.reject{|k,v| [:hint, :label, :original].include? k}
     end
     
+    def required?(attribute)
+      !!(object&.class&.validators_on(attribute)&.any? {|v| v.kind_of? ActiveModel::Validations::PresenceValidator})
+    end
+    
+    def has_errors?(attribute)
+      object&.errors&.include?(attribute)
+    end
+    
     def wrap_field(field, attribute, options={})
       if options[:original]
         field
       else
-        has_error = !!(@object && @object.errors && @object.errors.include?(attribute))
+        classes = []
+        # classes << options[:class] if options[:class]
+        classes << 'required' if required?(attribute)
+        classes << 'error' if has_errors?(attribute)
+        classes << 'field'
 
-        validators = @object.class.respond_to?(:validators_on) ? @object.class.validators_on(attribute).map(&:class) : nil
-        required = !!(validators && (validators.include?(ActiveRecord::Validations::PresenceValidator) || validators.include?(ActiveModel::Validations::PresenceValidator)))
-  
-        @template.content_tag :div, class: "#{required ? 'required ' : ''}field#{has_error ? ' with-errors' : ''}" do
+        @template.content_tag :div, class: classes.join(' ') do
           html = ''
           
           case options[:label]
@@ -135,7 +139,7 @@ class ApplicationFormBuilder < ActionView::Helpers::FormBuilder
           end 
   
           html << field
-          html << @template.content_tag(:span, @object.errors[attribute].join('; '), class: 'error') if has_error
+          html << @template.content_tag(:span, @object.errors[attribute].join('; '), class: 'error') if has_errors?(attribute)
           html << @template.content_tag(:span, I18n.t(:"helpers.hint.#{attribute}").html_safe, class: :hint) if options[:hint].is_a?(TrueClass)
     
           html.html_safe

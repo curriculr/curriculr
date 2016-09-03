@@ -1,6 +1,6 @@
 <% included = !q_selector.new_record? %>
 
-<%= themed_form_for [:teach, @course, @assessment.unit, @assessment.lecture, @assessment, q_selector], 
+<%= form_for [:teach, @course, @assessment.unit, @assessment.lecture, @assessment, q_selector], 
     :method => included ? :delete : :post,
     :remote => true, :html => { id: "q-#{question.id}-selector-form" } do |f| %>
   <%= f.hidden_field :assessment_id, :value => "#{@assessment.id}" %>

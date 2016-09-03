@@ -1,0 +1,40 @@
+<% content_for :klass_aside do %>
+  <div class="ui fluid card">
+    <div class="image">
+      <% if @klass.course.video %>
+        <%= content_tag :div do %>
+          <%= ui_video(@klass.course.video, @klass.course.poster) %>
+        <% end %>
+      <% else %>
+        <%= image_tag(@klass.course.poster&.at_url(:sm) || '/images/holder-sm.png') %>
+      <% end %>
+    </div>
+    <div class="content">
+      <div class="meta">
+        <span><%= klass_from_and_to_dates(@klass) %></span>
+      </div>
+      <div class="description">
+        <%= markdown(@klass.course.about) %>
+        <p><%= ui_klass_enrollment_action @klass, :enroll %></p>
+      </div>
+      <div class="extra">
+        <div class="ui big horizontal list">
+          <%= ui_klass_labels(@klass, false).join("\n").html_safe %>
+        </div>
+
+        <%= render 'learn/instructors/index' %>
+        
+        <br>
+        <div class='ui three buttons'>
+          <%= ui_facebook_link(@klass, t('helpers.submit.facebook')) %>
+          <%= ui_twitter_link(@klass, t('helpers.submit.twitter')) %>
+          <%= ui_google_plus_link(@klass,t('helpers.submit.google')) %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<%= ui_header @klass.course.name, :action => staff_or_student_view(render(:partial => 'learn/klasses/student_picker')) %>
+<%= markdown @klass.course.syllabus.about %>
+  

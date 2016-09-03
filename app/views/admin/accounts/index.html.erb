@@ -1,11 +1,13 @@
-<% search = search_form_for [:admin, @q], class: "search-form form-inline #{css_align(:right)}", :remote => true do |f| %>
-  <%= form_search f, :slug_or_name_cont, hint: false, label: false, placeholder: true %>
-<% end %>
-<%= ui_header Account.model_name.human(count: 3), action: search %>
+<%= ui_header Account.model_name.human(count: 3), action: link(:account, :new, new_admin_account_path, :class => "ui primary button") %>
+<%= 
+paginator = content_tag :div, paginate(@accounts, :remote => true), id: "paginator"
 
-<div id="paginator" class="<%= css_align(:left) %>"><%= paginate @accounts, :remote => true %></div>
+search = search_form_for [:admin, @q], method: :get, remote: true, wrapper: false, header: false do |f|
+  f.search_field :slug_or_name_cont, hint: false, label: false, placeholder: true 
+end 
+ui_side_by_side paginator, search %>
 
-<table>
+<table class="ui striped selectable small table">
   <thead>
     <tr>
       <th>#</th>
@@ -14,7 +16,7 @@
       <th><%= Account.human_attribute_name(:active) %></th>
       <th><%= Account.human_attribute_name(:live) %></th>
       <th><%= Account.human_attribute_name(:live_since) %></th>
-      <th><%= link(:account, :new, new_admin_account_path, :class => css(button: :success, align: :right)) %></th>
+      <th></th>
     </tr>
   </thead>
   <tbody id="all-accounts">

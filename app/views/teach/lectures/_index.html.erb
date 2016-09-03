@@ -1,26 +1,54 @@
-<%
-  lectures = unit.lectures.order('lectures.order').to_a
-  active_lecture = @lecture ? @lecture : lectures.first
-  active_i = lectures.index(active_lecture) || 0
-%>
+<% lectures = unit.lectures.order('lectures.order').to_a %>
 
-<div class="row">
-  <div class="<%= css_columns(6) %>">
-    <div class="list-group sortable " id="sortable-lectures-<%= unit.id %>" data-update-url="<%= sort_teach_course_unit_lectures_path(@course, unit) %>">
+<%= content_tag :div, class: "ui two column grid" do %>
+  <%
+    active_lecture = @lecture ? @lecture : lectures.first
+    active_i = lectures.index(active_lecture) || 0
+  %>
+  <div class="four wide column">
+    <div class="ui fluid sortable secondary vertical pointing menu" id="sortable-lectures-<%= unit.id %>" data-update-url="<%= sort_teach_course_unit_lectures_path(@course, unit) %>">
+      <div class="item"><%= link :lecture, :new, new_teach_course_unit_lecture_path(@course, unit), class: 'ui primary button' %></div>
       <% lectures.each_with_index do |lecture, i| %>
-        <%= content_tag :a, lecture, id: "lecture_#{lecture.id}", :class => "lecture list-group-item #{"active" if lecture.id == active_lecture.id }",
+        <%= content_tag :a, lecture, id: "lecture_#{lecture.id}", :class => "lecture #{"active " if lecture.id == active_lecture.id }item",
           :href => "#lecture-#{lecture.id}", :'data-toggle' => "tab", :'data-unit' => unit.id,
           :'data-lecture' => lecture.id,
           :'data-update-url' => teach_course_unit_lecture_path(@course, unit, lecture, :i => i, :format => :js) do %>
-          <h4 class="list-group-item-heading"><%= lecture.name %></h4>
+          <%= lecture.name %>
         <% end %>
       <% end %>
     </div>
     <%= content_tag :small, t('page.text.drag_items_to_reorder_html') if lectures.present? && lectures.count > 1 %>
   </div>
-  <div class="<%= css_columns(18) %>">
-    <div class="tab-content" id="lectures-details-<%= unit.id %>">
-      <%= render partial: 'teach/lectures/lecture', locals: { unit: unit, lecture: active_lecture, i: active_i } if active_lecture %>
-    </div>
+  <div class="twelve wide column" id="lectures-details-<%= unit.id %>">
+    <%= render partial: 'teach/lectures/lecture', locals: { unit: unit, lecture: active_lecture, i: active_i } if active_lecture %>
   </div>
-</div>
+<% end unless lectures.empty? %>
+
+<!--
+<% lectures = unit.lectures.order('lectures.order').to_a %>
+
+<%
+  active_lecture = @lecture ? @lecture : lectures.first
+  active_i = lectures.index(active_lecture) || 0
+%>
+<% side_a = capture do %>
+  <div class="ui fluid sortable secondary vertical pointing menu" id="sortable-lectures-<%= unit.id %>" data-update-url="<%= sort_teach_course_unit_lectures_path(@course, unit) %>">
+    <% lectures.each_with_index do |lecture, i| %>
+      <%= content_tag :a, lecture, id: "lecture_#{lecture.id}", :class => "lecture #{"active " if lecture.id == active_lecture.id }item",
+        :href => "#lecture-#{lecture.id}", :'data-toggle' => "tab", :'data-unit' => unit.id,
+        :'data-lecture' => lecture.id,
+        :'data-update-url' => teach_course_unit_lecture_path(@course, unit, lecture, :i => i, :format => :js) do %>
+        <%= lecture.name %>
+      <% end %>
+    <% end %>
+  </div>
+  <%= content_tag :small, t('page.text.drag_items_to_reorder_html') if lectures.present? && lectures.count > 1 %>
+<% end %>
+<% side_b = capture do %>
+  <div id="lectures-details-<%= unit.id %>">
+    <% render partial: 'teach/lectures/lecture', locals: { unit: unit, lecture: active_lecture, i: active_i } if active_lecture %>
+  </div>
+<% end %>
+
+<%= ui_side_by_side side_a, side_b, 'four by twelve' unless lectures.empty? %>
+-->

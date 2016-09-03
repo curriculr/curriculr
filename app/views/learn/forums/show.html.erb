@@ -9,12 +9,12 @@
 
 <% if @klass.open? && (!@forum.graded || staff?(current_user, @klass.course)) %>
   <%= link(:topic, :new, new_learn_klass_forum_topic_path(@klass, @forum),
-        :class => css(button: :success, align: :right)) %>
+        :class => "ui positive button") %>
 <% end %>
 
 <% topics = @forum.topics.page(params[:page]).per(10) %>
 <div id="paginator"><%= paginate topics %></div>
-<table>
+<table class="ui striped selectable small table">
 	<thead>
 		<tr>
 			<th><%= Topic.model_name.human(count: 3) %></th>

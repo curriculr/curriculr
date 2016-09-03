@@ -2,15 +2,15 @@ ar:
   helpers:
     submit:
       go_back: عد إلى حيث أتيت
-      dashboard: <i class="fa fa-tachometer"></i>&nbsp; مؤشرات
-      upload: <i class="fa fa-upload"></i> ارفع ملفات
-      new_link: <i class="fa fa-plus"></i> أضف وصلة خارجية
+      dashboard:  مؤشرات
+      upload:  ارفع ملفات
+      new_link:  أضف وصلة خارجية
       account_settings: إعدادت الحساب
       site_settings: إعدادات الموقع
       course_settings: إعدادات المقرر
-      new_attempt: <i class="fa fa-plus"></i> إبدأ محاولة جديدة
+      new_attempt:  إبدأ محاولة جديدة
       copy: انسخ
-      course_builder: <i class="fa fa-cogs"></i> للمدرسين
+      course_builder:  للمدرسين
       teach: درِّس
       learn: تعلَّم
       help: للمساعدة
@@ -18,14 +18,14 @@ ar:
       open: افتح
       close: اغلق
       show: اظهر
-      new: <i class="fa fa-plus"></i> أضف %{name}
+      new:  أضف %{name}
       create: إنشاء
-      edit: <i class="fa fa-edit"></i> عدل
+      edit:  عدل
       update: عدل
-      destroy: <i class="fa fa-remove"></i>&nbsp; احذف
+      destroy:  احذف
       cancel: ألغ
       settings: اعدادات
-      reports: <i class="fa fa-newspaper-o"></i>&nbsp; تقرير الأداء
+      reports:  تقرير الأداء
       try_again: حاول مرة أخرى
       show_answer: أظهر الجواب
       about: من نحن
@@ -34,19 +34,19 @@ ar:
       terms: اتفاقية الاستخدام
       services: خدماتنا
       blogs: دوِّن
-      signup: <i class="fa fa-plus"></i> إنشاء حساب
-      signin: <i class="fa fa-sign-in"></i> ادخل
-      sign_out: <i class="fa fa-sign-out"></i> اخرج
+      signup: إنشاء حساب
+      signin: ادخل
+      sign_out: اخرج
       send: ارسل
       reply: أجب
       start: ابدأ
-      invite: <i class="fa fa-envelope-o"></i> أُدع إلى هذا الفصل
+      invite:  أُدع إلى هذا الفصل
       hide: أخف
       save: احفظ
       submit: قدم
       submit_answer: قدم الإجابة
       enroll: سجل في هذا الفصل
-      drop: <i class="fa fa-sign-out"></i>&nbsp; اترك الفصل
+      drop:  اترك الفصل
       goto_klass: اذهب الى الفصل
       preview: استعرض
       activate: فعّل
@@ -67,7 +67,7 @@ ar:
       remove_promo_video: احذف فيديو المقدمة
       add_poster_image: أضف ملصقا
       remove_poster_image: احذف الملصق
-      syllabus: <i class="fa fa-road"></i>&nbsp; المنهج
+      syllabus:  المنهج
       add_role: اضف دور %{role}
       remove_role: احذف دور %{role}
       stats: احصائيات
@@ -91,8 +91,8 @@ ar:
       read: اقرأ
       assess: اختبارات
       select: اختر
-      show_instructor_view: <i class="fa fa-university"></i>  عرض المدرس
-      show_student_view: <i class="fa fa-graduation-cap"></i>  عرض الطالب
+      show_instructor_view:   عرض المدرس
+      show_student_view:   عرض الطالب
       attachment: مرفق
       audio: مقطع صوتي
       document: ملف
@@ -117,11 +117,11 @@ ar:
       back_to: عد إلى %{name}
       add_question: إضف سؤالا
       resume_lecture: استأنف المحاضرة
-      add_video: <i class="fa fa-plus"></i> أضف فيديو جديد
-      add_image: <i class="fa fa-plus"></i> أضف صورة
-      add_audio: <i class="fa fa-plus"></i> أضف ملف صوتي
-      add_document: <i class="fa fa-plus"></i> أضف وثيقة
-      add_other: <i class="fa fa-plus"></i> أضف مرفقا
+      add_video:  أضف فيديو جديد
+      add_image:  أضف صورة
+      add_audio:  أضف ملف صوتي
+      add_document:  أضف وثيقة
+      add_other:  أضف مرفقا
       decline: ارفض
       blog_posts: مقالاتي
       static_pages_or_blogs: الصفحات / المقالات

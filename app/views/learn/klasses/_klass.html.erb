@@ -15,7 +15,7 @@
   labels = [content_tag(:div, subhdr, :class => :item), ui_klass_labels(klass)].flatten
   labels << content_tag(:div, klass.instructors(:by_first), :class => :item) if view == :item
 
-  th = ui_image_src(klass.course.poster ? klass.course.poster.at_url(:sm) : nil, '/images/holder-sm.png')
+  th = (poster&.at_url(:sm) || '/images/holder-sm.png')
   klass_actions = !actionless ? ui_klass_enrollment_action(klass, :enroll, true) : nil 
 %>
 
@@ -32,7 +32,22 @@
 <% end %>
 
 <% if view == :item %>
-  <%= ui_item(th, hdr, labels, markdown(summary(klass.course.about)), klass_actions, ribbon) %>
+  <div class="item">
+    <div class="image"><%= image_tag th%></div>
+    <div class="content">
+      <a class="header"><%= hdr %></a>
+      <div class="meta">
+        <span class="cinema"><%= labels %></span>
+      </div>
+      <div class="description">
+        <%= markdown(summary(klass.course.about)) %>
+      </div>
+      <div class="extra">
+        <%= klass_actions %>
+      </div>
+    </div>
+  </div>
+  <%# ui_item(th, hdr, labels, markdown(summary(klass.course.about)), klass_actions, ribbon) %>
 <% else %>
   <div class="column">
     <div class="ui fluid card">

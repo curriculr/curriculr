@@ -1,49 +1,28 @@
-<%= form_header %>
-
-<%= themed_form_for @faculty_application do |f| %>
+<%= form_for @faculty_application do |f| %>
   <%= t('page.text.faculty_application_html') %>
-  <div class="row">
-    <div class="<%= css_columns(12) %>">
-      <fieldset>
-        <legend><%= t('page.title.about_you') %></legend>
-        <%= f.text_field :name %>
-        <%= f.text_field :prefix %>
-        <%= f.text_area :about, :size => '60x5' %>
-        <%= f.check_box :update_profile %>
-      </fieldset>
-    </div>
-    <div class="<%= css_columns(12) %>">
-      <fieldset>
-        <legend><%= t('page.title.about_your_course') %></legend>
-        <%= f.text_field :course %>
-        <%= f.text_area :description, :size => '60x5' %>
+  <h3 class"ui header"><%= t('page.title.about_you') %></h3>
+  <%= f.text_field :name %>
+  <%= f.text_field :prefix %>
+  <%= f.text_area :about, :size => '60x5' %>
+  <%= f.check_box :update_profile %>
 
-        <div class="row">
-          <div class="<%= css_columns(12) %>">
-      	    <%= f.number_field :weeks %>
-          </div>
-          <div class="<%= css_columns(12) %>">
-      	    <%= f.number_field :workload %>
-          </div>
-        </div>
-        <div class="row">
-          <div class="<%= css_columns(12) %>">
-            <%= f.select :locale, $site['supported_locales'].invert %>
-          </div>
-          <div class="<%= css_columns(12) %>">
-            <%= f.country_select :country, nil, {:include_blank => true}, :class => "chosen-select #{rtl? ? 'chosen-rtl' : ''}" ,
-                  :'data-placeholder'=> t('helpers.placeholder.country') %>
-          </div>
-        </div>
-      </fieldset>
-    </div>
+  <h3 class"ui header"><%= t('page.title.about_your_course') %></h3>
+  <%= f.text_field :course %>
+  <%= f.text_area :description, :size => '60x5' %>
+
+  <div class="two fields">
+    <%= f.number_field :weeks %>
+    <%= f.number_field :workload %>
   </div>
-  <br />
+  <div class="two fields">
+    <%= f.select :locale, $site['supported_locales'].invert %>
+    <%= f.country_select :country, nil, :include_blank => true %>
+  </div>
+
   <%= label_tag :agreed_to_faculty_application do %>
     <%= check_box_tag :agreed_to_faculty_application %>
     <%= t('page.text.faculty_agreement') %>
   <% end %>
-  <br /><br />
-  <%= f.submit %>
-  <%= f.cancel home_path %>
+  
+  <%= f.submit %> <%= f.cancel home_path %>
 <% end %>

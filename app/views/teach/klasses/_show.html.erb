@@ -1,44 +1,42 @@
-<ul class="nav nav-tabs" role="tablist">
-  <li class="<%= active_klass_section('about') %>">
-    <a href="#klass-<%= klass.id %>-home" role="tab" data-toggle="tab" data-klass="<%= klass.id %>">
-      <%= t('helpers.submit.about')%>
-    </a>
-  </li>
-  <li class="<%= active_klass_section('updates') %>">
-    <a href="#klass-<%= klass.id %>-updates" role="tab" data-toggle="tab" data-klass="<%= klass.id %>">
-      <%= Update.model_name.human(count: 3) %>
-    </a>
-  </li>
-  <li class="<%= active_klass_section('forums') %>">
-    <a href="#klass-<%= klass.id %>-forums" role="tab" data-toggle="tab" data-klass="<%= klass.id %>">
-      <%= Forum.model_name.human(count: 3) %>
-    </a>
-  </li>
-  <li id="klass-<%= klass.id %>-updates-new" class="klass-<%= klass.id %>-new-link pull-right" style="<%= 'display: none;' unless params[:show] == 'updates' %>">  
-    <%= link :update, :new, new_teach_course_klass_update_path(@course, klass) %>
-  </li>
-  <li id="klass-<%= klass.id %>-forums-new" class="klass-<%= klass.id %>-new-link pull-right" style="<%= 'display: none;' unless params[:show] == 'forums' %>">
-    <%= link :forum, :new, new_teach_course_klass_forum_path(@course, klass) %>
-  </li>
-</ul>
-
-<div class="tab-content">
-  <div class="tab-pane <%= active_klass_section('about') %>" id="klass-<%= klass.id %>-home"> 
-    <div class="row">
-      <div class="<%= css_columns(24) %>">  
-        <%= themed_form_for [:teach, @course, klass] do |f| %>
-        	<%= f.check_box :private, :disabled => true %>
-          <%= f.check_box :previewed,  :disabled => true  %>
-          <%= f.check_box :allow_enrollment,  :disabled => true  %>
-          <%= f.check_box :lectures_on_closed, :disabled => true %>
-        <% end %>
-      </div>
-    </div>
-  </div>
-  <div class="tab-pane <%= active_klass_section('updates') %>" id="klass-<%= klass.id %>-updates">
-    <%= render partial: 'teach/updates/index', locals: { updates: klass.updates } %>
-  </div>
-  <div class="tab-pane <%= active_klass_section('forums') %>" id="klass-<%= klass.id %>-forums">    
-    <%= render partial: 'teach/forums/index', locals: { forums: klass.forums } %> 
-  </div>
+<%= ui_header klass.name, style: :h3, action: ui_button_dropdown(ui_options_button_text, ui_course_klass_links(klass), class: 'ui button') %>
+    
+<div id="klass-approve-indicator" class="ui warning message <%= 'hidden' if klass.ready_to_approve && klass.approved %>">
+  <% if klass.ready_to_approve %>
+    <% if !current_account.config['require_admin_approval_of_classes'] || current_user.has_role?(:admin) %>
+      <%= t('page.text.approved_klass_html',
+            link: link(:klass, klass.approved ? :disapprove : :approve, approve_teach_course_klass_path(@course, klass), :method => :put)) %>
+    <% else %>
+      <%= t('page.text.by_admin_approved_klass_html') %>
+    <% end %>
+  <% else %>
+    <%= t('page.text.ready_to_approve_klass_html',
+            link: link(:klass, klass.ready_to_approve ? :unready : :ready, ready_teach_course_klass_path(@course, klass), :method => :put)) %>
+  <% end %>
 </div>
+
+<div class="ui dynamic top attached pointing menu">
+  <%= content_tag :a, data: {tab: "klass_#{klass.id}_about"}, class: "#{'active ' if active_klass_section?('about')}item" do %>
+    <%= t('helpers.submit.about')%>
+  <% end %>
+  <%= content_tag :a, data: {tab: "klass_#{klass.id}_updates"}, class: "#{'active ' if active_klass_section?('updates')}item" do %>
+     <%= Update.model_name.human(count: 3) %>
+  <% end %>
+  <%= content_tag :a, data: {tab: "klass_#{klass.id}_forums"}, class: "#{'active ' if active_klass_section?('forums')}item" do %>
+    <%= Forum.model_name.human(count: 3) %>
+  <% end %>
+</div>
+
+<%= content_tag :div, data: {tab: "klass_#{klass.id}_about"}, class: "ui #{'active ' if active_klass_section?('about')}bottom attached tab segment" do %>
+  <%= form_for [:teach, @course, klass], header: false, wrapper: false do |f| %>
+  	<%= f.check_box :private, :disabled => true %>
+    <%= f.check_box :previewed,  :disabled => true  %>
+    <%= f.check_box :allow_enrollment,  :disabled => true  %>
+    <%= f.check_box :lectures_on_closed, :disabled => true %>
+  <% end %>
+<% end %>
+<%= content_tag :div, data: {tab: "klass_#{klass.id}_updates"}, class: "ui #{'active ' if active_klass_section?('updates')}bottom attached tab segment" do %>
+  <%= render partial: 'teach/updates/index', locals: { updates: klass.updates } %>
+<% end %>
+<%= content_tag :div, data: {tab: "klass_#{klass.id}_forums"}, class: "ui #{'active ' if active_klass_section?('forums')}bottom attached tab segment" do %>   
+  <%= render partial: 'teach/forums/index', locals: { forums: klass.forums } %> 
+<% end %>

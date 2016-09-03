@@ -1,35 +1,21 @@
 <% user_menu %>
 
-<div class="nav-and-social-container">
-  <div class="header">
-    <%= image_tag ui_image_src(current_user.profile.avatar_url(current_account, :tny), '/images/nobody-tny.png'), :size => "25x25" %>
-    <strong><%= current_user.name %></strong>
-  </div>
-  <div class="ui link selection list">
-    <% app_menu(:user).each do |item| %>
-      <%= content_tag :div, item[:link], class: item[:active] ? 'item active' : 'item' %>
-    <% end %>
-  </div>
-  <% app_menus(:user).reject {|k,v| k == :_}.each do |section, menu| %>
-    <div class="header"><strong><%= t("page.title.#{section}") %></strong></div>
-    <div class="ui link selection list">
-      <% menu.each do |item| %>
-        <%= content_tag :div, item[:link], class: item[:active] ? 'item active' : 'item' %>
+<div class="ui fluid vertical secondary menu">
+  <% app_menus(:user).each do |section, menu| %>
+    <div class="item">
+      <% if section == :_ %>
+        <div class="header">
+          <%= image_tag(current_user.profile.avatar_url(current_account, :tny) || '/images/nobody-tny.png', size: '21x21') %>
+          <%= current_user.name %>
+        </div>
+      <% else %>
+        <div class="header"><%= t("page.title.#{section}") %></div>
       <% end %>
+      <div class="menu">
+        <% menu.each do |item| %>
+          <%= link_to item[:link], item[:to], class: item[:active] ? 'item active' : 'item' %>
+        <% end %>
+      </div>
     </div>
   <% end %>
 </div>
-
-<% if current_account.config['allow_banner_ads'] %>
-  <div class="row">
-    <div class="<%= css_columns(12) %>">
-      <%= mountable_fragments :site_160x600_left_rail_banner %>
-    </div>
-    <div class="<%= css_columns(12) %>">
-      <%= mountable_fragments :site_160x600_right_rail_banner %>
-    </div>
-  </div>
-
-  <%= mountable_fragments :site_300x250_right_bottom_banner %>
-<% end %>
-  

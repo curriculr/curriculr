@@ -1,6 +1,7 @@
 <%
   options = {html: {id: "select_mediam_#{medium.id}"}}
   options[:remote] = true if params[:multiple]
+  options[:wrapper] = options[:header] = false
 %>
 <% form = form_for @req_objects, options do |f| %>
   <%= f.hidden_field :kind, :value => "#{params[:s]}" %>

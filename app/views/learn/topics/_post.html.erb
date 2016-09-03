@@ -59,7 +59,7 @@
 
     <% if @depth <= 3 %>
     <div id='reply-to-post-<%= post.id %>' class="hidden">
-      <%= themed_form_for [:learn, @klass, @forum, @topic, post, Post.new], remote: @lecture.present?  do |f| %>
+      <%= form_for [:learn, @klass, @forum, @topic, post, Post.new], remote: @lecture.present?  do |f| %>
         <%= hidden_field_tag(:tab, tab) if defined? tab %>
         <%= hidden_field_tag(:lecture_id, @lecture.id) if @lecture %>
         <%= f.text_area :about, :rows => 2, hint: true %>

@@ -2,7 +2,7 @@
   <div class="panel-heading">
     <%= %(#{t('page.title.selected_questions')} #{(f.index + 1) unless f.object.new_record?}) %>
     <%= f.hidden_field :_destroy %>
-    <%= link f.object.question.present? ? :question : :q_selector, :destroy, '#', class: "remove_fields #{css(button: [:danger, :xs], align: :right)}" %>
+    <%= link f.object.question.present? ? :question : :q_selector, :destroy, '#', class: "remove_fields ui negative button" %>
   </div>
 
   <% cols = @assessment.survey? ? 24 : 16 %>

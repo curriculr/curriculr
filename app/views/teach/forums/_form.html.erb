@@ -1,6 +1,6 @@
-<%= form_header %>
 
-<%= themed_form_for [:teach, @course, @klass, @forum] do |f| %>
+
+<%= form_for [:teach, @course, @klass, @forum] do |f| %>
   <%= f.text_field :name, :input_html => {:class => 'span6'} %>
   <%= f.markdown :about %>
   <%= f.check_box :active %>

@@ -8,32 +8,34 @@ module ApplicationHelper
     info: :info
   }
 
-  def logo_path
-    current_account.config['theme']['logo'].present? ? "/images/logo.png" : false
+  def logo_path(inverted = false)
+    logo = current_account.config['theme']['logo'].present? ? "/images/logo.png" : false
+    logo = logo.sub(/\.png$/, "-inverted.png") if inverted
+    logo
   end
 
   def footer_menu
     add_to_app_menu :bottom, [
       "© #{t('page.text.copyrights', :year => Time.zone.now.year)}",
-      link('miscellaneous', :about, main_app.localized_page_path(:about)),
-      link('miscellaneous', :contactus, main_app.contactus_path),
-      link(:page, :terms, main_app.localized_page_path(:terms)) ]
+      {link: link_text('miscellaneous', :about), to: main_app.localized_page_path(:about)},
+      {link: link_text('miscellaneous', :contactus), to: main_app.contactus_path},
+      {link: link_text(:page, :terms), to: main_app.localized_page_path(:terms)} ]
       
       mountable_fragments :footer_menu
   end
   
   def main_menu
     if current_user
-      add_to_app_menu :top, link: link_to(css_icon([:home, :lg]), main_app.home_path), active: action_name =='home' && controller_name == 'users'
+      add_to_app_menu :top, link: ui_icon('large home'), to: main_app.home_path, active: action_name =='home' && controller_name == 'users'
     end
     
-    add_to_app_menu :top, link: link(:klass, :learn, main_app.learn_klasses_path), active: @course.blank? && (controller_name == 'klasses' || @klass.present?)
+    add_to_app_menu :top, link: link_text(:klass, :learn), to: main_app.learn_klasses_path, active: @course.blank? && (controller_name == 'klasses' || @klass.present?)
 
     if current_user && (current_user.has_role?(:admin) || current_user.has_role?(:faculty))
-      add_to_app_menu :top, link: link(:course, :teach, main_app.teach_courses_path), active: controller_name == 'courses' || @course.present?
+      add_to_app_menu :top, link: link_text(:course, :teach), to: main_app.teach_courses_path, active: controller_name == 'courses' || @course.present?
     end
 
-    add_to_app_menu :top, link: link(:page, :blogs, main_app.blogs_path), active: controller_name == 'pages' && action_name == 'blogs'
+    add_to_app_menu :top, link: link_text(:page, :blogs), to: main_app.blogs_path, active: controller_name == 'pages' && action_name == 'blogs'
     
     locale_in = current_account.config['allow_locale_setting_in'] || {}
     if locale_in['url_param'] || locale_in['cookie'] || locale_in['session']
@@ -41,19 +43,19 @@ module ApplicationHelper
       
       $site['supported_locales'].each do |k,v|
         if k == I18n.locale.to_s
-          add_to_app_menu :top, {link: v, active: false}, :locale
+          add_to_app_menu :top, {link: v, to: '#', active: false}, :locale
         else
-          add_to_app_menu :top, {link: link_to(v, url_for(locale: k))}, :locale
+          add_to_app_menu :top, {link: v, to: url_for(locale: k)}, :locale
         end
       end
     end
 
     unless current_user
       unless request.path.ends_with?('/signin')  || request.path.ends_with?('/signup')
-        add_to_app_menu :top, link(:user, :signin, main_app.auth_signin_path), :right
+        add_to_app_menu :top, {link: link_text(:user, :signin), to: main_app.auth_signin_path}, :right
       end
     else
-      add_to_app_menu :top, link(:session, :sign_out, main_app.auth_signout_path), :right
+      add_to_app_menu :top, {link: link_text(:session, :sign_out), to: main_app.auth_signout_path}, :right
     end
     
     mountable_fragments :main_menu
@@ -84,34 +86,38 @@ module ApplicationHelper
 
     t(key, params)
   end
-
-  def link(model, action, options = nil, html_options = nil)
-    link_text = case action
+  
+  def link_text(model, action, options = {})
+    text = case action
     when :index
       t("activerecord.models.#{model}.other")
     when :new, :create, :edit, :update, :destroy
       t(action, scope: 'helpers.submit', :name => t("activerecord.models.#{model}.one", :default => ''))
     else
-      key = (html_options.present? && html_options[:as].present?) ? "#{action}_#{html_options[:as]}" : action
+      key = (options.present? && options[:as].present?) ? "#{action}_#{options[:as]}" : action
 
       t(key, scope: 'helpers.submit')
     end
+    
+    text.html_safe
+  end
+  
+  def link(model, action, path = nil, options = {})
+    text = link_text(model, action, options)
 
-    if html_options.present? && (confirm = html_options[:confirm]) && confirm.present? && confirm == true
+    if options.present? && (confirm = options[:confirm]) && confirm.present? && confirm == true
       confirmation = t(action, scope: 'helpers.confirmation', :name => t("activerecord.models.#{model}.one"))
 
-      link = ''
+      default = options[:as].present? ? options[:as].to_sym : action.to_sym
+      custom_options = options.reject{|k,v| %w(data confirm as).include? (k.to_s) }
+      link = link_to(text, path, custom_options)
 
-      default = html_options[:as].present? ? html_options[:as].to_sym : action.to_sym
-      custom_html_options = html_options.reject{|k,v| %w(data confirm as class).include? (k.to_s) }
-      custom_html_options[:class] = css_button(:danger)
-      link = link_to(link_text.html_safe, options, custom_html_options)
 
-      return link_to(link_text.html_safe, '#', :class => html_options[:class],
-                :onclick => "ui_modal_confirmation('page', '#{t('page.title.hold_on')}', '#{confirmation}', '#{j link}', '#{t('helpers.submit.close')}' )")
+      return link_to(text, '#', class: "#{options[:class]} confirm-first", data: {
+        header: t('page.title.hold_on'), content: confirmation, action: link, cancel: t('helpers.submit.close')})
     end
-
-    link_to(link_text.html_safe, options, html_options)
+    
+    link_to(text, path, options)
   end
 
   def pnotify_script_tag
@@ -157,14 +163,8 @@ module ApplicationHelper
   end
 
   def ui_breadcrumbs(links, here = t('page.text.here'))
-    content_tag :ul, class: css_breadcrumb do
-      html = ''
-      links.each do |link|
-        html << content_tag(:li, link_to(link[:name], link[:href]))
-      end
-
-      html << content_tag(:li, here) if here
-      html.html_safe
+    content_tag :div, class: 'ui breadcrumb' do
+      (links.map{|link| link_to(link[:name], link[:href], class: 'section')} << content_tag(:div, here, class: 'active section')).join(ui_icon('right angle icon divider')).html_safe
     end
   end
 
@@ -215,7 +215,7 @@ module ApplicationHelper
     }
 
     html = ( content_tag :small do
-      t('page.text.document_noshow_html', link: link_to(t('helpers.submit.open'), url, class: css_button, target: '_new'))
+      t('page.text.document_noshow_html', link: link_to(t('helpers.submit.open'), url, target: '_new'))
     end )
 
     html << content_tag(:iframe, '', src: "#{viewer}?#{params.to_query}", width: "100%", height: "780", style: "border: none;")

@@ -7,7 +7,7 @@
 %>
 <div class="row">
 	<div class="<%= css_columns((own_topics.present? || own_posts.present?) ? 15 : 24) %>">
-		<table>
+		<table class="ui striped selectable small table">
 			<thead>
 				<tr>
 					<th><%= Forum.model_name.human %></th>
@@ -57,7 +57,7 @@
 	</div>
 </div>
 
-<table>
+<table class="ui striped selectable small table">
 	<thead>
 		<tr>
 			<th><%= t('page.title.latest_topics') %></th>
@@ -94,7 +94,7 @@
 	</tbody>
 </table>
 
-<table>
+<table class="ui striped selectable small table">
 	<thead>
 		<tr>
 			<th><%= t('page.title.latest_activities') %></th>

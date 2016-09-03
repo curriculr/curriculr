@@ -1,16 +1,8 @@
-<%= form_header %>
-
-<%= themed_form_for [:teach, @course || @update.course, @unit || @update.unit, @lecture || @update.lecture, @klass, @update] do |f| %>
-  <div class="row">
-    <div class="<%= css_columns(9) %>">
-      <%= f.select :to, t('config.update.to').invert %>
-    </div>
-    <div class="<%= css_columns(5) %>">
-      <br/><%= f.check_box :www %>
-    </div>
-    <div class="<%= css_columns(6) %>">
-      <br/><%= f.check_box :email %>
-    </div>
+<%= form_for [:teach, @course || @update.course, @unit || @update.unit, @lecture || @update.lecture, @klass, @update] do |f| %>
+  <div class="three fields">
+    <%= f.select :to, t('config.update.to').invert %>
+    <%= f.check_box :www %>
+    <%= f.check_box :email %>
   </div>
   
   <%= f.text_field :subject %>

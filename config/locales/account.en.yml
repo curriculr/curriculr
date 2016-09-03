@@ -4,22 +4,14 @@ en:
       title: Curriculr
       slogan:
         line1_html: Open and Interactive Learning
-        line2_html:
-          <ul class="list-inline">
-            <li>Free</li>
-            <li class="divider">|</li>
-            <li>Open</li>
-            <li class="divider">|</li>
-            <li>Simple</li>
-            <li class="divider">|</li>
-            <li>Powerful</li>
+        line2_html: Free &nbsp;&nbsp;|&nbsp;&nbsp; Open &nbsp;&nbsp;|&nbsp;&nbsp; Simple &nbsp;&nbsp;|&nbsp;&nbsp; Powerful
           </ul>
         line3_html:
-          <a href="https://github.com/aalgahmi/curriculr" class="btn btn-default btn-lg">
-            <i class="fa fa-github"></i> View on Github
+          <a href="https://github.com/aalgahmi/curriculr" class="ui huge primary button">
+            <i class="github icon"></i> View on Github
           </a>
-          <a href="https://github.com/aalgahmi/curriculr/zipball/master" class="btn btn-default btn-lg">
-            <i class="fa fa-download"></i> Download Zip file
+          <a href="https://github.com/aalgahmi/curriculr/zipball/master" class="ui huge button">
+            <i class="download icon"></i> Download Zip file
           </a>
       blog:
         line1_html: Official Blog

@@ -1,6 +1,6 @@
-<%= form_header %>
 
-<%= themed_form_for [:admin, @announcement] do |f| %>
+
+<%= form_for [:admin, @announcement] do |f| %>
   <%= f.text_area :message, :size => '60x5' %>
 
   <div class="row">

@@ -1,6 +1,6 @@
-<%= form_header %>
 
-<%= themed_form_for [:teach, @course, @klass], :show_help => true do |f| %>
+
+<%= form_for [:teach, @course, @klass], :show_help => true do |f| %>
   <%= f.text_field :slug, placeholder: true %>
 
   <div class="row">

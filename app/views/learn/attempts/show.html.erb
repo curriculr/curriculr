@@ -25,12 +25,13 @@
   <% if !@attempt.new_record? && @attempt.state == 1 %>
     <%
     data = @assessment.kind == 'survey' ? nil : {
-			:'confirm-title' => t('page.title.hold_on'),
-			:confirm => t('page.text.grading_msg', :name => @assessment.name)
+      :confirm => true,
+			:header => t('page.title.hold_on'),
+			:content => t('page.text.grading_msg', :name => @assessment.name)
     }
     %>
     <% save_link = if @assessment.kind != 'survey'
-         [{ :text => submit_tag(t('helpers.submit.save'), :class => css_button(:default), :value => t('helpers.submit.save')) }]
+         [{ :text => submit_tag(t('helpers.submit.save'), :class => "ui button", :value => t('helpers.submit.save')) }]
        else
          []
        end
@@ -48,6 +49,6 @@
         url = learn_klass_assessment_path(@klass, @assessment)
       end
     %>
-    <%= link_to(t('helpers.submit.close'), url, class: css_button(:default)) %>
+    <%= link_to(t('helpers.submit.close'), url, class: "ui button") %>
   <% end %>
 <% end %>

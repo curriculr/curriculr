@@ -1,22 +1,14 @@
-<%= form_header %>
-
-<%= themed_form_for(@user, :html => {:multipart => true}) do |f| %>
+<%= form_for(@user, :html => {:multipart => true}) do |f| %>
 	<%= f.static :email %>
   <%= f.text_field :name %>
-  <%= f.time_zone_select :time_zone, nil, {}, :class => "chosen-select #{rtl? ? 'chosen-rtl' : ''}" %>
+  <%= f.time_zone_select :time_zone %>
 	<%= f.fields_for :profile do |p| %>
 		<%= p.file_field :avatar %>
 
-    <div class="row">
-      <div class="<%= css_columns(6) %>">
-        <%= p.text_field :nickname %>
-      </div>
-      <div class="<%= css_columns(6) %>">
-        <%=  p.text_field :prefix %>
-      </div>
-			<div class="<%= css_columns(12) %>">
-        <%= p.select :locale, $site['supported_locales'].invert %>
-      </div>
+    <div class="three fields">
+      <%= p.text_field :nickname %>
+      <%=  p.text_field :prefix %>
+      <%= p.select :locale, $site['supported_locales'].invert %>
     </div>
 
   	<%# p.check_box :public unless @user.id == 1 %>

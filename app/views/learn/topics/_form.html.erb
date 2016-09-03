@@ -1,6 +1,6 @@
-<%= form_header %>
 
-<%= themed_form_for [:learn, @klass, @forum, @topic] do |f| %>
+
+<%= form_for [:learn, @klass, @forum, @topic] do |f| %>
 	<%= f.text_field :name %>
   <%= f.markdown :about, hint: true %>
   <%= content_tag :div, :class => "row" do %>

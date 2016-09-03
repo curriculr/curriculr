@@ -33,8 +33,8 @@ module Teach
 
       if params[:s] && params[:s] != 'all' 
         criteria << "kind like '#{params[:s]}%' "
-      else
-        criteria << "kind like 'fill%' "
+        #else
+        #criteria << "kind like 'fill%' "
       end
 
       @q = query.where(criteria.join(' and ')).search(params[:q])

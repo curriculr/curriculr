@@ -3,7 +3,7 @@ $("#q_course_number_or_course_name_or_course_about_cont").val('');
 <% if @klasses.empty? %>
   $("#klass-list").html('<%= t('page.text.no_record_found') %>')
 <% else %>
-  $("#klass-list").html('<%= j render :partial => 'learn/klasses/klass', :collection => @klasses, :locals => {view: :item} %>');
+  $("#klass-list").html('<%= j render :partial => 'learn/klasses/klass_item', collection: @klasses, as: :klass %>');
 <% end %>
 
 $('#search_klasses_form').find('input:checkbox').prop('disabled', false);

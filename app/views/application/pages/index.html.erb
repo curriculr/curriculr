@@ -1,15 +1,14 @@
 <%=
-action = link(:page, :new, new_page_path, class: css(button: :success, align: :right))
 title = current_user && current_user.has_role?(:admin) ? t('helpers.submit.static_pages_or_blogs') : t('helpers.submit.blog_posts')
-search = search_form_for @q, class: "search-form form-inline #{css_align(:right)}", :remote => true do |f|
-  form_search f, :slug_or_name_or_about_cont, hint: false, label: false, placeholder: true 
+search = search_form_for @q, method: :get, remote: true, wrapper: false, header: false do |f|
+  f.search_field :slug_or_name_or_about_cont, hint: false, label: false, placeholder: true 
 end 
 
-ui_header title, action: search %>
+paginator = content_tag :div, paginate(@pages, param_name: 'p', remote: true), id: "paginator"
 
-<div id="paginator" class="<%= css_align(:left) %>"><%= paginate @pages, :param_name => 'p', :remote => true %></div>
-
-<table>
+ui_header title, action: link(:page, :new, new_page_path, :class => "ui primary button") %>
+<%= ui_side_by_side(paginator, search) %>
+<table class="ui striped selectable small table">
 	<thead>
 		<tr>
       <th>#</th>
@@ -18,7 +17,7 @@ ui_header title, action: search %>
 			<th><%= Page.human_attribute_name(:published) %></th>
 			<th><%= Page.human_attribute_name(:public) %></th>
       <th><%= Page.human_attribute_name(:blog) %></th>
-      <th><%= link(:page, :new, new_page_path, :class => css(button: :success, align: :right)) %></th>
+      <th></th>
 		</tr>
 	</thead>
 	<tbody id="user-pages">

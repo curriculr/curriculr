@@ -91,6 +91,7 @@ en:
         sort: Sorting
 
       group:
+        all: All
         fill: Blanks
         pick: Choices
         match: Matching

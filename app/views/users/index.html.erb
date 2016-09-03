@@ -1,13 +1,13 @@
 <%= 
-search = search_form_for @q, class: "search-form form-inline #{css_align(:right)}", :remote => true do |f|
-  form_search f, :name_or_email_cont, hint: false, label: false, placeholder: true
+search = search_form_for @q, class: "search-form", method: :get, remote: true, wrapper: false, header: false do |f|
+  f.search_field :name_or_email_cont, hint: false, label: false, placeholder: true
 end
 
 ui_header User.model_name.human(count: 3), action: search %>
 
-<div id="paginator" class="<%= css_align(:left) %>"><%= paginate @users, :remote => true %></div>
+<div id="paginator"><%= paginate @users, :remote => true %></div>
 
-<table>
+<table class="ui striped selectable small table">
 	<thead>
 		<tr>
 			<th><%= Profile.human_attribute_name(:name) %></th>
@@ -15,7 +15,7 @@ ui_header User.model_name.human(count: 3), action: search %>
 			<th><%= User.human_attribute_name(:roles) %></th>
 			<th><%= User.human_attribute_name(:active) %></th>
       <th><%= User.human_attribute_name(:since) %></th>
-			<th><%= link(:user, :new, new_admin_user_path, :class => css(button: :success, align: :right)) %></th>
+			<th><%= link(:user, :new, new_admin_user_path, :class => "ui primary button" %></th>
 		</tr>
 	</thead>
 	<tbody id="all-users">

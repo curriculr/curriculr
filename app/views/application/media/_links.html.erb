@@ -5,16 +5,16 @@
 <% else %>
   <% if @course.present? %>
     <%= link :medium, :edit, edit_teach_course_medium_path(@course, medium, s: params[:s]), 
-          class: css_button(:primary, :xs), remote: true %>
+          class: "ui positive button", remote: true %>
   <% else %>
     <%= link :medium, :edit, edit_medium_path(medium, s: params[:s]), 
-          class: css_button(:primary, :xs), remote: true %>
+          class: "ui positive button", remote: true %>
   <% end %>
 
   <% if @course.present? %>
     <%= link(:medium, :destroy, teach_course_medium_path(@course, medium, s: params[:s]), 
-          method: :delete, confirm: true, class: css_button(:danger, :xs)) %>
+          method: :delete, confirm: true, class: "ui negative button") %>
   <% else %>
-    <%= link(:medium, :destroy, medium_path(medium, s: params[:s]), method: :delete, confirm: true, class: css_button(:danger, :xs)) %>
+    <%= link(:medium, :destroy, medium_path(medium, s: params[:s]), method: :delete, confirm: true, class: "ui negative button") %>
   <% end %>
 <% end %>

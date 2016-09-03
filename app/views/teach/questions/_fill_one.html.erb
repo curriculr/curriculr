@@ -1,13 +1,12 @@
-<div class="panel-body">
+<div class="ui input">
   <%= render 'teach/questions/preamble', :q => q, :show_answer => show_answer %>
 
-  <strong><%= markdown(q.question) %></strong>
+  <%= markdown(q.question) %>
 
   <% q.options.each do |o| %>
     <%= text_field_tag "attempt[#{q.id}][#{o.id}]", '',
-          :class => 'span6',
           :value => (a ? a[o.id] : nil),
-          :readonly => read_only, :class => css_form_control %>
+          :readonly => read_only %>
     <div id="<%= "answer_#{q.id}_#{o.id}"%>" class="question-answer"></div>
   <% end %>
 

@@ -1,6 +1,6 @@
 <% name = current_user && @user == current_user ? "#{@user.profile.prefix} #{@user.name}" : Profile.model_name.human %>
 <%= ui_header name, action: link(:profile, :edit, edit_user_path(@user),
-      class: css(button: :success, align: :right)) %>
+      class: "ui positive button") %>
 
 <%= image_tag @user.profile.avatar_url(current_account, :med).to_s,
       :class => 'pull-right img-polaroid' if @user.profile.avatar_url(current_account, :med) %>
@@ -18,9 +18,9 @@
   <hr>
   <% access_tokens = @user.access_tokens.to_a %>
   <%= link :access_token, :create, user_access_tokens_path(@user), :method => :post,
-        :class => css(button: :success, align: :right) if access_tokens.blank? %>
+        :class => "ui positive button" if access_tokens.blank? %>
 
-  <table>
+  <table class="ui striped selectable small table">
   	<thead>
   		<tr>
   			<th><%= AccessToken.human_attribute_name(:token) %></th>
@@ -38,15 +38,10 @@
         <td><%= l(token.revoked_at) if token.revoked_at %></td>
         <td><%= l(token.created_at) %></td>
   			<td>
-  				<%
-  					links = []
-  					links << link(:access_token, token.revoked_at.present? ? :enact : :revoke,
-              revoke_user_access_token_path(@user, token))
-            links << nil
-  					links << link(:access_token, :destroy, user_access_token_path(@user, token),
-              :method => :delete, confirm: true)
-  				%>
-  				<%= ui_button_dropdown ui_options_button_text, links, class: css_button(:default), align: :right %>
+  				<%= ui_buttons [link(:access_token, token.revoked_at.present? ? :enact : :revoke,
+                  revoke_user_access_token_path(@user, token), class: "ui negative basic button"),
+                link(:access_token, :destroy, user_access_token_path(@user, token),
+                  :method => :delete, confirm: true, class: 'ui negative button')] %>
   			</td>
   		</tr>
   		<% end %>
