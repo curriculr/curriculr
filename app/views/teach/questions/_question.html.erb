@@ -30,7 +30,7 @@
         <%= "(#{r})" if r.present? %>
 
         <% if question.points.present? && question.points > 0 %>
-          <%= content_tag :span, t('page.text.points', :count => question.points), :class => css_align(:right) %>
+          <%= content_tag :span, t('page.text.points', :count => question.points) %>
         <% end %>
 
         <% unless @q_selector || @assessment || defined? no_options %>
@@ -38,7 +38,7 @@
                 link(:question, :edit, [:edit, :teach, @course, @unit, @lecture, question], class: "ui positive button"),
                 link(:question, :destroy, [:teach, @course, @unit, @lecture, question],
                   method: :delete, confirm: true, class: "ui negative button")
-              ]) %>
+              ], class: 'mini') %>
         <% end %>
       <% end %>
     <% end %>
@@ -53,7 +53,7 @@
   </div>
   <% if defined? question_counter && (@q_selector || question.unit.present?) %>
     <% if @q_selector # During selecting questions to add to assessment %>
-      <% content_tag :div, class: 'extra content' do %>
+      <%= content_tag :div, class: 'extra content' do %>
         <%= render partial: 'q_selector_form', locals: {
               q_selector: @assessment.q_selectors.where(question_id: question.id).first || QSelector.new,
               question: question
@@ -61,7 +61,7 @@
       <% end%>
     <% else %>
       <% if @course && question.lecture.present? && staff?(current_user, @course) %>
-        <% content_tag :div, class: 'extra content' do %>
+        <%= content_tag :div, class: 'extra content' do %>
           <%= render partial: 'teach/questions/include_in_lecture_form', locals: { question: question } %>
         <% end %>
       <% end%>

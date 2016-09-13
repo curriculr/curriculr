@@ -27,9 +27,7 @@
           <div class="field">
             <div class="ui checkbox">
               <%= check_box_tag "attempt[#{q.id}][#{o.id}]", o.option, (a && a[o.id] == '1'), :disabled => read_only %>
-              <%= label_tag "attempt[#{q.id}][#{o.id}]", class: "checkbox" do %>
-                <%= processed_text(o.option) %>
-              <% end %>
+              <%= label_tag "attempt[#{q.id}][#{o.id}]", processed_text(o.option) %>
             </div>
           </div>
           <div id="<%= "answer_#{q.id}_#{o.id}"%>" style="display: inline;" class="question-answer"></div>

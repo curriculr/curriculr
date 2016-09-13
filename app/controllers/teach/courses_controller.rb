@@ -2,8 +2,8 @@ module Teach
   class CoursesController < BaseController
     include WithSettings
     before_action :require_admin, :only => [:approve]
-    responders :flash, :http_cache
-    
+    responders :modal, :flash, :http_cache
+
     def index
       if current_user.has_role?(:admin)
         @q = Course.scoped.all.order('updated_at DESC').search(params[:q])

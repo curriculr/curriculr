@@ -1,6 +1,6 @@
 class MiscellaneousController < ApplicationController
   respond_to :html, :js
-  responders :flash, :http_cache
+  responders :modal, :flash, :http_cache
   
   def team
 		@members = User.scoped.joins(:roles).where('users.active = TRUE and roles.name = ?', :team)
@@ -18,7 +18,11 @@ class MiscellaneousController < ApplicationController
             subject: @message.subject, contact_email: @message.email, 
             message: @message.content
           ).deliver_later
-      		format.html { redirect_to root_path }
+          
+          flash[:notice] = "Post successfully created"
+      		format.js { render 'reload' }
+        else
+          format.js { render 'contactus' }
     		end
       end
 		else

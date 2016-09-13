@@ -1,0 +1,7 @@
+<%= ui_header t('helpers.submit.account_settings') %>
+
+<%=
+  html = ''
+  json_settings_tree(configure_admin_account_path(@account, setting: '_key_'), nil, @account.config, html, [], 1, [])
+  html.html_safe 
+%>

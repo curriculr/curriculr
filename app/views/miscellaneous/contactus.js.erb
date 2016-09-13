@@ -1,0 +1,22 @@
+<% contactus_form = modal_form_for @message, :url => miscellaneous_contactus_path, method: :post do |f| %>
+  <div class="two fields">
+    <% if current_user %>
+      <%= f.hidden_field :name, value: current_user.name %>
+      <%= f.static :name, value: current_user.name %>
+
+      <%= f.hidden_field :email, value: current_user.email %>
+      <%= f.static :email, value: current_user.email %>
+    <% else %>
+      <%= f.text_field :name %>
+      <%= f.email_field :email %>
+    <% end %>
+  </div>
+  
+  <%= f.text_field :subject %>
+  <%= f.text_area :content, :size => '60x8' %>
+
+  <%= f.submit :send %>
+  <%= f.cancel root_path %>
+<% end %>
+
+<%= render partial: 'application/form', locals: {form: contactus_form} %>

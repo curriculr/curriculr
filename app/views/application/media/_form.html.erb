@@ -1,12 +1,4 @@
-<% if @medium.m.present? %>
-	<%= ui_header t('helpers.submit.new', :name => t('page.text.file_or_external_link')), 
-				subtext: t("helpers.submit.#{@medium.kind}"), style: @course ? :h2 : nil %>
-<% else %>
-	<%= ui_header t('helpers.submit.new', :name => t('page.text.external_link')), 
-				subtext: t("helpers.submit.#{@medium.kind}"), style: @course ? :h2 : nil %>
-<% end %>
-
-<%= form_for the_form_path, :html => {:multipart => true}, header: false do |f| %>	
+<%= modal_form_for the_form_path, :html => {:multipart => true}, header: t('helpers.submit.new', :name => t("helpers.submit.#{@medium.kind}")) do |f| %>	
 	<%# f.static :kind, :value => t("config.medium.kind.#{@medium.kind}") %>
   <%= f.hidden_field :kind %>
   <%= f.text_field :name  %>

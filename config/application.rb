@@ -8,6 +8,9 @@ Bundler.require(*Rails.groups)
 
 module Curriculr
   class Application < Rails::Application
+    # Use the responders controller from the responders gem
+    config.app_generators.scaffold_controller :responders_controller
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -51,7 +54,7 @@ module Curriculr
     config.middleware.use CurrentAccount, Rails.application.secrets.site['domain']
     
     # Default form builder
-    require 'application_form_builder'
+    require "#{Rails.root}/app/builders/application_form_builder"
     config.action_view.default_form_builder = ApplicationFormBuilder
     config.action_view.field_error_proc = Proc.new do |html_tag, instance|
       html_tag

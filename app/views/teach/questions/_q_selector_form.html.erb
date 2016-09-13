@@ -6,10 +6,12 @@
   <%= f.hidden_field :assessment_id, :value => "#{@assessment.id}" %>
   <%= f.hidden_field :question_id, :value => "#{question.id}" %>
 
-  <%= label_tag "include-#{question.id}-in-assessment-#{@assessment.id}"  do %>
-    <%= check_box_tag "include-#{question.id}-in-assessment-#{@assessment.id}", '1', included,
-        :class => "include-in-assessment",
-        :name => "include-in-assessment" %>
-    <%= t('page.text.include_in_assessment', name: @assessment.name) %>
-  <% end %>
+  <div class="field">
+    <div class="ui checkbox">
+      <%= check_box_tag "include-#{question.id}-in-assessment-#{@assessment.id}", '1', included,
+          :class => "include-in-assessment",
+          :name => "include-in-assessment" %>
+      <%= label_tag "include-#{question.id}-in-assessment-#{@assessment.id}", t('page.text.include_in_assessment', name: @assessment.name) %>
+    </div>
+  </div>
 <% end %>

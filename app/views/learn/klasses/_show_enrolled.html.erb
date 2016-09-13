@@ -35,23 +35,4 @@
 <div id="klass-updates">
   <%= render partial: 'learn/klasses/update', collection: updates %>
 </div>
-<br />
 
-<!-- about class -->
-<!-- <div class="panel panel-default">
-  <div class="panel-body">
-    <div class="row">
-      <div class="<%= css_columns(@klass.course.video ? 15 : 24) %>">
-        <%= content_tag :h3, t('page.title.about_class') unless updates.empty? %>
-        <%= markdown(@klass.course.about) %>
-      </div>
-      <% if @klass.course.video %>
-        <div class="<%= css_columns(9) %>">
-          <%= content_tag :div do %>
-            <%= ui_video(@klass.course.video, @klass.course.poster) %>
-          <% end %>
-        </div>
-      <% end %>
-    </div>
-  </div>
-</div> -->

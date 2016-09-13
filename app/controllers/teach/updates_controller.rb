@@ -1,6 +1,6 @@
 module Teach
   class UpdatesController < BaseController
-    responders :flash, :http_cache
+    responders :modal, :flash, :http_cache
     helper_method :the_path_out
 
     def make
@@ -83,32 +83,33 @@ module Teach
 
       @update.user = current_user
       respond_with @update do |format|
-        format.html {
+        format.js {
           if @update.save
-            redirect_to the_path_out
+            render 'reload' #redirect_to the_path_out
           else
             render action: "new"
           end
         }
-        format.js {
-          if @update.body.strip.present?
-            @update.www = true
-            @update.save
-          end
-        }
+        # format.js {
+        #   if @update.body.strip.present?
+        #     @update.www = true
+        #     @update.save
+        #   end
+        # }
       end
     end
 
     def update
       @update = Update.find(params[:id])
-
-      respond_with @update do |format|
-        if @update.update(update_params)
-          format.html { redirect_to the_path_out }
-        else
-          format.html { render action: "edit" }
-        end
-      end
+      @update.update(update_params)
+      respond_with @update 
+      # respond_with @update do |format|
+      #   if @update.update(update_params)
+      #     format.html { redirect_to the_path_out }
+      #   else
+      #     format.html { render action: "edit" }
+      #   end
+      # end
     end
 
     def destroy

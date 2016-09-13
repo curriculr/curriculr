@@ -1,4 +1,4 @@
-<div class="item" id="content_<%= other.id %>_medium" sortid="content_<%= other.id %>.medium">
+<div class="item" id="medium_<%= other.id %>">
   <div class="content">
     <div class="header"><%= ui_icon('file text outline icon') + ' ' + other.name %></div>
     <div class="meta"><%= timeago_tag(other.created_at, :nojs => true, :limit => 10.days.ago)  %></div>

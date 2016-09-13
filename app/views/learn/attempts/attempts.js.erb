@@ -2,9 +2,7 @@
   <%
   html = ''
   if  %w(pick_one pick_many).include?(@question.kind)
-    html = %(
-      <i class="fa fa-check"></i>
-    ) if a == '1'
+    html = ui_icon(:check) if a == '1'
   elsif %w(fill_many pick_2_fill).include?(@question.kind)
     html = %(
       <strong>#{Question.human_attribute_name(:answer)}</strong>: 

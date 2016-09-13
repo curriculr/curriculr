@@ -1,8 +1,8 @@
-<%= ui_header Account.model_name.human(count: 3), action: link(:account, :new, new_admin_account_path, :class => "ui primary button") %>
+<%= ui_header Account.model_name.human(count: 3), action: link(:account, :new, new_admin_account_path, remote: true, class: 'ui primary button') %>
 <%= 
 paginator = content_tag :div, paginate(@accounts, :remote => true), id: "paginator"
 
-search = search_form_for [:admin, @q], method: :get, remote: true, wrapper: false, header: false do |f|
+search = search_form_for [:admin, @q], method: :get, remote: true do |f|
   f.search_field :slug_or_name_cont, hint: false, label: false, placeholder: true 
 end 
 ui_side_by_side paginator, search %>

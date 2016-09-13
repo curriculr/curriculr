@@ -1,13 +1,5 @@
 <%= ui_header t('helpers.submit.site_settings') %>
 
-<%= form_for 'site', :url => admin_config_path, :method => :put, :show_help => true do |f| %>
-  <%= f.hidden_field :settings, :value => @settings %>
-  <%= f.code :settings, :value => @settings, :lang => 'json', :field => 'site_settings', :label => false %>
-  
-  <%= f.submit %>
-  <%= f.cancel home_path %>
-<% end %>
-
 <% 
   html = ''
   json_settings_tree(admin_config_path(setting: '_key_'), nil, $site, html, [], 1, [])

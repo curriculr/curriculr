@@ -1,5 +1,5 @@
 <% if @update_class %>     
-  <% checkmark = '<i class="fa fa-check"></i>'.html_safe %>
+  <% checkmark = ui_icon(:check) %>
   <% if params[:opr] == 'activate' %>
     $('#<%= @update_class %>').html('<%= @user.active ?  t("helpers.submit.inactivate") : t("helpers.submit.activate") %>')
     $('#<%= "usr_activate_#{@user.id}_mark" %>').html('<%= @user.active ?  checkmark : '' %>')

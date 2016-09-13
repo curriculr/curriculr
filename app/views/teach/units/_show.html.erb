@@ -1,5 +1,5 @@
 <%= ui_header unit.name, style: :h3, action: ui_buttons([
-      link(:unit, :edit, edit_teach_course_unit_path(@course, unit), class: 'ui positive button'),
+      link(:unit, :edit, edit_teach_course_unit_path(@course, unit), remote: true, class: 'ui positive button'),
       nil,
       link(:unit, :destroy, teach_course_unit_path(@course, unit), :method => :delete, confirm: true, class: 'ui negative button')
     ]) %>
@@ -14,7 +14,7 @@
   links = []
 
   @course.config["grading"]["distribution"]["assessments"]["unit"].keys.each do |k|
-    links << link_to(k, new_teach_course_unit_assessment_path(@course, unit, :t => k), class: 'item')
+    links << link_to(k, new_teach_course_unit_assessment_path(@course, unit, :t => k), remote: true, class: 'item')
   end
 %>        
 
@@ -60,7 +60,7 @@
 <% end %>
 
 <%= content_tag :div, data: {tab: "unit_#{unit.id}_pages"}, class: "ui #{'active ' if active_unit_section?('pages')}bottom attached tab segment" do %>   
-  <%= ui_header Page.model_name.human(count: 3), style: :h3, action: link(:page, :new, new_teach_course_unit_page_path(@course, unit), class: 'ui primary button') %>
+  <%= ui_header Page.model_name.human(count: 3), style: :h3, action: link(:page, :new, new_teach_course_unit_page_path(@course, unit), remote: true, class: 'ui primary button') %>
   <div class="ui segments">
     <% unit.pages.each_with_index do |page, i| %>
       <div class="ui segment">

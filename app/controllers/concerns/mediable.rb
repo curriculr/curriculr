@@ -4,7 +4,7 @@ module Mediable
   included do
     before_action :set_medium, only: [:show, :edit, :update, :destroy]
     helper_method :the_path_out, :the_form_path, :the_material_path_out
-    responders :flash, :http_cache
+    responders :modal, :flash, :http_cache
     
     def index
       if params[:m]
@@ -39,7 +39,8 @@ module Mediable
       @medium = @course ? @course.media.new(attributes) : Medium.new(attributes)
       @medium.is_a_link = true#params[:m] ? false : true
       respond_with @medium do |format|
-        format.html {render 'application/media/new'}
+        @form = 'application/media/form'
+        format.js {render 'new'}
       end
     end
 
@@ -99,8 +100,9 @@ module Mediable
       set_kind_and_extension(@medium, medium_params[:url], medium_params[:source])
 
       respond_with @medium do |format|
+        @form = 'application/media/form'
         if @medium.save
-          format.html {
+          format.js {
             if @medium.m.present?
               path_ids = @medium.m.split(',')
               material_params = { :medium_id => @medium.id, :kind => @medium.kind, :tag_list => path_ids[3] != '0' ? path_ids[3] : nil }
@@ -113,22 +115,13 @@ module Mediable
               else
                 @material = @course.materials.create(material_params)
               end
-
-              if @lecture
-                redirect_to [:teach, @course, @unit, @lecture]
-              elsif @unit
-                redirect_to [:teach, @course, @unit, show: 'documents']
-              else
-                redirect_to [:teach, @course]
-              end
-            else
-              redirect_to the_path_out(s: @medium.kind)
             end
+            
+            render 'reload'
           }
-          format.js { render 'application/media/create' }
           format.json { render nothing: true }
         else
-          format.html { render 'application/media/new' }
+          format.js { render 'new' }
           format.json { render render nothing: true }
         end
       end

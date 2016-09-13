@@ -1,6 +1,12 @@
+require "application_responder"
+require "#{Rails.root}/app/responders/modal_responder"
+
 class KlassAccessDeniedError < StandardError; end
 
 class ApplicationController < PreApplicationController
+  # self.responder = ApplicationResponder
+  # respond_to :html
+
   protect_from_forgery with: :exception
 
   helper EditorsHelper, UiHelper, UsersHelper, CoursesHelper, KlassesHelper, DashboardHelper

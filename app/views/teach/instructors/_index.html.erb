@@ -13,8 +13,8 @@
           </div>
         <div class="description">
           <%= markdown(instructor.about) unless !instructor || instructor.about.blank? %>
-          <%= link(:instructor, :edit, edit_teach_course_instructor_path(@course, instructor),
-                  :class => 'ui positive button') %>
+          <%= link(:instructor, :edit, edit_teach_course_instructor_path(@course, instructor), remote: true,
+                  class: 'ui positive button') %>
            <%= link(:instructor, :destroy, teach_course_instructor_path(@course, instructor),
                   :class => 'ui negative button', method: :delete, confirm: true )
             %>

@@ -36,24 +36,24 @@
       <div class="<%= css_columns(18) %>">
         <h3 class="panel-title">
           <%
-            nav_links = []
-            unit_pagers = @lecture.unit.pagers(@klass, current_student)
-            if unit_pagers[0]
-              nav_links << link_to(unit_pagers[0].name, learn_klass_lectures_path(@klass, unit: unit_pagers[0].id))
-              nav_links << nil
-            end
-
-            Lecture.open_4_students(@klass, @lecture.unit, current_student).order('lectures.order').each do |lecture|
-              name = %(#{lecture.name} #{css_icon("check", 2) if @lecture == lecture})
-              nav_links << link_to(name.html_safe, learn_klass_lecture_path(@klass, lecture))
-            end
-
-            if unit_pagers[1]
-              nav_links << nil
-              nav_links << link_to(unit_pagers[1].name, learn_klass_lectures_path(@klass, unit: unit_pagers[1].id))
-            end
+            # nav_links = []
+            # unit_pagers = @lecture.unit.pagers(@klass, current_student)
+            # if unit_pagers[0]
+            #   nav_links << link_to(unit_pagers[0].name, learn_klass_lectures_path(@klass, unit: unit_pagers[0].id))
+            #   nav_links << nil
+            # end
+            #
+            # Lecture.open_4_students(@klass, @lecture.unit, current_student).order('lectures.order').each do |lecture|
+            #   name = %(#{lecture.name} #{css_icon("check", 2) if @lecture == lecture})
+            #   nav_links << link_to(name.html_safe, learn_klass_lecture_path(@klass, lecture))
+            # end
+            #
+            # if unit_pagers[1]
+            #   nav_links << nil
+            #   nav_links << link_to(unit_pagers[1].name, learn_klass_lectures_path(@klass, unit: unit_pagers[1].id))
+            # end
           %>
-          <%= ui_button_dropdown content_tag(:i, '', class: "fa fa-list"), nav_links , class: "ui button" %>&nbsp;
+          <%# ui_button_dropdown content_tag(:i, '', class: "fa fa-list"), nav_links , class: "ui button" %>&nbsp;
           <%= @lecture.name %>
         </h3>
       </div>

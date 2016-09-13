@@ -1,4 +1,125 @@
-<div class="panel-group" id="accordion">
+
+<!-- <div class="ui secondary  menu">
+  <a class="active item">
+    Home
+  </a>
+  <a class="item">
+    Messages
+  </a>
+  <a class="item">
+    Friends
+  </a>
+  <div class="right menu">
+    <div class="item">
+      <div class="ui icon input">
+        <input type="text" placeholder="Search...">
+        <i class="search link icon"></i>
+      </div>
+    </div>
+    <a class="ui item">
+      Logout
+    </a>
+  </div>
+</div> -->
+
+<% enrolled_or_staff = @klass.enrolled?(current_student) || staff?(current_user, @klass.course) %>
+<% units = Unit.open(@klass, current_student, true).to_a %>
+<div class="ui two column grid">
+  <div class="four wide column">
+    <div class="ui fluid accordion">
+      <% units.each_with_index do |unit, i| %>
+        <% lectures = Lecture.open_4_students(@klass, unit, current_student, true).to_a %>
+        <div class="title">
+          <h3><%= i + 1 %>. <%= unit.name %> <%= ui_icon('dropdown') %></h3>
+        </div>
+        <div class="content">
+          <div class="ui secondary fluid vertical menu">
+          <% lectures.each_with_index do |lecture, j| %>
+            <div class="item">
+              <%= i + 1 %>.<%= j + 1 %> <%= lecture.name %> <%= ui_icon('book') %>
+            </div>
+          <% end %>
+          <% if enrolled_or_staff %>
+            <% data = unit.contents(true, true) %>
+            <% if data.present? %>
+              <%
+                attachment_links = []
+                data.each do |item|
+                  case item
+                  when Material
+                    attachment_links << link_to(raw(item.medium.name + ui_icon(:attach)), item.at_url, :target => '_new', class: 'item')
+                  when Page
+                    attachment_links << link_to(raw(item.name + ui_icon(:world)), learn_klass_page_path(@klass, item), class: 'item')
+                  when Assessment
+                    attachment_links << link_to(raw(item.name + ui_icon(:lab)), learn_klass_assessment_path(@klass, item), class: 'item')
+                  end
+                end
+              %>
+
+              <%= raw attachment_links.join('') %>
+            <% end %>
+          <% end %>
+          </div>
+        </div>
+      <% end %>
+      <div class="active title">
+        <h3>
+          1. Introduction<i class="attach icon"></i>
+          <i class="dropdown icon"></i>
+        </h3>
+      </div>
+      <div class="active content">
+        <div class="ui secondary fluid vertical menu">
+          <a class="active item">
+            1.1 About this unit<i class="attach icon"></i>
+          </a>
+          <div class="item">
+            Lectures
+            <div class="fluid vertical secondary menu">
+              <a class="active icon item">Search <i class="attach icon"></i></a>
+              <a class="item">Add</a>
+              <a class="item">Remove</a>
+            </div>
+          </div>
+          <a class="item">
+            1.3.summary
+          </a>
+        </div>
+      </div>
+      <div class="title">
+        <h3>
+          2. Middle
+          <i class="dropdown icon"></i>
+        </h3>
+      </div>
+      <div class="content">
+      </div>
+      <div class="title">
+        <h3>
+          3. Conclusion
+          <i class="dropdown icon"></i>
+        </h3>
+      </div>
+      <div class="content">
+      </div>
+    </div>
+  </div>
+  <div class="twelve wide column">
+    <div class="ui mini fluid steps">
+      <div class="step">
+        <i class="truck icon"></i>
+      </div>
+      <div class="active step">
+        <i class="payment icon"></i>
+      </div>
+      <div class="disabled step">
+        <i class="info icon"></i>
+      </div>
+    </div>
+  </div>
+</div>
+<%# ui_side_by_side content_tag(:div, 'left'), content_tag(wr)%>
+<div class="ui styled accordion">
 <% enrolled_or_staff = @klass.enrolled?(current_student) || staff?(current_user, @klass.course) %>
 <% units = Unit.open(@klass, current_student, true).to_a %>
 <% units.each_with_index do |unit, i| %>
@@ -27,9 +148,8 @@
         <a data-toggle="collapse" data-parent="#accordion" href="#unit-<%= unit.id %>">
           <%= unit.name %>
         </a>
-        <% unless expanded %>
-          <i class="fa fa-check <%= css_align(:right) %>"></i>
-        <% end %>
+        <% ui_icon(:check) unless expanded %>
+        
         <% if enrolled_or_staff %>
           <% data = unit.contents(true, true) %>
           <% if data.present? %>
@@ -38,7 +158,7 @@
               data.each do |item|
                 case item
                 when Material
-                  attachment_links << link_to(css_icon(:paperclip, 2) + item.medium.name, item.at_url, :target => '_new')
+                  attachment_links << link_to(ui_icon(:attach) + item.medium.name, item.at_url, :target => '_new')
                 when Page
                   attachment_links << link_to(css_icon(:globe, 2) + item.name, learn_klass_page_path(@klass, item))
                 when Assessment
@@ -47,7 +167,7 @@
               end
             %>
 
-            <%= ui_button_dropdown t('page.title.attachments'), attachment_links , class: "ui button", align: :right %>
+            <%= ui_dropdown_button t('page.title.attachments'), attachment_links , class: "ui button", align: :right %>
           <% end %>
 
         <% else %>
@@ -88,49 +208,41 @@
           <% end %>
         <% end %>
 
-        <div class="row">
-          <div class="<%= css_columns(24) %>">
-            <%= unit.about %>
-          </div>
-        </div>
+        <%= unit.about %>
 
         <% unless lectures.to_a.empty? %>
           <% if @klass.course.config['show_lecture_poster'] %>
-            <div class="row">
-              <div class="<%= css_columns(24) %>">
-                <div class="ui divided items">
-                  <% lectures.each_with_index do |lecture, j| %>
-                    <%
-                    hdr = enrolled_or_staff ? link_to(lecture.name, learn_klass_lecture_path(@klass, lecture)) : lecture.name
-                    subhdr = l(lecture.begins_on(@klass.begin_date(current_student)))
-                    ends_on = lecture.ends_on(@klass.begin_date(current_student))
-                    subhdr << %( - #{l(ends_on)}) if ends_on
-                    th = (lecture.poster&.at_url(:sm) || '/images/holder-sm.png')
-                    actions = nil
-                    unless enrolled_or_staff
-                      actions = if @klass.previewed && lecture.previewed
-                        link(:lecture, :open, learn_klass_lecture_path(@klass, lecture), class: "ui button")
-                      else
-                        ui_klass_enrollment_action @klass, :enroll, true
-                      end
-                    end
+            <div class="ui divided items">
+              <% lectures.each_with_index do |lecture, j| %>
+                <%
+                hdr = enrolled_or_staff ? link_to(lecture.name, learn_klass_lecture_path(@klass, lecture)) : lecture.name
+                subhdr = l(lecture.begins_on(@klass.begin_date(current_student)))
+                ends_on = lecture.ends_on(@klass.begin_date(current_student))
+                subhdr << %( - #{l(ends_on)}) if ends_on
+                th = (lecture.poster&.at_url(:sm) || '/images/holder-sm.png')
+                actions = nil
+                unless enrolled_or_staff
+                  actions = if @klass.previewed && lecture.previewed
+                    link(:lecture, :open, learn_klass_lecture_path(@klass, lecture), class: "ui button")
+                  else
+                    ui_klass_enrollment_action @klass, :enroll, true
+                  end
+                end
 
-                    total = 0
-                    if lecture.attendance_data
-                      data = YAML.load(lecture.attendance_data)
-                      total = data[:count]
-                    end
-                    ribbon = nil
-                    %>
-                    <% ribbon = capture do %>
-                      <a class="ui green left corner label">
-                        <i class="fa fa-check fa-lg adjusted-for-ribbon"></i>
-                      </a>
-                    <% end if total != 0 && lecture.attended == total %>
-                    <%= ui_item(th, hdr, [content_tag(:div, subhdr, :class => :item)], markdown(summary(lecture.about)), actions, ribbon) %>
-                  <% end %>
-                </div>
-              </div>
+                total = 0
+                if lecture.attendance_data
+                  data = YAML.load(lecture.attendance_data)
+                  total = data[:count]
+                end
+                ribbon = nil
+                %>
+                <% ribbon = capture do %>
+                  <div class="ui green left corner label">
+                    <%= ui_icon(:check) %>
+                  </div>
+                <% end if total != 0 && lecture.attended == total %>
+                <%= ui_item(th, hdr, [content_tag(:div, subhdr, :class => :item)], markdown(summary(lecture.about)), actions, ribbon) %>
+              <% end %>
             </div>
           <% else %>
             <table class="ui striped selectable small table">
@@ -149,9 +261,7 @@
                         0
                       end
                       %>
-                      <% if total != 0 && lecture.attended == total %>
-                        <i class="fa fa-check <%= css_align(:right) %>"></i>
-                      <% end %>
+                      <%= ui_icon(:check) if total != 0 && lecture.attended == total %>
                     </td>
                   </tr>
                 <% end %>

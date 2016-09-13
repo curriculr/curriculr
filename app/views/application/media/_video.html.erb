@@ -1,4 +1,4 @@
-<div class="item" id="content_<%= video.id %>_medium" sortid="content_<%= video.id %>.medium">
+<div class="item" id="medium_<%= video.id %>">
   <div class="content">
     <div class="header"><%= ui_icon('file video outline icon') + ' ' + video.name %></div>
     <div class="meta"><%= timeago_tag(video.created_at, :nojs => true, :limit => 10.days.ago) %></div>

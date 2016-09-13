@@ -43,7 +43,7 @@ $("#<%= pane %> audio.mediaelementjs").mediaelementplayer();
     <%
     html = content_tag :div, :style => 'display: none;' do
       if  %w(pick_one pick_many).include?(@question.kind)
-         a == '1' ? %(<i class="fa fa-check"></i>).html_safe : ''
+         a == '1' ? ui_icon(:check) : ''
       else
         %(<strong>#{Question.human_attribute_name(:answer)}</strong>: <span>#{a}</span>).html_safe
       end

@@ -27,9 +27,7 @@
           <div class="field">
             <div class="ui radio">
               <%= radio_button_tag "attempt[#{q.id}]", o.option, (a && a[o.id] == '1'), :disabled => read_only, class: 'ui floated right radio' %>
-              <%= label_tag "attempt[#{q.id}]_#{o.option}", class: "radio" do %>
-                <%= processed_text(o.option) %>
-              <% end %>
+              <%= label_tag "attempt[#{q.id}]_#{o.option}", processed_text(o.option) %>
             </div>
             <div id="<%= "answer_#{q.id}_#{o.id}"%>" style="display: inline;" class="question-answer"></div>
           </div>

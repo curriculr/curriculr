@@ -1,4 +1,4 @@
-<%= ui_header klass.name, style: :h3, action: ui_button_dropdown(ui_options_button_text, ui_course_klass_links(klass), class: 'ui button') %>
+<%= ui_header klass.name, style: :h3, action: ui_buttons(ui_course_klass_links(klass)) %>
     
 <div id="klass-approve-indicator" class="ui warning message <%= 'hidden' if klass.ready_to_approve && klass.approved %>">
   <% if klass.ready_to_approve %>

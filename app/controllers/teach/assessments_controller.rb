@@ -1,7 +1,7 @@
 module Teach
   class AssessmentsController < BaseController
     helper_method :the_path_out
-    responders :flash, :http_cache
+    responders :modal, :flash, :http_cache
     
     def show
       respond_with(@assessment)
@@ -37,13 +37,14 @@ module Teach
     def create
       @assessment = Assessment.new(assessment_params)
     
-      respond_with @assessment do |format|
-        if @assessment.save
-          format.html { redirect_to [@req_objects, @assessment].flatten }
-        else
-          format.html { render action: "new" }
-        end
-      end
+      @assessment.save
+      respond_with @assessment # do |format|
+      #        if @assessment.save
+      #          format.html { redirect_to [@req_objects, @assessment].flatten }
+      #        else
+      #          format.html { render action: "new" }
+      #        end
+      #      end
     end
 
     def update

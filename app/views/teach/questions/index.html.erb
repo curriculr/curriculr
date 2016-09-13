@@ -73,12 +73,15 @@ end %>
       </div>
       
       <%= content_tag :div, units_and_lectures, class: 'item' if units_and_lectures %>
-      <div class="item">
-        <%= ui_dropdown_button(t("page.text.new"), links) %>
-      </div>
+      
+      <% unless links.empty? %>
+        <div class="item">
+          <%= ui_dropdown_button(t("page.text.new"), links) %>
+        </div>
+      <% end %>
       <div class="item">
         <% url = question_bank_path(:index, params[:s], @assessment, @bank) %>
-        <%= search_form_for @q, :url => url, class: "search-form", method: :get, remote: true, wrapper: false, header: false do |f| %>
+        <%= search_form_for @q, :url => url, class: "search-form", method: :get, remote: true do |f| %>
           <%= f.hidden_field :kind_cont, :value => params[:s] != 'all' ? params[:s] : nil %>
           <%= f.search_field :question_cont, hint: false, label: false, placeholder: true %>
         <% end %>

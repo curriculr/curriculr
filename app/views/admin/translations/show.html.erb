@@ -1,7 +1,7 @@
 <%= ui_header(t('page.title.translations'), action: capture do %>
   <div class="menu">
     <% $site['supported_locales'].each do |locale, name| %>
-      <%= link_to(name, edit_admin_translation_path(locale), :class => "#{'active ' if @locale == locale}item" %>
+      <%= link_to(name, edit_admin_translation_path(locale), :class => "#{'active ' if @locale == locale}item") %>
     <% end %>
   </div>
 <% end ) %>

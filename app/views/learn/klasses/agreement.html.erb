@@ -1,19 +1,15 @@
-<div class="row">
-  <div class="<%= css_columns(24) %>">
-    <strong><%= t('page.text.klass_enroll_html') %></strong>
-    <br /><br />
-    <h2><%= t('page.title.honor_system') %></h2>
-    <p><%= t('page.text.honor_system') %></p>
-    <br />
-    <%= form_for 'enroll', :url => @url, :method => :post do |f| %>
-      <%= hidden_field_tag :klasses, (@klasses.map {|k| k.id.to_s}).join(',') %>
-      <%= label_tag :agreed_to_klass_enrollment do %>
-        <%= check_box_tag :agreed_to_klass_enrollment %>
-        <%= t('page.text.klass_agreement') %>
-      <% end %>
-      <br /><br />
-      <%= f.submit %>
-      <%= f.cancel _back_url %>
-    <% end %>
-  </div>
-</div>
+<h3 class="ui headser"><%= t('page.text.klass_enroll_html') %></h3>
+
+<h2><%= t('page.title.honor_system') %></h2>
+<p><%= t('page.text.honor_system') %></p>
+
+<%= form_for 'enroll', :url => @url, :method => :post do |f| %>
+  <%= hidden_field_tag :klasses, (@klasses.map {|k| k.id.to_s}).join(',') %>
+  <%= label_tag :agreed_to_klass_enrollment do %>
+    <%= check_box_tag :agreed_to_klass_enrollment %>
+    <%= t('page.text.klass_agreement') %>
+  <% end %>
+  <br /><br />
+  <%= f.submit %>
+  <%= f.cancel _back_url %>
+<% end %>

@@ -4,7 +4,7 @@ module Pageable
   included do
     before_action :set_page, only: [:show, :edit, :update, :destroy]
     helper_method :path_for, :the_path_out
-    responders :flash, :http_cache
+    responders :modal, :http_cache
 
     def show
       respond_with @page do |format|
@@ -27,7 +27,7 @@ module Pageable
       @req_objects << @page
 
       respond_with @page do |format|
-        format.html { render 'application/pages/new' }
+        format.js { render 'application/pages/new' }
       end
     end
 
@@ -37,16 +37,16 @@ module Pageable
 
       respond_with @page do |format|
         if @page.save
-          format.html { redirect_to @req_objects }
+          format.js { render 'reload' } #redirect_to @req_objects }
         else
-          format.html { render 'application/pages/new' }
+          format.js { render 'application/pages/new' }
         end
       end
     end
 
     def edit
       respond_with @page do |format|
-        format.html { render 'application/pages/edit' }
+        format.js { render 'application/pages/edit' }
       end
     end
 
@@ -57,13 +57,17 @@ module Pageable
         if @page.update(page_params)
           format.html { redirect_to @req_objects }
       		format.js   {
-      			@update_class = "page_public_#{@page.id}_link" if params[:opr] == 'public'
-            @update_class = "page_publish_#{@page.id}_link" if params[:opr] == 'publish'
+            if params[:opr]
+      			  @update_class = "page_public_#{@page.id}_link" if params[:opr] == 'public'
+              @update_class = "page_publish_#{@page.id}_link" if params[:opr] == 'publish'
 
-        		render 'application/pages/update'
+        		  render 'application/pages/update'
+            else
+              render 'reload'
+            end
   				}
         else
-          format.html { render 'application/pages/edit' }
+          format.js { render 'application/pages/edit' }
         end
       end
     end

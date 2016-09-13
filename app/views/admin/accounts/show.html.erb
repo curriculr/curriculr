@@ -1,34 +1,17 @@
-<%= ui_header "#{@account.slug}: #{@account.name}" %>
+<%= ui_header "#{@account.name}: #{@account.slug}", action: ui_buttons([
+  link(:account, :edit, edit_admin_account_path(@account), remote: true, class: "ui positive button"),
+  link_to(t('helpers.submit.back_to_list'), admin_accounts_path, class: "ui button")]) %>
 
-<% form = capture do %>
-  <h3><%= t('page.title.basic_info') %></h3>
-  <span>
-  <%= markdown(@account.about) %>
-  </span>
+<h3><%= t('page.title.basic_info') %></h3>
+<%= markdown(@account.about) %>
 
-  <%= form_for [:admin, @account] do |f| %>
-    <%= f.check_box :active, :disabled => true %>
-    <%= f.check_box :live,  :disabled => true  %>
-  <% end %>
-
-  <h3><%= t('page.title.administrator') %></h3>
-  <strong><%= User.human_attribute_name(:name) %></strong><br>
-  <span>
-    <%=  @account.user.name %>
-  </span><br>
-
-  <strong><%= User.human_attribute_name(:email) %></strong><br>
-  <span>
-    <%=  @account.user.email %>
-  </span>
-  <br><br>
-  <%= link :account, :edit, edit_admin_account_path(@account), :class => "ui primary button" %>
-  <%= link :account, :cancel, admin_accounts_path, :class => "ui button" %>
+<%= form_for [:admin, @account], header: false, wrapper: false do |f| %>
+  <%= f.check_box :active, :disabled => true %>
+  <%= f.check_box :live,  :disabled => true  %>
 <% end %>
-<% settings = capture do %>
-  <h3><%= t('page.title.settings') %></h3>
-  <%= highlighted_code @account.settings, 'json' %>
-<% end%>
 
-<%= ui_side_by_side form, settings, "six by ten" %>
-
+<h3><%= t('page.title.administrator') %></h3>
+<%= form_for @account.user, header: false, wrapper: false do |f| %>
+  <%= f.static :name %>
+  <%= f.static :email  %>
+<% end %>

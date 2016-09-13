@@ -20,7 +20,7 @@ en:
       show: show
       new:  New %{name}
       create: Create
-      edit:  Edit
+      edit:  Edit %{name}
       update: Update
       destroy:  Delete
       cancel: Cancel

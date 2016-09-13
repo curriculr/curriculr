@@ -1,7 +1,7 @@
 <%
 can_be_made_public = false
 if current_user && can?(:manage, @page)
-  links = [link(:page, :edit, path_for(:edit, @course, @unit, @lecture, @page), class: "ui positive button")]
+  links = [link(:page, :edit, path_for(:edit, @course, @unit, @lecture, @page), remote: true, class: "ui positive button")]
 
   if @page.owner_type != 'User' || (current_user.has_role?(:admin) || !current_account.config['require_admin_approval_of_blogs'])
     can_be_made_public = true
@@ -54,8 +54,3 @@ end
 <% end %>
 
 <%= markdown(@page.about, :html => @page.html) %>
-
-<% if !@course || @page.public || @page.published || @page.blog %>
-  <br />
-  <%= ui_facebook_link(@page) %>
-<% end %>

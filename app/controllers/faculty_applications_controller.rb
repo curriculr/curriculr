@@ -1,7 +1,7 @@
 class FacultyApplicationsController < AuthorizedController
   before_action :set_faculty_application, only: [:show, :edit, :update, :destroy, :approve, :decline]
-  respond_to :html
-  responders :flash, :http_cache
+  respond_to :html, :js
+  responders :modal, :flash, :http_cache
 
   def index
     @faculty_applications = FacultyApplication.all
@@ -29,7 +29,7 @@ class FacultyApplicationsController < AuthorizedController
     @faculty_application.user = current_user
     if @faculty_application.save
       respond_with(@faculty_application) do |format|
-        format.html { redirect_to home_path}
+        format.js { render 'reload' }
       end
     else
       render :new
@@ -39,7 +39,7 @@ class FacultyApplicationsController < AuthorizedController
   def update
     if @faculty_application.update(faculty_application_params)
       respond_with(@faculty_application) do |format|
-        format.html { redirect_to home_path}
+        format.js { render 'reload'}
       end
     else
       render :edit

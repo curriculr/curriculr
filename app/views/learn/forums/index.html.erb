@@ -3,38 +3,37 @@
 		where(author: current_student).order('created_at desc').limit(3).to_a
 	own_posts = Post.unscoped.joins(:topic => :forum).where("forums.klass_id = #{@klass.id} and forums.lecture_comments = FALSE").
 		where(author: current_student).order('created_at desc').limit(3).to_a
-
 %>
-<div class="row">
-	<div class="<%= css_columns((own_topics.present? || own_posts.present?) ? 15 : 24) %>">
-		<table class="ui striped selectable small table">
-			<thead>
-				<tr>
-					<th><%= Forum.model_name.human %></th>
-					<th><%= Topic.model_name.human(count: 3) %></th>
-				</tr>
-			</thead>
-			<tbody>
-				<% (forums = @klass.forums.where(:lecture_comments => false).to_a).each do |forum| %>
-				<tr>
-					<td>
-						<h3><%= link_to forum.name, learn_klass_forum_path(@klass, forum) %></h3>
-						<%= markdown forum.about %>
-					</td>
-					<td><%= forum.topics_count %></td>
-				</tr>
-				<% end %>
-		    <% if forums.empty? %>
-		    <tr>
-		      <td colspan="2"><%= t('page.text.no_record_found') %></td>
-		    </tr>
-		    <% end %>
-			</tbody>
-		</table>
-	</div>
+<% forums = capture do %>
+	<table class="ui striped selectable small table">
+		<thead>
+			<tr>
+				<th><%= Forum.model_name.human %></th>
+				<th><%= Topic.model_name.human(count: 3) %></th>
+			</tr>
+		</thead>
+		<tbody>
+			<% (forums = @klass.forums.where(:lecture_comments => false).to_a).each do |forum| %>
+			<tr>
+				<td>
+					<h3><%= link_to forum.name, learn_klass_forum_path(@klass, forum) %></h3>
+					<%= markdown forum.about %>
+				</td>
+				<td><%= forum.topics_count %></td>
+			</tr>
+			<% end %>
+	    <% if forums.empty? %>
+	    <tr>
+	      <td colspan="2"><%= t('page.text.no_record_found') %></td>
+	    </tr>
+	    <% end %>
+		</tbody>
+	</table>
+<% end %>
+
+<% topics = capture do %>
 	<% if own_topics.present? || own_posts.present? %>
-		<div class="<%= css_columns(9) %>">
-			<div class="well">
+		<div class="ui segment">
 			<% if own_topics.present? %>
 				<h3><%= t('page.title.own_recent_topics') %></h3>
 				<ul class="list-unstyled">
@@ -52,10 +51,11 @@
 					<% end %>
 				</ul>
 			<% end %>
-		<% end %>
-		</div>
-	</div>
-</div>
+    </div>
+	<% end %>
+<% end %>
+
+<%= ui_side_by_side forums, topics, (own_topics.present? || own_posts.present?) ? 'ten by six' : 'sixteen by zero'  %>
 
 <table class="ui striped selectable small table">
 	<thead>

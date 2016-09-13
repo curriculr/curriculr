@@ -1,13 +1,15 @@
 <%= 
+action = link(:course, :new, main_app.new_teach_course_path, remote: true, class: 'ui primary button')
+paginator = content_tag :div, paginate(@courses, :remote => true), id: "paginator" 
 search = search_form_for [:teach, @q], class: "search-form", method: :get, remote: true, wrapper: false, header: false do |f| 
   f.search_field :slug_or_name_or_about_cont, hint: false, label: false, placeholder: true 
 end
 
-ui_header Course.model_name.human(count: 3), action: search %>
+ui_header Course.model_name.human(count: 3), action: action %>
 
-<div id="paginator"><%= paginate @courses, :remote => true %></div>
+<%= ui_side_by_side(paginator, search) %>
 
-<div id="all-courses" class="ui cards">
+<div id="all-courses" class="ui three cards">
   <%= render :partial => 'teach/courses/course', :collection => @courses %>
   <% if @courses.empty? %>
     <%= t('page.text.no_record_found') %>

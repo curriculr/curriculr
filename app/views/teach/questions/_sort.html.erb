@@ -28,8 +28,8 @@
     %>
     <% options.each_with_index do |o, i| %>
       <tr class="row" id="question<%= q.id %>_<%= i + 1 %>">
-        <td class="<%= css_columns(24) %>">
-          <i class="fa fa-arrows"></i>&nbsp;<%= processed_text(o) %>
+        <td>
+          <%= ui_icon(:move) %>&nbsp;<%= processed_text(o) %>
           <%= hidden_field_tag("attempt[#{q.id}][#{i + 1}]", o) %>
           <div id="<%= "answer_#{q.id}_#{i + 1}"%>" class="question-answer"></div>
         </td>

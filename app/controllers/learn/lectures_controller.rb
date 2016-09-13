@@ -1,4 +1,4 @@
-module Learn
+  module Learn
   class LecturesController < BaseController
     def show
       @lecture_contents = @lecture.contents(true, staff?(current_user, @klass) || @klass.enrolled?(current_student))

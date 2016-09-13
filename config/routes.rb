@@ -192,6 +192,7 @@ Rails.application.routes.draw do
     end
 
     resources :accounts do
+      get :settings, :on => :member
       post :configure, :on => :member
     end
 

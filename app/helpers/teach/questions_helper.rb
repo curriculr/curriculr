@@ -4,7 +4,7 @@ module Teach::QuestionsHelper
     id = new_object.object_id
     fields = f.fields_for(association, new_object, child_index: id) do |builder|
       content_tag :div, :class => 'removable' do
-        html = render("fields_4_question", f: builder)
+        render("fields_4_question", f: builder)
       end
     end
     

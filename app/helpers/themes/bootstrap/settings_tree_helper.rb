@@ -6,17 +6,13 @@ module Themes::Bootstrap::SettingsTreeHelper
       html = hidden_field_tag(:type, 'boolean')
       html << (content_tag :div, class: "field" do
         content_tag :div, class: 'ui radio checkbox' do
-          label_tag :value_1 do
-            radio_button_tag(:value, "1",  object == true) + " true"
-          end
+          radio_button_tag(:value, "1",  object == true) + label_tag(:value_1, "true")
         end
       end)
 
       html << (content_tag :div, class: "field" do
         content_tag :div, class: 'ui radio checkbox' do
-          label_tag :value_0 do
-            radio_button_tag(:value, "0", object == false) + " false"
-          end
+          radio_button_tag(:value, "0", object == false) + label_tag(:value_0, "false")
         end
       end)
     when Numeric
@@ -48,7 +44,7 @@ module Themes::Bootstrap::SettingsTreeHelper
     case object
     when TrueClass, FalseClass, Numeric, Array, String, NilClass
       s << "<code>#{object}</code>&nbsp;&nbsp;&nbsp;"
-      s << link(:setting, :edit, '#', :class => 'ui mini edit-in-modal button', :data => {
+      s << link(:setting, :edit, '#', :class => 'ui mini edit-in-modal basic positive button', :data => {
         form: render(:partial => '/application/settings/setting_form', :locals => {
           object: object, value: object, :key => path.last,
           :url => url.sub('_key_', path.take(depth-2).join(':')), :op => :edit,
@@ -59,7 +55,7 @@ module Themes::Bootstrap::SettingsTreeHelper
       if addable_to_levels.include?(depth - 2)
         s << '&nbsp;'
         s << link(:setting, :destroy, url.sub('_key_', path.join(':')), method: :delete, confirm: true,
-          class: 'ui mini button')
+          class: 'ui mini negative basic button')
       end
     when Hash
       s << '<ul dir="ltr">'
@@ -68,7 +64,7 @@ module Themes::Bootstrap::SettingsTreeHelper
         path << k
         s << "<li><strong>#{k.titleize}</strong>: "
         if addable_to_levels.include?(depth) && v.kind_of?(Hash)
-          s << link(:setting, :new, '#', :class => 'ui mini add-in-modal button', :data => {
+          s << link(:setting, :new, '#', :class => 'ui mini add-in-modal primary basic button', :data => {
             form: render(:partial => '/application/settings/setting_form', :locals => {
               object: v, :key => '', :value => '', :title => "Add a setting",
               type: v.first.kind_of?(Array) ? v.first.second : v,

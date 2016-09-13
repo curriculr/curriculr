@@ -18,7 +18,7 @@ module ApplicationHelper
     add_to_app_menu :bottom, [
       "© #{t('page.text.copyrights', :year => Time.zone.now.year)}",
       {link: link_text('miscellaneous', :about), to: main_app.localized_page_path(:about)},
-      {link: link_text('miscellaneous', :contactus), to: main_app.contactus_path},
+      {link: link_text('miscellaneous', :contactus), to: main_app.contactus_path, remote: true},
       {link: link_text(:page, :terms), to: main_app.localized_page_path(:terms)} ]
       
       mountable_fragments :footer_menu
@@ -55,7 +55,8 @@ module ApplicationHelper
         add_to_app_menu :top, {link: link_text(:user, :signin), to: main_app.auth_signin_path}, :right
       end
     else
-      add_to_app_menu :top, {link: link_text(:session, :sign_out), to: main_app.auth_signout_path}, :right
+      avatar = image_tag(current_user.profile.avatar_url(current_account, :tny) || '/images/nobody-tny.png', class: 'avatar icon')
+      add_to_app_menu :top, {link: avatar + link_text(:session, :sign_out), to: main_app.auth_signout_path, class: "labeled icon"}, :right
     end
     
     mountable_fragments :main_menu
@@ -92,7 +93,7 @@ module ApplicationHelper
     when :index
       t("activerecord.models.#{model}.other")
     when :new, :create, :edit, :update, :destroy
-      t(action, scope: 'helpers.submit', :name => t("activerecord.models.#{model}.one", :default => ''))
+      t(action, scope: 'helpers.submit', :name => '')
     else
       key = (options.present? && options[:as].present?) ? "#{action}_#{options[:as]}" : action
 

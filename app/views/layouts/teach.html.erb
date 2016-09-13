@@ -6,11 +6,11 @@
   </div>
   <div id="course-main-content" class="thirteen wide column">
     <%
-    actions = []
-    actions << staff_or_student_view if staff_or_student_view
-    unless controller_name == 'courses' && action_name.in?(['edit', 'update'])
-      actions << link(:course, :edit, edit_teach_course_path(@course), class: "ui positive button")
-    end
+      actions = []
+      actions << staff_or_student_view if staff_or_student_view
+      unless controller_name == 'courses' && action_name.in?(['edit', 'update'])
+        actions << link(:course, :edit, edit_teach_course_path(@course), remote: true, class: "ui positive button")
+      end
     %>
     <%= ui_header(@page_header, subtext:  @course.by_instructors,  action: ui_buttons(actions)) %>
     <%

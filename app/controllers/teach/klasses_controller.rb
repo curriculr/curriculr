@@ -1,11 +1,28 @@
 module Teach
   class KlassesController < BaseController
-    responders :flash, :http_cache
+    responders :modal, :flash, :http_cache
 
     def show
       render :action => :index
     end
 
+    def new
+      @klass = Klass.new
+    end
+
+    def create
+      @klass = @course.klasses.new(klass_params)
+      @klass.save
+      respond_with @klass
+      # respond_with @klass do |format|
+      #   if @klass.save
+      #     format.html { redirect_to teach_course_klasses_path(@course) }
+      #   else
+      #     format.html { render action: "new" }
+      #   end
+      # end
+    end
+    
     def edit
       @klass.slug = @klass.slug.split(':')[1]
     end
@@ -15,15 +32,17 @@ module Teach
 
     def update
       @klass = Klass.scoped.find(params[:id])
-
-      respond_with @klass do |format|
-        if @klass.update(klass_params)
-          format.html { redirect_to teach_course_klasses_path(@course) }
-        else
-          #@klass.slug = @klass.slug.split(':')[1]
-          format.html { render action: "edit" }
-        end
-      end
+      @klass.update(klass_params)
+      respond_with @klass
+      
+      # respond_with @klass do |format|
+      #   if @klass.update(klass_params)
+      #     format.html { redirect_to teach_course_klasses_path(@course) }
+      #   else
+      #     #@klass.slug = @klass.slug.split(':')[1]
+      #     format.html { render action: "edit" }
+      #   end
+      # end
     end
 
     def destroy
@@ -31,21 +50,6 @@ module Teach
 
       respond_with @klass do |format|
         format.html { redirect_to teach_course_path(@course) }
-      end
-    end
-
-    def new
-      @klass = Klass.new
-    end
-
-    def create
-      @klass = @course.klasses.new(klass_params)
-      respond_with @klass do |format|
-        if @klass.save
-          format.html { redirect_to teach_course_klasses_path(@course) }
-        else
-          format.html { render action: "new" }
-        end
       end
     end
 

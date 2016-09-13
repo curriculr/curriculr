@@ -1,15 +1,3 @@
-<%#
-section = :social
-current_account.config['social_pages'].each do |page, at|
-  if at && at.strip.present?
-    link = (link_to at, :class => "btn btn-#{page}" do
-      css_icon([page, :lg])
-    end)
-    add_to_app_menu :site_bottom, link, section
-  end
-end
-%>
-
 <% footer_menu %>
 
 <footer>
@@ -18,7 +6,7 @@ end
       <% if i == 0 %>
         <div class="heasder item"><%= item %></div>
       <% else %>
-        <%= link_to item[:link], item[:to], class: 'item' %>
+        <%= link_to item[:link], item[:to], class: 'item', remote: item[:remote] %>
       <% end %>
     <% end %>
 

@@ -35,7 +35,7 @@ module Auth
           @user.save
         end
         
-        redirect_to home_path, notice: t('auth.registrations.password_changed') 
+        render 'reload' #redirect_to home_path, notice: t('auth.registrations.password_changed') 
       else
         render 'edit'
       end

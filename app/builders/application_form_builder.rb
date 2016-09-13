@@ -99,8 +99,8 @@ class ApplicationFormBuilder < ActionView::Helpers::FormBuilder
     html.html_safe
   end
   
-  def cancel(url = nil)
-    @template.link_to(I18n.t("helpers.submit.cancel"), url || @template._back_url, class: "button")
+  def cancel(url = nil, options={})
+    @template.link_to(I18n.t("helpers.submit.cancel"), url || @template._back_url, options)
   end
   
   private

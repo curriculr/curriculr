@@ -29,13 +29,13 @@
             :show_answer => @attempt.show_answer?,
             :read_only => @attempt.state == 2 ? true : false %>
 
-      <%# unless q.hint.blank? %>
-        <%# ui_alert nil, markdown("**#{Question.human_attribute_name(:hint)}**! #{q.hint}"), :success %>
-      <%# end %>
+      <% unless q.hint.blank? %>
+        <div class="ui positive message"><%= markdown("**#{Question.human_attribute_name(:hint)}**! #{q.hint}") %></div>
+      <% end %>
 
-      <%#unless @attempt.state != 2 || q.explanation.blank? %>
-        <%# ui_alert nil, markdown("**#{Question.human_attribute_name(:explanation)}**! #{q.explanation}"), :info %>
-      <%# end %>
+      <% unless @attempt.state != 2 || q.explanation.blank? %>
+        <div class="ui info message"><%= markdown("**#{Question.human_attribute_name(:explanation)}**! #{q.explanation}") %></div>
+      <% end %>
 
       <div class="panel-footer">
         <% if qcount > 1 %>

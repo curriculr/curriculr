@@ -1,8 +1,7 @@
-<div class="ui input">
-  <%= render 'teach/questions/preamble', :q => q, :show_answer => show_answer %>
+<%= render 'teach/questions/preamble', :q => q, :show_answer => show_answer %>
+<%= markdown(q.question) %>
 
-  <%= markdown(q.question) %>
-
+<div class="ui input">  
   <% q.options.each do |o| %>
     <%= text_field_tag "attempt[#{q.id}][#{o.id}]", '',
           :value => (a ? a[o.id] : nil),

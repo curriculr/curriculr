@@ -106,6 +106,8 @@ en:
       feactured_klasses: Featured classes
 
     text:
+      yes: Yes
+      no: No
       new: New
       more: More
       less: Less
@@ -151,6 +153,7 @@ en:
       if_no_user_account: If you don't have an account with us yet
       if_user_account: If you already have an account with us
       inactive: Inactive
+      active: Active
       no_instructor_but_originator_html:
         No instructor has been added to this course. In this case,
         originator %{originator} will be listed.

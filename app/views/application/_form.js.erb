@@ -1,0 +1,7 @@
+$('#the-modal-form').remove();
+$('<%= j form %>').modal('show');
+$('.ui.modal > .actions > button.submit-form').on('click', function(){
+  $(this).closest('.ui.modal').find('form').submit();
+});
+
+ui_rebind_application_events(jQuery);

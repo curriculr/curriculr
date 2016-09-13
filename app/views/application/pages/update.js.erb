@@ -1,6 +1,6 @@
 
 <% if @update_class %>     
-  <% checkmark = '<i class="fa fa-check"></i>'.html_safe %>
+  <% checkmark = ui_icon(:check) %>
   <% if params[:opr] == 'public' %>
 	$('#<%= @update_class %>').html('<%= @page.public ?  t('helpers.submit.privatize') : t('helpers.submit.publicize') %>');
     <% if @page.public %>

@@ -1,14 +1,17 @@
-
-
-<%= form_for [:teach, @course, @instructor] do |f| %>
+<%= modal_form_for [:teach, @course, @instructor] do |f| %>
   <%= f.hidden_field :course_id, :value => @course.id %>
   
-  <% email = @instructor.new_record? ? @instructor.email : @instructor.user.email %>
-	<%= f.email_field :email, :readonly => !%w(new create).include?(action_name), :value => email %>
-	<%= f.select :role, t('config.staff').invert %>
-  <%= f.text_field :name %>
-  <%= f.file_field :avatar %>
-  <%= f.markdown :about %>
+  <div class="two fields">
+    <%= f.text_field :name %>
+    <% email = @instructor.new_record? ? @instructor.email : @instructor.user.email %>
+    <%= f.email_field :email, :readonly => !%w(new create).include?(action_name), :value => email %>
+  </div>
+  <div class="two fields">
+    <%= f.select :role, t('config.staff').invert %>
+    <%= f.file_field :avatar %>
+  </div>
+  
+  <%= f.markdown :about, size: '60x5' %>
   
   <%= f.submit %>
   <%= f.cancel teach_course_path(@course, :show => 'people') %>

@@ -18,11 +18,11 @@
 
 <table class="ui striped selectable small table">
   <thead>
-    <tr class="row">
-      <th class="<%= css_columns(15) %>">
+    <tr>
+      <th class="ten wide">
         <%= t('helpers.label.match_question_side_1') %> 1
       </th>
-      <th class="<%= css_columns(9) %>">
+      <th class="six wide">
         <%= t('helpers.label.match_question_side_2') %> 2
       </th>
     </tr>
@@ -30,7 +30,7 @@
   <tbody>
     <% options = q.options.first.answer_options_items.map do |o| [o, o] end %>
     <% q.options.first.option_items.each_with_index do |o, i| %>
-      <tr class="row" id="option_<%= i + 1 %>">
+      <tr id="option_<%= i + 1 %>">
         <td>
           <%= processed_text(o) %>
         </td>

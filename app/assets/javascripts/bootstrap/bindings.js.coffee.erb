@@ -1,5 +1,6 @@
 window.ui_rebind_application_events  = ($) ->
   $('.ui.dropdown').dropdown()
+  $('.ui.accordion').accordion()
   $('.ui.dynamic.menu .item').tab()
   $('.course.units .ui.sidebar').sidebar(
     context: $('.course.units > .bottom.segment')
@@ -26,6 +27,16 @@ window.ui_rebind_application_events  = ($) ->
         </div>
       </div>""").modal('show')
 
+  # markdown
+  $('.wmd-input').each(ui_markdown_control)
+
+  # Shortening text during display
+  $('.shortenable-text').shorten(
+    showChars: '360',
+    moreText: '<i class="big circle chevron down icon" title="more..."></i>',
+    lessText: '<i class="big circle chevron up icon" title="less..."></i>'
+  )
+  
   # mediaelementjs
   # $('video.mediaelementjs, audio.mediaelementjs').mediaelementplayer()
 
@@ -265,6 +276,7 @@ window.ui_rebind_application_events  = ($) ->
       show_hide_answer_fields $('#question_bank_list').val()
 
     number_fields()
+    $('.ui.dropdown').dropdown()
     event.preventDefault()
 
   number_fields()

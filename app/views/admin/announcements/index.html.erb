@@ -1,6 +1,4 @@
-<%= ui_header Announcement.model_name.human(count: 3),
-    action: link(:announcement, :new, new_admin_announcement_path, 
-    :class => "ui positive button") %>
+<%= ui_header Announcement.model_name.human(count: 3), action: link(:announcement, :new, new_admin_announcement_path, remote: true, :class => "ui primary button") %>
 
 <table class="ui striped selectable small table">
   <thead>
@@ -21,10 +19,10 @@
         <td><%= markdown announcement.message %></td>
         <td><%= l(announcement.starts_at) %></td>
         <td><%= l(announcement.ends_at) %></td>
-        <td><% if announcement.suspended %><i class="fa fa-check"></i><% end %></td>
+        <td><%= ui_icon(:check) if announcement.suspended %></td>
         <td>
   				<%= ui_buttons [
-  					    link(:announcement, :edit, edit_admin_announcement_path(announcement), class: "ui positive button"),
+  					    link(:announcement, :edit, edit_admin_announcement_path(announcement), remote: true, class: "ui positive button"),
   					    link(:announcement, :destroy, admin_announcement_path(announcement), 
   						    method: :delete, confirm: true, class: "ui negative button")] %>
         </td>

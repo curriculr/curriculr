@@ -2,7 +2,7 @@ module Admin
   class AnnouncementsController < BaseController
     before_action :set_announcement, only: [:edit, :update, :destroy]
     #before_action only: :edit do Time::DATE_FORMATS[:default] = "%Y-%m-%d %H:%M" end
-    responders :flash, :http_cache, :collection
+    responders :modal, :flash, :http_cache
     
     def index
       @announcements = Announcement.scoped.all
@@ -10,12 +10,12 @@ module Admin
     end
 
     def hide
-        ids = [ params[:id], *cookies.signed[:hidden_announcement_ids] ]
-        cookies.permanent.signed[:hidden_announcement_ids] = ids
-        respond_with do |format|
-          format.html { redirect_to :back }
-          format.js
-        end
+      ids = [ params[:id], *cookies.signed[:hidden_announcement_ids] ]
+      cookies.permanent.signed[:hidden_announcement_ids] = ids
+      respond_with do |format|
+        format.html { redirect_to :back }
+        format.js
+      end
     end
       
     def new

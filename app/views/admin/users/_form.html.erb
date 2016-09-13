@@ -1,0 +1,12 @@
+<%= modal_form_for(@user, :url => admin_users_path, :method => :post) do |f| %>
+
+  <%= f.text_field :name%>
+  <%= f.email_field :email %>
+  
+  <div class="two fields">
+    <%= f.password_field :password %>
+    <%= f.password_field :password_confirmation %>
+  </div>
+  
+  <%= f.submit %> 
+<% end %>

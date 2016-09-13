@@ -11,7 +11,7 @@ module UiHelper
     return nil if country.blank?
 
     html = content_tag(:i, '', :class => "#{country.downcase} flag")
-    html << Country.new(country).name
+    html << ' ' << Country.new(country).name
     html.html_safe
   end
 

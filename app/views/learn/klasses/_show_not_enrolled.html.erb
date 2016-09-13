@@ -15,13 +15,13 @@
       </div>
       <div class="description">
         <%= markdown(@klass.course.about) %>
-        <p><%= ui_klass_enrollment_action @klass, :enroll %></p>
+        <br>
+        <%= ui_klass_labels(@klass) %>
+        <br><br>
+        <%= ui_klass_enrollment_action @klass, :enroll %>
+        <br><br >
       </div>
       <div class="extra">
-        <div class="ui big horizontal list">
-          <%= ui_klass_labels(@klass, false).join("\n").html_safe %>
-        </div>
-
         <%= render 'learn/instructors/index' %>
         
         <br>

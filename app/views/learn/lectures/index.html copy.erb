@@ -1,0 +1,158 @@
+<div class="ui styled accordion">
+<% enrolled_or_staff = @klass.enrolled?(current_student) || staff?(current_user, @klass.course) %>
+<% units = Unit.open(@klass, current_student, true).to_a %>
+<% units.each_with_index do |unit, i| %>
+  <% lectures = Lecture.open_4_students(@klass, unit, current_student, true).to_a %>
+  <%
+  expanded = if params[:unit] == unit.id.to_s || lectures.empty?
+    true
+  else
+    (
+      lectures.select do |lecture|
+        total = if lecture.attendance_data
+          data = YAML.load(lecture.attendance_data)
+          data[:count] || 0
+        else
+          0
+        end
+
+        total == 0 || lecture.attended  != total
+      end
+    ).present?
+  end
+  %>
+  <div class="panel panel-inverse klass-lecture">
+    <div class="panel-heading">
+      <h3 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#unit-<%= unit.id %>">
+          <%= unit.name %>
+        </a>
+        <% unless expanded %>
+          <i class="fa fa-check <%= css_align(:right) %>"></i>
+        <% end %>
+        <% if enrolled_or_staff %>
+          <% data = unit.contents(true, true) %>
+          <% if data.present? %>
+            <%
+              attachment_links = []
+              data.each do |item|
+                case item
+                when Material
+                  attachment_links << link_to(ui_icon(:attach) + item.medium.name, item.at_url, :target => '_new')
+                when Page
+                  attachment_links << link_to(css_icon(:globe, 2) + item.name, learn_klass_page_path(@klass, item))
+                when Assessment
+                  attachment_links << link_to(css_icon(:flask, 2) + item.name, learn_klass_assessment_path(@klass, item))
+                end
+              end
+            %>
+
+            <%= ui_dropdown_button t('page.title.attachments'), attachment_links , class: "ui button", align: :right %>
+          <% end %>
+
+        <% else %>
+          <% ui_klass_enrollment_action(@klass, :enroll, true)  %>
+        <% end %>
+      </h3>
+    </div>
+
+    <div id="unit-<%= unit.id %>" class="panel-collapse collapse <%= 'in' if expanded %>">
+      <div class="panel-body">
+        <% if false && enrolled_or_staff %>
+          <% data = unit.contents(true, true) %>
+          <% if data.present? %>
+            <ul class="nav nav-tabs">
+              <% data.each do |item| %>
+                <%
+                  title = item.kind_of?(Material) ? item.medium.name : item.name
+                  popover_attr = {toggle: "popover",  placement: "bottom", content: title, container: 'body' }
+                %>
+                <li>
+                <% case item %>
+                <% when Material %>
+                  <%= link_to item.at_url, class: "btn-popover", data: popover_attr, :target => '_new' do %>
+                    <i class="fa fa-paperclip"></i>
+                  <% end %>
+                <% when Page %>
+                  <%= link_to learn_klass_page_path(@klass, item), class: "btn-popover", data: popover_attr do %>
+                    <i class="fa fa-globe"></i>
+                  <% end %>
+                <% when Assessment %>
+                  <%= link_to learn_klass_assessment_path(@klass, item), class: "btn-popover", data: popover_attr do %>
+                    <i class="fa fa-flask"></i>
+                  <% end %>
+                <% end %>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
+        <% end %>
+
+        <%= unit.about %>
+
+        <% unless lectures.to_a.empty? %>
+          <% if @klass.course.config['show_lecture_poster'] %>
+            <div class="ui divided items">
+              <% lectures.each_with_index do |lecture, j| %>
+                <%
+                hdr = enrolled_or_staff ? link_to(lecture.name, learn_klass_lecture_path(@klass, lecture)) : lecture.name
+                subhdr = l(lecture.begins_on(@klass.begin_date(current_student)))
+                ends_on = lecture.ends_on(@klass.begin_date(current_student))
+                subhdr << %( - #{l(ends_on)}) if ends_on
+                th = (lecture.poster&.at_url(:sm) || '/images/holder-sm.png')
+                actions = nil
+                unless enrolled_or_staff
+                  actions = if @klass.previewed && lecture.previewed
+                    link(:lecture, :open, learn_klass_lecture_path(@klass, lecture), class: "ui button")
+                  else
+                    ui_klass_enrollment_action @klass, :enroll, true
+                  end
+                end
+
+                total = 0
+                if lecture.attendance_data
+                  data = YAML.load(lecture.attendance_data)
+                  total = data[:count]
+                end
+                ribbon = nil
+                %>
+                <% ribbon = capture do %>
+                  <a class="ui green left corner label">
+                    <i class="fa fa-check fa-lg adjusted-for-ribbon"></i>
+                  </a>
+                <% end if total != 0 && lecture.attended == total %>
+                <%= ui_item(th, hdr, [content_tag(:div, subhdr, :class => :item)], markdown(summary(lecture.about)), actions, ribbon) %>
+              <% end %>
+            </div>
+          <% else %>
+            <table class="ui striped selectable small table">
+              <tbody>
+                <% lectures.each_with_index do |lecture, j| %>
+                  <tr>
+                    <td>
+                      &nbsp;&nbsp;
+                      <%= j + 1 %>&nbsp;&nbsp;&nbsp;&nbsp;
+                      <%= link_to lecture.name, learn_klass_lecture_path(@klass, lecture) %>
+                      <%
+                      total = if lecture.attendance_data
+                        data = YAML.load(lecture.attendance_data)
+                        data[:count] || 0
+                      else
+                        0
+                      end
+                      %>
+                      <% if total != 0 && lecture.attended == total %>
+                        <i class="fa fa-check <%= css_align(:right) %>"></i>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
+</div>

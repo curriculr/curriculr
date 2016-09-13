@@ -1,12 +1,10 @@
-
-
-<%= form_for [:teach, @course, @unit, @lecture, @question] do |f| %>
+<%= themed_form_for [:teach, @course, @unit, @lecture, @question] do |f| %>
   <%= f.hidden_field :course_id %>
   <%= f.hidden_field :kind %>
   <% render_options = Option.render_options[@question.kind.to_sym] %>
 
-  <div class="row">
-    <div class="<%= css_columns(18) %>">
+  <div class="two column row">
+    <div class="twelve wide column">
       <% placeholder = t("helpers.placeholder.#{@question.kind}_question") %>
       <% hint = t(:"helpers.hint.#{@question.kind}_question", default: '') %>
       <%= f.markdown :question, :size => '60x8', :placeholder => placeholder, :hint => hint %>
@@ -26,7 +24,7 @@
       </div>
 
     </div>
-    <div class="<%= css_columns(6) %>">
+    <div class="four wide column">
       <%= f.static :kind, :value => t("config.question.kind.#{@question.kind}") %>
 
       <% if @question.new_record? %>
@@ -54,7 +52,7 @@
       <%= f.hidden_field :hint %>
       <%= f.hidden_field :explanation %>
       
-      <%= content_tag :span, %(#{css_icon(@question.hint.present? ? :edit : :plus)} #{Question.human_attribute_name(:hint)}).html_safe, 
+      <%= content_tag :span, %(#{ui_icon(@question.hint.present? ? :edit : :plus)} #{Question.human_attribute_name(:hint)}).html_safe, 
             :class => "ui-modal-field #{"ui button"}", 
             :data => {
               :field => 'question_hint', 
@@ -64,7 +62,7 @@
               :close => t('helpers.submit.close')
             } %>
       
-      <%= content_tag :span, %(#{css_icon(@question.explanation.present? ? :edit : :plus)} #{Question.human_attribute_name(:explanation)}).html_safe, 
+      <%= content_tag :span, %(#{ui_icon(@question.explanation.present? ? :edit : :plus)} #{Question.human_attribute_name(:explanation)}).html_safe, 
             :class => "ui-modal-field #{"ui button"}", 
             :data => {
               :field => 'question_explanation', 
@@ -77,7 +75,7 @@
 
       <% unless render_options[:count] == 1 %>
         <hr/>
-        <%= link_to_add_options((css_icon(:plus, 1) + t("page.text.#{render_options[:name]}")).html_safe, f, :options) %>
+        <%= link_to_add_options((ui_icon(:plus) + t("page.text.#{render_options[:name]}")).html_safe, f, :options) %>
       <% end %>
     </div>
   </div>

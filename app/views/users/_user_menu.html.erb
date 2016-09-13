@@ -13,7 +13,7 @@
       <% end %>
       <div class="menu">
         <% menu.each do |item| %>
-          <%= link_to item[:link], item[:to], class: item[:active] ? 'item active' : 'item' %>
+          <%= link_to item[:link], item[:to], remote: item[:remote], class: item[:active] ? 'item active' : 'item' %>
         <% end %>
       </div>
     </div>

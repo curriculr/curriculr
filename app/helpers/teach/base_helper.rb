@@ -10,24 +10,24 @@ module Teach::BaseHelper
 
   def ui_course_klass_links(klass)
 		links = [
-		  link(:klass, :edit, edit_teach_course_klass_path(@course, klass)),
+		  link(:klass, :edit, edit_teach_course_klass_path(@course, klass), remote: true, class: 'ui positive button'),
       nil,
 		  link(:klass, :destroy, teach_course_klass_path(@course, klass),
-		    :confirm => true, :method => :delete),
+		    :confirm => true, :method => :delete, class: 'ui negative button'),
       nil,
-      link(:klass, :show, learn_klass_path(klass), as: :student_view)
+      link(:klass, :show, learn_klass_path(klass), as: :student_view, class: 'ui positive basic button')
     ]
 
     if klass.ready_to_approve
       if current_user && current_user.has_role?(:admin)
         links << nil
         links << link(:klass, klass.approved ? :disapprove : :approve, approve_teach_course_klass_path(@course, klass),
-          :method => :put)
-        links << link(:klass, :unready, ready_teach_course_klass_path(@course, klass), :method => :put)
+          :method => :put, class: "ui #{klass.approved ? 'negative' : 'positive'} basic button")
+        links << link(:klass, :unready, ready_teach_course_klass_path(@course, klass), :method => :put, class: 'ui negative basic button')
       end
     else
       links << nil
-      links << link(:klass, :ready, ready_teach_course_klass_path(@course, klass), :method => :put)
+      links << link(:klass, :ready, ready_teach_course_klass_path(@course, klass), :method => :put, class: 'ui positive basic button')
 
     end
 

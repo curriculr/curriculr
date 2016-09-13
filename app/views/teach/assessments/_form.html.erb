@@ -1,6 +1,6 @@
 <% kinds = @course.config["grading"]["distribution"]["assessments"][@lecture ? "lecture" : (@unit ? "unit" : "course")].keys %>
 
-<%= form_for [:teach,@course, @unit, @lecture, @assessment] do |f| %>
+<%= modal_form_for [:teach,@course, @unit, @lecture, @assessment] do |f| %>
   <%= f.hidden_field :course_id %>
   <%= f.hidden_field :unit_id %>
   <%= f.hidden_field :lecture_id %>

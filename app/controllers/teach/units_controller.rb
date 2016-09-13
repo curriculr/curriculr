@@ -1,6 +1,6 @@
 module Teach
   class UnitsController < BaseController
-    responders :flash, :http_cache
+    responders :modal, :flash, :http_cache
 
     def show
       respond_with @unit do |format|

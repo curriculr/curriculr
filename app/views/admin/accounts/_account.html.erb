@@ -5,24 +5,22 @@
     <strong><%= account.name %></strong>
     <%= markdown account.about %>
   </td>
-  <td><% if account.active %><i class="fa fa-check"></i><% end %></td>
-  <td><% if account.live %><i class="fa fa-check"></i><% end %></td>
+  <td><%= ui_icon(:check) if account.active %></td>
+  <td><%= ui_icon(:check) if account.live %></td>
   <td>
-    <small>
-      <%= timeago_tag account.live_since, :nojs => true, :limit => 10.days.ago %>
-    </small>
+    <%= timeago_tag account.live_since, :nojs => true, :limit => 10.days.ago %>
   </td>
   <td>
     <% links = [] %>
     <% if account.slug == $site['default_account'] %>
-      <% links << link(:account, :edit, edit_admin_account_path(account), class: "ui positive button") %>
+      <% links << link(:account, :edit, edit_admin_account_path(account), remote: true, class: "ui positive button") %>
     <% else %>
       <%
-        links << link(:account, :edit, edit_admin_account_path(account), class: "ui positive button")
+        links << link(:account, :edit, edit_admin_account_path(account), remote: true, class: "ui positive button")
         links << link(:account, account.active ? :inactivate : :activate, admin_account_path(account, :'account[active]' => !account.active), :method => :put, class: "ui positive basic button")
         links << link(:account, account.live ? :offline : :online, admin_account_path(account, :'account[live]' => !account.live), :method => :put, class: "ui positive basic button")
         links << link(:account, :destroy, [:admin, account], :method => :delete, confirm: true, class: "ui negative button")
-     %> 
+      %> 
     <% end %>
     <%= ui_buttons links %>
   </td>

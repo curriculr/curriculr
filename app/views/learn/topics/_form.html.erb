@@ -1,16 +1,12 @@
-
-
-<%= form_for [:learn, @klass, @forum, @topic] do |f| %>
+<%= themed_form_for [:learn, @klass, @forum, @topic] do |f| %>
 	<%= f.text_field :name %>
   <%= f.markdown :about, hint: true %>
-  <%= content_tag :div, :class => "row" do %>
-    <div class="<%= css_columns(12) %>">
+  <% if @forum.graded %>
+    <div class="two fields">
       <%= f.number_field :points_per_post %>
-    </div>
-    <div class="<%= css_columns(12) %>">
       <%= f.number_field :points_per_reply %>
     </div>
-  <% end if @forum.graded %>
+  <% end %>
   
   <%= f.check_box :anonymous %>
   

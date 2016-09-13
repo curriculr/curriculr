@@ -1,5 +1,5 @@
-<% side_a = capture do %>
-  <%= form_for [:admin, @account], :show_help => false, wrapper: @account.new_record? do |f| %>
+<%= modal_form_for [:admin, @account] do |f| %>
+  <div class="two fields">
     <% if current_user.id == 1 %>
       <%= f.text_field :slug %>
     <% else %>
@@ -7,36 +7,27 @@
     <% end %>
 
     <%= f.text_field :name %>
-    <%= f.text_area :about, :size => '60x5' %>
-    <h3 class"ui header"><%= t('page.title.administrator') %></h3>
-    <%= f.fields_for :user do |a| %>
-      <% if @account.new_record? %>
+  </div>
+  
+  <%= f.text_area :about, :size => '60x5' %>
+  <h3 class"ui header"><%= t('page.title.administrator') %></h3>
+  <%= f.fields_for :user do |a| %>
+    <% if @account.new_record? %>
+      <div class="two fields">
         <%= a.text_field :name %>
         <%= a.email_field :email %>
+      </div>
+      <div class="two fields">
         <%= a.password_field :password %>
         <%= a.password_field :password_confirmation %>
-      <% else %>
-        <%= a.static :name %>
-        <%= a.hidden_field :name %>
-        <%= a.hidden_field :email %>
-      <% end %>
+      </div>
+    <% else %>
+      <%= a.static :name %>
+      <%= a.hidden_field :name %>
+      <%= a.hidden_field :email %>
     <% end %>
-    
-    <%= f.submit %>
-    <%= f.cancel current_user.id == 1 ? admin_accounts_path : home_path  %>
   <% end %>
+  
+  <%= f.submit %>
+  <%= f.cancel current_user.id == 1 ? admin_accounts_path : home_path  %>
 <% end %>
-<% side_b = capture do %>
-  <% unless @account.new_record? %>
-    <%= ui_header t('helpers.submit.account_settings') %>
-
-    <%
-      html = ''
-      json_settings_tree(configure_admin_account_path(@account, setting: '_key_'), nil, @account.config, html, [], 1, [])
-    %>
-
-    <%= html.html_safe %>
-  <% end %>
-<% end%>
-
-<%= ui_side_by_side(side_a, side_b, @account.new_record? ? 'sixteen by zero' : 'eight by eight') %>

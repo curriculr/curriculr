@@ -16,8 +16,7 @@ module Teach::AssessmentsHelper
     new_object.lecture_id = @lecture.id if @lecture
     fields = f.fields_for(association, new_object, child_index: id) do |builder|
       content_tag :div, :class => 'removable' do
-        html = render("fields_4_q_selector", f: builder)
-        html << '<hr>'.html_safe
+        render("fields_4_q_selector", f: builder)
       end
     end
     

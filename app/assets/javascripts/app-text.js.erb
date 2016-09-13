@@ -76,7 +76,7 @@ $(function() {
 /*******************************************************************************
  * Setting and extending page-down markdown editor
 *******************************************************************************/
-var ui_markdown_control = function(){
+window.ui_markdown_control = function(){
 	var wmd_id = '';
 	if ($(this).attr('data') !== undefined) {
 		wmd_id = $(this).attr('data');
@@ -87,15 +87,4 @@ var ui_markdown_control = function(){
 		var md_editor = new Markdown.Editor(md_converter, wmd_id);
 		md_editor.run();
   }
-}
-
-window.ui_markdown_control = ui_markdown_control
-
-$('.wmd-input').each(ui_markdown_control);
-
-/* Shortening text during display */
-$('.shortenable-text').shorten({
-  showChars: '360',
-  moreText: '<i class="fa fa-chevron-down"></i>',
-  lessText: '<i class="fa fa-chevron-up"></i>'
-});
+};

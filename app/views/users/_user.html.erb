@@ -2,7 +2,7 @@
 	<td><%= link_to("#{user.profile.prefix} #{user.name}" , user) %></td>
 	<td><%= user.email %></td>
 	<td id="<%= "usr_#{user.id}_roles" %>"><%= user.roles.map(&:name).join(",") %></td>
-	<td><% if user.confirmed? %><i class="fa fa-check"></i><% end %></td>
+	<td><%= ui_icon(:check) if user.confirmed? %></td>
   <td>
     <small>
       <%= timeago_tag user.created_at, :nojs => true, :limit => 10.days.ago %>
@@ -13,7 +13,7 @@
       roles_all = t('config.role').keys.sort
       roles_cur = user.roles.map {|r| r.name }.uniq.sort
 			links = []
-			links << link(:profile, :edit, edit_user_path(user), class: 'item')
+			links << link(:profile, :edit, edit_user_path(user), remote: true, class: 'item')
 			links << link(:user, :confirm, confirm_user_path(user), method: :put, class: 'item') unless user.confirmed?
 			unless user == current_account.user
 				links << nil

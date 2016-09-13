@@ -1,4 +1,4 @@
-<div class="item" id="content_<%= audio.id %>_medium" sortid="content_<%= audio.id %>.medium">
+<div class="item" id="medium_<%= audio.id %>">
   <div class="content">
     <div class="header"><%= ui_icon('file audio outline icon') + ' ' + audio.name %></div>
     <div class="meta"><%= timeago_tag(audio.created_at, :nojs => true, :limit => 10.days.ago)  %></div>

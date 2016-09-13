@@ -1,6 +1,6 @@
 module Teach
   class LecturesController < BaseController
-    responders :flash, :http_cache
+    responders :modal, :flash, :http_cache
 
     def show
       respond_with @lecture do |format|
@@ -25,24 +25,27 @@ module Teach
 
     def create
       @lecture = @unit.lectures.new(lecture_params)
-
-      respond_with @lecture do |format|
-        if @lecture.save
-          format.html { redirect_to teach_course_unit_path(@course, @unit) }
-        else
-          format.html { render action: "new" }
-        end
-      end
+      @lecture.save
+      respond_with @lecture
+      # respond_with @lecture do |format|
+      #   if @lecture.save
+      #     format.html { redirect_to teach_course_unit_path(@course, @unit) }
+      #   else
+      #     format.html { render action: "new" }
+      #   end
+      # end
     end
 
     def update
-      respond_with @lecture do |format|
-        if @lecture.update(lecture_params)
-          format.html { redirect_to teach_course_unit_path(@course, @unit) }
-        else
-          format.html { render action: "edit" }
-        end
-      end
+      @lecture.update(lecture_params)
+      respond_with @lecture
+      # respond_with @lecture do |format|
+      #   if @lecture.update(lecture_params)
+      #     format.html { redirect_to teach_course_unit_path(@course, @unit) }
+      #   else
+      #     format.html { render action: "edit" }
+      #   end
+      # end
     end
 
     def destroy

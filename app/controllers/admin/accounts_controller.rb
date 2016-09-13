@@ -1,8 +1,8 @@
 module Admin
   class AccountsController < BaseController
     include WithSettings
-    responders :flash, :http_cache, :collection
-    before_action :set_account, only: [:show, :edit, :update, :destroy, :configure]
+    responders :modal, :flash, :http_cache
+    before_action :set_account, only: [:show, :edit, :update, :destroy, :settings, :configure]
 
     def index
       @q = Account.search(params[:q])
@@ -41,15 +41,19 @@ module Admin
       end
 
       @account.update(account_params.reject { |k,v| k.to_s == 'user_attributes' })
-      if current_user.id == @account.user_id
-        redirect_to home_path, :notice => t('flash.actions.update.notice', :resource_name => Account.model_name.human)
-      else
-        respond_with(:admin, @account)
-      end
+      respond_with(:admin, @account)
+      # if current_user.id == @account.user_id
+      #   redirect_to home_path, :notice => t('flash.actions.update.notice', :resource_name => Account.model_name.human)
+      # else
+      #   respond_with(:admin, @account)
+      # end
     end
 
+    def settings
+    end
+    
     def configure
-      do_configure(@account.config, "config.account.a#{@account.id}",  edit_admin_account_path(@account))
+      do_configure(@account.config, "config.account.a#{@account.id}",  settings_admin_account_path(@account))
     end
 
     def destroy

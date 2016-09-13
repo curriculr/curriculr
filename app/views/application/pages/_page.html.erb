@@ -1,12 +1,9 @@
 <tr>
   <td><%= page_counter + 1 %></td>
-	<td>
-    <%= link_to(page.name , page) %>
-    <%= content_tag(:span, 'HTML', :class => css_label(:info)) if page.html %>
-  </td>
+	<td><%= link_to(page.name , page) %></td>
 	<td><%= page.slug %></td>
-	<td><% if page.published %><i class="fa fa-check"></i><% end %></td>
-	<td><% if page.public %><i class="fa fa-check"></i><% end %></td>
-  <td><% if page.blog %><i class="fa fa-check"></i><% end %></td>
-  <td><%= link(:page, :edit, edit_page_path(page), :class => "ui button") %></td>
+	<td><%= ui_icon(:check) if page.published %></td>
+	<td><%= ui_icon(:check) if page.public %></td>
+  <td><%= ui_icon(:check) if page.blog %></td>
+  <td><%= ui_icon(:check) if page.html %></td>
 </tr>

@@ -1,45 +1,74 @@
-<%= render "/navbar" %>
-
-<div id="main-container" class="ui internally celled grid">
-  <% if @klass && (@klass.enrolled?(current_student) || staff?(current_user, @klass.course)) %>
-    <div class="three wide column">
-      <%= render "learn/klasses/klass_menu" %>
-    
-      <% if current_account.config['allow_banner_ads'] %>
-        <%= mountable_fragments :site_160x600_left_rail_banner %>
-        <%= mountable_fragments :learn_160x600_left_rail_banner %>
+<%# render "/navbar" %>
+<nav>
+  <%= render "/learn/klasses/main_menu", front: false %>
+</nav>
+<% klass_menu %>
+<div class="ui container">
+  <div class="ui grid">
+    <div class="sixteen wide column">
+    <% if @klass && (@klass.enrolled?(current_student) || staff?(current_user, @klass.course)) %>
+    <div class="ui top attached pointing menu">
+      <% app_menus(:klass).each do |section, menu| %>
+      <% if section == :for_instructors %>
+      <div class="right menu">
+        <% menu.each do |item| %>
+        <%= link_to item[:link], item[:to], class: item[:active] ? 'item active' : 'item' %>
+        <% end %>
+      </div>
+      <% else %>
+      <% menu.each do |item| %>
+      <%= link_to item[:link], item[:to], class: item[:active] ? 'item active' : 'item' %>
+      <% end %>
+      <% end %>
       <% end %>
     </div>
-    <div class="thirteen wide column">
-      <% if @page_header %>
-        <% hdr = @page_header %>
+      <div class="ui attached fluid basic segment">
+        <div class="ui left rail">
+          <div class="ui half page test ad" data-text="Half Page"></div>
+        </div>
+        <div class="ui right rail">
+          <div class="ui half page test ad" data-text="Half Page"></div>
+        </div>
+        <!-- <div class="three wide column">
+          <%= render "learn/klasses/klass_menu" %>
 
-        <% subtext = @klass.course.by_instructors %>
-        <%
-          badges = []
-          badges << Klass.human_attribute_name(:private) if @klass.private
-          badges << Klass.human_attribute_name(:closed) if @klass.past?
-          if badges.present?
+          <% if current_account.config['allow_banner_ads'] %>
+          <%= mountable_fragments :site_160x600_left_rail_banner %>
+          <%= mountable_fragments :learn_160x600_left_rail_banner %>
+          <% end %>
+          </div>
+          <div class="thirteen wide column"> -->
+          <!-- <% if @page_header %>
+            <% hdr = @page_header %>
+
+            <% subtext = @klass.course.by_instructors %>
+            <%
+            badges = []
+            badges << Klass.human_attribute_name(:private) if @klass.private
+            badges << Klass.human_attribute_name(:closed) if @klass.past?
+            if badges.present?
             subtext << '&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;'
             subtext << badges.join('&nbsp;&nbsp;|&nbsp;&nbsp;')
-          end
-        %>
+            end
+            %>
 
-        <%= ui_header hdr, :subtext => subtext.html_safe, :action => staff_or_student_view(render(:partial => 'learn/klasses/student_picker')) %>
-      <% end %>
+            <%= ui_header hdr, :subtext => subtext.html_safe, :action => staff_or_student_view(render(:partial => 'learn/klasses/student_picker')) %>
+            <% end %> -->
 
-			<%= yield %>
+        <%= yield %>
     </div>
-  <% else %>
-		<div class="eleven wide column">
+    <% else %>
+    <div class="eleven wide column">
       <% if @page_header && (controller_name != 'klasses' || action_name != 'show') %>
-        <%= ui_header @page_header, subtext: klass_from_and_to_dates(@klass), :action => staff_or_student_view(render(:partial => 'learn/klasses/student_picker')) %>
+      <%= ui_header @page_header, subtext: klass_from_and_to_dates(@klass), :action => staff_or_student_view(render(:partial => 'learn/klasses/student_picker')) %>
       <% end %>
 
-			<%= yield %>
-		</div>
+      <%= yield %>
+    </div>
     <div class="five wide column">
       <%= yield :klass_aside %>
     </div>
-  <% end %>
+    <% end %>
+</div>
+</div>
 </div>

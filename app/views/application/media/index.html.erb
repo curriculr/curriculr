@@ -1,7 +1,7 @@
 <% action = capture do %>
   <% unless @material %>
     <%= content_tag :div, class: 'ui right floated buttons' do %>
-      <%= ui_dropdown_button t('helpers.submit.new_link'), t('config.medium.kind').map{|k,v| link(:medium, k, @course.present? ? new_teach_course_medium_path(@course, s: k) : new_medium_path(s: k), class: 'item')} %>
+      <%= ui_dropdown_button t('helpers.submit.new_link'), t('config.medium.kind').map{|k,v| link(:medium, k, @course.present? ? new_teach_course_medium_path(@course, s: k) : new_medium_path(s: k), remote: true, class: 'item')} %>
       <%= link :medium, :upload, @course ? multi_new_teach_course_medium_path(@course) :  multi_new_medium_path, class: "ui positive button" %>
     <% end %>
   <% else %>
@@ -12,7 +12,7 @@
         <%= link_to t('helpers.submit.back_to', name: req_objects.last.class.model_name.human), url, class: "ui button" %>
       <% end %>
       <% url = [:new, req_objects, :material, s: params[:s], t: params[:t], m: true].flatten %>
-      <%= link :medium, :"add_#{params[:s]}", url, class: 'ui primary button' %>
+      <%= link :medium, :"add_#{params[:s]}", url, remote: true, class: 'ui primary button' %>
     <% end %>
   <% end %>
 <% end %>

@@ -22,9 +22,9 @@
 			<td><%= forum.topics_count %></td>
 			<td>
 				<%= ui_buttons([
-					    link(:forum, :edit, forum.klass ? edit_teach_course_klass_forum_path(@course, forum.klass, forum) : edit_teach_course_forum_path(@course, forum), class: "ui positive button"),
+					    link(:forum, :edit, forum.klass ? edit_teach_course_klass_forum_path(@course, forum.klass, forum) : edit_teach_course_forum_path(@course, forum), remote: true, class: "ui positive button"),
 					    link(:forum, :destroy, forum.klass ? teach_course_klass_forum_path(@course, forum.klass, forum) : teach_course_forum_path(@course, forum), 
-						    method: :delete, confirm: true, class: "ui negative button")]) %>         
+						    method: :delete, confirm: true, class: "ui negative button")]) %>     
 			</td>
 		</tr>
     <% end %>

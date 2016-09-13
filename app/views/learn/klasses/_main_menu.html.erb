@@ -1,0 +1,14 @@
+<% main_menu %>
+
+<div class="ui massive secondary pointing menu">
+  <div class="item">
+    <%= image_tag(@klass.course.poster&.at_url(:md) || '/images/holder-md.png') %>
+  </div>
+  <div class="header item">
+    <%= @klass.course.name %>
+  </div>
+  <div class="right item">
+    <%# staff_or_student_view(render(:partial => 'learn/klasses/student_picker')) %>&nbsp;
+    <%= link_to "Leave Class", '#', class: "ui mini button" %>
+  </div>
+</div>

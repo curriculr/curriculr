@@ -1,23 +1,17 @@
-
-
-<%= form_for [:admin, @announcement] do |f| %>
+<%= modal_form_for [:admin, @announcement] do |f| %>
   <%= f.text_area :message, :size => '60x5' %>
 
-  <div class="row">
-    <div class="<%= css_columns(12) %>">
-      <% if @announcement.starts_at.kind_of?(Time) %>
-        <%= f.text_field :starts_at, class: 'datetimepicker', value: @announcement.starts_at.strftime("%Y-%m-%d %H:%M") %>
-      <% else %>
-        <%= f.text_field :starts_at, class: 'datetimepicker' %>
-      <% end %>
-    </div>
-    <div class="<%= css_columns(12) %>">
-      <% if @announcement.ends_at.kind_of?(Time) %>
-        <%= f.text_field :ends_at, class: 'datetimepicker', value: @announcement.ends_at.strftime("%Y-%m-%d %H:%M") %>
-      <% else %>
-        <%= f.text_field :ends_at, class: 'datetimepicker' %>
-      <% end %>
-    </div>
+  <div class="two fields">
+    <% if @announcement.starts_at.kind_of?(Time) %>
+      <%= f.text_field :starts_at, class: 'datetimepicker', value: @announcement.starts_at.strftime("%Y-%m-%d %H:%M") %>
+    <% else %>
+      <%= f.text_field :starts_at, class: 'datetimepicker' %>
+    <% end %>
+    <% if @announcement.ends_at.kind_of?(Time) %>
+      <%= f.text_field :ends_at, class: 'datetimepicker', value: @announcement.ends_at.strftime("%Y-%m-%d %H:%M") %>
+    <% else %>
+      <%= f.text_field :ends_at, class: 'datetimepicker' %>
+    <% end %>
   </div>
 
   <%= f.check_box :suspended %>

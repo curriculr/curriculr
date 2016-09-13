@@ -1,14 +1,14 @@
 # Bootstrap implementation of theme related ui elements
 module Themes::Bootstrap::CssHelper
-  def css_container(style = nil)
-    if style
-       "container-#{style}"
-    elsif @current_theme && @current_theme['fluid']
-      "container-fluid"
-    else
-      "container"
-    end
-  end
+  # def css_container(style = nil)
+  #   if style
+  #      "container-#{style}"
+  #   elsif @current_theme && @current_theme['fluid']
+  #     "container-fluid"
+  #   else
+  #     "container"
+  #   end
+  # end
 
   def css_columns(columns = 24, offset = 0)
     if offset > 0
@@ -46,13 +46,13 @@ module Themes::Bootstrap::CssHelper
   #   "badge"
   # end
 
-  def css_label(style)
-    "label label-#{style}"
-  end
+  # def css_label(style)
+  #   "label label-#{style}"
+  # end
 
-  def css_nav(style)
-    "nav nav-#{style}"
-  end
+  # def css_nav(style)
+  #   "nav nav-#{style}"
+  # end
 
   # def css_breadcrumb
   #   "breadcrumb"
@@ -62,34 +62,30 @@ module Themes::Bootstrap::CssHelper
   #   "img #{styles.map {|s| "img-#{s}"}.join(' ')}"
   # end
 
-  def css_icon(name, spaces = 0)
-    cls = name.kind_of?(Array) ? name.map{|n| "fa-#{n}"}.join(' ') : "fa-#{name}"
-    content_tag :i, ('&nbsp;' * spaces).html_safe, class: "fa #{cls}"
-  end
+  # def css_icon(name, spaces = 0)
+  #   cls = name.kind_of?(Array) ? name.map{|n| "fa-#{n}"}.join(' ') : "fa-#{name}"
+  #   content_tag :i, ('&nbsp;' * spaces).html_safe, class: "fa #{cls}"
+  # end
+  #
+  # def css_animated_icon(name, spin = true)
+  #   content_tag :i, '', class: "fa fa-#{name} fa-#{spin ? "spin" : "pulse"}"
+  # end
 
-  def ui_icon(name)
-    content_tag :i, '', class: "#{name} icon"
-  end
-  
-  def css_animated_icon(name, spin = true)
-    content_tag :i, '', class: "fa fa-#{name} fa-#{spin ? "spin" : "pulse"}"
-  end
-
-  def css(options = {})
-    output = []
-    options.each do |k, v|
-      case k
-      when :button
-        output << css_button(*v)
-      when :align
-        output << css_align(v)
-      end
-    end
-
-    output.join(' ')
-  end
-
-  def css_form_control
-    "form-control"
-  end
+  # def css(options = {})
+  #   output = []
+  #   options.each do |k, v|
+  #     case k
+  #     when :button
+  #       output << css_button(*v)
+  #     when :align
+  #       output << css_align(v)
+  #     end
+  #   end
+  #
+  #   output.join(' ')
+  # end
+  #
+  # def css_form_control
+  #   "form-control"
+  # end
 end

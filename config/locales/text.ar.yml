@@ -107,6 +107,8 @@ ar:
       feactured_klasses: فصول دراسية مميزة
 
     text:
+      yes: نعم
+      no: لا
       new: أضف
       more: اكثر
       less: اقل
@@ -149,6 +151,7 @@ ar:
       if_no_user_account: إذا لم يكن لديك حساب معنا
       if_user_account: إذا كان لديك حساب معنا
       inactive: غير مفعل
+      active: مفعل
       no_instructor_but_originator_html: لم يتم إضافة اي مدرس لهذا المقرر. في هذه الحالة، سيتم سرد المنشئ %{originator}.
       no_record_found: لا شيء للعرض
       invited: بدعوة

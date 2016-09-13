@@ -14,12 +14,18 @@
   </div>
 </div>
 
-<div id="main-container" class="ui container">
+<div class="ui container">
+  <div class="ui left rail">
+    <div class="ui half page test ad" data-text="Half Page"></div>
+  </div>
+  <div class="ui right rail">
+    <div class="ui half page test ad" data-text="Half Page"></div>
+  </div>
   <% front = Page.localized(:front) %>
 
   <%= markdown ERB.new(front.about).result(binding), :html => front.html if front %>
 
   <% if front && current_user && current_user.has_role?(:admin) %>
-    <%= link(:page, :edit, edit_page_path(front), :class => "ui positive button") %>
+    <%= link(:page, :edit, edit_page_path(front), remote: true, :class => "ui positive button") %>
   <% end %>
 </div>

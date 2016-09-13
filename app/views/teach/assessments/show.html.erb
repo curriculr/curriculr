@@ -1,12 +1,11 @@
-<%= ui_header @assessment.name, :subtext => @assessment.kind,
-      :action => ui_buttons([
-        link(:assessment, :edit, [:edit, @req_objects].flatten, class: 'ui positive button'),
-    		link(:assessment, @assessment.ready ? :unready : :ready, [@req_objects,
-          { :opr => :ready, :'assessment[ready]' => !@assessment.ready }].flatten, :method => :put, 
-          :id => "assessment_ready_#{@assessment.id}_link", class: 'ui positive basic button'),
-        nil,
-        link(:assessment, :destroy, @req_objects, method: :delete, confirm: true, class: 'ui negative button')
-      ])
+<%= ui_header @assessment.name, style: :h3, subtext: @assessment.kind, action: ui_buttons([
+      link(:assessment, :edit, [:edit, @req_objects].flatten, remote: true, class: 'ui positive button'),
+  		link(:assessment, @assessment.ready ? :unready : :ready, [@req_objects,
+        { :opr => :ready, :'assessment[ready]' => !@assessment.ready }].flatten, :method => :put, 
+        :id => "assessment_ready_#{@assessment.id}_link", class: 'ui positive basic button'),
+      nil,
+      link(:assessment, :destroy, @req_objects, method: :delete, confirm: true, class: 'ui negative button')
+    ])
 %>
 
 <% if @assessment && !@assessment.new_record? %>
@@ -18,94 +17,52 @@
 <% end %>
 
 <%# markdown(@assessment.about) %>
-
-<br>
-<div class="row">
-  <div class="<%= css_columns(9) %>">
-    <strong><%= Assessment.human_attribute_name(:based_on) %></strong><br>
-    <span><%= l(@assessment.based_on) %></span><br>
-
-    <% if @assessment.kind == 'survey' && @assessment.event_list.present? %>
-      <strong><%= Assessment.human_attribute_name(:event_list) %></strong><br>
-      <span><%= t("config.assessment.survey_events.#{@assessment.event_list}") %></span>
-    <% end %>
+<%= form_for [:teach,@course, @unit, @lecture, @assessment] do |f| %>
+  <div class="three fields">
+    <%= f.static :based_on, value: l(@assessment.based_on) %>
+    <%= f.static :from_datetime, value: l(@assessment.from_datetime) %>
+    <%= f.static :to_datetime, value: @assessment.to_datetime ? l(@assessment.to_datetime) : nil %>
   </div>
-  <div class="<%= css_columns(9) %>">
-    <strong><%= Assessment.human_attribute_name(:from_datetime) %></strong><br>
-    <span><%= l(@assessment.from_datetime) %></span>
-  </div>
-  <div class="<%= css_columns(9) %>">
-    <strong><%= Assessment.human_attribute_name(:to_datetime) %></strong><br>
-    <span><%= l(@assessment.to_datetime) if @assessment.to_datetime.present? %></span>
-  </div>
-</div>
-
-<% if @assessment.kind != 'survey' %>
-  <div class="row">
-    <div class="<%= css_columns(9) %>">
-      <strong><%= Assessment.human_attribute_name(:allowed_attempts) %></strong><br>
-      <span><%= @assessment.allowed_attempts || t('page.text.unlimited') %></span><br>
+  <% if @assessment.kind != 'survey' %>
+    <div class="three fields">
+      <%= f.static :allowed_attempts, value: @assessment.allowed_attempts || t('page.text.unlimited') %>
+      <%= f.static :multiattempt_grading, value: t("config.assessment.multiattempt_grading.#{@assessment.multiattempt_grading}") %>
+      <%= f.static :droppable_attempts %>
     </div>
-    <div class="<%= css_columns(9) %>">
-      <strong><%= Assessment.human_attribute_name(:multiattempt_grading) %></strong>
-      <span>
-        <%= t("config.assessment.multiattempt_grading.#{@assessment.multiattempt_grading}") %>
-      </span>
+    <div class="three fields">
+      <%= f.static :after_deadline, value: t("page.text.#{@assessment.after_deadline ?  'yes' :  'no'}") %>
+      <%= f.static :penalty %>
+      <%= f.static :show_answer, value: t("config.assessment.show_answer.#{@assessment.show_answer}") %>
     </div>
-    <div class="<%= css_columns(9) %>">
-      <strong><%= Assessment.human_attribute_name(:droppable_attempts) %></strong><br>
-      <span><%= @assessment.droppable_attempts %></span>
-    </div>
-  </div>
-  <div class="row">
-    <div class="<%= css_columns(9) %>">
-      <strong><%= Assessment.human_attribute_name(:after_deadline) %></strong><br>
-      <span>
-        <% if @assessment.after_deadline %>
-          <i class="fa fa-check"></i>
-        <% end %>
-      </span><br>
-      <% if @assessment.lecture && @assessment.invideo_id && (invideo = Material.find_by(id: @assessment.invideo_id)) %>
-        <strong><%= Assessment.human_attribute_name(:invideo_id) %></strong><br>
-        <span><%= invideo.medium.name %></span><br>
-      <% end %>
-    </div>
-    <div class="<%= css_columns(9) %>">
-      <strong><%= Assessment.human_attribute_name(:penalty) %></strong><br>
-      <span><%= @assessment.penalty %></span><br>
-
-      <% if @assessment.lecture && invideo %>
-        <strong><%= Assessment.human_attribute_name(:invideo_at) %></strong><br>
-        <span><%= @assessment.invideo_at %></span><br>
-      <% end %>
-    </div>
-    <div class="<%= css_columns(9) %>">
-      <strong><%= Assessment.human_attribute_name(:show_answer) %></strong><br>
-      <span>
-        <%= t("config.assessment.show_answer.#{@assessment.show_answer}") %></span>
-    </div>
-  </div>
+    <% if @assessment.lecture && @assessment.invideo_id && Material.find_by(id: @assessment.invideo_id) %>
+      <div class="three fields">
+        <%= f.static :invideo_id, value: invideo.medium.name  %>
+        <%= f.static :invideo_at %>
+      </div>
+    <% end%>
+  <% else %>
+    <%= f.static :event_list, value: t("config.assessment.survey_events.#{@assessment.event_list}") %>
+  <% end %>
 <% end %>
-<br/>
 
 <%= form_for [:teach, @course, @unit, @lecture, @assessment] do |f| %>
   <div style="display: none;">
     <%= f.grouped_collection_select :lecture_id, @course.units, :lectures, :name, :id, :name, include_blank: true %>
   </div>
 
-  <% action = content_tag :div, class: css_align(:right) do %>
+  <% action = content_tag :div, class: "ui buttons" do %>
     <% if @assessment.kind != 'survey' %>
       <%= link_to_add_q_selectors(t('helpers.submit.new', :name => QSelector.model_name.human).html_safe, f, :q_selectors) %>
 
-      <%= content_tag(:span, "&nbsp;&nbsp;#{t('page.text.or')}&nbsp;&nbsp;".html_safe, class: css_align(:right)) %>
+      <div class="or"></div>
     <% end %>
 
-    <%= link(:question, :add_question, question_bank_path(:index, :pick, @assessment),
-          :class => "ui positive button") %>
+    <%= link(:question, :add_question, question_bank_path(:index, :all, @assessment), :class => "ui positive button") %>
+    <div class="or"></div>
+    <%= link(:assessment, :preview, [:preview, @req_objects].flatten, class: "ui button")%>
   <% end %>
 
-  <% browse_action = link(:assessment, :preview, [:preview, @req_objects].flatten, class: "ui button") %>
-  <%= ui_header Question.model_name.human(count: 3) + ' ' + browse_action, style: :h3, action: action %>
+  <%= ui_header Question.model_name.human(count: 3), style: :h3, action: action %>
 
   <div class="field-container sortable-selector sortable" data-update-url="<%= url_for([:sort_q_selector, :teach, @course, @unit, @lecture, @assessment]) %>">
     <%= f.fields_for :q_selectors do |s| %>

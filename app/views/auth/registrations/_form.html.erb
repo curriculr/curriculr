@@ -1,4 +1,4 @@
-<%= form_for @user, url: url_for(controller: 'auth/registrations', action: 'update'), method: :put, header: t('auth.headers.change_password') do |f| %>
+<%= modal_form_for @user, url: url_for(controller: 'auth/registrations', action: 'update'), method: :put, header: t('auth.headers.change_password') do |f| %>
   <%= f.static :email %>
   <%= f.password_field :current_password if @user.provider == 'identity' %>
   <%= f.password_field :password %>

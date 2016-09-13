@@ -2,13 +2,12 @@
 
 <div id="main-container" class="ui internally celled grid">
   <div class="three wide column">
-    <% if current_user %>
-      <%= render "users/user_menu" %>
+    <%= yield :sign_in_or_up_menu %>
+    <% if content_for?(:search_klasses) %>
+      <%= yield :search_klasses %>
+      <%= render 'learn/klasses/search' %>
     <% else %>
-      <% if content_for? :search_klasses %>
-        <%= yield :search_klasses %>
-        <%= render 'learn/klasses/search' %>
-      <% end %>
+      <%= render "users/user_menu" if current_user %>
     <% end %>
     
     <% if current_account.config['allow_banner_ads'] %>

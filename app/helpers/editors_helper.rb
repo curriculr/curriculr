@@ -91,7 +91,7 @@ module EditorsHelper
     elsif text =~ /\[pron\:(.*)\]/
       %(<span class="pronounce-able">
         <audio src="#{$1}"></audio>
-        <i class="fa fa-volume-up"></i>
+        <i class="volume up icon"></i>
       </span>).html_safe
     elsif text =~ /\[ext\:([^\:]*)\:([^\|]*)(\|(.*))?\]/
       data = {'id' => $2}

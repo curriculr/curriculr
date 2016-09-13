@@ -1,15 +1,7 @@
 <% if @blogs.present? %>
-  <div class="row">
-    <div id="blog-body" class="<%= css_columns(24) %>">
-      <%= render :partial => 'application/pages/blog', :collection => @blogs %>
-    </div>
+  <div class="ui divided items">
+    <%= render :partial => 'application/pages/blog', :collection => @blogs %>
   </div>
-<% else %>
-  <br/><%= t('page.text.no_record_found') %>
 <% end %>
 
-<div class="row">
-  <div class="<%= css_columns(24) %>">
-    <div id="paginator" class="text-center"><%= paginate @blogs %></div>
-  </div>
-</div>
+<div id="paginator" class="text-center"><%= paginate @blogs %></div>

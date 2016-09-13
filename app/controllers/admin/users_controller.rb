@@ -1,7 +1,7 @@
 module Admin
   class UsersController < BaseController
-    responders :flash, :http_cache, :collection
-
+    responders :modal
+    
     def new
       @user = User.new
       respond_with(@user)

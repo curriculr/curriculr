@@ -1,46 +1,32 @@
 <%= ui_header t('page.title.faculty_application') %>
 
-<%= form_for @faculty_application do |f| %>
+<%= form_for @faculty_application, header: false, wrapper: false do |f| %>
   <%= t('page.text.faculty_application_html') %>
-  <div class="row">
-    <div class="<%= css_columns(12) %>">
-      <fieldset>
-        <legend><%= t('page.title.about_you') %></legend>
-        <%= f.static :name %>
-        <%= f.static :prefix %>
-        <%= f.static :about, :value => markdown(@faculty_application.about) %>
-        <%= f.check_box :update_profile, :disabled => true %>
-      </fieldset>
-    </div>
-    <div class="<%= css_columns(12) %>">
-      <fieldset>
-        <legend><%= t('page.title.about_your_course') %></legend>
-        <%= f.static :course %>
-        <%= f.static :description, :value => markdown(@faculty_application.description) %>
 
-        <div class="row">
-          <div class="<%= css_columns(12) %>">
-      	    <%= f.static :weeks %>
-          </div>
-          <div class="<%= css_columns(12) %>">
-      	    <%= f.static :workload %>
-          </div>
-        </div>
-        <div class="row">
-          <div class="<%= css_columns(12) %>">
-            <%= f.static :locale, :value => $site['supported_locales'][@faculty_application.locale] %>
-          </div>
-          <div class="<%= css_columns(12) %>">
-            <%= f.static :country %>
-          </div>
-        </div>
-      </fieldset>
-    </div>
+  <h3 class"ui header"><%= t('page.title.about_you') %></h3>
+  <%= f.static :name %>
+  <%= f.static :about, :value => markdown(@faculty_application.about) %>
+  <div class="two fields">
+    <%= f.static :prefix %>
+    <%= f.check_box :update_profile, :disabled => true %>
+  </div>
+  
+  <h3 class"ui header"><%= t('page.title.about_your_course') %></h3>
+  <%= f.static :course %>
+  <%= f.static :description, :value => markdown(@faculty_application.description) %>
+
+  <div class="two fields">
+    <%= f.static :weeks %>
+    <%= f.static :workload %>
+  </div>
+  <div class="two fields">
+    <%= f.static :locale, :value => $site['supported_locales'][@faculty_application.locale] %>
+    <%= f.static :country %>
   </div>
 
   <%= link :faculty_application, :approve, approve_faculty_application_path(@faculty_application),
         :method => :put, :class => "ui positive button" %>
   <%= link :faculty_application, :decline, decline_faculty_application_path(@faculty_application),
         :method => :put, :class => "ui negative button" %>
-  <%= link :faculty_application, :cancel, home_path, :class => "ui button" %>
+  <%= link :faculty_application, :cancel, home_path %>
 <% end %>

@@ -1,4 +1,4 @@
-<%= form_for [:teach, @course || @update.course, @unit || @update.unit, @lecture || @update.lecture, @klass, @update] do |f| %>
+<%= modal_form_for [:teach, @course || @update.course, @unit || @update.unit, @lecture || @update.lecture, @klass, @update] do |f| %>
   <div class="three fields">
     <%= f.select :to, t('config.update.to').invert %>
     <%= f.check_box :www %>

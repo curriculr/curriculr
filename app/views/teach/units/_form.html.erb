@@ -1,4 +1,4 @@
-<%= form_for [:teach, @course, @unit] do |f| %>
+<%= modal_form_for [:teach, @course, @unit] do |f| %>
   <%= f.hidden_field :course_id %>
 	<%= f.text_field :name %>
   <%= f.markdown :about, :size => '60x5' %>

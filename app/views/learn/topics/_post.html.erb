@@ -38,7 +38,7 @@
         <% if deletable %>
           <%= link(:post, :destroy, learn_klass_forum_topic_post_path(@klass, @forum, @topic, post,
                 :lecture_id => lecture_id), :method => :delete, confirm: true,
-                :class => "delete-post #{css(align: :right)}") %>
+                :class => "delete-post}") %>
         <% end %>
       <% end %>
 
@@ -59,7 +59,7 @@
 
     <% if @depth <= 3 %>
     <div id='reply-to-post-<%= post.id %>' class="hidden">
-      <%= form_for [:learn, @klass, @forum, @topic, post, Post.new], remote: @lecture.present?  do |f| %>
+      <%= themed_form_for [:learn, @klass, @forum, @topic, post, Post.new], remote: @lecture.present?  do |f| %>
         <%= hidden_field_tag(:tab, tab) if defined? tab %>
         <%= hidden_field_tag(:lecture_id, @lecture.id) if @lecture %>
         <%= f.text_area :about, :rows => 2, hint: true %>
