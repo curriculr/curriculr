@@ -1,56 +1,56 @@
-<div class="row pricing">
-  <div class="<%= css_columns(15) %>">
-    <%= ui_header(capture do %>
-      <%= image_tag(student.avatar_url(current_account, :th) || '/images/nobody-th.png') %>
-      <%= student.name %>
-    <% end, style: :h2) %>
+<% score = capture do %>
+  <%= ui_header(capture do %>
+    <%= image_tag(student.avatar_url(current_account, :th) || '/images/nobody-th.png') %>
+    <%= student.name %>
+  <% end, style: :h2) %>
 
-    <ul>
+  <ul>
+    <li>
+      <strong><%= t('config.report.student.klass_begins') %></strong>:
+      <%= l(klass.begins_on) %>
+    </li>
+    <% if klass.ends_on %>
       <li>
-        <strong><%= t('config.report.student.klass_begins') %></strong>:
-        <%= l(klass.begins_on) %>
+        <strong><%= t('config.report.student.klass_ends') %></strong>:
+        <%= l(klass.ends_on) %>
       </li>
-      <% if klass.ends_on %>
-        <li>
-          <strong><%= t('config.report.student.klass_ends') %></strong>:
-          <%= l(klass.ends_on) %>
-        </li>
+    <% end %>
+    <li>
+      <strong><%= t('config.report.student.user_since') %></strong>:
+      <%= l(student.user.confirmed_at.to_date) %>
+    </li>
+    <% unless staff?(student.user, klass.course) %>
+      <li>
+        <strong><%= t('config.report.student.since') %></strong>:
+        <% if student && (enrollment = klass.enrollments(:student_id => student.id).first) %>
+          <%= l(enrollment.created_at.to_date) %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<% header = capture do %>
+  <% final = klass.final_score student.id %>
+  <div class="plan ">
+    <div class="plan-head">
+      <% if klass.course.config['allow_access_to']['final_score'] %>
+        <h1 class="price"><%= final[:letter] %></h1>
+        <h3 class="description"><%= t('page.title.final_score') %>: <strong><%= final[:score] %>%</strong></h3>
+      <% else %>
+        <h1 class="price"><%= ui_icon(:lock) %></h1>
+        <h3 class="description"><%= t('page.title.final_score') %></h3>
       <% end %>
-      <li>
-        <strong><%= t('config.report.student.user_since') %></strong>:
-        <%= l(student.user.confirmed_at.to_date) %>
-      </li>
-      <% unless staff?(student.user, klass.course) %>
-        <li>
-          <strong><%= t('config.report.student.since') %></strong>:
-          <% if student && (enrollment = klass.enrollments(:student_id => student.id).first) %>
-            <%= l(enrollment.created_at.to_date) %>
-          <% end %>
-        </li>
+    </div>
+    <ul class="plan-features">
+      <% final[:detail].each do |k, v| %>
+        <li><strong><%= v.round(2) %>%</strong> <%= t("page.text.#{k}") %></li>
       <% end %>
     </ul>
   </div>
+<% end %>
 
-  <% final = klass.final_score student.id %>
-  <div class="<%= css_columns(9) %>">
-    <div class="plan ">
-      <div class="plan-head">
-        <% if klass.course.config['allow_access_to']['final_score'] %>
-          <h1 class="price"><%= final[:letter] %></h1>
-          <h3 class="description"><%= t('page.title.final_score') %>: <strong><%= final[:score] %>%</strong></h3>
-        <% else %>
-          <h1 class="price"><%= ui_icon(:lock) %></h1>
-          <h3 class="description"><%= t('page.title.final_score') %></h3>
-        <% end %>
-      </div>
-      <ul class="plan-features">
-        <% final[:detail].each do |k, v| %>
-          <li><strong><%= v.round(2) %>%</strong> <%= t("page.text.#{k}") %></li>
-        <% end %>
-      </ul>
-    </div>
-  </div>
-</div>
+<%= ui_side_by_side header, score, 'ten by five' %>
 
 <%= render :partial => 'reports/assessment', :locals => { klass: klass, student: student } %>
 

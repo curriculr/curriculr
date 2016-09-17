@@ -1,0 +1,27 @@
+<% html = '' %>
+<% items.each_with_index do |item, i| %>
+  <% output = capture do %>
+    <% if item.is_a?(Page) && item.published %>
+      <div class="item">
+        <%= ui_icon_for('page') %>
+        <div class="content">
+          <%= link_to item.name, learn_klass_page_path(@klass, item), remote: true %>
+        </div>
+      </div>
+    <% elsif item.is_a?(Material) %>
+      <div class="item">
+        <%= ui_icon_for(item.kind) %>
+        <div class="content">
+          <%= link_to item.medium.name, learn_klass_material_path(@klass, item), remote: true %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+  
+  <% html << output if output %>
+<% end %>
+
+<% unless html.blank? %>
+  <%= header %>
+  <%= content_tag :div, html.html_safe, class: 'ui list' %>
+<% end %>

@@ -2,7 +2,7 @@
   <% attempts = Attempt.for(@klass, current_student, assessment) %>
   <%
     attempt_note = capture do
-      content_tag :span, class: "#{css_align(:right)}" do
+      content_tag :div do
         unless assessment.can_be_taken?(@klass, current_student)
           t('page.text.assessments_already_taken')
         else
@@ -13,7 +13,7 @@
     end
   %>
 
-  <div class="<%= css_align(:right) %>"><%= attempt_note %></div>
+  <div class=""><%= attempt_note %></div>
   <h3>
     <%= assessment.name %>
     <small>

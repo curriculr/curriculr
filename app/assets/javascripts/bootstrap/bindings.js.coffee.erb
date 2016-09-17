@@ -538,20 +538,3 @@ window.ui_rebind_application_events  = ($) ->
 
 jQuery ->
   ui_rebind_application_events jQuery
-
-#jQuery ->
-#  $('#course-main-content-container a:not([data-toggle="collapse"])').on 'click', (e) ->
-#    e.preventDefault()
-#
-#    $.get @href, (data) ->
-#      $('#course-main-content').html(data)
-#      eb = new EventBinder
-#      eb.bind jQuery
-#
-#    history.pushState(null, document.title, @href)
-#
-#  $(window).bind "popstate", ->
-#    $.get location.href, (data) ->
-#      $('#course-main-content').html(data)
-#      eb = new EventBinder
-#      eb.bind jQuery

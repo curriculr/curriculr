@@ -5,34 +5,22 @@ books = []
 <% listing = capture do %>
   <div class="ui segment">
     <% pages = enrolled_or_staff? ? @klass.course.non_syllabus_pages(true).to_a : @klass.course.non_syllabus_pages(true, true).to_a %>
-    <% if pages.any? %>
-      <%= ui_header t("page.title.pages"), style: :h3 %>
+    <% books = enrolled_or_staff? ? @klass.course.books : []%>
     
-      <div class="ui list">
-        <% pages.each do |page| %>
-          <div class="item">
-            <%= ui_icon_for('page') %>
-            <div class="content">
-              <%= link_to page.name, learn_klass_page_path(@klass, page), remote: true %>
-            </div>
-          </div>
-        <% end %>
-      </div>
+    <% items = [].concat(enrolled_or_staff? ? @klass.course.non_syllabus_pages(true) : @klass.course.non_syllabus_pages(true, true)).
+                  concat(enrolled_or_staff? ? @klass.course.books : []) %>
+    
+    <%= render partial: 'item', locals: {header: ui_header(t('page.title.for_course'), style: :h3), items:[].concat(pages).concat(books)} %>
+    
+    <% per_unit = capture do %>
+      <% Unit.open(@klass, current_student).includes(:pages, {:materials => :medium}).each_with_index do |unit, i| %>
+        <%= render partial: 'item', locals: {header: content_tag(:div, unit.name, class: 'header'), items:[].concat(unit.pages).concat(unit.materials)} %>
+      <% end %>
     <% end %>
     
-    <% books = enrolled_or_staff? ? @klass.course.books : []%>
-    <% if books.any? %>
-      <%= ui_header t('page.title.attachments'), style: :h3 %>
-      <div class="ui list">
-        <% books.each do |book| %>
-          <div class="item">
-            <%= ui_icon_for(book.medium.kind) %>
-            <div class="content">
-              <%= link_to book.medium.name, learn_klass_material_path(@klass, book), remote: true %>
-            </div>
-          </div>
-        <% end %>
-      </div>
+    <% unless per_unit.blank? %>
+      <%= ui_header(t('page.title.per_unit'), style: :h3) %>
+      <%= per_unit %>
     <% end %>
   </div>
 <% end %>

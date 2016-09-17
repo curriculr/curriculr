@@ -7,7 +7,7 @@
     <% unless deadlines.to_a.empty? %>
       <% content_for :additional_nav do %>
         <%= ui_panel(capture do %>
-          <i class="fa fa-calendar"></i>&nbsp;&nbsp;
+          <%= ui_icon(:calendar) %>
           <%= t('page.title.upcoming_deadlines') %>
         <% end, nil, capture do %>
           <ul>

@@ -4,7 +4,7 @@ if @klass && @lecture && video.kind_of?(Material)
   assessments = @lecture.assessments.open(@klass, current_student).where('ready = TRUE and invideo_id = :vid', :vid => video.id).to_a
 end
 %>
-<div class="video-container<%= "-yt" if responsive %> <%= style_class %>">
+<div class="video-container<%= "-yt" %> <%= style_class %>">
   <iframe id='yt-player-<%= video.id %>' type="text/html" width="<%= width %>" height="<%= height %>"
     src="https://www.youtube.com/embed/<%= video.is_a?(Material) ? video.medium.url : video.url %>?controls=1&wmode=transparent&rel=0&showinfo=0&enablejsapi=1&modestbranding=1&html5=1&origin=<%# root_url %>"
     frameborder="0"></iframe>

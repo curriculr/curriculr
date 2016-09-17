@@ -63,8 +63,6 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 
-# gem 'bootstrap-sass'
-# gem 'font-awesome-rails'
 gem 'less-rails-semantic_ui'
 gem 'autoprefixer-rails'
 
@@ -86,7 +84,6 @@ gem 'kaminari'
 gem 'ransack'
 gem 'responders'
 gem 'acts-as-taggable-on', github: 'mbleigh/acts-as-taggable-on'
-# gem 'chosen-rails'
 gem 'friendly_id'#, '~> 5.0.0'
 gem 'jquery-fileupload-rails'
 gem 'whenever', :require => false

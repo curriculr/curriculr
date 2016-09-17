@@ -58,11 +58,11 @@ module Themes::Bootstrap::SettingsTreeHelper
           class: 'ui mini negative basic button')
       end
     when Hash
-      s << '<ul dir="ltr">'
+      s << '<div dir="ltr" class="ui bulleted list">'
 
       object.each do |k, v|
         path << k
-        s << "<li><strong>#{k.titleize}</strong>: "
+        s << "<div class=\"item\"><strong>#{k.titleize}</strong>: "
         if addable_to_levels.include?(depth) && v.kind_of?(Hash)
           s << link(:setting, :new, '#', :class => 'ui mini add-in-modal primary basic button', :data => {
             form: render(:partial => '/application/settings/setting_form', :locals => {
@@ -74,11 +74,11 @@ module Themes::Bootstrap::SettingsTreeHelper
         end
 
         json_settings_tree(url, object, v, s, path, depth + 1, addable_to_levels)
-        s << '</li>'
+        s << '</div>'
         path.pop
       end
 
-      s << '</ul>'
+      s << '</div>'
     end
   end
 end

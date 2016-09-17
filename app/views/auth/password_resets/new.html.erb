@@ -1,4 +1,5 @@
-<%= themed_form_for @user || User.new, url: url_for(controller: 'auth/password_resets', action: 'create'), method: :post, header: t('auth.headers.reset_password') do |f| %>
+<%= ui_header t('auth.headers.reset_password') %>
+<%= form_for @user || User.new, url: url_for(controller: 'auth/password_resets', action: 'create'), method: :post do |f| %>
   <%= f.email_field :email %>
 
   <%= f.submit :submit %>

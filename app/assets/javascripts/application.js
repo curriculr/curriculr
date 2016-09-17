@@ -20,7 +20,5 @@
 //= require jquery-fileupload/vendor/tmpl
 //= require sketch
 //
-//= require semantic_ui/semantic_ui
-//
 // Application's Own Scripts
 //= require app-text

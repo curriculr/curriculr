@@ -29,7 +29,7 @@
     </div>
 
     <%= link_to current_user ? main_app.home_path : main_app.root_path, class: 'ui image' do %>
-      <%= image_tag "/images/logo1.png", class: 'ui avatar image' %>
+      <%= image_tag "/images/logo.png", class: 'ui avatar image' %>
       <% end %>
     <div class="content">
       <div class="header">
@@ -39,38 +39,3 @@
     </div>
   </div>
 </div>
-
-
-<!--<div class="ui secondary <%= "inverted " if front %>pointing menu">
-  <div class="header item">
-    <%= link_to current_user ? main_app.home_path : main_app.root_path, :class => "logo" do %>
-      <% if logo_path %>
-        <%= image_tag logo_path(front) %>
-      <% else %>
-        <strong><%= current_account.config['title'] %></strong>
-      <% end %>
-    <% end %>
-  </div>
-
-  <div class="right item">
-    <% app_menu(:top).each do |item| %>
-      <%= link_to item[:link], item[:to], class: "#{item[:active] ? 'active ' : nil} item" %>
-    <% end %>
-
-    <% if app_menu(:top, :locale) %>
-      <div class="ui dropdown item">
-        <div class="text"><%= app_menu(:top, :locale)[0] %></div>
-          <i class="dropdown icon"></i>
-        <div class="menu">
-          <% app_menu(:top, :locale).from(1).each do |item| %>
-            <%= link_to item[:link], item[:to], class: "#{item[:active] ? 'active ' : nil} item" %>
-          <% end %>
-        </div>
-      </div>
-    <% end %>
-
-    <% app_menu(:top, :right).each do |item| %>
-      <%= link_to item[:link], item[:to], class: "ui #{"inverted " if front}#{item[:class]} button" %>
-    <% end %>
-  </div>
-</div> -->

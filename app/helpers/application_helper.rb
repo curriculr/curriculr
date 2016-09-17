@@ -200,11 +200,17 @@ module ApplicationHelper
           title: '', width: options[:width], height: options[:height], autoplay: options[:autoplay]
         }
     else
-      render :partial => "ui_video_mediaelement",
+      render :partial => "ui_video_youtube",
         :locals => {
           video: video, poster: poster, thumbnail: options[:thumbnail], style_class: options[:class],
           title: '', width: options[:width], height: options[:height], autoplay: options[:autoplay]
         }
+    # else
+    #   render :partial => "ui_video_mediaelement",
+    #     :locals => {
+    #       video: video, poster: poster, thumbnail: options[:thumbnail], style_class: options[:class],
+    #       title: '', width: options[:width], height: options[:height], autoplay: options[:autoplay]
+    #     }
     end
   end
 

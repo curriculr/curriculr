@@ -1,37 +1,26 @@
 <%
   hdr = link_to course.name, [:teach, course], :class => 'header'
   th = (course.poster&.at_url(:sm) || '/images/holder-sm.png')
-  action = link(:course, :open, [:teach, course], :class => "ui button")
+  action = link(:course, :open, [:teach, course], :class => "ui primary button")
   labels = ui_course_labels(course)
   instructor, instructors_count = course.by_instructors(:first)
   %>
-  <div class="card">
-    <div class="blurring dimmable image">
-      <div class="ui dimmer">
-        <div class="content">
-          <div class="center">
-            <%= action %>
-          </div>
-        </div>
-      </div>
-      <img src="<%= th %>">
-    </div>
-    <div class="content">
-      <%= hdr %>
-      <div class="meta">
-        <%# image_tag((instructor.avatar_url(current_account, :th) || instructor.user.profile.avatar_url(current_account, :th) || '/images/nobody-th.png'),
-              :size => '21x21', :class => "ui avatar image") %>
-        <%= instructors_count > 1 ? t('page.text.first_and_others', :first => instructor.name) : instructor.name %>
-        <br>
-        <small><%= l(course.updated_at.to_date) %></small>
-      </div>
-      <div class="description">
-        <%= markdown(summary(course.about)) %><br />
-      </div>
-      <% if labels.present? %>
-        <div class="meta">
-          <%= labels %>
-        </div>
-      <% end %>
-    </div>
+<div class="item">
+  <div class="image">
+    <img src="<%= th %>">
   </div>
+  <div class="content">
+    <%= hdr %>
+    <div class="meta">
+      <div class="ui horizontal bulleted list">
+        <div class="item"><%= instructors_count > 1 ? t('page.text.first_and_others', :first => instructor.name) : instructor.name %></div>
+        <div class="item"><%= l(course.updated_at.to_date) %></div>
+      </div>
+      <%= labels if labels.present?  %>
+    </div>
+    <div class="description">
+      <%= markdown(summary(course.about)) %><br />
+    </div>
+    <div class="meta"><%= action %></div>
+  </div>
+</div>
