@@ -1,0 +1,64 @@
+<% @depth += 1 %>
+<% lecture_id = @lecture.present? ? @lecture.id : nil %>
+<div class="comment">
+  <a class="avatar"><%= image_tag(post.author_avatar(current_account, :tny, "/images/nobody-th.png"), :class => "media-object pull-left") %></a>
+  <div class="content">
+    <div class="author">
+      <% unless post.anonymous %>
+        <%= post.author_name %>
+      <% else %>
+        <%= Post.human_attribute_name(:anonymous) %>
+      <% end %>
+    </div>
+    <div class="metadata">
+      <span class="date"><%= timeago_tag post.created_at, :nojs => true, :limit => 10.days.ago %></span>
+    </div>
+    <div class="text">
+      <%= markdown(post.about) %>
+    </div>
+    <div class="actions">
+      <% if current_user && @depth <= 3 && @klass.open? %>
+        <a class="right floated reply-to-post" data-post-id="<%= post.id %>"
+                data-reply-btn="<%= t('helpers.submit.reply') %>"
+                data-cancel-btn="<%= t('helpers.submit.cancel') %>">
+          <%= ui_icon(:reply) %><%= t('helpers.submit.reply') %>
+        </a>
+      <% end %>
+
+      <% if current_user %>
+        <% role = current_user.has_role?(:admin) ? "admin" : (current_user.has_role?(:faculty) ? "faculty" : "author" ) %>
+        <%
+          deletable = (
+            @klass.course.config["discussion"]['post_deletion_by'][role] && post.replies.length == 0 && (
+              staff?(current_user, @klass.course) || ( @student.present? && @student.id == post.author.id )
+            )
+          )
+        %>
+        <% if deletable %>
+          <%= link(:post, :delete, learn_klass_forum_topic_post_path(@klass, forum, topic, post,
+                :lecture_id => lecture_id), remote: true, method: :delete, confirm: true, class: 'ok') %>
+        <% end %>
+      <% end %>
+    </div>
+    <% if @depth <= 3 %>
+      <div class="ui reply" id='reply-to-post-<%= post.id %>' style="display: none;">
+        <%= form_for [:learn, @klass, forum, topic, post, Post.new], remote: true do |f| %>
+          <%= hidden_field_tag(:tab, tab) if local_assigns[:tab].present? %>
+          <%= hidden_field_tag(:lecture_id, @lecture.id) if @lecture %>
+          <%= f.text_area :about, :rows => 2, label: false, hint: true %>
+          <%= f.check_box :anonymous %>
+
+          <%= f.submit %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  <% posts = post.replies.to_a %>
+  <% if posts.any? %>
+    <div class="comments">
+      <%= render :partial => 'learn/forums/post', :collection => posts,
+            :locals => {forum: forum, topic: topic, tab: local_assigns[:tab].present? ? tab : 0}  %>
+    </div>
+  <% end %>
+</div>
+<% @depth -= 1 %>

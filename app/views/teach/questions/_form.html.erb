@@ -1,30 +1,28 @@
-<%= themed_form_for [:teach, @course, @unit, @lecture, @question] do |f| %>
+<%= modal_form_for [:teach, @course, @unit, @lecture, @question] do |f| %>
   <%= f.hidden_field :course_id %>
   <%= f.hidden_field :kind %>
   <% render_options = Option.render_options[@question.kind.to_sym] %>
 
-  <div class="two column row">
-    <div class="twelve wide column">
-      <% placeholder = t("helpers.placeholder.#{@question.kind}_question") %>
-      <% hint = t(:"helpers.hint.#{@question.kind}_question", default: '') %>
-      <%= f.markdown :question, :size => '60x8', :placeholder => placeholder, :hint => hint %>
-      
-      <div class="field-container">
-        <%= f.fields_for :options do |o| %>
-          <div class='removable <%= 'has-error'  unless @question.errors[:options].empty? %>' data-opr="remove">
-            <%= render "fields_4_question", :f => o, :option_index => o.index %>
-          </div>
-        <% end %>
-      </div>
-      
-      <div class="has-error">
-        <% @question.errors[:options].each do |msg| %>
-          <span class='error help-block'><%= msg %></span>
-        <% end %>
-      </div>
-
+  <% main = capture do %>
+    <% placeholder = t("helpers.placeholder.#{@question.kind}_question") %>
+    <% hint = t(:"helpers.hint.#{@question.kind}_question", default: '') %>
+    <%= f.markdown :question, :size => '60x5', :placeholder => placeholder, :hint => hint %>
+    
+    <div class="field-container">
+      <%= f.fields_for :options do |o| %>
+        <div class='removable <%= 'has-error'  unless @question.errors[:options].empty? %>' data-opr="remove">
+          <%= render "fields_4_question", :f => o, :option_index => o.index %>
+        </div>
+      <% end %>
     </div>
-    <div class="four wide column">
+    
+    <div class="has-error">
+      <% @question.errors[:options].each do |msg| %>
+        <span class='error help-block'><%= msg %></span>
+      <% end %>
+    </div>
+  <% end %>
+  <% aside = capture do %>
       <%= f.static :kind, :value => t("config.question.kind.#{@question.kind}") %>
 
       <% if @question.new_record? %>
@@ -34,8 +32,8 @@
         <div style="display: none;">
           <%= f.grouped_collection_select :unit_lectures, @course.units, :lectures, :name, :id, :name, include_blank: true %>
         </div>
-        <%= f.select :unit_id, @course.units, include_blank: true %>
-        <%= f.select :lecture_id, @unit ? @unit.lectures : [], include_blank: true %>
+        <%= f.select :unit_id, @course.units.collect {|u| [u.name, u.id]}, include_blank: true %>
+        <%= f.select :lecture_id, @unit ? @unit.lectures.collect {|l| [l.name, l.id]} : [], include_blank: true %>
       <% end %>
 
       <% if @question.survey? %>
@@ -48,38 +46,15 @@
       <% end %>
 
       <%= f.check_box :include_in_lecture if @lecture %>
-
-      <%= f.hidden_field :hint %>
-      <%= f.hidden_field :explanation %>
       
-      <%= content_tag :span, %(#{ui_icon(@question.hint.present? ? :edit : :plus)} #{Question.human_attribute_name(:hint)}).html_safe, 
-            :class => "ui-modal-field #{"ui button"}", 
-            :data => {
-              :field => 'question_hint', 
-              :header => Question.human_attribute_name(:hint), 
-              :body => f.text_area(:hint, :label => false).gsub(/\r?\n/, ""), 
-              :btn => t('helpers.submit.save'),
-              :close => t('helpers.submit.close')
-            } %>
-      
-      <%= content_tag :span, %(#{ui_icon(@question.explanation.present? ? :edit : :plus)} #{Question.human_attribute_name(:explanation)}).html_safe, 
-            :class => "ui-modal-field #{"ui button"}", 
-            :data => {
-              :field => 'question_explanation', 
-              :header => Question.human_attribute_name(:explanation), 
-              :body => f.text_area(:explanation, :label => false).gsub(/\r?\n/, ""), 
-              :btn => t('helpers.submit.save'),
-              :close => t('helpers.submit.close')
-            } %>
-      <br/><br/>
+      <%= f.text_area :hint, size: '60x2' %>
+      <%= f.text_area :explanation, size: '60x2' %>
 
       <% unless render_options[:count] == 1 %>
-        <hr/>
         <%= link_to_add_options((ui_icon(:plus) + t("page.text.#{render_options[:name]}")).html_safe, f, :options) %>
       <% end %>
-    </div>
-  </div>
-  
+  <% end %>
+  <%= ui_side_by_side main, aside %>
   <%= f.submit %>
   <%= f.cancel question_bank_path(:index, @question.kind.split('_').first) %>
 <% end %>

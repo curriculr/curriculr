@@ -1,0 +1,13 @@
+<%= ui_header forum.name, action: forum_breadcrumbs(forum) %>
+
+<%= markdown forum.about %>
+
+<% action = nil %>
+<% action = link(:topic, :start_new_topic, new_learn_klass_forum_topic_path(@klass, forum), remote: true, :class => "ui positive button") if @klass.open? && (!forum.graded || staff?(current_user, @klass.course)) %>
+
+<% topics = forum.topics.page(params[:page]).per(10) %>
+<% paginator = content_tag :div, paginate(topics), id: "paginator" %>
+<%= ui_side_by_side paginator, action, 'ten by right aligned six' %>
+<%= render partial: 'learn/forums/topic', collection: topics, locals: {forum: forum } %>
+
+

@@ -1,4 +1,4 @@
-<%= ui_header klass.name, style: :h3, action: ui_buttons(ui_course_klass_links(klass)) %>
+<%= ui_header klass.name, action: ui_buttons(ui_course_klass_links(klass)) %>
     
 <div id="klass-approve-indicator" class="ui warning message <%= 'hidden' if klass.ready_to_approve && klass.approved %>">
   <% if klass.ready_to_approve %>
@@ -35,8 +35,10 @@
   <% end %>
 <% end %>
 <%= content_tag :div, data: {tab: "klass_#{klass.id}_updates"}, class: "ui #{'active ' if active_klass_section?('updates')}bottom attached tab segment" do %>
+  <%= ui_header Update.model_name.human(count: 3), action: link(:update, :new, new_teach_course_klass_update_path(@course, klass), remote: true, class: 'ui primary button') %>
   <%= render partial: 'teach/updates/index', locals: { updates: klass.updates } %>
 <% end %>
 <%= content_tag :div, data: {tab: "klass_#{klass.id}_forums"}, class: "ui #{'active ' if active_klass_section?('forums')}bottom attached tab segment" do %>   
+  <%= ui_header Forum.model_name.human(count: 3), action: link(:forum, :new, new_teach_course_klass_forum_path(@course, klass), remote: true, class: 'ui primary button') %>
   <%= render partial: 'teach/forums/index', locals: { forums: klass.forums } %> 
 <% end %>

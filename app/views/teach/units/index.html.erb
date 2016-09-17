@@ -1,8 +1,7 @@
-<%= t('page.text.course_unit_html') %>
+<p><%= t('page.text.course_units_html') %></p>
 
 <%
   units = @course.units.order('units.order').to_a
-  active_unit_id = @unit ? @unit.id : units&.first&.id
 %>
 
 <%= content_tag :div, class: "course units" do %>
@@ -20,17 +19,17 @@
   <div class="ui bottom attached segment pushable">
     <div class="ui left inline vertical sidebar dynamic menu" id="sortable-units" data-update-url="<%= sort_teach_course_units_path(@course) %>">
       <% units.each_with_index do |unit, i| %>
-        <%= content_tag :a, id: "unit_#{unit.id}", data: {tab: "unit_#{unit.id}"}, class: "#{'active ' if unit.id == active_unit_id}item" do %>
-          <%= unit.name %>
+        <% if unit == @unit %>
+          <%= link_to unit.name, nil, class: 'active item', id: "unit_#{unit.id}" %>
+        <% else %>
+          <%= link_to unit.name, teach_course_unit_path(@course, unit), class: 'item', id: "unit_#{unit.id}" %>
         <% end %>
       <% end %>
     </div>
     <div class="pusher">
-      <% units.each_with_index do |unit, i| %>
-        <%= content_tag :div, data: {tab: "unit_#{unit.id}"}, class: "ui #{'active ' if unit.id == active_unit_id}basic tab segment" do %>
-          <%= render :partial => 'teach/units/show', :locals => { unit: unit} %>
-        <% end %>
-      <% end %>
+      <%= content_tag :div, class: "ui active basic segment" do %>
+        <%= render :partial => 'teach/units/show', :locals => { unit: @unit} %>
+      <% end if @unit %>
     </div>
   </div>
 <% end %>

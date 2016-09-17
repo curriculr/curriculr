@@ -1,6 +1,8 @@
 ar:
   helpers:
     submit:
+      start_new_topic: إبدأ موضوعا جديدا
+      delete: <i class="remove icon"></i>احذف
       go_back: عد إلى حيث أتيت
       dashboard:  مؤشرات
       upload:  ارفع ملفات

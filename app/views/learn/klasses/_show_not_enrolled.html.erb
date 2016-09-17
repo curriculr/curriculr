@@ -1,4 +1,4 @@
-<% content_for :klass_aside do %>
+<% aside = capture do %>
   <div class="ui fluid card">
     <div class="image">
       <% if @klass.course.video %>
@@ -35,6 +35,44 @@
   </div>
 <% end %>
 
-<%= ui_header @klass.course.name, :action => staff_or_student_view(render(:partial => 'learn/klasses/student_picker')) %>
-<%= markdown @klass.course.syllabus.about %>
+<% content = capture do %>
+  <%= ui_header @klass.course.name, :action => staff_or_student_view(render(:partial => 'learn/klasses/student_picker')) %>
+  <%= markdown @klass.course.syllabus.about %>
+  
+  <% attendance = Lecture.attendance(@klass, current_student).all %>
+  <% unless attendance.blank? %>
+    <% units = attendance.map{|a| a.u_name}.uniq %>
+    <% count = 0 %>
+    <% units.each_with_index do |u, i| %>
+      <% if i % 3 == 0 %>
+        <div class="row">
+      <% end %>
+    
+      <div class="">
+        <p><strong><%= u %></strong></p>
+        <ul class="report-lists">
+          <% lectures = attendance.select{|a| u == a.u_name}.map{|a| [a.name, a.attended]}.uniq %>
+          <% lectures.each_with_index do |l, j| %>
+            <li class="<%= 'attended' if l[1] > 0 %>">
+              <%= l[0] %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    
+      <% if i % 3 == 2 %>
+        </div>
+      <% end %>
+      <% count = i %>
+    <% end %>
+  
+    <% if count % 3 != 2 %>
+      </div>
+    <% end %>
+  <% else %>
+    <%= t('page.text.no_record_found') %>
+  <% end %>
+<% end %>
+
+<%= ui_side_by_side content, aside, 'ten by six' %>
   

@@ -1,14 +1,24 @@
-<% main_menu %>
-
-<div class="ui massive secondary pointing menu">
+<div class="ui huge main nav list">
   <div class="item">
-    <%= image_tag(@klass.course.poster&.at_url(:md) || '/images/holder-md.png') %>
-  </div>
-  <div class="header item">
-    <%= @klass.course.name %>
-  </div>
-  <div class="right item">
-    <%# staff_or_student_view(render(:partial => 'learn/klasses/student_picker')) %>&nbsp;
-    <%= link_to "Leave Class", '#', class: "ui mini button" %>
+    <div class="right floated content">
+      <% avatar = image_tag(current_user.profile.avatar_url(current_account, :tny) || '/images/nobody-tny.png', class: 'avatar icon') %>
+      <%= link_to avatar + t('helpers.submit.leave_klass'), main_app.home_path, class: "ui labeled icon negative button" %>
+    </div>
+    <div class="ui tiny promo image">
+      <%= image_tag(@klass.course.poster&.at_url(:md) || '/images/holder-md.png') %>
+    </div>
+    <div class="content">
+      <div class="header">
+        <%= @klass.course.name %>
+      </div>
+      <small>
+        <div class="ui horizontal bulleted list">
+          <%= content_tag :div, @klass.course.by_instructors, class: 'item' %>
+          <%= content_tag :div, klass_from_and_to_dates(@klass), class: 'item'%>
+          <%= content_tag :div, Klass.human_attribute_name(:private), class: 'item' if @klass.private %>
+          <%= content_tag :div, Klass.human_attribute_name(:closed), class: 'item' if @klass.past? %>
+        </div>
+      </small>
+    </div>
   </div>
 </div>

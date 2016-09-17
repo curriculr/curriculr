@@ -7,7 +7,7 @@ module ApplicationHelper
     error: :error,
     info: :info
   }
-
+  
   def logo_path(inverted = false)
     logo = current_account.config['theme']['logo'].present? ? "/images/logo.png" : false
     logo = logo.sub(/\.png$/, "-inverted.png") if inverted

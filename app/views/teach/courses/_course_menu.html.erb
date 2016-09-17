@@ -1,53 +1,19 @@
 <% course_menu %>
-
-<div class="ui fluid card">
-  <div class="blurring dimmable image">
-    <div class="ui dimmer">
-      <div class="content">
-        <div class="center">
-          <%=
-          if @course.video
-            link_to teach_course_material_path(@course, @course.video), :method => :delete, :confirm => true,
-            class: 'ui mini negative button', :title => t('helpers.submit.remove_promo_video') do
-              ui_icon(:remove) + ui_icon(:video)
-            end
-          else
-            link_to new_teach_course_material_path(@course, :s => :video, :t => :promo),
-            class: 'ui mini positive button', :title => t('helpers.submit.add_promo_video') do
-              ui_icon(:add) + ui_icon(:video)
-            end
-          end
-          %>
-          <%=
-          if @course.poster
-            link_to teach_course_material_path(@course, @course.poster), :method => :delete, :confirm => true,
-            class: 'ui mini negative button', :title => t('helpers.submit.remove_poster_image') do
-              ui_icon(:remove) + ui_icon(:image)
-            end
-          else
-            link_to new_teach_course_material_path(@course, :s => :image, :t => :poster),
-            class: 'ui mini positive button', :title => t('helpers.submit.add_poster_image') do
-              ui_icon(:add) + ui_icon(:image)
-            end
-          end
-          %>
-        </div>
-      </div>
-    </div>
-    <%= image_tag(@course.poster&.at_url(:md) || '/images/holder-md.png') %>
+<div class="ui secondary menu">
+  <% app_menus(:course).each do |section, menu| %>
+    <% menu.each do |item| %>
+      <%= link_to item[:link], item[:to], class: item[:active] ? 'item active' : 'item' %>
+    <% end %>
+  <% end %>
+  <div class="right item">
+    <%= 
+    actions = []
+    actions << staff_or_student_view unless @klass
+    unless controller_name == 'courses' && action_name.in?(['edit', 'update'])
+      actions << link(:course, :edit, edit_teach_course_path(@course), remote: true, class: "ui positive button")
+    end
+    actions << link(:course, :destroy, teach_course_path(@course), :method => :delete, :confirm => true, class: 'ui negative button') 
+    
+    ui_buttons(actions) %>
   </div>
 </div>
-
-<div class="ui fluid vertical secondary menu">
-  <% app_menus(:course).each do |section, menu| %>
-    <div class="item">
-      <% unless section == :_ %><div class="header"><%= t("page.title.#{section}") %></div><% end %>
-      <div class="menu">
-        <% menu.each do |item| %>
-          <%= link_to item[:link], item[:to], class: item[:active] ? 'item active' : 'item' %>
-        <% end %>
-      </div>
-    </div>
-  <% end %>
-</div>
-

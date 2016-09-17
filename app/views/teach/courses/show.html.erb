@@ -21,114 +21,130 @@
   surveys = @course.assessments.where(unit_id: nil).where("kind = 'survey'").to_a
 %>
 
-<div class="ui top attached dynamic pointing menu">
-  <%= content_tag :a, data: {tab: :syllabus}, class: "#{'active ' if active_course_section?('syllabus')}item" do %>
-    <%= t('page.title.syllabus') %>
-  <% end %>
-  <%= content_tag :a, data: {tab: :assessments}, class: "#{'active ' if active_course_section?('assessments')}item" do %>
-    <%= Assessment.model_name.human(count: 3) %>
-    <div class="ui left pointing label"><%= assessments.count %></div>
-  <% end %>
-  <%= content_tag :a, data: {tab: :people}, class: "#{'active ' if active_course_section?('people')}item" do %>
-    <%= t('page.title.people') %>
-    <div class="ui left pointing label"><%= instructors.count %></div>
-  <% end %>
-  <%= content_tag :a, data: {tab: :books}, class: "#{'active ' if active_course_section?('books')}item" do %>
-    <%= t('page.title.books') %>
-    <div class="ui left pointing label"><%=  books.count %></div>
-  <% end %>
-  <%= content_tag :a, data: {tab: :pages}, class: "#{'active ' if active_course_section?('pages')}item" do %>
-    <%= Page.model_name.human(count: 3) %>
-    <div class="ui left pointing label"><%= pages.count %></div>
-  <% end %>
-  <%= content_tag :a, data: {tab: :forums}, class: "#{'active ' if active_course_section?('forums')}item" do %>
-    <%= Forum.model_name.human(count: 3) %>
-    <div class="ui left pointing label"><%= forums.count %></div>
-  <% end %>
-  <%= content_tag :a, data: {tab: :updates}, class: "#{'active ' if active_course_section?('updates')}item" do %>
-    <%= Update.model_name.human(count: 3) %>
-    <div class="ui left pointing label"><%= updates.count %></div>
-  <% end %>
-  <%= content_tag :a, data: {tab: :surveys}, class: "#{'active ' if active_course_section?('surveys')}item" do %>
-    <%= t('page.title.surveys') %>
-    <div class="ui left pointing label"><%= surveys.count %></div>
-  <% end %>
-</div>
+<% content = capture do %>
+  <div class="ui basic segment">
+    <%= ui_header t('page.title.syllabus'), action: link(:page, :edit, edit_teach_course_page_path(@course, @course.syllabus), remote: true, class: 'ui positive button') %>
+    <%= markdown @course.syllabus.about, class: 'shortenable-text' %>
+  </div>
 
-<%= content_tag :div, data: {tab: :syllabus}, class: "ui #{'active ' if active_course_section?('syllabus')}bottom attached tab segment" do %>
-  <%= ui_header t('page.title.syllabus'), style: :h3, action: link(:page, :edit, edit_teach_course_page_path(@course, @course.syllabus), remote: true, class: 'ui positive button') %>
-  <%= markdown(@course.syllabus.about) %>
+  <div class="ui basic segment">
+    <%= ui_header Assessment.model_name.human(count: 3), action: ui_dropdown_button(t("page.text.new"), links) %>
+    <div class="ui list">
+      <% assessments.each_with_index do |a, i| %>
+        <div class="item">
+          <div class="header">
+            <%= link_to(a.name, teach_course_assessment_path(@course, a)) %>
+            <div class="ui left pointing label"><%= a.kind %></div>
+            <%= content_tag(:div, t('page.text.unready'), class: "ui label") unless a.ready %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="ui basic segment">
+    <%= ui_header t('page.title.people'), action: link(:instructor, :new, new_teach_course_instructor_path(@course), remote: true, class: 'ui primary button') %>
+    <%= render partial: "teach/instructors/index", locals: { instructors: instructors }  %>    
+  </div>
+
+  <div class="ui basic segment">
+    <%= ui_header t('page.title.books'), action: link(:material, :new_book, new_teach_course_material_path(@course, :s => :document, :t => :books, :multiple => true), class: 'ui primary button') %>
+    <div class="ui list">
+      <% books.each_with_index do |book, i| %>
+        <%= render partial: "application/media/medium",
+              locals: {medium: book.medium, medium_counter: i,
+                action: link(:material, :destroy,
+                  teach_course_material_path(@course, book),
+                  :method => :delete, :class => "ui negative button",
+                  confirm: true)
+              } %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="ui basic segment">
+    <%= ui_header Page.model_name.human(count: 3), action: link(:page, :new, new_teach_course_page_path(@course), remote: true, class: 'ui primary button') %>
+    <div class="ui list">
+      <% pages.each_with_index do |page, i| %>
+        <div class="item">
+          <div class="header">
+            <%= link_to page.name, teach_course_page_path(@course, page) %>
+            <div class="ui left pointing label"><%= timeago_tag(page.created_at, :nojs => true, :limit => 10.days.ago) %></div>
+            <%= content_tag(:div, t('page.text.unpublished'), :class => "ui label") unless page.published %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="ui basic segment">
+    <%= ui_header Forum.model_name.human(count: 3), action: link(:forum, :new, new_teach_course_forum_path(@course), remote: true, class: 'ui primary button') %>
+    <%= t('page.text.course_forums') %>
+    <%= render partial: 'teach/forums/index', locals: { forums: @course.forums } %>
+  </div>
+
+  <div class="ui basic segment">
+    <%= ui_header Update.model_name.human(count: 3), action: link(:update, :new, new_teach_course_update_path(@course), remote: true, class: 'ui primary button') %>
+    <%= t('page.text.course_updates') %>
+    <%= render partial: 'teach/updates/index', locals: { updates: @course.updates } %>
+  </div>
+
+  <div class="ui basic segment">
+    <%= ui_header t('page.title.surveys'), action: link(:survey, :new,  new_teach_course_assessment_path(@course, :t => :survey), remote: true, class: 'ui primary button') %>
+    <div class="ui list">
+      <% surveys.each_with_index do |a, i| %>
+        <div class="item">
+          <div class="header">
+            <%= link_to(a.name, teach_course_assessment_path(@course, a)) %>
+            <div class="ui left pointing blue label"><%= a.kind %></div>
+            <%= content_tag(:div, t('page.text.unready'), class: "ui left pointing yellow label") unless a.ready %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
 <% end %>
 
-<%= content_tag :div, data: {tab: :assessments}, class: "ui #{'active ' if active_course_section?('assessments')}bottom attached tab segment" do %>
-  <%= ui_header Assessment.model_name.human(count: 3), style: :h3, action: ui_dropdown_button(t("page.text.new"), links) %>
-  <div class="ui segments">
-    <% assessments.each_with_index do |a, i| %>
-      <div class="ui segment">
-        <strong><%= link_to(a.name, teach_course_assessment_path(@course, a)) %></strong>
-        <div class="ui left pointing blue label"><%= a.kind %></div>
-        <%= content_tag(:div, t('page.text.unready'), class: "ui left pointing yellow label") unless a.ready %>
-        <%# markdown a.about %>
+<% aside = capture do %>
+  <div class="ui fluid card">
+    <div class="blurring dimmable image">
+      <div class="ui dimmer">
+        <div class="content">
+          <div class="center">
+            <%=
+            if @course.video
+              link_to teach_course_material_path(@course, @course.video), :method => :delete, :confirm => true,
+              class: 'ui mini negative button', :title => t('helpers.submit.remove_promo_video') do
+                ui_icon(:remove) + ui_icon(:video)
+              end
+            else
+              link_to new_teach_course_material_path(@course, :s => :video, :t => :promo),
+              class: 'ui mini positive button', :title => t('helpers.submit.add_promo_video') do
+                ui_icon(:add) + ui_icon(:video)
+              end
+            end
+            %>
+            <%=
+            if @course.poster
+              link_to teach_course_material_path(@course, @course.poster), :method => :delete, :confirm => true,
+              class: 'ui mini negative button', :title => t('helpers.submit.remove_poster_image') do
+                ui_icon(:remove) + ui_icon(:image)
+              end
+            else
+              link_to new_teach_course_material_path(@course, :s => :image, :t => :poster),
+              class: 'ui mini positive button', :title => t('helpers.submit.add_poster_image') do
+                ui_icon(:add) + ui_icon(:image)
+              end
+            end
+            %>
+          </div>
+        </div>
       </div>
-    <% end %>
+      <%= image_tag(@course.poster&.at_url(:md) || '/images/holder-md.png') %>
+    </div>
   </div>
+  <%= render 'teach/courses/to_do' %>
+  <%= render 'teach/dashboard/show' %>
 <% end %>
 
-<%= content_tag :div, data: {tab: :people}, class: "ui #{'active ' if active_course_section?('people')}bottom attached tab segment" do %>
-  <%= ui_header t('page.title.people'), style: :h3, action: link(:instructor, :new, new_teach_course_instructor_path(@course), remote: true, class: 'ui primary button') %>
-  <%= render partial: "teach/instructors/index", locals: { instructors: instructors }  %>    
-<% end %>
-
-<%= content_tag :div, data: {tab: :books}, class: "ui #{'active ' if active_course_section?('books')}bottom attached tab segment" do %>
-  <%= ui_header t('page.title.books'), style: :h3, action: link(:material, :new_book, new_teach_course_material_path(@course, :s => :document, :t => :books, :multiple => true), class: 'ui primary button') %>
-  <div class="ui divided items">
-    <% books.each_with_index do |book, i| %>
-      <%= render partial: "application/media/medium",
-            locals: {medium: book.medium, medium_counter: i,
-              action: link(:material, :destroy,
-                teach_course_material_path(@course, book),
-                :method => :delete, :class => "ui negative button",
-                confirm: true)
-            } %>
-    <% end %>
-  </div>
-<% end %>
-
-<%= content_tag :div, data: {tab: :pages}, class: "ui #{'active ' if active_course_section?('pages')}bottom attached tab segment" do %>
-  <%= ui_header Page.model_name.human(count: 3), style: :h3, action: link(:page, :new, new_teach_course_page_path(@course), remote: true, class: 'ui primary button') %>
-  <div class="ui segments">
-    <% pages.each_with_index do |page, i| %>
-      <div class="ui segment">
-        <strong><%= link_to page.name, teach_course_page_path(@course, page) %></strong>
-        <div class="ui left pointing blue label"><%= timeago_tag(page.created_at, :nojs => true, :limit => 10.days.ago) %></div>
-        <%= content_tag(:div, t('page.text.unpublished'), :class => "ui left pointing yellow label") unless page.published %>
-      </div>
-    <% end %>
-  </div>
-<% end %>
-
-<%= content_tag :div, data: {tab: :forums}, class: "ui #{'active ' if active_course_section?('forums')}bottom attached tab segment" do %>
-  <%= ui_header Forum.model_name.human(count: 3), style: :h3, action: link(:forum, :new, new_teach_course_forum_path(@course), remote: true, class: 'ui primary button') %>
-  <%= t('page.text.course_forums') %>
-  <%= render partial: 'teach/forums/index', locals: { forums: @course.forums } %>
-<% end %>
-
-<%= content_tag :div, data: {tab: :updates}, class: "ui #{'active ' if active_course_section?('updates')}bottom attached tab segment" do %>
-  <%= ui_header Update.model_name.human(count: 3), style: :h3, action: link(:update, :new, new_teach_course_update_path(@course), remote: true, class: 'ui primary button') %>
-  <%= t('page.text.course_updates') %>
-  <%= render partial: 'teach/updates/index', locals: { updates: @course.updates } %>
-<% end %>
-
-<%= content_tag :div, data: {tab: :surveys}, class: "ui #{'active ' if active_course_section?('surveys')}bottom attached tab segment" do %>
-  <%= ui_header t('page.title.surveys'), style: :h3, action: link(:survey, :new,  new_teach_course_assessment_path(@course, :t => :survey), remote: true, class: 'ui primary button') %>
-  <div class="ui segments">
-    <% surveys.each_with_index do |a, i| %>
-      <div class="ui segment">
-        <strong><%= link_to(a.name, teach_course_assessment_path(@course, a)) %></strong>
-        <div class="ui left pointing blue label"><%= a.kind %></div>
-        <%= content_tag(:div, t('page.text.unready'), class: "ui left pointing yellow label") unless a.ready %>
-        <%# markdown a.about %>
-      </div>
-    <% end %>
-  </div>
-<% end %>
+<%= ui_side_by_side aside, content, 'four by twelve' %>

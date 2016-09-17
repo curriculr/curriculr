@@ -1,19 +1,23 @@
-<div class="item" id="medium_<%= other.id %>">
+<% content = capture do %>
+  <div class="right floated content">
+    <%= content_tag :div, class: 'ui buttons' do %>
+      <%= link :medium, :open, other.at_url, :class => "ui button", :target => '_new' unless @material %>
+      <%= render partial: 'application/media/links', locals: { medium: other, form: form, action: action } %>
+    <% end %>
+  </div>
   <div class="content">
-    <div class="header"><%= ui_icon('file text outline icon') + ' ' + other.name %></div>
-    <div class="meta"><%= timeago_tag(other.created_at, :nojs => true, :limit => 10.days.ago)  %></div>
-    <div class="description">
+    <div class="header">
+      <%= ui_icon('file text outline icon') + ' ' + other.name %>
+      <div class="ui left pointing label"><%= timeago_tag(other.created_at, :nojs => true, :limit => 10.days.ago)  %></div>
+    </div>
+    <small>
       <%= other.full_url %>
       
       <% if other.path.present? && !other.copyrights.blank? %> 
-        <p><small><strong><%=Medium.human_attribute_name(:source) %>:</strong><%= other.copyrights %></small></p>
+        <p><strong><%=Medium.human_attribute_name(:source) %>:</strong><%= other.copyrights %></p>
       <% end %>
-    </div>
-    <div class="extra">
-      <%= content_tag :div, class: 'ui buttons' do %>
-        <%= link :medium, :open, other.at_url, :class => "ui button", :target => '_new' unless @material %>
-        <%= render partial: 'application/media/links', locals: { medium: other, form: form, action: action } %>
-      <% end %>
-    </div>
+    </small>
   </div>
-</div>
+<% end %>
+
+<%= wrapper ? content_tag(:div, content, class: 'item', id: "medium_#{other.id}") : content %>

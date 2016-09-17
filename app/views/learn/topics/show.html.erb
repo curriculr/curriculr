@@ -1,8 +1,0 @@
-<ul class="breadcrumb">
-  <li><%= link(:forum, :index, learn_klass_forums_path(@klass)) %></li>
-  <li><%= link_to @forum.name, learn_klass_forum_path(@klass, @forum) %></li>
-  <li class="active"><%= @topic.name %></li>
-</ul>
-<div id="topic-posts">
-  <%= render 'learn/topics/topic' %>
-</div>

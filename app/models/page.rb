@@ -29,7 +29,7 @@ class Page < ActiveRecord::Base
     scoped.where(:owner_type => 'User', :public => true, :published => true, :blog => true)
   }
   
-  def by_author
+  def by_author_and_when
     if !blog || owner_type != 'User'
       %(#{I18n.t('page.text.on')} #{I18n.l(created_at.to_date)})
     elsif owner.has_role?(:admin)

@@ -1,15 +1,22 @@
-<div class="item" id="medium_<%= image.id %>">
-  <div class="tiny image"><%= image_tag image.at_url %></div>
-  <div class="content">
-    <div class="header"><%= image.name %></div>
-    <div class="meta"><%= timeago_tag(image.created_at, :nojs => true, :limit => 10.days.ago)  %></div>
-    <div class="description">
-      <%= image.full_url %>
-    </div>
-    <div class="extra">
-      <%= content_tag :div, class: 'ui buttons' do %>
-        <%= render partial: 'application/media/links', locals: { medium: image, form: form, action: action } %>
-      <% end %>
-    </div>
+<% content = capture do %>
+  <div class="right floated content">
+    <%= content_tag :div, class: 'ui buttons' do %>
+      <%= render partial: 'application/media/links', locals: { medium: image, form: form, action: action } %>
+    <% end %>
   </div>
-</div>
+  <div class="ui avatar image"><%= image_tag image.at_url %></div>
+  <div class="content">
+    <div class="header"><%= image.name %>
+      <div class="ui left pointing label"><%= timeago_tag(image.created_at, :nojs => true, :limit => 10.days.ago)  %></div>
+    </div>
+    <small>
+      <%= image.full_url %>
+    
+      <% if image.path.present? && !image.copyrights.blank? %> 
+        <p><strong><%=Medium.human_attribute_name(:source) %>:</strong><%= image.copyrights %></p>
+      <% end %>
+    </small>
+  </div>
+<% end %>
+
+<%= wrapper ? content_tag(:div, content, class: 'item', id: "medium_#{image.id}") : content %>

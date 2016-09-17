@@ -28,13 +28,15 @@ if current_user && can?(:manage, @page)
 end
 %>
 
-<% actions = links.blank? ? nil : ui_buttons(links) %>
+<% actions = links.blank? ? nil : ui_buttons(links, class: 'right floated') %>
 
 <% if @course %>
-  <%=ui_header @page.name, style: :h3, subtext: @page.by_author, action: actions %>
+  <%=ui_header @page.name, subtext: @page.by_author_and_when, action: course_breadcrumbs(Page.model_name.human) %>
 <% else %>
-  <%= ui_header @page.name, subtext: @page.blog ? @page.by_author : nil, action: actions %>
+  <%= ui_header @page.name, subtext: @page.blog ? @page.by_author_and_when : nil %>
 <% end %>
+
+<%= actions %><br><br>
 
 <% if @page && !@page.new_record? %>
   <div id="page-publish-indicator" class="ui warning message" style="<%= 'display: none;' if @page.published %>">

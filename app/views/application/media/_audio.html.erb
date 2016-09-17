@@ -1,18 +1,23 @@
-<div class="item" id="medium_<%= audio.id %>">
-  <div class="content">
-    <div class="header"><%= ui_icon('file audio outline icon') + ' ' + audio.name %></div>
-    <div class="meta"><%= timeago_tag(audio.created_at, :nojs => true, :limit => 10.days.ago)  %></div>
-    <div class="description">
-      <%= ui_audio audio %>
-      <% if audio.path.present? && !audio.copyrights.blank? %>
-        <p><small><strong><%=Medium.human_attribute_name(:source) %>:</strong> <%= audio.copyrights %></small></p>
-      <% end %>
-      <%= audio.full_url %>
-    </div>
-    <div class="extra">
-      <%= content_tag :div, class: 'ui buttons' do %>
-        <%= render partial: 'application/media/links', locals: { medium: audio, form: form, action: action } %>
-      <% end %>
-    </div>
+<% content = capture do %>
+  <div class="right floated content">
+    <%= content_tag :div, class: 'ui buttons' do %>
+      <%= render partial: 'application/media/links', locals: { medium: audio, form: form, action: action } %>
+    <% end %>
   </div>
-</div>
+  <div class="content">
+    <div class="header">
+      <%= ui_icon('file audio outline icon') + ' ' + audio.name %>
+      <div class="ui left pointing label"><%= timeago_tag(audio.created_at, :nojs => true, :limit => 10.days.ago)  %></div>
+    </div>
+    <%# ui_audio audio %>
+    <small>
+      <%= audio.full_url %>
+      
+      <% if audio.path.present? && !audio.copyrights.blank? %>
+        <p><strong><%=Medium.human_attribute_name(:source) %>:</strong> <%= audio.copyrights %></p>
+      <% end %>
+    </small>
+  </div>
+<% end %>
+
+<%= wrapper ? content_tag(:div, content, class: 'item', id: "medium_#{audio.id}") : content %>

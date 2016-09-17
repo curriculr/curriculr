@@ -1,38 +1,70 @@
-<% if @klass.open? && @klass.allow_enrollment %>
-  <% deadlines = @klass.upcoming_deadlines %>
-  <% unless deadlines.to_a.empty? %>
-    <% content_for :additional_nav do %>
-      <%= ui_panel(capture do %>
-        <i class="fa fa-calendar"></i>&nbsp;&nbsp;
-        <%= t('page.title.upcoming_deadlines') %>
-      <% end, nil, capture do %>
-        <ul>
-          <% deadlines.each do |deadline| %>
-            <li>
-              <%= t("page.text.upcoming_deadlines", :name => deadline.name,
-                    :count => (deadline.closes_at.to_date - Time.zone.today).to_i)
-              %>
-            </li>
-        	<% end %>
-        </ul>
-        <% end, nil, :primary) %>
+<% aside = capture do %>
+
+  <%= render partial: 'learn/dashboard/show', locals: {klass: @klass} if staff?(current_user, @klass) %>
+  
+  <% if @klass.open? && @klass.allow_enrollment %>
+    <% deadlines = @klass.upcoming_deadlines %>
+    <% unless deadlines.to_a.empty? %>
+      <% content_for :additional_nav do %>
+        <%= ui_panel(capture do %>
+          <i class="fa fa-calendar"></i>&nbsp;&nbsp;
+          <%= t('page.title.upcoming_deadlines') %>
+        <% end, nil, capture do %>
+          <ul>
+            <% deadlines.each do |deadline| %>
+              <li>
+                <%= t("page.text.upcoming_deadlines", :name => deadline.name,
+                      :count => (deadline.closes_at.to_date - Time.zone.today).to_i)
+                %>
+              </li>
+          	<% end %>
+          </ul>
+          <% end, nil, :primary) %>
+      <% end %>
     <% end %>
   <% end %>
-<% end %>
 
-<%= yield :additional_nav %>
+  <%= yield :additional_nav %>
 
-<!-- Klass Updates -->
-<% if false && @klass.open? && staff?(current_user, @klass) %>
-  <%= form_for [:teach, @klass.course, @klass, Update.new], remote: true do |f| %>
-    <%= f.markdown :body, :size => '60x3', :label => false, :placeholder => 'New update goes here' %>
-    <%= f.submit %>
+  <!-- Klass Updates -->
+  <% if false && @klass.open? && staff?(current_user, @klass) %>
+    <%= form_for [:teach, @klass.course, @klass, Update.new], remote: true do |f| %>
+      <%= f.markdown :body, :size => '60x3', :label => false, :placeholder => 'New update goes here' %>
+      <%= f.submit %>
+    <% end %>
+    <hr />
   <% end %>
-  <hr />
+
+  <% updates = Update.sent(@klass, :www => true) %>
+  <div id="klass-updates">
+    <%= render partial: 'learn/klasses/update', collection: updates %>
+  </div>
 <% end %>
 
-<% updates = Update.sent(@klass, :www => true) %>
-<div id="klass-updates">
-  <%= render partial: 'learn/klasses/update', collection: updates %>
-</div>
+<% syllabus = capture do %>
+  <% units = Unit.open(@klass, current_student, true).to_a %>
+  <% active_unit = units.first %>
+  <div class="ui segment">
+    <%= ui_header @klass.course.syllabus.name %>
 
+    <%= markdown(@klass.course.syllabus.about) %>
+    <div class="ui fluid">
+      <% units.each_with_index do |unit, i| %>
+        <% lectures = Lecture.open_4_students(@klass, unit, current_student, true).to_a %>
+        <div class="<%= 'active ' if unit == active_unit %>title">
+          <div class="ui block header"><%= i + 1 %>. <%= unit.name %> <%= ui_icon('dropdown') %></div>
+        </div>
+        <div class="<%= 'active ' if unit == active_unit %>content">
+          <%= markdown unit.about %>
+          <div class="ui secondary fluid vertical menu">
+          <% lectures.each_with_index do |lecture, j| %>
+            <%= content_tag :div, %(#{i + 1}.#{j + 1} #{lecture.name} #{ui_icon('book')}).html_safe, class: "item" %>
+          <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<%= ui_side_by_side syllabus, aside, 'ten by six' %>

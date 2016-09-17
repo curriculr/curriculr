@@ -1,6 +1,6 @@
 module Learn
   class TopicsController < BaseController
-    responders :flash, :http_cache
+    responders :modal, :flash, :http_cache
     def index
     end
 
@@ -25,9 +25,12 @@ module Learn
 
       respond_with @topic do |format|
         if @topic.save
-          format.html { redirect_to learn_klass_forum_path(@klass, @forum) }
+          format.js { 
+            @reload_url = learn_klass_forums_url(@klass, forum: @forum.id) 
+            render 'reload' 
+          }
         else
-          format.html { render :action => 'new' }
+          format.js { render :action => 'new' }
         end
       end
     end

@@ -1,9 +1,9 @@
-<h4 class="ui inverted top attached header">
+<h4 class="ui top attached block header">
   <%= %(#{t('page.title.selected_questions')} #{(f.index + 1) unless f.object.new_record?}) %>
   <%= f.hidden_field :_destroy %>
   <%= link f.object.question.present? ? :question : :q_selector, :destroy, '#', class: "remove_fields ui right floated mini negative button" %>
 </h4>
-<div class="ui attached segment">
+<div class="ui attached clrearing segment">
   <% if f.object.question %>
     <%= render partial: "teach/questions/question", locals: {question: f.object.question, show_answer: false } %>
   <% else %>
@@ -16,7 +16,7 @@
         <% if @unit %>
           <%= f.hidden_field :unit_id, value: @unit.id %>
         <% else %>
-          <%= f.select :unit_id, @course.units %>
+          <%= f.select :unit_id, @course.units.collect {|u| [u.name, u.id]} %>
         <% end %>
       </div>
       <div class="five wide column">
@@ -25,9 +25,9 @@
           <%= f.hidden_field :lecture_id, value: @lecture.id %>
         <% else %>
           <% if @unit %>
-            <%= f.select :lecture_id, @unit.lectures %>
+            <%= f.select :lecture_id, @unit.lectures.collect {|l| [l.name, l.id]} %>
           <% else %>
-            <%= f.select :lecture_id, (f.object.unit ? f.object.unit.lectures : []) %>
+            <%= f.select :lecture_id, (f.object.unit ? f.object.unit.lectures.collect {|l| [l.name, l.id]} : []) %>
           <% end %>
         <% end %>
       </div>
@@ -40,3 +40,4 @@
     </div>
   <% end %>
 </div>
+<br>

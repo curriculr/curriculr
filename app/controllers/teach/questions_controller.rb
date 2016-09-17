@@ -1,6 +1,6 @@
 module Teach
   class QuestionsController < BaseController
-    responders :flash, :http_cache
+    responders :modal, :flash, :http_cache
 
     def index
       criteria = [ "questions.course_id = #{@course.id}" ]
@@ -68,11 +68,11 @@ module Teach
       respond_with @question do |format|
         if @question.save
           bank = @question.bank_list.first
-          format.html {
-            redirect_to view_context.question_bank_path(:index, @question.kind.split('_').first, nil, bank)
+          format.js {
+            render 'reload' #redirect_to view_context.question_bank_path(:index, @question.kind.split('_').first, nil, bank)
           }
         else
-          format.html { render action: 'new' }
+          format.js { render action: 'new' }
         end
       end
     end
@@ -81,11 +81,11 @@ module Teach
       respond_with @question do |format|
         if @question.update(question_params)
           bank = @question.bank_list.first
-          format.html {
-            redirect_to view_context.question_bank_path(:index, @question.kind.split('_').first, nil, bank)
+          format.js {
+            render 'reload' #redirect_to view_context.question_bank_path(:index, @question.kind.split('_').first, nil, bank)
           }
         else
-          format.html { render action: 'edit' }
+          format.js { render action: 'edit' }
         end
       end
     end

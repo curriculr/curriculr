@@ -35,7 +35,7 @@ module UiHelper
         :redirect_uri => URI.join(main_app.root_url, main_app.learn_klass_path(klass))
       }
 
-      link_to "https://www.facebook.com/dialog/feed?#{options.to_query}", class: 'ui facebook button' do
+      link_to "https://www.facebook.com/dialog/feed?#{options.to_query}", class: 'ui circular facebook icon button' do
         ui_icon(:facebook) + ' ' + text
       end
     when Page
@@ -60,7 +60,7 @@ module UiHelper
       :url => URI.join(main_app.root_url, main_app.learn_klass_path(klass))
     }
 
-    link_to "https://twitter.com/share?#{options.to_query}", class: 'ui twitter button' do
+    link_to "https://twitter.com/share?#{options.to_query}", class: 'ui circular twitter icon button' do
       ui_icon(:twitter) + ' ' + text
     end
   end
@@ -70,7 +70,7 @@ module UiHelper
       :url => URI.join(main_app.root_url, main_app.learn_klass_path(klass))
     }
 
-    link_to "https://plus.google.com/share?#{options.to_query}", class: 'ui google plus button' do
+    link_to "https://plus.google.com/share?#{options.to_query}", class: 'ui circular google plus icon button' do
       ui_icon("google plus") + ' ' + text
     end
   end

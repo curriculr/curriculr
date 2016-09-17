@@ -29,10 +29,35 @@ module Themes::Bootstrap::UiComponentsHelper
     content_tag :i, '', class: "#{name} icon"
   end
   
+  def ui_icon_for(name)
+    case name.to_s
+    when 'video'
+      ui_icon('file video outline')
+    when 'audio'
+      ui_icon('file audio outline')
+    when 'image'
+      ui_icon('file image outline')
+    when 'document'
+      ui_icon('file pdr outline')
+    when 'other'
+      ui_icon('file code outline')
+    when 'question'
+      ui_icon('help')
+    when 'page'
+      ui_icon('world')
+    when 'lecture'
+      ui_icon('book')
+    when 'assessment'
+       ui_icon('lab')
+    when 'attachement'
+      ui_icon('attach')
+    end
+  end
+  
   def ui_header(text, options = {})
-    options[:style] ||= :h1
+    options[:style] ||= :h2
     right = ''
-    left = content_tag options[:style], class: 'ui left floated header' do
+    left = content_tag options[:style], class: 'ui orange left floated header' do
       hdr = text
       hdr << content_tag(:div, options[:subtext], class: 'sub header') if options[:subtext].present?
       

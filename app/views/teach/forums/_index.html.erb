@@ -1,39 +1,21 @@
-<table class="ui basic striped selectable small table">
-	<thead>
-		<tr>
-			<th>#</th>
-			<th><%= Forum.model_name.human %></th>
-			<th><%= Forum.human_attribute_name(:active) %></th>
-      <th><%= Forum.human_attribute_name(:graded) %></th>
-			<th><%= Topic.model_name.human(count: 3) %></th>
-			<th></th>
-		</tr>
-	</thead>
-	<tbody>
-		<% forums.each_with_index do |forum, ndx| %>
-		<tr>
-			<td><%= ndx + 1 %></td>
-			<td>
-				<strong><%= forum.name %></strong>
-				<%= markdown(forum.about) %>
-			</td>
-			<td><%= ui_icon(:check) if forum. active %></td>
-      <td><%= ui_icon(:check) if forum.graded %></td>
-			<td><%= forum.topics_count %></td>
-			<td>
-				<%= ui_buttons([
-					    link(:forum, :edit, forum.klass ? edit_teach_course_klass_forum_path(@course, forum.klass, forum) : edit_teach_course_forum_path(@course, forum), remote: true, class: "ui positive button"),
-					    link(:forum, :destroy, forum.klass ? teach_course_klass_forum_path(@course, forum.klass, forum) : teach_course_forum_path(@course, forum), 
-						    method: :delete, confirm: true, class: "ui negative button")]) %>     
-			</td>
-		</tr>
-    <% end %>
-    
-    <% if forums.empty? %>
-	    <tr>
-	      <td colspan="6"><%= t('page.text.no_record_found') %></td>
-	    </tr>
-		<% end %>
-	</tbody>
-</table>
-
+<div class="ui list">
+	<% forums.each_with_index do |forum, ndx| %>
+	<div class="item">
+		<div class="right floated content">
+			<%= ui_buttons([
+				    link(:forum, :edit, forum.klass ? edit_teach_course_klass_forum_path(@course, forum.klass, forum) : edit_teach_course_forum_path(@course, forum), remote: true, class: "ui positive button"),
+				    link(:forum, :destroy, forum.klass ? teach_course_klass_forum_path(@course, forum.klass, forum) : teach_course_forum_path(@course, forum), 
+					    method: :delete, confirm: true, class: "ui negative button")]) %>
+    </div>
+		<div class="content">
+			<div class="header">
+        <%= forum.name %>
+        <%= content_tag :div, forum.active ? ui_icon(:check) + t('page.text.active') : t('page.text.inactive'), :class => "ui left pointing label" %>
+        <%= content_tag :div, forum.graded ? ui_icon('checkmark box') + Forum.human_attribute_name(:graded) : t('page.text.ungraded'), class: "ui label" %>
+        <%= content_tag :div, %(#{forum.topics_count} #{Topic.model_name.human(count: 3)}), class: "ui label" %>
+      </div>
+		  <small><%= markdown(forum.about) %></small>
+		</div>
+	</div>
+  <% end %>
+</div>

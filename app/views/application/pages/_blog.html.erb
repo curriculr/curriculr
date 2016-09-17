@@ -2,7 +2,7 @@
   <div class="content">
     <div class="header"><%= blog.name %></div>
     <div class="meta">
-      <span><%= blog.by_author %></span>
+      <span><%= blog.by_author_and_when %></span>
     </div>
     <div class="description">
       <%= markdown(blog.about, :html => blog.html) %>

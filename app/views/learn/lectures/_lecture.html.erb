@@ -1,0 +1,108 @@
+<%
+  data = @lecture_contents
+  pagers = @lecture.pagers(@klass, current_student)
+  pager_links = []
+  pager_links << {
+    url: (pagers.first ? learn_klass_lecture_path(@klass, pagers.first[:lecture]) : nil),
+    remote: false
+  }
+
+  position = 0
+  data.each_with_index do |item, i|
+    pager_links << {
+      url: send("show_#{item.class.name.downcase}_of_learn_klass_lecture_path", @klass, @lecture, item, position: i + 1),
+      remote: true
+    }
+
+    if params[:show_assessment] && item.kind_of?(Assessment) && item.id.to_s == params[:show_assessment]
+      position = i
+    end
+  end
+
+  pager_links << {
+    url: (pagers.second ? learn_klass_lecture_path(@klass, pagers.second[:lecture]) : nil),
+    remote: false
+  }
+%>
+
+<%= javascript_tag  do %>
+  var lecture_pager_position = <%= position + 1 %>;
+  var mark_as_taken = false;
+<% end %>
+
+<% pager_html = capture do %>
+  <div class="ui pagination menu pager lecture-pager"
+      data-prev="<%= t('helpers.submit.prev_html').html_safe %>"
+      data-next="<%= t('helpers.submit.next_html').html_safe %>">
+    <% pager_links.each_with_index do |link, i| %>
+      <%
+        link_class = %(lecture-pager-link-pos-#{i} lecture-pager-link #{i == 0 ? 'previous' : 'next'} item)
+        link_style = (i > 1 ? 'display: none;' : '')
+        link_name = (i == 0 ? t('helpers.submit.prev_html').html_safe : (i == 1 ? t('helpers.submit.next_html').html_safe : ''))
+      %>
+      <%= link_to link_name, link[:url], remote: link[:remote], class: link_class, style: link_style if link[:url] %>
+    <% end %>
+  </div>
+<% end %>
+
+<% content_links_html = capture do %>
+  <% if data.size > 1 %>
+    <div class="ui pagination menu lecture-content-links">
+      <% data.each_with_index do |item, i| %>
+        <%
+          active = if item.kind_of?(Assessment)
+            Attempt.for(@klass, current_student, item).exists?
+          else
+            item.has?(['visited', 'attempted', 'opened'], @klass, current_student)
+          end
+          
+          link_attr = { 
+            class: "lecture-content-link-pos-#{i + 1} lecture-content-link #{"active " if active}item", remote: true, 
+            data: {
+              content: item.kind_of?(Material) ? item.medium.name : (item.kind_of?(Question) ? Question.model_name.human  : item.name)
+            }
+          }
+        %>
+
+        <% if item.kind_of?(Material) %>
+          <%= link_to show_material_of_learn_klass_lecture_path(@klass, @lecture, item, position: i + 1), link_attr do %>
+            <%= ui_icon_for(item.kind) %>
+          <% end %>
+        <% elsif item.kind_of?(Page) %>
+          <%= link_to show_page_of_learn_klass_lecture_path(@klass, @lecture, item, position: i + 1), link_attr do %>
+            <%= ui_icon_for('page') %>
+          <% end %>
+        <% elsif item.kind_of?(Question) %>
+          <%= link_to show_question_of_learn_klass_lecture_path(@klass, @lecture, item, position: i + 1), link_attr do %>
+            <%= ui_icon_for('question') %>
+          <% end %>
+        <% elsif item.kind_of?(Assessment) %>
+          <%= link_to show_assessment_of_learn_klass_lecture_path(@klass, @lecture, item, position: i + 1), link_attr do %>
+            <%= ui_icon_for('assessment') %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>
+
+<%= ui_side_by_side content_links_html, pager_html, 'twelve by right aligned four' %>
+
+<% item = data[position] %>
+<% title, html = render_content(item) if item %>
+<%= ui_header @lecture.name, subtext: content_tag(:div, title, class: 'lecture-header-subtext') %>
+<div class="ui segments">
+  <div class="ui segment">
+    <div id="lecture-contents">
+      <%= html %>
+    </div>
+  </div>
+  <div class="ui center aligned segment"><%= pager_html %></div>
+  <% if @lecture.allow_discussion && @topic %>
+    <div class="ui secondary segment">
+      <%= ui_header t('page.title.discussion') %>
+      <%= content_tag :div, id: "lecture-comments" do %>
+        <%= render partial: 'learn/forums/topic', locals: {forum: @topic.forum, topic: @topic} %>
+      <% end %>
+    </div>
+  <% end %>

@@ -6,7 +6,7 @@
   $('<div class="ui small modal">' + 
     '  <div class="content"><%= j html %></div>' +
     '    <div class="actions"><div class="ui cancel button">Close</div></div>' +
-    '</div>').modal('show');
+    '</div>').modal({inverted: true}).modal('show');
 <% end %>
 
 ui_rebind_application_events(jQuery);

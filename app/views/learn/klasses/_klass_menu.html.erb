@@ -1,27 +1,18 @@
 <% klass_menu %>
 
-<div class="ui fluid card">
-  <div class="image">
-    <%= image_tag(@klass.course.poster&.at_url(:md) || '/images/holder-md.png') %>
+<div class="ui secondary menu">
+  <% app_menus(:klass).each do |section, menu| %>
+    <% menu.each do |item| %>
+      <%= link_to item[:link], item[:to], class: item[:active] ? 'item active' : 'item' %>
+    <% end %>
+  <% end %>
+  <div class="right item">
+    <%= staff_or_student_view(render(:partial => 'learn/klasses/student_picker')) %>
+    &nbsp;&nbsp;
+    <div class="three buttons">
+      <%= ui_facebook_link(@klass) %>
+      <%= ui_twitter_link(@klass) %>
+      <%= ui_google_plus_link(@klass) %>
+    </div>
   </div>
 </div>
-
-<div class="ui fluid vertical secondary menu">
-  <% app_menus(:klass).each do |section, menu| %>
-    <div class="item">
-      <% unless section == :_ %><div class="header"><%= t("page.title.#{section}") %></div><% end %>
-      <div class="menu">
-        <% menu.each do |item| %>
-          <%= link_to item[:link], item[:to], class: item[:active] ? 'item active' : 'item' %>
-        <% end %>
-      </div>
-    </div>
-  <% end %>
-</div>
-
-<div class='ui three buttons'>
-  <%= ui_facebook_link(@klass) %>
-  <%= ui_twitter_link(@klass) %>
-  <%= ui_google_plus_link(@klass) %>
-</div>
-

@@ -28,18 +28,19 @@ module Learn
       @post.author = @student || current_user
 
       respond_with @post do |format|
-        if @post.save
-          @post = Post.new if @lecture
-          format.html {
-            redirect_to learn_klass_forum_topic_path(@klass, @forum, @topic)
-          }
-          format.js { render 'learn/topics/show' if @lecture }
-        else
-          format.html {
-            render 'learn/topics/show'
-          }
-          format.js { render 'learn/topics/show' if @lecture }
-        end
+        @post.save
+        @post = Post.new if @lecture
+        format.html {
+          redirect_to learn_klass_forum_topic_path(@klass, @forum, @topic)
+        }
+        format.js { 
+          if @lecture 
+            @update_disscussion_only = true
+            render 'learn/lectures/show' #if @lecture 
+          else
+            render 'learn/forums/show' #if @lecture 
+          end
+        }
       end
     end
 
@@ -101,6 +102,14 @@ module Learn
               redirect_to learn_klass_lecture_path(@klass, @lecture, :show_comments => true)
             else
               redirect_to learn_klass_forum_topic_path(@klass, @forum, @topic)
+            end
+          }
+          format.js {
+            if @lecture 
+              @update_disscussion_only = true
+              render 'learn/lectures/show' #if @lecture 
+            else
+              render 'learn/forums/show' #if @lecture 
             end
           }
         end

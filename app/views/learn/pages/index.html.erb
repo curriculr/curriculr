@@ -1,30 +1,51 @@
-<%
-  @unit = Unit.find(params[:unit_id]) if params[:unit_id]
+<% 
+pages = [] 
+books = []
 %>
-<% if @unit.present? %>
-  <ul class="breadcrumb">
-    <li><%= link(:lecture, :index, learn_klass_lectures_path(@klass)) %></li>
-    <li><%= link_to @unit.name, learn_klass_lectures_path(@klass) %></li>
-    <li class="active"><%= Page.model_name.human(count: 3) %></li>
-  </ul>
+<% listing = capture do %>
+  <div class="ui segment">
+    <% pages = enrolled_or_staff? ? @klass.course.non_syllabus_pages(true).to_a : @klass.course.non_syllabus_pages(true, true).to_a %>
+    <% if pages.any? %>
+      <%= ui_header t("page.title.pages"), style: :h3 %>
+    
+      <div class="ui list">
+        <% pages.each do |page| %>
+          <div class="item">
+            <%= ui_icon_for('page') %>
+            <div class="content">
+              <%= link_to page.name, learn_klass_page_path(@klass, page), remote: true %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+    
+    <% books = enrolled_or_staff? ? @klass.course.books : []%>
+    <% if books.any? %>
+      <%= ui_header t('page.title.attachments'), style: :h3 %>
+      <div class="ui list">
+        <% books.each do |book| %>
+          <div class="item">
+            <%= ui_icon_for(book.medium.kind) %>
+            <div class="content">
+              <%= link_to book.medium.name, learn_klass_material_path(@klass, book), remote: true %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 <% end %>
 
-<% 
-  enrolled = (@klass.enrolled?(current_student) or staff?(current_user, @klass.course))
-  if @unit.present?
-    pages = @unit.pages.where(:published => true)
-  else
-    pages = enrolled ? @klass.course.non_syllabus_pages(true) : @klass.course.non_syllabus_pages(true, true) 
-  end
-%>
-<% unless pages.blank? %>
-  <% pages.each_with_index do |page,i| %>
-    <%= content_tag :hr, '' if i > 0 %>
-    <h2><%= page.name %> <br/><small><%= l(page.created_at.to_date) %></small></h2>
-    
-    <%= markdown(page.about, :html => page.html, :class => 'shortenable-text', :hidden_til_processed => true) %>
-  <% end %>
-  
-<% else %>
-  <p><%= t('page.text.no_record_found') %></p>
+<% content = capture do %>
+  <div class="ui basic segment" id="reading-contents">
+    <% active_item = [].concat(pages).concat(books).first{|c| !c.nil? } %>
+    <% if active_item.is_a? Page %>
+      <%= render partial: "learn/pages/show", locals: {page: active_item} %>
+    <% elsif active_item.is_a? Material %>
+      <%= render partial: "learn/materials/show", locals: {material: active_item} %>
+    <% end %>
+  </div>
 <% end %>
+
+<%= ui_side_by_side listing, content, 'five by eleven' %>

@@ -1,6 +1,8 @@
 en:
   helpers:
     submit:
+      start_new_topic: Start a new topic
+      delete: <i class="remove icon"></i>Delete
       go_back: Go back
       dashboard:  Dashboard
       upload:  Upload files

@@ -1,16 +1,19 @@
-<% content_for :search_klasses do %>
+<% aside = capture do %>
   <%= search_form_for [:learn, @q], class: "search-form", method: 'get', remote: true, wrapper: false, header: false do |f| %>
-  <div class="ui search">
-    <div class="ui icon input">
-      <%= f.search_field :course_slug_or_course_name_or_course_about_cont, hint: false, label: false, placeholder: true %>
-      <%= ui_icon :search %>
+    <div class="ui search">
+      <div class="ui icon input">
+        <%= f.search_field :course_slug_or_course_name_or_course_about_cont, hint: false, label: false, placeholder: true %>
+        <%= ui_icon :search %>
+      </div>
     </div>
-  </div>
   <% end %>
+  
+  <%= render '/learn/klasses/search' %>
 <% end %>
 
-<%= ui_header t("page.title.#{params[:s] || 'available'}_klasses") %>
-<%# content_for :list_klasses do %>
+<% list = capture do %>
+  <%= ui_header t("page.title.#{params[:s] || 'available'}_klasses") %>
+
   <div id="paginator"><%= paginate @klasses, :remote => true %></div>
 
   <div id='klass-list' class="klass-list klass-media-object ui divided items">
@@ -20,14 +23,6 @@
       <%= t('page.text.no_record_found') %>
     <% end %>
   </div>
-<%# end %>
+<% end %>
 
-
-<!-- <% if current_user %>
-  <%= ui_side_by_side(yield(:list_klasses), content_tag(:div, yield(:search_klasses) + render('learn/klasses/search'), class: "ui segment")) %>
-<% else %>
-  <%= yield :list_klasses %>
-<% end %> -->
-
-
-
+<%= ui_side_by_side list, aside %>

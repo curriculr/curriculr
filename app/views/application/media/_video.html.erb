@@ -1,19 +1,27 @@
-<div class="item" id="medium_<%= video.id %>">
-  <div class="content">
-    <div class="header"><%= ui_icon('file video outline icon') + ' ' + video.name %></div>
-    <div class="meta"><%= timeago_tag(video.created_at, :nojs => true, :limit => 10.days.ago) %></div>
-    <div class="description">
-      <%= video.full_url %>
-    </div>
-    <div class="extra">
-      <%= content_tag :div, class: 'ui buttons' do %>
-        <% youtube = (video.content_type =~ /link\/youtube/).present? %>
-        <% sublime = $site['sublimevideo_site_token'].present? %>
-        <%= link_to(t('helpers.submit.open'), '#', 
-              :class => "ui button video-open-link", 
-              data: {id: video.id, url: video.at_url, title: video.name, youtube: youtube, sublime: sublime}) unless @material %>
-        <%= render partial: 'application/media/links', locals: { medium: video, form: form, action: action } %>
-      <% end %>
-    </div>
+<% content = capture do %>
+  <div class="right floated content">
+    <%= content_tag :div, class: 'ui buttons' do %>
+      <% youtube = (video.content_type =~ /link\/youtube/).present? %>
+      <% sublime = $site['sublimevideo_site_token'].present? %>
+      <%= link_to(t('helpers.submit.open'), '#', 
+            :class => "ui button video-open-link", 
+            data: {id: video.id, url: video.at_url, title: video.name, youtube: youtube, sublime: sublime}) unless @material %>
+      <%= render partial: 'application/media/links', locals: { medium: video, form: form, action: action } %>
+    <% end %>
   </div>
-</div>
+  <div class="content">
+    <div class="header">
+      <%= ui_icon('file video outline icon') + ' ' + video.name %>
+      <div class="ui left pointing label"><%= timeago_tag(video.created_at, :nojs => true, :limit => 10.days.ago) %></div>
+    </div>
+    <small>
+      <%= video.full_url %>
+    
+      <% if video.path.present? && !video.copyrights.blank? %> 
+        <p><strong><%=Medium.human_attribute_name(:source) %>:</strong><%= video.copyrights %></p>
+      <% end %>
+    </small>
+  </div>
+<% end %>
+
+<%= wrapper ? content_tag(:div, content, class: 'item', id: "medium_#{video.id}") : content %>

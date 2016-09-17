@@ -13,6 +13,7 @@ class Course < ActiveRecord::Base
   has_many :pages, :dependent => :destroy, :as => :owner
   has_many :units, :dependent => :destroy
   has_many :assessments, :dependent => :destroy
+  has_many :questions, :dependent => :destroy
   has_many :klasses, :dependent => :destroy
   has_many :forums, :dependent => :destroy
   has_many :updates, :dependent => :destroy

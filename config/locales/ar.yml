@@ -497,7 +497,7 @@ ar:
         name: الاسم
         about: الوصف
         active: مفعل؟
-        graded: محسوب؟
+        graded: محسوب
       topic:
         name: الاسم
         about: الوصف

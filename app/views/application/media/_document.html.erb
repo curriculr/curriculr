@@ -1,19 +1,23 @@
-<div class="item" id="medium_<%= document.id %>">
-  <div class="content">
-    <div class="header"><%= ui_icon('file pdf outline icon') + ' ' + document.name %></div>
-    <div class="meta"><%= timeago_tag(document.created_at, :nojs => true, :limit => 10.days.ago) %></div>
-    <div class="description">
-      <%= document.full_url %>
-      
-      <% if document.path.present? && !document.copyrights.blank? %> 
-        <p><small><strong><%=Medium.human_attribute_name(:source) %>:</strong><%= document.copyrights %></small></p>
-      <% end %>
-    </div>
-    <div class="extra">
-      <%= content_tag :div, class: 'ui buttons' do %>
-        <%= link :medium, :open, document.at_url, :class => "ui button", :target => '_new' unless @material %>
-        <%= render partial: 'application/media/links', locals: { medium: document, form: form, action: action } %>
-      <% end %>
-    </div>
+<% content = capture do %>
+  <div class="right floated content">
+    <%= content_tag :div, class: 'ui buttons' do %>
+      <%= link :medium, :open, document.at_url, :class => "ui button", :target => '_new' unless @material %>
+      <%= render partial: 'application/media/links', locals: { medium: document, form: form, action: action } %>
+    <% end %>
   </div>
-</div>
+  <div class="content">
+    <div class="header">
+      <%= ui_icon('file pdf outline icon') + ' ' + document.name %>
+      <div class="ui left pointing label"><%= timeago_tag(document.created_at, :nojs => true, :limit => 10.days.ago) %></div>
+    </div>
+    <small>
+      <%= document.full_url %>
+    
+      <% if document.path.present? && !document.copyrights.blank? %> 
+        <p><strong><%=Medium.human_attribute_name(:source) %>:</strong><%= document.copyrights %></p>
+      <% end %>
+    </small>
+  </div>
+<% end %>
+
+<%= wrapper ? content_tag(:div, content, class: 'item', id: "medium_#{document.id}") : content %>

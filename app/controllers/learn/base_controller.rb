@@ -1,7 +1,7 @@
 module Learn
   class BaseController < AuthorizedController
     respond_to :html, :js
-
+    
     private
       def load_data
         set_klass
@@ -18,6 +18,8 @@ module Learn
 
           @student = current_student
     			@enrollment = @klass.enrollments.where(:student_id => @student.id, :active => true).first if @student.present?
+          
+          
 
           if @klass
             I18n.locale = @klass.course.locale || I18n.locale

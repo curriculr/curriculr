@@ -1,0 +1,30 @@
+<% if (@klass.open? && @klass.enrolled?(current_student)) || staff?(current_user, @klass.course) %>
+  <% @depth = 0 %>
+
+  <div class="ui threaded comments">
+    <% unless @lecture %>
+      <h3 class="ui dividing header"><%= topic.name %></h3>
+      <%= markdown(topic.about) %>    
+    <% end %>
+    <% posts = topic.posts.where(:parent_id => nil).to_a %>
+    <%= render :partial => 'learn/forums/post', :collection => posts,
+              :locals => { forum: forum, topic: topic, tab: local_assigns[:tab].present? ? tab : 0 } %>
+  </div>
+
+  <%= tag :br if posts.present? %>
+  <%= content_tag :h3, t('page.title.reply_to_topic') unless @lecture  %>
+  <%= form_for [:learn, @klass, forum, topic, Post.new], remote: true do |f| %>
+    <%= hidden_field_tag(:tab, tab) if local_assigns[:tab].present? %>
+    <%= hidden_field_tag(:lecture_id, @lecture.id) if @lecture %>
+  	<%= f.markdown :about, :label => false, hint: true %>
+  	<%= f.check_box :anonymous %>
+
+    <%= f.submit %>
+  <% end %>
+<% else %>
+  <% if @klass.past? %>
+    <%= t('page.text.closed_klass_html') %>
+  <% else %>
+    <%= t('page.text.enroll_to_comment_html', :action => ui_klass_enrollment_action(@klass, :enroll, true)) %>
+  <% end %>
+<% end %>

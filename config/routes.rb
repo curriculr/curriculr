@@ -135,7 +135,7 @@ Rails.application.routes.draw do
       end
 
       resources :pages, :only => [ :show, :index ]
-      resources :materials, :only => :index
+      resources :materials, :only => [ :show, :index ]
       resources :updates, :except => [ :show, :index ]
       get :access, :on => :member
       get :report, :on => :member

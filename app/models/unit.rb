@@ -5,6 +5,7 @@ class Unit < ActiveRecord::Base
 	has_many :lectures, :dependent => :destroy
 	has_many :assessments, :dependent => :destroy
   has_many :pages, :dependent => :destroy, :as => :owner
+  has_many :materials, :dependent => :destroy, :as => :owner
   has_many :updates, :dependent => :destroy
 
 	# Validation Rules

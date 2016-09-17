@@ -1,6 +1,6 @@
 <%
   r = nil
-  if defined?(result) && result.present?
+  if local_assigns[:result].present?
     r = t("page.text.#{result}")
 
     css_bg = case result
@@ -16,9 +16,9 @@
   end
 
   has_header = if @assessment
-    defined?(question_counter).present? && (@assessment.kind != 'survey' || @assessment.questions_count > 1)
+    local_assigns[:question_counter].present? && (@assessment.kind != 'survey' || @assessment.questions_count > 1)
   else
-    defined?(question_counter).present?
+    local_assigns[:question_counter].present?
   end
 %>
 
@@ -33,9 +33,9 @@
           <%= content_tag :span, t('page.text.points', :count => question.points) %>
         <% end %>
 
-        <% unless @q_selector || @assessment || defined? no_options %>
+        <% unless @q_selector || @assessment || local_assigns[:no_options] %>
           <%= ui_buttons([
-                link(:question, :edit, [:edit, :teach, @course, @unit, @lecture, question], class: "ui positive button"),
+                link(:question, :edit, [:edit, :teach, @course, @unit, @lecture, question], remote: true, class: "ui positive button"),
                 link(:question, :destroy, [:teach, @course, @unit, @lecture, question],
                   method: :delete, confirm: true, class: "ui negative button")
               ], class: 'mini') %>
@@ -45,13 +45,13 @@
     <div class="description">
       <%= content_tag :div, id: "question_#{question.id}" do %>
         <%= render "teach/questions/#{question.kind}", :q => question,
-          :a => ((defined?(answer)).present? ? answer : question.answer),
-          :read_only => ((defined?(read_only)).present?? read_only : !@assessment.blank?),
+          :a => local_assigns[:answer].present? ? answer : question.answer,
+          :read_only => local_assigns[:read_only].present? ? read_only : !@assessment.blank?,
           :show_answer => show_answer %>
       <% end %>
     </div>
   </div>
-  <% if defined? question_counter && (@q_selector || question.unit.present?) %>
+  <% if local_assigns[:question_counter].present? && (@q_selector || question.unit.present?) %>
     <% if @q_selector # During selecting questions to add to assessment %>
       <%= content_tag :div, class: 'extra content' do %>
         <%= render partial: 'q_selector_form', locals: {

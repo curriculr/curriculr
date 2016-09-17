@@ -1,0 +1,6 @@
+$('.forum.item').removeClass('active');
+$('#forum-<%= @forum.id %>').addClass('active');
+
+$('#discussion-content').html('<%= j render(partial: "learn/forums/forum", locals: {forum: @forum}) %>');
+
+ui_rebind_application_events(jQuery);

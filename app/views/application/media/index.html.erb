@@ -16,7 +16,7 @@
     <% end %>
   <% end %>
 <% end %>
-<%= ui_header Medium.model_name.human(count: 3), style: @course ? :h2 : nil, action: action %>
+<%= ui_header Medium.model_name.human(count: 3), style: @course ? :h2 : :h1, action: action %>
 
 <div class="ui top attached pointing menu">
   <% t('config.medium.kind').map do |k, v| %>
@@ -39,7 +39,7 @@
 </div>
 <div class="ui bottom attached segment">
   <div id="paginator"><%= paginate @media, :remote => true %></div>
-	<div class="ui items" id="all-media">
+	<div class="ui divided list" id="all-media">
     <%= render :partial => "application/media/medium", :collection => @media, :as => :medium %>
   </div>
 </div>

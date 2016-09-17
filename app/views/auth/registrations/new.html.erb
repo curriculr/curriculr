@@ -1,19 +1,25 @@
 <% content_for :sign_in_or_up_menu do %>
-  <div class="ui fluid vertical secondary menu">
-    <%= link_to raw(t('helpers.submit.signin') + ui_icon('sign in')), main_app.auth_signin_path, class: "item" %>
-    <%= link_to raw(t('helpers.submit.signup') + ui_icon('add user')), '', class: 'active item' %>
+<div class="ui centered grid">
+  <div class="eight wide column">
+    <div class="ui secondary menu">
+      <%= link_to raw(ui_icon('sign in') + t('helpers.submit.signin')), main_app.auth_signin_path, class: "item" %>
+      <%= link_to raw(ui_icon('add user') + t('helpers.submit.signup')), '', class: 'active item' %>
+    </div>
   </div>
+</div>
 <% end %>
 
-<%= ui_side_by_side(capture do %>
-  <%= form_for @user, url: url_for(controller: 'auth/registrations', action: 'create'), method: :post do |f| %>
+<div class="ui centered grid container">
+  <div class="eight wide column">
+    <%= form_for @user, url: url_for(controller: 'auth/registrations', action: 'create'), method: :post do |f| %>
   
-    <%= f.text_field :name, label: false, placeholder: true %>
-    <%= f.email_field :email, label: false, placeholder: true %>
-    <%= f.password_field :password, label: false, placeholder: true %>
-    <%= f.password_field :password_confirmation, label: false, placeholder: true %>
+      <%= f.text_field :name, label: false, placeholder: true %>
+      <%= f.email_field :email, label: false, placeholder: true %>
+      <%= f.password_field :password, label: false, placeholder: true %>
+      <%= f.password_field :password_confirmation, label: false, placeholder: true %>
 
-    <%= f.submit :signup %> 
-    <%= t('page.text.registration_terms_and_conditions_html', link: link(:page, :terms, localized_page_path(:terms))) %>
-  <% end %>
- <% end, '', 'eight by eight') %>
+      <%= f.submit :signup %> 
+      <p><%= t('page.text.registration_terms_and_conditions_html', link: link(:page, :terms, localized_page_path(:terms))) %></p>
+    <% end %>
+  </div>
+</div>

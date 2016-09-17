@@ -41,14 +41,12 @@
 		<div class="container"><%= mountable_fragments :site_728x90_center_top_banner %></div>
 	<% end %>
 
-  <% if action_name == 'front' %>
-    <%= render :template => "layouts/front" %>
-  <% elsif @course && !@course.new_record? %>
-    <%= render :template => "layouts/teach" %>
-  <% elsif @klass %>
-    <%= render :template => "layouts/learn" %>
-	<% elsif controller_name == 'pages' && action_name == 'blogs' %>
-	  <%= render :template => 'layouts/blog' %>
+  <% if action_name.in? ['front', 'blogs'] %>
+    <%= render :template => "layouts/jumbotron" %>
+  <%# elsif @course && !@course.new_record? %>
+    <%# render :template => "layouts/teach" %>
+  <%# elsif @klass %>
+    <%# render :template => "layouts/learn" %>
   <% else %>
     <%= render :template => "layouts/default" %>
   <% end %>

@@ -8,13 +8,11 @@ window.ui_rebind_application_events  = ($) ->
   $('.course.klasses .ui.sidebar').sidebar(
     context: $('.course.klasses > .bottom.segment')
   ).sidebar('attach events', '.course.klasses > .menu > .item')
-  # $('.course.questions .ui.sidebar').sidebar(
-  #   context: $('.course.questions > .bottom.segment')
-  # ).sidebar('attach events', '.course.questions > .menu > .item')
+
   # Settings
   $('.add-in-modal, .edit-in-modal').unbind().on 'click', ->
     html = $(this).data('form')
-    $(html).modal('show')
+    $(html).modal(inverted: true).modal('show')
     
   $('.confirm-first').unbind().on 'click', ->
     $(""" 
@@ -25,16 +23,16 @@ window.ui_rebind_application_events  = ($) ->
           #{$(this).data('action')}
           <div class="ui button cancel">#{$(this).data('cancel')}</div>
         </div>
-      </div>""").modal('show')
+      </div>""").modal(inverted: true).modal('show')
 
   # markdown
   $('.wmd-input').each(ui_markdown_control)
 
   # Shortening text during display
   $('.shortenable-text').shorten(
-    showChars: '360',
-    moreText: '<i class="big circle chevron down icon" title="more..."></i>',
-    lessText: '<i class="big circle chevron up icon" title="less..."></i>'
+    showChars: '200',
+    moreText: '<i class="chevron down icon" title="more..."></i>more...',
+    lessText: '<i class="chevron up icon" title="less..."></i>less...'
   )
   
   # mediaelementjs
@@ -134,7 +132,7 @@ window.ui_rebind_application_events  = ($) ->
           <div class="ui cancel button">Close</div>
         </div>
       </div>
-    """).modal('show')
+    """).modal(inverted: true).modal('show')
 
     if $(this).data('sublime')
       sublime.load()
@@ -335,7 +333,7 @@ window.ui_rebind_application_events  = ($) ->
           <div class="ui cancel button">#{close}</div>
         </div>
       </div>
-    """).modal('show')
+    """).modal(inverted: true).modal('show')
 
     return false
 
@@ -387,11 +385,12 @@ window.ui_rebind_application_events  = ($) ->
   # Reply to posts
   $('.reply-to-post').unbind().on 'click', (event) ->
     post_id = $(this).data('post-id')
-    if $("#reply-to-post-#{post_id}").hasClass("hidden")
-      $("#reply-to-post-#{post_id}").removeClass("hidden").addClass("show")
+    if $("#reply-to-post-#{post_id}").is(':hidden')
+      $("#reply-to-post-#{post_id}").show()
       $(this).text($(this).data('cancel-btn'))
     else
-      $("#reply-to-post-#{post_id}").removeClass("show").addClass("hidden")
+      
+      $("#reply-to-post-#{post_id}").hide()
       $(this).text($(this).data('reply-btn'))
 
   $(".timepicker").timepicker({timeFormat: "HH:mm", timezoneList: [{ value: 180, label: 'Mecca'}]})
@@ -419,18 +418,18 @@ window.ui_rebind_application_events  = ($) ->
 
   set_lecture_pager_position = (pos) ->
     $(".lecture-pager .lecture-pager-link").hide()
-    $(".lecture-pager .lecture-pager-link-pos-#{pos - 1} a").html($('.lecture-pager').data('prev'))
+    $(".lecture-pager a.lecture-pager-link-pos-#{pos - 1}").html($('.lecture-pager').data('prev'))
     $(".lecture-pager .lecture-pager-link-pos-#{pos - 1}").removeClass("next")
     $(".lecture-pager .lecture-pager-link-pos-#{pos - 1}").addClass("previous")
     $(".lecture-pager .lecture-pager-link-pos-#{pos - 1}").show()
-    $(".lecture-pager .lecture-pager-link-pos-#{pos + 1} a").html($('.lecture-pager').data('next'))
+    $(".lecture-pager a.lecture-pager-link-pos-#{pos + 1}").html($('.lecture-pager').data('next'))
     $(".lecture-pager .lecture-pager-link-pos-#{pos + 1}").removeClass("previous")
     $(".lecture-pager .lecture-pager-link-pos-#{pos + 1}").addClass("next")
     $(".lecture-pager .lecture-pager-link-pos-#{pos + 1}").show()
-    $(".lecture-contents li").removeClass("current")
-    $(".lecture-contents .lecture-content-link-pos-#{pos}").addClass("current")
+    $(".lecture-content-links a").removeClass("current")
+    $(".lecture-content-links .lecture-content-link-pos-#{pos}").addClass("current")
     if mark_as_taken
-      $(".lecture-contents .lecture-content-link-pos-#{pos}").addClass("active")
+      $(".lecture-content-links .lecture-content-link-pos-#{pos}").addClass("active")
 
   $('.btn-popover').hover(
     (e) ->

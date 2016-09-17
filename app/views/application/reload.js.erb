@@ -1,1 +1,5 @@
-location.reload();
+<% if @reload_url %>
+  location = '<%= @reload_url %>';
+<% else %>
+  location.reload();
+<% end %>

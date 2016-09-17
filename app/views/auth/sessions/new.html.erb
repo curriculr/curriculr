@@ -1,29 +1,35 @@
 <% content_for :sign_in_or_up_menu do %>
-  <div class="ui fluid vertical secondary menu">
-    <%= link_to raw(t('helpers.submit.signin') + ui_icon('sign in')), nil, class: "active item" %>
-    <%= link_to raw(t('helpers.submit.signup') + ui_icon('add user')), main_app.auth_signup_path, class: 'item' %>
+  <div class="ui centered grid">
+    <div class="eight wide column">
+      <div class="ui secondary menu">
+        <%= link_to raw(ui_icon('sign in') + t('helpers.submit.signin')), nil, class: "active item" %>
+        <%= link_to raw(ui_icon('add user') + t('helpers.submit.signup')), main_app.auth_signup_path, class: 'item' %>
+      </div>
+    </div>
   </div>
 <% end %>
 
-<%= ui_side_by_side(capture do %>
-  <div class="ui large two buttons">
-    <%= capture do %>
-      <% [:facebook, :google_oauth2].each_with_index do |app, i| %>
-        <%= content_tag :div, '', class: 'or' if i > 0 %>
-        <% app_secrets = Rails.application.secrets.auth[app.to_s] %>
-        <% if app_secrets && app_secrets['id'].present? && app_secrets['secret'].present? %>
-          <% app_name = app == :google_oauth2 ? :"google" : app %>
+<div class="ui centered grid container">
+  <div class="eight wide column">
+    <div class="ui large two buttons">
+      <%= capture do %>
+        <% [:facebook, :google_oauth2].each_with_index do |app, i| %>
+          <%= content_tag :div, '', class: 'or' if i > 0 %>
+          <% app_secrets = Rails.application.secrets.auth[app.to_s] %>
+          <% if app_secrets && app_secrets['id'].present? && app_secrets['secret'].present? %>
+            <% app_name = app == :google_oauth2 ? :"google" : app %>
 
-          <%= link_to "/auth/#{app}", class: "ui #{app_name}#{' plus' if i == 1} button" do %>
-            <%= ui_icon app_name %>
-            <%= t("helpers.submit.#{app_name}") %>
+            <%= link_to "/auth/#{app}", class: "ui #{app_name}#{' plus' if i == 1} button" do %>
+              <%= ui_icon app_name %>
+              <%= t("helpers.submit.#{app_name}") %>
+            <% end %>
           <% end %>
         <% end %>
       <% end %>
-    <% end %>
+    </div>
+
+    <div class="ui horizontal divider"><%= t('page.text.or') %></div>
+
+    <%= render partial: 'auth/sessions/form' %>
   </div>
-
-  <div class="ui horizontal divider"><%= t('page.text.or') %></div>
-
-  <%= render partial: 'auth/sessions/form' %>
-<% end, '', 'eight by eight') %>
+</div>

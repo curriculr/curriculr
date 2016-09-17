@@ -7,7 +7,6 @@
   %>
   <div class="four wide column">
     <div class="ui fluid sortable secondary vertical pointing menu" id="sortable-lectures-<%= unit.id %>" data-update-url="<%= sort_teach_course_unit_lectures_path(@course, unit) %>">
-      <div class="item"><%= link :lecture, :new, new_teach_course_unit_lecture_path(@course, unit), remote: true, class: 'ui primary button' %></div>
       <% lectures.each_with_index do |lecture, i| %>
         <%= content_tag :a, lecture, id: "lecture_#{lecture.id}", :class => "lecture #{"active " if lecture.id == active_lecture.id }item",
           :href => "#lecture-#{lecture.id}", :'data-toggle' => "tab", :'data-unit' => unit.id,
@@ -22,4 +21,4 @@
   <div class="twelve wide column" id="lectures-details-<%= unit.id %>">
     <%= render partial: 'teach/lectures/lecture', locals: { unit: unit, lecture: active_lecture, i: active_i } if active_lecture %>
   </div>
-<% end %>
+<% end unless lectures.empty? %>

@@ -1,12 +1,14 @@
-<%= ui_header @assessment.name, style: :h3, subtext: @assessment.kind, action: ui_buttons([
+<%= ui_header @assessment.name, subtext: @assessment.kind, action: course_breadcrumbs(Assessment.model_name.human)%>
+
+<%= ui_buttons([
       link(:assessment, :edit, [:edit, @req_objects].flatten, remote: true, class: 'ui positive button'),
   		link(:assessment, @assessment.ready ? :unready : :ready, [@req_objects,
         { :opr => :ready, :'assessment[ready]' => !@assessment.ready }].flatten, :method => :put, 
         :id => "assessment_ready_#{@assessment.id}_link", class: 'ui positive basic button'),
       nil,
       link(:assessment, :destroy, @req_objects, method: :delete, confirm: true, class: 'ui negative button')
-    ])
-%>
+      ], class: 'right floated')
+%><br><br>
 
 <% if @assessment && !@assessment.new_record? %>
   <div id="assessment-ready-indicator" class="ui warning message" style=" <%= 'display: none;' if @assessment.ready %>">
@@ -34,7 +36,7 @@
       <%= f.static :penalty %>
       <%= f.static :show_answer, value: t("config.assessment.show_answer.#{@assessment.show_answer}") %>
     </div>
-    <% if @assessment.lecture && @assessment.invideo_id && Material.find_by(id: @assessment.invideo_id) %>
+    <% if @assessment.lecture && @assessment.invideo_id && (invideo = Material.find_by(id: @assessment.invideo_id)) %>
       <div class="three fields">
         <%= f.static :invideo_id, value: invideo.medium.name  %>
         <%= f.static :invideo_at %>
@@ -62,7 +64,7 @@
     <%= link(:assessment, :preview, [:preview, @req_objects].flatten, class: "ui button")%>
   <% end %>
 
-  <%= ui_header Question.model_name.human(count: 3), style: :h3, action: action %>
+  <%= ui_header Question.model_name.human(count: 3), action: action %>
 
   <div class="field-container sortable-selector sortable" data-update-url="<%= url_for([:sort_q_selector, :teach, @course, @unit, @lecture, @assessment]) %>">
     <%= f.fields_for :q_selectors do |s| %>

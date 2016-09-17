@@ -1,58 +1,64 @@
-<%
-  html = ''
-  pane = 'media-pane'
-  if @material.present?
-    if @material.kind == 'video' || @material.of_content_type?('video/')
-      html << ui_video(@material, nil, :autoplay => true)
-    elsif @material.kind == 'audio' || @material.of_content_type?('audio/')
-      html << ui_audio(@material, :autoplay => true)
-    elsif @material.kind =='image' || @material.of_content_type?('image/')
-      html << image_tag(@material.at_url, class: "img-responsive")
-    else
-      html << ui_document_viewer(@material.at_url)
-    end
-  else
-    subhtml = ''
-    if @page
-      subhtml << ui_header(@page.name, style: :h3)
-      subhtml << markdown(@page.about, :html => @page.html)
-    elsif @question && @question.lecture
-      subhtml << ( render partial: "learn/questions/show", locals: {
-          question: @question,
-          answer: @answer,
-          result: @result
-        }
-      )
-    elsif @assessment && @assessment.lecture
-      subhtml << render(partial: "learn/assessments/assessment", locals: { assessment: @assessment })
-    end
+<% if @update_disscussion_only %>
+  $("#lecture-comments").html('<%= j render(partial: "learn/forums/topic", locals: {forum: @forum, topic: @topic}) %>');
+<% else %>
+  <%
+    pane = 'lecture-contents'
+    title, html = render_content([@material, @page, @question, @assessment].find{|c| !c.nil?}, @answer, @result)
+    # if @material.present?
+    #   title = @material.medium.name
+    #   if @material.kind == 'video' || @material.of_content_type?('video/')
+    #     html << ui_video(@material, nil, :autoplay => true)
+    #   elsif @material.kind == 'audio' || @material.of_content_type?('audio/')
+    #     html << ui_audio(@material, :autoplay => true)
+    #   elsif @material.kind =='image' || @material.of_content_type?('image/')
+    #     html << image_tag(@material.at_url, class: "img-responsive")
+    #   else
+    #     html << ui_document_viewer(@material.at_url)
+    #   end
+    # else
+    #   subhtml = ''
+    #   if @page
+    #     title = @page.name
+    #     subhtml << ui_header(@page.name)
+    #     subhtml << markdown(@page.about, :html => @page.html)
+    #   elsif @question && @question.lecture
+    #     title = Question.model_name.human
+    #     subhtml << ( render partial: "learn/questions/show", locals: {
+    #         question: @question,
+    #         answer: @answer,
+    #         result: @result
+    #       }
+    #     )
+    #   elsif @assessment && @assessment.lecture
+    #     title = @assessment.name
+    #     subhtml << render(partial: "learn/assessments/assessment", locals: { assessment: @assessment })
+    #   end
+    #
+    #   html << subhtml if subhtml.present?
+    # end
+  %>
 
-    html << %(
-      <div class="row">
-        <div class="#{css_columns(24)}">
-          #{subhtml}
-        </div>
-      </div>) if subhtml.present?
-  end
-%>
-
-$("#<%= pane %>").html('<%= j html.html_safe %>');
-$("#<%= pane %> audio.mediaelementjs").mediaelementplayer();
-<% if @correct_answer %>
-  <% @correct_answer.each do |id, a| %>
-    <%
-    html = content_tag :div, :style => 'display: none;' do
-      if  %w(pick_one pick_many).include?(@question.kind)
-         a == '1' ? ui_icon(:check) : ''
-      else
-        %(<strong>#{Question.human_attribute_name(:answer)}</strong>: <span>#{a}</span>).html_safe
+  $("#<%= pane %>").html('<%= j html.html_safe %>');
+  $(".lecture-header-subtext").text('<%= title %>');
+  $("#<%= pane %> audio.mediaelementjs").mediaelementplayer();
+  <% if @correct_answer %>
+    <% @correct_answer.each do |id, a| %>
+      <%
+      html = content_tag :div, :style => 'display: none;' do
+        if  %w(pick_one pick_many).include?(@question.kind)
+           a == '1' ? ui_icon(:check) : ''
+        else
+          %(<strong>#{Question.human_attribute_name(:answer)}</strong>: <span>#{a}</span>).html_safe
+        end
       end
-    end
-    %>
-    $('#<%= id %>').html('<%= j html.html_safe %>');
+      %>
+      $('#<%= id %>').html('<%= j html.html_safe %>');
+    <% end %>
   <% end %>
+
+  mark_as_taken = <%= @mark_as_taken.present? %>;
+  lecture_pager_position = <%= params[:position] ? params[:position] : (@question && @question.order > 0? @question.order - 1 : 1) %>
 <% end %>
 
-mark_as_taken = <%= @mark_as_taken.present? %>;
-lecture_pager_position = <%= params[:position] ? params[:position] : (@question && @question.order > 0? @question.order - 1 : 1) %>
 ui_rebind_application_events(jQuery);
+

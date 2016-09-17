@@ -1,33 +1,27 @@
-<div class="ui divided items">
+<div class="ui list">
 	<% updates.each_with_index do |update, ndx| %>
     <% klass = update.klass %>
 		<div class="item">
+      <div class="right floated content">
+        <%= ui_buttons([
+              link(:update, :edit, klass ? edit_teach_course_klass_update_path(@course, klass, update) : [:edit, :teach, @course, @unit, update], remote: true, class: "ui positive button"),
+              link(:update, :destroy, klass ? teach_course_klass_update_path(@course, klass, update) : [:teach, @course, @unit, update], method: :delete, confirm: true, class: "ui negative button")
+              ]) %>
+      </div>
       <div class="content">
-        <div class="header"><%= update.subject %></div>
-        <div class="meta">
-          <div class="ui horizontal list">
-            <%= content_tag :div, class: 'item' do %><%= t('page.text.to').capitalize %> <%= t('config.update.to.' + update.to) %><% end %>
-            <%= content_tag :div, class: 'item' do %><%= "#{I18n.t('page.text.on')} #{I18n.l(update.created_at.to_date)})" %><% end if klass %>
-            <%= content_tag :div, update.active ? ui_icon(:check) + t('page.text.active') : t('page.text.inactive'), :class => "item" %>
-            <%= content_tag :div, class: 'item' do %><%= ui_icon(:globe) %><%= t("config.update.kind.www") %><% end if update.www %>
-            <%= content_tag :div, class: 'item' do %><%= ui_icon(:envelope) %><%= t("config.update.kind.email") %><% end if update.email %>
-            <%= content_tag :div, class: 'item' do %><%= ui_icon(:comment) %><%= t("config.update.kind.sms") %><% end if update.sms %>
-          </div>
+        <div class="header">
+          <%= update.subject %>
+          <%= content_tag :div, class: 'ui left pointing label' do %><%= t('page.text.to').capitalize %>: <%= t('config.update.to.' + update.to) %><% end %>
+          <%= content_tag :div, class: 'ui label' do %><%= "#{I18n.t('page.text.on')} #{I18n.l(update.created_at.to_date)})" %><% end if klass %>
+          <%= content_tag :div, update.active ? ui_icon(:check) + t('page.text.active') : t('page.text.inactive'), :class => "ui label" %>
+          <%= content_tag :div, class: 'ui label' do %><%= ui_icon(:globe) %><%= t("config.update.kind.www") %><% end if update.www %>
+          <%= content_tag :div, class: 'ui label' do %><%= ui_icon(:envelope) %><%= t("config.update.kind.email") %><% end if update.email %>
+          <%= content_tag :div, class: 'ui label' do %><%= ui_icon(:comment) %><%= t("config.update.kind.sms") %><% end if update.sms %>
         </div>
-        <div class="description">
-          <% if update.active && klass && klass.approved && klass.open? && update.sent_at.blank? %>
-            <div class="ui warning message">
-              <%= t('page.text.unpublished_update_html', link: link(:update, :send, make_teach_course_klass_update_path(@course, klass, update), method: :put)) %>
-            </div>
-          <% end %>
-          <%= markdown update.body, :class => 'shortenable-text' %>
-        </div>
-        <div class="extra">
-          <%= ui_buttons([
-                link(:update, :edit, klass ? edit_teach_course_klass_update_path(@course, klass, update) : [:edit, :teach, @course, @unit, update], remote: true, class: "ui positive button"),
-                link(:update, :destroy, klass ? teach_course_klass_update_path(@course, klass, update) : [:teach, @course, @unit, update], method: :delete, confirm: true, class: "ui negative button")
-                ]) %>
-        </div>
+        <% if update.active && klass && klass.approved && klass.open? && update.sent_at.blank? %>
+          <%= t('page.text.unpublished_update_html', link: link(:update, :send, make_teach_course_klass_update_path(@course, klass, update), method: :put)) %>
+        <% end %>
+        <%# markdown update.body, :class => 'shortenable-text' %>
       </div>
     </div>
   <% end %>

@@ -1,8 +1,10 @@
 <%= modal_form_for [:teach, @course, @klass, @forum] do |f| %>
   <%= f.text_field :name, :input_html => {:class => 'span6'} %>
   <%= f.markdown :about %>
-  <%= f.check_box :active %>
-  <%= f.check_box :graded %>
+  <div class="two fields">
+    <%= f.check_box :active %>
+    <%= f.check_box :graded %>
+  </div>
   
   <%= f.submit %>
   <%= f.cancel url_for([:teach, @course, @klass, :show => 'forums']) %>

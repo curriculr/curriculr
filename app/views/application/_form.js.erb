@@ -1,5 +1,5 @@
 $('#the-modal-form').remove();
-$('<%= j form %>').modal('show');
+$('<%= j form %>').modal({inverted: true}).modal('show');
 $('.ui.modal > .actions > button.submit-form').on('click', function(){
   $(this).closest('.ui.modal').find('form').submit();
 });

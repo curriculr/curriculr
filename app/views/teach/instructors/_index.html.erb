@@ -1,24 +1,18 @@
 <% count = instructors.count %>
-<%= content_tag :div, :class => "ui divided items sortable", :"data-update-url" => "#{sort_teach_course_instructors_path(@course)}" do %>
+<%= content_tag :div, :class => "ui sortable list", :"data-update-url" => "#{sort_teach_course_instructors_path(@course)}" do %>
   <% instructors.each do |instructor| %>
     <%= content_tag :div, class: "item", id: "instructor_#{instructor.id}" do %>
-      <div class="ui tiny image">
+      <div class="right floated content">
+        <%= ui_buttons([
+              link(:instructor, :edit, edit_teach_course_instructor_path(@course, instructor), remote: true, class: 'ui positive button'),
+              link(:instructor, :destroy, teach_course_instructor_path(@course, instructor), :class => 'ui negative button', method: :delete, confirm: true)]) %>
+      </div>
+      <div class="ui avatar image">
         <%= image_tag instructor.avatar_url(current_account, :th) || '/images/nobody-th.png' %>
       </div>
       <div class="content">
         <div class="header"><%= instructor.name %></div>
-          <div class="meta">
-            <span><%= t("config.staff.#{instructor.role}") %></span>
-            <%= content_tag :span, instructor.title unless instructor.title.blank? %>
-          </div>
-        <div class="description">
-          <%= markdown(instructor.about) unless !instructor || instructor.about.blank? %>
-          <%= link(:instructor, :edit, edit_teach_course_instructor_path(@course, instructor), remote: true,
-                  class: 'ui positive button') %>
-           <%= link(:instructor, :destroy, teach_course_instructor_path(@course, instructor),
-                  :class => 'ui negative button', method: :delete, confirm: true )
-            %>
-        </div>
+        <%= t("config.staff.#{instructor.role}") %>
       </div>
     <% end %>
   <% end %>
@@ -30,7 +24,6 @@
 
 <% if count > 1 %>
   <%= content_tag :small do %>
-    <br/><hr/>
     <%= t('page.text.drag_items_to_reorder_html') %>
   <% end %>
 <% end %>

@@ -1,7 +1,7 @@
 <%
   options = {html: {id: "select_mediam_#{medium.id}"}}
   options[:remote] = true if params[:multiple]
-  options[:wrapper] = options[:header] = false
+  wrapper = local_assigns[:wrapper].nil? ? true : local_assigns[:wrapper]
 %>
 <% form = form_for @req_objects, options do |f| %>
   <%= f.hidden_field :kind, :value => "#{params[:s]}" %>
@@ -13,7 +13,7 @@
 
 <%=
   render :partial => "application/media/#{medium.kind}",
-         :locals => { :form => form, medium.kind.to_sym => medium,
+         :locals => { :form => form, :wrapper => wrapper, medium.kind.to_sym => medium,
            "#{medium.kind}_counter".to_sym => medium_counter,
-           :action => (defined? action) ? action : nil }
+           :action => local_assigns[:action].present? ? action : nil }
 %>

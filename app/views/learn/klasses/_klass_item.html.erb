@@ -10,8 +10,8 @@
       <%= link_to klass.course.name, staff?(current_user, klass) ? main_app.teach_course_klass_path(klass.course, klass) : [main_app, :learn, klass], class: 'header' %>
     <div class="meta">
       <div class="ui horizontal bulleted list">
-        <div class="item"><%= klass_from_and_to_dates(klass) %></div>
         <div class="item"><%= klass.instructors(:by_first) %></div>
+        <div class="item"><%= klass_from_and_to_dates(klass) %></div>
       </div>
     </div>
     <div class="description">

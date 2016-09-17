@@ -267,10 +267,16 @@ ar:
       unit_updates: هذه التحديثات ستنشر تلقائيا على الصفحات الرئيسية للفصول الدراسية لهذا المقرر عقب توافر هذه الوحدة. عندها أيضا سترسل التحديثات عبر البريد الإلكتروني تلقائيا للطلاب المسجلين.
       signup: لإنشاء حساب جديد
       signin: للدخول
-      course_unit_html:
+      course_units_html:
         يقسم المقرر إلى وحدة واحدة أو أكثر. قد تكون الوحدة فصلا من كتاب أو جزءا من موضوع المقرر
         أو حتى اسبوعا من مقرر يتطلب أخذه عدة أسابيع. كل وحدة تحتوي على محاضرة واحدة أو أكثر.
         من خلال هذه الصفحة يمكنك أن تضيف إلى أو تدير وحدات هذا المقرر و محاضراتها.
+      course_questions_html:
+        يحتوي المقرر مجموعة من الأسئلة الموزعة على الوحدات و المحاضرات. هذه الأسئلة منظمة في بنوك  و يمكن إضافتها لاحقا للمحاضرات أو 
+        استخدامها في إنشاء الامتحانات أو حتى الاستطلاعات.
+        A course might have many questions distributed across its units and lectures. These questions
+        are organized into banks. Questions can be later linked to lectures or be used to create
+        exams, quizzes, and even surveys.
       no_info_to_display: لا معلومات للعرض
       first_and_others: "%{first}, ..."
       by_first_and_others: "لـ %{first}, ..."
@@ -285,3 +291,4 @@ ar:
       free_to_enroll: هذا الفصل مجاني.
       free_to_preview: تستطيع فتح هذا الفصل و استعراض بعض أو كل محتوياته بدون تسجيل.
       free_to_enroll_again: كنت قد سجلت سابقا في هذا الفصل ثم انسحبت. تستطيع التسجيل فيه مجددا.
+      left_a_comment: كتب تعليقا. 

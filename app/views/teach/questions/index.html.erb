@@ -30,17 +30,19 @@ if @q_selector
     :name => @assessment.kind == 'survey' ? t('activerecord.models.survey.one') : Assessment.model_name.human), the_path_out, 
     :class => "ui button" 
   
-  ui_header t('page.title.question_banks'), style: :h2, action: action
+  ui_header t('page.title.question_banks'), action: action
 else 
   links = []
   question_kinds(@bank == 'survey').each do |k,v|
     links << link_to(v, {action: :new, controller: 'questions', 
         course_id: @course.id, unit_id: (@unit ? @unit.id : nil),
-        lecture_id: (@lecture ? @lecture.id : nil), :s => k, :b => @bank}, class: 'item')
+        lecture_id: (@lecture ? @lecture.id : nil), :s => k, :b => @bank}, remote: true, class: 'item')
   end
 
-  ui_header(t('page.title.question_banks'))
+  ui_header(Question.model_name.human(count: 3), action: course_breadcrumbs(Question.model_name.human(count: 3), true))
 end %>
+
+<p><%= t('page.text.course_questions_html') %></p>
 
 <%= content_tag :div, class: "course questions" do %>
   <div class="ui top attached klass menu">
@@ -74,7 +76,7 @@ end %>
       
       <%= content_tag :div, units_and_lectures, class: 'item' if units_and_lectures %>
       
-      <% unless links.empty? %>
+      <% if links %>
         <div class="item">
           <%= ui_dropdown_button(t("page.text.new"), links) %>
         </div>

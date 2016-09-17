@@ -7,7 +7,7 @@
   <% questions.each_with_index do |q, ndx| %>
     <% result = @attempt.state == 2 ? @attempt.result(q,ndx) : nil  %>
     <%
-      if defined?(result) && result.present?
+      if local_assigns[:result].present?
         css_bg = case result
         when :correct
           'panel-success'

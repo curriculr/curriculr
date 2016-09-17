@@ -262,10 +262,14 @@ en:
       unit_updates: These updates will be automatically posted on the main pages of its classes when this unit is made available. Update emails will also be automatically sent to enrolled students.
       signup: To create an account
       signin: To sign in
-      course_unit_html:
+      course_units_html:
         A course is divided into one or more units. A unit can correspond to a
         chapter in a book, a week in multi-week course, or a part of the course main subject. It is
         made of one or more lectures. This page is where you add and manage units and their lectures.
+      course_questions_html:
+        A course might have many questions distributed across its units and lectures. These questions
+        are organized into banks. Questions can be later linked to lectures or be used to create
+        exams, quizzes, and/or even surveys.
       no_info_to_display: No information to display
       first_and_others: "%{first}, ..."
       by_first_and_others: "by %{first}, ..."
@@ -281,3 +285,4 @@ en:
       free_to_enroll: This is a free class.
       free_to_preview: You can open this class and preview some or all of its contents before you enroll.
       free_to_enroll_again: You previously enrolled in this class. You can enroll in it again.
+      left_a_comment: left a comment.

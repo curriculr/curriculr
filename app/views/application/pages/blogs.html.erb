@@ -1,3 +1,13 @@
+<% content_for :jumbotron do %>
+  <div class="ui center aligned text container">
+    <div class="ui huge inverted icon header">
+      <%= ui_icon 'newspaper' %>
+      <%= scoped_t("#{current_account.slug}.site.blog.line1_html") %>
+      <div class="ui large sub header"><%= scoped_t("#{current_account.slug}.site.blog.line2_html") %></div>
+    </div>
+  </div>
+<% end %>
+
 <% if @blogs.present? %>
   <div class="ui divided items">
     <%= render :partial => 'application/pages/blog', :collection => @blogs %>

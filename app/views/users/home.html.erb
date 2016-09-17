@@ -1,8 +1,11 @@
-<% if current_user.has_role?(:admin) %>
-  <%= render 'home_admin' %>
-<% elsif current_user.has_role?(:faculty) %>
-  <%= render 'home_faculty' %>
-<% else %>
-  <%= render 'home' %>
+<% content = capture do %>
+  <% if current_user.has_role?(:admin) %>
+    <%= render 'home_admin' %>
+  <% elsif current_user.has_role?(:faculty) %>
+    <%= render 'home_faculty' %>
+  <% else %>
+    <%= render 'home' %>
+  <% end %>
 <% end %>
 
+<%= ui_side_by_side render("/users/user_menu"), content, 'four by twelve' %>

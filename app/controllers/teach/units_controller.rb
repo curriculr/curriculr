@@ -10,6 +10,8 @@ module Teach
     end
 
     def index
+      @units = @course.units.order('units.order').to_a
+      redirect_to [:teach, @course, @units.first] unless @units.empty?
     end
     
     def new

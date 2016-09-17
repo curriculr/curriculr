@@ -1,8 +1,49 @@
 <% main_menu %>
 
-<div class="ui secondary <%= "inverted " if front %>pointing menu">
+<div class="ui <%= "inverted " if front %>huge main nav list">
+  <div class="item">
+    <div class="right floated content">
+      <div class="ui large relaxed horizontal link list">
+        <% app_menu(:top).each do |item| %>
+          <%= link_to item[:link], item[:to], class: "#{item[:active] ? 'active ' : nil} item" %>
+        <% end %>
+  
+        <% if app_menu(:top, :locale) %>
+          <div class="ui dropdown item">
+            <div class="text"><%= app_menu(:top, :locale)[0] %></div>
+            <i class="dropdown icon"></i>
+            <div class="right menu">
+              <% app_menu(:top, :locale).from(1).each do |item| %>
+                <%= link_to item[:link], item[:to], class: "#{item[:active] ? 'active ' : nil} item" %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+  
+        <% app_menu(:top, :right).each do |item| %>
+          <div class="item">
+            <%= link_to item[:link], item[:to], class: "ui #{"inverted " if front}#{item[:class]} button" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <%= link_to current_user ? main_app.home_path : main_app.root_path, class: 'ui image' do %>
+      <%= image_tag "/images/logo1.png", class: 'ui avatar image' %>
+      <% end %>
+    <div class="content">
+      <div class="header">
+    		<%= link_to current_account.config['title'], current_user ? main_app.home_path : main_app.root_path %>
+      </div>
+      <small>Open Interactive Learning</small>
+    </div>
+  </div>
+</div>
+
+
+<!--<div class="ui secondary <%= "inverted " if front %>pointing menu">
   <div class="header item">
-		<%= link_to current_user ? main_app.home_path : main_app.root_path, :class => "logo" do %>
+    <%= link_to current_user ? main_app.home_path : main_app.root_path, :class => "logo" do %>
       <% if logo_path %>
         <%= image_tag logo_path(front) %>
       <% else %>
@@ -10,12 +51,12 @@
       <% end %>
     <% end %>
   </div>
-  
+
   <div class="right item">
     <% app_menu(:top).each do |item| %>
       <%= link_to item[:link], item[:to], class: "#{item[:active] ? 'active ' : nil} item" %>
     <% end %>
-  
+
     <% if app_menu(:top, :locale) %>
       <div class="ui dropdown item">
         <div class="text"><%= app_menu(:top, :locale)[0] %></div>
@@ -27,9 +68,9 @@
         </div>
       </div>
     <% end %>
-  
+
     <% app_menu(:top, :right).each do |item| %>
       <%= link_to item[:link], item[:to], class: "ui #{"inverted " if front}#{item[:class]} button" %>
     <% end %>
   </div>
-</div>
+</div> -->
