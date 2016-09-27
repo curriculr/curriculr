@@ -1,4 +1,4 @@
-<%= ui_header klass.name, action: ui_buttons(ui_course_klass_links(klass)) %>
+<%= ui_header %(#{klass.name} #{content_tag(:span, Klass.human_attribute_name(:private), :class => 'ui label') if klass.private}), action: ui_buttons(ui_course_klass_links(klass)) %>
     
 <div id="klass-approve-indicator" class="ui warning message <%= 'hidden' if klass.ready_to_approve && klass.approved %>">
   <% if klass.ready_to_approve %>

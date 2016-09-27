@@ -30,7 +30,7 @@
       <% assessments.each_with_index do |a, i| %>
         <div class="item">
           <div class="header">
-            <%= link_to(a.name, teach_course_assessment_path(@course, a)) %>
+            <%= link_to(a.name, teach_course_unit_assessment_path(@course, unit, a)) %>
             <div class="ui left pointing label"><%= a.kind %></div>
             <%= content_tag(:div, t('page.text.unready'), class: "ui label") unless a.ready %>
           </div>

@@ -25,10 +25,6 @@ module ApplicationHelper
   end
   
   def main_menu
-    if current_user
-      add_to_app_menu :top, link: ui_icon('large home'), to: main_app.home_path, active: action_name =='home' && controller_name == 'users'
-    end
-    
     add_to_app_menu :top, link: link_text(:klass, :learn), to: main_app.learn_klasses_path, active: @course.blank? && (controller_name == 'klasses' || @klass.present?)
 
     if current_user && (current_user.has_role?(:admin) || current_user.has_role?(:faculty))
@@ -107,50 +103,18 @@ module ApplicationHelper
     text = link_text(model, action, options)
 
     if options.present? && (confirm = options[:confirm]) && confirm.present? && confirm == true
-      confirmation = t(action, scope: 'helpers.confirmation', :name => t("activerecord.models.#{model}.one"))
+      confirmation = options[:content] || t(action, scope: 'helpers.confirmation', :name => t("activerecord.models.#{model}.one"))
 
       default = options[:as].present? ? options[:as].to_sym : action.to_sym
-      custom_options = options.reject{|k,v| %w(data confirm as).include? (k.to_s) }
+      custom_options = options.reject{|k,v| %w(data confirm as header content).include? (k.to_s) }
       link = link_to(text, path, custom_options)
 
 
       return link_to(text, '#', class: "#{options[:class]} confirm-first", data: {
-        header: t('page.title.hold_on'), content: confirmation, action: link, cancel: t('helpers.submit.close')})
+        header: options[:header] || t('page.title.hold_on'), content: confirmation, action: link, cancel: t('helpers.submit.close')})
     end
     
     link_to(text, path, options)
-  end
-
-  def pnotify_script_tag
-    flash_messages = []
-    flash.each do |type, message|
-      # Skip empty messages.
-      next if message.blank? || %w(part data).include?(type.to_s)
-
-      flash_messages << %(
-        var the_stack = {"dir1": "down", "dir2": "#{rtl? ? 'right' : 'left'}", "firstpos1": 50, "firstpos2": 25};
-        var notice = new PNotify({
-            title: false,
-            text: '#{message}',
-            width: '350px',
-            type: '#{FLASH_MSG_TYPES[type.to_sym]}',
-            delay: 2000,
-            styling: 'fontawesome',
-            buttons: {
-              closer: true,
-              sticker: false
-            },
-            stack: the_stack
-        });
-
-        notice.get().click(function() {
-            notice.remove();
-        });
-      )
-    end
-
-    javascript_tag flash_messages.join("\n").html_safe
-
   end
 
   def klass_from_and_to_dates(klass)
@@ -170,7 +134,7 @@ module ApplicationHelper
   end
 
   def ui_audio(audio, options={})
-    config = { controls: "control", preload: "none", width: "100%", class: 'mediaelementjs' }
+    config = { controls: "control", preload: "none" }
 
     medium = audio.is_a?(Material) ? audio.medium : audio
     content_type =  if medium.content_type == 'link/www'
@@ -193,24 +157,18 @@ module ApplicationHelper
   def ui_video(video, poster = nil, options={})
     @req_attributes[:video?] = true
 
-    if $site['sublimevideo_site_token'].present?
-      render :partial => "ui_video_sublime",
-        :locals => {
-          video: video, poster: poster, thumbnail: options[:thumbnail], style_class: options[:class],
-          title: '', width: options[:width], height: options[:height], autoplay: options[:autoplay]
-        }
-    else
+    if video.medium.content_type == 'link/youtube'
       render :partial => "ui_video_youtube",
         :locals => {
           video: video, poster: poster, thumbnail: options[:thumbnail], style_class: options[:class],
           title: '', width: options[:width], height: options[:height], autoplay: options[:autoplay]
         }
-    # else
-    #   render :partial => "ui_video_mediaelement",
-    #     :locals => {
-    #       video: video, poster: poster, thumbnail: options[:thumbnail], style_class: options[:class],
-    #       title: '', width: options[:width], height: options[:height], autoplay: options[:autoplay]
-    #     }
+    else
+      render :partial => "ui_video_videojs",
+        :locals => {
+          video: video, poster: poster, thumbnail: options[:thumbnail], style_class: options[:class],
+          title: '', width: options[:width], height: options[:height], autoplay: options[:autoplay]
+        }
     end
   end
 

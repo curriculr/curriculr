@@ -23,7 +23,6 @@ On the server side, Curriculr is built using
 - [Sidekiq](http://sidekiq.org) &mdash; For background processing.
 - [ImageMagick](http://www.imagemagick.org) &mdash; For processing images.
 - [Minitest](https://github.com/seattlerb/minitest), fixtures, and [Capybara](https://github.com/jnicklas/capybara) &mdash; For testing.
-- [MediaElement.js](http://mediaelementjs.com) &mdash; For HTML5 video and audio playing.
 
 A complete list of the gems used in building Curriculr is found at [Gemfile](https://github.com/curriculr/curriculr/blob/master/Gemfile).
 

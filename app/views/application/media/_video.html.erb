@@ -1,11 +1,10 @@
 <% content = capture do %>
   <div class="right floated content">
     <%= content_tag :div, class: 'ui buttons' do %>
-      <% youtube = (video.content_type =~ /link\/youtube/).present? %>
-      <% sublime = $site['sublimevideo_site_token'].present? %>
+      <% player = (video.content_type =~ /link\/youtube/).present? ? 'youtube' : 'videojs' %>
       <%= link_to(t('helpers.submit.open'), '#', 
             :class => "ui button video-open-link", 
-            data: {id: video.id, url: video.at_url, title: video.name, youtube: youtube, sublime: sublime}) unless @material %>
+            data: {id: video.id, url: video.at_url, title: video.name, player: player}) unless @material %>
       <%= render partial: 'application/media/links', locals: { medium: video, form: form, action: action } %>
     <% end %>
   </div>

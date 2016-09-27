@@ -1,0 +1,20 @@
+<% final = @klass.final_score @student.id %>
+
+<div class="ui one invered statistics">
+  <div class="ui orange inverted statistic">
+    <div class="value">
+      <%= @klass.course.config['allow_access_to']['final_score'] ? final[:letter] : ui_icon(:lock) %>
+    </div>
+    <div class="label">
+      <%= t('page.title.final_score') %>
+    </div>
+  </div>
+</div>
+
+<% colors = %w(success warning error) %>
+<% final[:detail].keys.each_with_index do |k, i| %>
+  <div class="ui inverted <%= colors[i] %> progress" data-percent="<%= final[:detail][k].round(2) %>">
+    <div class="bar"><div class="progress"></div></div>
+    <div class="label"><%= t("page.text.#{k}") %></div>
+  </div>
+<% end %>

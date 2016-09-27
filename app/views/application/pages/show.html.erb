@@ -7,7 +7,7 @@ if current_user && can?(:manage, @page)
     can_be_made_public = true
   end
 
-  if can_be_made_public
+  if @page.owner.is_a?(User) && can_be_made_public 
     links << link(:page, @page.public ? :privatize : :publicize, path_for(:update, @course, @unit, @lecture, @page, :opr => :public,
       :'page[public]' => !@page.public), :method => :put, :remote => true, :id => "page_public_#{@page.id}_link", class: "ui positive basic button")
   end
@@ -44,15 +44,17 @@ end
           link: link(:page, :publish, path_for(:update, @course, @unit, @lecture, @page, :opr => :publish,
                   :'page[published]' => !@page.published), :method => :put)) %>
   </div>
-
-  <div id="page-public-indicator" class="ui info message %>" style="<%= 'display: none;' if @page.public %>">
-    <% if can_be_made_public %>
-      <%= t('page.text.private_page_html',
-            link: link(:page, :publicize, path_for(:update, @course, @unit, @lecture, @page, :opr => :public, :'page[public]' => !@page.public), :method => :put)) %>
-    <% else %>
-      <%= t('page.text.by_admin_private_page_html') %>
-    <% end %>
-  </div>
+  
+  <% if @page.owner.is_a?(User) %>
+    <div id="page-public-indicator" class="ui info message %>" style="<%= 'display: none;' if @page.public %>">
+      <% if can_be_made_public %>
+        <%= t('page.text.private_page_html',
+              link: link(:page, :publicize, path_for(:update, @course, @unit, @lecture, @page, :opr => :public, :'page[public]' => !@page.public), :method => :put)) %>
+      <% else %>
+        <%= t('page.text.by_admin_private_page_html') %>
+      <% end %>
+    </div>
+  <% end %>
 <% end %>
 
 <%= markdown(@page.about, :html => @page.html) %>

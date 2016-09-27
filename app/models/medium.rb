@@ -13,12 +13,13 @@ class Medium < ActiveRecord::Base
   validates :url, :source, :presence => true, :if =>  Proc.new { |m| m.is_a_link == '1' }
 
   def at_url(version = nil)
-    if path.present?
-      version ? path_url(version) : path_url
-    else
-      #content_type == 'link/youtube' ? "//youtu.be/#{url}" : url
-      url
-    end
+    path_url(version) || url
+    # if path.present?
+    #   version ? path_url(version) : path_url
+    # else
+    #   #content_type == 'link/youtube' ? "//youtu.be/#{url}" : url
+    #   url
+    # end
   end
 
   def full_url

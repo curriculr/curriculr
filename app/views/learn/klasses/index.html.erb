@@ -1,7 +1,7 @@
-<% aside = capture do %>
+<% content_for :main_aside do %>
   <%= search_form_for [:learn, @q], class: "search-form", method: 'get', remote: true, wrapper: false, header: false do |f| %>
     <div class="ui search">
-      <div class="ui icon input">
+      <div class="ui fluid icon input">
         <%= f.search_field :course_slug_or_course_name_or_course_about_cont, hint: false, label: false, placeholder: true %>
         <%= ui_icon :search %>
       </div>
@@ -11,7 +11,7 @@
   <%= render '/learn/klasses/search' %>
 <% end %>
 
-<% list = capture do %>
+<%= list = capture do %>
   <%= ui_header t("page.title.#{params[:s] || 'available'}_klasses") %>
 
   <div id="paginator"><%= paginate @klasses, :remote => true %></div>
@@ -24,5 +24,3 @@
     <% end %>
   </div>
 <% end %>
-
-<%= ui_side_by_side list, aside %>

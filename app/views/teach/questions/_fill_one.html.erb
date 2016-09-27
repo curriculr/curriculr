@@ -1,4 +1,3 @@
-<%= render 'teach/questions/preamble', :q => q, :show_answer => show_answer %>
 <%= markdown(q.question) %>
 
 <div class="ui input">  
@@ -8,16 +7,6 @@
           :readonly => read_only %>
     <div id="<%= "answer_#{q.id}_#{o.id}"%>" class="question-answer"></div>
   <% end %>
-
-  <% unless q.hint.blank? %>
-    <%= content_tag :div, id: "#{q.id}-hint", class: "question-hint hidden" do %>
-      <%= markdown("**#{Question.human_attribute_name(:hint)}**! #{q.hint}") %>
-    <% end %>
-  <% end %>
-
-  <% if (@attempt.blank? or @attempt.state == 2) && q.explanation.present? %>
-    <%= content_tag :div, id: "#{q.id}-explanation", class: "question-explanation hidden" do %>
-      <%= markdown("**#{Question.human_attribute_name(:explanation)}**! #{q.explanation}") %>
-    <% end %>
-  <% end %>
 </div>
+
+<%= render 'teach/questions/hint_and_explanation', q: q %>

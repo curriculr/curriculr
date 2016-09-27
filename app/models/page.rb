@@ -1,9 +1,7 @@
 class Page < ActiveRecord::Base
   include Scopeable
   include Actionable
-  extend FriendlyId
-  
-  friendly_id :name, use: [ :slugged, :finders ]
+
   acts_as_taggable_on :tags
   
   belongs_to :owner, :polymorphic => true, :counter_cache => true  

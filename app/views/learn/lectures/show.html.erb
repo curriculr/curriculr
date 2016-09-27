@@ -1,7 +1,7 @@
 <% units = Unit.open(@klass, current_student, true).to_a %>
 <% active_unit = @lecture.unit %>
 
-<% accordion = capture do %>
+<% content_for :main_aside do %>
   <div class="ui fluid accordion">
     <% units.each_with_index do |unit, i| %>
       <% lectures = Lecture.open_4_students(@klass, unit, current_student, true).to_a %>
@@ -40,4 +40,4 @@
   </div>
 <% end %>
 
-<%= ui_side_by_side accordion, render('lecture'), 'four by twelve' %>
+<%= render('lecture') %>

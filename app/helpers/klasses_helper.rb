@@ -2,13 +2,11 @@ module KlassesHelper
   def klass_menu
     add_to_app_menu :klass, link: t("helpers.submit.main"), to: main_app.learn_klass_path(@klass), active: controller_name == 'klasses' && action_name == 'show'
 
-    # if @klass.course.config['allow_access_to']['syllabus']
-    #   add_to_app_menu :klass, link: link_text(:page, :syllabus), to: main_app.learn_klass_page_path(@klass, @klass.course.syllabus), active: @page && @page == @klass.course.syllabus
-    # end
-
     if @klass.course.config['allow_access_to']['lectures']
       if (@klass.open? && ((@klass.allow_enrollment && enrolled_or_staff?) || @klass.previewed)) || (@klass.past? && @klass.lectures_on_closed)
-        add_to_app_menu :klass, link: t("page.title.outline"), to: main_app.learn_klass_lectures_path(@klass), active: controller_name == 'lectures'
+        if @klass.course.units.joins(:lectures).any?
+          add_to_app_menu :klass, link: t("page.title.outline"), to: main_app.learn_klass_lectures_path(@klass), active: controller_name == 'lectures'
+        end
       end
     end
 
@@ -22,16 +20,7 @@ module KlassesHelper
 
     if @klass.course.config['allow_access_to']['assessments']
       if @klass.allow_enrollment && @klass.open? && enrolled_or_staff?
-        course_assessments = @klass.course.assessments.where('unit_id is null and ready = TRUE and kind in (:kinds)',
-          :kinds => @klass.course.config["grading"]["distribution"]["assessments"]["course"].keys)
-          
-          add_to_app_menu :klass, {link: Assessment.model_name.human(count: 3), to: main_app.learn_klass_assessments_path(@klass), active: %w(assessments attempts).include?(controller_name)}, :assessments if course_assessments.any?
-          
-        # course_assessments.each_with_index do |a,i|
-        #   if a.can_be_taken?(@klass, current_student)
-        #     add_to_app_menu :klass, {link: a.name, to: main_app.learn_klass_assessment_path(@klass, a), active: %w(assessments attempts).include?(controller_name) && @assessment && @assessment.id == a.id}, :assessments
-        #   end
-        # end
+          add_to_app_menu :klass, {link: Assessment.model_name.human(count: 3), to: main_app.learn_klass_assessments_path(@klass), active: %w(assessments attempts).include?(controller_name)}, :assessments if @klass.assessments.any?
       end
     end
 
@@ -47,35 +36,20 @@ module KlassesHelper
       end
     end
     
-    pages = enrolled_or_staff? ? @klass.course.non_syllabus_pages(true).to_a : @klass.course.non_syllabus_pages(true, true).to_a
-    books = enrolled_or_staff? ? @klass.course.books : []
-    if pages.any? || books.any?
-      add_to_app_menu :klass, {link: t("page.title.pages"), to: main_app.learn_klass_pages_path(@klass), active: controller_name == 'pages' && (@page.nil? || @page != @klass.course.syllabus)}, :resources
+    add_to_app_menu :klass, {link: t("page.title.pages"), to: main_app.learn_klass_pages_path(@klass), active: controller_name == 'pages' && (@page.nil? || @page != @klass.course.syllabus)}, :resources
       divider = true
-    end
 
-    # books = enrolled_or_staff? ? @klass.course.books : []
-    # if books.present?
-    #   add_to_app_menu :klass, {link: t('page.title.attachments'), to: main_app.learn_klass_materials_path(@klass), active: controller_name == 'materials' }, :resources
-    # end
-    
     if @klass.allow_enrollment && enrolled_or_staff?
-      if @klass.course.config['allow_access_to']['reports']
-        if @klass.open? || @klass.past?
-          add_to_app_menu :klass, {link: t('helpers.submit.reports'), to: main_app.report_learn_klass_path(@klass), active: controller_name == 'klasses' && action_name == 'report' && params[:student_id].blank?}, :reports
+      active = controller_name == 'klasses' && (action_name == 'students' || (action_name == 'report'))
+      if staff?(current_user, @klass.course)
+        add_to_app_menu :klass, {link: t('page.title.progress'), to: main_app.students_learn_klass_path(@klass), active: active}, :reports
+      else
+        if @klass.course.config['allow_access_to']['reports']
+          if @klass.open? || @klass.past?
+            add_to_app_menu :klass, {link: t('page.title.progress'), to: main_app.report_learn_klass_path(@klass), active: active}, :reports
+          end
         end
       end
-
-      # if !staff?(current_user, @klass.course) && (@klass.open? || @klass.future?) && enrolled_or_staff?
-      #   reports_links << ui_klass_enrollment_action(@klass, :drop)
-      # end
-    end
-
-    if @klass && staff?(current_user, @klass.course)
-      active = controller_name == 'klasses' && (action_name == 'students' || (action_name == 'report' && params[:student_id]))
-      add_to_app_menu :klass, {link: t('page.title.students'), to: main_app.students_learn_klass_path(@klass), active: active}, :for_instructors
-
-      # add_to_app_menu :klass, {link: t('helpers.submit.dashboard'), to: main_app.learn_klass_dashboard_path(@klass), active: controller_name == 'dashboard'}, :for_instructors
     end
   end
   
@@ -133,12 +107,12 @@ module KlassesHelper
         # end
       else
         #learn_more
-        links << link(:klass, :learn_more, learn_klass_path(klass), :class => "ui button")
+        links << link(:klass, :learn_more, learn_klass_path(klass), :class => "ui primary button")
         mountable_fragments(:klass_flags_actions, klass: klass, previewed: in_preview, links: links, right: right)
       end
     elsif current_user && staff?(current_user, klass)
       #admin or faculty
-      links << link(:klass, :open, main_app.teach_course_klass_path(klass.course, klass), :class => "ui button")
+      links << link(:klass, :open, main_app.teach_course_klass_path(klass.course, klass), :class => "ui primary button")
     end
 
     links.join(' ').html_safe

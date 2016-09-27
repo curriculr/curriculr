@@ -1,5 +1,7 @@
 # For ui components: css, html, and js
 module Themes::Bootstrap::UiComponentsHelper
+  ALERT_TYPES = [:error, :info, :success, :warning]
+  
   def ui_klass_labels(klass)
     labels = ui_course_labels(klass.course)
     if klass.private
@@ -25,6 +27,18 @@ module Themes::Bootstrap::UiComponentsHelper
     labels.html_safe
   end
 
+  def flag_tag(country, show_name = true)
+    return nil if country.blank?
+
+    html = content_tag(:i, '', :class => "#{country.downcase} flag")
+    html << ' ' << Country.new(country).name
+    html.html_safe
+  end
+
+  def ui_flag(country)
+    content_tag :i, '', class: "#{country.downcase} flag"
+  end
+  
   def ui_icon(name)
     content_tag :i, '', class: "#{name} icon"
   end
@@ -116,5 +130,22 @@ module Themes::Bootstrap::UiComponentsHelper
       
       html.html_safe
     end
+  end
+  
+  def ui_flash_messages
+    output = ''
+    flash.each do |type, message|
+      next if message.blank?
+      type = :success if type.to_sym == :notice
+      type = :error   if type.to_sym == :alert
+      next unless ALERT_TYPES.include?(type.to_sym)
+      output += (
+        content_tag(:div, class: "ui #{type} message page.clearing.header") do
+          content_tag(:i, '', class: "close icon") + message
+        end
+      )
+    end
+
+    raw(output)
   end
 end

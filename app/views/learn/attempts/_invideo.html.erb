@@ -6,22 +6,9 @@
   <% qcount = questions.count %>
   <% questions.each_with_index do |q, ndx| %>
     <% result = @attempt.state == 2 ? @attempt.result(q,ndx) : nil  %>
-    <%
-      if local_assigns[:result].present?
-        css_bg = case result
-        when :correct
-          'panel-success'
-        when :partially_correct
-          'panel-warning'
-        when :incorrect
-          'panel-danger'
-        else
-          ''
-        end
-      end
-    %>
+
     <div id="attempt-question-<%= ndx %>"
-         class ="attempt-question panel panel-default <%= css_bg %> question-<%= q.kind %>"
+         class ="attempt-question question-<%= q.kind %>"
          style="padding: 5px;<%= ' display: none;' if ndx > 0 %>">
 
       <%= render "teach/questions/#{q.kind}", :q => q,

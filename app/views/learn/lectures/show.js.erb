@@ -4,43 +4,10 @@
   <%
     pane = 'lecture-contents'
     title, html = render_content([@material, @page, @question, @assessment].find{|c| !c.nil?}, @answer, @result)
-    # if @material.present?
-    #   title = @material.medium.name
-    #   if @material.kind == 'video' || @material.of_content_type?('video/')
-    #     html << ui_video(@material, nil, :autoplay => true)
-    #   elsif @material.kind == 'audio' || @material.of_content_type?('audio/')
-    #     html << ui_audio(@material, :autoplay => true)
-    #   elsif @material.kind =='image' || @material.of_content_type?('image/')
-    #     html << image_tag(@material.at_url, class: "img-responsive")
-    #   else
-    #     html << ui_document_viewer(@material.at_url)
-    #   end
-    # else
-    #   subhtml = ''
-    #   if @page
-    #     title = @page.name
-    #     subhtml << ui_header(@page.name)
-    #     subhtml << markdown(@page.about, :html => @page.html)
-    #   elsif @question && @question.lecture
-    #     title = Question.model_name.human
-    #     subhtml << ( render partial: "learn/questions/show", locals: {
-    #         question: @question,
-    #         answer: @answer,
-    #         result: @result
-    #       }
-    #     )
-    #   elsif @assessment && @assessment.lecture
-    #     title = @assessment.name
-    #     subhtml << render(partial: "learn/assessments/assessment", locals: { assessment: @assessment })
-    #   end
-    #
-    #   html << subhtml if subhtml.present?
-    # end
   %>
 
   $("#<%= pane %>").html('<%= j html.html_safe %>');
   $(".lecture-header-subtext").text('<%= title %>');
-  $("#<%= pane %> audio.mediaelementjs").mediaelementplayer();
   <% if @correct_answer %>
     <% @correct_answer.each do |id, a| %>
       <%

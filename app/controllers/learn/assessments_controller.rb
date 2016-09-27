@@ -3,9 +3,6 @@ module Learn
     helper_method :the_path_out
 
     def show
-      respond_to do |format|
-        format.html 
-      end
     end
 
     def index

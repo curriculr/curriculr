@@ -11,9 +11,13 @@ module Learn
       end
 
       @klasses = @q.result.page(params[:page]).per(10)
-
-      respond_with @klasses do |format|
-        format.html { render :index }
+      
+      if @klasses.count == 1
+        redirect_to learn_klass_path(@klasses.first)
+      else
+        respond_with @klasses do |format|
+          format.html { render :index }
+        end
       end
     end
 

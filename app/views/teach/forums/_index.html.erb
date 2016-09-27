@@ -11,7 +11,7 @@
 			<div class="header">
         <%= forum.name %>
         <%= content_tag :div, forum.active ? ui_icon(:check) + t('page.text.active') : t('page.text.inactive'), :class => "ui left pointing label" %>
-        <%= content_tag :div, forum.graded ? ui_icon('checkmark box') + Forum.human_attribute_name(:graded) : t('page.text.ungraded'), class: "ui label" %>
+        <%= content_tag :div, ui_icon('checkmark box') + Forum.human_attribute_name(:graded), class: "ui label" if forum.graded %>
         <%= content_tag :div, %(#{forum.topics_count} #{Topic.model_name.human(count: 3)}), class: "ui label" %>
       </div>
 		  <small><%= markdown(forum.about) %></small>

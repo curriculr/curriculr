@@ -1,4 +1,3 @@
-<%= ui_header ui_icon('comments') + t('page.text.course_participation') %>
 <%
   forum_count = Forum.participated_on(klass.id, student.id).count
   participation = {'forums' => [forum_count, forum_count], 'topics' => [0, 0], 'posts' => [0, 0], 'replies' => [0, 0]}
@@ -16,10 +15,40 @@
     end
   end
 %>
-<div class="ui four column grid">
-  <% participation.each do |k, v| %>
-    <div class="column text-center">
-      <%= t("page.text.participation_#{k}_html", count: v[0], times: v[1]) %>
+
+<div class="ui one invered statistics">
+  <div class="ui orange inverted statistic">
+    <div class="value">
+      <%= ui_icon(:exchange) %>
+    </div>
+    <div class="label">
+      <%= t('page.text.course_participation') %>
+    </div>
+  </div>
+</div>
+
+<div class="ui inverted two statistics">
+  <% participation.keys[0..1].each do |k| %>
+    <div class="statistic">
+      <div class="value">
+        <%= participation[k][1] %>
+      </div>
+      <div class="label">
+        <%= t("page.text.participation_#{k}") %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<div class="ui inverted two statistics">
+  <% participation.keys[2..3].each do |k| %>
+    <div class="statistic">
+      <div class="value">
+        <%= participation[k][1] %>
+      </div>
+      <div class="label">
+        <%= t("page.text.participation_#{k}") %>
+      </div>
     </div>
   <% end %>
 </div>

@@ -7,14 +7,6 @@ module UiHelper
     end
   end
 
-  def flag_tag(country, show_name = true)
-    return nil if country.blank?
-
-    html = content_tag(:i, '', :class => "#{country.downcase} flag")
-    html << ' ' << Country.new(country).name
-    html.html_safe
-  end
-
   # Social Links
   def ui_facebook_link(object, text = nil)
     case object

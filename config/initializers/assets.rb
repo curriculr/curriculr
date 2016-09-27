@@ -13,3 +13,6 @@ Rails.application.config.assets.precompile += %w(
   bootstrap/style_rtl.css
   bootstrap/overrides.js
 )
+
+# For VideoJS
+Rails.application.config.assets.precompile += %w( video-js.swf VideoJS.eot VideoJS.svg VideoJS.ttf VideoJS.woff )

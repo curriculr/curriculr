@@ -5,7 +5,6 @@
     <a class="item">
       <i class="sidebar icon"></i>
       <%= Klass.model_name.human(count: 3) %>
-      <%= content_tag(:span, Klass.human_attribute_name(:private), :class => css_label(:danger)) if @klass&.private %>
     </a>
     <div class="right menu">
       <div class="item">

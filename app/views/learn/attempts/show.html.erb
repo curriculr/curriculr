@@ -1,53 +1,47 @@
-<% if @attempt.state == 1 && !@assessment.after_deadline?(@klass.begin_date(current_student)) && @assessment.to_datetime.present? && @assessment.hours_to_close(@klass.begin_date(current_student)) <= 2 %>
+<% time = if @attempt.state == 1 && !@assessment.after_deadline?(@klass.begin_date(current_student)) && @assessment.to_datetime.present? && @assessment.hours_to_close(@klass.begin_date(current_student)) <= 2 %>
   <div id="assessment-countdown" data-time="<%= @assessment.closes_at_datetime(@klass.begin_date(current_student)).to_i * 1000 %>"></div>
 <% end %>
 
-<h2><%= @assessment.name %></h2>
-
+<%= ui_header @assessment.name, action: time %>
 <%# markdown(@assessment.about) %>
 
 <%= form_tag learn_klass_assessment_attempts_path(@klass, @assessment),
       :method => :post,  :id => 'assessment-attempt-form' do %>
   <%= hidden_field_tag :attempt_id, @attempt.id %>
+  <%= hidden_field_tag :commit %>
+  <%= render 'questions', attempt: @attempt, show_answer:  @attempt.show_answer?, read_only: @attempt.state == 2 ? true : false %>
 
-  <% @attempt.questions.each_with_index do |q, ndx| %>
-    <%  r = @attempt.result(q,ndx) %>
-
-    <%= render "teach/questions/question", :question => q,
-          :question_counter => ndx,
-          :answer => @attempt.test[ndx][:t],
-          :show_answer => @attempt.show_answer?,
-          :read_only => @attempt.state == 2 ? true : false,
-          :result => @attempt.state == 2 ? r : nil %>
-  <% end %>
-
+  <br>
+  
   <% if !@attempt.new_record? && @attempt.state == 1 %>
     <%
-    data = @assessment.kind == 'survey' ? nil : {
-      :confirm => true,
-			:header => t('page.title.hold_on'),
-			:content => t('page.text.grading_msg', :name => @assessment.name)
-    }
+      #     data = @assessment.kind == 'survey' ? nil : {
+      #       :confirm => true,
+      # :header => t('page.title.hold_on'),
+      # :content => t('page.text.grading_msg', :name => @assessment.name)
+      #     }
     %>
-    <% save_link = if @assessment.kind != 'survey'
-         [{ :text => submit_tag(t('helpers.submit.save'), :class => "ui button", :value => t('helpers.submit.save')) }]
-       else
-         []
-       end
+    <% # save_link = if @assessment.kind != 'survey'
+#          [{ :text => submit_tag(t('helpers.submit.save'), :class => "ui positive button", :value => t('helpers.submit.save')) }]
+#        else
+#          []
+#        end
     %>
-    <%= submit_tag :submit, data: data %>
-    <%= submit_tag :save %>
-    <%= %>
+    <% action = content_tag :button, t('helpers.submit.submit_answers'), type: 'button', class: 'ui primary ok button', onclick: "$('#assessment-attempt-form').submit();" %>
+
+    <%= content_tag :a, t('helpers.submit.submit_answers'), class: 'ui primary confirm-first button', data: {header: t('page.title.hold_on'),
+         content: t('page.text.grading_msg', :name => @assessment.name), action: action, cancel: t('helpers.submit.close')} %>
+    <%= link(:attempt, :save_answers, 'save', id: 'attempt-save-link', class: 'ui secondary button') %>
+    <%# submit_tag :submit, data: data %>
+    <%# submit_tag :save %>
   <% else %>
     <%
       if @assessment.lecture
         url = learn_klass_lecture_path(@klass, @assessment.lecture, :show_assessment => @assessment.id)
-      elsif @assessment.unit
-        url = learn_klass_assessments_path(@klass, :s => @assessment.kind)
       else
-        url = learn_klass_assessment_path(@klass, @assessment)
+        url = learn_klass_assessments_path(@klass, a: @assessment.id)
       end
     %>
-    <%= link_to(t('helpers.submit.close'), url, class: "ui button") %>
+    <%= link_to(t('helpers.submit.close'), url, class: "ui negative button") %>
   <% end %>
 <% end %>

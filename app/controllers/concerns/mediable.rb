@@ -101,7 +101,7 @@ module Mediable
 
       respond_with @medium do |format|
         @form = 'application/media/form'
-        if @medium.save
+        if @medium.save!
           format.js {
             if @medium.m.present?
               path_ids = @medium.m.split(',')

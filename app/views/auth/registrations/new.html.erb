@@ -1,25 +1,29 @@
-<% content_for :sign_in_or_up_menu do %>
-<div class="ui centered grid">
-  <div class="eight wide column">
-    <div class="ui secondary menu">
-      <%= link_to raw(ui_icon('sign in') + t('helpers.submit.signin')), main_app.auth_signin_path, class: "item" %>
-      <%= link_to raw(ui_icon('add user') + t('helpers.submit.signup')), '', class: 'active item' %>
-    </div>
-  </div>
-</div>
+<% signup = capture do %>
+  <%= form_for @user, url: url_for(controller: 'auth/registrations', action: 'create'), method: :post do |f| %>
+
+    <%= f.text_field :name, label: false, placeholder: true %>
+    <%= f.email_field :email, label: false, placeholder: true %>
+    <%= f.password_field :password, label: false, placeholder: true %>
+    <%= f.password_field :password_confirmation, label: false, placeholder: true %>
+
+    <%= f.submit :signup %> 
+    <p><%= t('page.text.registration_terms_and_conditions_html', link: link(:page, :terms, localized_page_path(:terms))) %></p>
+  <% end %>
 <% end %>
 
-<div class="ui centered grid container">
-  <div class="eight wide column">
-    <%= form_for @user, url: url_for(controller: 'auth/registrations', action: 'create'), method: :post do |f| %>
-  
-      <%= f.text_field :name, label: false, placeholder: true %>
-      <%= f.email_field :email, label: false, placeholder: true %>
-      <%= f.password_field :password, label: false, placeholder: true %>
-      <%= f.password_field :password_confirmation, label: false, placeholder: true %>
+<% signin = capture do %>
+  <%= link_to raw(ui_icon('sign in') + t('helpers.submit.signin')), main_app.auth_signin_path, class: "ui positive button" %>
+<% end %>
 
-      <%= f.submit :signup %> 
-      <p><%= t('page.text.registration_terms_and_conditions_html', link: link(:page, :terms, localized_page_path(:terms))) %></p>
-    <% end %>
+
+<div class="ui three column middle aligned very relaxed stackable centered grid">
+  <div class="six wide column">
+    <%= signup %>
+  </div>
+  <div class="one wide column">
+    <div class="ui vertical divider"><%= t('page.text.or') %></div>
+  </div>
+  <div class="three wide column">
+    <%= signin %>
   </div>
 </div>

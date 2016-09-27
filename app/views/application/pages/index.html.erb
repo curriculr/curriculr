@@ -17,7 +17,9 @@ ui_header title, action: link(:page, :new, new_page_path, remote: true, :class =
 			<th><%= Page.human_attribute_name(:published) %></th>
 			<th><%= Page.human_attribute_name(:public) %></th>
       <th><%= Page.human_attribute_name(:blog) %></th>
-      <th><%= Page.human_attribute_name(:html) %></th>
+      <% if current_user && current_user.has_role?(:admin) %>
+        <th><%= Page.human_attribute_name(:html) %></th>
+      <% end %>
 		</tr>
 	</thead>
 	<tbody id="user-pages">
@@ -25,7 +27,7 @@ ui_header title, action: link(:page, :new, new_page_path, remote: true, :class =
     
     <% if @pages.empty? %>
     <tr>
-      <td colspan="7"><%= t('page.text.no_record_found') %></td>
+      <td colspan="<%= current_user && current_user.has_role?(:admin) ? 7 : 6 %>"><%= t('page.text.no_record_found') %></td>
     </tr>
     <% end %>
 	</tbody>

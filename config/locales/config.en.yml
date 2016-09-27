@@ -23,9 +23,9 @@ en:
 
     report:
       student:
-        since: Class student since
-        user_since: Site user since
-        klass_begins: Class begins
+        since: Student since
+        user_since: User since
+        klass_begins: Class began
         klass_ends: Class ends
 
       assessment:

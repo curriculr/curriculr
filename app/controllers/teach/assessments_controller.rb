@@ -38,25 +38,17 @@ module Teach
       @assessment = Assessment.new(assessment_params)
     
       @assessment.save
-      respond_with @assessment # do |format|
-      #        if @assessment.save
-      #          format.html { redirect_to [@req_objects, @assessment].flatten }
-      #        else
-      #          format.html { render action: "new" }
-      #        end
-      #      end
+      respond_with @assessment 
     end
 
     def update
       @assessment.ready = !@assessment.ready if params[:opr] == 'ready'
       respond_with @assessment do |format|
-        if @assessment.update(assessment_params)
+        if @assessment.update!(assessment_params)
           format.html { redirect_to @req_objects }
-          format.js   { 
-            @update_class = "assessment_ready_#{@assessment.id}_link" if params[:opr] == 'ready'
-          }
+          format.js   { render "reload" }
         else
-          format.html { render action: assessment_params[:q_selectors_attributes].present? ? "show" : "edit" }
+          format.html { render "show" }
         end
       end
     end

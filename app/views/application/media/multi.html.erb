@@ -10,7 +10,7 @@
 	  <%= form_files f, :path, name: "medium[path]", label: t('helpers.submit.select_files'),
 	  		hint: t('page.text.select_files_or_drop') %> 
 	<% end %>
-
+  <br>
 	<%= link_to t('helpers.submit.close'), 
 			  @medium.m.present? ? the_material_path_out(@medium.kind, @medium.m) : the_path_out,
 		 	  class: "ui button" %>
@@ -18,9 +18,9 @@
 	<script id="template-upload" type="text/x-tmpl">
 		<div class="upload">
 		  {%= o.name %}
-		  <div class="progress">
-		  	<div class="progress-bar" role="progressbar" style="width: 0%;"></div>
-			</div>
+      <div class="ui indicating progress">
+        <div class="bar"></div>
+      </div>
 		</div>
 	</script>
 <% else %>

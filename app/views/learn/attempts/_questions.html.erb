@@ -1,0 +1,12 @@
+<div class="ui one cards">
+  <% attempt.questions.each_with_index do |q, ndx| %>
+    <% r = attempt.result(q,ndx) %>
+
+    <%= render "teach/questions/question", :question => q,
+          :question_counter => ndx,
+          :answer => attempt.test[ndx][:t],
+          :show_answer => show_answer,
+          :read_only => read_only,
+          :result => attempt.state == 2 ? r : nil %>
+  <% end %>
+</div>

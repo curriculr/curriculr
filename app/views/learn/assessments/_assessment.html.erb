@@ -1,6 +1,6 @@
 <% if @klass.enrolled?(current_student) || staff?(current_user, @klass.course) %>
-  <% attempts = Attempt.for(@klass, current_student, assessment) %>
-  <%
+  <% 
+    attempts = Attempt.for(@klass, current_student, assessment) 
     attempt_note = capture do
       content_tag :div do
         unless assessment.can_be_taken?(@klass, current_student)
@@ -12,103 +12,92 @@
       end
     end
   %>
-
-  <div class=""><%= attempt_note %></div>
-  <h3>
-    <%= assessment.name %>
-    <small>
-      <%= l(assessment.opens_at_datetime(@klass.begin_date(current_student))) %>
-      <% if assessment.to_datetime.present? %>
-        - <%= l(assessment.closes_at_datetime(@klass.begin_date(current_student))) %>
-      <% end %>
-    </small>
-  </h3>
+  <% from_and_to = capture do %>
+    <%= l(assessment.opens_at_datetime(@klass.begin_date(current_student))) %>
+    <% if assessment.to_datetime.present? %>
+      - <%= l(assessment.closes_at_datetime(@klass.begin_date(current_student))) %>
+    <% end %>
+  <% end %>
+  <%= ui_header assessment.name, subtext: from_and_to, action: attempt_note %>
+  
+  <%# markdown(assessment.about) %>
+  
+  <% if @klass.open? && assessment.can_be_taken?(@klass, current_student) && assessment.open?(@klass.begin_date(current_student)) %>
+    <% if assessment.penalty > 0 && assessment.after_deadline?(@klass.begin_date(current_student)) %>
+      <div class="ui warning message">
+        <%= t('page.text.assessment_penalty_msg', :penalty => assessment.penalty) %>
+      </div>
+    <% end %>
+    
+    <%= link(:attempt, :new_attempt, new_learn_klass_assessment_attempt_path(@klass, assessment),
+          :class => "ui primary button", confirm: true) %>
+  <% end %>
+  
   <table class="ui striped selectable small table">
+    <thead>
+      <tr>
+        <th><%= Assessment.human_attribute_name(:attempt) %></th>
+        <th><%= Assessment.human_attribute_name(:when) %></th>
+        <th><%= Assessment.human_attribute_name(:questions_count) %></th>
+        <% unless assessment.survey? %>
+          <th><%= Assessment.human_attribute_name(:points) %></th>
+          <th><%= Assessment.human_attribute_name(:grade) %></th>
+          <th>%</th>
+        <% end %>
+        <% if !attempts.blank? && assessment.show_answer?(@klass.begin_date(current_student)) %>
+          <th></th>
+        <% end %>
+      </tr>
+    </thead>
     <tbody>
+      <% attempts.each_with_index do |at, ndx| %>
       <tr>
         <td>
-          <table class="ui striped selectable small table">
-            <thead>
-              <tr>
-                <th><%= Assessment.human_attribute_name(:attempt) %></th>
-                <th><%= Assessment.human_attribute_name(:when) %></th>
-                <th><%= Assessment.human_attribute_name(:questions_count) %></th>
-                <% unless assessment.survey? %>
-                  <th><%= Assessment.human_attribute_name(:points) %></th>
-                  <th><%= Assessment.human_attribute_name(:grade) %></th>
-                  <th>%</th>
-                <% end %>
-                <% if !attempts.blank? && assessment.show_answer?(@klass.begin_date(current_student)) %>
-                  <th></th>
-                <% end %>
-              </tr>
-            </thead>
-            <tbody>
-              <% attempts.each_with_index do |at, ndx| %>
-              <tr>
-                <td>
-                  <%= "#{ndx + 1}" %>
-                  <%= " / #{assessment.allowed_attempts}" if assessment.allowed_attempts.present? %>
-                </td>
-                <td><%= timeago_tag at.updated_at, :nojs => true, :limit => 10.days.ago %></td>
-                <td><%= assessment.questions_count %></td>
-                <% unless assessment.survey? %>
-                  <td><%= at.points %></td>
-                  <td><%= at.scored_points if at.state == 2 %></td>
-                  <td>
-                    <% if at.state == 2 %>
-                      <%= (((at.score ? at.score.round(2) : 0.0) / at.points) * 100.00).round(2) %>
-                    <% else %>
-                      <%= t('page.text.unfinished_attempt') %>
-                    <% end %>
-                  </td>
-                <% end %>
-                <% if !attempts.blank? && at.show_answer? %>
-                  <td>
-                    <%= link :attempt, :show_answer,
-                          show_answer_learn_klass_assessment_attempt_path(@klass, assessment, at),
-                          :method => :post, :class => "ui button" %>
-                  </td>
-                <% end %>
-              </tr>
-              <% end %>
-              <% unless assessment.survey? %>
-                <% if attempts.length < 1 %>
-                  <tr>
-                    <td colspan="6"><%= t('page.text.assessments_no_attempt_yet') %></td>
-                  </tr>
-                <% else %>
-                  <tr>
-                    <td colspan="2"></td>
-                    <td colspan="3">
-                      <strong>
-                        <%= t('page.text.assessments_final_score',
-                            :score => t("config.assessment.multiattempt_grading.#{assessment.multiattempt_grading}")) %>
-                      </strong>
-                    </td>
-                    <td colspan="2">
-                      <%= ((assessment.score(@klass, current_student) / assessment.points) * 100.0).round(2) %>
-                    </td>
-                  </tr>
-                <% end %>
-              <% end %>
-            </tbody>
-          </table>
+          <%= "#{ndx + 1}" %>
+          <%= " / #{assessment.allowed_attempts}" if assessment.allowed_attempts.present? %>
         </td>
-      </tr>
-      <tr>
-        <td>
-          <% if @klass.open? && assessment.can_be_taken?(@klass, current_student) && assessment.open?(@klass.begin_date(current_student)) %>
-            <%= link(:attempt, :new_attempt, new_learn_klass_assessment_attempt_path(@klass, assessment),
-                  :class => "ui primary button", confirm: true) %>
-            <% if assessment.after_deadline?(@klass.begin_date(current_student)) %>
-              <div class="ui warning message">
-                <%= t('page.text.assessment_penalty_msg', :penalty => assessment.penalty) %>
-              </div>
+        <td><%= timeago_tag at.updated_at, :nojs => true, :limit => 10.days.ago %></td>
+        <td><%= assessment.questions_count %></td>
+        <% unless assessment.survey? %>
+          <td><%= at.points %></td>
+          <td><%= at.scored_points if at.state == 2 %></td>
+          <td>
+            <% if at.state == 2 %>
+              <%= (((at.score ? at.score.round(2) : 0.0) / at.points) * 100.00).round(2) %>
+            <% else %>
+              <%= t('page.text.unfinished_attempt') %>
             <% end %>
-          <% end %>
-        </td>
+          </td>
+        <% end %>
+        <% if !attempts.blank? && at.show_answer? %>
+          <td>
+            <%= link :attempt, :show_answer,
+                  show_answer_learn_klass_assessment_attempt_path(@klass, assessment, at),
+                  :method => :post, :class => "ui button" %>
+          </td>
+        <% end %>
       </tr>
+      <% end %>
+      <% unless assessment.survey? %>
+        <% if attempts.length < 1 %>
+          <tr>
+            <td colspan="6"><%= t('page.text.assessments_no_attempt_yet') %></td>
+          </tr>
+        <% else %>
+          <tr>
+            <td colspan="2"></td>
+            <td colspan="3">
+              <strong>
+                <%= t('page.text.assessments_final_score',
+                    :score => t("config.assessment.multiattempt_grading.#{assessment.multiattempt_grading}")) %>
+              </strong>
+            </td>
+            <td colspan="2">
+              <%= ((assessment.score(@klass, current_student) / assessment.points) * 100.0).round(2) %>
+            </td>
+          </tr>
+        <% end %>
+      <% end %>
     </tbody>
   </table>
 <% else %>

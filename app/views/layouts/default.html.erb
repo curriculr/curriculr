@@ -1,6 +1,6 @@
 <%
   main_menu = sub_menu = false
-
+  within_a_segment = true
   if @course && !@course.new_record?
     main_menu = render "/teach/courses/main_menu"
     sub_menu = render "/teach/courses/course_menu"
@@ -9,8 +9,10 @@
     sub_menu = render "/learn/klasses/klass_menu"
   else 
     main_menu = render "/main_menu", front: false
-    if controller_name.in?(['sessions', 'registrations']) && action_name.in?(['new', 'create'])
-      sub_menu = yield(:sign_in_or_up_menu)
+    if @klass && controller_name == 'klasses' && action_name == 'show'
+      within_a_segment = false
+    elsif controller_name.in?(['sessions', 'registrations']) && action_name.in?(['new', 'create'])
+      within_a_segment = false
     end
   end
 %>
@@ -28,10 +30,33 @@
 <% end %>
 
 <main class="ui centered grid">
-  <div class="fifteen wide column">
-    <div class="ui fluid segment">
-      <%= yield %>
+  <% if content_for?(:main_aside) %>
+    <div class="four wide column">
+      <%= content_for :main_aside %>
     </div>
-  </div>
+    <div class="eleven wide column">
+      <%= ui_flash_messages %>
+    
+      <% if within_a_segment %>
+        <div class="ui fluid segment">
+          <%= yield %>
+        </div>
+      <% else %>
+        <%= yield %>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="fifteen wide column">
+      <%= ui_flash_messages %>
+    
+      <% if within_a_segment %>
+        <div class="ui fluid segment">
+          <%= yield %>
+        </div>
+      <% else %>
+        <%= yield %>
+      <% end %>
+    </div>
+  <% end %>
 </main>
 <br>

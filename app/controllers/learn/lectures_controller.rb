@@ -28,7 +28,7 @@
 
     def index
       @units = Unit.open(@klass, current_student, true).to_a
-      @active_lecture = @units.first.lectures.first
+      @active_lecture = @units&.first&.lectures&.first
       redirect_to learn_klass_lecture_path(@klass, @active_lecture)
     end
 

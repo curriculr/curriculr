@@ -1,0 +1,19 @@
+<% unless q.hint.blank? %>
+  <%= content_tag :div, id: "#{q.id}-hint", class: 'ui icon info message', style: 'display: none;' do %>
+    <%= ui_icon('info circle') %>
+    <div class="content">
+      <div class="header"><%= Question.human_attribute_name(:hint) %></div>
+      <p><%= markdown(q.hint) %></p>
+    </div>
+  <% end %>
+<% end %>
+
+<% if (@attempt.blank? || @attempt.state == 2) && q.explanation.present? %>
+  <%= content_tag :div, id: "#{q.id}-explanation", class: 'ui icon success message', style: 'display: none;' do %>
+    <%= ui_icon('help circle') %>
+    <div class="content">
+      <div class="header"><%= Question.human_attribute_name(:explanation) %></div>
+      <p><%= markdown(q.explanation) %></p>
+    </div>
+  <% end %>
+<% end %>

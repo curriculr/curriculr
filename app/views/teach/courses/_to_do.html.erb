@@ -1,22 +1,31 @@
 <%= ui_header t('page.title.to_do_list') %>
 <div class="ui bulleted list">
   <div class="item">
-    Edit syllabus 
+    <%= t('helpers.submit.edit', name: t('page.title.syllabus')) %>
     <%= ui_icon(%(right floated #{@course.syllabus&.about != t("page.text.under_construction") ? 'checkmark box' : 'square outline'})) %>
   </div>
   <div class="item">
-    Add lectures <%= ui_icon(%(right floated #{@course.units&.first&.lectures&.any? ? 'checkmark box' : 'square outline'})) %>
+    <%= t('helpers.submit.edit', name: t('page.title.faq')) %>
+    <%= ui_icon(%(right floated #{@course.faq&.about != t("page.text.under_construction") ? 'checkmark box' : 'square outline'})) %>
   </div>
   <div class="item">
-    Add files <%= ui_icon(%(right floated #{@course.media.any? ? 'checkmark box' : 'square outline'})) %>
+    <%= t('helpers.submit.add', name: Lecture.model_name.human(count: 3)) %>
+    <%= ui_icon(%(right floated #{@course.units&.first&.lectures&.any? ? 'checkmark box' : 'square outline'})) %>
   </div>
   <div class="item">
-    Add questions <%= ui_icon(%(right floated #{@course.questions.any? ? 'checkmark box' : 'square outline'})) %>
+    <%= t('helpers.submit.add', name: Medium.model_name.human(count: 3)) %>
+    <%= ui_icon(%(right floated #{@course.media.any? ? 'checkmark box' : 'square outline'})) %>
   </div>
   <div class="item">
-    Add assessments <%= ui_icon(%(right floated #{@course.assessments.any? ? 'checkmark box' : 'square outline'})) %>
+    <%= t('helpers.submit.add', name: Question.model_name.human(count: 3)) %>
+    <%= ui_icon(%(right floated #{@course.questions.any? ? 'checkmark box' : 'square outline'})) %>
   </div>
   <div class="item">
-    Add instructors <%= ui_icon(%(right floated #{@course.instructors.any? ? 'checkmark box' : 'square outline'})) %>
+    <%= t('helpers.submit.add', name: Assessment.model_name.human(count: 3)) %>
+    <%= ui_icon(%(right floated #{@course.assessments.any? ? 'checkmark box' : 'square outline'})) %>
+  </div>
+  <div class="item">
+    <%= t('helpers.submit.add', name: Instructor.model_name.human(count: 3)) %>
+    <%= ui_icon(%(right floated #{@course.instructors.any? ? 'checkmark box' : 'square outline'})) %>
   </div>
 </div>

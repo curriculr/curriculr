@@ -1,15 +1,15 @@
 <%
   r = nil
-  if local_assigns[:result].present?
+  r_label = if local_assigns[:result].present?
     r = t("page.text.#{result}")
 
-    css_bg = case result
+    case result
     when :correct
-      'green'
+      'ui left pointing green label'
     when :partially_correct
-      'yellow'
+      'ui left pointing yellow label'
     when :incorrect
-      'red'
+      'ui left pointing red label'
     else
       ''
     end
@@ -27,26 +27,27 @@
     <% if has_header %>
       <%= content_tag :div, class: "header" do %>
         <%= %(#{Question.model_name.human} #{question_counter + 1}) %>
-        <%= "(#{r})" if r.present? %>
-
-        <% if question.points.present? && question.points > 0 %>
-          <%= content_tag :span, t('page.text.points', :count => question.points) %>
-        <% end %>
+        <%= content_tag :div, r, class: r_label if r.present? %>
 
         <% unless @q_selector || @assessment || local_assigns[:no_options] %>
           <%= ui_buttons([
                 link(:question, :edit, [:edit, :teach, @course, @unit, @lecture, question], remote: true, class: "ui positive button"),
                 link(:question, :destroy, [:teach, @course, @unit, @lecture, question],
                   method: :delete, confirm: true, class: "ui negative button")
-              ], class: 'mini') %>
+              ], class: 'mini right floated') %>
+        <% else %>
+           <%= render 'teach/questions/preamble', :q => question, :show_answer => show_answer %>
         <% end %>
+      <% end %>
+      <% if question.points.present? && question.points > 0 %>
+        <%= content_tag :div, t('page.text.points', :count => question.points), class: 'meta' %>
       <% end %>
     <% end %>
     <div class="description">
       <%= content_tag :div, id: "question_#{question.id}" do %>
         <%= render "teach/questions/#{question.kind}", :q => question,
-          :a => local_assigns[:answer].present? ? answer : question.answer,
-          :read_only => local_assigns[:read_only].present? ? read_only : !@assessment.blank?,
+          :a => local_assigns.has_key?(:answer) ? answer : question.answer,
+          :read_only => local_assigns.has_key?(:read_only) ? read_only : !@assessment.blank?,
           :show_answer => show_answer %>
       <% end %>
     </div>

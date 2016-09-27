@@ -1,31 +1,23 @@
-<% 
-pages = [] 
-books = []
-%>
-<% listing = capture do %>
-  <div class="ui segment">
-    <% pages = enrolled_or_staff? ? @klass.course.non_syllabus_pages(true).to_a : @klass.course.non_syllabus_pages(true, true).to_a %>
-    <% books = enrolled_or_staff? ? @klass.course.books : []%>
-    
-    <% items = [].concat(enrolled_or_staff? ? @klass.course.non_syllabus_pages(true) : @klass.course.non_syllabus_pages(true, true)).
-                  concat(enrolled_or_staff? ? @klass.course.books : []) %>
-    
-    <%= render partial: 'item', locals: {header: ui_header(t('page.title.for_course'), style: :h3), items:[].concat(pages).concat(books)} %>
-    
-    <% per_unit = capture do %>
-      <% Unit.open(@klass, current_student).includes(:pages, {:materials => :medium}).each_with_index do |unit, i| %>
-        <%= render partial: 'item', locals: {header: content_tag(:div, unit.name, class: 'header'), items:[].concat(unit.pages).concat(unit.materials)} %>
-      <% end %>
+<% pages = []; books = [] %>
+<% content_for :main_aside do %>
+  <% pages = enrolled_or_staff? ? @klass.course.pages.where(published: true).to_a : [] %>
+  <% books = enrolled_or_staff? ? @klass.course.books : []%>
+
+  <%= render partial: 'item', locals: {header: ui_header(t('page.title.for_course'), style: :h3), items:[].concat(pages).concat(books)} %>
+  
+  <% per_unit = capture do %>
+    <% Unit.open(@klass, current_student).includes(:pages, {:materials => :medium}).each_with_index do |unit, i| %>
+      <%= render partial: 'item', locals: {header: content_tag(:div, unit.name, class: 'header'), items:[].concat(unit.pages).concat(unit.materials)} %>
     <% end %>
-    
-    <% unless per_unit.blank? %>
-      <%= ui_header(t('page.title.per_unit'), style: :h3) %>
-      <%= per_unit %>
-    <% end %>
-  </div>
+  <% end %>
+  
+  <% unless per_unit.blank? %>
+    <%= ui_header(t('page.title.per_unit'), style: :h3) %>
+    <%= per_unit %>
+  <% end %>
 <% end %>
 
-<% content = capture do %>
+<%= content = capture do %>
   <div class="ui basic segment" id="reading-contents">
     <% active_item = [].concat(pages).concat(books).first{|c| !c.nil? } %>
     <% if active_item.is_a? Page %>
@@ -35,5 +27,3 @@ books = []
     <% end %>
   </div>
 <% end %>
-
-<%= ui_side_by_side listing, content, 'five by eleven' %>

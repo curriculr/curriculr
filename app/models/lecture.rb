@@ -12,7 +12,7 @@ class Lecture < ActiveRecord::Base
   has_many :lecture_discussions, :dependent => :destroy
 
 	# Validation Rules
-	validates :name, :presence => true, :length => {:maximum => 100 }
+	validates :name, :presence => true, :length => {:maximum => 100}
 	validates :on_date, :based_on, :about, :presence => true
   validates :for_days, :numericality => {:only_integer => true, :greater_than => 0, :allow_nil => true }
   validates :points, :numericality => {:only_integer => true, :greater_than_or_equal_to => 0, :allow_nil => true }
@@ -149,6 +149,25 @@ class Lecture < ActiveRecord::Base
     order('units.order, lectures.order')
   }
 
+	scope :outline, ->(klass) {
+    if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
+      unit_date_clause = "(DATE :base_date + (units.on_date - units.based_on))"
+      lecture_date_clause =  "(DATE :base_date + (lectures.on_date - lectures.based_on) - 1)"
+    else
+      unit_date_clause = "adddate(DATE(:base_date), (units.on_date - units.based_on))"
+      lecture_date_clause =  "adddate(DATE(:base_date), (lectures.on_date - lectures.based_on) - 1)"
+    end
+
+    joins(:unit => {:course => :klasses}).
+    where("klasses.id = #{klass.id} and
+      #{unit_date_clause} <= :as_of and #{lecture_date_clause} <= :as_of ", :as_of => Time.zone.today,
+      :base_date => klass.begin_date).
+    group('units.id, lectures.id').
+    select('units.name as u_name, lectures.name as name').
+    select('units.order, lectures.order').
+    order('units.order, lectures.order')
+  }
+  
   #
   scope :with_content_4_students, ->  {
     where(%(

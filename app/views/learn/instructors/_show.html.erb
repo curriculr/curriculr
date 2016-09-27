@@ -1,5 +1,5 @@
-<div class="item">
-  <a class="ui tiny image">
+<!-- <div class="item">
+  <a class="ui mini image">
     <%= image_tag (instructor.avatar_url(current_account, :th) || instructor.user.profile.avatar_url(current_account, :th) || '/images/nobody-th.png') %>
   </a>
   <div class="content">
@@ -7,7 +7,24 @@
     <div class="meta">
       <span><%= instructor.title || t("config.staff.#{instructor.role}") %> </span>
     </div>
-    <div class="description"> 
+    <div class="description">
+      <%= markdown(instructor.about || instructor.user.profile.about || '', :class => 'shortenable-text') %>
+    </div>
+  </div>
+</div> -->
+
+<div class="event">
+  <div class="label">
+    <%= image_tag (instructor.avatar_url(current_account, :th) || instructor.user.profile.avatar_url(current_account, :th) || '/images/nobody-th.png') %>
+  </div>
+  <div class="content">
+    <div class="summary">
+      <%= instructor.name || instructor.user.name %>
+    </div>
+    <div class="meta">
+      <%= instructor.title || t("config.staff.#{instructor.role}") %>
+    </div>
+    <div class="extra text">
       <%= markdown(instructor.about || instructor.user.profile.about || '', :class => 'shortenable-text') %>  
     </div>
   </div>

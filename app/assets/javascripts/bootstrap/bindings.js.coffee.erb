@@ -9,8 +9,15 @@ window.ui_rebind_application_events  = ($) ->
     context: $('.course.klasses > .bottom.segment')
   ).sidebar('attach events', '.course.klasses > .menu > .item')
 
+  $('.message .close').on 'click', ->
+    $(this).closest('.message').transition('fade')
+    
+  $('div.markdown-output img').addClass('ui image')
+  
+  $('.ui.embed').embed()
+  
   # Settings
-  $('.add-in-modal, .edit-in-modal').unbind().on 'click', ->
+  $('.add-in-modal, .edit-in-modal').unbind().on 'click', (e) ->
     html = $(this).data('form')
     $(html).modal(inverted: true).modal('show')
     
@@ -35,34 +42,50 @@ window.ui_rebind_application_events  = ($) ->
     lessText: '<i class="chevron up icon" title="less..."></i>less...'
   )
   
+  $('#assessment-attempt-form > #attempt-save-link').unbind().on 'click', (e) ->
+    $('#assessment-attempt-form > #commit').val('save')
+    $('#assessment-attempt-form').submit()
+    e.preventDefault()
+  
+  $('.ui.progress').progress()
+  
+  # $('.home.item').popup(
+  #   inline: true,
+  #   hoverable: true,
+  #   position: 'bottom left',
+  #   delay:
+  #     show: 300,
+  #     hide: 800
+  # )
+  
   # mediaelementjs
   # $('video.mediaelementjs, audio.mediaelementjs').mediaelementplayer()
 
-  $('audio.mediaelementjs').mediaelementplayer()
-  video_el = $('video.mediaelementjs')
-  video_el.attr('width', video_el.parent().width()).attr('height', video_el.parent().width() * 9 / 16).mediaelementplayer()
-
-
-  player = null
-  $('video.mediaelementjs_with_invideo_quiz').mediaelementplayer(
-    success: (element, node) ->
-      window.player = element
-
-      launchAssessments = ->
-        for assessment in assessments
-          position = window.player.currentTime
-          if !assessment.taken && assessment.at <= position
-            window.player.pause()
-            $.ajax(
-              type: "GET",
-              url: assessment.path,
-              sucess: (data) ->,
-              error: (data)->
-            )
-            assessment.taken = true
-
-      interval = setInterval(launchAssessments, 2000)
-  )
+  # $('audio.mediaelementjs').mediaelementplayer()
+  # video_el = $('video.mediaelementjs')
+  # video_el.attr('width', video_el.parent().width()).attr('height', video_el.parent().width() * 9 / 16).mediaelementplayer()
+  #
+  #
+  # player = null
+  # $('video.mediaelementjs_with_invideo_quiz').mediaelementplayer(
+  #   success: (element, node) ->
+  #     window.player = element
+  #
+  #     launchAssessments = ->
+  #       for assessment in assessments
+  #         position = window.player.currentTime
+  #         if !assessment.taken && assessment.at <= position
+  #           window.player.pause()
+  #           $.ajax(
+  #             type: "GET",
+  #             url: assessment.path,
+  #             sucess: (data) ->,
+  #             error: (data)->
+  #           )
+  #           assessment.taken = true
+  #
+  #     interval = setInterval(launchAssessments, 2000)
+  # )
 
   # ace-editor
   $('.ace-editor').each (index, element) ->
@@ -83,47 +106,22 @@ window.ui_rebind_application_events  = ($) ->
   #   allow_single_deselect: true
 
   $('.video-open-link').unbind().on 'click', (e) ->
-    vid = "sv_m_#{$(this).data('id')}"
-    length = $("##{vid}").length
-    if length > 0
-      vid = "#{vid}_#{length}"
-
-    if $(this).data('sublime')
-      if $(this).data('youtube')
-        video = """
-          <video class="sublime" data-uid="#{vid}"
-                 data-youtube-id="#{$(this).data('url')}" id="#{vid}"
-                 preload="none" title="#{$(this).data('title')}" width="568"
-                 height="320">
-          </video>
-        """
-      else
-        video = """
-          <video class="sublime" data-uid="#{vid}"
-                 id="#{vid}"
-                 preload="none" title="#{$(this).data('title')}" width="568"
-                 height="320">
-            <source src="#{$(this).data('url')}"></source>
-          </video>
-        """
+    vid = "v_m_#{$(this).data('id')}"
+    player = $(this).data('player')
+    
+    if player == 'youtube'
+      video = """
+        <div class="ui embed" data-source="youtube" data-id="#{$(this).data('url')}"></div>
+      """
     else
-      if $(this).data('youtube')
-        video = """
-          <video class="mediaelementjs" id="#{vid}"
-                 preload="none" title="#{$(this).data('title')}" width="568"
-                 height="320">
-            <source type="video/youtube" src="https://youtu.be/#{$(this).data('url')}"></source>
-          </video>
-        """
-      else
-        video = """
-          <video class="mediaelementjs" id="#{vid}" src="#{$(this).data('url')}"
-                 preload="none" title="#{$(this).data('title')}" width="568"
-                 height="320">
-          </video>
-        """
+      video = """
+        <video id="#{vid}" class="video-js vjs-default-skin vjs-big-play-centered" width="640px" height="267px"
+            controls preload="none" src="#{$(this).data('url')}"
+            data-setup='{ "aspectRatio":"1280:720", "playbackRates": [1, 1.5, 2] }'>
+        </video>
+      """
     $("""
-      <div class="ui modal">
+      <div id="open-video-modal" class="ui modal">
         <div class="header">#{$(this).data('title')}</div>
         <div class="content">
           #{video}
@@ -132,13 +130,15 @@ window.ui_rebind_application_events  = ($) ->
           <div class="ui cancel button">Close</div>
         </div>
       </div>
-    """).modal(inverted: true).modal('show')
-
-    if $(this).data('sublime')
-      sublime.load()
-      sublime.prepare(vid)
-    else
-      player = new MediaElementPlayer "##{vid}"#, success: (mediaelement, node) ->
+    """).modal(
+      inverted: true,
+      onVisible: ->
+        $('.ui.embed').embed()
+        videojs("#{vid}", { "controls": true, "autoplay": false, "preload": "none" }) unless player == 'youtube'
+      onHidden: ->
+        videojs("#{vid}").dispose() unless player == 'youtube'
+        $('#open-video-modal').remove()
+    ).modal('show')
 
     e.preventDefault()
 
@@ -399,10 +399,12 @@ window.ui_rebind_application_events  = ($) ->
 
   # Questions hints and explanations
   $('.question-hint-link, .question-explanation-link').unbind().on 'click', (e) ->
-    if $($(this).attr('href')).hasClass("hidden")
-      $($(this).attr('href')).removeClass("hidden").addClass("show")
+    if $($(this).attr('href')).is(':hidden')
+      $($(this).attr('href')).show()
+      $(this).removeClass('basic')
     else
-      $($(this).attr('href')).removeClass("show").addClass("hidden")
+      $($(this).attr('href')).hide()
+      $(this).addClass('basic')
 
     e.preventDefault()
 
@@ -458,7 +460,7 @@ window.ui_rebind_application_events  = ($) ->
     progress: (e, data) ->
       if data.context
         progress = parseInt(data.loaded / data.total * 100, 10)
-        data.context.find('.progress-bar').css('width', progress + '%')
+        data.context.find('.ui.indicating.progress').data('percent', progress).progress()
 
   # $('tr.medium-content').hover(
   #   (e) ->

@@ -5,5 +5,7 @@
 	<td><%= ui_icon(:check) if page.published %></td>
 	<td><%= ui_icon(:check) if page.public %></td>
   <td><%= ui_icon(:check) if page.blog %></td>
-  <td><%= ui_icon(:check) if page.html %></td>
+  <% if current_user && current_user.has_role?(:admin) %>
+    <td><%= ui_icon(:check) if page.html %></td>
+  <% end %>
 </tr>

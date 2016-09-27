@@ -1,6 +1,9 @@
 ar:
   helpers:
     submit:
+      submit_answers: قدم الإجابات للتصحيح
+      save_answers: احتفظ بالإجابات لوقت آخر
+      add: أضف %{name}
       start_new_topic: إبدأ موضوعا جديدا
       delete: <i class="remove icon"></i>احذف
       go_back: عد إلى حيث أتيت
@@ -22,12 +25,11 @@ ar:
       show: اظهر
       new:  أضف %{name}
       create: إنشاء
-      edit:  عدل
+      edit:  عدل %{name}
       update: عدل
       destroy:  احذف
       cancel: ألغ
       settings: اعدادات
-      reports:  تقرير الأداء
       try_again: حاول مرة أخرى
       show_answer: أظهر الجواب
       about: من نحن
@@ -117,7 +119,8 @@ ar:
       back_to_assessment: عد إلى ال%{name}
       back_to_list: عد إلى القائمة
       back_to: عد إلى %{name}
-      add_question: إضف سؤالا
+      add_question: أضف سؤالا
+      add_selector: أضف طريقة اختيار الأسئلة
       resume_lecture: استأنف المحاضرة
       add_video:  أضف فيديو جديد
       add_image:  أضف صورة

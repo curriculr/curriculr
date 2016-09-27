@@ -1,11 +1,29 @@
-<% 
-  assessments = @klass.course.assessments.where('unit_id is null and ready = TRUE and kind in (:kinds)',
-          :kinds => @klass.course.config["grading"]["distribution"]["assessments"]["course"].keys)
-  #@klass.course.assessments.where("unit_id is not null and lecture_id is null and ready = TRUE and kind = :kind", 
-  #  :kind => params[:s]).distinct.order('course_id, unit_id, lecture_id').to_a
-%>
-<% if assessments.present? %>
-  <%= render partial: 'assessment', collection: assessments %>
-<% else %>
-  <%= t('page.text.no_record_found') %>
+<% assessments = @klass.assessments.to_a %>
+
+<% content_for :main_aside do %>
+  <%= ui_header Assessment.model_name.human(count: 3), style: :h3 %>
+  
+  <div class="ui items">
+    <% assessments.each do |a| %>
+      <div class="item">
+        <div class="content">
+          <%= link_to a.name, learn_klass_assessment_path(@klass, a), remote: true, class: 'header' %>
+          <div class="description">
+            <p>
+              <%= l(a.opens_at_datetime(@klass.begin_date(current_student))) %>
+              <% if a.to_datetime.present? %>
+                - <%= l(a.closes_at_datetime(@klass.begin_date(current_student))) %>
+              <% end %>
+            </p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<%= content = capture do %>
+  <div class="ui basic segment" id="assessment-info">
+    <%= render partial: "assessment", locals: { assessment: assessments.first } %>
+  </div>
 <% end %>

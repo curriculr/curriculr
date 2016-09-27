@@ -13,8 +13,20 @@ module Themes::Bootstrap::FormsHelper
     t(key, scope: 'helpers.submit', name: t("activerecord.models.#{controller_name.classify.downcase}.one"))
   end
 
+  def set_form_class(options)
+    if options[:html]
+      if options[:html][:class]
+        options[:html][:class] = "ui form #{options[:html][:class]}"
+      else
+        options[:html][:class] = 'ui form'
+      end
+    else
+      options[:html] = {class: 'ui form'}
+    end
+  end
+  
   def modal_form_for(record, options = {}, &block) 
-    options[:html] = {class: 'ui form'} 
+    set_form_class(options)
     options[:builder] = ModalFormBuilder
     options[:remote] = true
     
@@ -30,7 +42,7 @@ module Themes::Bootstrap::FormsHelper
   end
   
   def form_for(record, options = {}, &block)
-    options[:html] = {class: 'ui form'}
+    set_form_class(options)
     super
   end
   
@@ -38,12 +50,11 @@ module Themes::Bootstrap::FormsHelper
     hint = options.include?(:hint) ? options[:hint] : false
     label = options.include?(:label) ? (options[:label] == false ? false : options[:label]) : true
     options.reject!{|k,v| %(hint label).include? k.to_s}
-    input = form.file_field(field, options.merge({:multiple => true}))
+    input = form.file_field(field, options.merge({label: false, multiple: true, style: 'display: none;'}))
     content_tag :div, class: "field drag-file-area" do
       %(
         <div class="ui primary button">
-            #{ui_icon(:plus)}
-            #{label}
+            #{form.label(field, ui_icon(:plus) + label)}
             #{input}
         </div>
         #{content_tag :span, hint if hint}

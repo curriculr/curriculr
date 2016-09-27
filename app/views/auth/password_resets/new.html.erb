@@ -1,7 +1,11 @@
-<%= ui_header t('auth.headers.reset_password') %>
-<%= form_for @user || User.new, url: url_for(controller: 'auth/password_resets', action: 'create'), method: :post do |f| %>
-  <%= f.email_field :email %>
+<div class="ui centered grid">
+  <div class="seven wide column">
+    <%= ui_header t('auth.headers.reset_password') %>
+    <%= form_for @user || User.new, url: url_for(controller: 'auth/password_resets', action: 'create'), method: :post do |f| %>
+      <%= f.email_field :email %>
 
-  <%= f.submit :submit %>
-  <%= f.cancel auth_signin_path %>
-<% end %>
+      <%= f.submit :submit %>
+      <%= f.cancel auth_signin_path %>
+    <% end %>
+  </div>
+</div>

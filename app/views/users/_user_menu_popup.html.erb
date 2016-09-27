@@ -1,0 +1,28 @@
+<% user_menu %>
+
+<% in_words = %w(zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen) %>
+
+<div class="ui fluid popup bottom left transition hidden">
+  <div class="ui fluid vertical menu">
+    <% app_menus(:user).each do |section, menu| %>
+      <div class="item">
+        <% if section == :_ %>
+          <div class="header">
+            <%= image_tag(current_user.profile.avatar_url(current_account, :tny) || '/images/nobody-tny.png', size: '21x21') %>
+            <%= current_user.name %>
+          </div>
+        <% else %>
+          <div class="header"><%= t("page.title.#{section}") %></div>
+        <% end %>
+        <div class="menu">
+          <% menu.each do |item| %>
+            <%= link_to item[:link], item[:to], remote: item[:remote], class: item[:active] ? 'item active' : 'item' %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  
+
+</div>
+

@@ -1,4 +1,4 @@
-<%= ui_header ui_icon('list') + t('page.text.course_attendance') %>
+<%= ui_header t('page.text.course_attendance') %>
 
 <% attendance = Lecture.attendance(klass, student).all %>
 <% unless attendance.blank? %>

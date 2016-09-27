@@ -1,6 +1,9 @@
 en:
   helpers:
     submit:
+      submit_answers: Submit answers
+      save_answers: Save answers
+      add: Add %{name}
       start_new_topic: Start a new topic
       delete: <i class="remove icon"></i>Delete
       go_back: Go back
@@ -27,7 +30,6 @@ en:
       destroy:  Delete
       cancel: Cancel
       settings: Settings
-      reports:  Reports
       try_again: Try again
       show_answer: Show answer
       about: About us
@@ -118,6 +120,7 @@ en:
       back_to_list: Back to list
       back_to: Back to %{name}
       add_question: Add question
+      add_selector: Add question selection criterion
       resume_lecture: Resume lecture
       add_video:  Add video
       add_image:  Add image

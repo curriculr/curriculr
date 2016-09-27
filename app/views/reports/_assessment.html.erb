@@ -1,4 +1,4 @@
-<%= ui_header ui_icon('lab') + t('page.text.course_assessment') %>
+<%= ui_header Assessment.model_name.human(count: 3) %>
 
 <% assessments = Assessment.report(klass, student).all %>
 <% if assessments.present? %>

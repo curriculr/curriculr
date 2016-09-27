@@ -9,7 +9,7 @@
       <%= ui_icon('file audio outline icon') + ' ' + audio.name %>
       <div class="ui left pointing label"><%= timeago_tag(audio.created_at, :nojs => true, :limit => 10.days.ago)  %></div>
     </div>
-    <%# ui_audio audio %>
+    <%= ui_audio audio %>
     <small>
       <%= audio.full_url %>
       

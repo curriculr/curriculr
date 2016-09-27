@@ -1,6 +1,7 @@
 ar:
   page:
     title:
+      progress_report:  تقرير الأداء
       teaching: تدريس
       learning: تًعًلُّم
       available_klasses: الفصول المتوافرة
@@ -58,6 +59,7 @@ ar:
       klass_agreement: اتفاقية الفصل
       actions: خيارات
       syllabus: المنهج
+      faq: الأسئلة الأكثر ترددا
       search: ابحث
       settings: اعدادات
       blogs: المقالات
@@ -107,6 +109,8 @@ ar:
       feactured_klasses: فصول دراسية مميزة
 
     text:
+      workload_per_week: "يستغرق %{workload} ساعة فس الأسبوع"
+      lasts_for: يستمر لمدة %{weeks} اسبوعا
       yes: نعم
       no: لا
       new: أضف
@@ -252,10 +256,10 @@ ar:
       closed_klass_html: هذا الفصل مغلق. لا يمكن أن تصل إلى التعليقات أو أن تحاول الاختبارات.
       signin_using: بإستخدام %{provider}
       external_signin_using: يمكنك الدخول باستخدام أي من حساباتك الحالية على
-      participation_forums_html: <h2>%{times}</h2><h3><small>منتديات</small></h3>
-      participation_topics_html: <h2>%{times}</h2><h3><small>مواضيع</small></h3>
-      participation_posts_html: <h2>%{times}</h2><h3><small>مشاركات</small></h3>
-      participation_replies_html: <h2>%{times}</h2><h3><small>ردود</small></h3>
+      participation_forums: منتديات
+      participation_topics: مواضيع
+      participation_posts: مشاركات
+      participation_replies: ردود
       select_files_or_drop: أو اسحبها إلى أي مكان في هذه الصفحة
       file_or_external_link: ملف أو وصلة خارجية
       external_link: وصلة خارجية

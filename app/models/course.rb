@@ -1,9 +1,6 @@
 class Course < ActiveRecord::Base
   include Scopeable
   include WithMaterials
-  extend FriendlyId
-
-  friendly_id :name, use: [ :slugged, :finders ]
 
   acts_as_taggable_on :tags, :levels, :categories, :schools
 
@@ -71,8 +68,13 @@ class Course < ActiveRecord::Base
     self.pages.tagged_with('syllabus').first
   end
 
+  def faq
+    self.pages.tagged_with('faq').first
+  end
+  
+  
   def non_syllabus_pages(published_only = false, public_only = false )
-    options = "(tags.name is null or tags.name <> 'syllabus')"
+    options = "(tags.name is null or tags.name not in ('syllabus', 'faq'))"
     options << " and pages.published = TRUE" if published_only
     options << " and pages.public = TRUE" if public_only
     self.pages.
@@ -110,12 +112,17 @@ class Course < ActiveRecord::Base
 
     self.klasses.create(:slug => 'sec-01', :begins_on => Time.zone.today, :ends_on => (course.weeks.present? ? (Time.zone.today + (course.weeks * 7)) : nil))
 
+    # syllabus
     syllabus = self.pages.create(:name => I18n.t('page.title.syllabus'),
       :about => I18n.t('page.text.under_construction'), :published => true)
-
     syllabus.tag_list.add('syllabus')
-
     syllabus.save
+    
+    #faq
+    faq = self.pages.create(:name => I18n.t('page.title.faq'),
+      :about => I18n.t('page.text.under_construction'), :published => true)
+    faq.tag_list.add('faq')
+    faq.save
   end
 
   after_update do |course|

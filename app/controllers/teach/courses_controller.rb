@@ -60,12 +60,12 @@ module Teach
       end
         
       @course.update(course_params)
-      respond_with :teach, @course do |format|
-        format.js { 
-          @update_class = "crs_activate_#{@course.id}_link"
-          render "courses" 
-        }
-      end
+      respond_with :teach, @course # do |format|
+#         format.js {
+#           @update_class = "crs_activate_#{@course.id}_link"
+#           render "courses"
+#         }
+#       end
     end
 
     def configure

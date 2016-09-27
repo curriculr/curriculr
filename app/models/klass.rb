@@ -1,8 +1,6 @@
 class Klass < ActiveRecord::Base
   include Scopeable
-  extend FriendlyId
 
-  friendly_id :name, use: [ :slugged, :finders ]
   belongs_to :course, :counter_cache => true
 
   has_many :students, :through => :enrollments
@@ -200,12 +198,19 @@ class Klass < ActiveRecord::Base
     course.by_instructors(mode)
   end
 
-  def begin_date(student)
+  def begin_date(student = nil)
     if student && (enrollment = Enrollment.by(self, student))
       enrollment.created_at.to_date
     else
       self.begins_on
     end
+  end
+  
+  def assessments
+    self.course.assessments.where('lecture_id is null and ready = TRUE').
+      where('(unit_id is null and kind in (:course_kinds)) or kind in (:unit_kinds)',
+        :course_kinds => self.course.config["grading"]["distribution"]["assessments"]["course"].keys,
+        :unit_kinds => self.course.config["grading"]["distribution"]["assessments"]["unit"].keys)
   end
 
   # NOTE: mysql-specific

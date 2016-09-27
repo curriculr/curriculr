@@ -2,10 +2,9 @@
 
 <% data = dashboard_klass_activity_counts(klass) %>
 
-<%= ui_chart 'klass_activity_counts', 
-  'PieChart', data[:counts], {legend: 'none'}, 300 %>
-
+<%= ui_chart 'klass_activity_counts', 'PieChart', data[:counts], {legend: 'none', backgroundColor: 'transparent'}, 300 %>
+<br>
 <%= ui_chart 'klass_daily_activities', 
   'LineChart', 
    dashboard_klass_activities_by_day(1.weeks.ago, klass),
-   {curveType: 'function', legend: { position: 'top' }, chartArea:{left:0,top:30,width:'100%',height:'80%'}}, 300 %>
+   {curveType: 'function', backgroundColor: 'transparent', legend: { position: 'top' }, chartArea:{left:0,top:30,width:'100%',height:'80%'}}, 300 %>

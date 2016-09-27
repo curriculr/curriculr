@@ -1,29 +1,39 @@
 <tr>
 	<td><%= enrollment_counter + 1 %></td>
 	<td>
-    <% if enrollment.student.relationship == 'self' %>
-      <%= image_tag enrollment.student.user.profile.avatar_url(current_account, :tny) || '/images/nobody-tny.png' %>
-	    <%= enrollment.student.user.name %>
-    <% else %>
-      <%= image_tag enrollment.student.avatar_url(current_account, :tny) || '/images/nobody-tny.png' %>
-      <%= enrollment.student.name %>
-    <% end %>
+    <div class="ui list">
+      <div class="item">
+        <% if enrollment.student.relationship == 'self' %>
+          <%= image_tag enrollment.student.user.profile.avatar_url(current_account, :tny) || '/images/nobody-tny.png', class: 'ui avatar image' %>
+        <% else %>
+          <%= image_tag enrollment.student.avatar_url(current_account, :tny) || '/images/nobody-tny.png', class: 'ui avatar image' %>
+        <% end %>
+        <div class="content">
+          <div class="header">
+            <%= enrollment.student.relationship == 'self' ? enrollment.student.user.name : enrollment.student.name %>
+          </div>
+          <%= enrollment.student.user.email %>
+        </div>
+      </div>
+    </div>
   </td>
   <td>
-    <% if @klass.private && !enrollment.active %>
-      <% if enrollment.accepted_or_declined_at.blank? %>
-        <%= content_tag(:span, t('page.text.invited'), :class => css_label(:warning)) %>
-      <% else %>
-        <%= content_tag(:span, t('page.text.declined_invitation'), :class => css_label(:warning)) %>
+    <% if !enrollment.active %>
+      <% if @klass.private %>
+        <% if enrollment.accepted_or_declined_at.blank? %>
+          <%= content_tag(:span, t('page.text.invited'), :class => "ui yello label") %>
+        <% else %>
+          <%= content_tag(:span, t('page.text.declined_invitation'), :class => "ui red label") %>
+        <% end %>
       <% end %>
+      <%= content_tag(:span, t('page.text.dropped'), :class => "ui red label") if enrollment.dropped_at.present? %>
+    <% else %>
+      <%= ui_icon(:check) %>
     <% end %>
-    <%= content_tag(:span, t('page.text.dropped'), :class => css_label(:danger)) if !enrollment.active && enrollment.dropped_at.present? %>
   </td>
 	<td><%= l(enrollment.created_at.to_date) %></td>
   <td><%= @klass.final_score(enrollment.student.id)[:score] %></td>
   <td>
-    <%= link(:course, :reports,
-          learn_klass_student_report_path(enrollment.klass, enrollment.student),
-          :class => "ui button") %>
+    <%= link_to(t('page.title.progress_report'), learn_klass_student_report_path(enrollment.klass, enrollment.student), :class => "ui positive button") %>
   </td>
 </tr>

@@ -1,6 +1,7 @@
 en:
   page:
     title:
+      progress_report: Progress report
       teaching: Teaching
       learning: Learning
       available_klasses: Available classes
@@ -34,7 +35,7 @@ en:
       students:  Students
       contents: Contents
       readings: Readings
-      progress: Status
+      progress: Progress
       for_instructors: For instructors
       about: About
       help: Help
@@ -57,6 +58,7 @@ en:
       klass_agreement: Class agreement
       actions: Actions
       syllabus: Syllabus
+      faq: Frequently asked questions
       search: Search
       settings: Settings
       blogs: Blogs
@@ -106,6 +108,8 @@ en:
       feactured_klasses: Featured classes
 
     text:
+      workload_per_week: "%{workload} hours/week workload"
+      lasts_for: Lasts for %{weeks} weeks
       yes: Yes
       no: No
       new: New
@@ -247,10 +251,10 @@ en:
       closed_klass_html: This class is closed. Cannot see comments or attempt assessments.
       signin_using: Using %{provider}
       external_signin_using: You can also login using any of your existing accounts with
-      participation_forums_html: <h2>%{times}</h2><h3><small>Forums</small></h3>
-      participation_topics_html: <h2>%{times}</h2><h3><small>Topics</small></h3>
-      participation_posts_html: <h2>%{times}</h2><h3><small>Posts</small></h3>
-      participation_replies_html: <h2>%{times}</h2><h3><small>Replies</small></h3>
+      participation_forums: Forums
+      participation_topics: Topics
+      participation_posts: Posts
+      participation_replies: Replies
       select_files_or_drop: or drop them any where in this page
       file_or_external_link: file or external link
       external_link: external link

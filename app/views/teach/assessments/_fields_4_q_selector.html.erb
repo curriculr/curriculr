@@ -4,10 +4,12 @@
   <%= link f.object.question.present? ? :question : :q_selector, :destroy, '#', class: "remove_fields ui right floated mini negative button" %>
 </h4>
 <div class="ui attached clrearing segment">
-  <% if f.object.question %>
-    <%= render partial: "teach/questions/question", locals: {question: f.object.question, show_answer: false } %>
-  <% else %>
-    <div class="ui four column grid">
+  <div class="ui grid">
+    <% if f.object.question %>
+      <div class="thirteen wide column">
+        <%= render partial: "teach/questions/question", locals: {question: f.object.question, show_answer: false } %>
+      </div>
+    <% else %>
       <div class="three wide column">
         <%= f.collection_check_boxes :tags, question_banks(true).stringify_keys, :first, :second, {:label => t('page.title.question_banks')} %>
       </div>
@@ -31,13 +33,14 @@
           <% end %>
         <% end %>
       </div>
-      <div class="three wide column">
-        <% unless @assessment.survey? %>
-          <%= @assessment.kind != 'survey' ? f.number_field(:points) : f.static(:points)  %>
-        <% end %>
-        <%= f.hidden_field :order, class: "order-field" %>
-      </div>
+    <% end %>
+    
+    <div class="three wide column">
+      <% unless @assessment.survey? %>
+        <%= @assessment.kind != 'survey' ? f.number_field(:points) : f.static(:points)  %>
+      <% end %>
+      <%= f.hidden_field :order, class: "order-field" %>
     </div>
-  <% end %>
+  </div>
 </div>
 <br>

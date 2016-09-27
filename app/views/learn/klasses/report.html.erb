@@ -1,8 +1,47 @@
-<% if params[:student_id] %>
-	<ul class="breadcrumb">
-	  <li><%= link_to(t('page.title.students').html_safe, students_learn_klass_path(@klass)) %></li>
-	  <li class="active"><%= @student.name %></li>
-	</ul>
+<% content_for :main_aside do %>
+  <div class="ui inverted segment">
+  
+  <%= render :partial => 'reports/score', :locals => { klass: @klass, student: @student } %>
+  <%= render :partial => 'reports/participation', :locals => { klass: @klass, student: @student } %>
+  </div>
 <% end %>
+
+<% breadcrumbs = capture do %>
+  <% if params[:student_id] %>
+    <div class="ui breadcrumb">
+      <%= link_to t('page.title.students').html_safe, students_learn_klass_path(@klass), class: 'section' %>
+      <i class="right angle icon divider icon"></i>
+      <div class="active section"><%= @student.name %></div>
+    </div>
+  <% end %>
+<% end %>
+
+<% info = capture do %>
+  <div class="ui bulleted horizontal list">
+    <div class="item">
+      <strong><%= t('config.report.student.klass_begins') %></strong>:
+      <%= l(@klass.begins_on) %>
+    </div>
+    <% if @klass.ends_on %>
+      <div class="item">
+        <strong><%= t('config.report.student.klass_ends') %></strong>:
+        <%= l(@klass.ends_on) %>
+      </div>
+    <% end %>
+    <div class="item">
+      <strong><%= t('config.report.student.user_since') %></strong>:
+      <%= l(@student.user.confirmed_at.to_date) %>
+    </div>
+    <% unless staff?(@student.user, @klass.course) %>
+      <div class="item">
+        <strong><%= t('config.report.student.since') %></strong>:
+        <% if @student && (enrollment = @klass.enrollments(:student_id => @student.id).first) %>
+          <%= l(enrollment.created_at.to_date) %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+<%= ui_header @student.name, subtext: info, style: :h1, action: breadcrumbs %>
 
 <%= render :partial => 'reports/report', :locals => { klass: @klass, student: @student } %>

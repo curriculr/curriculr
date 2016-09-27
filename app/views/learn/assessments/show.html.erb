@@ -1,8 +1,0 @@
-<% if @assessment.unit && !@assessment.lecture %>
-  <ul class="breadcrumb">
-    <li><%= link(:lecture, :index, learn_klass_lectures_path(@klass)) %></li>
-    <li><%= link_to @assessment.unit.name, learn_klass_lectures_path(@klass) %></li>
-  </ul>
-<% end %>
-
-<%= render partial: "assessment", locals: { assessment: @assessment } %>

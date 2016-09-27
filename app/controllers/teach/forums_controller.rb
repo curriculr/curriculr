@@ -10,15 +10,6 @@ module Teach
       @forum = (@klass ? @klass.forums.new(forum_params) : @course.forums.new(forum_params))
       @forum.save
       respond_with @forum
-      # respond_with @forum do |format|
-      #   if @forum.save
-      #     format.html {
-      #       redirect_to @klass ? teach_course_klass_path(@course, @klass, :show => 'forums') : teach_course_path(@course, :show => 'forums')
-      #     }
-      #   else
-      #     format.html { render :action => 'new' }
-      #   end
-      # end
     end
   
     def edit
@@ -30,15 +21,6 @@ module Teach
       
       @forum.update(forum_params)
       respond_with @forum
-      # respond_with @forum do |format|
-      #   if @forum.update(forum_params)
-      #     format.html {
-      #       redirect_to @klass ? teach_course_klass_path(@course, @klass, :show => 'forums') : teach_course_path(@course, :show => 'forums')
-      #     }
-      #   else
-      #     format.html { render :action => 'edit' }
-      #   end
-      # end
     end
   
     def destroy
