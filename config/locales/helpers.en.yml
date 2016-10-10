@@ -1,6 +1,8 @@
 en:
   helpers:
     submit:
+      leave_course: Leave course
+      leave_klass: Leave class
       submit_answers: Submit answers
       save_answers: Save answers
       add: Add %{name}

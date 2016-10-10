@@ -1,17 +1,18 @@
-<div class="ui huge main nav list">
+<div class="ui top fixed borderless menu">
   <div class="item">
-    <div class="right floated content">
-      <% avatar = image_tag(current_user.profile.avatar_url(current_account, :tny) || '/images/nobody-tny.png', class: 'avatar icon') %>
-      <%= link_to avatar + t('helpers.submit.leave_course'), main_app.home_path, class: "ui labeled icon negative button" %>
-    </div>
     <div class="ui tiny promo image">
       <%= image_tag(@course.poster&.at_url(:md) || '/images/holder-md.png') %>
     </div>
-    <div class="content">
-      <div class="header">
-        <%= @course.name %>
-      </div>
-      <small><%= @course.by_instructors %></small>
+  </div>
+  <div class="header item">
+    <div class="ui second header">
+      <%= @course.name %>
+      <div class="sub header"><%= @course.by_instructors %></div>
+    </div>  
+  </div>
+  <div class="right menu">
+    <div class="item">
+      <%= link_to t('helpers.submit.leave_course'), main_app.home_path, class: "ui secondary button" %>
     </div>
   </div>
 </div>

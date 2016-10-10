@@ -5,7 +5,6 @@
     pane = 'lecture-contents'
     title, html = render_content([@material, @page, @question, @assessment].find{|c| !c.nil?}, @answer, @result)
   %>
-
   $("#<%= pane %>").html('<%= j html.html_safe %>');
   $(".lecture-header-subtext").text('<%= title %>');
   <% if @correct_answer %>

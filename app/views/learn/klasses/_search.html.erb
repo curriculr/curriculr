@@ -5,7 +5,7 @@
   <% $site['filter_classes_by'].keys.each_with_index do |filter, i| %>
     <% if $site['filter_classes_by'][filter] %>
       <% if filter == 'language' %>
-        <h3 class="ui header"><%= t('config.filter.language') %></h3>
+        <h4 class="ui header"><%= t('config.filter.language') %></h4>
         <% $site['supported_locales'].each do |k, v| %>
           <div class="field">
             <div class="ui checkbox">
@@ -15,7 +15,7 @@
           </div>
         <% end %>
       <% else %>
-        <h3 class="ui header"><%= t("config.filter.#{filter}") %></h3>
+        <h4 class="ui header"><%= t("config.filter.#{filter}") %></h4>
         <% Translator.to_hash(I18n.locale, "#{current_account.slug}.site.#{filter}.*").each do |k, v| %>
           <div class="field">
             <div class="ui checkbox">

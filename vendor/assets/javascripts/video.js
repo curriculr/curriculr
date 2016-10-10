@@ -1,6 +1,6 @@
 /**
  * @license
- * Video.js 5.11.6 <http://videojs.com/>
+ * Video.js 5.11.7 <http://videojs.com/>
  * Copyright Brightcove, Inc. <https://www.brightcove.com/>
  * Available under Apache License Version 2.0
  * <https://github.com/videojs/video.js/blob/master/LICENSE>
@@ -15051,6 +15051,8 @@ var Html5 = (function (_Tech) {
           'class': 'vjs-tech'
         }));
       }
+
+      el.playerId = this.options_.playerId;
     }
 
     // Update specific tag settings, in case they were overridden
@@ -20277,10 +20279,10 @@ function removeElData(el) {
  */
 
 function hasElClass(element, classToCheck) {
+  throwIfWhitespace(classToCheck);
   if (element.classList) {
     return element.classList.contains(classToCheck);
   } else {
-    throwIfWhitespace(classToCheck);
     return classRegExp(classToCheck).test(element.className);
   }
 }
@@ -21900,7 +21902,7 @@ setup.autoSetupTimeout(1, videojs);
  *
  * @type {String}
  */
-videojs.VERSION = '5.11.6';
+videojs.VERSION = '5.11.7';
 
 /**
  * The global options object. These are the settings that take effect

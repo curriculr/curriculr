@@ -1,5 +1,5 @@
 # For displaying JSON Settings in a tree-like form
-module Themes::Bootstrap::SettingsTreeHelper
+module Themes::Sunshine::SettingsTreeHelper
   def json_settings_form_value(object)
     case object
     when TrueClass, FalseClass

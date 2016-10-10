@@ -9,18 +9,18 @@ namespace :curriculr do
       # Generate en assets
       assets_path = "#{Rails.root}/public/assets"
       `rm -rf #{Rails.root}/public/assets/*`
-      `rm -f #{Rails.root}/app/assets/stylesheets/bootstrap/style_rtl.css`
+      `rm -f #{Rails.root}/app/assets/stylesheets/sunshine/style_rtl.css`
 
       Rake::Task["assets:precompile"].execute
 
       # Identify and locate the en assets that will be css-flipped
-      Dir.chdir "#{assets_path}/bootstrap"
-      css_path =  %(#{assets_path}/bootstrap/#{Dir.glob("style-*.css").first})
+      Dir.chdir "#{assets_path}/sunshine"
+      css_path =  %(#{assets_path}/sunshine/#{Dir.glob("style-*.css").first})
 
       # Css-flip the indentifed en assets
       Dir.chdir Rails.root
-      puts "Runnig cssflip for theme: bootstrap and flavor: #{ENV['THEME_FLAVOR'] || 'vanilla'}..."
-      `./bin/cssflip.sh bootstrap style #{css_path}`
+      puts "Runnig cssflip for theme: sunshine and flavor: #{ENV['THEME_FLAVOR'] || 'vanilla'}..."
+      `./bin/cssflip.sh sunshine style #{css_path}`
       
       # Done
       puts "RTL css generated successfully. Run rails assets:precompile to finish."

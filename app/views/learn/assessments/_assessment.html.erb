@@ -18,10 +18,8 @@
       - <%= l(assessment.closes_at_datetime(@klass.begin_date(current_student))) %>
     <% end %>
   <% end %>
-  <%= ui_header assessment.name, subtext: from_and_to, action: attempt_note %>
   
-  <%# markdown(assessment.about) %>
-  
+  <%= ui_header assessment.name, subtext: from_and_to, action: attempt_note unless assessment.lecture_id %>
   <% if @klass.open? && assessment.can_be_taken?(@klass, current_student) && assessment.open?(@klass.begin_date(current_student)) %>
     <% if assessment.penalty > 0 && assessment.after_deadline?(@klass.begin_date(current_student)) %>
       <div class="ui warning message">

@@ -1,9 +1,8 @@
-<h3 class="ui headser"><%= t('page.text.klass_enroll_html') %></h3>
+<%= modal_form_for 'enroll', :url => @url, :method => :post, header: t('helpers.submit.enroll') do |f| %>
+  <div class="ui info message"><%= t('page.text.klass_enroll_html') %></div>
 
-<h2><%= t('page.title.honor_system') %></h2>
-<p><%= t('page.text.honor_system') %></p>
-
-<%= form_for 'enroll', :url => @url, :method => :post do |f| %>
+  <h3 ui="ui header"><%= t('page.title.honor_system') %></h3>
+  <p><%= t('page.text.honor_system') %></p>
   <%= hidden_field_tag :klasses, (@klasses.map {|k| k.id.to_s}).join(',') %>
   <%= label_tag :agreed_to_klass_enrollment do %>
     <%= check_box_tag :agreed_to_klass_enrollment %>

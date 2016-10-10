@@ -1,0 +1,43 @@
+<div class="container">
+  <p class="lead">
+    Currently, the educational systems in many of the Arab countries are failing to 
+    meet the basic needs and aspirations of their constituent students, leaving 
+    them on their own when it comes to acquiring the basic knowledge and skills 
+    that can make a difference in their lives. At Duroosi School we are working 
+    hard to change that. Taking into account the economic, cultural and 
+    geographical barriers to education, we set out to make high-quality 
+    education more affordable and accessible to our students. 
+  </p>
+  <div class="row">
+    <div class="col-md-3">
+      <h3>What</h3>
+      <p>Duroosi School is a virtual Arabic school offering a variety of classes that students can enroll in.</p>
+    </div>
+    <div class="col-md-3">
+      <h3>Why</h3>
+      <p>To make high quality education affordable and accessible to students at anytime and from anywhere.</p>
+    </div>
+    <div class="col-md-3">
+      <h3>How</h3>
+      <p>By means of open classes that are accessible via desktops, laptops, tablets, and smart phones.</p>
+    </div>
+    <div class="col-md-3">
+      <h3>Who</h3>
+      <p>All classes are moderated and supervised by dedicated and highly qualified instructors.</p>
+    </div>
+  </div>
+</div>
+
+<% klasses = @klasses.featured.limit(5).to_a %>
+</div>
+<% if klasses.present? %>
+
+    <div id='featured-klass-list' class="klass-list">
+      <% more = (klasses.count > 3 ? link_to(t('page.title.more_info_html'), main_app.learn_klasses_path, class: "ui button") : nil) %>
+
+      <%= ui_header(t('page.title.feactured_klasses'), action: more) %>
+      <div class="ui items">
+        <%= render :partial => 'learn/klasses/klass_item', :collection => klasses[0..2], as: :klass %>
+      </div>
+    </div>
+<% end %>

@@ -44,7 +44,7 @@ module Teach
     def update
       @assessment.ready = !@assessment.ready if params[:opr] == 'ready'
       respond_with @assessment do |format|
-        if @assessment.update!(assessment_params)
+        if @assessment.update(assessment_params)
           format.html { redirect_to @req_objects }
           format.js   { render "reload" }
         else

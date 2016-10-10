@@ -1,6 +1,6 @@
 module Learn
   class KlassesController < BaseController
-    responders :flash, :http_cache
+    responders :modal, :flash, :http_cache
 
     def index
       @q = Klass.which_are(params[:s], current_user).search(params[:q])
@@ -50,17 +50,19 @@ module Learn
               [@klass].map {|k| k.id},
               url_for(:controller => 'auth/sessions', :action => 'new')
             ).deliver_later
-
-            redirect_to learn_klass_path(@klass), :flash => {:notice => t('helpers.notice.successful_enroll')}
+            
+            flash[:notice] = t('helpers.notice.successful_enroll')
+            render 'reload' #redirect_to learn_klass_path(@klass), :flash => {:notice => t('helpers.notice.successful_enroll')}
           else
-            redirect_to learn_klass_path(@klass), :flash => {:error => t('helpers.notice.failure_to_enroll')}
+            flash[:error] = t('helpers.notice.failure_to_enroll')
+            render 'new'
           end
         else
           @klasses = [@klass]
           @url = main_app.enroll_learn_klass_path(@klass)
           #@page_header = t('page.title.klass_agreement');
           flash.now[:alert] = t('helpers.notice.must_agree_to_terms') if params[:klasses]
-          render 'agreement'
+          render 'new'
         end
       end
     end

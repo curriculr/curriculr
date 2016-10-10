@@ -1,0 +1,24 @@
+<% outline = Lecture.outline(@klass).to_a %>
+<% unless outline.blank? %>
+  <%= ui_header t('page.title.contents'), style: :h3, dividing: true %>
+  <% units = outline.map{|a| a.u_name}.uniq %>
+  <div class="ui list">
+    <% units.each_with_index do |u, i| %>
+      <div class="item">
+        <%= ui_icon('folder open outline') %>
+        <div class="content">
+          <div class="header"><%= u %></div>
+          <div class="list">
+            <% lectures = outline.select{|a| u == a.u_name}.map{|a| a.name}.uniq %>
+            <% lectures.each_with_index do |l| %>
+              <div class="item">
+                <%= ui_icon('file outline') %>
+                <div class="content"><%= l %></div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

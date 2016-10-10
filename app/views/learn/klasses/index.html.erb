@@ -1,14 +1,21 @@
 <% content_for :main_aside do %>
-  <%= search_form_for [:learn, @q], class: "search-form", method: 'get', remote: true, wrapper: false, header: false do |f| %>
-    <div class="ui search">
-      <div class="ui fluid icon input">
-        <%= f.search_field :course_slug_or_course_name_or_course_about_cont, hint: false, label: false, placeholder: true %>
-        <%= ui_icon :search %>
+  <h3 class="ui top attached block header">
+    <%= t('page.title.lookup_classes') %>
+  </h3>
+  <div class="ui attached segment">
+    <%= search_form_for [:learn, @q], class: "search-form", method: 'get', remote: true, wrapper: false, header: false do |f| %>
+      <div class="ui search">
+        <div class="ui fluid icon input">
+          <%= f.search_field :course_slug_or_course_name_or_course_about_cont, hint: false, label: false, placeholder: true %>
+          <%= ui_icon :search %>
+        </div>
       </div>
-    </div>
-  <% end %>
-  
-  <%= render '/learn/klasses/search' %>
+    <% end %>
+    
+    <div class="ui horizontal divider"><%= t('page.text.or') %></div>
+    
+    <%= render '/learn/klasses/search' %>
+  </div>
 <% end %>
 
 <%= list = capture do %>

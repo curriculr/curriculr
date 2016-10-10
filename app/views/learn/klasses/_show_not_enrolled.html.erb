@@ -4,100 +4,107 @@
   <%= markdown @klass.course.about %>
   
   <% if @klass.course.syllabus.published %>
-    <%= ui_header t('page.title.syllabus'), style: :h3 %>
+    <%= content_tag :h3, t('page.title.syllabus'), class: 'ui dividing header' %>
     <%= markdown @klass.course.syllabus.about %>
   <% end %>
 
-  <%= ui_header t('page.title.contents'), style: :h3 %>
-  
-    <% outline = Lecture.outline(@klass).to_a %>
-    <% unless outline.blank? %>
-      <% units = outline.map{|a| a.u_name}.uniq %>
-      <% units.each_with_index do |u, i| %>
-        <h4 class="ui header"><%= u %></h4>
-        <ul>
-          <% lectures = outline.select{|a| u == a.u_name}.map{|a| a.name}.uniq %>
-          <% lectures.each_with_index do |l| %>
-            <li><%= l %></li>
-          <% end %>
-        </ul>
-      <% end %>
-    <% else %>
-      <%= t('page.text.no_record_found') %>
-    <% end %>
+  <%= render 'learn/lectures/outline' %>
   
   <% if @klass.course.faq.published %>
-   <%= ui_header t('page.title.faq'), style: :h3 %>
+   <%= content_tag :h3, t('page.title.faq'), class: 'ui dividing header' %>
    <%= markdown @klass.course.faq.about %>
   <% end %>
 <% end %>
 
 <div class="ui centered grid">
   <div class="row">
-    <div class="seven wide column">
+    <div class="four wide column"></div>
+    <div class="eight wide column">
       <div class="image">
+        <% poster = @klass.course.poster&.at_url(:sm) || '/images/holder-sm.png' %>
         <% if @klass.course.video %>
-          <%= content_tag :div do %>
-            <%= ui_video(@klass.course.video, @klass.course.poster) %>
-          <% end %>
+          <%= ui_video(@klass.course.video, poster) %>
         <% else %>
-          <%= image_tag(@klass.course.poster&.at_url(:sm) || '/images/holder-sm.png') %>
+          <%= image_tag poster %>
         <% end %>
       </div>
     </div>
-    <div class="three wide column"></div>
+    <div class="four wide column"></div>
   </div>
-  
-  <div class="seven wide column"><%= content %></div>
-  
-  <div class="three wide column">
-    <div class="ui feed">
-      <%= render 'learn/instructors/index' %>
-      <% levels = [] 
-         Translator.to_hash(I18n.locale, "#{current_account.slug}.site.level.*").each_with_index do |l, i|
-           if Course.scoped.tagged_with(l.first, :on => :levels).to_a.include? @klass.course
-             levels << l.second
-           end
-         end %>
-      <div class="event">
-        <div class="label"><%= ui_icon(:tags) %></div>
-        <div class="content">
-          <div class="summary"><%= levels.join(', ') %></div>
-        </div>
-      </div>
-      
-      <% events = {
-          weeks: [ui_icon(:calendar), t('page.text.lasts_for', weeks: @klass.course.weeks)], 
-          workload: [ui_icon(:calculator), t('page.text.workload_per_week', workload: @klass.course.workload)],
-          locale: [ui_icon(:world), $site['supported_locales'][@klass.course.locale.to_s]],
-          country: [ui_icon(:flag), flag_tag(@klass.course.country)]
-        } %>
-      <% events.each do |field, data| %>
-        <% if @klass.course[field].present? %>
+  <div class="row">
+    <div class="four wide column">
+      <div class="ui centered wide skyscraper test ad" data-text="Wide Skyscraper"></div>
+    </div>
+
+    <div class="eight wide column"><%= content %></div>
+
+    <div class="four wide column">
+      <div class="ui feed">
+        <%= render 'learn/instructors/index' %>
+
+        <% categories = []
+           Translator.to_hash(I18n.locale, "#{current_account.slug}.site.category.*").each_with_index do |l, i|
+             if Course.scoped.tagged_with(l.first, :on => :categories).to_a.include? @klass.course
+               categories << l.second
+             end
+           end %>
+        <% unless categories.empty? %>
           <div class="event">
-            <div class="label"><%= data[0] %></div>
+            <div class="label"><%= ui_icon(:book) %></div>
             <div class="content">
-              <div class="summary"><%= data[1] %></div>
+              <div class="summary"><%= categories.join(', ') %></div>
             </div>
           </div>
         <% end %>
-      <% end %>
-      
-      <div class="event">
-        <div class="label"><%= ui_icon(:shipping) %></div>
-        <div class="content">
-          <div class="summary"><%= ui_klass_enrollment_action @klass, :enroll %></div>
+
+        <% levels = []
+           Translator.to_hash(I18n.locale, "#{current_account.slug}.site.level.*").each_with_index do |l, i|
+             if Course.scoped.tagged_with(l.first, :on => :levels).to_a.include? @klass.course
+               levels << l.second
+             end
+           end %>
+        <% unless levels.empty? %>
+          <div class="event">
+            <div class="label"><%= ui_icon(:tags) %></div>
+            <div class="content">
+              <div class="summary"><%= levels.join(', ') %></div>
+            </div>
+          </div>
+        <% end %>
+
+        <% events = {
+            weeks: [ui_icon(:calendar), t('page.text.lasts_for', weeks: @klass.course.weeks)],
+            workload: [ui_icon(:calculator), t('page.text.workload_per_week', workload: @klass.course.workload)],
+            locale: [ui_icon(:world), $site['supported_locales'][@klass.course.locale.to_s]],
+            country: [ui_icon(:flag), flag_tag(@klass.course.country)]
+          } %>
+        <% events.each do |field, data| %>
+          <% if @klass.course[field].present? %>
+            <div class="event">
+              <div class="label"><%= data[0] %></div>
+              <div class="content">
+                <div class="summary"><%= data[1] %></div>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+
+        <div class="event">
+          <div class="label"><%= ui_icon(:shipping) %></div>
+          <div class="content">
+            <div class="summary"><%= ui_klass_enrollment_action @klass, :enroll %></div>
+          </div>
         </div>
-      </div>
-      
-      <div class="event">
-        <div class="label"></div>
-        <div class="content">
-          <div class="summary">
-            <div class='center aligned three buttons'>
-              <%= ui_facebook_link(@klass) %>
-              <%= ui_twitter_link(@klass) %>
-              <%= ui_google_plus_link(@klass) %>
+
+        <div class="event">
+          <div class="label"></div>
+          <div class="content">
+            <div class="summary">
+              <div class='center aligned three buttons'>
+                <%= ui_facebook_link(@klass) %>
+                <%= ui_twitter_link(@klass) %>
+                <%= ui_google_plus_link(@klass) %>
+              </div>
             </div>
           </div>
         </div>

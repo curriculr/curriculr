@@ -37,7 +37,7 @@ module Teach
       elsif @unit
         teach_course_unit_path(@course, @unit, :show => 'pages')
       elsif @course
-        teach_course_path(@course, :show => @course.syllabus.id == @page.id ? 'syllabus' : 'pages')
+        teach_course_path(@course, :show => 'pages')
       end
     end
   end

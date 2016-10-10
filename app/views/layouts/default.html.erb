@@ -8,7 +8,7 @@
     main_menu = render "/learn/klasses/main_menu"
     sub_menu = render "/learn/klasses/klass_menu"
   else 
-    main_menu = render "/main_menu", front: false
+    main_menu = render "application/main_menu", front: false
     if @klass && controller_name == 'klasses' && action_name == 'show'
       within_a_segment = false
     elsif controller_name.in?(['sessions', 'registrations']) && action_name.in?(['new', 'create'])
@@ -20,7 +20,7 @@
 <nav><%= main_menu %></nav>
 
 <% if sub_menu %>
-<div class="ui grid container">
+<div class="ui grid sub-menu container">
   <div class="sixteen wide column">
     <%= sub_menu %>
   </div>

@@ -1,8 +1,8 @@
 <% content_for :main_aside do %>
   <%= ui_header Forum.model_name.human(count: 3), style: :h3 %>
   <div class="ui selection list">
-  	<% @forums.each do |forum| %>
-  	<div class="forum item" id="forum-<%= forum.id %>">
+  	<% @forums.each_with_index do |forum, i| %>
+  	<div class="forum item<%= ' active' if i == 0 %>" id="forum-<%= forum.id %>">
   		<div class="content">
   			<div class="header">
           <%= link_to forum.name, learn_klass_forum_path(@klass, forum), remote: true %>

@@ -1,3 +1,12 @@
 /*******************************
          Site Overrides
 *******************************/
+nav > .ui.menu, nav > .ui.secondary.menu {
+  background: @navBackground;
+  border: none;
+  box-shadow: none;
+  &.pointing {
+    border-bottom: none;
+  }
+}
+

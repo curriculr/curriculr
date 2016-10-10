@@ -2,7 +2,7 @@ class CreateUsers < ActiveRecord::Migration
   def change
     create_table :users do |t|
       t.belongs_to :account, index: true
-      t.string :provider, null: false, default: 'identity'
+      t.string :provider, default: 'identity'
       t.string :name, null: false
       t.string :email, null: false
       t.string :password_digest, null: false

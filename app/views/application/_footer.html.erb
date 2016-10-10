@@ -1,10 +1,10 @@
 <% footer_menu %>
 
 <footer>
-  <div class="ui bottom <%= 'inverted' if action_name != 'front' %> menu">
+  <div class="ui <% 'bottom fixed ' %><%= 'inverted' if inverted %> menu">
     <% app_menu(:bottom).each_with_index do |item, i| %>
       <% if i == 0 %>
-        <div class="heasder item"><%= item %></div>
+        <div class="header item"><%= item %></div>
       <% else %>
         <%= link_to item[:link], item[:to], class: 'item', remote: item[:remote] %>
       <% end %>
@@ -12,9 +12,7 @@
 
     <% if true || current_account.config['title'] !~ /Curriculr/i %>
       <div class="right item">
-        <%= t('page.text.powered_by_html', logo: link_to(
-              image_tag("/images/curriculr#{'-inverted' if action_name != 'front'}.png"), 'http://www.curriculr.org', target: '_new'
-            )) %>
+        <%= t('page.text.powered_by_html', logo: link_to(image_tag("/images/curriculr#{'-inverted' if inverted}.png"), 'http://www.curriculr.org', target: '_new')) %>
       </div>
     <% end %>
   </div>

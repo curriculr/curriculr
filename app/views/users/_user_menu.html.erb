@@ -5,7 +5,7 @@
     <div class="item">
       <% if section == :_ %>
         <div class="header">
-          <%= image_tag(current_user.profile.avatar_url(current_account, :tny) || '/images/nobody-tny.png', size: '21x21') %>
+          <%= image_tag(current_user.profile.avatar_url(current_account, :tny) || '/images/nobody-tny.png', class: 'ui avatar image') %>
           <%= current_user.name %>
         </div>
       <% else %>

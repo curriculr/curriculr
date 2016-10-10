@@ -1,24 +1,23 @@
-<div class="ui huge main nav list">
+<div class="ui top fixed borderless menu">
   <div class="item">
-    <div class="right floated content">
-      <% avatar = image_tag(current_user.profile.avatar_url(current_account, :tny) || '/images/nobody-tny.png', class: 'avatar icon') %>
-      <%= link_to avatar + t('helpers.submit.leave_klass'), main_app.home_path, class: "ui labeled icon negative button" %>
-    </div>
     <div class="ui tiny promo image">
       <%= image_tag(@klass.course.poster&.at_url(:md) || '/images/holder-md.png') %>
     </div>
-    <div class="content">
-      <div class="header">
-        <%= @klass.course.name %>
+  </div>
+  <div class="header item">
+    <div class="ui second header">
+      <%= @klass.course.name %>
+      <div class="sub header">
+        <% labels = [ @klass.course.by_instructors, klass_from_and_to_dates(@klass)] %>
+        <% labels << Klass.human_attribute_name(:private) if @klass.private %>
+        <% labels << Klass.human_attribute_name(:closed) if @klass.past? %>
+        <%= raw labels.join('&nbsp;&nbsp;&nbsp;' + ui_icon('tiny circle')) %>
       </div>
-      <small>
-        <div class="ui horizontal bulleted list">
-          <%= content_tag :div, @klass.course.by_instructors, class: 'item' %>
-          <%= content_tag :div, klass_from_and_to_dates(@klass), class: 'item'%>
-          <%= content_tag :div, Klass.human_attribute_name(:private), class: 'item' if @klass.private %>
-          <%= content_tag :div, Klass.human_attribute_name(:closed), class: 'item' if @klass.past? %>
-        </div>
-      </small>
+    </div>  
+  </div>
+  <div class="right menu">
+    <div class="item">
+      <%= link_to t('helpers.submit.leave_klass'), main_app.home_path, class: "ui secondary button" %>
     </div>
   </div>
 </div>

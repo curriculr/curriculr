@@ -41,27 +41,13 @@
   </div>
 <% end %>
 
-<%= syllabus = capture do %>
-  <% units = Unit.open(@klass, current_student, true).to_a %>
-  <% active_unit = units.first %>
+<%= content = capture do %>
+  <% if @klass.course&.syllabus&.published %>
+    <%= ui_header @klass.course.syllabus.name %>
+    <%= markdown(@klass.course.syllabus.about) %>
+  <% else %>
+    <%= markdown(@klass.course.about) %>
+  <% end %>
   
-  <%= ui_header @klass.course.syllabus.name %>
-
-  <%= markdown(@klass.course.syllabus.about) %>
-  <div class="ui fluid">
-    <% units.each_with_index do |unit, i| %>
-      <% lectures = Lecture.open_4_students(@klass, unit, current_student, true).to_a %>
-      <div class="<%= 'active ' if unit == active_unit %>title">
-        <div class="ui block header"><%= i + 1 %>. <%= unit.name %> <%= ui_icon('dropdown') %></div>
-      </div>
-      <div class="<%= 'active ' if unit == active_unit %>content">
-        <%= markdown unit.about %>
-        <div class="ui secondary fluid vertical menu">
-        <% lectures.each_with_index do |lecture, j| %>
-          <%= content_tag :div, %(#{i + 1}.#{j + 1} #{lecture.name} #{ui_icon('book')}).html_safe, class: "item" %>
-        <% end %>
-        </div>
-      </div>
-    <% end %>
-  </div>
+  <%= render 'learn/lectures/outline' %>
 <% end %>

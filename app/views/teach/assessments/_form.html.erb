@@ -41,7 +41,7 @@
     <div class="three fields">
       <%= f.select :show_answer, t('config.assessment.show_answer').invert, :include_blank => false %>
       <% if @lecture && (videos = Hash[@lecture.materials_of_kind(:video).to_a.map {|v| [ v.medium.name, v.id ]}]) %>
-        <%= f.select :invideo_id, videos %>
+        <%= f.select :invideo_id, videos, :include_blank => true %>
         <%= f.number_field :invideo_at %>
       <% end %>
     </div>

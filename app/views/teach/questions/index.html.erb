@@ -49,7 +49,7 @@ end %>
     <div class="item">
       <div class="ui floating dropdown labeled icon">
         <i class="sidebar icon"></i>
-        Bank:&nbsp;
+        <%= t('page.text.bank') %>:&nbsp;
         <span class="text"><%= @bank || 'all'%></span>
         <i class="dropdown icon"></i>
         <div class="menu">
@@ -63,7 +63,7 @@ end %>
     <div class="right menu">
       <div class="item">
         <div class="ui floating dropdown labeled icon">
-          Kind:&nbsp;
+          <%= t('page.text.kind') %>:&nbsp;
           <span class="text"><%= t("config.question.group.#{params[:s] || 'all'}") %></span>
           <i class="dropdown icon"></i>
           <div class="menu">
@@ -93,6 +93,7 @@ end %>
   <div class="ui bottom attached segment">
     <div class="pusher">
       <div id="paginator"><%= paginate @questions, :remote => true %></div>
+      <br>
       <div id="all-questions" class="ui three cards">
         <%= render partial: "teach/questions/question", collection: @questions, locals: { show_answer: false } %>
       </div>

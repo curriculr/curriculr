@@ -34,39 +34,32 @@ module Teach::BaseHelper
     links
   end
 
-  def active_course_section?(section)
-    (params[:show] || 'syllabus') == section
-  end
-
-  def active_unit_section?(section)
-    (params[:show] || 'lectures') == section
-    # if @lecture
-    #   if section =='lectures'
-    #     'active'
-    #   else
-    #     nil
-    #   end
-    # else
-    #   if params[:show] == section
-    #     return 'active'
-    #   else
-    #     if section =='lectures' && (params[:show].blank? || params[:show] == 'lectures')
-    #       'active'
-    #     else
-    #       nil
-    #     end
-    #   end
-    # end
-  end
-
+  # def active_course_section?(section)
+  #   (params[:show] || 'syllabus') == section
+  # end
+  #
+  # def active_unit_section?(section)
+  #   (params[:show] || 'lectures') == section
+  #   # if @lecture
+  #   #   if section =='lectures'
+  #   #     'active'
+  #   #   else
+  #   #     nil
+  #   #   end
+  #   # else
+  #   #   if params[:show] == section
+  #   #     return 'active'
+  #   #   else
+  #   #     if section =='lectures' && (params[:show].blank? || params[:show] == 'lectures')
+  #   #       'active'
+  #   #     else
+  #   #       nil
+  #   #     end
+  #   #   end
+  #   # end
+  # end
+  #
   def active_klass_section?(section)
     (params[:show] || 'about') == section
-    # is_active = if params[:show]
-    #   params[:show] == section
-    # else
-    #   section == 'about' || false
-    # end
-    #
-    # 'active' if is_active
   end
 end

@@ -1,6 +1,7 @@
 en:
   page:
     title:
+      lookup_classes: Look up classes
       progress_report: Progress report
       teaching: Teaching
       learning: Learning
@@ -34,7 +35,7 @@ en:
       attachments:  Attachments
       students:  Students
       contents: Contents
-      readings: Readings
+      reading: Reading
       progress: Progress
       for_instructors: For instructors
       about: About
@@ -108,6 +109,8 @@ en:
       feactured_klasses: Featured classes
 
     text:
+      bank: Bank
+      kind: Kind
       workload_per_week: "%{workload} hours/week workload"
       lasts_for: Lasts for %{weeks} weeks
       yes: Yes
@@ -219,7 +222,7 @@ en:
       unit_problem: Unit problems
       unit_quiz: Unit quizzes
       honor_system: "We expect our students and parents to follow the honor system set forth by Curriculr. All class materials, questions, and exams are private to the class and should not be shared with anybody outside of it, as this will impact other students' ability to benefit from this class."
-      klass_enroll_html: You are about to enroll in this class. To proceed, you must agree to the <a href="#">rules and guidelines</a> of online education  and abide by its honor system.
+      klass_enroll_html: To enroll in this class, you must agree to the <a href="#">rules and guidelines</a> of online education  and abide by its honor system.
       free_class: Free
       today: Today
       in_days:

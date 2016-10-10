@@ -14,11 +14,7 @@ module Pageable
     end
 
     def localized
-      @page = Page.localized(params[:slug])
-
-      respond_with @page do |format|
-        format.html {render 'application/pages/show'}
-      end
+      render "application/#{params[:slug]}"
     end
 
     def new
@@ -85,7 +81,7 @@ module Pageable
             elsif @unit
               section[:show] = 'pages'
             else
-              section[:show] = @course.syllabus.id == @page.id ? 'syllabus' : 'pages'
+              section[:show] = 'pages'
             end
 
             @req_objects << section

@@ -1,39 +1,18 @@
-<% units = Unit.open(@klass, current_student, true).to_a %>
-<% active_unit = @lecture.unit %>
-
+<% listing, active_unit, active_lecture = Lecture.listing_for_student(@klass, current_student).to_a %>
+<% active_unit = @lecture.unit_id %>
 <% content_for :main_aside do %>
   <div class="ui fluid accordion">
-    <% units.each_with_index do |unit, i| %>
-      <% lectures = Lecture.open_4_students(@klass, unit, current_student, true).to_a %>
-      <div class="<%= 'active ' if unit == active_unit %>title">
-        <div class="ui block header"><%= i + 1 %>. <%= unit.name %> <%= ui_icon('dropdown') %></div>
+    <% listing.each do |id, unit| %>
+      <div class="<%= 'active ' unless unit[:completed] %>title">
+        <div class="ui block header"><%= unit[:name] %> <%= ui_icon('dropdown') %></div>
       </div>
-      <div class="<%= 'active ' if unit == active_unit %>content">
-        <%= markdown unit.about, class: 'shortenable-text' %>
+      <div class="<%= 'active ' unless unit[:completed] %>content">
+        <%= markdown unit[:about], class: 'shortenable-text' %>
+        
         <div class="ui secondary fluid vertical menu">
-        <% lectures.each_with_index do |lecture, j| %>
-          <%= link_to %(#{i + 1}.#{j + 1} #{lecture.name} #{ui_icon('book')}).html_safe, learn_klass_lecture_path(@klass, lecture), class: "#{'active ' if lecture == @lecture}item" %>
-        <% end %>
-        <% if enrolled_or_staff? %>
-          <% data = unit.contents(true, true) %>
-          <% if data.present? %>
-            <%
-              attachment_links = []
-              data.each do |item|
-                case item
-                when Material
-                  attachment_links << link_to(raw(item.medium.name + ui_icon(:attach)), item.at_url, :target => '_new', class: 'item')
-                when Page
-                  attachment_links << link_to(raw(item.name + ui_icon(:world)), learn_klass_page_path(@klass, item), class: 'item')
-                when Assessment
-                  attachment_links << link_to(raw(item.name + ui_icon(:lab)), learn_klass_assessment_path(@klass, item), class: 'item')
-                end
-              end
-            %>
-
-            <%= raw attachment_links.join('') %>
+          <% unit[:lectures].each do |lecture| %>
+            <%= link_to %(#{lecture[:name]} #{ui_icon(lecture[:attended] ? 'checkmark box' : 'square outline')}).html_safe, learn_klass_lecture_path(@klass, lecture[:id]), class: "#{'active ' if lecture[:id] == @lecture.id}item" %>
           <% end %>
-        <% end %>
         </div>
       </div>
     <% end %>

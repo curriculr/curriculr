@@ -19,8 +19,8 @@ module Themed
       if @current_theme && @current_theme['name'] && $site['available_themes'][@current_theme['name']]
         theme_and_parents($site['available_themes'], themes, @current_theme['name'])
       else
-        @current_theme = { "name"=>"bootstrap", "fluid"=>false }
-        themes << "bootstrap"
+        @current_theme = { "name"=>"sunshine" }
+        themes << "sunshine"
       end
 
       themes.reverse.each do |theme|
@@ -30,6 +30,7 @@ module Themed
         end
 
         prepend_view_path "app/views/themes/#{theme}"
+        prepend_view_path "app/views_overrides/#{locale}"
       end
     end
   end

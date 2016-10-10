@@ -4,9 +4,9 @@ site:
     en: English
 
   available_themes:
-    bootstrap:
+    sunshine:
       parent:
-      about: The default theme; based on Bootstrap 3.
+      about: The default theme
 
   default_account: main
 

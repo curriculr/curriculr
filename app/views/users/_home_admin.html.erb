@@ -22,4 +22,9 @@
   <% end %>
 <% end %>
 
-<%= ui_side_by_side(info, render('admin/dashboard/show'), 'ten by six')%>
+<% aside = capture do %>
+  <%= render("/users/user_menu") %>
+  <%= render('admin/dashboard/show') %>
+<% end %>
+
+<%= ui_side_by_side(info, aside, 'eleven by five')%>

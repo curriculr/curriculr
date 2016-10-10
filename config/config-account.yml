@@ -9,8 +9,7 @@ account:
 
   time_zone: "Mountain Time (US & Canada)"
   theme:
-    name: bootstrap
-    fluid: false
+    name: sunshine
     logo: true
 
   use_gravatar: true

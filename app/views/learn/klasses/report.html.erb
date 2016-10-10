@@ -19,29 +19,17 @@
 <% info = capture do %>
   <div class="ui bulleted horizontal list">
     <div class="item">
-      <strong><%= t('config.report.student.klass_begins') %></strong>:
-      <%= l(@klass.begins_on) %>
-    </div>
-    <% if @klass.ends_on %>
-      <div class="item">
-        <strong><%= t('config.report.student.klass_ends') %></strong>:
-        <%= l(@klass.ends_on) %>
-      </div>
-    <% end %>
-    <div class="item">
       <strong><%= t('config.report.student.user_since') %></strong>:
       <%= l(@student.user.confirmed_at.to_date) %>
     </div>
-    <% unless staff?(@student.user, @klass.course) %>
-      <div class="item">
-        <strong><%= t('config.report.student.since') %></strong>:
-        <% if @student && (enrollment = @klass.enrollments(:student_id => @student.id).first) %>
-          <%= l(enrollment.created_at.to_date) %>
-        <% end %>
-      </div>
-    <% end %>
+    <div class="item">
+      <strong><%= t('config.report.student.since') %></strong>: <%= @student.id %>
+      <% if @student && (enrollment = @klass.enrollments.where(:student_id => @student.id).last) %>
+        <%= l(enrollment.created_at.to_date) %>
+      <% end %>
+    </div>
   </div>
 <% end %>
-<%= ui_header @student.name, subtext: info, style: :h1, action: breadcrumbs %>
 
+<%= ui_header @student.name, subtext: info, style: :h1, action: breadcrumbs %>
 <%= render :partial => 'reports/report', :locals => { klass: @klass, student: @student } %>

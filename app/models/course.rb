@@ -114,13 +114,13 @@ class Course < ActiveRecord::Base
 
     # syllabus
     syllabus = self.pages.create(:name => I18n.t('page.title.syllabus'),
-      :about => I18n.t('page.text.under_construction'), :published => true)
+      :about => I18n.t('page.text.under_construction'), :published => false)
     syllabus.tag_list.add('syllabus')
     syllabus.save
     
     #faq
     faq = self.pages.create(:name => I18n.t('page.title.faq'),
-      :about => I18n.t('page.text.under_construction'), :published => true)
+      :about => I18n.t('page.text.under_construction'), :published => false)
     faq.tag_list.add('faq')
     faq.save
   end

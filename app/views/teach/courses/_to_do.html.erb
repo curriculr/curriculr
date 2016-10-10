@@ -2,11 +2,11 @@
 <div class="ui bulleted list">
   <div class="item">
     <%= t('helpers.submit.edit', name: t('page.title.syllabus')) %>
-    <%= ui_icon(%(right floated #{@course.syllabus&.about != t("page.text.under_construction") ? 'checkmark box' : 'square outline'})) %>
+    <%= ui_icon(%(right floated #{@course.syllabus&.published ? 'checkmark box' : 'square outline'})) %>
   </div>
   <div class="item">
     <%= t('helpers.submit.edit', name: t('page.title.faq')) %>
-    <%= ui_icon(%(right floated #{@course.faq&.about != t("page.text.under_construction") ? 'checkmark box' : 'square outline'})) %>
+    <%= ui_icon(%(right floated #{@course.faq&.published ? 'checkmark box' : 'square outline'})) %>
   </div>
   <div class="item">
     <%= t('helpers.submit.add', name: Lecture.model_name.human(count: 3)) %>

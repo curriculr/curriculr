@@ -1,5 +1,5 @@
 # For form components
-module Themes::Bootstrap::FormsHelper
+module Themes::Sunshine::FormsHelper
   def form_header(options = {})
     key = case action_name
     when 'new', 'create'

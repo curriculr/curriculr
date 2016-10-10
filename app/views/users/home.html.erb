@@ -1,7 +1,3 @@
-<% content_for :main_aside do %>
-  <%= render("/users/user_menu") %>
-<% end %>
-
 <%= content = capture do %>
   <% if current_user.has_role?(:admin) %>
     <%= render 'home_admin' %>

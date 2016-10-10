@@ -8,19 +8,12 @@
     <%= @page_header ? "#{title}: #{@page_header}" : $site['title'] %>
   </title>
 
-  <%= stylesheet_link_tag "bootstrap/style#{rtl? ? '_rtl' : ''}", :media => "all" %>
+  <%= stylesheet_link_tag "#{@current_theme['name']}/style#{rtl? ? '_rtl' : ''}", :media => "all" %>
 	<%= stylesheet_link_tag "application", :media => "all" %>
   <%= favicon_link_tag '/favicon.ico' %>
 	<%= csrf_meta_tags %>
-
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-  <![endif]-->
 </head>
-<body>
+<body style="margin-top: <%= @course || (@klass && enrolled_or_staff?) ? 5 : 3.5 %>rem;">
 
   <% Announcement.current(cookies.signed[:hidden_announcement_ids]).each do |announcement| %>
     <%= content_tag :div, id: "announcement_#{announcement.id}" do %>
@@ -33,28 +26,19 @@
 
 	<%= mountable_fragments :pre_layout_actions %>
 
-	<% if current_account.config['allow_banner_ads'] %>
-		<div class="container"><%= mountable_fragments :site_728x90_center_top_banner %></div>
-	<% end %>
-
   <% if action_name.in? ['front', 'blogs'] %>
     <%= render :template => "layouts/jumbotron" %>
+    <%= render "application/footer", inverted: false %>
   <% else %>
     <%= render :template => "layouts/default" %>
+    <%= render "application/footer", inverted: true %>
   <% end %>
-
-	<% if current_account.config['allow_banner_ads'] %>
-  	<div class="container"><%= mountable_fragments :site_728x90_center_bottom_banner %></div>
-	<% end %>
-
-  <%= render "/footer" %>
 
 	<%= mountable_fragments :post_layout_actions %>
 
   <%= javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/ace.js" if true || @req_attributes[:code?] %>
   <%= mountable_fragments :pre_app_javascript %>
 	<%= javascript_include_tag "application" %>
-	<%= javascript_include_tag "bootstrap/overrides" %>
 	<% if @req_attributes[:math?] %>
 		<script type="text/x-mathjax-config">
 			MathJax.Hub.Config({

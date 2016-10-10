@@ -19,5 +19,8 @@
 //= require jquery-fileupload/vendor/tmpl
 //= require sketch
 //
+//= require semantic_ui/semantic_ui
+//= require sunshine/behavior
+//
 // Application's Own Scripts
 //= require app-text

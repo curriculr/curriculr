@@ -7,12 +7,13 @@
     <% end %>
   <% end %>
   <div class="right item">
-    <%= staff_or_student_view(render(:partial => 'learn/klasses/student_picker')) %>
-    &nbsp;&nbsp;
     <div class="three buttons">
       <%= ui_facebook_link(@klass) %>
       <%= ui_twitter_link(@klass) %>
       <%= ui_google_plus_link(@klass) %>
     </div>
+    &nbsp;&nbsp;
+    <%= ui_klass_enrollment_action(@klass, :drop) if @klass.enrolled?(current_student) if @klass.enrolled?(current_student) %>
+    <%= staff_or_student_view(render(:partial => 'learn/klasses/student_picker')) %>
   </div>
 </div>

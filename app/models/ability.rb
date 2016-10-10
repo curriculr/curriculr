@@ -8,6 +8,7 @@ class Ability
     can :hide, Announcement
     can [ :show, :localized ], Page, :published => true, :public => true
     can :blogs, Page
+    can :play, Medium
     can [ :search, :index ], Klass
     can :show, Klass if (klass && klass.approved)
     if klass && klass.previewed

@@ -3,7 +3,7 @@
   pagers = @lecture.pagers(@klass, current_student)
   pager_links = []
   pager_links << {
-    url: (pagers.first ? learn_klass_lecture_path(@klass, pagers.first[:lecture]) : nil),
+    url: (pagers.first ? learn_klass_lecture_path(@klass, pagers.first[:id]) : nil),
     remote: false
   }
 
@@ -20,7 +20,7 @@
   end
 
   pager_links << {
-    url: (pagers.second ? learn_klass_lecture_path(@klass, pagers.second[:lecture]) : nil),
+    url: (pagers.second ? learn_klass_lecture_path(@klass, pagers.second[:id]) : nil),
     remote: false
   }
 %>

@@ -1,5 +1,5 @@
 window.ui_rebind_application_events  = ($) ->
-  $('.ui.dropdown').dropdown()
+  $('.ui.dropdown').dropdown(placeholder: false)
   $('.ui.accordion').accordion()
   $('.ui.dynamic.menu .item').tab()
   $('.course.units .ui.sidebar').sidebar(
@@ -14,7 +14,7 @@ window.ui_rebind_application_events  = ($) ->
     
   $('div.markdown-output img').addClass('ui image')
   
-  $('.ui.embed').embed()
+  $('.ui.embed').embed(autoplay: $('.ui.embed').data('autoplay'))
   
   # Settings
   $('.add-in-modal, .edit-in-modal').unbind().on 'click', (e) ->
@@ -58,35 +58,6 @@ window.ui_rebind_application_events  = ($) ->
   #     hide: 800
   # )
   
-  # mediaelementjs
-  # $('video.mediaelementjs, audio.mediaelementjs').mediaelementplayer()
-
-  # $('audio.mediaelementjs').mediaelementplayer()
-  # video_el = $('video.mediaelementjs')
-  # video_el.attr('width', video_el.parent().width()).attr('height', video_el.parent().width() * 9 / 16).mediaelementplayer()
-  #
-  #
-  # player = null
-  # $('video.mediaelementjs_with_invideo_quiz').mediaelementplayer(
-  #   success: (element, node) ->
-  #     window.player = element
-  #
-  #     launchAssessments = ->
-  #       for assessment in assessments
-  #         position = window.player.currentTime
-  #         if !assessment.taken && assessment.at <= position
-  #           window.player.pause()
-  #           $.ajax(
-  #             type: "GET",
-  #             url: assessment.path,
-  #             sucess: (data) ->,
-  #             error: (data)->
-  #           )
-  #           assessment.taken = true
-  #
-  #     interval = setInterval(launchAssessments, 2000)
-  # )
-
   # ace-editor
   $('.ace-editor').each (index, element) ->
     editor = ace.edit(element)
@@ -101,9 +72,6 @@ window.ui_rebind_application_events  = ($) ->
         $(this).find("##{$(element).data('input')}").val(editor.getSession().getValue())
 
   $('.hidden-til-processed').show()
-
-  # $('.chosen-select').chosen
-  #   allow_single_deselect: true
 
   $('.video-open-link').unbind().on 'click', (e) ->
     vid = "v_m_#{$(this).data('id')}"
@@ -143,52 +111,19 @@ window.ui_rebind_application_events  = ($) ->
     e.preventDefault()
 
   # Klasses
-  show_hide_klass_settings = (ch) ->
-    if $(ch).is(':checked')
-      $("#klass_previewed").prop( "checked", false);
-      $('#klass_previewed').closest('.form-group').hide()
-      $("#klass_allow_enrollment").prop( "checked", true);
-      $('#klass_allow_enrollment').closest('.form-group').hide()
-    else
-      $('#klass_previewed').closest('.form-group').show()
-      $('#klass_allow_enrollment').closest('.form-group').show()
-
-  show_hide_klass_settings($('#klass_private'))
-
-  $('#klass_private').unbind().on 'click',  ->
-    show_hide_klass_settings($(this))
-
   $('#search_klasses_form').find(":checkbox").unbind().on 'click', ->
     $(this).closest('form').submit()
     $(this).closest('form').find('input:checkbox').prop('disabled', true)
 
-  # Media
-  show_hide_path_or_url = (ch) ->
-    if $(ch).is(':checked')
-      $('#new_medium #medium_path').val('')
-      $('#new_medium #medium_path').closest('.form-group').hide()
-      $('#new_medium #medium_url').closest('.form-group').show()
-      $('#new_medium #medium_source').closest('.form-group').show()
-    else
-      $('#new_medium #medium_url').val('')
-      $('#new_medium #medium_url').closest('.form-group').hide()
-      $('#new_medium #medium_source').closest('.form-group').hide()
-      $('#new_medium #medium_path').closest('.form-group').show()
-
-  show_hide_path_or_url($('#new_medium #medium_is_a_link'))
-
-  $('#new_medium #medium_is_a_link').unbind().on 'click', ->
-    show_hide_path_or_url($(this))
-
   # Assessments
-  $('#assessment_penalty').closest('.form-group').hide() unless $('#assessment_after_deadline').is(':checked')
+  $('#assessment_penalty').closest('.field').hide() unless $('#assessment_after_deadline').is(':checked')
 
   $('#assessment_after_deadline').unbind().on 'click', ->
     if $(this).is(':checked')
-      $('#assessment_penalty').closest('.form-group').show()
+      $('#assessment_penalty').closest('.field').show()
     else
       $('#assessment_penalty').val(0.0)
-      $('#assessment_penalty').closest('.form-group').hide()
+      $('#assessment_penalty').closest('.field').hide()
 
   show_hide_answer_fields =  (val)->
     if val != null and val.indexOf("survey") != -1 and $("#question_kind").val() != "match"
@@ -302,46 +237,21 @@ window.ui_rebind_application_events  = ($) ->
   # Updates
   show_hide_update_fields_by_kind = (www, email, sms) ->
     if $(www).is(':checked') or $(email).is(':checked')
-      $('#update_subject').closest('.form-group').show()
+      $('#update_subject').closest('.field').show()
     else
       $('#update_subject').val(null)
-      $('#update_subject').closest('.form-group').hide()
+      $('#update_subject').closest('.field').hide()
 
   #show_hide_update_fields_by_kind($(this).find('option:selected').val())
   show_hide_update_fields_by_kind($('#update_www'), $('#update_email'), $('#update_sms'))
   $('#update_www, #update_email, #update_sms').unbind().on 'change', ->
     show_hide_update_fields_by_kind($('#update_www'), $('#update_email'), $('#update_sms'))
 
-  # Use modal do get value of a field
-  $('.ui-modal-field').unbind().on 'click', ->
-    id = $(this).data 'field'
-    body= $(this).data 'body'
-    body = body.replace(new RegExp(id, 'g'), "#{id}-#{id}")
-    #body = body.replace(/\\\"/g, "\"").replace(/\\\//g, "/")
-    header = $(this).data 'header'
-    btn = $(this).data 'btn'
-    close = $(this).data 'close'
-    value = $("##{id}").val()
-    $("""
-      <div class="ui small modal">
-        <div class="header">#{header}</div>
-        <div class="content">
-          #{body}
-        </div>
-        <div class="actions">
-          <a href="#" class="ui primary ok button" onclick="alert('#{id}--' + $('##{id}-#{id}').val());$('##{id}').val($('##{id}-#{id}').val());">#{btn}</a>
-          <div class="ui cancel button">#{close}</div>
-        </div>
-      </div>
-    """).modal(inverted: true).modal('show')
-
-    return false
-
   # loading and sorting units and lectures {
-  $('.panel-collapse.unit').unbind('show.bs.collapse').on 'show.bs.collapse', ->
-    if $(this).data('active') == 0
-      $.get($(this).data('update-url'))
-      $(this).data('active', '1')
+  # $('.panel-collapse.unit').unbind('show.bs.collapse').on 'show.bs.collapse', ->
+  #   if $(this).data('active') == 0
+  #     $.get($(this).data('update-url'))
+  #     $(this).data('active', '1')
 
   # Sortables
   $('#sortable-units').sortable(
@@ -433,12 +343,12 @@ window.ui_rebind_application_events  = ($) ->
     if mark_as_taken
       $(".lecture-content-links .lecture-content-link-pos-#{pos}").addClass("active")
 
-  $('.btn-popover').hover(
-    (e) ->
-      $(this).find('i.fa').html('&nbsp;&nbsp;' + $(this).data('content'))
-    (e) ->
-      $(this).find('i.fa').html('')
-  )
+  # $('.btn-popover').hover(
+  #   (e) ->
+  #     $(this).find('i.fa').html('&nbsp;&nbsp;' + $(this).data('content'))
+  #   (e) ->
+  #     $(this).find('i.fa').html('')
+  # )
 
   $('.show_lecture_question_answer').unbind().on 'click', (e) ->
     $(this).closest('.attempt-question').find('.question-answer div').show()
@@ -537,6 +447,94 @@ window.ui_rebind_application_events  = ($) ->
 
   # Card dimmer - semantic-ui
   $('.image.dimmable').dimmer(on: 'hover')
+
+  # Use modal do get value of a field
+  # $('.ui-modal-field').unbind().on 'click', ->
+  #   id = $(this).data 'field'
+  #   body= $(this).data 'body'
+  #   body = body.replace(new RegExp(id, 'g'), "#{id}-#{id}")
+  #   #body = body.replace(/\\\"/g, "\"").replace(/\\\//g, "/")
+  #   header = $(this).data 'header'
+  #   btn = $(this).data 'btn'
+  #   close = $(this).data 'close'
+  #   value = $("##{id}").val()
+  #   $("""
+  #     <div class="ui small modal">
+  #       <div class="header">#{header}</div>
+  #       <div class="content">
+  #         #{body}
+  #       </div>
+  #       <div class="actions">
+  #         <a href="#" class="ui primary ok button" onclick="alert('#{id}--' + $('##{id}-#{id}').val());$('##{id}').val($('##{id}-#{id}').val());">#{btn}</a>
+  #         <div class="ui cancel button">#{close}</div>
+  #       </div>
+  #     </div>
+  #   """).modal(inverted: true).modal('show')
+  #
+  #   return false
+  #
+  # Media
+  # show_hide_path_or_url = (ch) ->
+  #   if $(ch).is(':checked')
+  #     $('#new_medium #medium_path').val('')
+  #     $('#new_medium #medium_path').closest('.form-group').hide()
+  #     $('#new_medium #medium_url').closest('.form-group').show()
+  #     $('#new_medium #medium_source').closest('.form-group').show()
+  #   else
+  #     $('#new_medium #medium_url').val('')
+  #     $('#new_medium #medium_url').closest('.form-group').hide()
+  #     $('#new_medium #medium_source').closest('.form-group').hide()
+  #     $('#new_medium #medium_path').closest('.form-group').show()
+  #
+  # show_hide_path_or_url($('#new_medium #medium_is_a_link'))
+  #
+  # $('#new_medium #medium_is_a_link').unbind().on 'click', ->
+  #   show_hide_path_or_url($(this))
+  #
+  # show_hide_klass_settings = (ch) ->
+  #   if $(ch).is(':checked')
+  #     $("#klass_previewed").prop( "checked", false);
+  #     $('#klass_previewed').closest('.form-group').hide()
+  #     $("#klass_allow_enrollment").prop( "checked", true);
+  #     $('#klass_allow_enrollment').closest('.form-group').hide()
+  #   else
+  #     $('#klass_previewed').closest('.form-group').show()
+  #     $('#klass_allow_enrollment').closest('.form-group').show()
+  #
+  # show_hide_klass_settings($('#klass_private'))
+  #
+  # $('#klass_private').unbind().on 'click',  ->
+  #   show_hide_klass_settings($(this))
+  
+  # mediaelementjs
+  # $('video.mediaelementjs, audio.mediaelementjs').mediaelementplayer()
+
+  # $('audio.mediaelementjs').mediaelementplayer()
+  # video_el = $('video.mediaelementjs')
+  # video_el.attr('width', video_el.parent().width()).attr('height', video_el.parent().width() * 9 / 16).mediaelementplayer()
+  #
+  #
+  # player = null
+  # $('video.mediaelementjs_with_invideo_quiz').mediaelementplayer(
+  #   success: (element, node) ->
+  #     window.player = element
+  #
+  #     launchAssessments = ->
+  #       for assessment in assessments
+  #         position = window.player.currentTime
+  #         if !assessment.taken && assessment.at <= position
+  #           window.player.pause()
+  #           $.ajax(
+  #             type: "GET",
+  #             url: assessment.path,
+  #             sucess: (data) ->,
+  #             error: (data)->
+  #           )
+  #           assessment.taken = true
+  #
+  #     interval = setInterval(launchAssessments, 2000)
+  # )
+  
 
 jQuery ->
   ui_rebind_application_events jQuery

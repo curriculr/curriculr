@@ -1,6 +1,7 @@
 ar:
   page:
     title:
+      lookup_classes: للبحث عن الفصول
       progress_report:  تقرير الأداء
       teaching: تدريس
       learning: تًعًلُّم
@@ -34,7 +35,7 @@ ar:
       attachments:  المرفقات
       students:  الطلاب
       contents: المحتوى
-      readings: مقروءات
+      reading: للقراءة
       progress: أداء
       for_instructors: للمدرسين فقط
       about: من نخن
@@ -109,6 +110,8 @@ ar:
       feactured_klasses: فصول دراسية مميزة
 
     text:
+      bank: بنك الأسئلة
+      kind: النوع
       workload_per_week: "يستغرق %{workload} ساعة فس الأسبوع"
       lasts_for: يستمر لمدة %{weeks} اسبوعا
       yes: نعم
@@ -223,7 +226,7 @@ ar:
       unit_problem: مسائل الوحدة
       unit_quiz: اختبارات الوحدة
       honor_system: يؤخذ هذا الفصل الدراسي عبر الانترنت و لا رقيب على الطالب إلا نفسه و أخلاقه و أمانته العلمية. نشجع الطلاب و ندعوهم لأن يتواصلوا مع بعضهم البعض و مع المحاضرين عبر منتديات هذا الفصل و وسائل التواصل الأخرى المتاحة، و أن ينشؤا مجموعات للدراسة و المذاكرة و تبادل الأفكار. و نطلب منهم أن لا يغشوا أو ينقل أحدهم إجابات شخص آخر، و أن لا يرفعوا إلى المُحاضر إلا ما كان نتاج جهدهم الفكري. كما نعول على أخلاقهم و أمانتهم في أن لا يعيدوا نشر أي مادة علمية من مواد هذا الفصل أو من امتحاناته، حتي لا يفسدوا هذه المواد على من يأخذه من بعدهم.
-      klass_enroll_html: أنت بصدد التسجيل في هذا الفصل الدراسي. لإكمال عملية التسجيل لا بد من موافقتك أولا على <a href="#">شروط و قواعد</a> التعليم المفتوح و التزامك بنظام الامانة العلمية المتبع.
+      klass_enroll_html: لإكمال عملية التسجيل في هذا الفصل الدراسي لا بد من موافقتك أولا على شروط و قواعد التعليم المفتوح و التزامك بنظام الامانة العلمية المتبع في هذا الموقع.
       free_class: مجاني
       today: اليوم
       in_days:
@@ -264,7 +267,7 @@ ar:
       file_or_external_link: ملف أو وصلة خارجية
       external_link: وصلة خارجية
       the_last_information_from_html: أخر رسائل التحديث من %{url}.
-      powered_by_html: مُشغَّل من قِبَل %{logo}
+      powered_by_html: <small>مُشغَّل من قِبَل</small> %{logo}
       file_upload_not_allowed: تحميل الملفات غير مفعل حاليا. %{link}
       course_forums: أي منتدى في هذه القائمة سيكون تلقائيا جزءا من منتديات أي فصل دراسي قادمة لهذا المقرر.
       course_updates: هذه التحديثات ستنشر تلقائيا على الصفحات الرئيسية للفصول الدراسية لهذا المقرر عقب فتحها. التحديثات عبر البريد الإلكتروني سترسل تلقائيا للطلاب عقب تسجيلهم في هذه الفصول لأول مرة.
@@ -278,9 +281,6 @@ ar:
       course_questions_html:
         يحتوي المقرر مجموعة من الأسئلة الموزعة على الوحدات و المحاضرات. هذه الأسئلة منظمة في بنوك  و يمكن إضافتها لاحقا للمحاضرات أو 
         استخدامها في إنشاء الامتحانات أو حتى الاستطلاعات.
-        A course might have many questions distributed across its units and lectures. These questions
-        are organized into banks. Questions can be later linked to lectures or be used to create
-        exams, quizzes, and even surveys.
       no_info_to_display: لا معلومات للعرض
       first_and_others: "%{first}, ..."
       by_first_and_others: "لـ %{first}, ..."

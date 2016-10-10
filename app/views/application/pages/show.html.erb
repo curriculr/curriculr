@@ -33,10 +33,8 @@ end
 <% if @course %>
   <%=ui_header @page.name, subtext: @page.by_author_and_when, action: course_breadcrumbs(Page.model_name.human) %>
 <% else %>
-  <%= ui_header @page.name, subtext: @page.blog ? @page.by_author_and_when : nil %>
+  <%= ui_header @page.name, subtext: @page.blog ? @page.by_author_and_when : nil, action: actions %>
 <% end %>
-
-<%= actions %><br><br>
 
 <% if @page && !@page.new_record? %>
   <div id="page-publish-indicator" class="ui warning message" style="<%= 'display: none;' if @page.published %>">

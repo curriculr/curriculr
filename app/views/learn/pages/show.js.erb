@@ -1,1 +1,4 @@
+$('.resource.item').removeClass('active');
+$('#page-<%= @page.id %>').addClass('active');
+
 $('#reading-contents').html('<%= j render(partial: "learn/pages/show", locals: {page: @page}) %>');

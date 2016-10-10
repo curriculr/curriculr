@@ -1,4 +1,4 @@
-<% if @klass.enrolled?(current_student) || staff?(current_user, @klass.course) %>
+<% if enrolled_or_staff? %>
   <%= render partial: 'learn/klasses/show_enrolled' %>
 <% else %>
   <%= render partial: 'learn/klasses/show_not_enrolled' %>

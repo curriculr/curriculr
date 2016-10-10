@@ -1,20 +1,25 @@
 <% pages = []; books = [] %>
 <% content_for :main_aside do %>
   <% pages = enrolled_or_staff? ? @klass.course.pages.where(published: true).to_a : [] %>
-  <% books = enrolled_or_staff? ? @klass.course.books : []%>
-
-  <%= render partial: 'item', locals: {header: ui_header(t('page.title.for_course'), style: :h3), items:[].concat(pages).concat(books)} %>
+  <% books = enrolled_or_staff? ? @klass.course.books : [] %>
   
-  <% per_unit = capture do %>
-    <% Unit.open(@klass, current_student).includes(:pages, {:materials => :medium}).each_with_index do |unit, i| %>
-      <%= render partial: 'item', locals: {header: content_tag(:div, unit.name, class: 'header'), items:[].concat(unit.pages).concat(unit.materials)} %>
+  <div class="ui selection list">
+    <% items = [].concat(pages).concat(books) %>
+    <% if items.present? %>
+      <div class="item"><div class="header"><%= t('page.title.for_course') %></div></div>
+      <%= render partial: 'item', locals: {items: items} %>
     <% end %>
-  <% end %>
-  
-  <% unless per_unit.blank? %>
-    <%= ui_header(t('page.title.per_unit'), style: :h3) %>
-    <%= per_unit %>
-  <% end %>
+    
+    <%= capture do %>
+      <% Unit.open(@klass, current_student).includes(:pages, {:materials => :medium}).each_with_index do |unit, i| %>
+        <% items = [].concat(unit.pages.where(published: true)).concat(unit.materials) %>
+        <% if items.present? %>
+          <div class="item"><div class="header"><%= unit.name %></div></div>
+          <%= render partial: 'item', locals: {items: items} %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
 <% end %>
 
 <%= content = capture do %>
@@ -24,6 +29,8 @@
       <%= render partial: "learn/pages/show", locals: {page: active_item} %>
     <% elsif active_item.is_a? Material %>
       <%= render partial: "learn/materials/show", locals: {material: active_item} %>
+    <% else %>
+      <%= t('page.text.no_record_found') %>
     <% end %>
   </div>
 <% end %>

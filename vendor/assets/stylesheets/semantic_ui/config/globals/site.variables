@@ -1,3 +1,12 @@
 /*******************************
      User Global Variables
 *******************************/
+@blue: #3097d1;
+@navBackground: #ffc11a;//fed500;
+@bodyBackground: #e1e8ed;//#f5f8fa;
+@borderColor: #e1e8ed;//#d3e0e9;
+@lightBlack: #4d5a66;
+@primaryColor: #11afcd;
+@secondaryColor: #4d5a66;
+@positiveColor: #abc932;
+@negativeColor: #ff5317;

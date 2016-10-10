@@ -2,17 +2,17 @@
 <% items.each_with_index do |item, i| %>
   <% output = capture do %>
     <% if item.is_a?(Page) && item.published %>
-      <div class="item">
-        <%= ui_icon_for('page') %>
+      <div class="resource item" id="page-<%= item.id %>">
         <div class="content">
-          <%= link_to item.name, learn_klass_page_path(@klass, item), remote: true %>
+          <%= link_to item.name, learn_klass_page_path(@klass, item), remote: true, class: 'header' %>
+          <%= l(item.updated_at.to_date) %>
         </div>
       </div>
     <% elsif item.is_a?(Material) %>
-      <div class="item">
-        <%= ui_icon_for(item.kind) %>
+      <div class="resource item" id="material-<%= item.id %>">
         <div class="content">
-          <%= link_to item.medium.name, learn_klass_material_path(@klass, item), remote: true %>
+          <%= link_to item.medium.name, learn_klass_material_path(@klass, item), remote: true, class: 'header' %>
+          <%= t("config.medium.kind.#{item.medium.kind}") %>
         </div>
       </div>
     <% end %>
@@ -21,7 +21,4 @@
   <% html << output if output %>
 <% end %>
 
-<% unless html.blank? %>
-  <%= header %>
-  <%= content_tag :div, html.html_safe, class: 'ui list' %>
-<% end %>
+<%= html.html_safe %>

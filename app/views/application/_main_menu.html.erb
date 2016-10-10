@@ -1,15 +1,15 @@
 <% main_menu %>
 
-<div class="ui <%= "inverted " if front %>tob fixed borderless menu">
+<div class="ui <%= front ? "inverted " : "pointing secondary " %>top fixed borderless menu">
   <%= link_to current_user ? main_app.home_path : main_app.root_path, class: 'header item' do %>
     <%= ui_icon('large leaf icon') %>&nbsp;
     <strong><%= current_account.config['title'] %></strong>
   <% end %>
   
   <div class="right menu">
-    <%= link_to main_app.home_path, class: (action_name =='home' && controller_name == 'users') ? 'active home item' : 'home item'  do %>
-      <%= ui_icon('large home') %>
-    <% end %>
+    <%= link_to main_app.home_path, class: (action_name =='home' && controller_name == 'users') ? 'active item' : 'item'  do %>
+      <%= t('page.title.dashboard') %>
+    <% end if current_user %>
     <%# render 'users/user_menu_popup' %>
     <% app_menu(:top).each do |item| %>
       <%= link_to item[:link], item[:to], class: "#{item[:active] ? 'active ' : nil} item" %>

@@ -2,7 +2,14 @@
   hdr = link_to course.name, [:teach, course], :class => 'header'
   th = (course.poster&.at_url(:sm) || '/images/holder-sm.png')
   action = link(:course, :open, [:teach, course], :class => "ui primary button")
-  labels = ui_course_labels(course)
+
+  levels = [] 
+  Translator.to_hash(I18n.locale, "#{current_account.slug}.site.level.*").each_with_index do |l, i|
+    if Course.scoped.tagged_with(l.first, :on => :levels).to_a.include? course
+     levels << l.second
+    end
+  end
+  
   instructor, instructors_count = course.by_instructors(:first)
   %>
 <div class="item">
@@ -15,8 +22,9 @@
       <div class="ui horizontal bulleted list">
         <div class="item"><%= instructors_count > 1 ? t('page.text.first_and_others', :first => instructor.name) : instructor.name %></div>
         <div class="item"><%= l(course.updated_at.to_date) %></div>
+        <%= content_tag(:div, flag_tag(course.country), class: 'item') unless course.country.blank? %>
+        <%= content_tag(:div, levels.join(', '), class: 'item') unless levels.empty? %>
       </div>
-      <%= labels if labels.present?  %>
     </div>
     <div class="description">
       <%= markdown(summary(course.about)) %><br />

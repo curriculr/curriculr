@@ -1,58 +1,4 @@
-module KlassesHelper
-  def klass_menu
-    add_to_app_menu :klass, link: t("helpers.submit.main"), to: main_app.learn_klass_path(@klass), active: controller_name == 'klasses' && action_name == 'show'
-
-    if @klass.course.config['allow_access_to']['lectures']
-      if (@klass.open? && ((@klass.allow_enrollment && enrolled_or_staff?) || @klass.previewed)) || (@klass.past? && @klass.lectures_on_closed)
-        if @klass.course.units.joins(:lectures).any?
-          add_to_app_menu :klass, link: t("page.title.outline"), to: main_app.learn_klass_lectures_path(@klass), active: controller_name == 'lectures'
-        end
-      end
-    end
-
-    if @klass.course.config['allow_access_to']['forums']
-      if @klass.allow_enrollment && enrolled_or_staff?
-        if @klass.open? || @klass.past?
-          add_to_app_menu :klass, link: t("page.title.discussion"), to: main_app.learn_klass_forums_path(@klass), active: %w(forums topics).include?(controller_name)
-        end
-      end
-    end
-
-    if @klass.course.config['allow_access_to']['assessments']
-      if @klass.allow_enrollment && @klass.open? && enrolled_or_staff?
-          add_to_app_menu :klass, {link: Assessment.model_name.human(count: 3), to: main_app.learn_klass_assessments_path(@klass), active: %w(assessments attempts).include?(controller_name)}, :assessments if @klass.assessments.any?
-      end
-    end
-
-    if @klass.allow_enrollment && @klass.open? && enrolled_or_staff?
-      surveys = @klass.course.assessments.
-        where("unit_id is null and ready = TRUE and kind = 'survey'").
-        tagged_with(:on_enroll, :exclude => true)
-
-      surveys.each do |survey|
-        if survey.can_be_taken?(@klass, current_student)
-          add_to_app_menu :klass, {link: survey.name, to: main_app.new_learn_klass_assessment_attempt_path(@klass, survey)}, :surveys
-        end
-      end
-    end
-    
-    add_to_app_menu :klass, {link: t("page.title.pages"), to: main_app.learn_klass_pages_path(@klass), active: controller_name == 'pages' && (@page.nil? || @page != @klass.course.syllabus)}, :resources
-      divider = true
-
-    if @klass.allow_enrollment && enrolled_or_staff?
-      active = controller_name == 'klasses' && (action_name == 'students' || (action_name == 'report'))
-      if staff?(current_user, @klass.course)
-        add_to_app_menu :klass, {link: t('page.title.progress'), to: main_app.students_learn_klass_path(@klass), active: active}, :reports
-      else
-        if @klass.course.config['allow_access_to']['reports']
-          if @klass.open? || @klass.past?
-            add_to_app_menu :klass, {link: t('page.title.progress'), to: main_app.report_learn_klass_path(@klass), active: active}, :reports
-          end
-        end
-      end
-    end
-  end
-  
+module KlassesHelper  
   def enrolled_or_staff?
     @enrolled_or_staff ||= (@klass.present? && (@klass.enrolled?(current_student) || staff?(current_user, @klass.course)))
   end
@@ -62,7 +8,7 @@ module KlassesHelper
     align = right ? :right : nil
     if klass.enrolled?(current_student) || klass.previously_enrolled?(current_student)
       #go2class or #go2class_past
-      links << link(:klass, :open, main_app.learn_klass_path(klass), :class => "ui button")
+      links << link(:klass, :open, main_app.learn_klass_path(klass), :class => "ui primary button")
     elsif klass.can_enroll?(current_user, current_student)
       if (controller_name == 'klasses' && action_name == 'show') ||
          (controller_name == 'lectures' && action_name == 'index') || @lecture
@@ -71,8 +17,7 @@ module KlassesHelper
           #enroll again
           links << (capture do
             content_tag(:p, t('page.text.free_to_enroll_again')) +
-            link(:enrollment, :enroll, main_app.enroll_learn_klass_path(klass),
-              :class => "ui primary button")
+            link(:enrollment, :enroll, main_app.enroll_learn_klass_path(klass), remote: user_signed_in?, :class => "ui primary button")
           end)
         elsif !klass.private || klass.invited_and_not_yet_accepted?(current_user)
           if !in_preview && klass.previewed
@@ -80,13 +25,13 @@ module KlassesHelper
             links << (capture do
               content_tag(:p, t('page.text.free_to_preview')) +
               link(:enrollment, :open,  main_app.learn_klass_lectures_path(klass),
-                  :class => "ui button")
+                  :class => "ui primary button")
             end)
           else
             #enroll
             links << (capture do
               (!in_preview ? content_tag(:p, t('page.text.free_to_enroll')) : ''.html_safe) +
-              link(:enrollment, :enroll, main_app.enroll_learn_klass_path(klass),
+              link(:enrollment, :enroll, main_app.enroll_learn_klass_path(klass), remote: user_signed_in?, 
                 :class => "ui primary button")
             end)
           end
@@ -122,7 +67,7 @@ module KlassesHelper
     if action == :enroll
       klass_actions(klass, previewed, right)
     else
-      link(:klass, :drop, main_app.drop_learn_klass_path(@klass), method: :put, confirm: true, class: 'item')
+      link(:klass, :drop, main_app.drop_learn_klass_path(@klass), method: :put, confirm: true, class: 'ui negative button')
     end
   end
 

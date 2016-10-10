@@ -1,19 +1,27 @@
-<% klasses = Klass.which_are('enrolled', current_user).open.distinct.to_a %>
-<%= ui_header t('page.title.classes_i_am_taking') %>
-<% if klasses.present? %>
-  <div class="ui divided items">
-    <%= render :partial => 'learn/klasses/klass_item', :collection => klasses, :as => :klass %>
-  </div>
-<% else %>
-    <%= t('page.text.no_record_found') %>
+<% info = capture do %>
+  <% klasses = Klass.which_are('enrolled', current_user).open.distinct.to_a %>
+  <%= ui_header t('page.title.classes_i_am_taking') %>
+  <% if klasses.present? %>
+    <div class="ui divided items">
+      <%= render :partial => 'learn/klasses/klass_item', :collection => klasses, :as => :klass %>
+    </div>
+  <% else %>
+      <%= t('page.text.no_record_found') %>
+  <% end %>
+
+  <% klasses = Klass.which_are('taken', current_user).distinct.to_a %>
+  <%= ui_header t('page.title.classes_i_took') %>
+  <% if klasses.present? %>
+    <div class="ui divided items">
+      <%= render :partial => 'learn/klasses/klass_item', :collection => klasses, :as => :klass %>
+    </div>
+  <% else %>
+      <%= t('page.text.no_record_found') %>
+  <% end %>
 <% end %>
 
-<% klasses = Klass.which_are('taken', current_user).distinct.to_a %>
-<%= ui_header t('page.title.classes_i_took') %>
-<% if klasses.present? %>
-  <div class="ui divided items">
-    <%= render :partial => 'learn/klasses/klass_item', :collection => klasses, :as => :klass %>
-  </div>
-<% else %>
-    <%= t('page.text.no_record_found') %>
+<% aside = capture do %>
+  <%= render("/users/user_menu") %>
 <% end %>
+
+<%= ui_side_by_side(info, aside, 'eleven by five')%>

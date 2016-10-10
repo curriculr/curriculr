@@ -215,6 +215,7 @@ Rails.application.routes.draw do
   # Top-level pages
   get 'about', :to => "miscellaneous#team", :as => 'about'
   get 'contactus', :to => "miscellaneous#contactus", :as => 'contactus'
+  get 'play/:id', :to => "media#play", :as => 'play'
   get 'home', :to => 'users#home', :as => :home
 
   namespace :auth do

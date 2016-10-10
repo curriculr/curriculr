@@ -9,23 +9,4 @@
   </div>
 <% end %>
 
-<% front = Page.localized(:front) %>
-
-<%= markdown ERB.new(front.about).result(binding), :html => front.html if front %>
-
-<% if front && current_user && current_user.has_role?(:admin) %>
-  <%= link(:page, :edit, edit_page_path(front), remote: true, :class => "ui positive button") %>
-<% end %>
-
-<% klasses = @klasses.featured.limit(5).to_a %>
-<% if klasses.present? %>
-
-    <div id='featured-klass-list' class="klass-list">
-      <% more = (klasses.count > 3 ? link_to(t('page.title.more_info_html'), main_app.learn_klasses_path, class: "ui button") : nil) %>
-
-      <%= ui_header(t('page.title.feactured_klasses'), action: more) %>
-      <div class="ui items">
-        <%= render :partial => 'learn/klasses/klass_item', :collection => klasses[0..2], as: :klass %>
-      </div>
-    </div>
-<% end %>
+<%= render template: "application/front" %>

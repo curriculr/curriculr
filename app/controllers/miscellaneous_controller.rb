@@ -19,7 +19,6 @@ class MiscellaneousController < ApplicationController
             message: @message.content
           ).deliver_later
           
-          flash[:notice] = "Post successfully created"
       		format.js { render 'reload' }
         else
           format.js { render 'contactus' }

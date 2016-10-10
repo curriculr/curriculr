@@ -40,23 +40,51 @@ class Unit < ActiveRecord::Base
   #   order 'units.order'
   # }
 
-	scope :open, ->(klass, student, include_everything = false) {
+  scope :available_based_on_enrollment, -> (klass, student){
     if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
-      date_clause = "(units.on_date - units.based_on) <= (DATE :today - DATE :base_date) and
-        (units.for_days is null or
-        (DATE :base_date + (units.on_date - units.based_on) + units.for_days)"
+      date_clause = "(units.on_date - units.based_on) <= (DATE :today - DATE :base_date)"
     else
-      date_clause = "(units.on_date - units.based_on) <= (DATE(:today) - DATE(:base_date)) and
-        (units.for_days is null or
-        adddate(DATE(:base_date), (units.on_date - units.based_on) + units.for_days)"
+      date_clause = "(units.on_date - units.based_on) <= (DATE(:today) - DATE(:base_date))"
     end
+    
+    where(date_clause, :base_date => klass.begin_date(student), :today => Time.zone.now)
+  }
+  
+  scope :available_wrt_klass_end_date, -> {
+    where("(
+            klasses.ends_on is null or 
+            (klasses.ends_on < :today and klasses.lectures_on_closed = TRUE) or 
+            klasses.ends_on > :today
+          )", :today => Time.zone.today) 
+  }
+  
+	scope :open, ->(klass, student, include_everything = false) {
+    # if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
+    #   date_clause = "(units.on_date - units.based_on) <= (DATE :today - DATE :base_date) and
+    #     (units.for_days is null or
+    #     (DATE :base_date + (units.on_date - units.based_on) + units.for_days)"
+    # else
+    #   date_clause = "(units.on_date - units.based_on) <= (DATE(:today) - DATE(:base_date)) and
+    #     (units.for_days is null or
+    #     adddate(DATE(:base_date), (units.on_date - units.based_on) + units.for_days)"
+    # end
 
-    q = joins(:course => :klasses).where("
-      (klasses.ends_on is null or (klasses.ends_on < :today and klasses.lectures_on_closed = TRUE ) or
-      (klasses.ends_on > :today and #{date_clause} > :today))) and
-      courses.id = :course_id and klasses.id = :klass_id ",
-      :course_id => klass.course.id, :klass_id => klass.id, :today => Time.zone.today,
+    if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
+      date_clause = "(units.for_days is null or
+        (DATE :base_date + (units.on_date - units.based_on) + units.for_days) > :today)"
+    else
+      date_clause = "
+        (units.for_days is null or
+        adddate(DATE(:base_date), (units.on_date - units.based_on) + units.for_days) > :today"
+    end
+    
+    q = joins(:course => :klasses).where("#{date_clause} and
+      courses.id = :course_id and klasses.id = :klass_id",
+      :course_id => klass.course.id, :klass_id => klass.id, 
+      :today => Time.zone.today,
       :base_date => klass.begin_date(student))
+      
+    q = q.available_wrt_klass_end_date.available_based_on_enrollment(klass, student)
 
     unless include_everything || klass.enrolled?(student) || (student && KlassEnrollment.staff?(student.user, klass.course))
       q = q.where('klasses.previewed = TRUE and units.previewed = TRUE')

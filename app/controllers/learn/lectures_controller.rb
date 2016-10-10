@@ -27,9 +27,8 @@
     end
 
     def index
-      @units = Unit.open(@klass, current_student, true).to_a
-      @active_lecture = @units&.first&.lectures&.first
-      redirect_to learn_klass_lecture_path(@klass, @active_lecture)
+      listing, active_unit_id, active_lecture_id = Lecture.listing_for_student(@klass, current_student).to_a
+      redirect_to learn_klass_lecture_path(@klass, active_lecture_id)
     end
 
     def show_page

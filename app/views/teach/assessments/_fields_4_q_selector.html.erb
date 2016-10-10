@@ -18,7 +18,7 @@
         <% if @unit %>
           <%= f.hidden_field :unit_id, value: @unit.id %>
         <% else %>
-          <%= f.select :unit_id, @course.units.collect {|u| [u.name, u.id]} %>
+          <%= f.select :unit_id, @course.units.collect {|u| [u.name, u.id]}, include_blank: true %>
         <% end %>
       </div>
       <div class="five wide column">
@@ -27,9 +27,9 @@
           <%= f.hidden_field :lecture_id, value: @lecture.id %>
         <% else %>
           <% if @unit %>
-            <%= f.select :lecture_id, @unit.lectures.collect {|l| [l.name, l.id]} %>
+            <%= f.select :lecture_id, @unit.lectures.collect {|l| [l.name, l.id]}, include_blank: true %>
           <% else %>
-            <%= f.select :lecture_id, (f.object.unit ? f.object.unit.lectures.collect {|l| [l.name, l.id]} : []) %>
+            <%= f.select :lecture_id, (f.object.unit ? f.object.unit.lectures.collect {|l| [l.name, l.id]} : []), include_blank: true %>
           <% end %>
         <% end %>
       </div>

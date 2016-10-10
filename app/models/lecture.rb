@@ -86,30 +86,9 @@ class Lecture < ActiveRecord::Base
   end
 
   def pagers(klass, student)
-    if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
-      date_clause = "(DATE :base_date + (lectures.on_date - lectures.based_on) + lectures.for_days)"
-    else
-      date_clause = "adddate(DATE(:base_date), (lectures.on_date - lectures.based_on) + lectures.for_days)"
-    end
+    lectures = Lecture.open_4_students(klass, student, true).to_a
 
-    lectures = Lecture.joins(:unit => {:course => :klasses}).with_content_4_students.
-      order('units.order, lectures.order').
-      select('courses.id as course, units.id as unit, lectures.id as lecture, units.order, lectures.order').
-      where("courses.id = :course_id and klasses.id = :klass_id and
-             (lectures.on_date - lectures.based_on) <= (DATE(:today) - DATE(:base_date)) and
-             (lectures.for_days is null or #{date_clause} > :today)",
-             :course_id => klass.course.id,
-             :klass_id => klass.id,
-             :base_date => klass.begin_date(student),
-             :today => Time.zone.now)
-
-    unless klass.enrolled?(student) || (student && KlassEnrollment.staff?(student.user, klass))
-      lectures = lectures.where('klasses.previewed = TRUE and units.previewed = TRUE and lectures.previewed = TRUE')
-    end
-
-    lectures = lectures.to_a
-
-    index = lectures.find_index { |l| l[:lecture] == self.id }
+    index = lectures.find_index { |l| l[:id] == self.id }
     count = lectures.count
     if count <= 1
       [ nil, nil ]
@@ -121,10 +100,35 @@ class Lecture < ActiveRecord::Base
       [ lectures[index - 1], lectures[index + 1] ]
     end
   end
-
-  # default_scope -> {
-  #   order 'lectures.order'
-  # }
+  
+  def self.listing_for_student(klass, student)
+    data = {}
+    listing = Lecture.open_4_students(klass, student, true).to_a
+    first_unit_id = first_lecture_id = active_unit_id = active_lecture_id = nil
+    listing.each_with_index do |lecture, i|
+      if i == 0
+        first_unit_id = lecture[:unit_id]
+        first_lecture_id = lecture.id
+      end
+      
+      has_activities = lecture[:attendance_data].present?
+      
+      data[lecture[:unit_id]] ||= { name: lecture[:unit_name], about: lecture[:unit_about], completed: has_activities, lectures: []}
+      if has_activities
+        activities = YAML.load lecture[:attendance_data]
+        attended = lecture[:attended] == activities[:count]
+        unless attended
+          data[lecture[:unit_id]][:completed] = false 
+          active_unit_id = lecture[:unit_id] unless active_unit_id
+          active_lecture_id = lecture.id unless active_lecture_id
+        end
+      end
+      
+      data[lecture[:unit_id]][:lectures] << {id: lecture.id, name: lecture.name, about: lecture.about, attended: attended}
+    end
+    
+    return data, (active_unit_id || first_unit_id), (active_lecture_id || first_lecture_id)
+  end
 
 	scope :attendance, ->(klass, student) {
     if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
@@ -193,7 +197,73 @@ class Lecture < ActiveRecord::Base
     ))
   }
 
-  scope :open_4_students, ->(klass, unit, student, include_everything = false) {
+  scope :available_based_on_enrollment, -> (klass, student){
+    if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
+      date_clause = "(units.on_date - units.based_on) <= (DATE :today - DATE :base_date) and 
+        (lectures.on_date - lectures.based_on) <= (DATE :today - DATE :base_date)"
+    else
+      date_clause = "(units.on_date - units.based_on) <= (DATE(:today) - DATE(:base_date)) and
+        (lectures.on_date - lectures.based_on) <= (DATE(:today) - DATE(:base_date))"
+    end
+    
+    where(date_clause, :base_date => klass.begin_date(student), :today => Time.zone.now)
+  }
+  
+  scope :available_wrt_lecture_fordays, -> (klass, student){
+    if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
+      date_clause = "(lectures.for_days is null or (DATE :base_date + (lectures.on_date - lectures.based_on) + lectures.for_days) > :today)"
+    else
+      date_clause = "(lectures.for_days is null or adddate(DATE(:base_date), (lectures.on_date - lectures.based_on) + lectures.for_days) > :today)"
+    end
+    
+    where(date_clause, :base_date => klass.begin_date(student), :today => Time.zone.now)
+  }
+  
+  scope :available_wrt_klass_end_date, -> {
+    where("(
+            klasses.ends_on is null or 
+            (klasses.ends_on < :today and klasses.lectures_on_closed = TRUE) or 
+            klasses.ends_on > :today
+          )", :today => Time.zone.today) 
+  }
+  
+  scope :with_available_activities, -> (klass, student) {
+    joins(%(left outer join (
+        SELECT activities.*
+        FROM activities WHERE
+          activities.actionable_type = 'Lecture' AND
+          activities.student_id = #{student && klass.enrolled?(student) ? student.id : -1} AND
+          activities.klass_id = #{klass.id} AND
+          activities.action = 'attended'
+      ) activity on lectures.id = activity.actionable_id))
+  }
+  
+  scope :open_4_students, ->(klass, student, include_everything = false) {
+    q = joins(:unit => {:course => :klasses}).
+        with_available_activities(klass, student).
+        with_content_4_students.
+        available_wrt_klass_end_date.
+        available_based_on_enrollment(klass, student).
+        available_wrt_lecture_fordays(klass, student).
+        where("courses.id = :course_id and klasses.id = :klass_id",
+            :course_id => klass.course.id, :klass_id => klass.id)
+
+    unless include_everything || klass.enrolled?(student) || (student && KlassEnrollment.staff?(student.user, klass))
+      q = q.where('klasses.previewed = TRUE and units.previewed = TRUE and lectures.previewed = TRUE')
+    end
+
+    q.select(%(
+      units.order as unit_order, units.id as unit_id, units.name as unit_name, units.about as unit_about,
+      units.based_on as unit_based_on, units.on_date as unit_on_date, units.for_days as unit_for_days,
+      units.previewed as unit_previewed,
+      lectures.order, lectures.id, lectures.name, lectures.about,
+      lectures.based_on, lectures.on_date, lectures.for_days,
+      coalesce(activity.times, 0) as attended, activity.data as attendance_data,
+      lectures.previewed
+    )).order("units.order, lectures.order").distinct
+  }
+
+  scope :open_4_students_orig, ->(klass, unit, student, include_everything = false) {
     q = joins(:unit => {:course => :klasses}).
     joins(%(left outer join (
       SELECT activities.*
@@ -245,7 +315,6 @@ class Lecture < ActiveRecord::Base
       lectures.previewed
     )).order("lectures.order").distinct
   }
-
   def open?(base_date)
     today = Time.zone.today
     on_day = (self.on_date - self.based_on).to_i

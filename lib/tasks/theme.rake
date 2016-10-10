@@ -4,8 +4,8 @@ namespace :curriculr do
     task :new => :environment do
       if ENV['THEME'].present?
         theme = ENV['THEME'].downcase
-        if %w(bootstrap).include?(theme)
-          puts "Default bootstrap theme is already available and cannot be added."
+        if %w(sunshine).include?(theme)
+          puts "Default sunshine theme is already available and cannot be added."
         else
           about = ENV['ABOUT'] || theme
           %w(/app/assets/javascripts/ /app/assets/stylesheets/ /app/views/themes/ /app/helpers/themes/).each do |directory|
@@ -14,7 +14,7 @@ namespace :curriculr do
           end
 
           unless $site['available_themes'].has_key?(theme)
-            $site['available_themes'][theme] = { 'parent' => 'bootstrap', 'about' => about }
+            $site['available_themes'][theme] = { 'parent' => 'sunshine', 'about' => about }
             $redis.set "config.site", $site.to_json 
           end
         end
@@ -27,8 +27,8 @@ namespace :curriculr do
     task :delete => :environment do
       if ENV['THEME'].present?
         theme = ENV['THEME'].downcase
-        if %w(bootstrap).include?(theme)
-          puts "Default bootstrap theme cannot be deleted."
+        if %w(sunshine).include?(theme)
+          puts "Default sunshine theme cannot be deleted."
         else
           %w(/app/assets/javascripts/ /app/assets/stylesheets/ /app/views/themes/ /app/helpers/themes/).each do |directory|
             dirpath = "#{Rails.root}#{directory}#{theme}"
