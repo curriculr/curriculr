@@ -2,9 +2,10 @@
      User Global Variables
 *******************************/
 @blue: #3097d1;
-@navBackground: #ffc11a;//fed500;
-@bodyBackground: #e1e8ed;//#f5f8fa;
-@borderColor: #e1e8ed;//#d3e0e9;
+@yellow: #ffc11a;
+@navBackground: @yellow;
+@bodyBackground: #e1e8ed;
+@borderColor: #e1e8ed;
 @lightBlack: #4d5a66;
 @primaryColor: #11afcd;
 @secondaryColor: #4d5a66;

@@ -1,16 +1,35 @@
-<% content_for :main_aside do %>
+<% content_for :main_aside do %>    
+  <div class="ui fluid klass card">
+    <div class="image">
+      <% poster = @klass.course.poster&.at_url(:md) || '/images/holder-md.png' %>
+      <% if @klass.course.video %>
+        <%= ui_video @klass.course.video, poster %>
+      <% else %>
+        <%= image_tag poster %>
+      <% end %>
+    </div>
+    <div class="content">
+      <div class="description">
+        <%= markdown(@klass.course.about) %>
+      </div>
+    </div>
+    <div class="extra content">
+      <%= render partial: 'learn/dashboard/show', locals: {klass: @klass} if staff?(current_user, @klass) %>
+    </div>
+  </div>
+<% end %>
 
-  <%= render partial: 'learn/dashboard/show', locals: {klass: @klass} if staff?(current_user, @klass) %>
-  
-  <% if @klass.open? && @klass.allow_enrollment %>
-    <% deadlines = @klass.upcoming_deadlines %>
-    <% unless deadlines.to_a.empty? %>
-      <% content_for :additional_nav do %>
-        <%= ui_panel(capture do %>
-          <%= ui_icon(:calendar) %>
-          <%= t('page.title.upcoming_deadlines') %>
-        <% end, nil, capture do %>
-          <ul>
+<% if @klass.open? && @klass.allow_enrollment %>
+  <% deadlines = @klass.upcoming_deadlines %>
+  <% unless deadlines.to_a.empty? %>
+    <% content_for :featured_top do %>
+      <div class="ui attached icon message">
+        <%= ui_icon('yellow calendar') %>
+        <div class="content">
+          <div class="header">
+            <%= t('page.title.upcoming_deadlines') %>
+          </div>
+          <ul class="ui list">
             <% deadlines.each do |deadline| %>
               <li>
                 <%= t("page.text.upcoming_deadlines", :name => deadline.name,
@@ -19,35 +38,35 @@
               </li>
           	<% end %>
           </ul>
-          <% end, nil, :primary) %>
-      <% end %>
+        </div>
+      </div>
     <% end %>
   <% end %>
-
-  <%= yield :additional_nav %>
-
-  <!-- Klass Updates -->
-  <% if false && @klass.open? && staff?(current_user, @klass) %>
-    <%= form_for [:teach, @klass.course, @klass, Update.new], remote: true do |f| %>
-      <%= f.markdown :body, :size => '60x3', :label => false, :placeholder => 'New update goes here' %>
-      <%= f.submit %>
-    <% end %>
-    <hr />
-  <% end %>
-
-  <% updates = Update.sent(@klass, :www => true) %>
-  <div id="klass-updates">
-    <%= render partial: 'learn/klasses/update', collection: updates %>
-  </div>
 <% end %>
-
+  
 <%= content = capture do %>
-  <% if @klass.course&.syllabus&.published %>
-    <%= ui_header @klass.course.syllabus.name %>
-    <%= markdown(@klass.course.syllabus.about) %>
-  <% else %>
-    <%= markdown(@klass.course.about) %>
+  <% updates = Update.sent(@klass, :www => true) %>
+  <% unless updates.empty? %>
+    <% content_for :klass_updates do %>
+      <div class="ui divided items">
+        <%= render partial: 'learn/klasses/update', collection: updates %>
+      </div>
+    <% end %>
   <% end %>
   
-  <%= render 'learn/lectures/outline' %>
+  <% if content_for?(:klass_updates) %>
+    <%= yield :klass_updates %>
+  <% else %>
+    <% if @klass.course.syllabus&.published %>
+      <%= content_tag :h3, @klass.course.syllabus.name, class: 'ui dividing header' %>
+      <%= markdown(@klass.course.syllabus.about) %>
+    <% end %>
+  
+    <%= render 'learn/lectures/outline' %>
+  <% end %>
+  
+  <% if @klass.course.faq&.published %>
+   <%= content_tag :h3, t('page.title.faq'), class: 'ui dividing header' %>
+   <%= markdown @klass.course.faq.about %>
+  <% end %>
 <% end %>

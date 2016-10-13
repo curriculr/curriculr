@@ -1,8 +1,5 @@
 <% content_for :main_aside do %>
-  <h3 class="ui top attached block header">
-    <%= t('page.title.lookup_classes') %>
-  </h3>
-  <div class="ui attached segment">
+  <div class="ui segment">
     <%= search_form_for [:learn, @q], class: "search-form", method: 'get', remote: true, wrapper: false, header: false do |f| %>
       <div class="ui search">
         <div class="ui fluid icon input">

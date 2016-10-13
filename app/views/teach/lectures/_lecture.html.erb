@@ -26,18 +26,20 @@
   end
 %>
 
-<% buttons = ui_dropdown_button t('page.title.actions'), [
-  link(:lecture, :edit, edit_teach_course_unit_lecture_path(@course, unit, lecture), remote: true, class: "item"),
-  poster_link,
-  nil,
-  (lecture.allow_discussion ? 
-    link_to(ui_icon('checkmark box') + link_text(:lecture, :disallow_discussion),
-      discuss_teach_course_unit_lecture_path(@course, unit, lecture), :method => :put, class: "item") : 
-    link_to(ui_icon('square outline') + link_text(:lecture, :allow_discussion),
-      discuss_teach_course_unit_lecture_path(@course, unit, lecture), :method => :put, class: "item")),
-  nil,
-  link(:lecture, :destroy, teach_course_unit_lecture_path(@course, unit, lecture),
-    :method => :delete, confirm: true, class: "item")], class: "ui dropdown button" %>
+<% buttons = ui_buttons([
+  link(:lecture, :edit, edit_teach_course_unit_lecture_path(@course, unit, lecture), remote: true, class: "ui positive button"),
+  ui_dropdown_button(t('page.title.actions'), [
+    poster_link,
+    nil,
+    (lecture.allow_discussion ?
+      link_to(link_text(:lecture, :disallow_discussion),
+        discuss_teach_course_unit_lecture_path(@course, unit, lecture), :method => :put, class: "item") :
+      link_to(link_text(:lecture, :allow_discussion),
+        discuss_teach_course_unit_lecture_path(@course, unit, lecture), :method => :put, class: "item")),
+    nil,
+    link(:lecture, :destroy, teach_course_unit_lecture_path(@course, unit, lecture),
+      :method => :delete, confirm: true, class: "item")
+  ], class: "ui dropdown secondary button")]) %>
 
 <% if lecture && lecture.poster %>
   <div class="ui divided items">

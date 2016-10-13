@@ -5,8 +5,8 @@
 
 <div class="ui <%= 'text ' if action_name == 'blogs' %>container">
   <div class="ui basic segment">
-    <div class="ui left rail"></div>
-    <div class="ui right rail"></div>
+    <div class="ui left rail"><%= mountable_fragments :site_left_skyscraper_ad %></div>
+    <div class="ui right rail"><%= mountable_fragments :site_right_skyscraper_ad %></div>
     
   	<%= yield %>
   </div>

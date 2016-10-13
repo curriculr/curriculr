@@ -2,7 +2,7 @@ ar:
   helpers:
     submit:
       leave_course: غادر هذا المقرر
-      leave_klass: غادر هذا الفصر
+      leave_klass: غادر هذا الفصل
       submit_answers: قدم الإجابات للتصحيح
       save_answers: احتفظ بالإجابات لوقت آخر
       add: أضف %{name}

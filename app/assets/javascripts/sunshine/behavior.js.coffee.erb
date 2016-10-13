@@ -83,10 +83,12 @@ window.ui_rebind_application_events  = ($) ->
       """
     else
       video = """
+        <div class="ui embed">
         <video id="#{vid}" class="video-js vjs-default-skin vjs-big-play-centered" width="640px" height="267px"
             controls preload="none" src="#{$(this).data('url')}"
             data-setup='{ "aspectRatio":"1280:720", "playbackRates": [1, 1.5, 2] }'>
         </video>
+        </div>
       """
     $("""
       <div id="open-video-modal" class="ui modal">

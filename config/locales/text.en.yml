@@ -1,6 +1,8 @@
 en:
   page:
     title:
+      to_do: To do list
+      activities: Activities
       lookup_classes: Look up classes
       progress_report: Progress report
       teaching: Teaching

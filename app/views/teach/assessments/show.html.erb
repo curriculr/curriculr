@@ -4,7 +4,7 @@
       link(:assessment, :edit, [:edit, @req_objects].flatten, remote: true, class: 'ui positive button'),
   		link(:assessment, @assessment.ready ? :unready : :ready, [@req_objects,
         { :opr => :ready, :'assessment[ready]' => !@assessment.ready }].flatten, :method => :put, 
-          class: 'ui positive basic button'),
+          class: 'ui secondary button'),
       nil,
       link(:assessment, :destroy, @req_objects, method: :delete, confirm: true, class: 'ui negative button')
       ], class: 'right floated')

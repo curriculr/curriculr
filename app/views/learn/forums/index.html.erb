@@ -1,67 +1,69 @@
 <% content_for :main_aside do %>
-  <%= ui_header Forum.model_name.human(count: 3), style: :h3 %>
-  <div class="ui selection list">
-  	<% @forums.each_with_index do |forum, i| %>
-  	<div class="forum item<%= ' active' if i == 0 %>" id="forum-<%= forum.id %>">
-  		<div class="content">
-  			<div class="header">
-          <%= link_to forum.name, learn_klass_forum_path(@klass, forum), remote: true %>
-          <%= content_tag :div, %(#{forum.topics_count} #{Topic.model_name.human(count: 3)}), class: "ui left pointing label" %>
-          <%= content_tag :div, ui_icon('checkmark box') + Forum.human_attribute_name(:graded), class: "ui label" if forum.graded %>
-        </div>
-  		  <small><%= markdown(forum.about) %></small>
-  		</div>
-  	</div>
-    <% end %>
-  </div>
-
-  <% topics = Topic.unscoped.joins(:forum).where('forums.lecture_comments = FALSE and forums.klass_id = ?', @klass.id).order('created_at desc').limit(10).to_a %>
-  <% if topics.any? %>
-    <%= ui_header t('page.title.latest_topics'), style: :h3 %>
+  <div class="ui fluid segment">
+    <%= ui_header Forum.model_name.human(count: 3), style: :h3 %>
     <div class="ui selection list">
-      <% topics.each do |topic| %>
-  		  <div class="topic item" id="topic-<%= topic.id %>">
-  				<div class="header">
-            <%= link_to topic.name, learn_klass_forum_path(@klass, topic.forum, t: topic.id), remote: true %>
-            <%= content_tag :div, %(#{topic.posts_count} #{Post.model_name.human(count: 3)}), class: "ui left pointing label" %>
+      <% @forums.each_with_index do |forum, i| %>
+      <div class="forum item<%= ' active' if i == 0 %>" id="forum-<%= forum.id %>">
+        <div class="content">
+          <div class="header">
+            <%= link_to forum.name, learn_klass_forum_path(@klass, forum), remote: true %>
+            <%= content_tag :div, %(#{forum.topics_count} #{Topic.model_name.human(count: 3)}), class: "ui left pointing label" %>
+            <%= content_tag :div, ui_icon('checkmark box') + Forum.human_attribute_name(:graded), class: "ui label" if forum.graded %>
           </div>
-          <small><%= timeago_tag topic.created_at, :nojs => true, :limit => 10.days.ago %></small>
-  			</div>
-  		<% end %>
-    </div>
-  <% end %>
-
-	<% posts = Post.unscoped.joins(:forum).where('forums.lecture_comments = FALSE and forums.klass_id = ?', @klass.id).order('created_at desc').limit(10).to_a %>
-  <% if posts.any? %>
-    <%= ui_header t('page.title.latest_activities'), style: :h3 %>
-    <div class="ui feed">
-      <% posts.each do |post| %>
-        <div class="event">
-          <div class="label">
-            <%= image_tag(post.author_avatar(current_account, :tny, "/images/nobody-th.png")) %>
-          </div>
-          <div class="content">
-            <div class="summary">
-              <a class="user">
-                <% unless post.anonymous %>
-                  <%= post.author_name %>
-                <% else %>
-                  <%= Post.human_attribute_name(:anonymous) %>
-                <% end %>
-              </a>
-              <%= t('page.text.left_a_comment') %>
-              <div class="date">
-                <%= timeago_tag post.created_at, :nojs => true, :limit => 10.days.ago %>
-              </div>
-            </div>
-            <div class="extra text">
-              <%= summary(post.about, 40) %>
-            </div>
-          </div>
+          <small><%= markdown(forum.about) %></small>
         </div>
+      </div>
       <% end %>
     </div>
-  <% end %>     
+
+    <% topics = Topic.unscoped.joins(:forum).where('forums.lecture_comments = FALSE and forums.klass_id = ?', @klass.id).order('created_at desc').limit(10).to_a %>
+    <% if topics.any? %>
+      <%= ui_header t('page.title.latest_topics'), style: :h3 %>
+      <div class="ui selection list">
+        <% topics.each do |topic| %>
+          <div class="topic item" id="topic-<%= topic.id %>">
+            <div class="header">
+              <%= link_to topic.name, learn_klass_forum_path(@klass, topic.forum, t: topic.id), remote: true %>
+              <%= content_tag :div, %(#{topic.posts_count} #{Post.model_name.human(count: 3)}), class: "ui left pointing label" %>
+            </div>
+            <small><%= timeago_tag topic.created_at, :nojs => true, :limit => 10.days.ago %></small>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
+    <% posts = Post.unscoped.joins(:forum).where('forums.lecture_comments = FALSE and forums.klass_id = ?', @klass.id).order('created_at desc').limit(10).to_a %>
+    <% if posts.any? %>
+      <%= ui_header t('page.title.latest_activities'), style: :h3 %>
+      <div class="ui feed">
+        <% posts.each do |post| %>
+          <div class="event">
+            <div class="label">
+              <%= image_tag(post.author_avatar(current_account, :tny, "/images/nobody-th.png")) %>
+            </div>
+            <div class="content">
+              <div class="summary">
+                <a class="user">
+                  <% unless post.anonymous %>
+                    <%= post.author_name %>
+                  <% else %>
+                    <%= Post.human_attribute_name(:anonymous) %>
+                  <% end %>
+                </a>
+                <%= t('page.text.left_a_comment') %>
+                <div class="date">
+                  <%= timeago_tag post.created_at, :nojs => true, :limit => 10.days.ago %>
+                </div>
+              </div>
+              <div class="extra text">
+                <%= summary(post.about, 40) %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 <% end %>
 
 <%= discussion = capture do %>

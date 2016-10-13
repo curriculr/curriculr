@@ -1,22 +1,24 @@
 <% assessments = @klass.assessments.to_a %>
 
 <% content_for :main_aside do %>
-  <%= ui_header Assessment.model_name.human(count: 3), style: :h3 %>
+  <div class="ui fluid segment">
+    <%= ui_header Assessment.model_name.human(count: 3), style: :h3 %>
   
-  <div class="ui selection list">
-    <% assessments.each_with_index do |a, i| %>
-      <div class="assessment item<%= ' active' if i == 0 %>" id="assessment-<%= a.id %>">
-        <div class="content">
-          <%= link_to a.name, learn_klass_assessment_path(@klass, a), remote: true, class: 'header' %>
-          <small>
-            <%= l(a.opens_at_datetime(@klass.begin_date(current_student))) %>
-            <% if a.to_datetime.present? %>
-              - <%= l(a.closes_at_datetime(@klass.begin_date(current_student))) %>
-            <% end %>
-          </small>
+    <div class="ui selection list">
+      <% assessments.each_with_index do |a, i| %>
+        <div class="assessment item<%= ' active' if i == 0 %>" id="assessment-<%= a.id %>">
+          <div class="content">
+            <%= link_to a.name, learn_klass_assessment_path(@klass, a), remote: true, class: 'header' %>
+            <small>
+              <%= l(a.opens_at_datetime(@klass.begin_date(current_student))) %>
+              <% if a.to_datetime.present? %>
+                - <%= l(a.closes_at_datetime(@klass.begin_date(current_student))) %>
+              <% end %>
+            </small>
+          </div>
         </div>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
   </div>
 <% end %>
 

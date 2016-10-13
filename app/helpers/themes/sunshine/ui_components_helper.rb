@@ -75,13 +75,13 @@ module Themes::Sunshine::UiComponentsHelper
     if @course && !@course.id.nil? && staff?(current_user, @course)
       klass = (@klass || @course.klasses.last)
       if klass && !klass.new_record?
-        link_to learn_klass_path(klass), class: 'ui positive basic button' do
+        link_to learn_klass_path(klass), class: 'ui secondary button' do
           ui_icon(:student) + ' ' + t('helpers.submit.student_view')
         end
       end
     elsif @klass && staff?(current_user, @klass.course)
-      link_to teach_course_klass_path(@klass.course, @klass), class: 'ui positive basic button' do
-        ui_icon(:doctor) + ' ' + t('helpers.submit.instructor_view')
+      link_to teach_course_klass_path(@klass.course, @klass), class: 'ui secondary button' do
+        ui_icon(:doctor) + ' ' + t('helpers.submit.show_instructor_view')
       end
     else
       action = ''

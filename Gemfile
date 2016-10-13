@@ -55,7 +55,7 @@ gem 'pg'
 gem 'redis'
 gem 'sidekiq'
 gem 'sinatra', require: false
-gem 'slim'
+#gem 'slim'
 gem 'redis-namespace'
 gem 'nokogiri'
 gem 'bcrypt'
@@ -73,7 +73,6 @@ gem 'carrierwave'
 gem 'cancancan'
 gem 'execjs'
 gem 'therubyracer'
-gem 'jquery-timepicker-rails'
 gem 'countries', :require => 'countries/global'
 gem 'country_select'
 gem 'jquery-ui-rails'
@@ -83,13 +82,14 @@ gem 'kaminari'
 gem 'ransack'
 gem 'responders'
 gem 'acts-as-taggable-on', github: 'mbleigh/acts-as-taggable-on'
+gem 'jquery-timepicker-rails'
 gem 'jquery-fileupload-rails'
-gem 'whenever', :require => false
-gem 'prawn'
+# gem 'whenever', :require => false
+# gem 'prawn'
 
-group :test do
-  gem 'faker'
-  gem 'capybara'
-  gem 'launchy'
-  gem 'selenium-webdriver'
-end
+# group :test do
+#   gem 'faker'
+#   gem 'capybara'
+#   gem 'launchy'
+#   gem 'selenium-webdriver'
+# end

@@ -1,4 +1,9 @@
-<% info = capture do %>
+<% content_for :main_aside do %>
+  <%= render("/users/user_menu") %>
+  <%= render('admin/dashboard/show') %>
+<% end %>
+
+<%= capture do %>
   <% klasses = Klass.ready_to_approve.distinct.to_a %>
   <% if klasses.present? %>
     <%= ui_header t('page.title.ready_to_approve') %>
@@ -21,10 +26,3 @@
       <%= t('page.text.no_record_found') %>
   <% end %>
 <% end %>
-
-<% aside = capture do %>
-  <%= render("/users/user_menu") %>
-  <%= render('admin/dashboard/show') %>
-<% end %>
-
-<%= ui_side_by_side(info, aside, 'eleven by five')%>

@@ -1,14 +1,13 @@
 <% listing, active_unit, active_lecture = Lecture.listing_for_student(@klass, current_student).to_a %>
 <% active_unit = @lecture.unit_id %>
 <% content_for :main_aside do %>
-  <div class="ui fluid accordion">
+  <div class="ui styled accordion">
     <% listing.each do |id, unit| %>
       <div class="<%= 'active ' unless unit[:completed] %>title">
-        <div class="ui block header"><%= unit[:name] %> <%= ui_icon('dropdown') %></div>
+        <h3><%= ui_icon('dropdown') %><%= unit[:name] %></h3>
       </div>
       <div class="<%= 'active ' unless unit[:completed] %>content">
-        <%= markdown unit[:about], class: 'shortenable-text' %>
-        
+        <%# markdown unit[:about], class: 'shortenable-text' %>
         <div class="ui secondary fluid vertical menu">
           <% unit[:lectures].each do |lecture| %>
             <%= link_to %(#{lecture[:name]} #{ui_icon(lecture[:attended] ? 'checkmark box' : 'square outline')}).html_safe, learn_klass_lecture_path(@klass, lecture[:id]), class: "#{'active ' if lecture[:id] == @lecture.id}item" %>

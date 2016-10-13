@@ -9,7 +9,7 @@
     sub_menu = render "/learn/klasses/klass_menu"
   else 
     main_menu = render "application/main_menu", front: false
-    if @klass && controller_name == 'klasses' && action_name == 'show'
+    if @klass && controller_name == 'klasses' && action_name == 'show' && !enrolled_or_staff?
       within_a_segment = false
     elsif controller_name.in?(['sessions', 'registrations']) && action_name.in?(['new', 'create'])
       within_a_segment = false
@@ -33,12 +33,14 @@
   <% if content_for?(:main_aside) %>
     <div class="four wide column">
       <%= content_for :main_aside %>
+      <%= mountable_fragments :site_left_skyscraper_ad %>
     </div>
     <div class="eleven wide column">
       <%= ui_flash_messages %>
     
       <% if within_a_segment %>
-        <div class="ui fluid segment">
+        <%= yield :featured_top %>
+        <div class="ui fluid attached segment">
           <%= yield %>
         </div>
       <% else %>
@@ -50,7 +52,8 @@
       <%= ui_flash_messages %>
     
       <% if within_a_segment %>
-        <div class="ui fluid segment">
+        <%= yield :feachered_top %>
+        <div class="ui fluid attached segment">
           <%= yield %>
         </div>
       <% else %>

@@ -106,6 +106,9 @@
     <div class="content">
       <div class="description">
         <p><%= markdown(@course.about) %></p>
+      </div>
+    </div>
+    <div class="extra content">
         <div class="ui two basic buttons">
           <%=
           if @course.video
@@ -135,10 +138,13 @@
           %>
         </div>
       </div>
+    <div class="extra content">
+      <%= render 'teach/courses/to_do' %>
+    </div>
+    <div class="extra content">
+      <%= render 'teach/dashboard/show' %>
     </div>
   </div>
-  <%= render 'teach/courses/to_do' %>
-  <%= render 'teach/dashboard/show' %>
 <% end %>
 
 <%= ui_side_by_side aside, content, 'four by twelve' %>

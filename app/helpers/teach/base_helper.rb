@@ -11,54 +11,26 @@ module Teach::BaseHelper
   def ui_course_klass_links(klass)
 		links = [
 		  link(:klass, :edit, edit_teach_course_klass_path(@course, klass), remote: true, class: 'ui positive button'),
-      nil,
-		  link(:klass, :destroy, teach_course_klass_path(@course, klass),
-		    :confirm => true, :method => :delete, class: 'ui negative button'),
-      nil,
-      link(:klass, :show, learn_klass_path(klass), as: :student_view, class: 'ui positive basic button')
-    ]
+      link(:klass, :show, learn_klass_path(klass), as: :student_view, class: 'ui secondary button')]
 
+    items = []
     if klass.ready_to_approve
       if current_user && current_user.has_role?(:admin)
-        links << nil
-        links << link(:klass, klass.approved ? :disapprove : :approve, approve_teach_course_klass_path(@course, klass),
-          :method => :put, class: "ui #{klass.approved ? 'negative' : 'positive'} basic button")
-        links << link(:klass, :unready, ready_teach_course_klass_path(@course, klass), :method => :put, class: 'ui negative basic button')
+        items << link(:klass, klass.approved ? :disapprove : :approve, approve_teach_course_klass_path(@course, klass),
+            :method => :put, class: "item")
+        items << link(:klass, :unready, ready_teach_course_klass_path(@course, klass), :method => :put, class: 'item')
       end
     else
-      links << nil
-      links << link(:klass, :ready, ready_teach_course_klass_path(@course, klass), :method => :put, class: 'ui positive basic button')
-
+      items << link(:klass, :ready, ready_teach_course_klass_path(@course, klass), :method => :put, class: 'item')
     end
+    items << nil
+    items << link(:klass, :destroy, teach_course_klass_path(@course, klass), :confirm => true, :method => :delete, class: 'item')
 
+    links << ui_dropdown_button(t('page.text.more'), items, class: 'ui dropdown secondary basic button')
+    
     links
   end
 
-  # def active_course_section?(section)
-  #   (params[:show] || 'syllabus') == section
-  # end
-  #
-  # def active_unit_section?(section)
-  #   (params[:show] || 'lectures') == section
-  #   # if @lecture
-  #   #   if section =='lectures'
-  #   #     'active'
-  #   #   else
-  #   #     nil
-  #   #   end
-  #   # else
-  #   #   if params[:show] == section
-  #   #     return 'active'
-  #   #   else
-  #   #     if section =='lectures' && (params[:show].blank? || params[:show] == 'lectures')
-  #   #       'active'
-  #   #     else
-  #   #       nil
-  #   #     end
-  #   #   end
-  #   # end
-  # end
-  #
   def active_klass_section?(section)
     (params[:show] || 'about') == section
   end

@@ -1,4 +1,11 @@
-<%= tag :hr unless update_counter == 0 %>
-<h3><%= update.subject %></h3>
-<h3><small><%= timeago_tag update.updated_at, :nojs => true, :limit => 10.days.ago %></small></h3>
-<%= markdown(update.body) %>
+<div class="item">
+  <div class="content">
+    <div class="header"><%= update.subject %></div>
+    <div class="meta">
+      <span><%= timeago_tag update.updated_at, :nojs => true, :limit => 10.days.ago %></span>
+    </div>
+    <div class="description">
+      <%= markdown(update.body) %>
+    </div>
+  </div>
+</div>

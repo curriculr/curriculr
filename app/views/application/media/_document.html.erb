@@ -1,7 +1,7 @@
 <% content = capture do %>
   <div class="right floated content">
     <%= content_tag :div, class: 'ui buttons' do %>
-      <%= link :medium, :open, document.at_url, :class => "ui button", :target => '_new' unless @material %>
+      <%= link :medium, :open, document.at_url, :class => "ui secondary button", :target => '_new' unless @material %>
       <%= render partial: 'application/media/links', locals: { medium: document, form: form, action: action } %>
     <% end %>
   </div>

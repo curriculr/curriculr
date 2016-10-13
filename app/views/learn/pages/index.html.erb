@@ -1,24 +1,26 @@
 <% pages = []; books = [] %>
 <% content_for :main_aside do %>
-  <% pages = enrolled_or_staff? ? @klass.course.pages.where(published: true).to_a : [] %>
-  <% books = enrolled_or_staff? ? @klass.course.books : [] %>
-  
-  <div class="ui selection list">
-    <% items = [].concat(pages).concat(books) %>
-    <% if items.present? %>
-      <div class="item"><div class="header"><%= t('page.title.for_course') %></div></div>
-      <%= render partial: 'item', locals: {items: items} %>
-    <% end %>
-    
-    <%= capture do %>
-      <% Unit.open(@klass, current_student).includes(:pages, {:materials => :medium}).each_with_index do |unit, i| %>
-        <% items = [].concat(unit.pages.where(published: true)).concat(unit.materials) %>
-        <% if items.present? %>
-          <div class="item"><div class="header"><%= unit.name %></div></div>
-          <%= render partial: 'item', locals: {items: items} %>
+  <div class="ui fluid segment">
+    <% pages = enrolled_or_staff? ? @klass.course.pages.where(published: true).to_a : [] %>
+    <% books = enrolled_or_staff? ? @klass.course.books : [] %>
+
+    <div class="ui selection list">
+      <% items = [].concat(pages).concat(books) %>
+      <% if items.present? %>
+        <div class="item"><div class="header"><%= t('page.title.for_course') %></div></div>
+        <%= render partial: 'item', locals: {items: items} %>
+      <% end %>
+
+      <%= capture do %>
+        <% Unit.open(@klass, current_student).includes(:pages, {:materials => :medium}).each_with_index do |unit, i| %>
+          <% items = [].concat(unit.pages.where(published: true)).concat(unit.materials) %>
+          <% if items.present? %>
+            <div class="item"><div class="header"><%= unit.name %></div></div>
+            <%= render partial: 'item', locals: {items: items} %>
+          <% end %>
         <% end %>
       <% end %>
-    <% end %>
+    </div>
   </div>
 <% end %>
 

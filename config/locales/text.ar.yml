@@ -1,6 +1,8 @@
 ar:
   page:
     title:
+      to_do: المتطلبات
+      activities: الأنشطة
       lookup_classes: للبحث عن الفصول
       progress_report:  تقرير الأداء
       teaching: تدريس

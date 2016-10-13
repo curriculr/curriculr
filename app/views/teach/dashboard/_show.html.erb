@@ -1,4 +1,4 @@
-<%= ui_header t('page.title.activities') %>
+<%= ui_header t('page.title.activities'), style: :h3 %>
 
 <% data = dashboard_course_activity_counts(@course) %>
 <%= ui_chart 'course_activity_counts', 'PieChart', data[:counts], {legend: 'none', title: t('page.title.activity_counts')}, 300 if data[:counts].reject{|i| i.second == 0}.size > 1 %>
@@ -12,7 +12,7 @@
 <% data = dashboard_course_assessment_counts(@course) %>
 <%= ui_chart 'course_assessment_counts', 'PieChart', data[:counts], {legend: 'none', title: Assessment.model_name.human(:count => 3)}, 300 if data[:counts].reject{|i| i.second == 0}.size > 1 %>
 
-<%# ui_chart 'course_daily_activities', 
-  'LineChart', 
+<%# ui_chart 'course_daily_activities',
+  'LineChart',
   dashboard_course_activities_by_day(1.weeks.ago, @course),
   {curveType: 'function', legend: { position: 'top' }, chartArea:{left:0,top:40,width:'100%',height:'75%'} }, 300 %>

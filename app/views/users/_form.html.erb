@@ -1,13 +1,15 @@
 <%= modal_form_for(@user, :html => {:multipart => true}) do |f| %>
 	<%= f.static :email %>
   <%= f.text_field :name %>
-  <%= f.time_zone_select :time_zone %>
+  
 	<%= f.fields_for :profile do |p| %>
-		<%= p.file_field :avatar %>
-
+    <div class="two fields">
+      <%= f.time_zone_select :time_zone %>
+		  <%= p.file_field :avatar %>
+    </div>
     <div class="three fields">
       <%= p.text_field :nickname %>
-      <%=  p.text_field :prefix %>
+      <%= p.text_field :prefix %>
       <%= p.select :locale, $site['supported_locales'].invert %>
     </div>
 
