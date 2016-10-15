@@ -1,5 +1,42 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
+# For site
+video:
+  account: main
+  name: Video Medium
+  kind: video
+  url: Xyz189uejs
+  content_type: link/youtube
+
+image:
+  account: main
+  name: Image Medium
+  kind: image
+  url: http://www.foo.bar/images/poster.png
+  content_type: link/www
+
+audio:
+  account: main
+  name: Audio Medium
+  kind: audio
+  url: http://www.foo.bar/sounds/track.mp3
+  content_type: link/www
+
+document:
+  account: main
+  name: Document Medium
+  kind: document
+  url: http://www.foo.bar/docs/intro.pdf
+  content_type: link/www
+
+other:
+  account: main
+  name: Other Medium
+  kind: other
+  url: http://www.foo.bar/scripts/text.txt
+  content_type: link/www
+
+# For courses
 <% %w(eng101 stat101).each do |c| %>
 video_<%= c %>:
   account: main
@@ -8,9 +45,6 @@ video_<%= c %>:
   kind: video
   url: Xyz189uejs
   content_type: link/youtube
-  # slug: 
-  # path: MyString
-  # file_size: MyString
 
 image_<%= c %>:
   account: main
@@ -43,5 +77,4 @@ other_<%= c %>:
   kind: other
   url: http://www.foo.bar/scripts/text.txt
   content_type: link/www
-
 <% end %>

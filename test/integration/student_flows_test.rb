@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class StudentFlowsTest < ActionDispatch::IntegrationTest
-  def setup
+  setup do
     @user = users(:one)
     @course = courses(:stat101)
     @klass = @course.klasses.first
@@ -10,59 +10,74 @@ class StudentFlowsTest < ActionDispatch::IntegrationTest
     @forum = forums(:general_eng101_sec01)
     KlassEnrollment.enroll(@klass, @user.self_student)
 
-    login_as(@user, :scope => :user)
+    sign_in_as(@user)
   end
 
-  def teardown
-    logout(:user)
+  teardown do
+    sign_out
   end
 
   test 'can enroll in a class' do
     klass = klasses(:eng101_sec02)
-    visit learn_klasses_path
-
-    click_link 'Learn more'
-    click_link 'Enroll'
-    check('agreed_to_klass_enrollment')
-
-    click_button 'Submit'
-
-    assert page.has_content?(klass.course.name)
+    get learn_klasses_path
+    assert_response :success
+    
+    get learn_klass_path(klass)
+    assert_response :success
+    
+    assert_difference('klass.enrollments.count') do
+      post enroll_learn_klass_path(klass), xhr: true, params: {klasses: klass.id, agreed_to_klass_enrollment: 1}
+      assert_response :success
+    end
   end
 
   test 'visit class' do
-    visit learn_klass_path(@klass)
-
-    assert page.has_content?(@course.name)
+    get learn_klass_path(@klass)
+    assert_response :success
   end
 
   test 'visit lecture' do
-    visit learn_klass_lecture_path(@klass, @lecture)
-
-    assert page.has_content?(@lecture.name)
+    get learn_klass_lecture_path(@klass, @lecture)
+    assert_response :success
+    
+    assert_select 'h2', /#{@lecture.name}/
   end
 
+  test 'visit discussion' do
+    get learn_klass_forums_path(@klass)
+    assert_response :success
+    
+    assert_select 'h3', /Forums/
+  end
+  
+  test 'visit assessments' do
+    get learn_klass_assessments_path(@klass)
+    assert_response :success
+    assert_select 'h3', /Assessments/
+  end
+  
+  test 'visit pages' do
+    get learn_klass_pages_path(@klass)
+    assert_response :success
+  end
+  
+  test 'visit progress' do
+    get report_learn_klass_path(@klass)
+    assert_response :success
+    assert_select 'div.label', "Final Score"
+  end
+  
   test 'can create a topic' do
-    visit learn_klass_forum_path(@klass, @forum)
-
-    assert page.has_content?(@forum.name)
-
-    click_link 'New'
-
-    name = Faker::Lorem.words(2).join(" ")
-    fill_in 'topic_name', with: name
-    fill_in 'wmd-inputabout', with: Faker::Lorem.paragraphs(1).join("\n")
-    check('topic_anonymous')
-
-    click_button 'Create'
-
-    assert page.has_content?(name)
+    get learn_klass_forums_path(@klass)
+    assert_response :success
+    
+    assert_difference ('@forum.topics.count') do 
+      post url_for(controller: 'learn/topics', action: 'create', klass_id: @klass.id, forum_id: @forum.id), params: {
+        topic: {name: "First topic", about: "About just anything"}
+      }, xhr: true
+      
+      assert_response :success
+    end
   end
 
-  test 'can view report' do
-    visit report_learn_klass_path(@klass)
-
-    # assert page.has_content?(@klass.name)
-    #save_and_open_page
-  end
 end

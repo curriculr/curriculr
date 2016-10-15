@@ -106,7 +106,6 @@ en:
       get_involved: Get involved
       about_you: About you
       about_your_course: About your course
-      faculty_application: Faculty application
       goto: Go to
       feactured_klasses: Featured classes
 
@@ -282,14 +281,6 @@ en:
       no_info_to_display: No information to display
       first_and_others: "%{first}, ..."
       by_first_and_others: "by %{first}, ..."
-      faculty_agreement:
-        I agree to the terms and conditions of open education and to the rules of
-        the honor system followed in the classes of this site.
-      faculty_application_html:
-        To be able to create your courses and open them to the users of this
-        site, you have to be a faculty user first. Use this form to submit
-        your request of becoming a faculty user. Once reviewed and approved,
-        you will be able to work on your course.
       follow_us_html: <p><small>You can also follow us at</small></p>
       free_to_enroll: This is a free class.
       free_to_preview: You can open this class and preview some or all of its contents before you enroll.

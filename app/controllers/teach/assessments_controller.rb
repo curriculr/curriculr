@@ -58,7 +58,7 @@ module Teach
         @assessment.q_selectors.where(:id => id).update_all(order: i + 1)
       end
       
-      render nothing: true
+      head :ok
     end
     
     def destroy
@@ -72,7 +72,7 @@ module Teach
     private
       def the_path_out
         if @lecture 
-          teach_course_unit_lecture_path(@course, @lecture.unit, @lecture, show: 'assess')
+          teach_course_unit_lecture_path(@course, @lecture.unit, @lecture, show: 'assessments')
         elsif @unit
           teach_course_unit_path(@course, @unit, show: 'assessments')
         elsif @course

@@ -22,3 +22,7 @@ team:
 partner:
   name: partner
 
+blogger:
+  users:
+    - blogger
+  name: blogger

@@ -1,144 +1,100 @@
 require 'test_helper'
 
 class GuestFlowsTest < ActionDispatch::IntegrationTest
-  def setup
-    [accounts(:main), accounts(:secondary)].each do |a|
-      I18n.t('config.auto_generated_pages').each do |slug, name|
-        $site['supported_locales'].keys.each do |locale|
-          page = Page.create(
-            :name => name,
-            :about => I18n.t("page.text.under_construction"),
-            :public => true,
-            :published => true,
-            :owner => a.user,
-            :slug => "#{slug}-#{locale}",
-            :account => a
-          )
-        end
-      end
-    end
+  setup do
   end
 
   test 'can visit front page' do
-    visit root_path
-
-    assert page.has_text?("Open and Interactive Learning")
-    `pg_dump -a -T schema_migrations curriculr_test > #{Rails.root}/db/backup_fixtures.sql`
+    get root_url
+    assert_select '.jumbotron .container .huge.header', /Open and Interactive Learning/
   end
 
   test 'can visit blogs page' do
-    visit blogs_path
-    within 'h2' do
-      assert page.has_content?("Official Blog")
-    end
+    get blogs_url
+    assert_select '.jumbotron .container .huge.header', /Official Blog/
   end
 
   test 'can visit klasses page' do
-    visit learn_klasses_path
-
-    assert page.has_content?(klasses(:stat101_sec01).course.name)
+    get learn_klasses_url
+    assert_select 'main .eleven.column .segment h2', /Available classes/
   end
-
+  
   test 'can visit signin page' do
-    visit new_user_session_path
-
-    assert_text("Sign in")
+    get auth_signin_url
+    assert_select 'button', "Sign in"
   end
 
   test 'can visit signup page' do
-    visit new_user_registration_path
-
-    assert_text("By signing up for a new account, you are agreeing to")
+    get auth_signup_url
+    assert_select 'button', "Create an account"
   end
 
   test 'can visit about page' do
-    visit about_path
-
-    assert page.has_content?("About")
+    get localized_page_path(:about)
+    assert_select 'h2', /About/
   end
 
   test 'can visit contactus page' do
-    visit contactus_path
-
-    assert page.has_content?("Contact us")
-  end
-
-  test 'can visit privacy page' do
-    visit localized_page_path(:privacy)
-
-    assert page.has_content?("Privacy")
+    get contactus_url, xhr: true
+    assert_response :success
   end
 
   test 'can visit terms and conditions page' do
-    visit localized_page_path(:terms)
-
-    assert page.has_content?("Terms of service")
+    get localized_page_path(:terms)
+    assert_select 'h2', /Terms/
   end
 
-  test 'can register with a name, email and password' do
-    visit new_user_registration_path
-
-    fill_in "user_name",                 :with => "John Smith "
-    fill_in "user_email",                 :with => "jsmith@example.com"
-    fill_in "user_password",              :with => "a_secret"
-    fill_in "user_password_confirmation", :with => "a_secret"
-
-    click_button "Create an account"
-
-    assert page.html.include?("A message with a confirmation link has been sent to your email address.")
-    assert_equal root_path, current_path
-  end
-
-  test 'can sign in as a student' do
+  test 'can sign in as a student and then sign out' do
     user = users(:two)
-    visit new_user_session_path
+    get auth_signin_url
+    
+    post url_for(controller: 'auth/sessions', action: 'create'), params: {
+      user: {email: user.email, password: 'password'}}
+    assert_redirected_to home_url
 
-    fill_in 'user_email', with: user.email
-    fill_in 'user_password', with: 'password'
+    follow_redirect!
+    assert_response :success
+    assert_select "h2", "Classes I'm taking"
+    
+    get url_for(controller: 'auth/sessions', action: 'destroy'), params: {id: user.id}
+    assert_nil cookies[:auth_token]
 
-    click_button 'Sign in'
-
-    assert page.has_content?(user.name)
-    assert_equal home_path, current_path
-
-    logout(:user)
+    assert_redirected_to auth_signin_path
   end
 
   test 'can sign in as an instructor' do
-    instructor = users(:assistant)
-    visit new_user_session_path
+    user = users(:professor)
+    get auth_signin_url
+    
+    post url_for(controller: 'auth/sessions', action: 'create'), params: {
+      user: {email: user.email, password: 'password'}}
+    assert_redirected_to home_url
 
-    fill_in 'user_email', with: instructor.email
-    fill_in 'user_password', with: 'password'
+    follow_redirect!
+    assert_response :success
+    assert_select "h2", "Courses being worked on"
+    
+    get url_for(controller: 'auth/sessions', action: 'destroy'), params: {id: user.id}
+    assert_nil cookies[:auth_token]
 
-    click_button 'Sign in'
-
-    assert page.has_content?("Teach")
-    assert_equal home_path, current_path
-
-    logout(:user)
+    assert_redirected_to auth_signin_path
   end
 
   test 'can sign in as an admin' do
-    admin = users(:super)
-    visit new_user_session_path
-    fill_in 'user_email', with: admin.email
-    fill_in 'user_password', with: 'password'
+    user = users(:super)
+    get auth_signin_url
 
-    click_button 'Sign in'
+    post url_for(controller: 'auth/sessions', action: 'create'), params: {
+      user: {email: user.email, password: 'password'}}
+    assert_redirected_to home_url
 
-    assert page.has_content?("Administration")
-    assert_equal home_path, current_path
+    follow_redirect!
+    assert_response :success
+    assert_select "h3", "Activity counts"
 
-    logout(:user)
-  end
+    get url_for(controller: 'auth/sessions', action: 'destroy'), params: {id: user.id}
+    assert_nil cookies[:auth_token]
 
-  test 'can sign out' do
-    user = users(:one)
-    login_as(user, :scope => :user)
-    visit home_path
-
-    click_link "Sign out"
-    assert_equal root_path, current_path
+    assert_redirected_to auth_signin_path
   end
 end

@@ -25,39 +25,19 @@ module Materializeable
       end
     end
 
-    def new_medium
-
-    end
-
-    def create_medium
-
-    end
-
     def create
       section = {}
       if @lecture
         @material = @lecture.materials.new(material_params)
-        section[:show] = case @material.medium.kind
-        when "video"
-          'watch'
-        when "audio"
-          'listen'
-        else
-          'read'
-        end
       elsif @unit
         @material = @unit.materials.new(material_params)
-        section[:show] = 'documents'
       else
         @material = @course.materials.new(material_params)
-        section[:show] = 'books'
       end
 
       @req_objects << @material
       if @material.save
         @req_objects.pop
-        @req_objects << section
-
         respond_with @material do |format|
           format.html { redirect_to @req_objects }
           format.js {}
@@ -70,24 +50,6 @@ module Materializeable
       @material.destroy
       respond_with @material do |format|
         format.html {
-          section = {}
-
-          if @lecture
-            section[:show] = case @material.medium.kind
-            when "video"
-              'watch'
-            when "audio"
-              'listen'
-            else
-              'read'
-            end
-          elsif @unit
-            section[:show] = 'documents'
-          else
-            section[:show] = 'books'
-          end
-
-          @req_objects << section
           redirect_to @req_objects
         }
       end

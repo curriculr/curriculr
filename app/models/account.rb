@@ -23,11 +23,7 @@ class Account < ActiveRecord::Base
   end
 
   def config
-    unless @config
-      @config = JSON.parse($redis.get("config.account.a#{self.id}"))
-    end
-
-    @config
+    @config ||= JSON.parse($redis.get("config.account.a#{self.id}"))
   end
 
   # Callback

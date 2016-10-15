@@ -49,7 +49,7 @@ module Teach
         Unit.where(:id => id).update_all(order: i + 1)
       end
       
-      render nothing: true
+      head :ok
     end
     
     private

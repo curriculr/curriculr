@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class AssessmentTest < ActiveSupport::TestCase
-	def setup
+	setup do
 		@assessment = assessments(:quiz_eng101)
 	end
 

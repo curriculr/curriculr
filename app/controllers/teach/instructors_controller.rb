@@ -3,9 +3,6 @@ module Teach
     before_action :set_instructor, only: [:edit, :update, :destroy]
     responders :modal, :flash, :http_cache
 
-    def index
-    end
-
     def new
       @instructor = Instructor.new
     end
@@ -44,7 +41,7 @@ module Teach
         Instructor.where(:id => id).update_all(order: i + 1)
       end
 
-      render nothing: true
+      head :ok
     end
 
     def destroy

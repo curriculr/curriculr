@@ -33,6 +33,7 @@ class Mailer < ActionMailer::Base
     mail(:from => from, :to => to, :subject => msg[:subject], template_name: 'basic')
   end
 
+  # Authentication
   def confirmation_instructions(uid, account, token, opts={})
     prepare_msg(account)
     user = User.find(uid)
@@ -53,11 +54,6 @@ class Mailer < ActionMailer::Base
     @subject = scoped_t("#{account}.site.mailer.reset_password_instructions.subject")
     @body = scoped_t("#{account}.site.mailer.reset_password_instructions.body_html", :name => user.email, :url => @url)
     mail(:from => opts[:from], :to => opts[:to], :subject => @subject, template_name: 'basic')
-  end
-
-  def unlock_instructions(uid, account, token, opts={})
-    record = User.find(uid)
-    super(record, token, opts)
   end
 
   # Klass invitation emails
@@ -96,17 +92,6 @@ class Mailer < ActionMailer::Base
 
     @subject = subject
     @body = body
-
-    mail(:from => from, :to => to, :subject => @subject, template_name: 'basic')
-  end
-
-  # Faculty application approved or declined
-  def faculty_application(account, from, to, url, approved)
-    prepare_msg(account, scoped_t("#{account}.site.mailer.faculty_application.subject"))
-    @url = prepare_url(scoped_t("#{account}.site.mailer.links.signin"), url)
-
-    @subject = scoped_t("#{account}.site.mailer.faculty_application.subject")
-    @body = scoped_t("#{account}.site.mailer.faculty_application.#{approved ? 'approved' : 'declined'}_body_html", :url => @url)
 
     mail(:from => from, :to => to, :subject => @subject, template_name: 'basic')
   end

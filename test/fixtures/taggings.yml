@@ -1,15 +1,22 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-# @Questions
+# yllabus
 <% ['syllabus_eng101', 'syllabus_stat101'].each do |p| %>
 tagging_<%= p %>:
   tag_id: 5
   taggable_id: <%= ActiveRecord::FixtureSet.identify(p) %>
   taggable_type: Page
   context: tags
-
 <% end %>
 
+# faq
+<% ['faq_eng101', 'faq_stat101'].each do |p| %>
+tagging_<%= p %>:
+  tag_id: 6
+  taggable_id: <%= ActiveRecord::FixtureSet.identify(p) %>
+  taggable_type: Page
+  context: tags
+<% end %>
 
 # @Questions
 <% ['eng101', 'stat101'].each do |c| %>

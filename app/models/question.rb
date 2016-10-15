@@ -2,9 +2,9 @@ class Question < ActiveRecord::Base
   include Actionable
   acts_as_taggable_on :tags, :banks
 
-  belongs_to :course, :dependent => :destroy
-  belongs_to :unit, :dependent => :destroy
-  belongs_to :lecture, :dependent => :destroy
+  belongs_to :course
+  belongs_to :unit
+  belongs_to :lecture
 
   attr_accessor :points, :unit_lectures
 

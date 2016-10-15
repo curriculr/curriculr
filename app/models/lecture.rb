@@ -263,58 +263,6 @@ class Lecture < ActiveRecord::Base
     )).order("units.order, lectures.order").distinct
   }
 
-  scope :open_4_students_orig, ->(klass, unit, student, include_everything = false) {
-    q = joins(:unit => {:course => :klasses}).
-    joins(%(left outer join (
-      SELECT activities.*
-      FROM activities WHERE
-        activities.actionable_type = 'Lecture' AND
-        activities.student_id = #{student && klass.enrolled?(student) ? student.id : -1} AND
-        activities.klass_id = #{klass.id} AND
-        activities.action = 'attended') activity on lectures.id = activity.actionable_id)).
-    # joins(%(left outer join (
-    #   SELECT activities.context_id, count(activities.id) as count
-    #   FROM activities WHERE
-    #     activities.klass_id = #{klass.id} AND
-    #     activities.student_id = #{student.id} AND
-    #     activities.context_type = 'Lecture'
-    #   GROUP BY activities.context_id
-    #   ) attendance on lectures.id = attendance.context_id)).
-    with_content_4_students
-
-    if ActiveRecord::Base.connection.adapter_name == "PostgreSQL"
-      q = q.where("
-        (klasses.ends_on is null or (klasses.ends_on < :today and klasses.lectures_on_closed = TRUE) or
-        (klasses.ends_on > :today and
-        (lectures.on_date - lectures.based_on) <= (DATE(:today) - DATE :base_date) and
-        (lectures.for_days is null or
-          (DATE :base_date + (lectures.on_date - lectures.based_on) + lectures.for_days) > :today))) and
-        courses.id = :course_id and units.id = :unit_id and klasses.id = :klass_id",
-        :course_id => klass.course.id, :unit_id => unit.id, :klass_id => klass.id, :today => Time.zone.now,
-        :base_date => klass.begin_date(student))
-    else
-      q = q.where("
-        (klasses.ends_on is null or (klasses.ends_on < :today and klasses.lectures_on_closed = TRUE) or
-        (klasses.ends_on > :today and
-        (lectures.on_date - lectures.based_on) <= (DATE(:today) - DATE(:base_date)) and
-        (lectures.for_days is null or
-          adddate(DATE(:base_date), (lectures.on_date - lectures.based_on) + lectures.for_days) > :today))) and
-        courses.id = :course_id and units.id = :unit_id and klasses.id = :klass_id",
-        :course_id => klass.course.id, :unit_id => unit.id, :klass_id => klass.id, :today => Time.zone.now,
-        :base_date => klass.begin_date(student))
-    end
-
-    unless include_everything || klass.enrolled?(student) || (student && KlassEnrollment.staff?(student.user, klass))
-      q = q.where('klasses.previewed = TRUE and units.previewed = TRUE and lectures.previewed = TRUE')
-    end
-
-    q.select(%(
-      lectures.order, lectures.id, lectures.name, lectures.about,
-      lectures.based_on, lectures.on_date, lectures.for_days,
-      coalesce(activity.times, 0) as attended, activity.data as attendance_data,
-      lectures.previewed
-    )).order("lectures.order").distinct
-  }
   def open?(base_date)
     today = Time.zone.today
     on_day = (self.on_date - self.based_on).to_i
@@ -347,16 +295,6 @@ class Lecture < ActiveRecord::Base
       end
     end
   end
-
-  # before_destroy do |lecture|
-  #   discussions = LectureDiscussion.where(lecture_id: lecture.id)
-  #   #discussions.transaction do
-  #     discussions.each do |discussion|
-  #       discussion.topic.destroy
-  #       discussion.destroy
-  #     end
-  #     #end
-  # end
 
   def self.generate_discussion_topics(klasses)
     klasses.each do |klass|

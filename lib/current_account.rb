@@ -5,7 +5,7 @@ class CurrentAccount
   end
 
   def call(env)
-    subdomain = if env['HTTP_HOST'].match(/^localhost/) || IPAddress.valid?(env['SERVER_NAME'])
+    subdomain = if @domain == 'localhost' || env['HTTP_HOST'].match(/^localhost/) || IPAddress.valid?(env['SERVER_NAME'])
       $site['default_account']
     else
       env['HTTP_HOST'].sub(/\.?#{@domain}.*$/,'')

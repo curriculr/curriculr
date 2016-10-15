@@ -55,19 +55,6 @@ module MenuHelper
     if current_account.config['allow_user_student_dependents']
       add_to_app_menu :user, link: link_text(:student, :index), to: main_app.learn_students_path, active: controller_name == 'students' && action_name == 'index'
     end
-
-    if current_account.config['allow_faculty_applications']
-      if !current_user.has_role?(:admin) && !current_user.has_role?(:faculty)
-        faculty_application = FacultyApplication.approved_or_pending(current_user).first
-        if faculty_application 
-          if faculty_application.pending?
-            add_to_app_menu(:user, {link: link_text(:faculty_application, :become_a_faculty), to: main_app.edit_faculty_application_path(faculty_application), remote: true, active: controller_name == 'faculty_applications' && action_name.in?(['new', 'create'])}, :teaching)
-          end
-        else
-          add_to_app_menu(:user, {link: link_text(:faculty_application, :become_a_faculty), to: main_app.new_faculty_application_path, remote: true, active: controller_name == 'faculty_applications' && action_name.in?(['new', 'create'])}, :teaching)
-        end
-      end
-    end
     
     if current_user.has_role?(:admin) || current_user.has_role?(:faculty)
       add_to_app_menu(:user, {link: link_text(:course, :index), to: main_app.teach_courses_path, active: controller_name == 'courses' && action_name.in?(['index'])}, :teaching)

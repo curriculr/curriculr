@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class PostTest < ActiveSupport::TestCase
-  def setup 
+  setup do 
   	@post = posts(:post_general_eng101_sec01)
   end
 

@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class MediumTest < ActiveSupport::TestCase
-  def setup
+  setup do
 		@medium = media(:video_eng101)
 	end
 

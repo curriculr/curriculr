@@ -1,21 +1,24 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
+<% option = answer_options = answer = nil %>
 <% words = 'maecenas faucibus mollis interdum vivamus sagittis lacus vel augue laoreet'.split(' ') %>
 <% ['eng101', 'stat101'].each do |c| %>
   <% %w(fill_one fill_many pick_2_fill pick_one pick_many match sort).each do |k| %>
     <% (1..[3, Option.render_options[k.to_sym][:count]].min).each do |n| %>
       <% 
       case k.to_sym
-      when :fill_many
-        option = words.sample(1).join(' ')
       when :pick_one
         option = words.sample(4).join(' ')
         answer_options = ((1 % n) == 0 ? '1' : '0')
+        answer = answer_options
       when :pick_many
         option = words.sample(4).join(' ')
         answer_options = (((1 % n) == 0 || (1 % n) == 1) ? '1' : '0')
+        answer = answer_options
       when :pick_2_fill
-        option = words.sample(3).join("\n\r    ")
+        sample = words.sample(3)
+        option = sample.join("\n\r    ")
+        answer = sample.first
       when :match
         option = words.sample(3).join("\n\r    ")
         answer_options = words.sample(4).join("\n\r    ")
@@ -23,6 +26,7 @@
         option = words.sample(5).join("\n\r    ")
       else
         option = words.sample(1).join(' ')
+        answer = option
       end
       %>
 
@@ -30,6 +34,7 @@
   question: <%= k %>_<%= c %>
   option:
     <%= option if Option.render_options[k.to_sym][:option] %>
+  answer: <%= answer %>
   answer_options:
     <%= answer_options if Option.render_options[k.to_sym][:answer_options] %>
     <% end %>

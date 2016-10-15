@@ -1,49 +1,75 @@
 require 'test_helper'
 
-class Teach::KlassesControllerTest < ActionController::TestCase
-  # test "should get index" do
-  #   get :index
-  #   assert_response :success
-  # end
+class Teach::KlassesControllerTest < ActionDispatch::IntegrationTest
+  setup do
+    @course = courses(:eng101)
+    @klass = @course.klasses.first
+    sign_in_as(users(:assistant))
+  end
 
-  # test "should get show" do
-  #   get :show
-  #   assert_response :success
-  # end
+  test "load index page" do
+    get teach_course_klasses_url(@course)
+    assert_response :success
+  end
 
-  # test "should get new" do
-  #   get :new
-  #   assert_response :success
-  # end
+  test "start a new klass" do
+    get new_teach_course_klass_url(@course), xhr: true
+    assert_response :success
+  end
 
-  # test "should get create" do
-  #   get :create
-  #   assert_response :success
-  # end
+  test "create klass" do
+    assert_difference('Klass.count') do
+      post teach_course_klasses_url(@course), params: { 
+        klass: {slug: "sec03", begins_on: Time.zone.today.strftime('%Y-%m-%d')} 
+      }, xhr: true
+      assert_response :success
+    end
+  end
 
-  # test "should get edit" do
-  #   get :edit
-  #   assert_response :success
-  # end
+  test "show klass" do
+    get teach_course_klass_url(@course, @klass)
+    assert_response :success
+  end
 
-  # test "should get update" do
-  #   get :update
-  #   assert_response :success
-  # end
+  test "start editing klass" do
+    get edit_teach_course_klass_url(@course, @klass), xhr: true
+    assert_response :success
+  end
 
-  # test "should get destroy" do
-  #   get :destroy
-  #   assert_response :success
-  # end
+  test "update klass" do
+    patch teach_course_klass_url(@course, @klass), params: {
+      klass: {ends_on: 30.days.from_now.strftime('%Y-%m-%d')}
+    }, xhr: true
+    assert_response :success
+  end
+  
+  test "unable to approve klass as instructor" do
+    approved = @klass.approved
+    put approve_teach_course_klass_url(@course, @klass)
+    assert_response :success
+    assert_equal approved, Klass.find(@klass.id).approved
+  end
+  
+  test "approve klass as admin" do
+    sign_in_as(users(:super))
+    approved = @klass.approved
+    put approve_teach_course_klass_url(@course, @klass)
+    assert_redirected_to teach_course_klasses_path(@course)
+    assert_not_equal approved, Klass.find(@klass.id).approved
+  end
+  
+  test "making klass ready" do
+    ready_to_approve = @klass.ready_to_approve
+    put ready_teach_course_klass_url(@course, @klass)
+    assert_redirected_to teach_course_klasses_path(@course)
+    assert_not_equal ready_to_approve, Klass.find(@klass.id).ready_to_approve
+  end
 
-  # test "should get approve" do
-  #   get :approve
-  #   assert_response :success
-  # end
+  test "destroy klass" do
+    assert_difference('Klass.count', -1) do
+      delete teach_course_klass_url(@course, @klass)
+    end
 
-  # test "should get invite" do
-  #   get :invite
-  #   assert_response :success
-  # end
-
+    assert_redirected_to teach_course_path(@course)
+  end
 end

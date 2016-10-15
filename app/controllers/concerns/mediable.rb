@@ -101,7 +101,7 @@ module Mediable
 
       respond_with @medium do |format|
         @form = 'application/media/form'
-        if @medium.save!
+        if @medium.save
           format.js {
             if @medium.m.present?
               path_ids = @medium.m.split(',')
@@ -119,10 +119,10 @@ module Mediable
             
             render 'reload'
           }
-          format.json { render nothing: true }
+          format.json { head :ok }
         else
           format.js { render 'new' }
-          format.json { render render nothing: true }
+          format.json { head :ok }
         end
       end
     end

@@ -29,15 +29,17 @@ module Auth
       if @user.provider == 'identity' && !@user.authenticate(params[:user][:current_password])
         flash.now.alert = t('auth.registrations.invalid_current_password');
         render 'edit'
-      elsif @user.update(user_params)
+      else
+        @user.assign_attributes(user_params)
         if @user.provider != 'identity' 
           @user.provider = 'identity' 
-          @user.save
         end
         
-        render 'reload' #redirect_to home_path, notice: t('auth.registrations.password_changed') 
-      else
-        render 'edit'
+        if @user.save
+          render 'reload' #redirect_to home_path, notice: t('auth.registrations.password_changed')
+        else
+          render 'edit'
+        end
       end
     end
 

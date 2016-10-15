@@ -80,10 +80,6 @@ class Ability
       if user.has_role?(:console)
         can :manage, AccessToken
       end
-
-      unless user.has_role?(:faculty)
-        can [:new, :create, :edit, :update], FacultyApplication
-      end
     end
   end
 end

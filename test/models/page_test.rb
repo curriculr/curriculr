@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class PageTest < ActiveSupport::TestCase
-  def setup
+  setup do
 		@page = pages(:faq_eng101)
 	end
 

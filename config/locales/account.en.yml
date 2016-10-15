@@ -59,13 +59,6 @@ en:
           body_html:
             <p>You are now enrolled in the following classes. To visit these classes, click the link below.</p>
 
-        faculty_application:
-          subject: Faculty Application Processed
-          approved_body_html:
-            <p>Your faculty application has been approved. You can now start creating your courses.</p>
-          declined_body_html:
-            <p>We are sorry to inform you that your faculty application has been declined at this time.</p>
-
         footer_html:
           <small>Please do not reply to this message.
           Visit <a href="%{site_url}">our site</a> to view our Privacy Policy.

@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class UnitTest < ActiveSupport::TestCase
-	def setup
+	setup do
 		@course = courses(:eng101)
 		@unit = @course.units.first
 	end
@@ -55,18 +55,19 @@ class UnitTest < ActiveSupport::TestCase
   test "lists open units" do
     klass = klasses(:stat101_sec01)
     course = klass.course
-
+    student = users(:one).self_student
+    
+    KlassEnrollment.enroll(klass, student)
+    assert_equal 1, Unit.open(klass, student).to_a.count
+     
     unit = course.units.last
-
+    
     u = unit.dup
     u.update(on_date: Time.zone.today)
     v = unit.dup
-    v.update(on_date: 7.days.from_now)
+    v.update(on_date: 0.days.from_now)
     w = unit.dup
     w.update(on_date: 14.days.from_now)
-
-    student = users(:one).self_student
-    KlassEnrollment.enroll(klass, student)
 
     assert_equal 3, Unit.open(klass, student).to_a.count
   end

@@ -1,44 +1,50 @@
 require 'test_helper'
 
-class Teach::QuestionsControllerTest < ActionController::TestCase
-  # test "should get index" do
-  #   get :index
-  #   assert_response :success
-  # end
+class Teach::QuestionsControllerTest < ActionDispatch::IntegrationTest
+  setup do
+    @course = courses(:stat101)
+    sign_in_as(users(:professor))
+  end
 
-  # test "should get new" do
-  #   get :new
-  #   assert_response :success
-  # end
+  test "load index page" do
+    get teach_course_questions_url(@course)
+    assert_response :success
+  end
 
-  # test "should get create" do
-  #   get :create
-  #   assert_response :success
-  # end
+  test "start a new question" do
+    get new_teach_course_question_url(@course, s: 'fill_one'), xhr: true
+    assert_response :success
+  end
 
-  # test "should get edit" do
-  #   get :edit
-  #   assert_response :success
-  # end
+  test "create a question" do
+    assert_difference('Question.count') do
+      post teach_course_questions_url(@course), params: {
+        question: {course_id: @course.id, kind: "fill_one", question: "This?", bank_list: ["", "main"],
+          options_attributes: {"0" => {"option"=>"that"}}} 
+      }, xhr: true
+      assert_response :success
+    end
+  end
 
-  # test "should get update" do
-  #   get :update
-  #   assert_response :success
-  # end
+  test "start editing question" do
+    get edit_teach_course_question_url(@course, @course.questions.first), xhr: true
+    assert_response :success
+  end
 
-  # test "should get destroy" do
-  #   get :destroy
-  #   assert_response :success
-  # end
+  test "update question" do
+    patch teach_course_question_url(@course, @course.questions.first), params: {
+        question: {course_id: @course.id, kind: "fill_one", question: "This?", bank_list: ["", "main"],
+          options_attributes: {"0" => {"option"=>"that"}}} 
+      }, xhr: true
+    assert_response :success
+  end
 
-  # test "should get include_in_lecture" do
-  #   get :include_in_lecture
-  #   assert_response :success
-  # end
+  test "destroy question" do
+    kind = @course.questions.first.kind
+    assert_difference('@course.questions.count', -1) do
+      delete teach_course_question_url(@course, @course.questions.first)
+    end
 
-  # test "should get sort_option" do
-  #   get :sort_option
-  #   assert_response :success
-  # end
-
+    assert_redirected_to teach_course_questions_url(@course, s: kind)
+  end
 end

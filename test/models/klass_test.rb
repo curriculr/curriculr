@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class KlassTest < ActiveSupport::TestCase
-	def setup
+	setup do
 		@klass = klasses(:eng101_sec02)
 	end
 

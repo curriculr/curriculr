@@ -20,7 +20,7 @@ u02_eng101:
   about: 
     Aenean lacinia bibendum nulla sed consectetur. Donec ullamcorper 
     nulla non metus auctor fringilla.
-  on_date: <%= Time.zone.today %>
+  on_date: <%= Time.zone.today + 7 %>
   based_on: <%= Time.zone.today %>
   for_days: 60
   previewed: false
@@ -45,7 +45,7 @@ u02_stat101:
   about: 
     Aenean lacinia bibendum nulla sed consectetur. Donec ullamcorper 
     nulla non metus auctor fringilla.
-  on_date: <%= Time.zone.today %>
+  on_date: <%= Time.zone.today + 7 %>
   based_on: <%= Time.zone.today %>
   for_days: 60
   previewed: false

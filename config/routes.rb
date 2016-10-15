@@ -65,11 +65,6 @@ Rails.application.routes.draw do
   get 'blogs', :to => 'pages#blogs', :as => 'blogs'
   get 'pages/localized/:slug', :to => 'pages#localized', :as => 'localized_page'
 
-  resources :faculty_applications do
-    put :approve, :on => :member
-    put :decline, :on => :member
-  end
-
 	# Courses Resources
   namespace :teach do
   	resources :courses, concerns: [:with_media, :with_materials, :assessable, :with_pages] do

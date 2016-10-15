@@ -4,7 +4,7 @@
 quiz_eng101:
   course: eng101
   unit: u01_eng101
-  lecture: l01_u01_eng101
+  lecture: l1_u01_eng101
   kind: quiz
   name: Porta Magna Sollicitudin Sem
   about: Donec id elit non mi porta gravida at eget metus.
@@ -47,7 +47,7 @@ final_eng101:
 quiz_stat101:
   course: stat101s
   unit: u01_stat101
-  lecture: l01_u01_stat101
+  lecture: l1_u01_stat101
   kind: quiz
   name: Porta Magna Sollicitudin Sem
   about: Donec id elit non mi porta gravida at eget metus.

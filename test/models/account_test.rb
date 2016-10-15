@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class AccountTest < ActiveSupport::TestCase
-  def setup
+  setup do
 		@account = accounts(:main)
 	end
 

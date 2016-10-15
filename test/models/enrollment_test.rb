@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class EnrollmentTest < ActiveSupport::TestCase
-	def setup
+	setup do
     @klass = klasses(:stat101_sec01)
     @user = users(:one)
     @student = @user.self_student

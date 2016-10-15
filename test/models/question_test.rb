@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class QuestionTest < ActiveSupport::TestCase
-  def setup
+  setup do
   	@fill_one = questions(:fill_one_eng101)
   	@fill_many = questions(:fill_many_eng101)
   	@pick_2_fill = questions(:pick_2_fill_eng101)

@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class AbilityTest < ActiveSupport::TestCase
-  def setup
+  setup do
   	@admin = users(:super)
   	@account = @admin.account
     @course_x = courses(:eng101)

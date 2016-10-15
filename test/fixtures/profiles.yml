@@ -31,6 +31,13 @@ assistant:
     mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis.
   public: true
 
+blogger:
+  user: blogger
+  about: 
+    Donec id elit non mi porta gravida at eget metus. Maecenas sed diam 
+    eget risus varius blandit sit amet non magna.
+  public: true
+  
 console:
   user: console
   about: 

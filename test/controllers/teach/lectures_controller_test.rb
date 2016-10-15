@@ -1,54 +1,65 @@
 require 'test_helper'
 
-class Teach::LecturesControllerTest < ActionController::TestCase
-  # test "should get show" do
-  #   get :show
-  #   assert_response :success
-  # end
+class Teach::LecturesControllerTest < ActionDispatch::IntegrationTest
+  setup do
+    @course = courses(:stat101)
+    @unit = @course.units.first
+    @lecture = @unit.lectures.first
+    sign_in_as(users(:professor))
+  end
+  
+  test "start new lecture" do
+    get new_teach_course_unit_lecture_url(@course, @unit), xhr: true
+    assert_response :success
+  end
 
-  # test "should get new" do
-  #   get :new
-  #   assert_response :success
-  # end
+  test "create lecture" do
+    assert_difference('Lecture.count') do
+      post teach_course_unit_lectures_url(@course, @unit), params: { 
+        lecture: {name: 'l03', about: 'Lecture 03', based_on: Time.zone.today.strftime('%Y-%m-%d'),
+          on_date: Time.zone.today.strftime('%Y-%m-%d')} 
+      }, xhr: true
+      assert_response :success
+    end
+  end
 
-  # test "should get create" do
-  #   get :create
-  #   assert_response :success
-  # end
+  test "show lecture" do
+    get teach_course_unit_lecture_url(@course, @unit, @lecture)
+    assert_response :success
+    assert_select 'h2', /#{@unit.name}/
+    assert_select 'a.item.active', /#{@lecture.name}/
+  end
 
-  # test "should get edit" do
-  #   get :edit
-  #   assert_response :success
-  # end
+  test "start editing lecture" do
+    get edit_teach_course_unit_lecture_url(@course, @unit, @lecture), xhr: true
+    assert_response :success
+  end
 
-  # test "should get update" do
-  #   get :update
-  #   assert_response :success
-  # end
+  test "update lecture" do
+    patch teach_course_unit_lecture_url(@course, @unit, @lecture), params: {lecture: { about: 'the first lecture of this unit'}}, xhr: true
+    assert_response :success
+  end
+  
+  test "allow or disallow discussion" do
+    put discuss_teach_course_unit_lecture_url(@course, @unit, @lecture)
+    assert_redirected_to teach_course_unit_url(@course, @unit) 
+    assert_not_equal @lecture.allow_discussion, Lecture.find(@lecture.id).allow_discussion
+  end
 
-  # test "should get destroy" do
-  #   get :destroy
-  #   assert_response :success
-  # end
+  test "sort lectures" do 
+    one = @unit.lectures.first
+    two = @unit.lectures.last
+    assert one.order < two.order
+    post sort_teach_course_unit_lectures_url(@course, @unit), params: {lecture: [two.id, one.id]}, xhr: true
+    assert_response :success
+    assert Lecture.find(one.id).order > Lecture.find(two.id).order
+  end
+  
+  test "destroy lecture" do
+    assert_difference('Lecture.count', -1) do
+      delete teach_course_unit_lecture_url(@course, @unit, @lecture)
+    end
 
-  # test "should get discuss" do
-  #   get :discuss
-  #   assert_response :success
-  # end
-
-  # test "should get delete_forum" do
-  #   get :delete_forum
-  #   assert_response :success
-  # end
-
-  # test "should get sort" do
-  #   get :sort
-  #   assert_response :success
-  # end
-
-  # test "should get content_sort" do
-  #   get :content_sort
-  #   assert_response :success
-  # end
-
+    assert_redirected_to teach_course_unit_url(@course, @unit)
+  end
 end

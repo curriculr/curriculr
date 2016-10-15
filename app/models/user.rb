@@ -8,9 +8,7 @@ class User < ActiveRecord::Base
 
   has_many :access_tokens, :dependent => :destroy
 
-  #has_and_belongs_to_many :parents, :class_name => 'User'
   has_many :students, :dependent => :destroy
-  has_many :klasses, :through => :enrollments
   has_many :blogs, :class_name => 'Page', :as => :owner
 
   validates :name, :email, presence: true
@@ -26,10 +24,6 @@ class User < ActiveRecord::Base
     parts.present? ? parts.last : nil
   end
 
-  def student?
-    enrollments.count > 0 ? true : false
-  end
-
   def self_student
     self.students.where("relationship = 'self'").first
   end
@@ -41,8 +35,6 @@ class User < ActiveRecord::Base
   def to_s
     name
   end
-
-  def public_profile; return profile.public; end
 
   def dependents
     self.students.where("relationship <> 'self'")

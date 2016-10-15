@@ -557,17 +557,3 @@ ar:
         name: الاسم
         avatar: الصورة
         relationship: علاقته بالمستخدم
-      faculty_application:
-        name: الاسم
-        about: السيرة الذاتية
-        prefix: البادئة
-        update_profile: حدث بياناتي الخاصة
-        course: اسم المقرر
-        description: نبذة عن المقرر
-        weeks: مدة الفصل بالأسابيع
-        workload: الجهد المطلوب (بالساعة في الأسبوع)
-        locale: اللغة
-        country: البلد
-        level_list: المستوى
-        category_list: التصنيف
-        approved: موافق عليه

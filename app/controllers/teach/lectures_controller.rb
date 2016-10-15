@@ -64,21 +64,21 @@ module Teach
       end
     end
 
-    def delete_forum
-      @lecture.forum = nil
-      @lecture.allow_discussion = false
-      @lecture.save
-      respond_with @lecture do |format|
-        format.html { redirect_to teach_course_unit_path(@course, @unit) }
-      end
-    end
+    # def delete_forum
+    #   @lecture.forum = nil
+    #   @lecture.allow_discussion = false
+    #   @lecture.save
+    #   respond_with @lecture do |format|
+    #     format.html { redirect_to teach_course_unit_path(@course, @unit) }
+    #   end
+    # end
 
     def sort
       params[:lecture].each_with_index do |id, i|
         Lecture.where(:id => id).update_all(order: i + 1)
       end
 
-      render nothing: true
+      head :ok
     end
 
     def content_sort
@@ -96,7 +96,7 @@ module Teach
         end
       end
 
-      render nothing: true
+      head :ok
     end
 
     private

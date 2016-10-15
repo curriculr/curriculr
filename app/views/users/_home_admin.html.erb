@@ -12,10 +12,6 @@
     </div>
   <% end %>
 
-  <% if current_account.config['allow_faculty_applications'] %>
-    <%= render :partial => 'faculty_applications/index' %>
-  <% end %>
-
   <% klasses = Klass.being_worked_on.distinct.to_a %>
   <%= ui_header t('page.title.being_worked_on') %>
   <% if klasses.present? %>

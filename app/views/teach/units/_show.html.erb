@@ -70,7 +70,7 @@
   </div>
 
   <div class="ui basic segment">
-   <%= ui_header Update.model_name.human(count: 3), style: :h3, action: link(:update, :new, new_teach_course_unit_update_path(@course, unit), class: 'ui primary button') %>
+   <%= ui_header Update.model_name.human(count: 3), style: :h3, action: link(:update, :new, new_teach_course_unit_update_path(@course, unit), remote: true, class: 'ui primary button') %>
    <%= t('page.text.unit_updates') %>
    <%= render partial: 'teach/updates/index', locals: { updates: updates } %>
   </div>

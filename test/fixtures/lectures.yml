@@ -2,7 +2,7 @@
 
 <% ['eng101', 'stat101'].each_with_index do |c, i| %>
   <% ['u01', 'u02'].each_with_index do |u, j| %>
-  <% (1..2).each do |l| %>
+  <% (1..2).each_with_index do |l, k| %>
 <%= %(l#{l}_#{u}_#{c}) %>:
   unit: <%= %(#{u}_#{c}) %>
   order: <%= l %>
@@ -10,7 +10,7 @@
   about: 
     Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. 
     Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.
-  on_date: <%= Time.zone.today %>
+  on_date: <%= Time.zone.today + (k * 7) %>
   based_on: <%= Time.zone.today %>
   for_days: 
   previewed: false

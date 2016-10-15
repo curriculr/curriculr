@@ -19,3 +19,7 @@ survey_tag:
 syllabus_tag:
   id: 5
   name: syllabus
+  
+faq_tag:
+  id: 6
+  name: faq

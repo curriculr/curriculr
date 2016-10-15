@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class ForumTest < ActiveSupport::TestCase
-  def setup 
+  setup do 
   	@forum = forums(:general_eng101_sec01)
   end
 

@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class UpdateTest < ActiveSupport::TestCase
-	def setup
+	setup do
 		@update = updates(:one)
 	end
 

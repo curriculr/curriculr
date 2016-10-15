@@ -416,17 +416,3 @@ en:
         name: Name
         avatar: Avatar
         relationship: Relationship to user
-      faculty_application:
-        name: Name
-        about: About you
-        prefix: Prefix
-        update_profile: Update my profile
-        course: Course title
-        description: Course description
-        weeks: Duration (in weeks)
-        workload: Estimated workload (in hours/week)?
-        locale: Language
-        country: Country
-        level_list: Levels
-        category_list: Categories
-        approved: Approved

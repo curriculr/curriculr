@@ -96,7 +96,7 @@ module Teach
         @question.save!(validate: false)
       end
 
-      render nothing: true
+      head :ok
     end
 
     def sort_option
@@ -104,7 +104,7 @@ module Teach
         @question.options.where(:id => id).update_all(order: i + 1)
       end
 
-      render nothing: true
+      head :ok
     end
 
     def destroy

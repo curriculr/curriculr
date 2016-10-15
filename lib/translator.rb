@@ -26,7 +26,7 @@ module Translator
   end
 
   def self.to_yaml(locale, keys)
-    keys = Translator.store.keys("#{locale}.#{keys}")
+    keys = Rails.application.secrets.redis_enabled ? Translator.store.keys("#{locale}.#{keys}") : []
     data = {}
     c = nil
 
@@ -52,7 +52,7 @@ module Translator
   end
 
   def self.translations(locale, keys)
-    keys = Translator.store.keys("#{locale}.#{keys}")
+    keys = Rails.application.secrets.redis_enabled ? Translator.store.keys("#{locale}.#{keys}") : []
     data = {}
     c = nil
 
@@ -78,7 +78,7 @@ module Translator
   end
 
   def self.to_hash(locale, keys)
-    keys = Translator.store.keys("#{locale}.#{keys}")
+    keys = Rails.application.secrets.redis_enabled ? Translator.store.keys("#{locale}.#{keys}") : []
     data = {}
 
     if keys.present?

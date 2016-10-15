@@ -1,5 +1,33 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
+# Course eng101
+c_one:
+  course: eng101
+  www: true
+  email: false
+  to: students
+  subject: Cursus Pellentesque Mattis Sollicitudin Tristique
+  body: 
+    Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec 
+    ullamcorper nulla non metus auctor fringilla. Donec ullamcorper nulla non 
+    metus auctor fringilla.
+  active: true
+  sent_at: <%= Time.zone.now %>
+
+# course stat101
+c_two:
+  course: stat101
+  www: true
+  email: false
+  to: students
+  subject: Mattis Tellus Vulputate Bibendum Tortor
+  body: 
+    Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Donec 
+    ullamcorper nulla non metus auctor fringilla. Nullam quis risus eget urna 
+    mollis ornare vel eu leo.
+  active: true
+  sent_at: <%= Time.zone.now %>
+  
 # Class eng101_sec02
 one:
   klass: eng101_sec02
@@ -27,3 +55,21 @@ two:
     mollis ornare vel eu leo.
   active: true
   sent_at: <%= Time.zone.now %>
+
+# For units
+<% ['eng101', 'stat101'].each_with_index do |c, i| %>
+  <% ['u01', 'u02'].each_with_index do |u, j| %>
+<%= %(c#{c}_u#{u}_one) %>:
+  unit: <%= %(#{u}_#{c}) %>
+  www: true
+  email: false
+  to: students
+  subject: Cursus Pellentesque Mattis Sollicitudin Tristique
+  body: 
+    Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec 
+    ullamcorper nulla non metus auctor fringilla. Donec ullamcorper nulla non 
+    metus auctor fringilla.
+  active: true
+  sent_at: <%= Time.zone.now %>
+  <% end %>
+<% end %>

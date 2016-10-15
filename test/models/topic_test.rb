@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class TopicTest < ActiveSupport::TestCase
-  def setup 
+  setup do 
   	@topic = topics(:topic_general_eng101_sec01)
   end
 

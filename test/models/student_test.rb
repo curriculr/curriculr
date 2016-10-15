@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class StudentTest < ActiveSupport::TestCase
-  def setup
+  setup do
   	@student = students(:one)
 	end
 

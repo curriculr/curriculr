@@ -4,7 +4,7 @@
 
 blog_post:
   account: main
-  owner: super(User)
+  owner: blogger(User)
   name: <%= words.sample(5).join(' ') %>
   about: 
     <%= words.sample(7).join(' ') %>. Donec id elit non mi porta gravida metus.

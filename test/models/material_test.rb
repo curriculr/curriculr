@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class MaterialTest < ActiveSupport::TestCase
-  def setup
+  setup do
 		@material = materials(:poster_eng101)
 	end
 
