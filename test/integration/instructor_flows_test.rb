@@ -20,27 +20,45 @@ class InstructorFlowsTest < ActionDispatch::IntegrationTest
     get teach_courses_path
     assert_response :success
     assert_select '.item .content .header', @course.name
+
+    get new_teach_course_url, xhr: true
+    assert_response :success
+    
+    post teach_courses_url, params: {
+      course: {slug: 'chem101', name: 'Chemistry 101', about: 'Consectetur Vulputate Dapibus Vehicula', locale: :en, weeks: 8, workload: 5}
+    }, xhr: true
+    assert_response :success
+    
+    c = Course.last
+    assert c.name == 'Chemistry 101'
+    get teach_course_url(c)
+    assert_response :success
+    assert_select 'nav .header', /#{c.name}/
+  end
+
+  # test 'visit class syllabus' do
+  #   get teach_course_page_url(@course, @course.syllabus)
+  #   assert_response :success
+  #   assert_select 'main h2', /Syllabus/
+  # end
+  
+  # test 'visit class Lectures' do
+  #   get teach_course_units_url(@course)
+  #   assert_redirected_to teach_course_unit_url(@course, @course.units.first)
+  #   assert_select 'main p', /A course is divided into/
+  # end
+  
+  test 'visit class Files' do
+    get teach_course_media_url(@course)
+    assert_response :success
+    assert_select 'main h2', /Files/
   end
   
-  # test 'can list courses and create new one' do
-  #   get new_teach
-  #   # fill_in 'course_slug', with: 'chem101'
-  #   # fill_in 'course_name', with: 'Chemistry 101'
-  #   # fill_in 'wmd-inputabout', with: Faker::Lorem.paragraphs(2).join("\n")
-  #   # fill_in 'course_weeks', with: 8
-  #   # fill_in 'course_workload', with: 5
-  #   #
-  #   # click_button 'Create'
-  #   #
-  #   # assert page.has_content?('Chemistry 101')
+  # test 'visit class classes' do
+  #   get teach_course_klasses_url(@course)
+  #   assert_response :success
+  #   assert_select 'main', /#{@course.klasses.first.slug}/
   # end
-  #
-  # test 'visit class syllabus' do
-  #   visit teach_course_page_path(@course, @course.syllabus)
-  #
-  #   assert page.has_content?(@course.syllabus.name)
-  # end
-  #
   # test 'can edit syllabus' do
   #   visit teach_course_path(@course)
   #

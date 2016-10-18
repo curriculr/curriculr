@@ -46,12 +46,13 @@ module Themes::Sunshine::UiComponentsHelper
   def ui_header(text, options = {})
     options[:style] ||= :h2
     right = ''
-    left = content_tag options[:style], class: "ui #{'left floated ' if options[:action]}#{'dividing ' if options[:dividing]}header" do
+    left = (content_tag options[:style], class: "ui #{'left floated ' if options[:action]}#{'dividing ' if options[:dividing]}header" do
       hdr = text
       hdr << content_tag(:div, options[:subtext], class: 'sub header') if options[:subtext].present?
       
       hdr.html_safe
-    end
+    end)
+    
     if options[:action]
       right = content_tag(:div, options[:action].html_safe, class: 'ui right floated header') if options[:action].present?
       content_tag(:div, left + right, class: 'page clearing header')
@@ -85,8 +86,8 @@ module Themes::Sunshine::UiComponentsHelper
       end
     else
       action = ''
-      action << default_action if default_action.present?
-      action
+      action << ui_buttons([default_action]) if default_action.present?
+      action.html_safe
     end
   end
 
@@ -101,9 +102,10 @@ module Themes::Sunshine::UiComponentsHelper
   end
   
   def ui_dropdown_button(text, links, options = {class: 'ui dropdown primary button'})
-    content_tag :div, class: options[:class] do
-      html = content_tag :span, text, class: 'text'
-      html << ui_icon('dropdown')
+    content_tag :div, class: (options[:class] || 'ui dropdown primary button') do
+      html = ''
+      html << content_tag(:span, text, class: 'text') unless text.blank?
+      html << (options[:icon] || ui_icon('dropdown'))
       html << content_tag(:div, links.join("\n").html_safe, class: 'menu')
       
       html.html_safe

@@ -17,6 +17,10 @@ professor:
 assistant:
   user: assistant
   relationship: self
+  
+bloggger:
+  user: blogger
+  relationship: self
 
 console:
   user: console
@@ -37,3 +41,7 @@ two:
 three:
   user: three
   relationship: self
+  
+four:
+  user: two
+  relationship: child

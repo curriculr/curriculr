@@ -55,7 +55,6 @@ gem 'pg'
 gem 'redis'
 gem 'sidekiq'
 gem 'sinatra', require: false
-#gem 'slim'
 gem 'redis-namespace'
 gem 'nokogiri'
 gem 'bcrypt'
@@ -84,12 +83,4 @@ gem 'responders'
 gem 'acts-as-taggable-on', github: 'mbleigh/acts-as-taggable-on'
 gem 'jquery-timepicker-rails'
 gem 'jquery-fileupload-rails'
-# gem 'whenever', :require => false
-# gem 'prawn'
-
-# group :test do
-#   gem 'faker'
-#   gem 'capybara'
-#   gem 'launchy'
-#   gem 'selenium-webdriver'
-# end
+gem 'whenever', :require => false

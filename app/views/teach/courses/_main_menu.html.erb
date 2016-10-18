@@ -12,7 +12,15 @@
   </div>
   <div class="right menu">
     <div class="item">
-      <%= link_to t('helpers.submit.leave_course'), main_app.home_path, class: "ui secondary button" %>
+      <%= 
+        main_menu 
+        items = []
+        app_menus(:top)[:_].each do |item|
+          items << link_to(item[:link], item[:to], remote: item[:remote], class: 'item')
+        end 
+        ui_buttons [
+          link_to(t('helpers.submit.leave_course'), main_app.home_path, class: "ui secondary button"),
+          ui_dropdown_button(nil, items, icon: ui_icon('list'))] %>
     </div>
   </div>
 </div>

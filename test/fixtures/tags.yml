@@ -23,3 +23,7 @@ syllabus_tag:
 faq_tag:
   id: 6
   name: faq
+  
+books_tag:
+  id: 7
+  name: books

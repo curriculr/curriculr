@@ -45,6 +45,6 @@ class Teach::QuestionsControllerTest < ActionDispatch::IntegrationTest
       delete teach_course_question_url(@course, @course.questions.first)
     end
 
-    assert_redirected_to teach_course_questions_url(@course, s: kind)
+    assert_redirected_to teach_course_questions_url(@course, s: kind.split('_').first)
   end
 end

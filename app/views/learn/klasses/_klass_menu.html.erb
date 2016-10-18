@@ -14,6 +14,7 @@
     </div>
     &nbsp;&nbsp;
     <%= ui_klass_enrollment_action(@klass, :drop) if @klass.enrolled?(current_student) if @klass.enrolled?(current_student) %>
-    <%= staff_or_student_view(render(:partial => 'learn/klasses/student_picker')) %>
+    &nbsp;&nbsp;
+    <%= staff_or_student_view(render(:partial => 'learn/klasses/student_picker').html_safe) %>
   </div>
 </div>

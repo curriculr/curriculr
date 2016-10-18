@@ -32,9 +32,14 @@ class Ability
           can :drop, Klass
           can [ :index, :show, :show_page, :show_material, :show_question, :show_assessment ], Lecture
           can [ :index, :show ], [ Forum, Topic ]
-          can [ :new, :create, :edit, :update, :up, :down, :destroy ], [ Topic, Post ] if klass.open?
+          if klass.open?
+            can [ :new, :create, :up, :down], [ Topic, Post ]
+            can [ :edit, :update, :destroy ], [ Topic, Post ] do |post|
+              post.author == user || KlassEnrollment.staff?(user, klass)
+            end
+          end
           can [ :show, :localized, :index ], Page, :published => true
-          can :index, Material
+          can [:index, :show], Material
 
           can [ :show, :index ], Assessment, :ready => true
           can :new, Attempt do |attempt|

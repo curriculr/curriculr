@@ -1,5 +1,7 @@
 module MenuHelper
   def main_menu
+    add_to_app_menu :top, link: t('page.title.dashboard'), to: main_app.home_path, active: (action_name =='home' && controller_name == 'users') if current_user
+
     add_to_app_menu :top, link: link_text(:klass, :learn), to: main_app.learn_klasses_path, active: @course.blank? && (controller_name == 'klasses' || @klass.present?)
 
     if current_user && (current_user.has_role?(:admin) || current_user.has_role?(:faculty))

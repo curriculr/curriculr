@@ -45,7 +45,7 @@ final_eng101:
 
 # Course stat101
 quiz_stat101:
-  course: stat101s
+  course: stat101
   unit: u01_stat101
   lecture: l1_u01_stat101
   kind: quiz

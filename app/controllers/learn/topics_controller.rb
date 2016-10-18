@@ -95,7 +95,7 @@ module Learn
 
       respond_with @topic do |format|
         if @topic.destroy
-          format.html { redirect_to learn_klass_forums_path(@klass, @forum) }
+          format.html { redirect_to learn_klass_forums_path(@klass) }
         end
       end
     end

@@ -1,4 +1,4 @@
-<%= ui_header Student.model_name.human(count: 3), action: link(:student, :new, new_learn_student_path, 
+<%= ui_header Student.model_name.human(count: 3), action: link(:student, :new, new_learn_student_path, remote: true, 
     :class => "ui positive button") %>
 
 <table class="ui striped selectable small table">
@@ -13,12 +13,12 @@
 	<tbody id="all-users">
     <% @students.each do |student| %>
     <tr>
-      <td><%= image_tag student.avatar_url(current_account, :tny)  %></td>
+      <td><%= image_tag student.avatar_url(current_account, :tny), class: 'ui avatar image'  %></td>
       <td><%= student.name %></td>
       <td><%= t("config.relationship.#{student.relationship}") %></td>
       <td>
     		<%= ui_buttons [
-          link(:student, :edit, edit_learn_student_path(student), class: "ui positive button"),
+          link(:student, :edit, edit_learn_student_path(student), remote: true, class: "ui positive button"),
           link(:student, :destroy, [:learn, student], :method => :delete, confirm: true, class: "ui negative button")] %>
       </td>
     </tr>

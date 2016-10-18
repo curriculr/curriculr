@@ -5,6 +5,7 @@ class Admin::ConfigControllerTest < ActionDispatch::IntegrationTest
     @admin = users(:super)
     sign_in_as(@admin)
   end
+  
   test "edit configurations" do
     get admin_config_edit_url
     assert_response :success

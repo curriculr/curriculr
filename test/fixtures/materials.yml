@@ -13,4 +13,10 @@ promo_<%= c %>:
   kind: video
   order: 1
 
+books_<%= c %>:
+  owner: <%= c %>(Course)
+  medium: document_<%= c %>
+  kind: document
+  order: 1
+
 <% end %>

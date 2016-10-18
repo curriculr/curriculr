@@ -39,76 +39,7 @@
     <div class="eight wide column"><%= content %></div>
 
     <div class="four wide column">
-      <div class="ui feed">
-        <%= render 'learn/instructors/index' %>
-
-        <% categories = []
-           Translator.to_hash(I18n.locale, "#{current_account.slug}.site.category.*").each_with_index do |l, i|
-             if Course.scoped.tagged_with(l.first, :on => :categories).to_a.include? @klass.course
-               categories << l.second
-             end
-           end %>
-        <% unless categories.empty? %>
-          <div class="event">
-            <div class="label"><%= ui_icon(:book) %></div>
-            <div class="content">
-              <div class="summary"><%= categories.join(', ') %></div>
-            </div>
-          </div>
-        <% end %>
-
-        <% levels = []
-           Translator.to_hash(I18n.locale, "#{current_account.slug}.site.level.*").each_with_index do |l, i|
-             if Course.scoped.tagged_with(l.first, :on => :levels).to_a.include? @klass.course
-               levels << l.second
-             end
-           end %>
-        <% unless levels.empty? %>
-          <div class="event">
-            <div class="label"><%= ui_icon(:tags) %></div>
-            <div class="content">
-              <div class="summary"><%= levels.join(', ') %></div>
-            </div>
-          </div>
-        <% end %>
-
-        <% events = {
-            weeks: [ui_icon(:calendar), t('page.text.lasts_for', weeks: @klass.course.weeks)],
-            workload: [ui_icon(:calculator), t('page.text.workload_per_week', workload: @klass.course.workload)],
-            locale: [ui_icon(:world), $site['supported_locales'][@klass.course.locale.to_s]],
-            country: [ui_icon(:flag), flag_tag(@klass.course.country)]
-          } %>
-        <% events.each do |field, data| %>
-          <% if @klass.course[field].present? %>
-            <div class="event">
-              <div class="label"><%= data[0] %></div>
-              <div class="content">
-                <div class="summary"><%= data[1] %></div>
-              </div>
-            </div>
-          <% end %>
-        <% end %>
-
-        <div class="event">
-          <div class="label"><%= ui_icon(:shipping) %></div>
-          <div class="content">
-            <div class="summary"><%= ui_klass_enrollment_action @klass, :enroll %></div>
-          </div>
-        </div>
-
-        <div class="event">
-          <div class="label"></div>
-          <div class="content">
-            <div class="summary">
-              <div class='center aligned three buttons'>
-                <%= ui_facebook_link(@klass) %>
-                <%= ui_twitter_link(@klass) %>
-                <%= ui_google_plus_link(@klass) %>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <%= render 'klass_feed', enrolled: false %>
     </div>
   </div>
 </div>

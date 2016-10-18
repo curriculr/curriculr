@@ -7,10 +7,6 @@
   <% end %>
   
   <div class="right menu">
-    <%= link_to main_app.home_path, class: (action_name =='home' && controller_name == 'users') ? 'active item' : 'item'  do %>
-      <%= t('page.title.dashboard') %>
-    <% end if current_user %>
-    <%# render 'users/user_menu_popup' %>
     <% app_menu(:top).each do |item| %>
       <%= link_to item[:link], item[:to], class: "#{item[:active] ? 'active ' : nil} item" %>
     <% end %>

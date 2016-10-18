@@ -111,7 +111,6 @@ Rails.application.routes.draw do
     resources :students
 
     resources :klasses, :only => [:index, :show] do
-      resources :instructors, :only => :index
       resources :lectures, :only => [:index, :show] do
         member do
           get :assessments, :as => :show_assessments_of, :to => 'lectures#show_assessments'

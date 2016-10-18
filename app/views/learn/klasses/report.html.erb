@@ -1,8 +1,7 @@
 <% content_for :main_aside do %>
   <div class="ui inverted segment">
-  
-  <%= render :partial => 'reports/score', :locals => { klass: @klass, student: @student } %>
-  <%= render :partial => 'reports/participation', :locals => { klass: @klass, student: @student } %>
+    <%= render :partial => 'reports/score', :locals => { klass: @klass, student: @student } %>
+    <%= render :partial => 'reports/participation', :locals => { klass: @klass, student: @student } %>
   </div>
 <% end %>
 

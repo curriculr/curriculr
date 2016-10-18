@@ -5,7 +5,7 @@
 post_<%= %(#{f}_#{k}) %> :
   forum: <%= %(#{f}_#{k}) %>
   topic: topic_<%= %(#{f}_#{k}) %>
-  author: <%= k =~ /eng101/ ? 'assistant' : 'professor' %>(User)
+  author: one(User)
   about: 
     Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. 
     Donec sed odio dui. Maecenas sed diam eget risus varius blandit sit 

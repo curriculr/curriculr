@@ -1,6 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-# yllabus
+# syllabus
 <% ['syllabus_eng101', 'syllabus_stat101'].each do |p| %>
 tagging_<%= p %>:
   tag_id: 5
@@ -15,6 +15,15 @@ tagging_<%= p %>:
   tag_id: 6
   taggable_id: <%= ActiveRecord::FixtureSet.identify(p) %>
   taggable_type: Page
+  context: tags
+<% end %>
+
+# books
+<% ['books_eng101', 'books_stat101'].each do |p| %>
+tagging_<%= p %>:
+  tag_id: 7
+  taggable_id: <%= ActiveRecord::FixtureSet.identify(p) %>
+  taggable_type: Material
   context: tags
 <% end %>
 

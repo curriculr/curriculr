@@ -14,8 +14,13 @@
       </div>
     </div>
     <div class="extra content">
-      <%= render partial: 'learn/dashboard/show', locals: {klass: @klass} if staff?(current_user, @klass) %>
+      <%= render 'klass_feed', enrolled: true %>
     </div>
+    <% if staff?(current_user, @klass)  %>
+      <div class="extra content">
+        <%= render partial: 'learn/dashboard/show', locals: {klass: @klass} %>
+      </div>
+    <% end %>
   </div>
 <% end %>
 

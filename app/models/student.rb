@@ -6,12 +6,13 @@ class Student < ActiveRecord::Base
   validates :name, :presence => true, :if => Proc.new { |s| s.relationship != 'self' }
   validates :name, uniqueness: { :scope => [ :user_id ] }, :if => Proc.new { |s| s.relationship != 'self' }
   
-  def name 
-    if relationship == 'self'
-      user.name
-    else
-      read_attribute(:name)
-    end
+  def name
+    super || user.name
+    # if relationship == 'self'
+    #   user.name
+    # else
+    #   read_attribute(:name)
+    # end
   end
 
   def email

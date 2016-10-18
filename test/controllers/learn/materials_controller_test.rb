@@ -1,34 +1,18 @@
 require 'test_helper'
 
-class Learn::MaterialsControllerTest < ActionController::TestCase
-  # test "should get show" do
-  #   get :show
-  #   assert_response :success
-  # end
+class Learn::MaterialsControllerTest < ActionDispatch::IntegrationTest
+   setup do
+     @user = users(:three)
+     @course = courses(:eng101)
+     @klass = @course.klasses.first
+     @material = @course.books.first
+     KlassEnrollment.enroll(@klass, @user.self_student)
 
-  # test "should get new" do
-  #   get :new
-  #   assert_response :success
-  # end
+     sign_in_as(@user)
+   end
 
-  # test "should get new_medium" do
-  #   get :new_medium
-  #   assert_response :success
-  # end
-
-  # test "should get create" do
-  #   get :create
-  #   assert_response :success
-  # end
-
-  # test "should get create_medium" do
-  #   get :create_medium
-  #   assert_response :success
-  # end
-
-  # test "should get destroy" do
-  #   get :destroy
-  #   assert_response :success
-  # end
-
+  test "show material" do
+    get learn_klass_material_url(@klass, @material)
+    assert_redirected_to @material.at_url 
+  end
 end

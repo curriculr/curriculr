@@ -1,5 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
+# For course
 <% ['eng101', 'stat101'].each do |c| %>
   <% %w(fill_one fill_many pick_2_fill pick_one pick_many match sort).each do |k| %>
 <%= k %>_<%= c %>:
@@ -13,5 +14,48 @@
   explanation: Fringilla Tortor Pharetra Parturient Cras
   order: 1
   include_in_lecture: false
+  <% end %>
+<% end %>
+
+# For unit
+<% ['eng101', 'stat101'].each do |c| %>
+  <% ['u01', 'u02'].each_with_index do |u, j| %>
+    <% %w(fill_one fill_many pick_2_fill pick_one pick_many match sort).each do |k| %>
+<%= k %>_<%= u %>_<%= c %>:
+  course: <%= c %>
+  unit: <%= u %>
+  kind: <%= k %>
+  question: 
+    Maecenas ... faucibus mollis interdum ... Vivamus sagittis lacus vel augue 
+    laoreet rutrum faucibus dolor auctor. Maecenas faucibus mollis 
+    interdum. Nullam id dolor id nibh ultricies vehicula ut id elit ...
+  hint: Aenean Egestas Vehicula Inceptos
+  explanation: Fringilla Tortor Pharetra Parturient Cras
+  order: 1
+  include_in_lecture: false
+    <% end %>
+  <% end %>
+<% end %>
+
+# For lecture
+<% ['eng101', 'stat101'].each do |c| %>
+  <% ['u01', 'u02'].each_with_index do |u, j| %>
+    <% (1..2).each do |l| %>
+      <% %w(fill_one fill_many pick_2_fill pick_one pick_many match sort).each do |k| %>
+<%= k %>_l<%= l %>_<%= u %>_<%= c %>:
+  course: <%= c %>
+  unit: <%= %(#{u}_#{c}) %>
+  lecture: <%= %(l#{l}_#{u}_#{c}) %>
+  kind: <%= k %>
+  question: 
+    Maecenas ... faucibus mollis interdum ... Vivamus sagittis lacus vel augue 
+    laoreet rutrum faucibus dolor auctor. Maecenas faucibus mollis 
+    interdum. Nullam id dolor id nibh ultricies vehicula ut id elit ...
+  hint: Aenean Egestas Vehicula Inceptos
+  explanation: Fringilla Tortor Pharetra Parturient Cras
+  order: 1
+  include_in_lecture: true
+      <% end %>
+    <% end %>
   <% end %>
 <% end %>

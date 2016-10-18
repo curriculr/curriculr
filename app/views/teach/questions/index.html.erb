@@ -97,6 +97,7 @@ end %>
       <div id="all-questions" class="ui three cards">
         <%= render partial: "teach/questions/question", collection: @questions, locals: { show_answer: false } %>
       </div>
+      <br>
       <div id="paginator-bottom"><%= paginate @questions, :remote => true %></div>
     </div>
   </div>

@@ -1,39 +1,32 @@
 require 'test_helper'
 
-class Learn::PostsControllerTest < ActionController::TestCase
-  # test "should get new" do
-  #   get :new
-  #   assert_response :success
-  # end
+class Learn::PostsControllerTest < ActionDispatch::IntegrationTest
+  setup do
+    @user = users(:one)
+    @course = courses(:stat101)
+    @klass = @course.klasses.first
+    @forum = @klass.forums.first
+    @topic = @forum.topics.first
+    @post = @topic.posts.first
+    KlassEnrollment.enroll(@klass, @user.self_student)
 
-  # test "should get create" do
-  #   get :create
-  #   assert_response :success
-  # end
+    sign_in_as(@user)
+  end
 
-  # test "should get edit" do
-  #   get :edit
-  #   assert_response :success
-  # end
+  test "create post" do
+    assert_difference('Post.count') do
+      post learn_klass_forum_topic_posts_url(@klass, @forum, @topic), params: {
+        post: {name: "First post", about: "just about anything", anonymous: true}
+      }, xhr: true
+      assert_response :success
+    end
+  end
+  
+  test "destroy post" do
+    assert_difference('Post.count', -1) do
+      delete learn_klass_forum_topic_post_url(@klass, @forum, @topic, @post)
+    end
 
-  # test "should get update" do
-  #   get :update
-  #   assert_response :success
-  # end
-
-  # test "should get destroy" do
-  #   get :destroy
-  #   assert_response :success
-  # end
-
-  # test "should get up" do
-  #   get :up
-  #   assert_response :success
-  # end
-
-  # test "should get down" do
-  #   get :down
-  #   assert_response :success
-  # end
-
+    assert_redirected_to learn_klass_forum_topic_path(@klass, @forum, @topic)
+  end
 end
