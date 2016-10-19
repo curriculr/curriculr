@@ -20,7 +20,7 @@ namespace :curriculr do
       if Rails.env.production? 
         db_name = Rails.application.secrets.database["name"]
       else
-        db_name = "#{Rails.application.secrets.database["name"]}_development"
+        db_name = "#{Rails.application.secrets.database["name"]}_#{Rails.env}"
       end
 
       db_user = Rails.application.secrets.database["username"]
@@ -41,7 +41,7 @@ namespace :curriculr do
       if Rails.env.production? 
         db_name = Rails.application.secrets.database["name"]
       else
-        db_name = "#{Rails.application.secrets.database["name"]}_development"
+        db_name = "#{Rails.application.secrets.database["name"]}_#{Rails.env}"
       end
 
       db_user = Rails.application.secrets.database["username"]

@@ -9,13 +9,24 @@ class InstructorFlowsTest < ActionDispatch::IntegrationTest
     @page = @course.pages.second
 
     sign_in_as(@instructor)
-    get home_path
   end
 
   teardown do 
     sign_out
   end
 
+  test 'can sign in' do
+    sign_out
+    
+    get home_url
+    assert_redirected_to auth_signin_url
+    follow_redirect!
+    assert_select 'div.message', /You must sign in first to access this page/
+    post url_for(controller: 'auth/sessions', action: 'create'), params: {
+       user: {email: @instructor.email, password: 'password'}}
+    assert_redirected_to home_url
+  end
+  
   test 'can list courses and create new one' do
     get teach_courses_path
     assert_response :success
@@ -36,309 +47,47 @@ class InstructorFlowsTest < ActionDispatch::IntegrationTest
     assert_select 'nav .header', /#{c.name}/
   end
 
-  # test 'visit class syllabus' do
-  #   get teach_course_page_url(@course, @course.syllabus)
-  #   assert_response :success
-  #   assert_select 'main h2', /Syllabus/
-  # end
+  test 'visit course syllabus' do
+    get teach_course_page_url(@course, @course.syllabus)
+    assert_response :success
+    assert_select 'main', /#{@course.syllabus.about}/
+  end
   
-  # test 'visit class Lectures' do
-  #   get teach_course_units_url(@course)
-  #   assert_redirected_to teach_course_unit_url(@course, @course.units.first)
-  #   assert_select 'main p', /A course is divided into/
-  # end
+  test 'visit course lectures' do
+    get teach_course_units_url(@course)
+    assert_redirected_to teach_course_unit_url(@course, @course.units.first)
+    follow_redirect!
+    assert_select 'main', /A course is divided into/
+  end
   
-  test 'visit class Files' do
+  test 'visit course files' do
     get teach_course_media_url(@course)
     assert_response :success
     assert_select 'main h2', /Files/
   end
   
-  # test 'visit class classes' do
-  #   get teach_course_klasses_url(@course)
-  #   assert_response :success
-  #   assert_select 'main', /#{@course.klasses.first.slug}/
-  # end
-  # test 'can edit syllabus' do
-  #   visit teach_course_path(@course)
-  #
-  #   visit edit_teach_course_page_path(@course, @course.syllabus)
-  #
-  #   description = Faker::Lorem.paragraphs(3).join("\n")
-  #   fill_in 'wmd-inputabout', with: description
-  #
-  #   click_button 'Update'
-  #
-  #   assert page.has_content?(description)
-  # end
-  #
-  # test 'can create assessment' do
-  #   visit teach_course_path(@course)
-  #
-  #   visit new_teach_course_assessment_path(@course, t: 'final')
-  #
-  #   name = Faker::Lorem.words(2).join(" ")
-  #   fill_in 'assessment_penalty', with: '5'
-  #   fill_in 'assessment_name', with: name
-  #   fill_in 'assessment_from_datetime', with: Time.zone.today
-  #   fill_in 'assessment_to_datetime', with: 10.days.from_now
-  #   fill_in 'assessment_allowed_attempts', with: '2'
-  #
-  #   click_button 'Create'
-  #
-  #   assert page.has_content?(name)
-  # end
-  #
-  # test 'can edit assessment' do
-  #   @assessment = assessments(:final_eng101)
-  #
-  #   visit teach_course_path(@course)
-  #
-  #   visit edit_teach_course_assessment_path(@course, @assessment)
-  #
-  #   name = Faker::Lorem.words(2).join(" ")
-  #   fill_in 'assessment_penalty', with: '5'
-  #   fill_in 'assessment_name', with: name
-  #   fill_in 'assessment_from_datetime', with: Time.zone.today
-  #   fill_in 'assessment_to_datetime', with: 15.days.from_now
-  #   fill_in 'assessment_allowed_attempts', with: '5'
-  #
-  #   click_button 'Update'
-  #
-  #   assert page.has_content?(name)
-  # end
-  #
-  # test 'can add people' do
-  #   visit teach_course_path(@course)
-  #
-  #   visit new_teach_course_instructor_path(@course)
-  #
-  #   name = Faker::Lorem.words(2).join(" ")
-  #   fill_in 'instructor_email', with: 'one@bar.foo'
-  #   select('Assistant', :from => 'instructor_role')
-  #   fill_in 'instructor_name', with: name
-  #   fill_in 'wmd-inputabout', with: Faker::Lorem.paragraphs(3).join("\n")
-  #
-  #   click_button 'Create'
-  #
-  #   assert page.has_content?(name)
-  # end
-  #
-  # test 'can edit people' do
-  #   user = users(:three)
-  #   assisstant = instructors(:instructor_eng101)
-  #
-  #   visit teach_course_path(@course)
-  #
-  #   visit edit_teach_course_instructor_path(@course, assisstant)
-  #
-  #   name = Faker::Lorem.words(2).join(" ")
-  #   select('Assistant', :from => 'instructor_role')
-  #   fill_in 'instructor_name', with: name
-  #   fill_in 'wmd-inputabout', with: Faker::Lorem.paragraphs(3).join("\n")
-  #
-  #   click_button 'Update'
-  #
-  #   assert page.has_content?(name)
-  # end
-  #
-  # # scenario 'can add books' do
-  # #   visit teach_course_path(@course)
-  #
-  # #   visit new_teach_course_material_path(@course, s: 'document', t: 'books')
-  #
-  # #   save_and_open_page
-  # # end
-  #
-  # test 'can create a page' do
-  #   visit teach_course_path(@course)
-  #
-  #   visit new_teach_course_page_path(@course)
-  #
-  #   name = Faker::Lorem.words(3).join(" ")
-  #   fill_in 'page_name', with: name
-  #   fill_in 'wmd-inputabout', with: Faker::Lorem.paragraphs(3).join("\n")
-  #
-  #   click_button 'Create'
-  #
-  #   assert page.has_content?(name)
-  # end
-  #
-  # test 'can edit a page' do
-  #   visit teach_course_path(@course)
-  #
-  #   visit edit_teach_course_page_path(@course, @page)
-  #
-  #   name = Faker::Lorem.words(3).join(" ")
-  #   fill_in 'page_name', with: name
-  #   fill_in 'wmd-inputabout', with: Faker::Lorem.paragraphs(3).join("\n")
-  #
-  #   click_button 'Update'
-  #
-  #   assert page.has_content?(name)
-  # end
-  #
-  # test 'can create a survey' do
-  #   visit teach_course_path(@course)
-  #
-  #   visit new_teach_course_assessment_path(@course, t: 'survey')
-  #
-  #   name = Faker::Lorem.words(2).join(" ")
-  #   fill_in 'assessment_name', with: name
-  #   fill_in 'assessment_from_datetime', with: Time.zone.today
-  #   fill_in 'assessment_to_datetime', with: 10.days.from_now
-  #   select('On class enrollment', :from => 'assessment_event_list')
-  #
-  #   click_button 'Create'
-  #
-  #   assert page.has_content?(name)
-  # end
-  #
-  # test 'can create a unit' do
-  #   visit teach_course_path(@course)
-  #
-  #   visit new_teach_course_unit_path(@course)
-  #
-  #   name = Faker::Lorem.words(2).join(" ")
-  #   fill_in 'unit_name', with: name
-  #   fill_in 'wmd-inputabout', with: Faker::Lorem.paragraphs(2).join("\n")
-  #   fill_in 'unit_on_date', with: Time.zone.today
-  #   fill_in 'unit_for_days', with: '10'
-  #
-  #   click_button 'Create'
-  #
-  #   assert page.has_content?(name)
-  # end
-  #
-  # test 'can edit a unit' do
-  #   visit teach_course_path(@course)
-  #
-  #   visit edit_teach_course_unit_path(@course, @unit)
-  #
-  #   name = Faker::Lorem.words(2).join(" ")
-  #   fill_in 'unit_name', with: name
-  #   fill_in 'wmd-inputabout', with: Faker::Lorem.paragraphs(2).join("\n")
-  #   fill_in 'unit_on_date', with: Time.zone.today
-  #   fill_in 'unit_for_days', with: '10'
-  #
-  #   click_button 'Update'
-  #
-  #   assert page.has_content?(name)
-  # end
-  #
-  # test 'can create a lecture in the unit' do
-  #   visit teach_course_path(@course)
-  #
-  #   visit new_teach_course_unit_lecture_path(@course, @unit)
-  #
-  #   name = Faker::Lorem.words(2).join(' ')
-  #   fill_in 'lecture_name', with: name
-  #   fill_in 'lecture_about', with: Faker::Lorem.paragraphs(3).join("\n")
-  #   fill_in 'lecture_on_date', with: Time.zone.today
-  #   fill_in 'lecture_for_days', with: '15'
-  #   fill_in 'lecture_points', with: '5'
-  #
-  #   click_button 'Create'
-  #
-  #   assert page.has_content?(name)
-  # end
-  #
-  # # test 'can edit a lecture in the unit' do
-  # #   visit teach_course_path(@course)
-  #
-  # #   visit edit_teach_course_unit_lecture_path(@course, @unit, @lecture)
-  #
-  # #   name = Faker::Lorem.words(2).join(' ')
-  # #   fill_in 'lecture_name', with: name
-  # #   fill_in 'lecture_about', with: Faker::Lorem.paragraphs(3).join("\n")
-  # #   fill_in 'lecture_on_date', with: Time.zone.today
-  # #   fill_in 'lecture_for_days', with: '15'
-  # #   fill_in 'lecture_points', with: '5'
-  #
-  # #   click_button 'Update'
-  #
-  # #   assert page.has_content?(name)
-  #
-  # #   save_and_open_page
-  # # end
-  #
-  # test 'can create an assessment in the unit' do
-  #   visit teach_course_path(@course)
-  #
-  #   visit  new_teach_course_unit_assessment_path(@course, @unit, t: 'quiz')
-  #
-  #   name = Faker::Lorem.words(2).join(" ")
-  #   fill_in 'assessment_penalty', with: '5'
-  #   fill_in 'assessment_name', with: name
-  #   fill_in 'assessment_from_datetime', with: Time.zone.today
-  #   fill_in 'assessment_to_datetime', with: 15.days.from_now
-  #   fill_in 'assessment_allowed_attempts', with: '5'
-  #
-  #   click_button 'Create'
-  #
-  #   assert page.has_content?(name)
-  # end
-  #
-  # test 'can edit an assessment in the unit' do
-  #   @assessment = assessments(:problem_eng101)
-  #
-  #   visit teach_course_path(@course)
-  #
-  #   visit  edit_teach_course_unit_assessment_path(@course, @unit, @assessment)
-  #
-  #   name = Faker::Lorem.words(2).join(" ")
-  #   fill_in 'assessment_penalty', with: '5'
-  #   fill_in 'assessment_name', with: name
-  #   fill_in 'assessment_from_datetime', with: Time.zone.today
-  #   fill_in 'assessment_to_datetime', with: 15.days.from_now
-  #   fill_in 'assessment_allowed_attempts', with: '5'
-  #
-  #   click_button 'Update'
-  #
-  #   assert page.has_content?(name)
-  # end
-  #
-  # test 'can create a page in the unit' do
-  #   visit teach_course_path(@course)
-  #
-  #   visit  new_teach_course_unit_page_path(@course, @unit)
-  #
-  #   name = Faker::Lorem.words(3).join(" ")
-  #   fill_in 'page_name', with: name
-  #   fill_in 'wmd-inputabout', with: Faker::Lorem.paragraphs(3).join("\n")
-  #
-  #   click_button 'Create'
-  #
-  #   assert page.has_content?(name)
-  # end
-  #
-  # test 'can edit a page in the unit' do
-  #   visit teach_course_path(@course)
-  #
-  #   visit  edit_teach_course_unit_page_path(@course, @unit, @page)
-  #
-  #   name = Faker::Lorem.words(3).join(" ")
-  #   fill_in 'page_name', with: name
-  #   fill_in 'wmd-inputabout', with: Faker::Lorem.paragraphs(3).join("\n")
-  #
-  #   click_button 'Update'
-  #
-  #   assert page.has_content?(name)
-  # end
-
-  # test 'can add a document in the unit' do
-  #   visit teach_course_path(@course)
-
-  #   visit  new_teach_course_unit_material_path(@course, @unit, s: 'document')
-
-  #   save_and_open_page
-  # end
-
-  # test 'can add a file' do
-  #   visit teach_course_path(@course)
-
-  #   visit multi_new_teach_course_medium_path(@course)
-
-  #   save_and_open_page
-  # end
+  test 'visit course klasses' do
+    get teach_course_klasses_url(@course)
+    assert_response :success
+    assert_select 'h2', /#{@course.klasses.last.slug}/
+  end
+  
+  test 'visit course questions' do
+    get teach_course_questions_url(@course)
+    assert_response :success
+    assert_select 'main', /A course might have many questions distributed across its units and lectures/
+  end
+  
+  test 'visit course settings' do
+    get settings_teach_course_url(@course)
+    assert_response :success
+    assert_select 'h2', /Course settings/
+  end
+  
+  test 'can sign out' do
+    get auth_signout_url
+    assert_redirected_to auth_signin_url
+    follow_redirect!
+    assert_select 'div.message', /You are now signed out/
+  end
 end

@@ -174,4 +174,16 @@ class Assessment < ActiveRecord::Base
       (self.closes_at_datetime(base_date) <= Time.zone.now && self.after_deadline)
     )
   end
+  
+  def reset_counts
+    self.q_selectors_count = self.q_selectors.count
+    self.points = 0.0
+    self.questions_count = 0
+    self.q_selectors.each do |s|
+      self.points += s.points * s.questions_count
+      self.questions_count += s.questions_count
+    end
+    
+    self.save(validate: false)
+  end
 end

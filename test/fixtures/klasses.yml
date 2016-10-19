@@ -3,7 +3,7 @@
 eng101_sec01:
   account: main
   course: eng101
-  slug: eng101:sec01
+  slug: sec01
   about:
     Donec id elit non mi porta gravida at eget metus.
     Maecenas sed diam eget risus varius blandit sit amet non magna.
@@ -16,7 +16,7 @@ eng101_sec01:
 eng101_sec02:
   account: main
   course: eng101
-  slug: eng101:sec02
+  slug: sec02
   about:
     Donec id elit non mi porta gravida at eget metus.
     Maecenas sed diam eget risus varius blandit sit amet non magna.

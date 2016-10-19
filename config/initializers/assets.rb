@@ -10,7 +10,7 @@ Rails.application.config.assets.version = '1.0'
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 
 # Form themes
-Rails.application.config.assets.precompile += %w( sunshine/style.css sunshine/style_rtl.css)
+Rails.application.config.assets.precompile += %w(style.css style_rtl.css)
 
 # For VideoJS
-Rails.application.config.assets.precompile += %w( video-js.swf VideoJS.eot VideoJS.svg VideoJS.ttf VideoJS.woff )
+Rails.application.config.assets.precompile += %w(video-js.swf VideoJS.eot VideoJS.svg VideoJS.ttf VideoJS.woff)

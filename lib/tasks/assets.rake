@@ -14,13 +14,13 @@ namespace :curriculr do
       Rake::Task["assets:precompile"].execute
 
       # Identify and locate the en assets that will be css-flipped
-      Dir.chdir "#{assets_path}/sunshine"
-      css_path =  %(#{assets_path}/sunshine/#{Dir.glob("style-*.css").first})
+      Dir.chdir "#{assets_path}"
+      css_path =  %(#{assets_path}/#{Dir.glob("style-*.css").first})
 
       # Css-flip the indentifed en assets
       Dir.chdir Rails.root
       puts "Runnig cssflip for theme: sunshine and flavor: #{ENV['THEME_FLAVOR'] || 'vanilla'}..."
-      `./bin/cssflip.sh sunshine style #{css_path}`
+      `./bin/cssflip.sh . style #{css_path}`
       
       # Done
       puts "RTL css generated successfully. Run rails assets:precompile to finish."

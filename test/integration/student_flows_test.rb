@@ -17,6 +17,28 @@ class StudentFlowsTest < ActionDispatch::IntegrationTest
     sign_out
   end
 
+  test 'can sign in' do
+    sign_out
+    
+    get home_url
+    assert_redirected_to auth_signin_url
+    follow_redirect!
+    assert_select 'div.message', /You must sign in first to access this page/
+    post url_for(controller: 'auth/sessions', action: 'create'), params: {
+       user: {email: @user.email, password: 'password'}}
+    assert_redirected_to home_url
+  end
+  
+  test 'cannot enroll in a class if not signed in' do
+    sign_out
+    
+    get learn_klass_url(@klass)
+    assert_response :success
+    
+    get enroll_learn_klass_url(@klass)
+    assert_redirected_to auth_signin_url
+  end
+  
   test 'can enroll in a class' do
     klass = klasses(:eng101_sec02)
     get learn_klasses_path
@@ -80,4 +102,10 @@ class StudentFlowsTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test 'can sign out' do
+    get auth_signout_url
+    assert_redirected_to auth_signin_url
+    follow_redirect!
+    assert_select 'div.message', /You are now signed out/
+  end
 end

@@ -8,7 +8,7 @@
     <%= @page_header ? "#{title}: #{@page_header}" : $site['title'] %>
   </title>
 
-  <%= stylesheet_link_tag "#{@current_theme['name']}/style#{rtl? ? '_rtl' : ''}", :media => "all" %>
+  <%= stylesheet_link_tag "style#{rtl? ? '_rtl' : ''}", :media => "all" %>
 	<%= stylesheet_link_tag "application", :media => "all" %>
   <%= favicon_link_tag '/favicon.ico' %>
 	<%= csrf_meta_tags %>
@@ -16,12 +16,16 @@
 <body style="margin-top: <%= @course || (@klass && enrolled_or_staff?) ? 5 : 3.5 %>rem;">
 
   <% Announcement.current(cookies.signed[:hidden_announcement_ids]).each do |announcement| %>
-    <%= content_tag :div, id: "announcement_#{announcement.id}" do %>
-			<% content_tag :div, class: "announcement-message" do %>
-      	<%= raw announcement.message %>
-      	<%= link :announcement, :hide, main_app.hide_admin_announcement_path(announcement), remote: true %>
-			<% end %>
-    <% end %>
+    <div class="ui attached icon message" id="announcement_<%= announcement.id %>">
+      <%= ui_icon('announcement') %>
+      <div class="content">
+        <div class="header"><%= Announcement.model_name.human %></div>
+        <p>
+          <%= raw announcement.message %>
+          <%= link :announcement, :hide, main_app.hide_admin_announcement_path(announcement), class: 'ui primary button',  remote: true %>
+        </p>
+      </div>
+    </div>
   <% end %>
 
 	<%= mountable_fragments :pre_layout_actions %>
