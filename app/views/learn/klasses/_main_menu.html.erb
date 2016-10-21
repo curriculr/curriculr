@@ -23,6 +23,9 @@
         app_menus(:top)[:_].each do |item|
           items << link_to(item[:link], item[:to], remote: item[:remote], class: 'item')
         end 
+        items << content_tag(:div, '', class: 'divider')
+        items << link(:session, :sign_out, main_app.auth_signout_path, class: 'item')
+        
         ui_buttons [
           link_to(t('helpers.submit.leave_klass'), main_app.home_path, class: "ui secondary button"),
           ui_dropdown_button(nil, items, icon: ui_icon('list'))] %>

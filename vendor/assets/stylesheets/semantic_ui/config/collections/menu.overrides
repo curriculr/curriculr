@@ -1,3 +1,17 @@
 /*******************************
          Site Overrides
 *******************************/
+nav > .ui.menu, nav > .ui.secondary.menu {
+  background: @navBackground;
+}
+
+nav > .ui.menu > .right.item{
+  padding-bottom: 0px;
+}
+
+footer {
+  border-bottom: 0.4rem solid @navBackground;
+  & > .ui.menu {
+    border-radius: 0rem;
+  }
+}  

@@ -111,6 +111,7 @@ ar:
       feactured_klasses: فصول دراسية مميزة
 
     text:
+      no_current_classes: لست الآن مسجلا في أي فصل دراسي. %{link}
       bank: بنك الأسئلة
       kind: النوع
       workload_per_week: "يستغرق %{workload} ساعة فس الأسبوع"

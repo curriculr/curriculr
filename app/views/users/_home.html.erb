@@ -6,17 +6,16 @@
       <%= render :partial => 'learn/klasses/klass_item', :collection => klasses, :as => :klass %>
     </div>
   <% else %>
-      <%= t('page.text.no_record_found') %>
+      <%= t('page.text.no_current_classes_html', link: link(:klass, :start_here, learn_klasses_path)) %>
   <% end %>
 
   <% klasses = Klass.which_are('taken', current_user).distinct.to_a %>
-  <%= ui_header t('page.title.classes_i_took') %>
+  
   <% if klasses.present? %>
+    <%= ui_header t('page.title.classes_i_took') %>
     <div class="ui divided items">
       <%= render :partial => 'learn/klasses/klass_item', :collection => klasses, :as => :klass %>
     </div>
-  <% else %>
-      <%= t('page.text.no_record_found') %>
   <% end %>
 <% end %>
 

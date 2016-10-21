@@ -1,3 +1,7 @@
 /*******************************
          Site Overrides
 *******************************/
+.ui.jumbotron.segment{
+  margin-top: -0.2rem;
+  padding-top: 4rem;
+}

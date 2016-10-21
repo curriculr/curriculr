@@ -110,6 +110,7 @@ en:
       feactured_klasses: Featured classes
 
     text:
+      no_current_classes_html: You are not currently enrolled in classes. %{link}
       bank: Bank
       kind: Kind
       workload_per_week: "%{workload} hours/week workload"

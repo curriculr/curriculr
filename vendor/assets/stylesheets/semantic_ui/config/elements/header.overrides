@@ -1,3 +1,15 @@
 /*******************************
          Site Overrides
 *******************************/
+.page.clearing.header{
+  padding: 0.5em 0em 0em 0em;
+  border-bottom: 1px solid @borderColor;
+  margin-bottom: 0.5rem;
+  &:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+  }
+}
