@@ -57,7 +57,9 @@ bower.json
 # Ignore Byebug command history file.
 .byebug_history
 
+/app/assets/stylesheets/style_rtl.css
 /public/uploads
 /public/assets
 /public/curriculr
+/vendor/assets/stylesheets/semantic_ui/config
 /node_modules
