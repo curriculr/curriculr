@@ -17,8 +17,10 @@
     <div class="description">
       <%= markdown(summary(klass.course.about)) %>
     </div>
-    <div class="extra">
-      <%= ui_klass_enrollment_action(klass, :enroll, true) %>
-    </div>
+    <% unless local_assigns[:no_actions] %>
+      <div class="extra">
+        <%= ui_klass_enrollment_action(klass, :enroll, true) %>
+      </div>
+    <% end %>
   </div>
 </div>

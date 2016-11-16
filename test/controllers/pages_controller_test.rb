@@ -3,7 +3,7 @@ require 'test_helper'
 class PagesControllerTest < ActionDispatch::IntegrationTest
   setup do
     sign_in_as(users(:blogger))
-    @page = pages(:blog_post)
+    @page = pages(:blog_post_1)
   end
 
   test "start a new page" do

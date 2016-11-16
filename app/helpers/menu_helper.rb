@@ -174,5 +174,7 @@ module MenuHelper
         end
       end
     end
+    
+    mountable_fragments :klass_menu
   end
 end

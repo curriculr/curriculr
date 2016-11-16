@@ -3,5 +3,6 @@
 *******************************/
 .ui.jumbotron.segment{
   margin-top: -0.2rem;
+  margin-bottom: 1rem;
   padding-top: 4rem;
 }

@@ -9,9 +9,8 @@
 <% end %>
 
 <% if @blogs.present? %>
-  <div class="ui divided items">
-    <%= render :partial => 'application/pages/blog', :collection => @blogs %>
-  </div>
+  <%= render :partial => 'application/pages/blog', :collection => @blogs %>
+  <div id="paginator" class="text-center"><%= paginate @blogs %></div>
 <% end %>
 
-<div id="paginator" class="text-center"><%= paginate @blogs %></div>
+

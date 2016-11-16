@@ -10,6 +10,7 @@ module Authorizable
       @roles.any?{|r| r.name == role_name.to_s && (resource.nil? || resource == r.resource)}
     end
     
+    
     def add_role(role_name, resource = nil)
       self.transaction do
         self.roles << Role.find_or_create_by(name: role_name.to_s, resource: resource)
@@ -31,5 +32,8 @@ module Authorizable
   end
 
   module ClassMethods
+    def with_role(role_name)
+      User.joins(:roles).where("roles.name = :role", role: role_name)
+    end
 	end
 end
