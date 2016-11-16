@@ -35,7 +35,8 @@ namespace :curriculr do
           puts "Runnig cssflip for theme: sunshine and flavor: #{ENV['THEME_FLAVOR'] || 'vanilla'}..."
           `./bin/cssflip.sh . style #{css_path}`
           
-          #Rake::Task["curriculr:assets:precompile"].execute
+          # Clean after cssflip
+          `cat #{base_path}/add_to_style_rtl.css >> #{Rails.root}/app/assets/stylesheets/style_rtl.css`
           
           # Done
           puts "RTL css generated successfully. Run rails assets:precompile to finish."
