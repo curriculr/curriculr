@@ -1,5 +1,5 @@
 # For ui components: css, html, and js
-module Themes::Sunshine::UiComponentsHelper
+module UiComponentsHelper
   ALERT_TYPES = [:error, :info, :success, :warning]
 
   def flag_tag(country, show_name = true)
@@ -77,7 +77,7 @@ module Themes::Sunshine::UiComponentsHelper
       klass = (@klass || @course.klasses.last)
       if klass && !klass.new_record?
         link_to learn_klass_path(klass), class: 'ui secondary button' do
-          ui_icon(:student) + ' ' + t('helpers.submit.student_view')
+          ui_icon(:student) + ' ' + t('helpers.submit.show_student_view')
         end
       end
     elsif @klass && staff?(current_user, @klass.course)

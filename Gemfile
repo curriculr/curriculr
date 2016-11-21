@@ -53,8 +53,6 @@ gem 'pg'
 # or mysql
 #gem 'mysql2'
 gem 'redis'
-gem 'sidekiq'
-gem 'sinatra', require: false
 gem 'redis-namespace'
 gem 'nokogiri'
 gem 'bcrypt'
@@ -83,4 +81,3 @@ gem 'responders'
 gem 'acts-as-taggable-on', github: 'mbleigh/acts-as-taggable-on'
 gem 'jquery-timepicker-rails'
 gem 'jquery-fileupload-rails'
-gem 'whenever', :require => false

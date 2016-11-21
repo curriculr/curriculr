@@ -1,11 +1,11 @@
-<div class="ui top fixed borderless menu">
+<div class="ui top fixed <%= 'inverted ' if inverted %>borderless menu">
   <div class="item">
     <div class="ui tiny promo image">
       <%= image_tag(@klass.course.poster&.at_url(:md) || '/images/holder-md.png') %>
     </div>
   </div>
   <div class="header item">
-    <div class="ui second header">
+    <div class="ui second <%= 'inverted ' if inverted %>header">
       <%= @klass.course.name %>
       <div class="sub header">
         <% labels = [ @klass.course.by_instructors, klass_from_and_to_dates(@klass)] %>

@@ -1,8 +1,9 @@
-class KlassUpdatesWorker
-  include Sidekiq::Worker
+class KlassUpdatesJob < ApplicationJob
   include EditorsHelper
+  queue_as :default
 
-  def perform()
+  def perform(*args)
+    keep_running = args[0] || false
     config = {}
     Klass.active.open.each do |klass|
       # Step 1: Generate klass updates from course and unit updates
@@ -23,7 +24,7 @@ class KlassUpdatesWorker
       end
 
       # Unit updates
-      Unit.open(klass, Student.find(1)).each do |unit|
+      Unit.open(klass, Student.find_by(user: klass.course.originator)).each do |unit|
         updates = unit.updates.where(active: true).
           where('not exists(select u.generator_id from updates u where u.generator_id = updates.id and u.klass_id = :klass_id)', :klass_id => klass.id)
           
@@ -39,9 +40,7 @@ class KlassUpdatesWorker
 
       # Step 2: Post/send klass updates that have not been posted/sent yet.
       account = Account.find(klass.account_id)
-      Sidekiq.redis do |conn|
-        config[account.slug] ||= JSON.parse(conn.get("config.account.a#{account.id}"))
-      end
+      config[account.slug] ||= JSON.parse($redis.get("config.account.a#{account.id}"))
 
       students = klass.students.joins(:user).where('enrollments.active = TRUE').
         select('users.name as user_name, users.email as user_email, students.name as student_name')
@@ -67,6 +66,8 @@ class KlassUpdatesWorker
         update.save
       end
     end
+
+    # Run this again after two minutes
+    KlassUpdatesJob.set(wait: 2.minutes).perform_later(true) if keep_running
   end
 end
-

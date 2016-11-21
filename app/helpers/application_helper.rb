@@ -1,8 +1,12 @@
 module ApplicationHelper
   def logo_path(inverted = false)
-    logo = current_account.config['theme']['logo'].present? ? "/images/logo.png" : false
-    logo = logo.sub(/\.png$/, "-inverted.png") if inverted
-    logo
+    if $site['available_themes'][current_theme] && $site['available_themes'][current_theme]['logo?']
+      logo = "/images/logo.png"
+      logo = logo.sub(/\.png$/, "-inverted.png") if inverted
+      logo
+    else
+      false
+    end
   end
   
   def title

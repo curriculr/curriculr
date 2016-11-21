@@ -1,4 +1,8 @@
-<% info = capture do %>
+<% content_for :main_aside do %>
+  <%= render("/users/user_menu") %>
+<% end %>
+
+<%= capture do %>
   <% klasses = Klass.which_are('enrolled', current_user).open.distinct.to_a %>
   <%= ui_header t('page.title.classes_i_am_taking') %>
   <% if klasses.present? %>
@@ -18,9 +22,3 @@
     </div>
   <% end %>
 <% end %>
-
-<% aside = capture do %>
-  <%= render("/users/user_menu") %>
-<% end %>
-
-<%= ui_side_by_side(info, aside, 'eleven by five')%>

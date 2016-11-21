@@ -199,11 +199,11 @@ class Klass < ActiveRecord::Base
   end
 
   def begin_date(student = nil)
-    if student && (enrollment = Enrollment.by(self, student))
-      enrollment.created_at.to_date
-    else
-      self.begins_on
-    end
+    # if student && (enrollment = Enrollment.by(self, student))
+    #   enrollment.created_at.to_date
+    # else
+    self.begins_on
+    # end
   end
   
   def assessments

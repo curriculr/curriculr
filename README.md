@@ -13,14 +13,11 @@ Curriculr is a free open-source online course management and delivery system des
 Refer to the [official site](http://www.curriculr.org) for more information.
 
 ## Requirements
-On the client side, Curriculr supports all the browsers and platforms supported by [Bootstrap 3](http://getbootstrap.com). For more information on Bootstrap 3 browser support refer to <http://getbootstrap.com/getting-started/#support>.
-
-On the server side, Curriculr is built using
+Curriculr is built using
 
 - [Ruby on Rails](http://rubyonrails.org/) &mdash; Our web application framework.
 - Either [PostgreSQL](http://www.postgresql.org/) or [MySQL](http://www.mysql.com) &mdash; Our main data store.
 - [Redis](http://redis.io/) &mdash; For configuration, translations, and background jobs.
-- [Sidekiq](http://sidekiq.org) &mdash; For background processing.
 - [ImageMagick](http://www.imagemagick.org) &mdash; For processing images.
 - [Minitest](https://github.com/seattlerb/minitest), fixtures, and [Capybara](https://github.com/jnicklas/capybara) &mdash; For testing.
 

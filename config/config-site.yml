@@ -7,8 +7,11 @@ site:
     sunshine:
       parent:
       about: The default theme
+      helper?: false
+      logo?: true
 
   default_account: main
+  default_theme: sunshine
 
   ace_code_editor_style: tomorrow
   syntax_highlighter_style: colorful

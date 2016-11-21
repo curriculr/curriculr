@@ -35,7 +35,7 @@
     <%= render "application/footer", inverted: false %>
   <% else %>
     <%= render :template => "layouts/default" %>
-    <%= render "application/footer", inverted: true %>
+    <%= render "application/footer", inverted: false %>
   <% end %>
 
 	<%= mountable_fragments :post_layout_actions %>

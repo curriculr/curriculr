@@ -73,9 +73,6 @@ module MenuHelper
 
       if current_user.id == 1
         add_to_app_menu(:user, {link: link_text(:account, :index), to: main_app.admin_accounts_path, active: controller_name == 'accounts'}, section)
-        # if Rails.application.secrets.redis_enabled
-        #   add_to_app_menu(:user, link_to(:Sidekiq, main_app.sidekiq_web_path, target: '_new'), section)
-        # end
       end
 
       add_to_app_menu(:user, [

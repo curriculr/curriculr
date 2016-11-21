@@ -8,9 +8,7 @@ account:
     session: false
 
   time_zone: "Mountain Time (US & Canada)"
-  theme:
-    name: sunshine
-    logo: true
+  theme: sunshine
 
   use_gravatar: true
 

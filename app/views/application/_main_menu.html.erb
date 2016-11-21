@@ -1,6 +1,6 @@
 <% main_menu %>
 
-<div class="ui <%= front ? "inverted " : "pointing secondary " %>top fixed borderless menu">
+<div class="ui <%= inverted ? "inverted " : "pointing secondary " %>top fixed borderless menu">
   <%= link_to current_user ? main_app.home_path : main_app.root_path, class: 'header item' do %>
     <%= ui_icon('large leaf icon') %>&nbsp;
     <strong><%= current_account.config['title'] %></strong>
@@ -25,7 +25,7 @@
 
     <% app_menu(:top, :right).each do |item| %>
       <div class="item">
-        <%= link_to item[:link], item[:to], class: "ui #{"inverted " if front}#{item[:class]} secondary button" %>
+        <%= link_to item[:link], item[:to], class: "ui #{"inverted " if inverted}#{item[:class]} secondary button" %>
       </div>
     <% end %>
   </div>

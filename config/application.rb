@@ -17,7 +17,6 @@ module Curriculr
 
     # By Curriculr
     config.active_record.raise_in_transactional_callbacks = true
-    ###config.active_job.queue_adapter = :sidekiq
 
     # Initialize redis and load application configuration
     config.redis_databases = {

@@ -1,5 +1,10 @@
 /* To fix a few RTL issues after cssflip */
 .ui[class*="left pointing"].label:before {
-  right: auto;
-  left: 0em;
+  right: -0.65em;
+  left: auto;
+}
+
+.ui.embed > .icon:before {
+  left: 50%;
+  right: 0px;
 }

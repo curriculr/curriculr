@@ -1,3 +1,7 @@
+<% content_for :main_aside do %>
+  <%= render("/users/user_menu") %>
+<% end %>
+
 <%= 
 action = link(:course, :new, main_app.new_teach_course_path, remote: true, class: 'ui primary button')
 paginator = content_tag :div, paginate(@courses, :remote => true), id: "paginator" 

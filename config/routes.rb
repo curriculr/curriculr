@@ -1,19 +1,3 @@
-# require 'sidekiq/web'
-#
-# class AdminUserConstraint
-#   def matches?(request)
-#     current_user = if request.cookies.permanent[:auth_token]
-#       User.find_by!(remember_token: request.cookies.permanent[:auth_token])
-#     elsif request.cookies.permanent[:auth_token]
-#       User.find_by!(remember_token: request.cookies[:auth_token])
-#     else
-#       nil
-#     end
-#
-#     current_user.has_role?(:admin)
-#   end
-# end
-
 Rails.application.routes.draw do
   # Concerns
   concern :sortable do
@@ -203,8 +187,6 @@ Rails.application.routes.draw do
   delete 'admin/translation/:locale', :to => 'admin/translations#update'
 
   post "miscellaneous/contactus"
-
-  #mount Sidekiq::Web => '/sidekiq', constraints: AdminUserConstraint.new
 
   # Top-level pages
   get 'about', :to => "miscellaneous#team", :as => 'about'

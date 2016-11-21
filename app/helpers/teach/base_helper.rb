@@ -11,7 +11,7 @@ module Teach::BaseHelper
   def ui_course_klass_links(klass)
 		links = [
 		  link(:klass, :edit, edit_teach_course_klass_path(@course, klass), remote: true, class: 'ui positive button'),
-      link(:klass, :show, learn_klass_path(klass), as: :student_view, class: 'ui secondary button')]
+      link(:klass, :show, learn_klass_path(klass), as: :show_student_view, class: 'ui secondary button')]
 
     items = []
     if klass.ready_to_approve
