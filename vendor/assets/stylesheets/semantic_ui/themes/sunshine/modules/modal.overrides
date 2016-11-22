@@ -3,4 +3,5 @@
 *******************************/
 .ui.modal > .header {
   background: @headerBackground;
+  color: @white;
 }

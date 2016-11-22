@@ -33,6 +33,7 @@
   <% if content_for?(:main_aside) %>
     <aside class="four wide column">
       <%= content_for :main_aside %>
+      <%= mountable_fragments :site_left_rectangle_ad %>
       <%= mountable_fragments :site_left_skyscraper_ad %>
     </aside>
     <div class="eleven wide column">

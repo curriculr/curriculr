@@ -3,14 +3,19 @@
   <%= yield :jumbotron %>
 </div>
 
+<% widths = action_name == 'blogs' ? ['three', 'eight', 'three'] : ['two', 'ten', 'two'] %>
 <main class="ui centered grid">
-  <div class="two wide column">
+  <div class="<%= widths[0] %> wide column">
+    <%= yield :main_aside if content_for?(:main_aside) %>
+
+    <%= mountable_fragments :site_left_rectangle_ad %>
     <%= mountable_fragments :site_left_skyscraper_ad %>
   </div>
-  <div class="<%= action_name == 'blogs' ? 'eight' : 'ten' %> wide column">
+  <div class="<%= widths[1] %> wide column">
     <%= yield %>
   </div>
-  <div class="two wide column">
+  <div class="<%= widths[2] %> wide column">
+    <%= mountable_fragments :site_right_rectangle_ad %>
     <%= mountable_fragments :site_right_skyscraper_ad %>
   </div>
 </main>

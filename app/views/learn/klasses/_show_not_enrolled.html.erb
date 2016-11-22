@@ -36,7 +36,11 @@
       <%= mountable_fragments :site_left_skyscraper_ad %>
     </div>
 
-    <div class="eight wide column"><%= content %></div>
+    <div class="eight wide column">
+      <div class="ui fluid segment">
+        <%= content %>
+      </div>
+    </div>
 
     <div class="four wide column">
       <%= render 'klass_feed', enrolled: false %>

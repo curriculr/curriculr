@@ -10,7 +10,7 @@ namespace :curriculr do
       account = Account.find_by(slug: ENV['CURRENT_ACCOUNT']) if ENV['CURRENT_ACCOUNT']
       account = Account.find(1) unless account
       
-      theme = account.config['theme']['name']
+      theme = account.config['theme']
       if theme.present? && theme != 'sunshine' && !Dir.exist?("#{base_path}/themes/#{theme}")
         theme = 'sunshine'
       end

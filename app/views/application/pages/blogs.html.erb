@@ -9,6 +9,15 @@
 <% end %>
 
 <% if @blogs.present? %>
+  <% content_for :main_aside do %>
+    <div class="ui fluid segment">
+      <div class="ui selection list">
+        <% @blogs.each do |blog| %>
+          <div class="item"><%= blog.name %></div>
+        <% end %>
+      </div>
+    </div>
+  <% end if false %>
   <%= render :partial => 'application/pages/blog', :collection => @blogs %>
   <div id="paginator" class="text-center"><%= paginate @blogs %></div>
 <% end %>
