@@ -187,10 +187,12 @@ Rails.application.routes.draw do
   delete 'admin/translation/:locale', :to => 'admin/translations#update'
 
   post "miscellaneous/contactus"
+  post "miscellaneous/contactus_to_teach"
 
   # Top-level pages
   get 'about', :to => "miscellaneous#team", :as => 'about'
   get 'contactus', :to => "miscellaneous#contactus", :as => 'contactus'
+  get 'contactus_to_teach', to: "miscellaneous#contactus_to_teach", as: "contactus_to_teach"
   get 'play/:id', :to => "media#play", :as => 'play'
   get 'home', :to => 'users#home', :as => :home
 

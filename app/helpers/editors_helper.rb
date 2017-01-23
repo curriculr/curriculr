@@ -3,7 +3,11 @@ module EditorsHelper
 
   class HTMLwithPygments < Redcarpet::Render::HTML
     def block_code(code, language)
-      Pygments.highlight(code, lexer: language)
+      begin
+        Pygments.highlight(code, lexer: language)
+      rescue MentosError
+        Pygments.highlight(code, lexer: 'text')
+      end
     end
   end
 

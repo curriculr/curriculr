@@ -1,0 +1,10 @@
+/*******************************
+     User Global Variables
+*******************************/
+@fontName: 'Open Sans', sans-serif;
+@blue: #3097d1;
+@yellow: #ffc11a;
+@navBackground: @tealHeaderColor;
+@bodyBackground: #fafff9; //#e1e8ed;
+@solidBorderColor: #cee3ca;
+@borderColor: @solidBorderColor;

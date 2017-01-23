@@ -1,5 +1,5 @@
 <%
-  main_menu = sub_menu = false
+  main_menu = sub_menu = course_or_klass_menu = false
   within_a_segment = true
   if @course && !@course.new_record?
     main_menu = render "/teach/courses/main_menu", inverted: true
@@ -7,6 +7,9 @@
   elsif @klass && enrolled_or_staff?
     main_menu = render "/learn/klasses/main_menu", inverted: true
     sub_menu = render "/learn/klasses/klass_menu"
+  elsif @klass && @klass.previewed && user_signed_in? && controller_name != 'klasses'
+      main_menu = render "/learn/klasses/main_menu", inverted: true
+      course_or_klass_menu = true
   else 
     main_menu = render "application/main_menu", inverted: true
     if @klass && controller_name == 'klasses' && action_name == 'show' && !enrolled_or_staff?
@@ -27,6 +30,7 @@
 </div>
 <% else %>
   <br>
+  <%= tag(:br) if course_or_klass_menu %>
 <% end %>
 
 <main class="ui centered grid">

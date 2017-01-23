@@ -37,6 +37,7 @@ ar:
       show_answer: أظهر الجواب
       about: من نحن
       contactus: تواصل معنا
+      contactus_to_teach: إرسال طلب تدريس
       privacy: سرية البيانات
       terms: اتفاقية الاستخدام
       services: خدماتنا
@@ -203,6 +204,7 @@ ar:
       sort_question_items: خيارات الترتيب
 
     placeholder:
+      contactus_to_teach: "تحدث عن نفسك، عما تريد تدريسه، عمن تستهدف تدريسهم."
       name: الاسم
       email: البريد الإلكتروني
       password: كلمة السر

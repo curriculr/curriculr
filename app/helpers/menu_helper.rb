@@ -6,6 +6,8 @@ module MenuHelper
 
     if current_user && (current_user.has_role?(:admin) || current_user.has_role?(:faculty))
       add_to_app_menu :top, link: link_text(:course, :teach), to: main_app.teach_courses_path, active: controller_name == 'courses' || @course.present?
+    else
+      add_to_app_menu :top, link: link_text(:course, :teach), to: main_app.localized_page_path(:teach)
     end
 
     add_to_app_menu :top, link: link_text(:page, :blogs), to: main_app.blogs_path, active: controller_name == 'pages' && action_name == 'blogs'

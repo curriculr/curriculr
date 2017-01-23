@@ -1,0 +1,8 @@
+/*******************************
+        User Overrides
+*******************************/
+aside .ui.styled.accordion{
+  background: none;
+  border: none;
+  box-shadow: none;
+} 

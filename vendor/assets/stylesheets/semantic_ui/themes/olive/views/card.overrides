@@ -1,0 +1,12 @@
+/*******************************
+    User Variable Overrides
+*******************************/
+.ui.klass.card{
+  margin: 0em;
+}
+
+aside .ui.card{
+  background: none;
+  border: none;
+  box-shadow: none;
+} 

@@ -32,11 +32,11 @@
 
   <% if action_name.in? ['front', 'blogs'] %>
     <%= render :template => "layouts/jumbotron" %>
-    <%= render "application/footer", inverted: false %>
   <% else %>
     <%= render :template => "layouts/default" %>
-    <%= render "application/footer", inverted: false %>
   <% end %>
+  
+  <%= render "application/footer", inverted: false %>
 
 	<%= mountable_fragments :post_layout_actions %>
 

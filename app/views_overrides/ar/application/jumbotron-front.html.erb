@@ -1,0 +1,16 @@
+<div class="ui grid container">
+  <div class="ten wide column">
+    <div class="ui huge inverted header">
+      <%= scoped_t("#{current_account.slug}.site.slogan.line1_html") %>
+      <div class="ui large sub header">
+        <%= scoped_t("#{current_account.slug}.site.slogan.line2_html") %>
+      </div>
+    </div>
+    <div class="ui medium header">
+      <%= scoped_t("#{current_account.slug}.site.slogan.line3_html") %>
+    </div>
+  </div>
+  <div class="six wide column">
+    <%= image_tag "jumbotron-bg.png", class: "ui image"%>
+  </div>
+</div>

@@ -1,0 +1,43 @@
+/*******************************
+         Site Overrides
+*******************************/
+nav > .ui.menu, nav > .ui.secondary.menu {
+  background: @navBackground;
+}
+
+nav > .ui.menu, nav > .ui.secondary.pointing.menu {
+  border-bottom: none;
+  .ui.inverted.menu;
+}
+
+nav > .ui.secondary.pointing.menu > .item {
+  color: white;
+}
+  
+nav > .ui.menu > .right.item{
+  padding-bottom: 0px;
+}
+
+aside .ui.menu, aside .ui.vertical.menu {
+  background: none;
+  border: none;
+  box-shadow: none;
+} 
+
+.ui.pagination.menu {
+  border: none;
+  box-shadow: none;
+  font-size: .75rem;
+}
+
+.sub-menu .ui.secondary.menu .item {
+  color: @tealHeaderColor;
+  font-weight: bold;
+}
+
+footer {
+  border-bottom: 0.4rem solid @navBackground;
+  & > .ui.menu {
+    border-radius: 0rem;
+  }
+}  

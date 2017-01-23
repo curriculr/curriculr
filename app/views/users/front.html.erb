@@ -1,12 +1,5 @@
 <% content_for :jumbotron do %>
-  <div class="ui text center aligned container">
-    <div class="ui huge inverted icon header">
-      <%= ui_icon 'leaf' %>
-      <%= scoped_t("#{current_account.slug}.site.slogan.line1_html") %>
-      <div class="ui large sub header"><%= scoped_t("#{current_account.slug}.site.slogan.line2_html") %></div>
-    </div>
-    <div class="ui medium header"><%= scoped_t("#{current_account.slug}.site.slogan.line3_html") %></div>
-  </div>
+  <%= render template: "application/jumbotron-front" %>
 <% end %>
 
 <%= render template: "application/front" %>

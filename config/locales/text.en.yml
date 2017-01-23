@@ -1,6 +1,7 @@
 en:
   page:
     title:
+      apply_to_teach: "REQUEST: Applying to teach..."
       to_do: To do list
       activities: Activities
       lookup_classes: Look up classes
@@ -192,11 +193,11 @@ en:
       unpublished_update_html:  This update has not been published/sent yet. %{link}
       private_page_html:  This page has not been made public yet and therefore cannot be seen by anyone other than you. %{link}
       by_admin_private_page_html:  Administrator's approval is required to make this page public so it can be seen by anyone other than you.
-      approved_klass_html:  This class has not been approved yet. Approving this class makes it accessible to others. %{link}
+      approved_klass_html:  This class has not been approved yet. Approving this class makes it accessible to students. %{link}
       ready_to_approve_klass_html:
          This class is not ready to approve yet. You must mark
-        it as ready before it can be approved. Only approved classes are accessible to others. %{link}
-      by_admin_approved_klass_html:  Administrator's approval of this class is required. Approving this class makes it accessible to others.
+        it as ready before it can be approved. Only approved classes are accessible to students. %{link}
+      by_admin_approved_klass_html:  Administrator's approval of this class is required. Approving this class makes it accessible to students.
       unready: Unpublished
       unready_assessment_html:  This assessment has not been marked as ready to release yet. %{link}
       upcoming_deadlines:

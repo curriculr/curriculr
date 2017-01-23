@@ -37,6 +37,7 @@ en:
       show_answer: Show answer
       about: About us
       contactus: Contact us
+      contactus_to_teach: Apply to teach
       privacy: Privacy
       terms: Terms of service
       blogs: Blog
@@ -209,6 +210,7 @@ en:
       sort_question_items: Sortable items
 
     placeholder:
+      contactus_to_teach: "Talk about yourself, what you would like to teach, and your target audience."
       name: Name
       email: Email
       password: Password

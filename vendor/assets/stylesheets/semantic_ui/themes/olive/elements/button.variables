@@ -1,0 +1,7 @@
+/*******************************
+    User Variable Overrides
+*******************************/
+@primaryColor: @blue; //#11afcd;
+@secondaryColor: #4d5a66;
+@positiveColor: @teal;
+@negativeColor: #ff5317;

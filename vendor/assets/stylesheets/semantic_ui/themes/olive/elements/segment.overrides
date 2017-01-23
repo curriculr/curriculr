@@ -1,0 +1,23 @@
+/*******************************
+         Site Overrides
+*******************************/
+.ui.jumbotron.segment{
+  margin-top: -0.2rem;
+  margin-bottom: 1rem;
+  padding-top: 4rem;
+}
+
+.ui.attached.segment {
+  border: 1px solid @borderColor;
+}
+
+aside .ui.segment{
+  background: none;
+  border: none;
+  box-shadow: none;
+} 
+
+.ui.borderless.segments {
+  border: none;
+  box-shadow: none;
+}
