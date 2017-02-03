@@ -3,6 +3,11 @@
   <%= yield :jumbotron %>
 </div>
 
+<main class="ui grid container">
+  <%= yield %>
+</main>
+
+<% if false %>
 <% widths = action_name == 'blogs' ? ['three', 'eight', 'three'] : ['two', 'ten', 'two'] %>
 <main class="ui centered grid">
   <div class="<%= widths[0] %> wide column">
@@ -19,4 +24,4 @@
     <%= mountable_fragments :site_right_skyscraper_ad %>
   </div>
 </main>
-
+<% end %>

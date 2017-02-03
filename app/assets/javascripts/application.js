@@ -9,9 +9,9 @@
 //= require locales/jquery.timeago.ar.js
 //= require jquery.timepicker.js
 //= require video
-//= require jquery-ui/sortable
-//= require jquery-ui/datepicker
-//= require jquery-ui/slider
+//= require jquery-ui/widgets/sortable
+//= require jquery-ui/widgets/datepicker
+//= require jquery-ui/widgets/slider
 //= require jquery-ui-timepicker-addon.min
 //= require jquery.countdown
 //= require jquery.shorten

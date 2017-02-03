@@ -22,7 +22,7 @@ namespace :curriculr do
   desc 'Drops any existing database, create a new one, runs migrations, loads seeds data, and reset redis.'
   task :boot_from_backup => :environment do
     Rake::Task['curriculr:db:migrate'].invoke
-    Rake::Task['db:seed'].invoke
+    Rake::Task['curriculr:db:restore'].invoke
     Rake::Task['curriculr:redis:reset'].invoke if Rails.application.secrets.redis_enabled
   end
   

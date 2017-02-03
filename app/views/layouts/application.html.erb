@@ -38,7 +38,7 @@
   
   <%= render "application/footer", inverted: false %>
 
-	<%= mountable_fragments :post_layout_actions %>
+  <%= mountable_fragments :post_layout_actions %>
 
   <%= javascript_include_tag "//cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/ace.js" if true || @req_attributes[:code?] %>
   <%= mountable_fragments :pre_app_javascript %>
