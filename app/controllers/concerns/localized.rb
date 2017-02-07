@@ -35,7 +35,10 @@ module Localized
 
     def default_url_options(options = {})
       locale_in = current_account.config['allow_locale_setting_in'] || {}
-      locale_in['url_param'] ? {locale: I18n.locale}.merge(options) : options
+      localized_options = locale_in['url_param'] ? {locale: I18n.locale}.merge(options) : options
+      {
+        protocol: Rails.application.secrets.site['protocol']
+      }.merge(localized_options)
     end 
   end
 
