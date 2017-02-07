@@ -1,23 +1,22 @@
+require 'rouge/plugins/redcarpet'
+
 module EditorsHelper
   MARKDOWN_SUMMARY_DELIMITER = "~------\r?\n"
 
-  class HTMLwithPygments < Redcarpet::Render::HTML
-    def block_code(code, language)
-      begin
-        Pygments.highlight(code, lexer: language)
-      rescue MentosError
-        Pygments.highlight(code, lexer: 'text')
-      end
-    end
+  class HTMLwithRouge < Redcarpet::Render::HTML
+    include Rouge::Plugins::Redcarpet
+    # def block_code(code, language)
+    #   %(<div class="highlight">#{Rouge.highlight(code, language || 'text', 'html')}</div>)
+    # end
   end
 
-  markdown = Redcarpet::Markdown.new(HTMLwithPygments, fenced_code_blocks: true)
+  markdown = Redcarpet::Markdown.new(HTMLwithRouge, fenced_code_blocks: true)
   # Markdown Text
 
   def markdown(text, options = {})
     return text.html_safe if options[:html] && options[:html] == true
 
-    renderer = HTMLwithPygments.new(hard_wrap: true, filter_html: true)
+    renderer = HTMLwithRouge.new(hard_wrap: true, filter_html: true)
     markdown = Redcarpet::Markdown.new(renderer,
       :no_intra_emphasis => true,
       :tables => true,

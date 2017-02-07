@@ -8,6 +8,6 @@
 @yellow: #ffc11a;
 @lightBlack: #4d5a66;
 @navBackground: @lightBlack;
-@bodyBackground: #e1e8ed;
+@bodyBackground: #f7f7f7;
 @solidBorderColor: #e1e8ed;
 @borderColor: @solidBorderColor;

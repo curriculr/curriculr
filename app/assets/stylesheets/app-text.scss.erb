@@ -1,4 +1,4 @@
-<%= Pygments.css(style: $site['syntax_highlighter_style'] || 'default') %>
+<%= Rouge::Theme.find($site['syntax_highlighter_style'] || 'default').render(scope: '.highlight') %>
 
 // Other text/editing related styles
 
@@ -28,4 +28,5 @@
 
 .highlight {
   direction: ltr;
+  background-color: #fdfdfd;
 }

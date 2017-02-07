@@ -37,7 +37,7 @@ end
 <% end %>
 
 <% if @page && !@page.new_record? %>
-  <%= actions %><br>
+  <%= actions if @course %><br>
   <div id="page-publish-indicator" class="ui warning message" style="<%= 'display: none;' if @page.published %>">
     <%= t('page.text.unpublished_page_html',
           link: link(:page, :publish, path_for(:update, @course, @unit, @lecture, @page, :opr => :publish,
