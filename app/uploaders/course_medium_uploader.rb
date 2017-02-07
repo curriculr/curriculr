@@ -21,7 +21,8 @@ class CourseMediumUploader < CarrierWave::Uploader::Base
   end
 
   def image?(new_file)
-    model.of_kind?('image')
+    config = model.course.present? ? model.course.config['allowed_file_types'] : model.account.config['allowed_file_types']
+    config['image'].include?(self.file.extension)
   end
 
   # White list of extensions which are allowed to be uploaded.

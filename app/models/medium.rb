@@ -44,11 +44,6 @@ class Medium < ActiveRecord::Base
     'other'
   end
 
-  def of_kind?(kind)
-    config = course.present? ? course.config['allowed_file_types'] : account.config['allowed_file_types']
-    config[kind].include?(path.file.extension)
-  end
-
   def file_upload_allowed?
     account.config['allow_file_uploads'] && (
       course.blank? || course.config['allow_file_uploads']
