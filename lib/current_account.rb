@@ -5,11 +5,13 @@ class CurrentAccount
   end
 
   def call(env)
-    subdomain = if @domain == 'localhost' || env['HTTP_HOST'].match(/^localhost/) || IPAddress.valid?(env['SERVER_NAME'])
-      $site['default_account']
-    else
-      env['HTTP_HOST'].sub(/\.?#{@domain}.*$/,'')
-    end
+    subdomain = $site['default_account']
+    
+    # subdomain = if @domain == 'localhost' || env['HTTP_HOST'].match(/^localhost/) || IPAddress.valid?(env['SERVER_NAME'])
+    #   $site['default_account']
+    # else
+    #   env['HTTP_HOST'].sub(/\.?#{@domain}.*$/,'')
+    # end
 
     if(account = Account.find_by(slug: subdomain, :active => true))
       env["curriculr.current_account"] = account
