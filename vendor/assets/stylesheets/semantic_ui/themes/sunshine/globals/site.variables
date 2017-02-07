@@ -1,6 +1,9 @@
 /*******************************
      User Global Variables
 *******************************/
+@fontName: 'Open Sans';
+@fontSize: 14px;
+
 @blue: #3097d1;
 @yellow: #ffc11a;
 @lightBlack: #4d5a66;
