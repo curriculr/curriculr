@@ -1,6 +1,7 @@
 en:
   helpers:
     submit:
+      reset: Reset
       start_here: Start here
       leave_course: Leave course
       leave_klass: Leave class

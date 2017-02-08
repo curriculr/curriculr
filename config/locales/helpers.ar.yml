@@ -1,6 +1,7 @@
 ar:
   helpers:
     submit:
+      reset: غير
       start_here: إبدأ من هنا
       leave_course: غادر هذا المقرر
       leave_klass: غادر هذا الفصل
