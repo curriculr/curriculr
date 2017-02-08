@@ -88,7 +88,7 @@ Rails.application.configure do
   config.time_zone = 'Mountain Time (US & Canada)'
 
   # Active Mailer
-  config.action_mailer.default_url_options = { :host => Rails.application.site['host'] }
+  config.action_mailer.default_url_options = { :host => Rails.application.secrets.site['host'] }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
