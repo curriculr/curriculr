@@ -1,7 +1,7 @@
 /*******************************
      User Global Variables
 *******************************/
-@fontName: 'Open Sans';
+@fontName: 'Open Sans', 'Nassim Arabic Regular', 'Geeza Pro';
 @fontSize: 14px;
 
 @blue: #3097d1;

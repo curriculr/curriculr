@@ -1,0 +1,6 @@
+/*******************************
+    User Variable Overrides
+*******************************/
+.ui.skyscraper.ad {
+  height: auto;
+}
