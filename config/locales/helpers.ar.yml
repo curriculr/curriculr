@@ -254,3 +254,7 @@ ar:
         notice: تم بنجاح الاحتفاظ بمحاولتك لهذا الامتحان و يمكنك اتمامها لاحقا.
       submit_attempt:
         notice: تم بنجاح قبول محاولتك لهذا الامتحان.
+      message_sent:
+        notice: تم إرسال رسالتك بنجاج.
+      request_submitted:
+        notice: تم إرسال طلبك بنجاح.

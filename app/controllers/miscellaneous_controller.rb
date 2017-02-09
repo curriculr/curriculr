@@ -19,6 +19,7 @@ class MiscellaneousController < ApplicationController
             message: @message.content
           ).deliver_later
           
+          flash[:notice] = t('flash.actions.message_sent.notice')
       		format.js { render 'reload' }
         else
           format.js { render 'contactus' }
@@ -42,6 +43,7 @@ class MiscellaneousController < ApplicationController
             message: @message.content
           ).deliver_later
           
+          flash[:notice] = t('flash.actions.request_submitted.notice')
       		format.js { render 'reload' }
         else
           format.js { render 'contactus_to_teach' }

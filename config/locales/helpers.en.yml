@@ -262,3 +262,7 @@ en:
         notice: "Your attempt at this assessment has been saved. You can finish it later."
       submit_attempt:
         notice: "Your attempt at this assessment has been submitted."
+      message_sent:
+        notice: Your message has been successfully sent.
+      request_submitted:
+        notice: Your request has been successfully submitted.
