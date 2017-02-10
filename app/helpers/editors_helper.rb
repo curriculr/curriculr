@@ -1,37 +1,17 @@
-require 'rouge/plugins/redcarpet'
+#require 'kramdown'
+#require 'rouge/plugins/redcarpet'
 
 module EditorsHelper
   MARKDOWN_SUMMARY_DELIMITER = "~------\r?\n"
 
-  class HTMLwithRouge < Redcarpet::Render::HTML
-    include Rouge::Plugins::Redcarpet
-    # def block_code(code, language)
-    #   %(<div class="highlight">#{Rouge.highlight(code, language || 'text', 'html')}</div>)
-    # end
-  end
+  # class HTMLwithRouge < Redcarpet::Render::HTML
+  #   include Rouge::Plugins::Redcarpet
+  # end
 
-  markdown = Redcarpet::Markdown.new(HTMLwithRouge, fenced_code_blocks: true)
   # Markdown Text
 
   def markdown(text, options = {})
     return text.html_safe if options[:html] && options[:html] == true
-
-    renderer = HTMLwithRouge.new(hard_wrap: true, filter_html: true)
-    markdown = Redcarpet::Markdown.new(renderer,
-      :no_intra_emphasis => true,
-      :tables => true,
-      :fenced_code_blocks => true,
-      :autolink => false,
-      :disable_indented_code_blocks => true,
-      :strikethrough => true,
-      :lax_spacing => true,
-      :space_after_headers => true,
-      :superscript => true,
-      :underline => true,
-      :highlight => true,
-      :quote => true,
-      :footnotes => true
-    )
 
     text.sub!(/#{MARKDOWN_SUMMARY_DELIMITER}/i, "\n") if text.present?
 
@@ -40,7 +20,7 @@ module EditorsHelper
     math_formulae = text.scan(/(\\\([\S|\s]+?\\\)+?)|(\\\[[\S|\s]+?\\\]+?)/).flatten.reject {|m| m.nil?}
     math_formulae.each_with_index {|m,i| text.sub!(m,"{{{{#{i}}}}}")}
 
-    text = markdown.render(text || '')
+    text = Kramdown::Document.new(text, input: 'GFM', syntax_highlighter: 'rouge').to_html
     text.gsub! /\[([^\[\]]*)\]/ do |m|
       post_process m
     end
@@ -76,9 +56,7 @@ module EditorsHelper
     if text =~ /\[math\:(.*)\]/
       "<img src='#{$1}'>".html_safe
     elsif text =~ /\[video\:(.*)\]/
-      %(<video width="100%" height="100%" preload="none" class="mediaelementjs" controls>
-          <source src='#{$1}'/>
-        </video>).html_safe
+      content_tag(:div, '', data: {url: $1, placeholder: '/images/video-bg.png', icon: 'right circle play'}, class: 'ui embed')
     elsif text =~ /\[youtube\:(.*)\]/
       %(<div class="video-container-yt">
       <iframe type="text/html" width="640" height="390"

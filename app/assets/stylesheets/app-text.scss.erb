@@ -1,4 +1,4 @@
-<%= Rouge::Theme.find($site['syntax_highlighter_style'] || 'default').render(scope: '.highlight') %>
+<%= Rouge::Theme.find($site['syntax_highlighter_style'] || 'default').render(scope: '.highlighter-rouge') %>
 
 // Other text/editing related styles
 
@@ -26,7 +26,19 @@
   display: none;
 }
 
-.highlight {
+.highlighter-rouge {
   direction: ltr;
   background-color: #fdfdfd;
+  border-radius: 0.28571429rem;
+}
+
+code.highlighter-rouge {
+  padding: .1em .4em;
+}
+
+div.highlighter-rouge {
+  padding: .6em;
+  margin-top: .6em;
+  margin-button: .6em;
+  white-space: pre;
 }

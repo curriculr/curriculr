@@ -11,8 +11,6 @@ html {
   }
 }
 
-.highlight {
-  padding: .6em;
+.highlighter-rouge {
   border:1px solid @solidBorderColor;
-  border-radius: 0.28571429rem;
 }
