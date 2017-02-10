@@ -383,31 +383,36 @@ window.ui_rebind_application_events  = ($) ->
 
   display_sketchpad = (container, id, bg) ->
     html = """
-      <div class="btn-toolbar" role="toolbar" aria-label="Sketchpad toolbar">
-        <div class="btn-group" role="group" aria-label="colors">
-          <a href="##{id}" data-color="#f00" class="btn btn-default" style="background: #f00;">&nbsp;</a>
-          <a href="##{id}" data-color="#ff0" class="btn btn-default" style="background: #ff0;">&nbsp;</a>
-          <a href="##{id}" data-color="#0f0" class="btn btn-default" style="background: #0f0;">&nbsp;</a>
-          <a href="##{id}" data-color="#0ff" class="btn btn-default" style="background: #0ff;">&nbsp;</a>
-          <a href="##{id}" data-color="#00f" class="btn btn-default" style="background: #00f;">&nbsp;</a>
-          <a href="##{id}" data-color="#f0f" class="btn btn-default" style="background: #f0f;">&nbsp;</a>
-          <a href="##{id}" data-color="#000" class="btn btn-default" style="background: #000;">&nbsp;</a>
-          <a href="##{id}" data-color="#fff" class="btn btn-default" style="background: #fff;">&nbsp;</a>
-        </div>
-        <div class="btn-group" role="group" aria-label="strokes">
-          <a href="##{id}" data-size="3" class="btn btn-default">3</a>
-          <a href="##{id}" data-size="5" class="btn btn-default">5</a>
-          <a href="##{id}" data-size="10" class="btn btn-default">10</a>
-          <a href="##{id}" data-size="15" class="btn btn-default">15</a>
-        </div>
-        <div class="btn-group pull-right" role="group" aria-label="buttons">
-          <a href="##{id}" data-tool="marker" class="btn btn-default" title="Marker"><i class="fa fa-paint-brush"></i></a>
-          <a href="##{id}" data-tool="eraser" class="btn btn-default" title="Eraser"><i class="fa fa-eraser"></i></a>
-          <a href="##{id}" data-download="png" class="btn btn-default" title="Download"><i class="fa fa-download"></i></a>
+      <div class="ui top attached menu">
+        <div class="down item">Colors:</div>
+        <a href="##{id}" data-color="#f00" class="item" style="background: #f00;">&nbsp;</a>
+        <a href="##{id}" data-color="#ff0" class="item" style="background: #ff0;">&nbsp;</a>
+        <a href="##{id}" data-color="#0f0" class="item" style="background: #0f0;">&nbsp;</a>
+        <a href="##{id}" data-color="#0ff" class="item" style="background: #0ff;">&nbsp;</a>
+        <a href="##{id}" data-color="#00f" class="item" style="background: #00f;">&nbsp;</a>
+        <a href="##{id}" data-color="#f0f" class="item" style="background: #f0f;">&nbsp;</a>
+        <a href="##{id}" data-color="#000" class="item" style="background: #000;">&nbsp;</a>
+        <a href="##{id}" data-color="#fff" class="item" style="background: #fff;">&nbsp;</a>
+        <div class="down item">&nbsp;&nbsp;&nbsp;Strokes:</div>
+        <a href="##{id}" data-size="3" class="item">3</a>
+        <a href="##{id}" data-size="5" class="item">5</a>
+        <a href="##{id}" data-size="10" class="item">10</a>
+        <a href="##{id}" data-size="15" class="item">15</a>
+        <div class="right menu">
+          <a href="##{id}" data-tool="marker" class="item" title="Marker">
+            <i class="paint brush icon"></i>
+          </a>
+          <a href="##{id}" data-tool="eraser" class="item" title="Eraser">
+            <i class="erase icon"></i>
+          </a>
+          <a href="##{id}" data-download="png" class="item" title="Download">
+            <i class="download icon"></i>
+          </a>
         </div>
       </div>
-
-      <canvas id="#{id}" height="400" style="border: 1px solid #eee; #{bg}"></canvas>
+      <div class="ui attached segment">
+        <canvas id="#{id}" height="400" style="#{bg}"></canvas>
+      </div>
     """
     $(container).html(html)
     $("##{id}").sketch()

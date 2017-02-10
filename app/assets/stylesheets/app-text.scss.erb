@@ -1,4 +1,5 @@
-<%= Rouge::Theme.find($site['syntax_highlighter_style'] || 'default').render(scope: '.highlighter-rouge') %>
+<%= Rouge::Themes::Github.render(scope: '.highlighter-rouge') %>
+
 
 // Other text/editing related styles
 
@@ -28,6 +29,7 @@
 
 .highlighter-rouge {
   direction: ltr;
+  font-family: 'Courier New', Courier, monospace;
   background-color: #fdfdfd;
   border-radius: 0.28571429rem;
 }
