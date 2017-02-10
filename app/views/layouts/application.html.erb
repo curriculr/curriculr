@@ -5,7 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <title>
-    <%= @page_header ? "#{title}: #{@page_header}" : $site['title'] %>
+    <%= current_account.config['title'] %>
   </title>
 
   <%= stylesheet_link_tag "style#{rtl? ? '_rtl' : ''}", :media => "all" %>
@@ -14,7 +14,6 @@
 	<%= csrf_meta_tags %>
 </head>
 <body style="margin-top: <%= @course || (@klass && enrolled_or_staff?) ? 5 : 3.5 %>rem;">
-
   <% Announcement.current(cookies.signed[:hidden_announcement_ids]).each do |announcement| %>
     <div class="ui attached icon message" id="announcement_<%= announcement.id %>">
       <%= ui_icon('announcement') %>
