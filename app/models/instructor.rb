@@ -7,7 +7,7 @@ class Instructor < ActiveRecord::Base
   attr_accessor :email
 
   validates :email, :role, :presence => true
-  validates_format_of :email, :with => /\A[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}\Z/i, :message => :invalid_email
+  validates_format_of :email, :with => /\A([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})\Z/i, :message => :invalid_email
 	validate :valid_user_email
 
   def valid_user_email
