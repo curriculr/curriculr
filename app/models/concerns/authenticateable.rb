@@ -21,7 +21,7 @@ module Authenticateable
       generate_token(:password_reset_token)
       self.password_reset_sent_at = Time.zone.now
       save!(validate: false)
-      Mailer.password_reset_instructions(self.id, self.account.slug, self.password_reset_token, from: self.account.config['mailer']['send_from'], to: self.email).deliver_later
+      Mailer.password_reset_instructions(self.id, self.account.slug, self.password_reset_token, from: Rails.application.secrets.mailer['send_from'], to: self.email).deliver_later
     end
 
     def confirmed?
@@ -40,7 +40,7 @@ module Authenticateable
 
       self.save!(validate: false)
       
-      Mailer.confirmation_instructions(self.id, self.account.slug, self.confirmation_token, from: self.account.config['mailer']['send_from'], to: self.email).deliver_later
+      Mailer.confirmation_instructions(self.id, self.account.slug, self.confirmation_token, from: Rails.application.secrets.mailer['send_from'], to: self.email).deliver_later
     end
 
     def generate_token(column)

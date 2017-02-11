@@ -15,19 +15,6 @@ account:
   require_admin_approval_of_classes: true
   require_admin_approval_of_blogs: true
 
-  mailer:
-    send_from: admin@example.com
-    contact_us_at: admin@example.com
-    noreply: noreply@example.com
-
-  social_pages:
-    facebook: https://www.facebook.com/curriculr
-    twitter: https://twitter.com/curriculr
-    google-plus: https://plus.google.com/101434561769243560321
-    youtube:
-    linkedin:
-    github:
-
   allow_banner_ads: false
   allow_user_student_dependents: false
   allow_file_uploads: true

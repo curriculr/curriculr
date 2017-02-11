@@ -52,6 +52,12 @@ class PreApplicationController < ActionController::Base
   end
   
   def current_account
-    request.env['curriculr.current_account']
+    unless @current_account
+      @current_account = Account.find_by(slug: $site['default_account'], :active => true)
+      Account.current_id = @current_account.id
+    end
+    
+    @current_account
+   # @request.env['curriculr.current_account']
   end
 end

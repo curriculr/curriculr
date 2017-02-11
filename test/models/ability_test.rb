@@ -10,9 +10,9 @@ class AbilityTest < ActiveSupport::TestCase
     @course_y = courses(:stat101)
     @instructor_y = @course_y.originator
     
-    @aAbility = Ability.new($account, @admin)
-    @fxAbility = Ability.new($account, @instructor_x, @instructor_x.self_student, @course_x)
-    @fyAbility = Ability.new($account, @instructor_y, @instructor_y.self_student, @course_y)
+    @aAbility = Ability.new(@account, @admin)
+    @fxAbility = Ability.new(@account, @instructor_x, @instructor_x.self_student, @course_x)
+    @fyAbility = Ability.new(@account, @instructor_y, @instructor_y.self_student, @course_y)
 
     @klass_x = @course_x.klasses.last
     @klass_y = @course_y.klasses.last

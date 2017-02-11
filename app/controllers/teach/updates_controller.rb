@@ -17,7 +17,7 @@ module Teach
           students.map do |s|
             Mailer.klass_update(
               current_account.slug,
-              current_account.config['mailer']['noreply'],
+              Rails.application.secrets.mailer['noreply'],
               s.user_email,
               @update.subject,
               body, @update.klass.id

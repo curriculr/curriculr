@@ -1,4 +1,8 @@
-<%= ui_header t('helpers.submit.site_settings') %>
+<%= ui_header(t('helpers.submit.site_settings'), action: capture do %>
+  <div class="ui mini menu">
+    <%= link(:settings, :close, home_path, class: "item") %>
+  </div>
+<% end ) %>
 
 <% 
   html = ''

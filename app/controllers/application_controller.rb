@@ -23,7 +23,6 @@ class ApplicationController < PreApplicationController
 		raise ActionController::RoutingError.new(params[:path])
 	end
   
-  include Themed
   include Authenticated
   include Authorized
 end

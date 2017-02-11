@@ -31,6 +31,8 @@ module Localized
         (current_user && (current_user.profile.locale.present? ? current_user.profile.locale : nil)) ||
         (current_account.config['locale'].present? ? current_account.config['locale'] : nil) ||
         I18n.default_locale)
+        
+       prepend_view_path "app/views_overrides/#{locale}"
     end
 
     def default_url_options(options = {})

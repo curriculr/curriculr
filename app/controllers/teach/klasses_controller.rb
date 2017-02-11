@@ -92,7 +92,7 @@ module Teach
           url = url_for :controller => 'auth/sessions', :action => 'new'
           Mailer.klass_invitation(
             current_account.slug,
-            current_account.config['mailer']['noreply'],
+            Rails.application.secrets.mailer['noreply'],
             @invitation.invitee,
             @klass.id,
             current_user.name || current_user.email,

@@ -47,10 +47,6 @@ module Curriculr
     config.i18n.default_locale = config.site['locale']
 
     config.exceptions_app = self.routes
-
-    # Multitenancy
-    require "current_account"
-    config.middleware.use CurrentAccount, Rails.application.secrets.site['domain']
     
     # Default form builder
     require "#{Rails.root}/app/builders/application_form_builder"

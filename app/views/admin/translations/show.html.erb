@@ -1,8 +1,9 @@
 <%= ui_header(t('page.title.translations'), action: capture do %>
-  <div class="menu">
+  <div class="ui mini menu">
     <% $site['supported_locales'].each do |locale, name| %>
       <%= link_to(name, edit_admin_translation_path(locale), :class => "#{'active ' if @locale == locale}item") %>
     <% end %>
+    <%= link(:transation, :close, home_path, class: "item") %>
   </div>
 <% end ) %>
 
@@ -12,5 +13,3 @@
 %>
 
 <%= html.html_safe %>
-
-<%= link(:transation, :cancel, home_path, class: "ui button") %>

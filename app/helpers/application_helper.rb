@@ -1,19 +1,17 @@
-module ApplicationHelper
-  def logo_path(inverted = false)
-    if $site['available_themes'][current_theme] && $site['available_themes'][current_theme]['logo?']
-      logo = "/images/logo.png"
-      logo = logo.sub(/\.png$/, "-inverted.png") if inverted
-      logo
-    else
-      false
-    end
-  end
-  
+module ApplicationHelper  
   def title
     title = t("#{current_account.slug}.site.title", :default => current_account.config['title'] || $site['title'])
     title.html_safe if title.present?
   end
 
+  def page_title
+    if @klass
+      %(#{title}: #{@klass.course.name})
+    else
+      title
+    end
+  end
+  
   def rtl?
     # To be expanded later
     [:ar, :he].include? locale

@@ -73,9 +73,9 @@ module MenuHelper
     if current_user.has_role? :admin
       section = :administration
 
-      if current_user.id == 1
-        add_to_app_menu(:user, {link: link_text(:account, :index), to: main_app.admin_accounts_path, active: controller_name == 'accounts'}, section)
-      end
+      # if current_user.id == 1
+      #   add_to_app_menu(:user, {link: link_text(:account, :index), to: main_app.admin_accounts_path, active: controller_name == 'accounts'}, section)
+      # end
 
       add_to_app_menu(:user, [
         {link: link_text(:user, :index), to: main_app.users_path, active: controller_name == 'users' && action_name != 'home'}, 
@@ -84,16 +84,16 @@ module MenuHelper
         {link: link_text(:announcement, :index), to: main_app.admin_announcements_path, active: controller_name == 'announcements'}], section)
 
       section = :settings
-      if current_user.id == 1
-        add_to_app_menu(:user, {link: link_text(:configuration, :site_settings), to: main_app.admin_config_edit_path, active: controller_name == 'config' && action_name == 'edit'}, section)
-      end
+      # if current_user.id == 1
+      #   add_to_app_menu(:user, {link: link_text(:configuration, :site_settings), to: main_app.admin_config_edit_path, active: controller_name == 'config' && action_name == 'edit'}, section)
+      # end
       if current_user.id == current_account.user_id
         add_to_app_menu(:user, {link: link_text(:account, :account_settings), to: main_app.settings_admin_account_path(current_account), active: controller_name == 'accounts' && action_name.in?(['edit', 'update'])}, section)
       end
 
-      # if Rails.application.secrets.redis_enabled
-      #   add_to_app_menu(:user, {link: link_text(:translation, :index), to: main_app.edit_admin_translation_path(I18n.locale || :en), active: controller_name == 'translations' && action_name == 'edit'}, section)
-      # end
+      if Rails.application.secrets.redis_enabled
+        add_to_app_menu(:user, {link: link_text(:translation, :index), to: main_app.edit_admin_translation_path(I18n.locale || :en), active: controller_name == 'translations' && action_name == 'edit'}, section)
+      end
     end
 
     mountable_fragments :user_menu

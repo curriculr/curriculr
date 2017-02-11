@@ -3,7 +3,7 @@
 <div class="ui <%= inverted ? "inverted " : "pointing secondary " %>top fixed borderless menu">
   <%= link_to current_user ? main_app.home_path : main_app.root_path, class: 'header item' do %>
     <%= ui_icon('large leaf icon') %>&nbsp;
-    <strong><%= current_account.config['title'] %></strong>
+    <strong><%= title %></strong>
   <% end %>
   
   <div class="right menu">
