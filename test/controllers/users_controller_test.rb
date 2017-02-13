@@ -33,7 +33,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   test "super user should be add role to a user" do
     one = users(:one)
     assert_not one.has_role?(:team)
-    patch user_url(one), params: {id: one.id, opr: 'team' }, xhr: true
+    patch user_url(one), params: {user: {id: one.id}, opr: 'team' }, xhr: true
     assert_response :success
     assert User.find(one.id).has_role?(:team)
   end

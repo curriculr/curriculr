@@ -31,7 +31,7 @@ class AdminFlowsTest < ActionDispatch::IntegrationTest
   test 'can grant user a faculty role' do
     instructor = users(:one)
     assert_not instructor.has_role?(:faculty)
-    patch user_url(instructor), params: {id: instructor.id, opr: 'faculty' }, xhr: true
+    patch user_url(instructor), params: {user: {id: instructor.id}, opr: 'faculty' }, xhr: true
     assert_response :success
     assert User.find(instructor.id).has_role?(:faculty)
   end
