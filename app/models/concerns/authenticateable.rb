@@ -28,6 +28,11 @@ module Authenticateable
       confirmed_at.present?
     end
 
+    def confirm!
+      self.confirmed_at = Time.zone.now
+      self.save!(validate: false)
+    end
+    
     def confirmation_expired?
       self.confirmation_sent_at < (Rails.application.secrets.auth['confirm_within_hours'] || 48).hours.ago
     end

@@ -67,12 +67,14 @@ class UsersController < AuthorizedController
         end
       }
   		format.js   {
-        @user.assign_attributes(user_params) unless params[:opr]
-        if @user.save(validate: false)
-  			  @update_class = "usr_activate_#{@user.id}_link" if params[:opr] == 'activate'
-    		  @update_class = "usr_#{params[:opr]}_#{@user.id}_link" if @to_update_role
+        has_name = user_params[:name].present? && user_params[:name].strip.present?
+        if has_name
+          @user.assign_attributes(user_params) unless params[:opr]
+          if @user.save(validate: false)
+    			  @update_class = "usr_activate_#{@user.id}_link" if params[:opr] == 'activate'
+      		  @update_class = "usr_#{params[:opr]}_#{@user.id}_link" if @to_update_role
+          end
         end
-        
         if params[:opr]
     		  render 'users'
         else

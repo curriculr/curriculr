@@ -68,6 +68,7 @@ gem 'omniauth-google-oauth2'
 gem 'less-rails-semantic_ui'
 gem 'autoprefixer-rails'
 
+gem 'remotipart'
 gem 'rails-timeago'#, '~> 2.0'
 gem 'mini_magick'
 gem 'fog'

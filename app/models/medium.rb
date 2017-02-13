@@ -9,8 +9,8 @@ class Medium < ActiveRecord::Base
 
 	# Validation Rules
 	validates :name, :kind, :presence => true
-  validates :path, :presence => true, :if =>  Proc.new { |m| m.is_a_link == '0' }
-  validates :url, :source, :presence => true, :if =>  Proc.new { |m| m.is_a_link == '1' }
+  validates :path, :presence => true, :if =>  Proc.new { |m| !m.is_a_link }
+  validates :url, :source, :presence => true, :if =>  Proc.new { |m| m.is_a_link }
 
   def at_url(version = nil)
     path_url(version) || url
