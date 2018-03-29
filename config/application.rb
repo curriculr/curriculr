@@ -16,7 +16,7 @@ module Curriculr
     # -- all .rb files in that directory are automatically loaded.
 
     # By Curriculr
-    config.active_record.raise_in_transactional_callbacks = true
+    #config.active_record.raise_in_transactional_callbacks = true # commented out during 5.1.4 upgrade
 
     # Initialize redis and load application configuration
     config.redis_databases = {

@@ -13,6 +13,8 @@
 !/log/.keep
 !/tmp/.keep
 .DS_Store
+.idea
+package-lock.json
 *~
 
 *.acts_as_taggable_on_engine*

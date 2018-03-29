@@ -1,3 +1,9 @@
+# Temporary fix: needed to add the aliases that redis-rb 4.0 removed.
+class Redis 
+  alias :[] :get
+  alias :[]= :set
+end
+
 module Translator
   def self.store
     if Rails.application.secrets.redis_enabled

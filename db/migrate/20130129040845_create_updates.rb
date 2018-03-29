@@ -1,4 +1,4 @@
-class CreateUpdates < ActiveRecord::Migration
+class CreateUpdates < ActiveRecord::Migration[5.0]
   def change
     create_table :updates do |t|
       t.belongs_to :course, index: true

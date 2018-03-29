@@ -1,4 +1,4 @@
-class CreateUnits < ActiveRecord::Migration
+class CreateUnits < ActiveRecord::Migration[5.0]
   def change
     create_table :units do |t|
       t.belongs_to :course, index: true

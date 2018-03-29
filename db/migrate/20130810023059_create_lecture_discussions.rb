@@ -1,4 +1,4 @@
-class CreateLectureDiscussions < ActiveRecord::Migration
+class CreateLectureDiscussions < ActiveRecord::Migration[5.0]
   def change
     create_table :lecture_discussions do |t|
       t.belongs_to :klass, index: true

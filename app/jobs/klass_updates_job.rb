@@ -54,7 +54,7 @@ class KlassUpdatesJob < ApplicationJob
           students.map do |s|
             Mailer.klass_update(
               account.slug, 
-              Rails.application.secrets.mailer['noreply'], 
+              Rails.application.secrets.mailer[:noreply], 
               s.user_email, 
               update.subject, 
               body, klass.id

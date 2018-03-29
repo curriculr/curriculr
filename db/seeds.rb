@@ -1,11 +1,11 @@
 # Adding the site's super admin
 if (su = User.find_by(id: 1)).blank?
   su = User.new
-  email = Rails.application.secrets.site['su_email']
+  email = Rails.application.secrets.site[:su_email]
   su.email = email
-  su.password = Rails.application.secrets.site['su_password']
-  su.password_confirmation = Rails.application.secrets.site['su_password']
-  su.name = Rails.application.secrets.site['su_name']
+  su.password = Rails.application.secrets.site[:su_password]
+  su.password_confirmation = Rails.application.secrets.site[:su_password]
+  su.name = Rails.application.secrets.site[:su_name]
   su.confirmed_at = Time.zone.now
 
   su.save!

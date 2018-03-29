@@ -3,7 +3,7 @@
     <%= capture do %>
       <% [:facebook, :google_oauth2].each_with_index do |app, i| %>
         <%= content_tag :div, '', class: 'or' if i > 0 %>
-        <% app_secrets = Rails.application.secrets.auth[app.to_s] %>
+        <% app_secrets = Rails.application.secrets.auth[app] %>
         <% if app_secrets && app_secrets['id'].present? && app_secrets['secret'].present? %>
           <% app_name = app == :google_oauth2 ? :"google" : app %>
 

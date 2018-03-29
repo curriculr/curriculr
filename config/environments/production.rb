@@ -88,17 +88,17 @@ Rails.application.configure do
   config.time_zone = 'Mountain Time (US & Canada)'
 
   # Active Mailer
-  config.action_mailer.default_url_options = { :host => Rails.application.secrets.site['host'] }
+  config.action_mailer.default_url_options = { :host => Rails.application.secrets.site[:host] }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.smtp_settings = {
-    address: Rails.application.secrets.mailer['host'],
-    port: Rails.application.secrets.mailer['port'],
-    domain: Rails.application.secrets.mailer['domain'],
+    address: Rails.application.secrets.mailer[:host],
+    port: Rails.application.secrets.mailer[:port],
+    domain: Rails.application.secrets.mailer[:domain],
     authentication: "plain",
     enable_starttls_auto: true,
-    user_name: Rails.application.secrets.mailer['username'],
-    password: Rails.application.secrets.mailer['password']
+    user_name: Rails.application.secrets.mailer[:username],
+    password: Rails.application.secrets.mailer[:password]
   }
 end

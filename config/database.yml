@@ -1,19 +1,19 @@
 <%
   adapter = 'my'
-  if Rails.application.secrets.database['adapter'].present?
-    adapter = 'pg' if Rails.application.secrets.database['adapter'].downcase == 'postgresql'
+  if Rails.application.secrets.database[:adapter].present?
+    adapter = 'pg' if Rails.application.secrets.database[:adapter].downcase == 'postgresql'
   end
 
-  database = Rails.application.secrets.database['name']
+  database = Rails.application.secrets.database[:name]
 %>
 
 default_my: &default_my
   adapter: mysql2
   encoding: utf8
   pool: 5
-  username: <%= Rails.application.secrets.database["username"] %>
-  password: <%= Rails.application.secrets.database["password"] %>
-  socket:   <%= Rails.application.secrets.database["socket"] %>
+  username: <%= Rails.application.secrets.database[:username] %>
+  password: <%= Rails.application.secrets.database[:password] %>
+  socket:   <%= Rails.application.secrets.database[:socket] %>
 
 default_pg: &default_pg
   adapter: postgresql

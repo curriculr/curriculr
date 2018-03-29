@@ -8,7 +8,7 @@ class Page < ActiveRecord::Base
   
 	# Validation Rules
 	validates :name, :about, :presence => true
-  validates :slug, uniqueness: { :scope => :account_id }, :if => 'slug.present?'
+  validates :slug, uniqueness: { :scope => :account_id }, if: -> { slug.present? }
   validates_format_of :slug, :with => /\A([[[:alnum:]]\-_]+)?\Z/i, :message => :invalid_slug
   
   def course

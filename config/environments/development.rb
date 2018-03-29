@@ -57,12 +57,12 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.perform_caching = false
   config.action_mailer.smtp_settings = {
-    address: Rails.application.secrets.mailer['host'],
-    port: Rails.application.secrets.mailer['port'],
-    domain: Rails.application.secrets.mailer['domain'],
+    address: Rails.application.secrets.mailer[:host],
+    port: Rails.application.secrets.mailer[:port],
+    domain: Rails.application.secrets.mailer[:domain],
     authentication: "plain",
     enable_starttls_auto: true,
-    user_name: Rails.application.secrets.mailer['username'],
-    password: Rails.application.secrets.mailer['password']
+    user_name: Rails.application.secrets.mailer[:username],
+    password: Rails.application.secrets.mailer[:password]
   }
 end

@@ -6,11 +6,11 @@ class StudentAvatarUploader < CarrierWave::Uploader::Base
   VERSIONS = { med: 200, sml: 100, th: 48, tny: 21 }
 
   # What kind of storage to use for this uploader (:file or :fog)
-  storage Rails.application.secrets.storage['type'].to_sym
+  storage Rails.application.secrets.storage[:type].to_sym
 
   # The directory where uploaded files will be stored.
   def store_dir
-    "#{Rails.application.secrets.database['name']}/c/s/#{model.id}"
+    "#{Rails.application.secrets.database[:name]}/c/s/#{model.id}"
   end
 
   # Create different versions of your uploaded files:

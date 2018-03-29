@@ -195,7 +195,7 @@ module UiComponentsHelper
       end
 
       options = {
-        :app_id => Rails.application.secrets.auth['facebook']['id'],
+        :app_id => Rails.application.secrets.auth[:facebook][:id],
         :link => URI.join(main_app.root_url, main_app.learn_klass_path(klass)),
         :picture => URI.join(main_app.root_url, (klass.course.poster&.at_url(:md) || '/images/holder-md.png')),
         :name => klass.course.name,
@@ -211,7 +211,7 @@ module UiComponentsHelper
       page = object
       html = ''
       if page && page.public && page.blog && page.published
-        options = { appId: Rails.application.secrets.auth['facebook']['id'], href: page_url(page) }
+        options = { appId: Rails.application.secrets.auth[:facebook][:id], href: page_url(page) }
 
         html = %(<iframe src="//www.facebook.com/plugins/like.php?#{options.to_query}&amp;width&amp;layout=standard&amp;action=like&amp;show_faces=true&amp;share=true&amp;height=80" scrolling="no" frameborder="0" style="border:none; overflow:hidden; height:80px;" allowTransparency="true"></iframe>)
       end

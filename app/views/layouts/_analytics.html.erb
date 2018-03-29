@@ -4,7 +4,7 @@
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-  ga('create', '<%= Rails.application.secrets.analytics['tracking_id'] %>', '<%= Rails.application.secrets.analytics['domain'] %>');
+  ga('create', '<%= Rails.application.secrets.analytics[:tracking_id] %>', '<%= Rails.application.secrets.analytics[:domain] %>');
   ga('send', 'pageview');
 
 </script>

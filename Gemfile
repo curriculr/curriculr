@@ -6,11 +6,11 @@ git_source(:github) do |repo_name|
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.0.1'
+gem 'rails', '~> 5.1.5'
 # Use sqlite3 as the database for Active Record
 #gem 'sqlite3'
 # Use Puma as the app server
-gem 'puma', '~> 3.0'
+gem 'puma', '~> 3.7'
 gem 'unicorn'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
@@ -37,7 +37,10 @@ gem 'jbuilder', '~> 2.5'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platform: :mri
+  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  # Adds support for Capybara system testing and selenium driver
+  gem 'capybara', '~> 2.13'
+  gem 'selenium-webdriver'
 end
 
 group :development do
@@ -53,11 +56,12 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # By Curriculr
+#gem 'sprockets', '~> 4.0'
 # Either postgresql
 gem 'pg'
 # or mysql
 #gem 'mysql2'
-gem 'redis'
+gem 'redis'#, '~> 3.3.3'
 gem 'redis-namespace'
 gem 'nokogiri'
 gem 'bcrypt'

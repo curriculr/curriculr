@@ -9,11 +9,11 @@ class MiscellaneousController < ApplicationController
   def contactus
 		if params[:message]
 			@message = Message.new(params[:message])
-      @message.to = Rails.application.secrets.mailer['contact_us_at']
+      @message.to = Rails.application.secrets.mailer[:contact_us_at]
       respond_with @message do |format|
     		if @message.valid?
       		Mailer.contactus_email(
-            Rails.application.secrets.mailer['send_from'], @message.to, 
+            Rails.application.secrets.mailer[:send_from], @message.to, 
             account: current_account.slug, name: @message.name, 
             subject: @message.subject, contact_email: @message.email, 
             message: @message.content
@@ -33,11 +33,11 @@ class MiscellaneousController < ApplicationController
   def contactus_to_teach
 		if params[:message]
 			@message = Message.new(params[:message])
-      @message.to = Rails.application.secrets.mailer['contact_us_at']
+      @message.to = Rails.application.secrets.mailer[:contact_us_at]
       respond_with @message do |format|
     		if @message.valid?
       		Mailer.contactus_email(
-            Rails.application.secrets.mailer['send_from'], @message.to, 
+            Rails.application.secrets.mailer[:send_from], @message.to, 
             account: current_account.slug, name: @message.name, 
             subject: @message.subject, contact_email: @message.email, 
             message: @message.content

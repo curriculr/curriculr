@@ -2,6 +2,7 @@ require 'test_helper'
 
 class GuestFlowsTest < ActionDispatch::IntegrationTest
   setup do
+    #host! "localhost:3000"
   end
 
   test 'can visit front page' do
@@ -57,7 +58,7 @@ class GuestFlowsTest < ActionDispatch::IntegrationTest
     assert_select "h2", "Classes I'm taking"
     
     get url_for(controller: 'auth/sessions', action: 'destroy'), params: {id: user.id}
-    assert_nil cookies[:auth_token]
+    assert_empty cookies[:auth_token]
 
     assert_redirected_to auth_signin_path
   end
@@ -75,7 +76,7 @@ class GuestFlowsTest < ActionDispatch::IntegrationTest
     assert_select "h2", "Courses being worked on"
     
     get url_for(controller: 'auth/sessions', action: 'destroy'), params: {id: user.id}
-    assert_nil cookies[:auth_token]
+    assert_empty cookies[:auth_token]
 
     assert_redirected_to auth_signin_path
   end
@@ -93,7 +94,7 @@ class GuestFlowsTest < ActionDispatch::IntegrationTest
     assert_select "h3", "Activity counts"
 
     get url_for(controller: 'auth/sessions', action: 'destroy'), params: {id: user.id}
-    assert_nil cookies[:auth_token]
+    assert_empty cookies[:auth_token]
 
     assert_redirected_to auth_signin_path
   end

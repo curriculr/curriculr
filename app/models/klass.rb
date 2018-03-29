@@ -3,8 +3,8 @@ class Klass < ActiveRecord::Base
 
   belongs_to :course, :counter_cache => true
 
-  has_many :students, :through => :enrollments
   has_many :enrollments, :dependent => :destroy
+  has_many :students, :through => :enrollments
   has_many :forums, :dependent => :destroy
   has_many :updates, :dependent => :destroy
 

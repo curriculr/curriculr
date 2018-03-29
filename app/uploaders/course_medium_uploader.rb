@@ -4,11 +4,11 @@ class CourseMediumUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
 
   # What kind of storage to use for this uploader (:file or :fog)
-  storage Rails.application.secrets.storage['type'].to_sym
+  storage Rails.application.secrets.storage[:type].to_sym
 
   # The directory where uploaded files will be stored.
   def store_dir
-    "#{Rails.application.secrets.database['name']}/c/m/#{model.id}"
+    "#{Rails.application.secrets.database[:name]}/c/m/#{model.id}"
   end
 
   # Create different versions of your uploaded files:

@@ -45,7 +45,7 @@ module Learn
 
             Mailer.klass_enrollment(
               current_account.slug,
-              Rails.application.secrets.mailer['noreply'],
+              Rails.application.secrets.mailer[:noreply],
               current_user.email,
               [@klass].map {|k| k.id},
               url_for(:controller => 'auth/sessions', :action => 'new')

@@ -67,8 +67,8 @@ class QSelector < ActiveRecord::Base
 
   after_update do 
     assessment = Assessment.find(self.assessment_id)
-    if self.changes[:questions_count]
-    	assessment.questions_count += (self.questions_count - self.changes[:questions_count][0])
+    if self.saved_changes[:questions_count]
+    	assessment.questions_count += (self.questions_count - self.saved_changes[:questions_count][0])
     end
     
     assessment.points = 0.0

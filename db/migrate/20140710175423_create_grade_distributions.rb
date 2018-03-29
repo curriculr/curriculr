@@ -1,4 +1,4 @@
-class CreateGradeDistributions < ActiveRecord::Migration
+class CreateGradeDistributions < ActiveRecord::Migration[5.0]
   def change
     create_table :grade_distributions do |t|
       t.belongs_to :course, index: true

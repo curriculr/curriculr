@@ -1,4 +1,4 @@
-class CreateQSelectors < ActiveRecord::Migration
+class CreateQSelectors < ActiveRecord::Migration[5.0]
   def change
     create_table :q_selectors do |t|
       t.belongs_to :assessment, index: true

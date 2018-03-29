@@ -32,33 +32,33 @@ class Enrollment < ActiveRecord::Base
   end
 
   after_update do |enrollment|
-    unless self.changes[:last_attended_at].present?
+    unless self.saved_changes[:last_attended_at].present?
       activity = nil
 
       if self.active
-        klass.increment!(:active_enrollments) if self.changes[:active] && !self.changes[:active][0]
+        klass.increment!(:active_enrollments) if self.saved_changes[:active] && !self.saved_changes[:active][0]
       else
-        klass.decrement!(:active_enrollments) if self.changes[:active] && self.changes[:active][0]
+        klass.decrement!(:active_enrollments) if self.saved_changes[:active] && self.saved_changes[:active][0]
       end
 
       if enrollment.active
-        if self.accepted_or_declined_at.present? && self.changes[:accepted_or_declined_at] && self.changes[:accepted_or_declined_at][0].blank?
+        if self.accepted_or_declined_at.present? && self.saved_changes[:accepted_or_declined_at] && self.saved_changes[:accepted_or_declined_at][0].blank?
           activity = 'accepted'
         end
 
-        if enrollment.dropped_at.blank? && self.changes[:dropped_at] && self.changes[:dropped_at][0].present?
+        if enrollment.dropped_at.blank? && self.saved_changes[:dropped_at] && self.saved_changes[:dropped_at][0].present?
           activity = 'enrolled'
         end
       else
-        if enrollment.dropped_at.present? && self.changes[:dropped_at] && self.changes[:dropped_at][0].blank?
+        if enrollment.dropped_at.present? && self.saved_changes[:dropped_at] && self.saved_changes[:dropped_at][0].blank?
           activity = 'dropped'
         end
 
-        if enrollment.accepted_or_declined_at.present? && self.changes[:accepted_or_declined_at] && self.changes[:accepted_or_declined_at][0].blank?
+        if enrollment.accepted_or_declined_at.present? && self.saved_changes[:accepted_or_declined_at] && self.saved_changes[:accepted_or_declined_at][0].blank?
           activity = 'declined'
         end
 
-        if enrollment.suspended_at.present? && self.changes[:suspended_at] && self.changes[:suspended_at][0].blank?
+        if enrollment.suspended_at.present? && self.saved_changes[:suspended_at] && self.saved_changes[:suspended_at][0].blank?
           activity = 'suspended'
         end
       end
@@ -70,7 +70,7 @@ class Enrollment < ActiveRecord::Base
   end
 
   def dropped?
-    self.changes[:active] && self.changes[:active][0] && !self.changes[:active][1] &&
-    self.changes[:dropped_at] && self.changes[:dropped_at][0].nil? && self.changes[:dropped_at][1].present?
+    self.saved_changes[:active] && self.saved_changes[:active][0] && !self.saved_changes[:active][1] &&
+    self.saved_changes[:dropped_at] && self.saved_changes[:dropped_at][0].nil? && self.saved_changes[:dropped_at][1].present?
   end
 end
